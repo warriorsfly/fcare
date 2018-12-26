@@ -29,12 +29,12 @@ class NetWorkModule {
      */
     @Provides
     @Singleton
-    fun provideRetrofit(gson:Gson): Retrofit {
+    fun provideRetrofit(): Retrofit {
 
         val builder= Retrofit.Builder()
 
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl(BuildConfig.API_ENDPOINT)
 
 
