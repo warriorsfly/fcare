@@ -10,7 +10,7 @@ import android.view.*
 import android.widget.FrameLayout
 import com.wxsoft.fcare.R
 
-class WxCoudownDialog(context: Context?) : AppCompatDialog(context,R.style.Theme_Emergency_Dialog) {
+class WxCoudownDialog(context: Context?) : AppCompatDialog(context,R.style.Theme_FCare_Dialog) {
 
     init {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)

@@ -17,7 +17,7 @@
 
     <style name="AppTheme.PopupOverlay" parent="Theme.MaterialComponents.Light"/>
 
-    <style name="Widget.Emergency.ProcessHeaders" parent="Theme.MaterialComponents.Light">
+    <style name="Widget.FCare.ProcessHeaders" parent="Theme.MaterialComponents.Light">
         <item name="android:width">@dimen/emr_keyline</item>
         <item name="android:paddingTop">@dimen/spacing_normal</item>
         <item name="android:textColor">?colorPrimary</item>
@@ -26,7 +26,7 @@
     </style>
 
 
-    <style name="Widget.Emergency.ShareHeaders" parent="Theme.MaterialComponents.Light">
+    <style name="Widget.FCare.ShareHeaders" parent="Theme.MaterialComponents.Light">
         <item name="android:width">@dimen/share_header</item>
         <item name="android:paddingTop">@dimen/spacing_normal</item>
         <item name="android:textColor">@color/dark_gray</item>
@@ -34,7 +34,7 @@
         <item name="timeTextSize">@dimen/time_header_meridiem_text_size</item>
     </style>
 
-    <style name="Widget.Emergency.ShareContent" parent="Theme.MaterialComponents.Light">
+    <style name="Widget.FCare.ShareContent" parent="Theme.MaterialComponents.Light">
         <item name="android:width">@dimen/share_content</item>
         <item name="android:paddingTop">@dimen/spacing_normal</item>
         <item name="android:textColor">@color/dark_gray</item>
@@ -42,7 +42,7 @@
         <item name="timeTextSize">@dimen/time_header_meridiem_text_size</item>
     </style>
 
-    <style name="Theme.Emergency.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
+    <style name="Theme.FCare.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
         <!--<item name="colorPrimary">@color/colorPrimary</item>-->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -51,7 +51,7 @@
         <!--<item name="android:backgroundDimEnabled">false</item>-->
     </style>
 
-    <style name="Widget.IOSched.RaisedButton" parent="@style/Widget.AppCompat.Button.Colored">
+    <style name="Widget.FCare.RaisedButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="android:textStyle">bold</item>
         <item name="android:background">@drawable/raised_button_background</item>
         <item name="android:letterSpacing">0.025</item>
@@ -65,7 +65,7 @@
 
 
 
-    <style name="Widget.Emergency.LoginButton" parent="Widget.MaterialComponents.Button">
+    <style name="Widget.FCare.LoginButton" parent="Widget.MaterialComponents.Button">
         <item name="android:background">@drawable/bg_login_button_selector</item>
         <item name="android:minHeight">60dp</item>
         <item name="cornerRadius">20dp</item>
@@ -75,7 +75,7 @@
         <!--<item name="android:paddingBottom">12dp</item>-->
     </style>
 
-    <style name="Widget.Emergency.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+    <style name="Widget.FCare.Chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="foreground">?selectableItemBackground</item>
 
         <item name="android:strokeColor">?android:textColorTertiary</item>

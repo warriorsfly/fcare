@@ -68,7 +68,7 @@
                     android:layout_width="240dp"
                     android:layout_height="50dp"
                     android:textColor="@color/white"
-                    style="@style/Widget.Emergency.LoginButton"
+                    style="@style/Widget.FCare.LoginButton"
                     android:text="@string/action_sign_in"/>
             </android.support.constraint.ConstraintLayout>
 

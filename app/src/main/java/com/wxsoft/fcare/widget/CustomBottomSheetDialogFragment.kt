@@ -20,12 +20,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.design.widget.BottomSheetDialog
 import android.support.design.widget.BottomSheetDialogFragment
-import android.support.v7.app.AppCompatDialogFragment
 import com.wxsoft.fcare.R
 
 open class CustomBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return BottomSheetDialog(context!!,R.style.Theme_Emergency_Dialog)
+        return BottomSheetDialog(context!!,R.style.Theme_FCare_Dialog)
     }
 }

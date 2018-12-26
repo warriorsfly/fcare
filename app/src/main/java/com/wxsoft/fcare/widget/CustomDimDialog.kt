@@ -35,7 +35,7 @@ import com.wxsoft.fcare.R
 /**
  * Dialog with custom background dim.
  */
-class CustomDimDialog(context: Context?) : AppCompatDialog(context,R.style.Theme_Emergency_Dialog) {
+class CustomDimDialog(context: Context?) : AppCompatDialog(context,R.style.Theme_FCare_Dialog) {
 
     init {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)

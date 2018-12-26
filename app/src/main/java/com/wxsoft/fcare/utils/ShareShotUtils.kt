@@ -29,12 +29,12 @@ class ShareShotUtils constructor(private val context: Context, private val filen
 
     init {
         val attrsHeader = context.obtainStyledAttributes(
-            R.style.Widget_Emergency_ShareHeaders,
+            R.style.Widget_FCare_ShareHeaders,
             R.styleable.ShareInfo
         )
 
         val attrsContent = context.obtainStyledAttributes(
-            R.style.Widget_Emergency_ShareContent,
+            R.style.Widget_FCare_ShareContent,
             R.styleable.ShareContent
         )
 

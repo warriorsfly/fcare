@@ -50,7 +50,7 @@ class ItemDecoration(
     private val paint: TextPaint
     init {
         val attrs = context.obtainStyledAttributes(
-                R.style.Widget_Emergency_ProcessHeaders,
+                R.style.Widget_FCare_ProcessHeaders,
                 R.styleable.EmrItemHeader
         )
 
