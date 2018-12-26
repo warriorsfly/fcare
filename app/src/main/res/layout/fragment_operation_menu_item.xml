@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+                name="menu" type="com.wxsoft.fcare.data.entity.OperationMenu"/>
+
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.detail.PatientDetailViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:onClick="@{() -> viewModel.onOpen(menu.actionCode)}"
+            >
+        <ImageView
+                android:id="@+id/image"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+
+                app:actionCode="@{menu.actionCode}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+
+        <ImageView
+                android:id="@+id/red"
+                android:src="@drawable/bg_red"
+                android:layout_marginLeft="4dp"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                app:invisibleUnless="@{menu.hasExcuted}"
+                app:layout_constraintLeft_toRightOf="@id/image"
+                app:layout_constraintTop_toTopOf="parent"
+                />
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:paddingTop="@dimen/list_item_spacing_half"
+        android:paddingBottom="@dimen/list_item_spacing_half"
+        android:gravity="center"
+        android:text="@{menu.name}"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/image"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        tools:text="Hello" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout  xmlns:android="http://schemas.android.com/apk/res/android"
+         xmlns:app="http://schemas.android.com/apk/res-auto"
+         xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.detail.PatientDetailViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/container"
+            android:elevation="@dimen/fragment_elevation"
+            android:background="@drawable/bg_dialog_fragment"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:paddingBottom="14dp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                    android:id="@+id/drug_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:layout_marginTop="6dp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="患者给药" />
+
+
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/edit_part"
+                    android:layout_marginTop="6dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bg_dialog_edit_panel"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/drug_title">
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/drug_item1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        >
+                    <TextView
+                            android:id="@+id/item1_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="抗血小板首次给药时间："
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/item1_et"
+                            tools:text="抗血小板首次给药时间:" />
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            tools:text="2018-11-30 16:38:00"
+                            android:maxLines="2"
+                            android:gravity="left"
+                            android:text="@{viewModel.drug.acs_Delivery_Time}"
+                            android:imeOptions="actionNext"
+                            android:id="@+id/item1_et"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/item1_content"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/drug_item2"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drug_item1">
+                    <TextView
+                            android:id="@+id/item2_title"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="阿司匹林："
+                            />
+
+                    <EditText android:selectAllOnFocus="true"
+
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            android:gravity="right"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="20dp"
+                            android:maxLines="1"
+                            android:id="@+id/aspirin_et"
+                            android:imeOptions="actionNext"
+                            android:inputType="number"
+                            android:digits="@string/input_type_numbers"
+                            android:text="@={viewModel.drug.aspirin_Dose}"
+                            tools:text="120"
+                            tools:layout_editor_absoluteX="78dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/item2_end"
+                            app:layout_constraintStart_toEndOf="@+id/item2_title"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+
+                    <TextView
+                            android:id="@+id/item2_end"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toRightOf="@+id/aspirin_et"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="mg" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/drug_item3"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drug_item2">
+
+                    <RadioGroup
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:id="@+id/drug_item3_group">
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/clopidogrel"
+                                android:checked="@={viewModel.drug.clopidogrel}"
+                                android:text="氯吡格雷"/>
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/ticagrelor"
+                                android:checked="true"
+                                android:text="替格瑞洛"/>
+                    </RadioGroup>
+
+                    <TextView
+                            android:id="@+id/item3_title2"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toRightOf="@+id/drug_item3_group"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="剂量:" />
+
+                    <EditText android:selectAllOnFocus="true"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            tools:text="76"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:maxLength="4"
+                            android:layout_marginStart="2dp"
+                            android:layout_marginEnd="20dp"
+                            android:gravity="right"
+                            android:imeOptions="actionNext"
+                            android:text="@={viewModel.drug.acs_Drug_Dose}"
+                            android:id="@+id/item3_et"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/item3_end"
+                            app:layout_constraintStart_toEndOf="@+id/item3_title2"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                            android:id="@+id/item3_end"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toRightOf="@+id/item3_et"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="mg" />
+
+                </android.support.constraint.ConstraintLayout>
+
+
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/drug_item4"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drug_item3">
+
+                    <TextView
+                            android:id="@+id/item4_title"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="首次抗凝给药：" />
+
+                    <RadioGroup
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/item4_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:id="@+id/item4_group">
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/is_first"
+                                android:checked="@={viewModel.drug.areAnticoagulation}"
+                                android:text="有"/>
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/not_first"
+                                android:checked="true"
+                                android:text="无"/>
+                    </RadioGroup>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/drug_item5"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drug_item4">
+                    <TextView
+                            android:id="@+id/item5_title"
+                            app:goneUnless="@{viewModel.drug.areAnticoagulation}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="给药时间：" />
+
+                    <Button
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:goneUnless="@{viewModel.drug.areAnticoagulation}"
+                            android:textSize="14sp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            tools:text="2018-11-30 17:30:00"
+                            android:text="@={viewModel.drug.anticoagulation_Date}"
+                            android:maxLines="2"
+                            android:gravity="center"
+                            android:imeOptions="actionNext"
+                            android:id="@+id/anticoagulation_Date"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/item5_title"
+                            app:layout_constraintTop_toTopOf="parent"/>
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/drug_item6"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drug_item5">
+                    <TextView
+                            android:id="@+id/item6_title1"
+                            app:goneUnless="@{viewModel.drug.areAnticoagulation}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="药物:" />
+
+                    <Button
+                            app:goneUnless="@{viewModel.drug.areAnticoagulation}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="14sp"
+                            android:textColor="@color/white"
+                            tools:text="==请选择=="
+                            android:text="@{viewModel.drug.anticoagulation_Drug_Name}"
+                            android:inputType="textCapCharacters"
+                            android:maxLines="1"
+                            android:gravity="center"
+                            android:imeOptions="actionNext"
+                            android:background="@color/colorPrimary"
+                            android:id="@+id/drugtype"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/item6_title1"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                            app:goneUnless="@{viewModel.drug.areAnticoagulation}"
+                            android:id="@+id/item6_title2"
+                            android:layout_marginStart="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toRightOf="@+id/drugtype"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:text="计量(含单位)" />
+
+                    <EditText android:selectAllOnFocus="true"
+                            app:goneUnless="@{viewModel.drug.areAnticoagulation}"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="12sp"
+                            tools:text="76"
+                            android:maxLines="1"
+                            android:layout_marginStart="2dp"
+                            android:gravity="right"
+                            android:imeOptions="actionNext"
+                            android:text="@={viewModel.drug.anticoagulation_Unit}"
+                            android:id="@+id/drugnums"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/item6_title2"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/drug_item7"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drug_item6">
+
+                    <TextView
+                            android:id="@+id/item7_title1"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="24小时强化他汀治疗：" />
+
+                    <RadioGroup
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/item7_title1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:id="@+id/item7_group">
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/is_hour24"
+                                android:checked="@={viewModel.drug.intensifyTreat}"
+                                android:text="是"/>
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/not_hour24"
+                                android:checked="true"
+                                android:text="否"/>
+                    </RadioGroup>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:id="@+id/drug_item8"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/drug_item7">
+
+                    <TextView
+                            android:id="@+id/item8_title1"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:text="β受体阻滞剂使用:" />
+
+                    <RadioGroup
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/item8_title1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:id="@+id/β_group">
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/paralyser"
+                                android:checked="@={viewModel.drug.receptorUsing}"
+                                android:text="是"/>
+
+                        <android.support.v7.widget.AppCompatRadioButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/not_paralyser"
+                                android:checked="true"
+                                android:text="否"/>
+                    </RadioGroup>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.design.button.MaterialButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:paddingLeft="40dp"
+                    android:paddingRight="40dp"
+                    android:paddingTop="6dp"
+                    android:id="@+id/drug_submit"
+                    android:paddingBottom="6dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_part"
+                    android:text="提    交"/>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

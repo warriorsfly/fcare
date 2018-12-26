@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+                name="listener"
+                type="com.wxsoft.fcare.ui.detail.PatientDetailViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/item_container"
+            android:background="@drawable/bg_dialog_fragment"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:paddingBottom="14dp"
+
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                    android:id="@+id/item_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:layout_marginTop="6dp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="患者信息" />
+
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/item1"
+                    android:layout_marginTop="6dp"
+                    android:padding="10dp"
+                    android:background="@drawable/bg_dialog_edit_panel"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_title">
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item1_line1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+                    <TextView
+                            android:id="@+id/line1_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:background="@drawable/bg_emr_tv_title"
+                            android:text="姓名"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="姓名" />
+                    <TextView
+                            android:id="@+id/patient_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_emr_tv_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:text="张飞"
+                            app:layout_constraintLeft_toRightOf="@+id/line1_1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="张飞" />
+
+                    <TextView
+                            android:id="@+id/line1_3"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:background="@drawable/bg_emr_tv_title"
+                            android:textSize="16sp"
+                            android:text="性别"
+                            app:layout_constraintLeft_toRightOf="@+id/patient_name"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="性别" />
+                    <TextView
+                            android:id="@+id/patient_sex"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_emr_tv_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:text="男"
+                            app:layout_constraintLeft_toRightOf="@+id/line1_3"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="男" />
+
+                    <TextView
+                            android:id="@+id/line1_5"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:background="@drawable/bg_emr_tv_title"
+                            android:textSize="16sp"
+                            android:text="年龄"
+                            app:layout_constraintLeft_toRightOf="@+id/patient_sex"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="年龄" />
+                    <TextView
+                            android:id="@+id/patient_age"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_emr_tv_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:text="28"
+                            app:layout_constraintLeft_toRightOf="@+id/line1_5"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="28" />
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item1_line2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item1_line1">
+                    <TextView
+                            android:id="@+id/line2_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:background="@drawable/bg_emr_tv_title"
+                            android:text="联系电话"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="联系电话"/>
+                    <TextView
+                            android:id="@+id/patient_phone"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_emr_tv_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:text="18356078324"
+                            app:layout_constraintLeft_toRightOf="@+id/line2_1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="18356078324"/>
+
+                    <TextView
+                            android:id="@+id/line2_2"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:background="@drawable/bg_emr_tv_title"
+                            android:text="联系人"
+                            app:layout_constraintLeft_toRightOf="@+id/patient_phone"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="联系人"/>
+                    <TextView
+                            android:id="@+id/patient_connecter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_emr_tv_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+
+                            android:textSize="16sp"
+                            android:text="张三"
+                            app:layout_constraintLeft_toRightOf="@+id/line2_2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="张三"/>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/item1_line3"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item1_line2">
+                    <TextView
+                            android:id="@+id/line3_1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:background="@drawable/bg_emr_tv_title"
+                            android:text="时间采集"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="时间采集" />
+                    <TextView
+                            android:id="@+id/info_time"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/bg_emr_tv_content"
+                            android:gravity="center"
+                            android:padding="5dp"
+                            android:textSize="16sp"
+                            android:text="2018-12-05 12:00"
+                            app:layout_constraintLeft_toRightOf="@+id/line3_1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:text="2018-12-05 12:00" />
+                </android.support.constraint.ConstraintLayout>
+
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

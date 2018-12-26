@@ -1,0 +1,165 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "22238218c0d636f400326a60cc70b10b",
+    "entities": [
+      {
+        "tableName": "patients",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`name` TEXT NOT NULL, `age_Value` TEXT NOT NULL, `age_Unit` TEXT NOT NULL, `gender` INTEGER NOT NULL, `hospital_Id` TEXT NOT NULL, `idcard` TEXT NOT NULL, `contact_Phone` TEXT NOT NULL, `outpatient_Id` TEXT, `inpatient_Id` TEXT, `attack_Address` TEXT, `wristband_Number` TEXT, `attack_Time` TEXT, `createrId` TEXT NOT NULL, `createrName` TEXT NOT NULL, `createdDate` TEXT NOT NULL, `modifierName` TEXT, `modifiedDate` TEXT, `help_Date` TEXT, `helped` INTEGER NOT NULL, `source` TEXT, `symptom_Code` INTEGER NOT NULL, `statu` TEXT, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "age_Value",
+            "columnName": "age_Value",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "age_Unit",
+            "columnName": "age_Unit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hospital_Id",
+            "columnName": "hospital_Id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idcard",
+            "columnName": "idcard",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contact_Phone",
+            "columnName": "contact_Phone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outpatient_Id",
+            "columnName": "outpatient_Id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "inpatient_Id",
+            "columnName": "inpatient_Id",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attack_Address",
+            "columnName": "attack_Address",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "wristband_Number",
+            "columnName": "wristband_Number",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "attack_Time",
+            "columnName": "attack_Time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createrId",
+            "columnName": "createrId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createrName",
+            "columnName": "createrName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdDate",
+            "columnName": "createdDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifierName",
+            "columnName": "modifierName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "modifiedDate",
+            "columnName": "modifiedDate",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "help_Date",
+            "columnName": "help_Date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "helped",
+            "columnName": "helped",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "symptom_Code",
+            "columnName": "symptom_Code",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "statu",
+            "columnName": "statu",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"22238218c0d636f400326a60cc70b10b\")"
+    ]
+  }
+}

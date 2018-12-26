@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable
+			name="viewModel"
+			type="com.wxsoft.fcare.ui.detail.PatientDetailViewModel"/>
+		<import type="android.text.TextUtils"/>
+	</data>
+
+	<android.support.design.widget.AppBarLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/app_bar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/app_bar_height"
+		android:fitsSystemWindows="true"
+		android:theme="@style/AppTheme.AppBarOverlay">
+
+		<android.support.design.widget.CollapsingToolbarLayout
+			android:id="@+id/toolbar_layout"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:fitsSystemWindows="true"
+
+			android:background="@color/colorPrimary"
+			app:contentScrim="?attr/colorPrimary"
+			app:expandedTitleGravity="top"
+			app:statusBarScrim="@android:color/transparent"
+			app:toolbarId="@id/toolbar"
+			app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+			<android.support.constraint.ConstraintLayout
+				android:layout_width="match_parent"
+				android:id="@+id/patient_part"
+				android:layout_height="match_parent">
+				<TextView
+					android:layout_marginLeft="16dp"
+					android:layout_marginTop="2dp"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintLeft_toLeftOf="parent"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textSize="18sp"
+					android:id="@+id/patient_name"
+					android:textColor="@color/white"
+					android:textStyle="bold"
+					android:text="@{viewModel.patient.name}"
+					tools:text="张三"/>
+
+
+                <TextView
+						android:layout_marginTop="4dp"
+                        app:layout_constraintTop_toBottomOf="@+id/patient_name"
+                        app:layout_constraintLeft_toLeftOf="@+id/patient_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/attack_type_title"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:text="发病类型:"/>
+
+				<TextView
+						app:layout_constraintBottom_toBottomOf="@+id/attack_type_title"
+						app:layout_constraintLeft_toRightOf="@+id/attack_type_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:id="@+id/attack_type"
+						android:textColor="@color/white"
+						android:textSize="16sp"
+						android:text="胸痛"/>
+
+                <TextView
+                        android:layout_marginLeft="12dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/attack_type"
+                        app:layout_constraintLeft_toRightOf="@+id/attack_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+						android:id="@+id/straps"
+                        android:text="@{viewModel.patient.wristband_Number}"
+                        tools:text="BZAA"/>
+
+				<TextView
+						app:layout_constraintBottom_toBottomOf="@+id/gender"
+						app:layout_constraintLeft_toLeftOf="@+id/straps"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+
+						android:textColor="@color/white"
+						android:textSize="16sp"
+						android:id="@+id/age_title"
+						android:text="年龄:"/>
+				<TextView
+						app:layout_constraintBottom_toBottomOf="@+id/gender"
+						app:layout_constraintLeft_toRightOf="@+id/age_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+
+						android:textColor="@color/white"
+						android:textSize="16sp"
+						android:id="@+id/age"
+						android:text="@{viewModel.patient.age_Value}"
+						tools:text="76"/>
+
+				<TextView
+						app:layout_constraintTop_toBottomOf="@+id/attack_type_title"
+						app:layout_constraintLeft_toLeftOf="@+id/attack_type_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="2dp"
+						android:textSize="16sp"
+						android:textColor="@color/white"
+						android:text="性别:"/>
+				<TextView
+						app:layout_constraintTop_toBottomOf="@+id/attack_type"
+						app:layout_constraintLeft_toLeftOf="@+id/attack_type"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="2dp"
+						android:textSize="16sp"
+						android:id="@+id/gender"
+						android:textColor="@color/white"
+						android:text="@{viewModel.patient.man?`男`:`女`}"
+						tools:text="男"/>
+
+				<TextView
+						app:layout_constraintBottom_toBottomOf="@+id/patient_name"
+						app:layout_constraintRight_toRightOf="parent"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginRight="24dp"
+						android:textSize="16sp"
+						android:textColor="@color/white"
+						android:id="@+id/attacking"
+						android:text="@{viewModel.patient.attackClock}"
+						tools:text="00:12:14"/>
+
+			</android.support.constraint.ConstraintLayout>
+
+			<android.support.v7.widget.Toolbar
+				android:id="@+id/toolbar"
+				android:visibility="gone"
+				android:layout_width="match_parent"
+				android:layout_height="?attr/actionBarSize"
+				app:layout_collapseMode="pin"
+				app:popupTheme="@style/AppTheme.PopupOverlay"/>
+
+
+			<android.support.design.widget.TabLayout
+					android:id="@+id/tabs"
+					
+					app:layout_collapseMode="pin"
+					android:layout_width="match_parent"
+					android:layout_height="?attr/actionBarSize"
+					android:layout_gravity="bottom"
+					/>
+		</android.support.design.widget.CollapsingToolbarLayout>
+	</android.support.design.widget.AppBarLayout>
+</layout>
+
+

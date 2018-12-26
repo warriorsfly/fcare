@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="diagnosis_types">
+        <item>胸痛</item>
+        <item>卒中</item>
+        <item>创伤</item>
+        <item>危重孕产妇</item>
+        <item>危重新生儿</item>
+    </array>
+
+    <array name="troponin_character">
+        <item>未选择</item>
+        <item>阴性</item>
+        <item>阳性</item>
+    </array>
+
+    <array name="cr_unit">
+        <item>umol/L</item>
+        <item>无单位</item>
+    </array>
+
+</resources>

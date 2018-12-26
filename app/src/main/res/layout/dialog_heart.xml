@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="viewModel"
+                type="com.wxsoft.fcare.ui.detail.dialog.notify.NotifyViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/container"
+            android:elevation="@dimen/fragment_elevation"
+            android:padding="12dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_scroll_up_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/base_info_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="心电图" />
+
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="480dp"
+                android:layout_marginTop="12dp"
+                android:id="@+id/image"
+                android:src="@drawable/img_heart_wave"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/base_info_title"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+                name="viewModel"
+                type="com.wxsoft.fcare.ui.login.LoginViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center_horizontal"
+          android:orientation="vertical"
+          tools:context=".ui.login.LoginActivity">
+        <FrameLayout
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/bg"/>
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  app:layout_constraintTop_toTopOf="parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+
+                  android:layout_marginTop="160dp"
+                  android:id="@+id/title"
+                  android:textSize="20sp"
+                  android:text="F-Care院前急救"/>
+        <!-- Login progress -->
+        <ProgressBar
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/login_progress"
+                android:layout_marginTop="281dp"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                app:goneUnless="@{viewModel.isLoading}"/>
+
+
+        <android.support.design.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <ImageView android:layout_width="55dp"
+                       android:layout_height="55dp"
+                       android:layout_marginTop="80dp"
+                       android:src="@mipmap/icon"
+                       android:layout_gravity="center_horizontal"/>
+            <android.support.constraint.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="363dp"
+                    android:elevation="1dp"
+                    android:translationZ="1dp"
+                    app:goneUnless="@{!(viewModel.isLoading || viewModel.logined) }"
+                    app:layout_anchorGravity="top|center"
+                    android:layout_gravity="bottom|center_horizontal"
+                    app:layout_anchor="@id/email_login_form">
+            <Button
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/email_sign_in_button"
+                    android:layout_width="240dp"
+                    android:layout_height="50dp"
+                    android:textColor="@color/white"
+                    style="@style/Widget.Emergency.LoginButton"
+                    android:text="@string/action_sign_in"/>
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/email_login_form"
+                    android:layout_width="325dp"
+
+                    android:layout_height="195dp"
+                    android:layout_marginTop="193dp"
+                    android:layout_gravity="center_horizontal"
+                    android:elevation="1dp"
+                    android:background="@drawable/bg_dialog"
+                    app:goneUnless="@{!(viewModel.isLoading || viewModel.logined) }">
+
+                <!--<TextView android:layout_width="wrap_content"-->
+                          <!--android:layout_height="wrap_content"-->
+                          <!--app:layout_constraintTop_toTopOf="parent"-->
+                          <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                          <!--android:textColor="@android:color/black"-->
+                          <!--android:layout_marginTop="25dp"-->
+                          <!--android:id="@+id/title"-->
+                          <!--android:textSize="25sp"-->
+                          <!--android:layout_marginStart="25dp"-->
+                          <!--android:text="F-Care"/>-->
+
+                <EditText
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/prompt_email"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginStart="38dp"
+                        android:drawablePadding="15dp"
+                        android:layout_marginEnd="38dp"
+                        android:drawableLeft="@drawable/ic_login_username"
+                        android:text="@={viewModel.name}"
+                        android:inputType="textEmailAddress"
+                        android:maxLines="1"
+                        android:singleLine="true"/>
+
+                <EditText android:selectAllOnFocus="true"
+                          android:id="@+id/password"
+                          android:drawablePadding="15dp"
+                          android:drawableLeft="@drawable/ic_login_password"
+                          app:layout_constraintTop_toTopOf="parent"
+                          app:layout_constraintLeft_toLeftOf="parent"
+                          android:layout_marginTop="97dp"
+                          android:layout_marginStart="38dp"
+                          android:layout_marginEnd="38dp"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:hint="@string/prompt_password"
+                          android:text="@={viewModel.password}"
+                          android:imeActionId="6"
+                          android:imeActionLabel="@string/action_sign_in_short"
+                          android:imeOptions="actionUnspecified"
+                          android:inputType="textPassword"
+                          android:maxLines="1"
+                          android:singleLine="true"/>
+
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.design.widget.CoordinatorLayout>
+
+
+        <TextView android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  app:layout_constraintBottom_toBottomOf="parent"
+                  app:layout_constraintLeft_toLeftOf="parent"
+                  app:layout_constraintRight_toRightOf="parent"
+                  android:layout_marginBottom="25dp"
+                  android:textSize="10sp"
+                  android:textColor="#7F7F7F"
+                  android:text="版权所有 © 合肥五线信息科技有限公司"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>

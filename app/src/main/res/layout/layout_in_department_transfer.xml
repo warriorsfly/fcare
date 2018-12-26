@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout  >
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.detail.dialog.transfer.TransferViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        app:goneUnless="@{viewModel.transfer.coming_Way_Code.equals( `4`) }"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:padding="4dp"
+            android:id="@+id/base_info_item3"
+            
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+                <TextView
+                    android:id="@+id/item_title3"
+                    android:textSize="16sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="发病科室：" />
+
+                <EditText android:selectAllOnFocus="true"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/item_title3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@={viewModel.transfer.attack_Department}"
+                    android:maxLines="1"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:gravity="right"
+                    tools:text="五线科技"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:padding="4dp"
+            android:id="@+id/base_info_item8"
+            
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/base_info_item3">
+            <TextView
+                android:id="@+id/item_title8"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="会诊时间：" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/item_title8"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@={viewModel.transfer.consultation_Time}"
+                android:imeOptions="actionNext"
+                android:maxLines="2"
+                android:id="@+id/department_admission"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:padding="4dp"
+            android:id="@+id/base_info_item9"
+            
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/base_info_item8">
+            <TextView
+                android:id="@+id/item_title9"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="离开科室：" />
+
+            <Button
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/item_title9"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="@={viewModel.transfer.leave_Department_Time}"
+                tools:text="18312345678"
+                android:id="@+id/department_leave"
+                android:imeOptions="actionNext"
+                android:maxLines="2"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+        
+    </android.support.constraint.ConstraintLayout>
+</layout>

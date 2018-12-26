@@ -1,0 +1,452 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.detail.PatientDetailViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:id="@+id/container"
+            android:elevation="@dimen/fragment_elevation"
+            android:background="@drawable/bg_dialog_fragment"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp"
+                android:paddingBottom="14dp"
+                android:maxHeight="500dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                    android:id="@+id/pci_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="6dp"
+                    android:layout_marginTop="6dp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="急诊PCI"/>
+
+                <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/edit_part"
+                        android:layout_marginTop="6dp"
+                        android:padding="10dp"
+                        android:maxHeight="400dp"
+                        android:background="@drawable/bg_dialog_edit_panel"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/pci_title">
+
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item1"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step1`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+                        <TextView
+                                android:id="@+id/item1_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="决定医生:"/>
+
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text="赵影鹏"
+                                android:text="@={viewModel.pci.doctor_Name}"
+                                android:maxLines="1"
+                                android:gravity="right"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/determinDoctor"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item1_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item2"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step1`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item1">
+                        <TextView
+                                android:id="@+id/item2_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="介入人员:"/>
+
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text="赵影鹏"
+                                android:text="@={viewModel.pci.intervention_Person}"
+                                android:gravity="right"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/otherDoctor"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item2_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item3"
+                            goneUnless="@{(viewModel.pci.businessProcess.equals(`step1`))}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item2">
+                        <TextView
+                                android:id="@+id/item3_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="决定介入手术时间:"/>
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.decision_Operation_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/surgeryStartTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item3_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item5"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step2`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item3">
+                        <TextView
+                                android:id="@+id/item5_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="开始知情同意时间:"/>
+
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.start_Agree_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/startAgreeTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item5_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item6"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step2`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item5">
+                        <TextView
+                                android:id="@+id/item6_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="签署知情同意时间:"/>
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.sign_Agree_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/signAgreeTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item6_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </android.support.constraint.ConstraintLayout>
+
+
+
+
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item9"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step3`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item6">
+                        <TextView
+                                android:id="@+id/item9_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="开始穿刺时间:"/>
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.start_Puncture_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/startPunctureTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item9_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item10"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step4`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item9">
+                        <TextView
+                                android:id="@+id/item10_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="穿刺成功时间:"/>
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.success_Puncture_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/punctureSuccessTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item10_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item11"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step5`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item10">
+                        <TextView
+                                android:id="@+id/item11_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="造影开始时间:"/>
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.start_Radiography_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/startrRadiographyTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item11_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item12"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step5`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item11">
+                        <TextView
+                                android:id="@+id/item12_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="造影结束时间:"/>
+
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.end_Radiography_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/endRadiographyTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item12_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item13"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step6`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item12">
+                        <TextView
+                                android:id="@+id/item13_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="导丝通过时间:"/>
+
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.balloon_Expansion_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/passCordisTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item13_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/pci_item14"
+                            goneUnless="@{viewModel.pci.businessProcess.equals(`step7`)}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/pci_item13">
+                        <TextView
+                                android:id="@+id/item14_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:text="手术结束时间:"/>
+
+                        <Button
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:textSize="14sp"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                tools:text=""
+                                android:maxLines="2"
+                                android:gravity="center"
+                                android:text="@{viewModel.pci.end_Operation_Time}"
+                                android:imeOptions="actionNext"
+                                android:id="@+id/endSurgeryTime"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/item14_title"
+                                app:layout_constraintTop_toTopOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_part">
+
+                    <android.support.design.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        goneUnless="@{!viewModel.pci.businessProcess.equals(`step1`)}"
+                        android:layout_margin="16dp"
+                        android:paddingLeft="40dp"
+                        android:paddingRight="40dp"
+                        android:paddingTop="6dp"
+                        android:id="@+id/lastBtn"
+                        android:paddingBottom="6dp"
+                        android:textColor="@color/white"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/pci_submit"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:text="上一步"/>
+
+                    <android.support.design.button.MaterialButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="16dp"
+                            android:paddingLeft="40dp"
+                            android:paddingRight="40dp"
+                            android:paddingTop="6dp"
+                            android:id="@+id/pci_submit"
+                            android:paddingBottom="6dp"
+                            android:textColor="@color/white"
+                            app:layout_constraintLeft_toRightOf="@+id/lastBtn"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="@{viewModel.pci.submitBtnTxt}"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
