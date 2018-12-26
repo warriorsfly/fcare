@@ -80,7 +80,7 @@ class TimeLineFragment : DaggerFragment() {
         val intentFilter = IntentFilter()
         // 2. 设置接收广播的类型
         intentFilter.addAction(LineRefresh)
-        activity?.registerReceiver(receiver, intentFilter);
+        activity?.registerReceiver(receiver, intentFilter)
 
 
         viewModel.navigateToOperationAction.observe(this, EventObserver {
@@ -173,7 +173,7 @@ class TimeLineFragment : DaggerFragment() {
                 ActionRes.ActionType.来院方式->{
                     var dialog=TransferDialog()
                     dialog.show(childFragmentManager,TransferDialog.TAG)
-                    dialog.patientId=viewModel?.patientId
+                    dialog.patientId= viewModel.patientId
                 }
 
                 ActionRes.ActionType.初步诊断->{
@@ -263,7 +263,7 @@ class TimeLineFragment : DaggerFragment() {
         transfer.setOnClickListener{
             var dialog=TransferDialog()
             dialog.show(childFragmentManager,TransferDialog.TAG)
-            dialog.patientId=viewModel?.patientId
+            dialog.patientId= viewModel.patientId
 //            var dialog= ProfileFragment()
 //            dialog.show(childFragmentManager,ProfileFragment.DIALOG_PROFILE)
         }
@@ -339,7 +339,7 @@ class TimeLineFragment : DaggerFragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if (CAMERA_PIC_REQUEST == requestCode) {
-            val photo = data?.getExtras()?.get("data") as Bitmap
+            val photo = data?.extras?.get("data") as Bitmap
 
             var dialog = HeartDialog()
             dialog.patientId = viewModel.patientId

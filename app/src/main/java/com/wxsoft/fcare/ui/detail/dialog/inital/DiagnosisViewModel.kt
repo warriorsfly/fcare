@@ -69,7 +69,7 @@ class DiagnosisViewModel @Inject constructor(private val diagnosisApi: InitialDi
                             item.checked = item.itemCode == it.data.result?.diagnosis_Code
                         }
                         (load27DiagnosisResult.value as? Resource.Success)?.data?.forEach { item ->
-                            item.checked = it.data?.result?.initialDiagnosisDetails?.any { detial ->
+                            item.checked = it.data.result?.initialDiagnosisDetails?.any { detial ->
                                 detial.code == item.itemCode
                             } ?: false
                         }

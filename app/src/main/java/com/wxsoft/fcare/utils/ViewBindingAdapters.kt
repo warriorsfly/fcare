@@ -71,7 +71,7 @@ fun textTime(button: Button, listener: View.OnClickListener){
 
     val timeDialog= TimePickerDialog(button.context, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
         val time=StringBuffer().append(String.format("%02d", hourOfDay)).append(":").append(String.format("%02d", minute)).toString()
-        button.setText(time)
+        button.text = time
     },mHour,mMinute,true)
     timeDialog.show()
 }

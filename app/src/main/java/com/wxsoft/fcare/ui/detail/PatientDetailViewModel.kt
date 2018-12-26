@@ -392,13 +392,13 @@ class PatientDetailViewModel @Inject constructor(
                         loadEvaluations(p)
 //                        loadVitalSign()
                     }
-                    if (p.attack_Time?.isNotEmpty() ?: false) {
+                    if (p.attack_Time?.isNotEmpty() == true) {
                         _attackTime = DateTimeUtils.formatter.parse(p.attack_Time?.replace("T", " ")).time
 //                        handle.postDelayed(runnable, 1000)
 
                         if (timer?.isDisposed != false) {
                             timer = Observable.interval(1, TimeUnit.SECONDS).subscribe {
-                                if (patient.value != null || patient.value!!.attack_Time?.isEmpty() ?: true)
+                                if (patient.value != null || patient.value!!.attack_Time?.isEmpty() != false)
                                     patient.value?.attack_Time?.isNotEmpty().let {
                                         patient.value?.attackClock =
                                                 getAfromB(_attackTime, System.currentTimeMillis())

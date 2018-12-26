@@ -82,7 +82,7 @@ class ProfileFragment : WxDimDialogFragment(), HasSupportFragmentInjector, Times
         attack.setOnClickListener{
 
             if (attack.text.isEmpty()){
-                attack.setText(TimesUtils.getCurrentTime())
+                attack.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(activity!!,this,"attack")
             }
@@ -91,7 +91,7 @@ class ProfileFragment : WxDimDialogFragment(), HasSupportFragmentInjector, Times
         help_time.setOnClickListener{
 
             if (help_time.text.isEmpty()){
-                help_time.setText(TimesUtils.getCurrentTime())
+                help_time.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(activity!!,this,"help_time")
             }

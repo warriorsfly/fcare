@@ -302,7 +302,7 @@ data class Patient constructor(@PrimaryKey var id:String): BaseObservable() {
         }
 
         if(evaluations.isNotEmpty()){
-            s+=(if(s.isNotEmpty())"\n" else "")+evaluations?.map { it.name }?.joinToString()
+            s+=(if(s.isNotEmpty())"\n" else "")+ evaluations.map { it.name }.joinToString()
         }
         return s
     }

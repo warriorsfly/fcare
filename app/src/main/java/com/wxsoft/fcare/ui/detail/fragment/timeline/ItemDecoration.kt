@@ -107,12 +107,12 @@ class ItemDecoration(
             val position = parent.getChildAdapterPosition(view)
             drawableSlots[position]?.let { layout ->
 
-                var rect =  Rect(0, 0, 0, 0);
+                var rect =  Rect(0, 0, 0, 0)
 
-                rect.top = view.top-paddingTop;
-                rect.bottom = view.bottom+paddingTop;
-                rect.left = width-layout.drawable.intrinsicWidth;
-                rect.right = width;
+                rect.top = view.top-paddingTop
+                rect.bottom = view.bottom+paddingTop
+                rect.left = width-layout.drawable.intrinsicWidth
+                rect.right = width
                 layout.drawable.bounds=rect
                 layout.drawable.draw(c)
 

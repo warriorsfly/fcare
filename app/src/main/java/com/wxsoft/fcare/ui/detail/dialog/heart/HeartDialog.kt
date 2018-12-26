@@ -44,11 +44,6 @@ class HeartDialog : WxDimDialogFragment(), HasSupportFragmentInjector {
         AndroidSupportInjection.inject(this)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

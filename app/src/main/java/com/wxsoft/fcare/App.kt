@@ -20,7 +20,7 @@ class App:DaggerApplication() {
         super.onCreate()
 
         if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this);
+            LeakCanary.install(this)
         }
 //        SDKInitializer.initialize(this)
 //        SDKInitializer.setCoordType(CoordType.BD09LL);

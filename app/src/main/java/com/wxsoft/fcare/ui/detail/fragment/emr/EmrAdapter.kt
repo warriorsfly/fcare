@@ -99,15 +99,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner,private 
         }
     }
 
-    class ItemViewHolder2(binding: ItemEmrPatientInfoBinding) :ItemViewHolder(binding) {
+    class ItemViewHolder2(binding: ItemEmrPatientInfoBinding) :ItemViewHolder(binding)
 
-
-    }
-
-    class ItemViewHolder3(binding: ViewDataBinding) :ItemViewHolder(binding) {
-
-
-    }
+    class ItemViewHolder3(binding: ViewDataBinding) :ItemViewHolder(binding)
 
 
 }

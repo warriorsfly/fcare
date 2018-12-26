@@ -41,7 +41,7 @@ data class Drug  constructor( var id:String=""): BaseObservable() {
      * 是氯吡格雷 否则是替格瑞洛
      */
     @Transient
-    @Bindable var clopidogrel:Boolean=if(acs_Drug_Type.equals("1")) true else false
+    @Bindable var clopidogrel:Boolean= acs_Drug_Type.equals("1")
         set(value) {
             field=value
             notifyPropertyChanged(BR.clopidogrel)
@@ -61,7 +61,7 @@ data class Drug  constructor( var id:String=""): BaseObservable() {
      * 24小时强化他汀治疗 1是 2否
      */
     @Transient
-    @Bindable var intensifyTreat:Boolean=if(intensify_Statins_Treat.equals("1")) true else false
+    @Bindable var intensifyTreat:Boolean= intensify_Statins_Treat.equals("1")
         set(value) {
             field=value
             notifyPropertyChanged(BR.intensifyTreat)
@@ -80,7 +80,7 @@ data class Drug  constructor( var id:String=""): BaseObservable() {
      * β受体阻滞剂使用
      */
     @Transient
-    @Bindable var receptorUsing:Boolean=if(receptor_Retardant_Using.equals("1")) true else false
+    @Bindable var receptorUsing:Boolean= receptor_Retardant_Using.equals("1")
         set(value) {
             field=value
             notifyPropertyChanged(BR.receptorUsing)

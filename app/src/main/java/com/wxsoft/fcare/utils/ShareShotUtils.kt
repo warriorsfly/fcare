@@ -129,7 +129,7 @@ class ShareShotUtils constructor(private val context: Context, private val filen
 
         // Get the directory for the app's private pictures directory.
         val dic = File(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES), "fcare")
-        if (!dic?.mkdirs()) {
+        if (!dic.mkdirs()) {
             Log.e("分享", "文件夹未创建")
         }
         return File(dic.path,filename)

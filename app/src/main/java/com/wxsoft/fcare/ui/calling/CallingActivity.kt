@@ -80,14 +80,14 @@ class CallingActivity : BaseActivity() {
 
         media.setDataSource(this,alert)
         media.prepare()
-        media.isLooping = true;
+        media.isLooping = true
 
-        media.start();
+        media.start()
     }
 
     override fun onDestroy() {
-        media?.stop()
-        media?.release()
+        media.stop()
+        media.release()
         super.onDestroy()
     }
     fun toDetail(id:String){

@@ -85,7 +85,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         self_arrive.setOnClickListener{
 
             if (self_arrive.text.isEmpty()){
-                self_arrive.setText(TimesUtils.getCurrentTime())
+                self_arrive.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"self_arrive")
             }
@@ -95,7 +95,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         self_admission.setOnClickListener{
 
             if (self_admission.text.isEmpty()){
-                self_admission.setText(TimesUtils.getCurrentTime())
+                self_admission.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"self_admission")
             }
@@ -105,7 +105,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         department_admission.setOnClickListener{
 
             if (department_admission.text.isEmpty()){
-                department_admission.setText(TimesUtils.getCurrentTime())
+                department_admission.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"department_admission")
             }
@@ -115,7 +115,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         department_leave.setOnClickListener{
 
             if (department_leave.text.isEmpty()){
-                department_leave.setText(TimesUtils.getCurrentTime())
+                department_leave.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"department_leave")
             }
@@ -125,7 +125,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         other_admission.setOnClickListener{
 
             if (other_admission.text.isEmpty()){
-                other_admission.setText(TimesUtils.getCurrentTime())
+                other_admission.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"other_admission")
             }
@@ -136,7 +136,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         other_ambulance.setOnClickListener{
 
             if (other_ambulance.text.isEmpty()){
-                other_ambulance.setText(TimesUtils.getCurrentTime())
+                other_ambulance.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"other_ambulance")
             }
@@ -144,7 +144,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         other_arrive.setOnClickListener{
 
             if (other_arrive.text.isEmpty()){
-                other_arrive.setText(TimesUtils.getCurrentTime())
+                other_arrive.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"other_arrive")
             }
@@ -153,7 +153,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         other_leave_out.setOnClickListener{
 
             if (other_leave_out.text.isEmpty()){
-                other_leave_out.setText(TimesUtils.getCurrentTime())
+                other_leave_out.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"other_leave_out")
             }
@@ -161,7 +161,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         other_leave_out_arrive.setOnClickListener{
 
             if (other_leave_out_arrive.text.isEmpty()){
-                other_leave_out_arrive.setText(TimesUtils.getCurrentTime())
+                other_leave_out_arrive.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"other_leave_out_arrive")
             }
@@ -170,7 +170,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         other_transfer.setOnClickListener{
 
             if (other_transfer.text.isEmpty()){
-                other_transfer.setText(TimesUtils.getCurrentTime())
+                other_transfer.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"other_transfer")
             }
@@ -179,7 +179,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         arrive_120.setOnClickListener{
 
             if (arrive_120.text.isEmpty()){
-                arrive_120.setText(TimesUtils.getCurrentTime())
+                arrive_120.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"arrive_120")
             }
@@ -188,7 +188,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         arrive_scence_120.setOnClickListener{
 
             if (arrive_scence_120.text.isEmpty()){
-                arrive_scence_120.setText(TimesUtils.getCurrentTime())
+                arrive_scence_120.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"arrive_scence_120")
             }
@@ -197,7 +197,7 @@ class TransferDialog : WxDimDialogFragment(), HasSupportFragmentInjector, TimesU
         admission_120.setOnClickListener{
 
             if (admission_120.text.isEmpty()){
-                admission_120.setText(TimesUtils.getCurrentTime())
+                admission_120.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"admission_120")
             }

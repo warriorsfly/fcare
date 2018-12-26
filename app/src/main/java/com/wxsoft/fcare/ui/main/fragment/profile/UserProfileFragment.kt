@@ -47,7 +47,7 @@ class UserProfileFragment : DaggerFragment() {
             val intent = Intent(activity!!, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
             }
-            startActivity(intent);
+            startActivity(intent)
         }
     }
 

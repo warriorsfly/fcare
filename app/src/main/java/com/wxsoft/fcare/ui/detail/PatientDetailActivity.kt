@@ -94,21 +94,21 @@ class PatientDetailActivity : BaseActivity() {
         toast=Toast.makeText(this@PatientDetailActivity,"",Toast.LENGTH_SHORT)
 
         viewModel.navigateToErrorAction.observe(this,EventObserver{
-            toast?.setText(it)
+            toast.setText(it)
             toast.show()
         })
     }
 
 
     override fun onResume() {
-        super.onResume();
-        nfcAdapter?.enableForegroundDispatch(this, pi, null, null); //启动
+        super.onResume()
+        nfcAdapter?.enableForegroundDispatch(this, pi, null, null) //启动
     }
 
     override fun onPause() {
         super.onPause()
 
-        nfcAdapter?.disableForegroundDispatch(this); //启动
+        nfcAdapter?.disableForegroundDispatch(this) //启动
     }
 
     override fun onNewIntent(intent: Intent?) {

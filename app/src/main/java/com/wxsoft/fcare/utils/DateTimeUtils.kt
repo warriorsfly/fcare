@@ -6,7 +6,7 @@ class DateTimeUtils {
 
 
     companion object {
-        var formatter =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        var formatter =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     }
 }
 

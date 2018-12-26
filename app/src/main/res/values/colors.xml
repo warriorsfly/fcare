@@ -3,12 +3,6 @@
     <color name="colorPrimary">#ffeb523c</color>
     <color name="colorPrimaryDark">#ffeb523c</color>
     <color name="colorAccent">#ffeb523c</color>
-
-    <!--<color name="colorPrimary">#51CFFE</color>-->
-    <!--<color name="colorPrimaryDark">#51CFFE</color>-->
-    <!--<color name="colorAccent">#51CFFE</color>-->
-    <!--<color name="colorAccent">#9EE73D</color>-->
-
     <color name="light_gray">#F3F2F7</color>
     <color name="scrim">#33000000</color>
     <color name="highlight_light">#33ffffff</color> <!-- 20% white -->

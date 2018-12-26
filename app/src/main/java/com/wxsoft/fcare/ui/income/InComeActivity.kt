@@ -90,7 +90,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         self_arrive.setOnClickListener{
 
             if (self_arrive.text.isEmpty()){
-                self_arrive.setText(TimesUtils.getCurrentTime())
+                self_arrive.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"self_arrive")
             }
@@ -100,7 +100,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         self_admission.setOnClickListener{
 
             if (self_admission.text.isEmpty()){
-                self_admission.setText(TimesUtils.getCurrentTime())
+                self_admission.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"self_admission")
             }
@@ -110,7 +110,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         department_admission.setOnClickListener{
 
             if (department_admission.text.isEmpty()){
-                department_admission.setText(TimesUtils.getCurrentTime())
+                department_admission.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"department_admission")
             }
@@ -120,7 +120,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         department_leave.setOnClickListener{
 
             if (department_leave.text.isEmpty()){
-                department_leave.setText(TimesUtils.getCurrentTime())
+                department_leave.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"department_leave")
             }
@@ -130,7 +130,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         other_admission.setOnClickListener{
 
             if (other_admission.text.isEmpty()){
-                other_admission.setText(TimesUtils.getCurrentTime())
+                other_admission.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"other_admission")
             }
@@ -141,7 +141,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         other_ambulance.setOnClickListener{
 
             if (other_ambulance.text.isEmpty()){
-                other_ambulance.setText(TimesUtils.getCurrentTime())
+                other_ambulance.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"other_ambulance")
             }
@@ -149,7 +149,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         other_arrive.setOnClickListener{
 
             if (other_arrive.text.isEmpty()){
-                other_arrive.setText(TimesUtils.getCurrentTime())
+                other_arrive.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"other_arrive")
             }
@@ -158,7 +158,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         other_leave_out.setOnClickListener{
 
             if (other_leave_out.text.isEmpty()){
-                other_leave_out.setText(TimesUtils.getCurrentTime())
+                other_leave_out.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"other_leave_out")
             }
@@ -166,7 +166,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         other_leave_out_arrive.setOnClickListener{
 
             if (other_leave_out_arrive.text.isEmpty()){
-                other_leave_out_arrive.setText(TimesUtils.getCurrentTime())
+                other_leave_out_arrive.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"other_leave_out_arrive")
             }
@@ -175,7 +175,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         other_transfer.setOnClickListener{
 
             if (other_transfer.text.isEmpty()){
-                other_transfer.setText(TimesUtils.getCurrentTime())
+                other_transfer.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"other_transfer")
             }
@@ -184,7 +184,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         arrive_120.setOnClickListener{
 
             if (arrive_120.text.isEmpty()){
-                arrive_120.setText(TimesUtils.getCurrentTime())
+                arrive_120.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"arrive_120")
             }
@@ -193,7 +193,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         arrive_scence_120.setOnClickListener{
 
             if (arrive_scence_120.text.isEmpty()){
-                arrive_scence_120.setText(TimesUtils.getCurrentTime())
+                arrive_scence_120.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"arrive_scence_120")
             }
@@ -202,7 +202,7 @@ class InComeActivity : BaseActivity(), TimesUtils.SelectTimeListener {
         admission_120.setOnClickListener{
 
             if (admission_120.text.isEmpty()){
-                admission_120.setText(TimesUtils.getCurrentTime())
+                admission_120.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this,this,"admission_120")
             }

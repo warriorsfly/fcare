@@ -34,7 +34,7 @@ class JPushReceiver  : BroadcastReceiver() {
                 }
                 JPushInterface.ACTION_MESSAGE_RECEIVED -> {
                     val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
-                    val message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
+                    val message = bundle.getString(JPushInterface.EXTRA_MESSAGE)
                     val title= bundle.getString(JPushInterface.EXTRA_TITLE)
                     processCustomMessage(context,title,message)
                 }
@@ -47,7 +47,7 @@ class JPushReceiver  : BroadcastReceiver() {
 
                     val title= bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
                     if(title=="急救通知") {
-                        bundle!!.getString(JPushInterface.EXTRA_ALERT)
+                        bundle.getString(JPushInterface.EXTRA_ALERT)
 
                     }
                 }
@@ -75,15 +75,15 @@ class JPushReceiver  : BroadcastReceiver() {
         when(title) {
             "SendMessage" -> {
 
-                if ((message ?: "").isNotEmpty()) {
+                if (message.isNotEmpty()) {
 
-                    val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager;
+                    val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
                     if (km.isKeyguardLocked) {
                         val alarmIntent = Intent(context, CallingActivity::class.java).apply {
                             putExtra("notify", message)
                         }
-                        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(alarmIntent);
+                        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        context.startActivity(alarmIntent)
                     }
                 }
             }

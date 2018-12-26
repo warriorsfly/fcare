@@ -28,8 +28,9 @@ class CountdownTimeFragment: WxCoudownDialogFragment(), HasSupportFragmentInject
     interface CutDownTimeListener{
         fun theCutDownTime(mTime:String,type:String)
     }
-    public var mCutDownTimeListener: CutDownTimeListener? = null
-    public var type:String? = null
+
+    var mCutDownTimeListener: CutDownTimeListener? = null
+    var type:String? = null
     @Inject
     lateinit var factory: ViewModelFactory
 

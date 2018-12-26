@@ -38,12 +38,6 @@ class MapFragment : DaggerFragment() {
 
 //    private lateinit var locationListener:BDAbstractLocationListener
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-//        viewModel=activityViewModelProvider(factory)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         binding= FragmentEmrMapBinding.inflate(inflater, container, false).
@@ -51,57 +45,6 @@ class MapFragment : DaggerFragment() {
                 setLifecycleOwner (this@MapFragment)
             }
         return binding.root
-    }
-
-    override fun onDestroy() {
-
-        super.onDestroy()
-
-//        locationClient?.stop()
-//        locationClient?.unRegisterLocationListener(locationListener)
-//        mapView?.onDestroy()
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        mapView.onResume()
-//        if(baiduMap==null) {
-//            baiduMap = mapView.map
-//            baiduMap!!.setIndoorEnable(true)
-//            baiduMap!!.isMyLocationEnabled = true
-//            var marker = BitmapDescriptorFactory
-//                .fromResource(R.drawable.icon_geo)
-//            var config = MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, true, marker)
-//            baiduMap!!.setMyLocationConfiguration(config)
-//            locationListener=object :BDAbstractLocationListener(){
-//
-//                override fun onReceiveLocation(location: BDLocation?) {
-//
-//                    if(location!=null ) {
-//                        // 设置定位数据
-//                        val locData = MyLocationData.Builder()
-//                            .accuracy(location.radius)
-//                            // 此处设置开发者获取到的方向信息，顺时针0-360
-//                            .direction(100f).latitude(location.latitude)
-//                            .longitude(location.longitude).build()
-//
-//                        // 设置定位图层的配置（定位模式，是否允许方向信息，用户自定义定位图标）
-//                        baiduMap!!.setMyLocationData(locData)
-//
-////                        viewModel.uploadGpsLocation(GpsLocation(viewModel.patientId,"测试车辆",location.longitude,location.latitude))
-//
-//                    }
-//                }
-//            }
-//            locationClient.registerLocationListener(locationListener)
-//            locationClient.start()
-//        }
-    }
-
-    override fun onPause() {
-        super.onPause()
-//        mapView.onPause()
     }
 
 }

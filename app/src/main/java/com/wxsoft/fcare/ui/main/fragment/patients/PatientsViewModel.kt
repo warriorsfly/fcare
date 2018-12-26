@@ -3,7 +3,7 @@ package com.wxsoft.fcare.ui.main.fragment.patients
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel;
+import android.arch.lifecycle.ViewModel
 import com.wxsoft.fcare.data.NetFlowableResource
 import com.wxsoft.fcare.data.entity.Patient
 import com.wxsoft.fcare.data.entity.Response

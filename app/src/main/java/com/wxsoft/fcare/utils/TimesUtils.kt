@@ -47,7 +47,7 @@ class TimesUtils {
         fun getCurrentTime():String{
             val calendar = Calendar.getInstance()
             //年
-            var year = calendar.get(Calendar.YEAR);
+            var year = calendar.get(Calendar.YEAR)
             //月
             var month =frontCompWithZore(calendar.get(Calendar.MONTH)+1,2)
             //日
@@ -56,7 +56,7 @@ class TimesUtils {
             //小时
             var hour = frontCompWithZore(calendar.get(Calendar.HOUR_OF_DAY),2)
             //分钟
-            var minute = frontCompWithZore(calendar.get(Calendar.MINUTE),2);
+            var minute = frontCompWithZore(calendar.get(Calendar.MINUTE),2)
             //秒
             var second =frontCompWithZore(calendar.get(Calendar.SECOND),2)
 
@@ -76,8 +76,8 @@ class TimesUtils {
         　　      * formatLength 字符总长度为 formatLength
         　　      * d 代表为正数。
         　　      */
-            var newString = String.format("%0"+formatLength+"d", sourceDate);
-            return newString;
+            var newString = String.format("%0"+formatLength+"d", sourceDate)
+            return newString
 
         }
 

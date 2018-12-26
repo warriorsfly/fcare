@@ -91,7 +91,7 @@ class ShareViewModel @Inject constructor(private val evaluationApi: EvaluationAp
         vitalSignApi.list(patientId).toResource().subscribe{
             when(it){
                 is Resource.Success->{
-                    loadVitalResult.value = Resource.Success(it.data?.get(0))
+                    loadVitalResult.value = Resource.Success(it.data.get(0))
                 }
                 is Resource.Error->{
                     loadVitalResult.value = it

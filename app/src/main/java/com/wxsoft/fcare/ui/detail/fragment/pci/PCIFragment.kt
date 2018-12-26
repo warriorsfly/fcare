@@ -179,9 +179,9 @@ class PCIFragment: WxCoudownDialogFragment(), HasSupportFragmentInjector ,TimesU
         binding.determinDoctor.setOnClickListener{
             viewModel.doctors.observe(this@PCIFragment, Observer {
                 if (it!!.size>0){
-                    val list : Array<String> = Array(it!!.size, {""})
-                    for (i in 0..it!!.size-1) {
-                        list[i] = it!!.get(i).trueName
+                    val list : Array<String> = Array(it.size, {""})
+                    for (i in 0..it.size-1) {
+                        list[i] = it.get(i).trueName
                     }
                     AlertDialog.Builder(this.context!!).setItems(list) { _, i ->
                         val doctor = it[i]
@@ -194,10 +194,10 @@ class PCIFragment: WxCoudownDialogFragment(), HasSupportFragmentInjector ,TimesU
         binding.otherDoctor.setOnClickListener{
             viewModel.interventionPerson.observe(this@PCIFragment, Observer {
                 if (it!!.size>0){
-                    val list : Array<String> = Array(it!!.size, {""})
-                    val bools :BooleanArray = BooleanArray(it!!.size,{false})
-                    for (i in 0..it!!.size-1) {
-                        list[i] = it!!.get(i).trueName
+                    val list : Array<String> = Array(it.size, {""})
+                    val bools :BooleanArray = BooleanArray(it.size,{false})
+                    for (i in 0..it.size-1) {
+                        list[i] = it.get(i).trueName
                     }
                     AlertDialog.Builder(this.context!!)
                         .setMultiChoiceItems(list,bools){ dialogInterface: DialogInterface, i: Int, b: Boolean ->
@@ -207,8 +207,8 @@ class PCIFragment: WxCoudownDialogFragment(), HasSupportFragmentInjector ,TimesU
                             var ids = ""
                             for (index in bools.indices){
                                 if (bools[index]){
-                                    if (names.isEmpty()) names = it!!.get(index).trueName else names = names+","+it!!.get(index).trueName
-                                    if (ids.isEmpty()) ids = it!!.get(index).id else ids = ids+","+it!!.get(index).id
+                                    if (names.isEmpty()) names = it.get(index).trueName else names = names+","+ it.get(index).trueName
+                                    if (ids.isEmpty()) ids = it.get(index).id else ids = ids+","+ it.get(index).id
                                 }
                             }
                             viewModel.pci.value?.intervention_Person_Id=ids

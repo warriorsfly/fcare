@@ -43,7 +43,7 @@ class LoginActivity : BaseActivity(){
         val intentFilter = IntentFilter()
         // 2. 设置接收广播的类型
         intentFilter.addAction(RegistrationId)
-        registerReceiver(receiver, intentFilter);
+        registerReceiver(receiver, intentFilter)
 
 
         binding.viewModel=viewModel

@@ -65,7 +65,7 @@ class ActivateConduitRoomFragment  : WxDimDialogFragment(), HasSupportFragmentIn
         binding.activeConduitRoomTime.setOnClickListener{
 
             if (binding.activeConduitRoomTime.text.isEmpty()){
-                binding.activeConduitRoomTime.setText(TimesUtils.getCurrentTime())
+                binding.activeConduitRoomTime.text = TimesUtils.getCurrentTime()
             }else{
                 TimesUtils.selectTime(this.context!!,this,"activeConduitRoomTime")
             }
@@ -80,7 +80,7 @@ class ActivateConduitRoomFragment  : WxDimDialogFragment(), HasSupportFragmentIn
 
     override fun theTime(mTime: String, type: String) {
         if (type.equals("activeConduitRoomTime")){
-            binding.activeConduitRoomTime.setText(mTime)
+            binding.activeConduitRoomTime.text = mTime
         }
     }
 
