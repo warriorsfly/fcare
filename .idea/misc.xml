@@ -85,9 +85,6 @@
       <textMaps />
     </LinkMapSettings>
   </component>
-  <component name="ProjectPlainTextFileTypeManager">
-    <file url="file://$PROJECT_DIR$/core/src/main/java/com/wxsoft/fcare/core/utils/TimesUtils.kt" />
-  </component>
   <component name="ProjectResources">
     <xml-schema-version>XMLSchema_1_1</xml-schema-version>
   </component>
