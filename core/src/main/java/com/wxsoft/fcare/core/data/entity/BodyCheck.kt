@@ -1,19 +1,18 @@
 package com.wxsoft.fcare.core.data.entity
 
-import android.databinding.ObservableField
 import com.google.gson.annotations.SerializedName
 
 class BodyCheck(
     val id:String,
-    var patientId:ObservableField<String>,
-    var skin:ObservableField<String>,
-    @SerializedName("leftPupils")var leftEyePupils:ObservableField<String>,
-    @SerializedName("leftResponseLight")var leftEyeLight:ObservableField<String>,
-    @SerializedName("rightPupils")var rightEyePupils:ObservableField<String>,
-    @SerializedName("rightResponseLight")var rightEyeLight:ObservableField<String>,
-    @SerializedName("checkMemo")var memo:ObservableField<String>,
-    var createdBy: ObservableField<String>,
-    var createdDate: ObservableField<String>,
-    var modifiedBy: ObservableField<String>,
-    var modifiedDate: ObservableField<String>
+    var patientId:String,
+    var skin:String,
+    @SerializedName("leftPupils")var leftEyePupils:String,
+    @SerializedName("leftResponseLight")var leftEyeLight:String,
+    @SerializedName("rightPupils")var rightEyePupils:String,
+    @SerializedName("rightResponseLight")var rightEyeLight:String,
+    @SerializedName("checkMemo")var memo:String,
+    var createdBy: String,
+    var createdDate: String,
+    var modifiedBy: String,
+    var modifiedDate: String
 )

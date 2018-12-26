@@ -7,13 +7,11 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import cn.jpush.android.api.JPushInterface
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityLoginBinding
-import com.wxsoft.fcare.di.ViewModelFactory
 import com.wxsoft.fcare.service.JPushReceiver.Companion.RegistrationId
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.utils.viewModelProvider
 import javax.inject.Inject
 
@@ -61,10 +59,10 @@ class LoginActivity : BaseActivity(){
         }
 
         viewModel.account.observe(this, Observer {
-            if(it!=null){
-                var intent= Intent(this, MainActivity::class.java)
-                startActivity(intent)
-                finish()
+            if(it!=null && it.success){
+//                var intent= Intent(this, MainActivity::class.java)
+//                startActivity(intent)
+//                finish()
             }
         })
 

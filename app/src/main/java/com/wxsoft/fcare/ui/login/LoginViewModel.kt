@@ -4,12 +4,13 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.ViewModel
 import com.google.gson.Gson
-import com.wxsoft.fcare.data.entity.Account
-import com.wxsoft.fcare.data.entity.LoginInfo
-import com.wxsoft.fcare.data.prefs.SharedPreferenceStorage
-import com.wxsoft.fcare.data.remote.AccountApi
-import com.wxsoft.fcare.data.toWxResource
-import com.wxsoft.fcare.result.Resource
+import com.wxsoft.fcare.core.data.entity.Account
+import com.wxsoft.fcare.core.data.entity.LoginInfo
+import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.AccountApi
+import com.wxsoft.fcare.core.data.toResource
+import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
@@ -24,28 +25,33 @@ class LoginViewModel @Inject constructor(private val sharedPreferenceStorage: Sh
     /**
      *获取病人信息
      */
-    private val loadAccountResult = MediatorLiveData<Resource<Account>>()
+    private val loadAccountResult = MediatorLiveData<Resource<Response<Account>>>()
     /**
      * 是否正在夹在数据
      */
     val isLoading: LiveData<Boolean>
 
-    val account:LiveData<Account?>
+    val account:LiveData<Response<Account>>
     val logined:LiveData<Boolean>
 
     init {
         attemptLogin()
         account=loadAccountResult.map {
-            var a=(it as? Resource.Success)?.data
 
-            if(a==null){
-
-            }else{
-                sharedPreferenceStorage.loginedName=name
-                sharedPreferenceStorage.loginedPassword=password
-                sharedPreferenceStorage.userInfo=gson.toJson(a)
+            val acc=(it as? Resource.Success)?.data?: Response(false)
+            when(it){
+                is Resource.Error->{
+//                    TODO 显示错误
+                }
+                is Resource.Success->{
+                    if(it.data.success){
+                        sharedPreferenceStorage.loginedName=name
+                        sharedPreferenceStorage.loginedPassword=password
+                        sharedPreferenceStorage.userInfo=gson.toJson(it.data.result)
+                    }
+                }
             }
-            return@map a
+            return@map  acc
         }
         logined=loadAccountResult.map {
             it is Resource.Success
@@ -67,11 +73,9 @@ class LoginViewModel @Inject constructor(private val sharedPreferenceStorage: Sh
         registrationId=sharedPreferenceStorage.registrationId?:""
         if(isNameValid(name)&& isPasswordValid(password)) {
             val loginInfo = LoginInfo(name, password, registrationId)
-            accountApi.login(loginInfo).toWxResource()
-
-                .subscribe { result ->
-                    loadAccountResult.value = result
-                }
+            accountApi.login(loginInfo).toResource().subscribe {
+                loadAccountResult.value=it
+            }
         }
     }
 

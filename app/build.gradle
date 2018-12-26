@@ -19,19 +19,9 @@ android {
 
         buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44397/api/"'
 
-        sourceSets {
-            main {
-                jniLibs.srcDir 'libs'
-                //说明so的路径为该libs路径，关联所有地图SDK的so文件
-            }
-        }
 
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation":
-                                     "$projectDir/schemas".toString()]
-            }
-        }
+
+
     }
 
     lintOptions {
@@ -100,4 +90,5 @@ dependencies {
     implementation "android.arch.persistence.room:runtime:$room_version"
     kapt "android.arch.persistence.room:compiler:$room_version"
     implementation "android.arch.persistence.room:rxjava2:$room_version"
+    implementation project(path: ':core')
 }

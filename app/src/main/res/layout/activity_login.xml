@@ -28,8 +28,7 @@
                   android:layout_marginTop="160dp"
                   android:id="@+id/title"
                   android:textSize="20sp"
-                  android:text="F-Care院前急救"/>
-        <!-- Login progress -->
+                  android:text="F-Care院前急救"/>>
         <ProgressBar
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

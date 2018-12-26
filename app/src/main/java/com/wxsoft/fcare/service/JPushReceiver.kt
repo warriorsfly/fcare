@@ -8,8 +8,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import cn.jpush.android.api.JPushInterface
-import com.wxsoft.fcare.data.prefs.SharedPreferenceStorage
-import com.wxsoft.fcare.ui.calling.CallingActivity
+//import com.wxsoft.fcare.data.prefs.SharedPreferenceStorage
+//import com.wxsoft.fcare.ui.calling.CallingActivity
 import org.json.JSONException
 import org.json.JSONObject
 import javax.inject.Inject
@@ -79,11 +79,11 @@ class JPushReceiver  : BroadcastReceiver() {
 
                     val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
                     if (km.isKeyguardLocked) {
-                        val alarmIntent = Intent(context, CallingActivity::class.java).apply {
-                            putExtra("notify", message)
-                        }
-                        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                        context.startActivity(alarmIntent)
+//                        val alarmIntent = Intent(context, CallingActivity::class.java).apply {
+//                            putExtra("notify", message)
+//                        }
+//                        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                        context.startActivity(alarmIntent)
                     }
                 }
             }

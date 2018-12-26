@@ -4,8 +4,8 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.net.wifi.WifiManager
 import com.wxsoft.fcare.App
-import com.wxsoft.fcare.data.prefs.PreferenceStorage
-import com.wxsoft.fcare.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.prefs.PreferenceStorage
+import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

@@ -11,7 +11,7 @@ class ActionRes{
         //a-g 可以 分多行，但是不要和h以及之后的放在一起
 
         val ActionIcons = mapOf(
-            ActionType.救护车 to R.drawable.ic_120_car,
+            ActionType.救护车 to R.drawable.ic_menu_120_car,
             ActionType.绑定腕带 to R.drawable.ic_menu_bdwd,
             ActionType.病情评估 to R.drawable.ic_menu_bqpg,
             ActionType.辅助检查 to R.drawable.ic_menu_fzjc,

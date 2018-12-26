@@ -1,0 +1,195 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "7a644b39cff605e946fb0a187fc538d5",
+    "entities": [
+      {
+        "tableName": "patients",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` TEXT NOT NULL, `name` TEXT NOT NULL, `unKnow` INTEGER NOT NULL, `hospitalId` TEXT NOT NULL, `citizen` TEXT NOT NULL, `wristband` TEXT NOT NULL, `idcard` TEXT NOT NULL, `gender` TEXT NOT NULL, `age` INTEGER NOT NULL, `ageUnit` TEXT NOT NULL, `phone` TEXT NOT NULL, `outId` TEXT NOT NULL, `inId` TEXT NOT NULL, `attackPosition` TEXT NOT NULL, `unKnowAttackingTime` INTEGER NOT NULL, `attackZone` TEXT NOT NULL, `callForHelp` INTEGER NOT NULL, `helpDate` TEXT NOT NULL, `helpCode` INTEGER NOT NULL, `source` INTEGER NOT NULL, `memo` TEXT NOT NULL, `registerId` TEXT NOT NULL, `status` INTEGER NOT NULL, `createdBy` TEXT NOT NULL, `createdDate` TEXT NOT NULL, `modifiedBy` TEXT NOT NULL, `modifiedDate` TEXT NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "taskId",
+            "columnName": "taskId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unKnow",
+            "columnName": "unKnow",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "hospitalId",
+            "columnName": "hospitalId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "citizen",
+            "columnName": "citizen",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wristband",
+            "columnName": "wristband",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idcard",
+            "columnName": "idcard",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gender",
+            "columnName": "gender",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ageUnit",
+            "columnName": "ageUnit",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "phone",
+            "columnName": "phone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outId",
+            "columnName": "outId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inId",
+            "columnName": "inId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attackPosition",
+            "columnName": "attackPosition",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unKnowAttackingTime",
+            "columnName": "unKnowAttackingTime",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "attackZone",
+            "columnName": "attackZone",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "callForHelp",
+            "columnName": "callForHelp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "helpDate",
+            "columnName": "helpDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "helpCode",
+            "columnName": "helpCode",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "memo",
+            "columnName": "memo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "registerId",
+            "columnName": "registerId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdBy",
+            "columnName": "createdBy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdDate",
+            "columnName": "createdDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedBy",
+            "columnName": "modifiedBy",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modifiedDate",
+            "columnName": "modifiedDate",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"7a644b39cff605e946fb0a187fc538d5\")"
+    ]
+  }
+}

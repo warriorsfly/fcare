@@ -1,39 +1,213 @@
 package com.wxsoft.fcare.core.data.entity
 
-import android.databinding.ObservableBoolean
-import android.databinding.ObservableField
-import android.databinding.ObservableInt
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import android.databinding.*
 import com.google.gson.annotations.SerializedName
+import com.wxsoft.fcare.core.BR
 
-class Patient(
-    val id:String,
-    var taskId: ObservableField<String>,
-    var name: ObservableField<String>,
-    @SerializedName("Three_Without")var unKnow:ObservableBoolean,
-    @SerializedName("Hospital_Id")var hospitalId:ObservableField<String>,
-    @SerializedName("citizen_Card")var citizen:ObservableField<String>,
-    @SerializedName("wristband_Number")var wristband:ObservableField<String>,
+@Entity(tableName = "patients")
+data class Patient(@PrimaryKey val id:String):BaseObservable(){
 
-    @SerializedName("idcard")var idcard:ObservableField<String>,
-    var gender:ObservableField<String>,
+    var taskId: String=""
 
-    @SerializedName("age_Value")var age:ObservableInt,
-    @SerializedName("age_Unit")var ageUnit:ObservableField<String>,
-    @SerializedName("contact_Phone")var phone:ObservableField<String>,
-    @SerializedName("outpatient_Id")var outId:ObservableField<String>,
-    @SerializedName("inpatient_Id")var inId:ObservableField<String>,
-    @SerializedName("attack_Address")var attackPosition:ObservableField<String>,
-    @SerializedName("is_Null_Attack_Detail_Time")var unKnowAttackingTime: ObservableBoolean,
-    @SerializedName("attack_Zone")var attackZone: ObservableField<String>,
-    @SerializedName("is_Help")var callForHelp: ObservableBoolean,
-    @SerializedName("help_Date")var helpDate: ObservableField<String>,
-    @SerializedName("help_Code")var helpCode: ObservableInt,
-    @SerializedName("is_Source")var source: ObservableBoolean,
-    var memo: ObservableField<String>,
-    @SerializedName("register_Id")var registerId: ObservableField<String>,
-    @SerializedName("data_Statu")var status: ObservableInt,
-    var createdBy: ObservableField<String>,
-    var createdDate: ObservableField<String>,
-    var modifiedBy: ObservableField<String>,
-    var modifiedDate: ObservableField<String>
-)
+    @get:Bindable
+    var name: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("Three_Without")
+    @get:Bindable
+    var unKnow:Boolean=false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("Hospital_Id")
+    @get:Bindable
+    var hospitalId:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("citizen_Card")
+    @get:Bindable
+    var citizen:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("wristband_Number")
+    @get:Bindable
+    var wristband:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("idcard")
+    @get:Bindable
+    var idcard:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @get:Bindable
+    var gender:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("age_Value")
+    @get:Bindable
+    var age:Int=0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("age_Unit")
+    @get:Bindable
+    var ageUnit:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("contact_Phone")
+    @get:Bindable
+    var phone:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("outpatient_Id")
+    @get:Bindable
+    var outId:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("inpatient_Id")
+    @get:Bindable
+    var inId:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("attack_Address")
+    @get:Bindable
+    var attackPosition:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("is_Null_Attack_Detail_Time")
+    @get:Bindable
+    var unKnowAttackingTime: Boolean=false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("attack_Zone")
+    @get:Bindable
+    var attackZone: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("is_Help")
+    @get:Bindable
+    var callForHelp: Boolean= false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("help_Date")
+    @get:Bindable
+    var helpDate: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("help_Code")
+    @get:Bindable
+    var helpCode: Int=0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("is_Source")
+    @get:Bindable
+    var source: Boolean=false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+
+    @get:Bindable
+    var memo: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+    @SerializedName("register_Id")
+    @get:Bindable
+    var registerId: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @SerializedName("data_Statu")
+    @get:Bindable
+    var status: Int=0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @get:Bindable
+    var createdBy: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @get:Bindable
+    var createdDate: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @get:Bindable
+    var modifiedBy: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+    @get:Bindable
+    var modifiedDate: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.modifiedDate)
+        }
+}
