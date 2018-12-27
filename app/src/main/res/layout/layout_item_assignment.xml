@@ -26,91 +26,77 @@
                 android:layout_height="wrap_content">
 
             <TextView
-                    android:id="@+id/patient_name"
+                    android:id="@+id/task_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/spacing_normal"
                     android:textSize="16dp"
-                    tools:text="老王"
-
+                    tools:text="急救任务1"
+                    android:text="急救任务1"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                    android:id="@+id/patient_age"
+                    android:id="@+id/task_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/activity_horizontal_margin"
                     android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/spacing_normal"
                     android:textSize="12dp"
-                    tools:text="76"
-                    app:layout_constraintLeft_toRightOf="@id/patient_name"
-                    app:layout_constraintBottom_toBottomOf="@id/patient_name" />
+                    tools:text="2018-12-25"
+                    android:text="2018-12-25"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/task_name" />
+
+            <View
+                    android:id="@+id/task_item_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dip"
+                    android:background="#FF909090"
+                    android:layout_marginTop="5dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/task_name"/>
 
             <TextView
-                    android:id="@+id/patient_state"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="12dp"
-                    tools:text="急救中"
-                    android:textColor="@android:color/holo_red_light"
-                    app:layout_constraintBottom_toBottomOf="@id/patient_name"
-                    app:layout_constraintRight_toRightOf="parent"/>
-
-            <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    tools:src="@drawable/ic_gender_man"
-                    app:layout_constraintLeft_toRightOf="@id/patient_age"
-                    app:layout_constraintBottom_toBottomOf="@id/patient_age"/>
-
-
-            <TextView
-                    android:id="@+id/diagnose"
+                    android:id="@+id/task_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:textSize="12dp"
-                    android:text="诊断：STEMI 2018-11—22 09:12:34"
-                    app:layout_constraintLeft_toLeftOf="@id/patient_age"
-                    app:layout_constraintTop_toBottomOf="@id/patient_name" />
+                    android:text="目的地："
+                    app:layout_constraintLeft_toLeftOf="@id/task_item_line"
+                    app:layout_constraintTop_toBottomOf="@id/task_item_line" />
 
             <TextView
-                    android:id="@+id/attack"
+                    android:id="@+id/task_destination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="12dp"
+                    android:text="蜀山区蜀南庭院北区12#206"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title1"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title1" />
+
+            <TextView
+                    android:id="@+id/task_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:textSize="12dp"
-                    app:layout_constraintLeft_toLeftOf="@id/diagnose"
-                    app:layout_constraintTop_toBottomOf="@id/diagnose" />
+                    android:text="发车："
+                    app:layout_constraintLeft_toLeftOf="@id/task_item_line"
+                    app:layout_constraintTop_toBottomOf="@id/task_title1" />
 
             <TextView
-                    android:id="@+id/attack_address"
+                    android:id="@+id/task_dispatch_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
                     android:textSize="12dp"
-                    app:layout_constraintLeft_toLeftOf="@id/attack"
-                    app:layout_constraintTop_toBottomOf="@id/attack" />
+                    android:text="13:24"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title2"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title2" />
 
-            <TextView
-                    android:id="@+id/memo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="12dp"
-                    tools:text="张三"
-                    app:layout_constraintLeft_toLeftOf="@id/attack_address"
-                    app:layout_constraintTop_toBottomOf="@id/attack_address" />
+
         </android.support.constraint.ConstraintLayout>
     </android.support.design.card.MaterialCardView>
 </layout>
