@@ -7,11 +7,14 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
+import android.widget.TextView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityLoginBinding
 import com.wxsoft.fcare.service.JPushReceiver.Companion.RegistrationId
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.utils.viewModelProvider
 import javax.inject.Inject
 
@@ -45,13 +48,13 @@ class LoginActivity : BaseActivity(){
 
 
         binding.viewModel=viewModel
-//        binding.password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
-//            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
+        binding.password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
+            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
 //                attemptLogin()
-//                return@OnEditorActionListener true
-//            }
-//            false
-//        })
+                return@OnEditorActionListener true
+            }
+            false
+        })
         binding.emailSignInButton.setOnClickListener {
 
             binding.viewModel?.login()
@@ -60,9 +63,9 @@ class LoginActivity : BaseActivity(){
 
         viewModel.account.observe(this, Observer {
             if(it!=null && it.success){
-//                var intent= Intent(this, MainActivity::class.java)
-//                startActivity(intent)
-//                finish()
+                var intent= Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         })
 

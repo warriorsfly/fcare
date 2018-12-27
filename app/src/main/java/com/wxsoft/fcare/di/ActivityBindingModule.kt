@@ -3,6 +3,8 @@ package com.wxsoft.fcare.di
 import com.wxsoft.fcare.core.di.ActivityScoped
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
+import com.wxsoft.fcare.ui.main.MainActivity
+import com.wxsoft.fcare.ui.main.MainModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -21,5 +23,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [LoginModule::class])
     internal abstract fun loginActivity(): LoginActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [MainModule::class])
+    internal abstract fun mainActivity(): MainActivity
 
 }
