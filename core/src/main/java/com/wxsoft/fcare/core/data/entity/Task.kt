@@ -16,7 +16,6 @@ data class Task (
     var taskStaffs: Array<TaskStaff>,
     var patients: Array<Patient>,
     @SerializedName("isCanceled")var hasCanceled: Boolean,
-
     var createdBy: String,
     var createdDate: String,
     var modifiedBy: String,

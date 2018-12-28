@@ -60,9 +60,8 @@ dependencies {
 
     implementation "com.android.support.constraint:constraint-layout:$constraint_version"
 
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation "junit:junit:$junit_version"
-    androidTestImplementation "com.android.support.test:runner:$runner_version"
+    androidTestImplementation "com.android.support.test:runner:${runner_version}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     //dagger
