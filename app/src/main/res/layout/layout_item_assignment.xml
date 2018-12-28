@@ -14,9 +14,7 @@
             android:layout_marginRight="6dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
-            android:elevation="4dp"
-
-            android:translationZ="3dp"
+            android:elevation="2dp"
             app:cardElevation="4dp"
             app:cardCornerRadius="6dp">
         <android.support.constraint.ConstraintLayout
@@ -54,8 +52,8 @@
             <View
                     android:id="@+id/task_item_line"
                     android:layout_width="match_parent"
-                    android:layout_height="2dip"
-                    android:background="#FF909090"
+                    android:layout_height="0.7dip"
+                    android:background="#90909090"
                     android:layout_marginTop="5dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/task_name"/>
