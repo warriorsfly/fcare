@@ -1,6 +1,10 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
+import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
+import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
+import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
+import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
@@ -27,5 +31,13 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [MainModule::class])
     internal abstract fun mainActivity(): MainActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DoMinaModule::class])
+    internal abstract fun doMinaActivity(): DoMinaActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DispatchCarModule::class])
+    internal abstract fun dispatchCarActivity(): DispatchCarActivity
 
 }

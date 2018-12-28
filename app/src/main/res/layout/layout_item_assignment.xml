@@ -3,7 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-
+        <variable name="task" type="com.wxsoft.fcare.core.data.entity.Task"/>
+        <variable name="listener" type="com.wxsoft.fcare.ui.EventActions"/>
     </data>
     <android.support.design.card.MaterialCardView
             android:layout_width="match_parent"
@@ -23,6 +24,7 @@
                 android:background="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
                 android:padding="10dp"
+                android:onClick="@{() -> listener.onOpen(task.id)}"
                 android:layout_height="wrap_content">
 
             <TextView

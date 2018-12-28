@@ -45,6 +45,10 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.details.dominating.DoMinaActivity">
+        </activity>
+        <activity android:name=".ui.details.dispatchcar.DispatchCarActivity">
+        </activity>
         <activity
                 android:name=".ui.main.MainActivity"
                 android:label="@string/title_activity_main"

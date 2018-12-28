@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.BuildConfig
 import com.wxsoft.fcare.core.data.remote.AccountApi
 import com.wxsoft.fcare.core.data.remote.PatientApi
+import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
 import dagger.Module
@@ -68,5 +69,12 @@ class NetWorkModule {
 
         return retrofit.create(AccountApi::class.java)
     }
+
+    @Provides
+    fun provideTaskApi(retrofit: Retrofit):TaskApi{
+
+        return retrofit.create(TaskApi::class.java)
+    }
+
 
 }
