@@ -6,4 +6,10 @@ import javax.inject.Inject
 
 class DoMinaViewModel @Inject constructor(val  taskApi: TaskApi): ViewModel(){
 
+    init {
+
+
+
+    }
+
 }

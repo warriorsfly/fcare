@@ -6,6 +6,7 @@ import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.databinding.Bindable
+import android.databinding.ObservableField
 import com.wxsoft.fcare.BR
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task
@@ -23,6 +24,7 @@ class AssignmentViewModel @Inject constructor(val  taskApi: TaskApi): ViewModel(
 
     val isLoading: LiveData<Boolean>
     val tasks: LiveData<List<Task>>
+//    val t:ObservableField<String>
     var taskDate: String = DateTimeUtils.getCurrentDate()
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
     private val _errorToOperationAction = MutableLiveData<Event<String>>()

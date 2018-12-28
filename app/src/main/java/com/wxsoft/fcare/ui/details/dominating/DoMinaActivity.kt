@@ -9,11 +9,16 @@ class DoMinaActivity : BaseActivity() {
     companion object {
         const val TASK_ID = "TASK_ID"
     }
+    var taskId:String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_do_mina)
         setTitle("详情页")
+
+
+
+
     }
 
 
