@@ -97,6 +97,8 @@
                 android:elevation="0.5dp"
                 android:gravity="center"
                 android:textSize="9sp"
+                android:clickable="true"
+                android:onClick="@{()->viewModel.startAction(1)}"
                 app:taskAt="@{viewModel.task.status>=1}"
                 app:layout_constraintTop_toTopOf="@id/seekBar"
                 app:layout_constraintBottom_toBottomOf="@id/seekBar"
@@ -110,6 +112,7 @@
                 android:elevation="0.5dp"
                 android:gravity="center"
                 android:textSize="9sp"
+                android:clickable="true"
                 app:taskAt="@{viewModel.task.status>=2}"
                 app:layout_constraintTop_toTopOf="@id/seekBar"
                 app:layout_constraintBottom_toBottomOf="@id/seekBar"
@@ -151,7 +154,6 @@
                 app:layout_constraintBottom_toBottomOf="@id/seekBar"
                 app:layout_constraintLeft_toLeftOf="@id/seekBar"
                 android:elevation="0.5dp"
-                android:clickable="true"
                 app:layout_constraintRight_toRightOf="@id/seekBar"/>
 
         <SeekBar

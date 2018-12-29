@@ -34,6 +34,16 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
         task=loadTaskResult.map { it.result?: Task("") }
     }
 
+    /**
+     * 点击到达xxx事件
+     */
+    private val _atAction = MutableLiveData<Event<Int>>()
+    val atAction: LiveData<Event<Int>>
+        get() = _atAction
+
+    /**
+     * 结果信息
+     */
     private val _taskAction = MutableLiveData<Event<String>>()
     val taskAction: LiveData<Event<String>>
         get() = _taskAction
@@ -50,86 +60,126 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                 { _taskAction.value = Event(it.message ?: "") }
             )
     }
+
+    /**
+     * 供binding调用
+     * 和task.status对应
+     */
+    fun startAction(status:Int){
+        _atAction.value=Event(status)
+    }
+
+    /**
+     * 执行操作
+     */
+    fun doAction(status: Int){
+        when(status){
+            1->{arrive()}
+            2->{}
+        }
+    }
     /**
      * 到达现场
      */
     fun arrive(){
-        task.value?.let {
-            taskApi.arrive(it.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess { resp ->
-                    if (resp.success) {
-                        loadTaskResult.value?.result?.arriveAt = resp.result
-                        _taskAction.value = Event(it.carId + "到达成功")
-                    } else {
-                        _taskAction.value = Event(resp.msg)
-                    }
-                }.doOnError {  _taskAction.value= Event(it.message?:"") }
 
-        }.also { _taskAction.value= Event("任务不存在") }
+        if(task.value==null){
+            _taskAction.value= Event("任务不存在")
+        }else {
+            task.value?.let {
+                taskApi.arrive(it.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { resp ->
+                            if (resp.success) {
+                                loadTaskResult.value?.result?.arriveAt = resp.result
+                                _taskAction.value = Event(it.carId + "到达成功")
+                            } else {
+                                _taskAction.value = Event(resp.msg)
+                            }
+                        },
+                        {error->_taskAction.value= Event(error.message?:"") })
+
+            }
+        }
     }
 
     /**
      * 首次接触
      */
     fun met(){
-        task.value?.let {
-            taskApi.met(it.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess { resp ->
 
-                    if (resp.success) {
-                        loadTaskResult.value?.result?.arriveAt = resp.result
-                        _taskAction.value = Event(it.carId + "首次接触")
-                    } else {
-                        _taskAction.value = Event(resp.msg)
-                    }
-
-                }.doOnError {  _taskAction.value= Event(it.message?:"") }
-        }.also { _taskAction.value= Event("任务不存在") }
+        if(task.value==null){
+            _taskAction.value= Event("任务不存在")
+        }else {
+            task.value?.let {
+                taskApi.met(it.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { resp ->
+                            if (resp.success) {
+                                loadTaskResult.value?.result?.arriveAt = resp.result
+                                _taskAction.value = Event(it.carId + "首次接触")
+                            } else {
+                                _taskAction.value = Event(resp.msg)
+                            }
+                        },
+                        {error->_taskAction.value= Event(error.message?:"") })
+            }
+        }
     }
 
     /**
      * 开始返回医院
      */
     fun returning(){
-        task.value?.let {
-            taskApi.returning(it.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess { resp ->
 
-                    if (resp.success) {
-                        loadTaskResult.value?.result?.arriveAt = resp.result
-                        _taskAction.value = Event(it.carId + "开始返回医院")
-                    } else {
-                        _taskAction.value = Event(resp.msg)
-                    }
-
-                }.doOnError {  _taskAction.value= Event(it.message?:"") }
-        }.also { _taskAction.value= Event("任务不存在") }
+        if(task.value==null){
+            _taskAction.value= Event("任务不存在")
+        }else {
+            task.value?.let {
+                taskApi.returning(it.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { resp ->
+                            if (resp.success) {
+                                loadTaskResult.value?.result?.arriveAt = resp.result
+                                _taskAction.value = Event(it.carId + "开始返回医院")
+                            } else {
+                                _taskAction.value = Event(resp.msg)
+                            }
+                        },
+                        {error->_taskAction.value= Event(error.message?:"") })
+            }
+        }
     }
 
     /**
      * 到达医院大门
      */
     fun arriveHos(){
-        task.value?.let {
-            taskApi.arriveHos(it.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess { resp ->
 
-                    if (resp.success) {
-                        loadTaskResult.value?.result?.arriveAt = resp.result
-                        _taskAction.value = Event(it.carId + "到达医院大门")
-                    } else {
-                        _taskAction.value = Event(resp.msg)
-                    }
-
-                }.doOnError {  _taskAction.value= Event(it.message?:"") }
-        }.also { _taskAction.value= Event("任务不存在") }
+        if(task.value==null){
+            _taskAction.value= Event("任务不存在")
+        }else {
+            task.value?.let {
+                taskApi.arriveHos(it.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                        { resp ->
+                            if (resp.success) {
+                                loadTaskResult.value?.result?.arriveAt = resp.result
+                                _taskAction.value = Event(it.carId + "返回医院大门")
+                            } else {
+                                _taskAction.value = Event(resp.msg)
+                            }
+                        },
+                        {error->_taskAction.value= Event(error.message?:"") })
+            }
+        }
     }
 }
