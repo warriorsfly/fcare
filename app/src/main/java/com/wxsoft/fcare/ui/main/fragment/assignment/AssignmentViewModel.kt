@@ -20,7 +20,7 @@ import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
 
-class AssignmentViewModel @Inject constructor(val  taskApi: TaskApi): ViewModel(), EventActions {
+class AssignmentViewModel @Inject constructor(val taskApi: TaskApi) : ViewModel(), EventActions {
 
     val isLoading: LiveData<Boolean>
     val tasks: LiveData<List<Task>>
@@ -28,15 +28,15 @@ class AssignmentViewModel @Inject constructor(val  taskApi: TaskApi): ViewModel(
     var taskDate: String = DateTimeUtils.getCurrentDate()
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
     private val _errorToOperationAction = MutableLiveData<Event<String>>()
-    private val loadTasksResult= MediatorLiveData<Resource<Response<List<Task>>>>()
+    private val loadTasksResult = MediatorLiveData<Resource<Response<List<Task>>>>()
     val navigateToOperationAction: LiveData<Event<String>>
         get() = _navigateToOperationAction
 
     init {
         load()
-        isLoading=loadTasksResult.map { it== Resource.Loading }
+        isLoading = loadTasksResult.map { it == Resource.Loading }
         tasks = loadTasksResult.map {
-            var ps=(it as? Resource.Success)?.data!!.result ?: emptyList()
+            var ps = (it as? Resource.Success)?.data!!.result ?: emptyList()
 //            if(ps.isNotEmpty()){
 //                for(p in ps){
 //                }
@@ -51,9 +51,9 @@ class AssignmentViewModel @Inject constructor(val  taskApi: TaskApi): ViewModel(
 
     private fun load() {
         taskApi.tasks(taskDate).toResource()
-            .subscribe{
+            .subscribe {
                 loadTasksResult.value = it
-                if(it is Resource.Error) {
+                if (it is Resource.Error) {
                     _errorToOperationAction.value = Event(it.throwable.message ?: "错误")
                 }
             }
@@ -61,7 +61,7 @@ class AssignmentViewModel @Inject constructor(val  taskApi: TaskApi): ViewModel(
     }
 
     override fun onOpen(id: String) {
-        _navigateToOperationAction.value= Event(id)
+        _navigateToOperationAction.value = Event(id)
     }
 
 

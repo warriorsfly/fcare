@@ -63,8 +63,6 @@
     </style>
 
 
-
-
     <style name="Widget.FCare.LoginButton" parent="Widget.MaterialComponents.Button">
         <item name="android:background">@drawable/bg_login_button_selector</item>
         <item name="android:minHeight">60dp</item>

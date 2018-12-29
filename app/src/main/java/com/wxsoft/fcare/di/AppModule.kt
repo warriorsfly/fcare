@@ -21,19 +21,16 @@ class AppModule {
     @Singleton
     @Provides
     fun providesPreferenceStorage(context: Context): PreferenceStorage =
-            SharedPreferenceStorage(context)
+        SharedPreferenceStorage(context)
 
     @Provides
     fun providesWifiManager(context: Context): WifiManager =
-            context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
+        context.applicationContext.getSystemService(Context.WIFI_SERVICE) as WifiManager
 
     @Provides
     fun providesClipboardManager(context: Context): ClipboardManager =
-            context.applicationContext.getSystemService(Context.CLIPBOARD_SERVICE)
-                    as ClipboardManager
-
-
-
+        context.applicationContext.getSystemService(Context.CLIPBOARD_SERVICE)
+                as ClipboardManager
 
 
 }

@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ffeb523c</color>
-    <color name="colorPrimaryDark">#ffeb523c</color>
-    <color name="colorAccent">#ffeb523c</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFE0E0</color>
+    <color name="colorAccent">#FFA8A2</color>
+    <color name="colorLoginButtonBackground">#ffeb523c</color>
+    <!--<color name="colorAccent">#ffeb523c</color>-->
     <color name="light_gray">#F3F2F7</color>
     <color name="scrim">#33000000</color>
     <color name="highlight_light">#33ffffff</color> <!-- 20% white -->

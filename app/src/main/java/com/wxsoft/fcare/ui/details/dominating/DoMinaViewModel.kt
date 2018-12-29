@@ -4,7 +4,8 @@ import android.arch.lifecycle.ViewModel
 import com.wxsoft.fcare.core.data.remote.TaskApi
 import javax.inject.Inject
 
-class DoMinaViewModel @Inject constructor(val  taskApi: TaskApi): ViewModel(){
+class DoMinaViewModel @Inject constructor(val taskApi: TaskApi) : ViewModel() {
+
 
     init {
 

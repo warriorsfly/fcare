@@ -31,10 +31,9 @@ class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    lateinit var viewModel:MainViewModel
+    lateinit var viewModel: MainViewModel
 
-    private var nfcAdapter: NfcAdapter?=null
-
+    private var nfcAdapter: NfcAdapter? = null
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -63,12 +62,12 @@ class MainActivity : BaseActivity() {
     }
 
 
-
     private fun <F> replaceFragment(fragment: F) where F : DaggerFragment {
         supportFragmentManager.inTransaction {
             replace(FRAGMENT_ID, fragment)
         }
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -82,13 +81,13 @@ class MainActivity : BaseActivity() {
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        binding.viewModel=viewModel
+        binding.viewModel = viewModel
 
-        if(savedInstanceState==null){
-            navigation.selectedItemId=R.id.nav_home
+        if (savedInstanceState == null) {
+            navigation.selectedItemId = R.id.nav_home
         }
 
-        nfcAdapter= NfcAdapter.getDefaultAdapter(this)
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 //        pi = PendingIntent.getActivity(
 //            this, 0, Intent(this, javaClass)
 //                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0
@@ -111,7 +110,7 @@ class MainActivity : BaseActivity() {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
 
-        if(NfcAdapter.ACTION_TAG_DISCOVERED==intent!!.action){
+        if (NfcAdapter.ACTION_TAG_DISCOVERED == intent!!.action) {
 
             val tagFromIntent = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
             val cardId = NfcUtils.toHexString(tagFromIntent.id)

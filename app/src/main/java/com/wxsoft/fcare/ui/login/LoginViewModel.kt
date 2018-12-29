@@ -14,14 +14,16 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
-class LoginViewModel @Inject constructor(private val sharedPreferenceStorage: SharedPreferenceStorage,
-                                         private val accountApi: AccountApi,
-                                         private val gson: Gson):ViewModel() {
+class LoginViewModel @Inject constructor(
+    private val sharedPreferenceStorage: SharedPreferenceStorage,
+    private val accountApi: AccountApi,
+    private val gson: Gson
+) : ViewModel() {
 
 
-    var name:String = ""
-    var password:String = ""
-    var registrationId:String =""
+    var name: String = ""
+    var password: String = ""
+    var registrationId: String = ""
     /**
      *获取病人信息
      */
@@ -31,50 +33,50 @@ class LoginViewModel @Inject constructor(private val sharedPreferenceStorage: Sh
      */
     val isLoading: LiveData<Boolean>
 
-    val account:LiveData<Response<Account>>
-    val logined:LiveData<Boolean>
+    val account: LiveData<Response<Account>>
+    val logined: LiveData<Boolean>
 
     init {
         attemptLogin()
-        account=loadAccountResult.map {
+        account = loadAccountResult.map {
 
-            val acc=(it as? Resource.Success)?.data?: Response(false)
-            when(it){
-                is Resource.Error->{
+            val acc = (it as? Resource.Success)?.data ?: Response(false)
+            when (it) {
+                is Resource.Error -> {
 //                    TODO 显示错误
                 }
-                is Resource.Success->{
-                    if(it.data.success){
-                        sharedPreferenceStorage.loginedName=name
-                        sharedPreferenceStorage.loginedPassword=password
-                        sharedPreferenceStorage.userInfo=gson.toJson(it.data.result)
+                is Resource.Success -> {
+                    if (it.data.success) {
+                        sharedPreferenceStorage.loginedName = name
+                        sharedPreferenceStorage.loginedPassword = password
+                        sharedPreferenceStorage.userInfo = gson.toJson(it.data.result)
                     }
                 }
             }
-            return@map  acc
+            return@map acc
         }
-        logined=loadAccountResult.map {
+        logined = loadAccountResult.map {
             it is Resource.Success
         }
         isLoading = loadAccountResult.map { it == Resource.Loading }
     }
 
-    fun attemptLogin(){
+    fun attemptLogin() {
 
-        name=sharedPreferenceStorage.loginedName?:""
-        password=sharedPreferenceStorage.loginedPassword?:""
+        name = sharedPreferenceStorage.loginedName ?: ""
+        password = sharedPreferenceStorage.loginedPassword ?: ""
 
 
-        if(isNameValid(name) && isPasswordValid(password))
+        if (isNameValid(name) && isPasswordValid(password))
             login()
     }
 
-    fun login(){
-        registrationId=sharedPreferenceStorage.registrationId?:""
-        if(isNameValid(name)&& isPasswordValid(password)) {
+    fun login() {
+        registrationId = sharedPreferenceStorage.registrationId ?: ""
+        if (isNameValid(name) && isPasswordValid(password)) {
             val loginInfo = LoginInfo(name, password, registrationId)
             accountApi.login(loginInfo).toResource().subscribe {
-                loadAccountResult.value=it
+                loadAccountResult.value = it
             }
         }
     }
@@ -88,7 +90,7 @@ class LoginViewModel @Inject constructor(private val sharedPreferenceStorage: Sh
         return password.isNotEmpty()
     }
 
-    fun setRegistration(id:String){
-        sharedPreferenceStorage.registrationId=id
+    fun setRegistration(id: String) {
+        sharedPreferenceStorage.registrationId = id
     }
 }

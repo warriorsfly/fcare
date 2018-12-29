@@ -6,15 +6,13 @@ import com.wxsoft.fcare.core.data.remote.PatientApi
 import javax.inject.Inject
 
 
-class MainViewModel @Inject constructor(val  api: PatientApi): ViewModel() {
+class MainViewModel @Inject constructor(val api: PatientApi) : ViewModel() {
 
 
     init {
 
 
-
     }
-
 
 
 }

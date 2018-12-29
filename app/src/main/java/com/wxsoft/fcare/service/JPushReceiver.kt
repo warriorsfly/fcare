@@ -21,7 +21,7 @@ import javax.inject.Inject
  * 1) 默认用户会打开主界面
  * 2) 接收不到自定义消息
  */
-class JPushReceiver  : BroadcastReceiver() {
+class JPushReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context, intent: Intent) {
         try {
@@ -30,13 +30,13 @@ class JPushReceiver  : BroadcastReceiver() {
                 JPushInterface.ACTION_REGISTRATION_ID -> {
                     val regId = bundle!!.getString(JPushInterface.EXTRA_REGISTRATION_ID)
 
-                    processCustomMessage(context,RegistrationId,regId)
+                    processCustomMessage(context, RegistrationId, regId)
                 }
                 JPushInterface.ACTION_MESSAGE_RECEIVED -> {
                     val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
                     val message = bundle.getString(JPushInterface.EXTRA_MESSAGE)
-                    val title= bundle.getString(JPushInterface.EXTRA_TITLE)
-                    processCustomMessage(context,title,message)
+                    val title = bundle.getString(JPushInterface.EXTRA_TITLE)
+                    processCustomMessage(context, title, message)
                 }
                 JPushInterface.ACTION_NOTIFICATION_RECEIVED -> {//Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知");
 
@@ -45,8 +45,8 @@ class JPushReceiver  : BroadcastReceiver() {
 
                     val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
 
-                    val title= bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
-                    if(title=="急救通知") {
+                    val title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
+                    if (title == "急救通知") {
                         bundle.getString(JPushInterface.EXTRA_ALERT)
 
                     }
@@ -56,7 +56,7 @@ class JPushReceiver  : BroadcastReceiver() {
                 }
                 JPushInterface.ACTION_CONNECTION_CHANGE -> {
                     val connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false)
-                    Log.i("极光连接",if(connected)"成功" else "失败")
+                    Log.i("极光连接", if (connected) "成功" else "失败")
 //                    val regId = bundle!!.getString(JPushInterface.EXTRA_REGISTRATION_ID)
 //                    sharedPreferenceStorage.jpushRegId=regId
                 }
@@ -65,14 +65,14 @@ class JPushReceiver  : BroadcastReceiver() {
                 }
             }
         } catch (e: Exception) {
-            Log.i("错误",e.message)
+            Log.i("错误", e.message)
         }
 
     }
 
     //send msg to MainActivity
-    private fun processCustomMessage(context: Context,title:String,message:String) {
-        when(title) {
+    private fun processCustomMessage(context: Context, title: String, message: String) {
+        when (title) {
             "SendMessage" -> {
 
                 if (message.isNotEmpty()) {
@@ -87,17 +87,17 @@ class JPushReceiver  : BroadcastReceiver() {
                     }
                 }
             }
-            RegistrationId->{
-                val timeLineRefresh=Intent(RegistrationId).apply {
-                    putExtra(RegistrationId,message)
+            RegistrationId -> {
+                val timeLineRefresh = Intent(RegistrationId).apply {
+                    putExtra(RegistrationId, message)
                 }
 
                 context.sendBroadcast(timeLineRefresh)
             }
-            "RefreshTimeLine"->{
+            "RefreshTimeLine" -> {
 
-                val timeLineRefresh=Intent(LineRefresh).apply {
-                    putExtra("pid",message)
+                val timeLineRefresh = Intent(LineRefresh).apply {
+                    putExtra("pid", message)
                 }
 
                 context.sendBroadcast(timeLineRefresh)
@@ -107,8 +107,8 @@ class JPushReceiver  : BroadcastReceiver() {
 
     companion object {
 
-        const val LineRefresh="LineRefresh"
-        const val RegistrationId="RegistrationId"
+        const val LineRefresh = "LineRefresh"
+        const val RegistrationId = "RegistrationId"
         // 打印所有的 intent extra 数据
         private fun printBundle(bundle: Bundle): String {
             val sb = StringBuilder()
