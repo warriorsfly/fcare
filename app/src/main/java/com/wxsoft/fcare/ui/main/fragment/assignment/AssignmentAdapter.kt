@@ -12,13 +12,15 @@ import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
 
 
-class AssignmentAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssignmentViewModel): RecyclerView.Adapter< AssignmentAdapter.ItemViewHolder>() {
+class AssignmentAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssignmentViewModel) :
+    RecyclerView.Adapter<AssignmentAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Task>(this, DiffCallback)
 
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
     var tasks: List<Task> = emptyList()
         set(value) {
             field = value
@@ -29,20 +31,20 @@ class AssignmentAdapter constructor(private val lifecycleOwner: LifecycleOwner, 
 
         holder.binding.apply {
 
-            setVariable(BR.task,differ.currentList[position])
-            setVariable(BR.listener,viewModel)
+            setVariable(BR.task, differ.currentList[position])
+            setVariable(BR.listener, viewModel)
             setLifecycleOwner(lifecycleOwner)
             executePendingBindings()
 
         }
 
 
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding: ViewDataBinding = LayoutItemAssignmentBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
+        val binding: ViewDataBinding =
+            LayoutItemAssignmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 
@@ -59,15 +61,14 @@ class AssignmentAdapter constructor(private val lifecycleOwner: LifecycleOwner, 
     object DiffCallback : DiffUtil.ItemCallback<Task>() {
         override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean {
 
-            return  oldItem.id==newItem.id
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
 
-            return oldItem.id==newItem.id
+            return oldItem.id == newItem.id
         }
     }
-
 
 
 }

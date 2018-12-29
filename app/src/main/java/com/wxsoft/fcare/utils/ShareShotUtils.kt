@@ -16,7 +16,11 @@ import java.io.File
 import java.io.FileOutputStream
 
 
-class ShareShotUtils constructor(private val context: Context, private val filename: String, texts: Array<Pair<String,Array<Pair<String,String>>>>){
+class ShareShotUtils constructor(
+    private val context: Context,
+    private val filename: String,
+    texts: Array<Pair<String, Array<Pair<String, String>>>>
+) {
 
     private val padding: Int
     private val paddingTitle: Int
@@ -40,18 +44,18 @@ class ShareShotUtils constructor(private val context: Context, private val filen
 
 
 
-        padding = attrsHeader.getDimensionPixelSize(R.styleable.TimeHeader_android_paddingTop,0)
-        paddingTitle = 2*padding
-        widthTitle  = attrsHeader.getDimensionPixelSize(R.styleable.ShareInfo_android_width,0)
-        widthProperty = attrsHeader.getDimensionPixelSize(R.styleable.ShareInfo_android_width,0)
-        widthContent = attrsContent.getDimensionPixelSize(R.styleable.ShareContent_android_width,0)
+        padding = attrsHeader.getDimensionPixelSize(R.styleable.TimeHeader_android_paddingTop, 0)
+        paddingTitle = 2 * padding
+        widthTitle = attrsHeader.getDimensionPixelSize(R.styleable.ShareInfo_android_width, 0)
+        widthProperty = attrsHeader.getDimensionPixelSize(R.styleable.ShareInfo_android_width, 0)
+        widthContent = attrsContent.getDimensionPixelSize(R.styleable.ShareContent_android_width, 0)
         paintContentNormal = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor,0)
-            textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize,10f)
+            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor, 0)
+            textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize, 10f)
             try {
                 typeface = ResourcesCompat.getFont(
                     context,
-                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily,0)
+                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily, 0)
                 )
             } catch (_: Exception) {
                 // ignore
@@ -59,12 +63,12 @@ class ShareShotUtils constructor(private val context: Context, private val filen
         }
 
         paintPropertyName = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor,0)
-            textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize,10f)
+            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor, 0)
+            textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize, 10f)
             try {
                 typeface = ResourcesCompat.getFont(
                     context,
-                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily,0)
+                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily, 0)
                 )
             } catch (_: Exception) {
                 // ignore
@@ -72,12 +76,12 @@ class ShareShotUtils constructor(private val context: Context, private val filen
         }
 
         paintTitle = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor,0)
-            textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize,10f)
+            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor, 0)
+            textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize, 10f)
             try {
                 typeface = ResourcesCompat.getFont(
                     context,
-                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily,0)
+                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily, 0)
                 )
             } catch (_: Exception) {
                 // ignore
@@ -85,36 +89,44 @@ class ShareShotUtils constructor(private val context: Context, private val filen
         }
     }
 
-    private val shareLayouts= texts.map{
-        Pair(createLayout(paintTitle,it.first,widthTitle),
-            it.second.map { item-> Pair(createLayout(paintPropertyName,item.first,widthProperty),
-                createLayout(paintContentNormal,item.second,widthContent)) })
+    private val shareLayouts = texts.map {
+        Pair(createLayout(paintTitle, it.first, widthTitle),
+            it.second.map { item ->
+                Pair(
+                    createLayout(paintPropertyName, item.first, widthProperty),
+                    createLayout(paintContentNormal, item.second, widthContent)
+                )
+            })
     }
 
 
-    private fun  drawBitmap():Bitmap{
+    private fun drawBitmap(): Bitmap {
 
-        val xPos=padding+0f
-        var yPos=padding+0f
+        val xPos = padding + 0f
+        var yPos = padding + 0f
 
-        val bitmap = Bitmap.createBitmap(widthTitle+widthContent+padding*4, widthTitle+widthContent+padding*4, Bitmap.Config.ARGB_8888)
+        val bitmap = Bitmap.createBitmap(
+            widthTitle + widthContent + padding * 4,
+            widthTitle + widthContent + padding * 4,
+            Bitmap.Config.ARGB_8888
+        )
 
         val canvas = Canvas(bitmap)
-        canvas.withTranslation(x=xPos,y=yPos) {
+        canvas.withTranslation(x = xPos, y = yPos) {
 
             shareLayouts.forEach {
 
                 it.first.draw(canvas)
 
-                canvas.withTranslation(x=xPos,y=it.first.height+xPos) {
+                canvas.withTranslation(x = xPos, y = it.first.height + xPos) {
 
                     it.second.forEach { pair ->
 
                         pair.first.draw(canvas)
 
-                        canvas.translate( pair.first.width + xPos, 0f)
+                        canvas.translate(pair.first.width + xPos, 0f)
                         pair.second.draw(canvas)
-                        canvas.translate(-1*(pair.first.width + xPos),pair.first.height + xPos)
+                        canvas.translate(-1 * (pair.first.width + xPos), pair.first.height + xPos)
                     }
                 }
             }
@@ -132,25 +144,24 @@ class ShareShotUtils constructor(private val context: Context, private val filen
         if (!dic.mkdirs()) {
             Log.e("分享", "文件夹未创建")
         }
-        return File(dic.path,filename)
+        return File(dic.path, filename)
     }
 
-    fun save():Pair<String?,Bitmap>{
+    fun save(): Pair<String?, Bitmap> {
 
-        val file=getDir(context,filename)
+        val file = getDir(context, filename)
 
-        val bitmap=drawBitmap()
-        val fos=FileOutputStream(file)
+        val bitmap = drawBitmap()
+        val fos = FileOutputStream(file)
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
         fos.flush()
-        return Pair(file?.absolutePath,bitmap)
+        return Pair(file?.absolutePath, bitmap)
     }
 
-    private fun createLayout(paint: TextPaint, item: String, width:Int):StaticLayout{
+    private fun createLayout(paint: TextPaint, item: String, width: Int): StaticLayout {
         val text = SpannableStringBuilder(item)
-        return StaticLayout(text, paint, width +2* padding, Layout.Alignment.ALIGN_CENTER, 1f, 0f, true)
+        return StaticLayout(text, paint, width + 2 * padding, Layout.Alignment.ALIGN_CENTER, 1f, 0f, true)
     }
-
 
 
 }

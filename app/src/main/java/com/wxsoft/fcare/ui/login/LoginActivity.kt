@@ -21,33 +21,35 @@ import javax.inject.Inject
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : BaseActivity(){
+class LoginActivity : BaseActivity() {
 
     @Inject
     lateinit var factory: ViewModelFactory
 
-    private var receiver: RegistrationBroadcastReceiver? =null
+    private var receiver: RegistrationBroadcastReceiver? = null
 
     private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var binding= DataBindingUtil.setContentView<ActivityLoginBinding>(this,
-            R.layout.activity_login)
+        var binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
+            this,
+            R.layout.activity_login
+        )
 
-        viewModel=viewModelProvider(factory)
+        viewModel = viewModelProvider(factory)
         binding.apply {
             setLifecycleOwner(this@LoginActivity)
 
         }
 
-        receiver= RegistrationBroadcastReceiver(viewModel)
+        receiver = RegistrationBroadcastReceiver(viewModel)
         val intentFilter = IntentFilter()
         // 2. 设置接收广播的类型
         intentFilter.addAction(RegistrationId)
         registerReceiver(receiver, intentFilter)
 
 
-        binding.viewModel=viewModel
+        binding.viewModel = viewModel
         binding.password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
             if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
 //                attemptLogin()
@@ -62,8 +64,8 @@ class LoginActivity : BaseActivity(){
         }
 
         viewModel.account.observe(this, Observer {
-            if(it!=null && it.success){
-                var intent= Intent(this, MainActivity::class.java)
+            if (it != null && it.success) {
+                var intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -71,7 +73,7 @@ class LoginActivity : BaseActivity(){
 
     }
 
-    class RegistrationBroadcastReceiver(var vm: LoginViewModel?): BroadcastReceiver() {
+    class RegistrationBroadcastReceiver(var vm: LoginViewModel?) : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
 
             val pid = intent?.getStringExtra(RegistrationId)
@@ -85,7 +87,7 @@ class LoginActivity : BaseActivity(){
         super.onDestroy()
         receiver?.let {
             unregisterReceiver(receiver)
-            receiver?.vm=null
+            receiver?.vm = null
         }
     }
 }

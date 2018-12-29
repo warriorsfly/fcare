@@ -3,7 +3,7 @@
     <!-- rectangle表示为矩形 -->
 
     <!-- 填充的颜色 -->
-    <solid android:color="#EEEEEE" />
+    <solid android:color="#EEEEEE"/>
 
     <!-- 边框的颜色和粗细 -->
     <stroke
@@ -13,7 +13,7 @@
 
     <!-- android:radius 圆角的半径 -->
     <!--<corners-->
-            <!--android:radius="20dp"-->
+    <!--android:radius="20dp"-->
     <!--/>-->
 
 </shape>

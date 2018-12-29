@@ -7,5 +7,5 @@
         android:layout_height="match_parent"
         tools:context=".ui.details.dominating.DoMinaActivity">
 
-    <include  layout="@layout/layout_task_process"/>
+    <include layout="@layout/layout_task_process"/>
 </android.support.constraint.ConstraintLayout>

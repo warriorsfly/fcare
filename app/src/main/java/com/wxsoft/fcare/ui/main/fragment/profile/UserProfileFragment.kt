@@ -31,8 +31,8 @@ class UserProfileFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding= FragmentUserProfileBinding.inflate(inflater, container, false).apply {
-            setLifecycleOwner (this@UserProfileFragment)
+        binding = FragmentUserProfileBinding.inflate(inflater, container, false).apply {
+            setLifecycleOwner(this@UserProfileFragment)
         }
 
         return binding.root
@@ -42,7 +42,7 @@ class UserProfileFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = viewModelProvider(factory)
 
-        logout.setOnClickListener{
+        logout.setOnClickListener {
             viewModel.loginOut()
             val intent = Intent(activity!!, LoginActivity::class.java).apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP

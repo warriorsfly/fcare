@@ -6,19 +6,19 @@
                 type="com.wxsoft.fcare.ui.login.LoginViewModel"/>
     </data>
     <android.support.constraint.ConstraintLayout
-          xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:tools="http://schemas.android.com/tools"
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:gravity="center_horizontal"
-          android:orientation="vertical"
-          tools:context=".ui.login.LoginActivity">
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            tools:context=".ui.login.LoginActivity">
         <FrameLayout
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/bg"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@mipmap/bg"/>
         <TextView android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   app:layout_constraintTop_toTopOf="parent"
@@ -63,14 +63,14 @@
                     app:layout_anchor="@id/email_login_form">
                 <!--app:goneUnless="@{!(viewModel.isLoading || viewModel.logined) }"-->
                 <Button
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:id="@+id/email_sign_in_button"
-                    android:layout_width="240dp"
-                    android:layout_height="50dp"
-                    android:textColor="@color/white"
-                    style="@style/Widget.FCare.LoginButton"
-                    android:text="@string/action_sign_in"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/email_sign_in_button"
+                        android:layout_width="240dp"
+                        android:layout_height="50dp"
+                        android:textColor="@color/white"
+                        style="@style/Widget.FCare.LoginButton"
+                        android:text="@string/action_sign_in"/>
             </android.support.constraint.ConstraintLayout>
 
 
@@ -83,7 +83,7 @@
                     android:layout_gravity="center_horizontal"
                     android:elevation="5dp"
                     android:background="@drawable/bg_dialog"
-                    >
+            >
 
                 <EditText
                         app:layout_constraintTop_toTopOf="parent"
@@ -121,7 +121,6 @@
                           android:inputType="textPassword"
                           android:maxLines="1"
                           android:singleLine="true"/>
-
 
 
             </android.support.constraint.ConstraintLayout>

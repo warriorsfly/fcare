@@ -39,8 +39,8 @@ class AssignmentFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding= FragmentAssignmentBinding.inflate(inflater, container, false).apply {
-            setLifecycleOwner (this@AssignmentFragment)
+        binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
+            setLifecycleOwner(this@AssignmentFragment)
 
         }
 
@@ -55,33 +55,34 @@ class AssignmentFragment : DaggerFragment() {
         super.onActivityCreated(savedInstanceState)
         viewModel = activityViewModelProvider(viewModelFactory)
 
-        adapter= AssignmentAdapter(this,viewModel)
-        binding.viewModel=viewModel
-        list.adapter=adapter
+        adapter = AssignmentAdapter(this, viewModel)
+        binding.viewModel = viewModel
+        list.adapter = adapter
 
-        viewModel.tasks.observe(this, Observer { it->adapter.tasks=it?: emptyList() })
+        viewModel.tasks.observe(this, Observer { it -> adapter.tasks = it ?: emptyList() })
 
         binding.selectTaskDate.setOnClickListener {
             selectTime()
         }
 
-        viewModel.navigateToOperationAction.observe(this, EventObserver{ t->
+        viewModel.navigateToOperationAction.observe(this, EventObserver { t ->
             toDetail(t)
         })
 
     }
 
-    fun selectTime(){
+    fun selectTime() {
         var ca = Calendar.getInstance()
         var mYear = ca.get(Calendar.YEAR)
         var mMonth = ca.get(Calendar.MONTH)
         var mDay = ca.get(Calendar.DAY_OF_MONTH)
-        var dialog=
+        var dialog =
             DatePickerDialog(this.context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
-                viewModel.taskDate = year.toString() + "-" + DateTimeUtils.frontCompWithZore(monthOfYear+1,2).toString() + "-" + dayOfMonth.toString()
+                viewModel.taskDate = year.toString() + "-" +
+                        DateTimeUtils.frontCompWithZore(monthOfYear + 1, 2).toString() + "-" + dayOfMonth.toString()
                 binding.selectTaskDate.setText(viewModel.taskDate)
                 viewModel.onSwipeRefresh()
             }, mYear, mMonth, mDay)
@@ -95,7 +96,7 @@ class AssignmentFragment : DaggerFragment() {
         startActivity(intent)
     }
 
-    fun toDetail(id:String) {
+    fun toDetail(id: String) {
 
         var intent = Intent(activity!!, DoMinaActivity::class.java)
         intent.putExtra(DoMinaActivity.TASK_ID, id)

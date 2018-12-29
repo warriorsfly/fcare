@@ -34,7 +34,7 @@ import com.wxsoft.fcare.R
 /**
  * Dialog with custom background dim.
  */
-class WxDimDialog(context: Context?) : AppCompatDialog(context,R.style.Theme_FCare_Dialog) {
+class WxDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FCare_Dialog) {
 
     init {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -71,7 +71,7 @@ class WxDimDialog(context: Context?) : AppCompatDialog(context,R.style.Theme_FCa
             val rect = Rect()
             setOnTouchListener { _, event ->
                 when (event.action) {
-                // The FrameLayout is technically inside the dialog, but we treat it as outside.
+                    // The FrameLayout is technically inside the dialog, but we treat it as outside.
                     MotionEvent.ACTION_DOWN -> {
                         content.getGlobalVisibleRect(rect)
                         if (!rect.contains(event.x.toInt(), event.y.toInt())) {

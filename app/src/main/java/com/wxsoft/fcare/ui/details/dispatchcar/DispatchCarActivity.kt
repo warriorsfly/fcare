@@ -28,7 +28,7 @@ class DispatchCarActivity : BaseActivity() {
             .apply {
                 setLifecycleOwner(this@DispatchCarActivity)
             }
-        viewModel=viewModelProvider(factory)
+        viewModel = viewModelProvider(factory)
         binding.viewModel = viewModel
 
     }
