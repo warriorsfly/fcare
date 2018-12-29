@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.dispatchcar
 
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -19,6 +20,8 @@ class DispatchCarActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
+    lateinit var carAdapter: CarAdapter
+
     lateinit var binding: ActivityDispatchCarBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +37,13 @@ class DispatchCarActivity : BaseActivity() {
         binding.viewModel = viewModel
         binding.listener = viewModel
 
-        viewModel.navigateToOperationAction.observe(this, EventObserver{ t->
-            toDetail(t)
-        })
+//        viewModel.navigateToOperationAction.observe(this, EventObserver{ t->
+//            toDetail(t)
+//        })
+        carAdapter = CarAdapter(this,viewModel)
+        viewModel.doctors.observe(this, Observer { it -> carAdapter.doctors = it ?: emptyList() })
+
+        binding.doctorList.adapter = carAdapter
 
     }
 

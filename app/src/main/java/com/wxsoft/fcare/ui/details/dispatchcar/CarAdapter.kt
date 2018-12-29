@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.BR
 
 import com.wxsoft.fcare.core.data.entity.User
-import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
+import com.wxsoft.fcare.databinding.ItemSelectCarBinding
 
 
 class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DispatchCarViewModel): RecyclerView.Adapter< CarAdapter.ItemViewHolder>() {
@@ -24,7 +24,7 @@ class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vie
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding: ViewDataBinding = LayoutItemAssignmentBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
+        val binding: ViewDataBinding = ItemSelectCarBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
         return CarAdapter.ItemViewHolder(binding)
     }
 

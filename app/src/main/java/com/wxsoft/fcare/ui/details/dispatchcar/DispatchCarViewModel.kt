@@ -47,6 +47,7 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
         doctors = loadDoctorsResult.map { (it as? Resource.Success)?.data!!.result ?: emptyList() }
         nurses = loadNursesResult.map { (it as? Resource.Success)?.data!!.result ?: emptyList() }
         drivers = loadDriversResult.map { (it as? Resource.Success)?.data!!.result ?: emptyList() }
+        getDoctors()
     }
 
     private fun saveTask(){
