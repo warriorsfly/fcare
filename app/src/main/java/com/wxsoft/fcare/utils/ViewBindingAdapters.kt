@@ -20,18 +20,25 @@ import android.databinding.BindingAdapter
 import android.databinding.InverseMethod
 import android.support.v4.view.ViewPager
 import android.view.View
-import android.view.View.*
+import android.widget.TextView
+import com.wxsoft.fcare.R
+
+
+@BindingAdapter("taskAt")
+fun taskAt(view: TextView, visible: Boolean) {
+    view.setBackgroundResource(if (visible) R.drawable.bg_task_process_normal else R.drawable.bg_task_process_pressed)
+    view.setTextColor(if (visible) view.context.resources.getColor(R.color.task_done) else view.context.resources.getColor(R.color.task_undo))
+}
 
 @BindingAdapter("invisibleUnless")
 fun invisibleUnless(view: View, visible: Boolean) {
-    view.visibility = if (visible) VISIBLE else INVISIBLE
+    view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
 }
 
 @BindingAdapter("goneUnless")
 fun goneUnless(view: View, visible: Boolean) {
-    view.visibility = if (visible) VISIBLE else GONE
+    view.visibility = if (visible) View.VISIBLE else View.GONE
 }
-
 
 @BindingAdapter("pageMargin")
 fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
@@ -48,5 +55,3 @@ object Converter{
         return if(value.isEmpty()) 0 else value.toInt()
     }
 }
-
-

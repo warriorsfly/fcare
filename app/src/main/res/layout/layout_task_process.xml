@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
-    <data></data>
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel"/>
+    </data>
     <android.support.constraint.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
@@ -13,9 +15,12 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/arrive_time"
                 tools:text="11:11"
+                android:text="@{viewModel.task.startAt}"
                 android:textSize="10sp"
                 android:id="@+id/start_time"
                 android:gravity="center"
+
+                android:layout_marginBottom="5dp"
                 app:layout_constraintBottom_toTopOf="@id/seekBar"/>
         <TextView
                 android:layout_width="0dp"
@@ -24,6 +29,8 @@
                 app:layout_constraintLeft_toRightOf="@id/start_time"
                 app:layout_constraintRight_toLeftOf="@id/met_time"
                 tools:text="11:18"
+                android:text="@{viewModel.task.arriveAt}"
+                android:layout_marginBottom="5dp"
                 android:textSize="10sp"
                 android:id="@+id/arrive_time"
                 android:gravity="center"
@@ -36,6 +43,9 @@
                 app:layout_constraintLeft_toRightOf="@id/arrive_time"
                 app:layout_constraintRight_toLeftOf="@id/returning_time"
                 tools:text="11:32"
+
+                android:text="@{viewModel.task.firstMet}"
+                android:layout_marginBottom="5dp"
                 android:textSize="10sp"
                 android:id="@+id/met_time"
                 android:gravity="center"
@@ -43,6 +53,8 @@
 
         <TextView
                 android:layout_width="0dp"
+
+                android:layout_marginBottom="5dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintHorizontal_weight="1"
                 app:layout_constraintLeft_toRightOf="@id/met_time"
@@ -50,6 +62,7 @@
                 tools:text="11:41"
                 android:textSize="10sp"
                 android:gravity="center"
+                android:text="@{viewModel.task.returnAt}"
                 android:id="@+id/returning_time"
                 app:layout_constraintBottom_toTopOf="@id/seekBar"/>
 
@@ -61,33 +74,104 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:textSize="10sp"
                 android:gravity="center"
+                android:text="@{viewModel.task.arriveHosAt}"
+                android:layout_marginBottom="5dp"
                 android:id="@+id/returnarrival_time"
                 app:layout_constraintBottom_toTopOf="@id/seekBar"/>
-        <TextView
 
-                android:background="@drawable/bg_task_process"
+        <TextView
                 android:text="1"
-                android:elevation="4dp"
+                android:elevation="0.5dp"
+                android:gravity="center"
+                android:textSize="9sp"
+                app:taskAt="@{viewModel.task.status>=0}"
                 app:layout_constraintTop_toTopOf="@id/seekBar"
                 app:layout_constraintBottom_toBottomOf="@id/seekBar"
                 app:layout_constraintLeft_toLeftOf="@id/start"
                 app:layout_constraintRight_toRightOf="@id/start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="2"
+                android:elevation="0.5dp"
+                android:gravity="center"
+                android:textSize="9sp"
+                app:taskAt="@{viewModel.task.status>=1}"
+                app:layout_constraintTop_toTopOf="@id/seekBar"
+                app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                app:layout_constraintLeft_toLeftOf="@id/arrive"
+                app:layout_constraintRight_toRightOf="@id/arrive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="3"
+                android:elevation="0.5dp"
+                android:gravity="center"
+                android:textSize="9sp"
+                app:taskAt="@{viewModel.task.status>=2}"
+                app:layout_constraintTop_toTopOf="@id/seekBar"
+                app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                app:layout_constraintLeft_toLeftOf="@id/met"
+                app:layout_constraintRight_toRightOf="@id/met"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="4"
+                android:elevation="0.5dp"
+                android:gravity="center"
+                android:textSize="9sp"
+                app:taskAt="@{viewModel.task.status>=3}"
+                app:layout_constraintTop_toTopOf="@id/seekBar"
+                app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                app:layout_constraintLeft_toLeftOf="@id/returning"
+                app:layout_constraintRight_toRightOf="@id/returning"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="5"
+                android:elevation="0.5dp"
+                android:gravity="center"
+                android:textSize="9sp"
+                app:taskAt="@{viewModel.task.status>=4}"
+                app:layout_constraintTop_toTopOf="@id/seekBar"
+                app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                app:layout_constraintLeft_toLeftOf="@id/returnarrival"
+                app:layout_constraintRight_toRightOf="@id/returnarrival"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="@id/seekBar"
+                app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                app:layout_constraintLeft_toLeftOf="@id/seekBar"
+                android:elevation="0.5dp"
+                android:clickable="true"
+                app:layout_constraintRight_toRightOf="@id/seekBar"/>
+
         <SeekBar
-                style="@style/Widget.FCare.SeekBar"
                 android:layout_width="0dp"
                 android:layout_height="18dp"
                 app:layout_constraintBottom_toTopOf="@+id/start"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:max="4"
-                android:progress="2"
+                android:max="8"
+                android:thumb="@null"
+                android:focusable="false"
+                android:clickable="false"
+                android:contextClickable="false"
+                android:progress="@{viewModel.task.process}"
                 android:id="@+id/seekBar"
                 android:layout_marginStart="24dp"
                 android:layout_marginEnd="24dp"
-                tools:layout_editor_absoluteY="88dp"
-        />
+                android:layout_marginBottom="5dp"
+                tools:layout_editor_absoluteY="88dp"/>
+
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -95,7 +179,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/arrive"
                 android:text="发车"
-                android:textSize="10sp"
+                android:textSize="8sp"
                 android:id="@+id/start"
                 android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="parent"/>
@@ -144,6 +228,7 @@
                 android:text="到达医院大门"
                 android:textSize="10sp"
                 android:gravity="center"
+
                 android:id="@+id/returnarrival"
                 app:layout_constraintBottom_toBottomOf="parent"/>
     </android.support.constraint.ConstraintLayout>

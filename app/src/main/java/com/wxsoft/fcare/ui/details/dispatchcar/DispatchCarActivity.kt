@@ -37,7 +37,7 @@ class DispatchCarActivity : BaseActivity() {
         binding.viewModel = viewModel
         binding.listener = viewModel
 
-//        viewModel.navigateToOperationAction.observe(this, EventObserver{ t->
+//        viewModel.taskAction.observe(this, EventObserver{ t->
 //            toDetail(t)
 //        })
         carAdapter = CarAdapter(this,viewModel)

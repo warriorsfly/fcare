@@ -14,10 +14,40 @@ data class Task (val id:String): BaseObservable(){
             notifyPropertyChanged(BR.taskPosition)
         }
     var startAt: String? = ""
+    get() {
+        if (field == null)
+            return field
+
+        return field?.substring(11,16)
+    }
     var arriveAt: String? = ""
+        get() {
+            if (field == null)
+                return field
+
+            return field?.substring(11,16)
+        }
     var firstMet: String? = ""
+        get() {
+            if (field == null)
+                return field
+
+            return field?.substring(11,16)
+        }
     var returnAt: String? = ""
+        get() {
+            if (field == null)
+                return field
+
+            return field?.substring(11,16)
+        }
     var arriveHosAt: String? = ""
+        get() {
+            if (field == null)
+                return field
+
+            return field?.substring(11,16)
+        }
     var carId: String? = ""
     var canceled: String? = ""
     var taskStaffs: Array<TaskStaff> = emptyArray()
@@ -28,4 +58,9 @@ data class Task (val id:String): BaseObservable(){
     var createdDate: String? = ""
     var modifiedBy: String? = ""
     var modifiedDate: String? = ""
+
+    var status=-1
+
+    fun getProcess():Int= status*2+1
+
 }
