@@ -59,8 +59,8 @@ data class Task (val id:String): BaseObservable(){
     var modifiedBy: String? = ""
     var modifiedDate: String? = ""
 
-    var status=-1
+    @SerializedName("taskStatu")var status=0
 
-    fun getProcess():Int= status*2+1
+    fun getProcess():Int= if(status<5)status*2-1 else 8
 
 }

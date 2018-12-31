@@ -94,6 +94,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                         { resp ->
                             if (resp.success) {
                                 loadTaskResult.value?.result?.arriveAt = resp.result
+                                loadTaskResult.value?.result?.status = 2
                                 _taskAction.value = Event(it.carId + "到达成功")
                             } else {
                                 _taskAction.value = Event(resp.msg)
@@ -121,6 +122,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                         { resp ->
                             if (resp.success) {
                                 loadTaskResult.value?.result?.arriveAt = resp.result
+                                loadTaskResult.value?.result?.status = 3
                                 _taskAction.value = Event(it.carId + "首次接触")
                             } else {
                                 _taskAction.value = Event(resp.msg)
@@ -147,6 +149,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                         { resp ->
                             if (resp.success) {
                                 loadTaskResult.value?.result?.arriveAt = resp.result
+                                loadTaskResult.value?.result?.status = 4
                                 _taskAction.value = Event(it.carId + "开始返回医院")
                             } else {
                                 _taskAction.value = Event(resp.msg)
@@ -173,6 +176,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                         { resp ->
                             if (resp.success) {
                                 loadTaskResult.value?.result?.arriveAt = resp.result
+                                loadTaskResult.value?.result?.status = 5
                                 _taskAction.value = Event(it.carId + "返回医院大门")
                             } else {
                                 _taskAction.value = Event(resp.msg)
