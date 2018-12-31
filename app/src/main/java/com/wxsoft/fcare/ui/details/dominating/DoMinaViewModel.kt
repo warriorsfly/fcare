@@ -75,7 +75,9 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
     fun doAction(status: Int){
         when(status){
             1->{arrive()}
-            2->{}
+            2->{met()}
+            3->{returning()}
+            4->{arriveHos()}
         }
     }
     /**
@@ -121,7 +123,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                     .subscribe(
                         { resp ->
                             if (resp.success) {
-                                loadTaskResult.value?.result?.arriveAt = resp.result
+                                loadTaskResult.value?.result?.firstMet = resp.result
                                 loadTaskResult.value?.result?.status = 3
                                 _taskAction.value = Event(it.carId + "首次接触")
                             } else {
@@ -148,7 +150,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                     .subscribe(
                         { resp ->
                             if (resp.success) {
-                                loadTaskResult.value?.result?.arriveAt = resp.result
+                                loadTaskResult.value?.result?.returnAt = resp.result
                                 loadTaskResult.value?.result?.status = 4
                                 _taskAction.value = Event(it.carId + "开始返回医院")
                             } else {
@@ -175,7 +177,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : ViewMo
                     .subscribe(
                         { resp ->
                             if (resp.success) {
-                                loadTaskResult.value?.result?.arriveAt = resp.result
+                                loadTaskResult.value?.result?.arriveHosAt = resp.result
                                 loadTaskResult.value?.result?.status = 5
                                 _taskAction.value = Event(it.carId + "返回医院大门")
                             } else {
