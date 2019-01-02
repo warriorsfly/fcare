@@ -10,7 +10,8 @@ data class Car(var id:String,
                var name:String,
                @SerializedName("linkMan")var linkTo:String,
                @SerializedName("isHospitalCar")var belongHospital: Boolean,
-               @SerializedName("registeredYear")var registeredYear: Date,
+               @SerializedName("registeredYear")var registeredYear: String,
+               @SerializedName("statu_Name")var statuName: String,
                @SerializedName("isEnable")var enabled: Boolean):BaseObservable() {
 
     @SerializedName("statu")
@@ -20,4 +21,5 @@ data class Car(var id:String,
             field = value
             notifyPropertyChanged(BR.status)
         }
+
 }

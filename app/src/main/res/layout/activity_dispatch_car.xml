@@ -25,6 +25,7 @@
                         android:layout_height="wrap_content"
                         android:text="选择车辆"
                         android:textSize="22sp"
+                        android:layout_marginLeft="5dp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -33,7 +34,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/car_list"
                         android:orientation="horizontal"
-                        android:background="@color/light_gray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/title1"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
@@ -43,6 +43,7 @@
                     android:id="@+id/section_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/section_1">
                 <TextView
@@ -51,6 +52,7 @@
                         android:layout_height="wrap_content"
                         android:text="选择医生"
                         android:textSize="22sp"
+                        android:layout_marginLeft="5dp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -59,7 +61,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/doctor_list"
                         android:orientation="horizontal"
-                        android:background="@color/light_gray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/title2"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
@@ -69,6 +70,7 @@
                     android:id="@+id/section_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/section_2">
                 <TextView
@@ -77,6 +79,7 @@
                         android:layout_height="wrap_content"
                         android:text="选择护士"
                         android:textSize="22sp"
+                        android:layout_marginLeft="5dp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -85,7 +88,6 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/nurse_list"
                         android:orientation="horizontal"
-                        android:background="@color/light_gray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/title3"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
@@ -95,14 +97,16 @@
                     android:id="@+id/section_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/section_3">
                 <TextView
                         android:id="@+id/title4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="选择护士"
+                        android:text="选择司机"
                         android:textSize="22sp"
+                        android:layout_marginLeft="5dp"
                         android:textStyle="bold"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"/>
@@ -111,20 +115,19 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/driver_list"
                         android:orientation="horizontal"
-                        android:background="@color/light_gray"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/title4"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
             </android.support.constraint.ConstraintLayout>
 
-            <LinearLayout
+            <android.support.constraint.ConstraintLayout
                     android:id="@+id/section_5"
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/section_4">
+                    app:layout_constraintBottom_toBottomOf="parent">
                 <Button
                         android:id="@+id/submit_btn"
                         android:layout_width="wrap_content"
@@ -132,9 +135,12 @@
                         android:padding="10dp"
                         android:text="立即发车"
                         android:gravity="center"
-                        app:layout_constraintTop_toBottomOf="@+id/section_4"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"/>
 
-            </LinearLayout>
+            </android.support.constraint.ConstraintLayout>
 
         </android.support.constraint.ConstraintLayout>
 

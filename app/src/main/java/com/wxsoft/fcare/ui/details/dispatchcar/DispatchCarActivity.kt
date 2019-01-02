@@ -21,6 +21,9 @@ class DispatchCarActivity : BaseActivity() {
     lateinit var factory: ViewModelFactory
 
     lateinit var carAdapter: CarAdapter
+    lateinit var doctorAdapter: UsersAdapter
+    lateinit var nurseAdapter: UsersAdapter
+    lateinit var driverAdapter: UsersAdapter
 
     lateinit var binding: ActivityDispatchCarBinding
 
@@ -41,9 +44,21 @@ class DispatchCarActivity : BaseActivity() {
 //            toDetail(t)
 //        })
         carAdapter = CarAdapter(this,viewModel)
-        viewModel.doctors.observe(this, Observer { it -> carAdapter.doctors = it ?: emptyList() })
+        viewModel.cars.observe(this, Observer { it -> carAdapter.cars = it ?: emptyList() })
+        binding.carList.adapter = carAdapter
 
-        binding.doctorList.adapter = carAdapter
+        doctorAdapter = UsersAdapter(this,viewModel)
+        viewModel.doctors.observe(this, Observer { it -> doctorAdapter.users = it ?: emptyList() })
+        binding.doctorList.adapter = doctorAdapter
+
+        nurseAdapter = UsersAdapter(this,viewModel)
+        viewModel.nurses.observe(this, Observer { it -> nurseAdapter.users = it ?: emptyList() })
+        binding.nurseList.adapter = nurseAdapter
+
+        driverAdapter = UsersAdapter(this,viewModel)
+        viewModel.drivers.observe(this, Observer { it -> driverAdapter.users = it ?: emptyList() })
+        binding.driverList.adapter = driverAdapter
+
 
     }
 

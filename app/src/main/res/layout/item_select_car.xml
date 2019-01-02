@@ -3,100 +3,46 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="user" type="com.wxsoft.fcare.core.data.entity.User"/>
+        <variable name="car" type="com.wxsoft.fcare.core.data.entity.Car"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.EventActions"/>
     </data>
-    <android.support.design.card.MaterialCardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:strokeColor="@color/light_gray"
-            android:layout_marginLeft="6dp"
-            android:layout_marginRight="6dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="3dp"
-            android:elevation="2dp"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="6dp">
+
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/container"
-                android:background="?attr/selectableItemBackground"
-                android:layout_width="match_parent"
-                android:padding="10dp"
-                android:onClick="@{() -> listener.onOpen(user.id)}"
+                android:background="@drawable/bg_redconer_redblank"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:onClick="@{() -> listener.onOpen(car.id)}"
                 android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/car_name"
+                    android:layout_width="150dp"
+                    android:layout_height="70dp"
+                    android:textSize="22dp"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    tools:text="皖A 1P111"
+                    android:text="@{car.id}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
+
 
             <TextView
-                    android:id="@+id/task_name"
+                    android:id="@+id/car_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:textSize="16dp"
-                    tools:text="急救任务1"
-                    android:text="急救任务1"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="2dp"
+                    tools:text="任务中"
+                    android:text="@{car.statuName}"
+                    android:background="@drawable/bg_redconer_whiteblank"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                    android:id="@+id/task_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:textSize="12dp"
-                    tools:text="2018-12-25"
-                    android:text="2018-12-25"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/task_name"/>
-
-            <View
-                    android:id="@+id/task_item_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.7dip"
-                    android:background="#90909090"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/task_name"/>
-
-            <TextView
-                    android:id="@+id/task_title1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="12dp"
-                    android:text="目的地："
-                    app:layout_constraintLeft_toLeftOf="@id/task_item_line"
-                    app:layout_constraintTop_toBottomOf="@id/task_item_line"/>
-
-            <TextView
-                    android:id="@+id/task_destination"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:text="蜀山区蜀南庭院北区12#206"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title1"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title1"/>
-
-            <TextView
-                    android:id="@+id/task_title2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="12dp"
-                    android:text="发车："
-                    app:layout_constraintLeft_toLeftOf="@id/task_item_line"
-                    app:layout_constraintTop_toBottomOf="@id/task_title1"/>
-
-            <TextView
-                    android:id="@+id/task_dispatch_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12dp"
-                    android:text="13:24"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title2"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title2"/>
-
 
         </android.support.constraint.ConstraintLayout>
-    </android.support.design.card.MaterialCardView>
 </layout>

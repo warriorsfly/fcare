@@ -1,5 +1,10 @@
 package com.wxsoft.fcare.core.data.entity
 
+import android.databinding.BaseObservable
+import android.databinding.Bindable
+import com.google.gson.annotations.SerializedName
+import com.wxsoft.fcare.core.BR
+
 data class User(
     var id:String,
     var userName: String ,
@@ -23,5 +28,14 @@ data class User(
     var createrId: String ,
     var createrName: String ,
     var modifierId: String ,
-    var modifierName: String
-)
+    var modifierName: String): BaseObservable() {
+
+    @Transient
+    @get:Bindable
+    var status: Boolean = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.status)
+        }
+
+}

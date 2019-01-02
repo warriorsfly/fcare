@@ -21,80 +21,117 @@
                 android:id="@+id/container"
                 android:background="?attr/selectableItemBackground"
                 android:layout_width="match_parent"
-                android:padding="10dp"
+                android:paddingLeft="12dp"
+                android:paddingTop="15dp"
                 android:onClick="@{() -> listener.onOpen(task.id)}"
                 android:layout_height="wrap_content">
-
-            <TextView
-                    android:id="@+id/task_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:textSize="16dp"
-                    tools:text="急救任务1"
-                    android:text="急救任务1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                    android:id="@+id/task_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/activity_horizontal_margin"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                    android:textSize="12dp"
-                    tools:text="2018-12-25"
-                    android:text="2018-12-25"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/task_name"/>
-
-            <View
-                    android:id="@+id/task_item_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.7dip"
-                    android:background="#90909090"
-                    android:layout_marginTop="5dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/task_name"/>
 
             <TextView
                     android:id="@+id/task_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="12dp"
+                    android:textSize="15sp"
                     android:text="目的地："
-                    app:layout_constraintLeft_toLeftOf="@id/task_item_line"
-                    app:layout_constraintTop_toBottomOf="@id/task_item_line"/>
+                    android:textColor="#131D35"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
                     android:id="@+id/task_destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:textSize="15sp"
+                    android:textColor="#131D35"
                     android:text="蜀山区蜀南庭院北区12#206"
                     app:layout_constraintLeft_toRightOf="@+id/task_title1"
                     app:layout_constraintBottom_toBottomOf="@id/task_title1"/>
+
+
 
             <TextView
                     android:id="@+id/task_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="12dp"
-                    android:text="发车："
-                    app:layout_constraintLeft_toLeftOf="@id/task_item_line"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="发车时间："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title1"
                     app:layout_constraintTop_toBottomOf="@id/task_title1"/>
 
             <TextView
                     android:id="@+id/task_dispatch_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12dp"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
                     android:text="13:24"
                     app:layout_constraintLeft_toRightOf="@+id/task_title2"
                     app:layout_constraintBottom_toBottomOf="@id/task_title2"/>
+
+            <TextView
+                    android:id="@+id/task_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginLeft="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="到达医院："
+                    app:layout_constraintLeft_toRightOf="@id/task_dispatch_time"
+                    app:layout_constraintTop_toBottomOf="@id/task_title1"/>
+
+            <TextView
+                    android:id="@+id/arrive_hospital_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="13:44"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title3"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title3"/>
+
+            <TextView
+                    android:id="@+id/task_title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="总计时长："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title2"
+                    app:layout_constraintTop_toBottomOf="@id/task_title2"/>
+
+            <TextView
+                    android:id="@+id/all_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="15′24″"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title4"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title4"/>
+
+            <TextView
+                    android:id="@+id/task_title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="总计时长："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title2"
+                    app:layout_constraintTop_toBottomOf="@id/task_title2"/>
+
+            <TextView
+                    android:id="@+id/car_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="15′24″"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title5"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title5"/>
 
 
         </android.support.constraint.ConstraintLayout>
