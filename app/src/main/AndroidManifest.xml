@@ -45,18 +45,14 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.details.dominating.DoMinaActivity">
-        </activity>
+        <activity android:name=".ui.details.dominating.DoMinaActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.details.dispatchcar.DispatchCarActivity">
         </activity>
         <activity
                 android:name=".ui.main.MainActivity"
                 android:label="@string/title_activity_main"
                 android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
-                android:name=".ui.income.InComeActivity"
-                android:label="@string/title_activity_in_come">
         </activity>
         <activity
                 android:name=".ui.login.LoginActivity"
@@ -66,11 +62,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-        <activity
-                android:name=".ui.detail.PatientDetailActivity"
-                android:label="@string/title_activity_patient_detail"
-                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".wxapi.WXEntryActivity"

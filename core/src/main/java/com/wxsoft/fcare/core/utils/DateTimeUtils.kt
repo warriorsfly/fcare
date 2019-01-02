@@ -64,6 +64,11 @@ class DateTimeUtils {
     }
 }
 
+fun getLastMinutes(start:Long?,end:Long?) :Long?{
+
+    var c=end?:0  -(start?:0)
+    return if(c>60*1000) c/60000  else null
+}
 fun getAfromB(start:Long,end:Long):String{
 
     var c=end-start

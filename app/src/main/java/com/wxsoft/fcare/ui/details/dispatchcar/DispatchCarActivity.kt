@@ -39,7 +39,7 @@ class DispatchCarActivity : BaseActivity() {
             }
         binding.viewModel = viewModel
 
-//        viewModel.taskAction.observe(this, EventObserver{ t->
+//        viewModel.mesAction.observe(this, EventObserver{ t->
 //            toDetail(t)
 //        })
         carAdapter = CarAdapter(this,viewModel)

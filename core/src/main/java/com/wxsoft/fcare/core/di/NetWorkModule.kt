@@ -47,9 +47,9 @@ class NetWorkModule {
             logging.setLevel(LogInterceptor.Level.BODY)
 
             val client= OkHttpClient.Builder()
-                    .connectTimeout(5, TimeUnit.SECONDS)
-                    .readTimeout(5, TimeUnit.SECONDS)
-                    .writeTimeout(20, TimeUnit.SECONDS)
+                    .connectTimeout(200, TimeUnit.SECONDS)
+                    .readTimeout(200, TimeUnit.SECONDS)
+                    .writeTimeout(200, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
                     .addInterceptor(logging)
                     .build()

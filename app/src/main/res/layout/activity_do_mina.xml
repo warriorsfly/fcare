@@ -3,21 +3,31 @@
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.CoordinatorLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#F8F8F8"
             tools:context=".ui.details.dominating.DoMinaActivity">
 
         <include
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            layout="@layout/layout_task_process"
+            layout="@layout/layout_task_process_title"
+            android:id="@+id/process_line"
             app:viewModel="@{viewModel}"/>
-</android.support.constraint.ConstraintLayout>
+
+        <android.support.v4.view.ViewPager
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/viewPager"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </android.support.v4.view.ViewPager>
+</android.support.design.widget.CoordinatorLayout>
 </layout>

@@ -2,17 +2,23 @@ package com.wxsoft.fcare.ui.details.dominating
 
 import android.app.AlertDialog
 import android.arch.lifecycle.Observer
-import android.content.DialogInterface
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.widget.Toast
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
 import com.wxsoft.fcare.utils.viewModelProvider
-import kotlinx.android.synthetic.main.layout_task_process.*
+import kotlinx.android.synthetic.main.activity_do_mina.*
+import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
 
 class DoMinaActivity : BaseActivity() {
@@ -25,6 +31,9 @@ class DoMinaActivity : BaseActivity() {
 
     companion object {
         const val TASK_ID = "TASK_ID"
+        const val STATE_COUNT = 5
+        const val PATIENT_INFO_POSITION = 2
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +50,16 @@ class DoMinaActivity : BaseActivity() {
         viewModel=viewModelProvider(factory)
         binding.viewModel=viewModel
 
+        viewModel.task.observe(this, Observer{
+            it ?: return@Observer
+
+            viewPager.adapter = TaskStateAdapter(supportFragmentManager, it)
+        })
         viewModel.taskId=taskId
 
         seekBar.setOnTouchListener { v, event ->  true }
 
-        viewModel.taskAction.observe(this, EventObserver {
+        viewModel.mesAction.observe(this, EventObserver {
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
@@ -64,6 +78,22 @@ class DoMinaActivity : BaseActivity() {
 
             dialog.show()
         })
+
+
+    }
+
+    inner class TaskStateAdapter(fm: FragmentManager, private val task: Task) :
+        FragmentPagerAdapter(fm) {
+        override fun getItem(position: Int): Fragment {
+            return when (position) {
+                PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance("","")
+                else -> ProcessFragment.newInstance(position)
+            }
+        }
+
+        override fun getCount(): Int {
+            return STATE_COUNT
+        }
     }
 
 
