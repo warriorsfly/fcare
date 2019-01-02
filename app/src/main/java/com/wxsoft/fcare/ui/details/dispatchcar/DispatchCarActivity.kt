@@ -38,7 +38,6 @@ class DispatchCarActivity : BaseActivity() {
                 setLifecycleOwner(this@DispatchCarActivity)
             }
         binding.viewModel = viewModel
-        binding.listener = viewModel
 
 //        viewModel.taskAction.observe(this, EventObserver{ t->
 //            toDetail(t)
@@ -48,18 +47,29 @@ class DispatchCarActivity : BaseActivity() {
         binding.carList.adapter = carAdapter
 
         doctorAdapter = UsersAdapter(this,viewModel)
+        doctorAdapter.type = "doctor"
         viewModel.doctors.observe(this, Observer { it -> doctorAdapter.users = it ?: emptyList() })
         binding.doctorList.adapter = doctorAdapter
 
         nurseAdapter = UsersAdapter(this,viewModel)
+        nurseAdapter.type = "nurse"
         viewModel.nurses.observe(this, Observer { it -> nurseAdapter.users = it ?: emptyList() })
         binding.nurseList.adapter = nurseAdapter
 
         driverAdapter = UsersAdapter(this,viewModel)
+        driverAdapter.type = "driver"
         viewModel.drivers.observe(this, Observer { it -> driverAdapter.users = it ?: emptyList() })
         binding.driverList.adapter = driverAdapter
 
+        binding.submitBtn.setOnClickListener {
+            viewModel.submitBtnClick()
+        }
 
+        viewModel.taskId.observe(this, Observer {
+            if (it != null){
+                toDetail(it)
+            }
+        })
     }
 
 
@@ -75,7 +85,6 @@ class DispatchCarActivity : BaseActivity() {
     }
 
     fun toDetail(id:String) {
-
         var intent = Intent(this, DoMinaActivity::class.java)
         intent.putExtra(DoMinaActivity.TASK_ID, id)
         startActivity(intent)

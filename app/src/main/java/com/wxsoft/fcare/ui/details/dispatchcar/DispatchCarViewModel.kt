@@ -28,9 +28,11 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
     val drivers: LiveData<List<User>>
     val cars: LiveData<List<Car>>
     val account: Account
-    var taskId: String = ""
+    var taskId: LiveData<String>
+    var selectedCar:Car
 
     private val initTask= MediatorLiveData<Task>()
+    private val initTaskId= MediatorLiveData<Resource<Response<String>>>()
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
     private val loadDoctorsResult= MediatorLiveData<Resource<Response<List<User>>>>()
     private val loadNursesResult= MediatorLiveData<Resource<Response<List<User>>>>()
@@ -44,10 +46,12 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
         account = gson.fromJson(s, Account::class.java)
         task = initTask.map { it }
         initTask.value = Task("")
-        cars = loadCarsResult.map { (it as? Resource.Success)?.data!!.result ?: emptyList() }
-        doctors = loadDoctorsResult.map { (it as? Resource.Success)?.data!!.result ?: emptyList() }
-        nurses = loadNursesResult.map { (it as? Resource.Success)?.data!!.result ?: emptyList() }
-        drivers = loadDriversResult.map { (it as? Resource.Success)?.data!!.result ?: emptyList() }
+        selectedCar = Car("","","",false,"","",false)
+        cars = loadCarsResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
+        doctors = loadDoctorsResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
+        nurses = loadNursesResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
+        drivers = loadDriversResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
+        taskId = initTaskId.map { (it as? Resource.Success)?.data?.result ?: "" }
         getCars()
         getDoctors()
         getNurses()
@@ -55,11 +59,11 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
     }
 
     private fun saveTask(){
-        task.value!!.createdDate = DateTimeUtils.getCurrentTime()
-        task.value!!.createdBy = account.userName
-        taskApi.save(this.task.value!!).toResource()
+        task.value?.createdDate = DateTimeUtils.getCurrentTime()
+        task.value?.createdBy = account.userName
+        taskApi.save(task.value!!).toResource()
             .subscribe{
-                taskId = (it as? Resource.Success)?.data!!.result ?:""
+                initTaskId.value = it
             }
     }
 
@@ -67,6 +71,7 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
         carApi.cars().toResource()
             .subscribe{
                 loadCarsResult.value = it
+
             }
     }
 
@@ -92,19 +97,45 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
     }
 
 
-    private fun arrivered(){
-        if (taskId.isNotEmpty()) _navigateToOperationAction.value= Event(taskId)
-    }
-
     override fun onOpen(id: String) {
 
-        when(id){
-            "1"->saveTask()
-//            "2"->getDoctors()
-            "2"->getNurses()
-//            "2"->getDrivers()
-            "3"->arrivered()
+    }
+    fun selectCar(car:Car){
+        if (car.status == 0){
+            if (!car.id.equals(selectedCar.id)){
+                selectedCar.selectStatus = !selectedCar.selectStatus
+                car.selectStatus = !car.selectStatus
+                selectedCar = car
+            }
         }
+    }
+
+    fun selectDoctor(doctor:User){
+        doctor.status = !doctor.status
+    }
+
+    fun selectNurse(nurse:User){
+        nurse.status = !nurse.status
+    }
+
+    fun selectDriver(driver:User){
+        driver.status = !driver.status
+    }
+
+    fun submitBtnClick(){
+        var staffs:ArrayList<TaskStaff> = ArrayList()
+        val dstaff=doctors.value?.filter { it.status }
+            ?.map { TaskStaff("","",it.id,it.userName,"3")}?: emptyList()
+        val nstaff=nurses.value?.filter { it.status }
+            ?.map { TaskStaff("","",it.id,it.userName,"2")}?: emptyList()
+        val drtaff=drivers.value?.filter { it.status }
+            ?.map { TaskStaff("","",it.id,it.userName,"7")}?: emptyList()
+        staffs.addAll(dstaff)
+        staffs.addAll(nstaff)
+        staffs.addAll(drtaff)
+        task.value?.taskStaffs = staffs.toTypedArray()
+        saveTask()
 
     }
+
 }

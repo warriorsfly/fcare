@@ -22,4 +22,12 @@ data class Car(var id:String,
             notifyPropertyChanged(BR.status)
         }
 
+    @Transient
+    @Bindable
+    var selectStatus: Boolean = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.selectStatus)
+        }
+
 }

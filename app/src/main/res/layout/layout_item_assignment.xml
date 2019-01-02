@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:paddingLeft="12dp"
                 android:paddingTop="15dp"
+                android:paddingBottom="15dp"
                 android:onClick="@{() -> listener.onOpen(task.id)}"
                 android:layout_height="wrap_content">
 
@@ -42,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
                     android:textColor="#131D35"
-                    android:text="蜀山区蜀南庭院北区12#206"
+                    android:text="@{task.taskPosition}"
                     app:layout_constraintLeft_toRightOf="@+id/task_title1"
                     app:layout_constraintBottom_toBottomOf="@id/task_title1"/>
 
@@ -119,19 +120,52 @@
                     android:layout_marginTop="@dimen/spacing_normal"
                     android:textSize="13sp"
                     android:textColor="#7D8AA3"
-                    android:text="总计时长："
-                    app:layout_constraintLeft_toLeftOf="@id/task_title2"
-                    app:layout_constraintTop_toBottomOf="@id/task_title2"/>
+                    android:text="车辆信息："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title4"
+                    app:layout_constraintTop_toBottomOf="@id/task_title4"/>
 
             <TextView
                     android:id="@+id/car_card"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
+                    android:background="#F0F2F4"
                     android:textColor="#7D8AA3"
-                    android:text="15′24″"
+                    android:text="皖A 02888"
                     app:layout_constraintLeft_toRightOf="@+id/task_title5"
                     app:layout_constraintBottom_toBottomOf="@id/task_title5"/>
+
+            <TextView
+                    android:id="@+id/task_title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="病人姓名："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title5"
+                    app:layout_constraintTop_toBottomOf="@id/task_title5"/>
+
+            <TextView
+                    android:id="@+id/parient_name"
+                    android:layout_width="55dp"
+                    android:layout_height="16dp"
+                    android:textAlignment="center"
+                    android:textSize="13sp"
+                    android:background="#FE5F55"
+                    android:textColor="#FFFFFF"
+                    android:text="张三"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title6"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title6"/>
+
+            <ImageView
+                    android:id="@+id/status_image"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_markact"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/arrive_hospital_time"/>
 
 
         </android.support.constraint.ConstraintLayout>

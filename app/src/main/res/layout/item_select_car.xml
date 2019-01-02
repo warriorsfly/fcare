@@ -4,22 +4,23 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="car" type="com.wxsoft.fcare.core.data.entity.Car"/>
-        <variable name="listener" type="com.wxsoft.fcare.ui.EventActions"/>
+        <variable name="listener" type="com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarViewModel"/>
     </data>
 
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/container"
-                android:background="@drawable/bg_redconer_redblank"
-                android:layout_width="wrap_content"
+                taskSelectCar="@{car.status==0}"
+                android:layout_width="162dp"
                 android:layout_marginLeft="5dp"
-                android:onClick="@{() -> listener.onOpen(car.id)}"
-                android:layout_height="wrap_content">
+                android:onClick="@{() -> listener.selectCar(car)}"
+                android:layout_height="68dp">
             <TextView
                     android:id="@+id/car_name"
                     android:layout_width="150dp"
                     android:layout_height="70dp"
-                    android:textSize="22dp"
+                    android:textSize="20dp"
                     android:gravity="center"
+                    taskSelectCarTextColor="@{car.status==0}"
                     android:textColor="@color/white"
                     tools:text="皖A 1P111"
                     android:text="@{car.id}"
@@ -33,15 +34,25 @@
                     android:id="@+id/car_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="16dp"
-                    android:textColor="@color/colorPrimary"
+                    android:textSize="11dp"
+                    taskSelectCarTextColor="@{car.status!=0}"
                     android:layout_marginTop="2dp"
                     android:layout_marginLeft="2dp"
                     tools:text="任务中"
                     android:text="@{car.statuName}"
-                    android:background="@drawable/bg_redconer_whiteblank"
+                    taskSelectCar="@{car.status!=0}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
+            
+            <ImageView
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="10dp"
+                    goneUnless="@{car.selectStatus}"
+                    android:src="@drawable/ic_select_circle"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
 
         </android.support.constraint.ConstraintLayout>

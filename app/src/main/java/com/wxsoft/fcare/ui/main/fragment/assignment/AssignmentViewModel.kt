@@ -8,6 +8,7 @@ import android.arch.lifecycle.ViewModel
 import android.databinding.Bindable
 import android.databinding.ObservableField
 import com.wxsoft.fcare.BR
+import com.wxsoft.fcare.core.data.entity.Car
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.data.remote.TaskApi

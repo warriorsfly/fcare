@@ -33,7 +33,6 @@ class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vie
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-
             setVariable(BR.car,differ.currentList[position])
             setVariable(BR.listener,viewModel)
             setLifecycleOwner(lifecycleOwner)

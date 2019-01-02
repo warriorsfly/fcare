@@ -47,7 +47,6 @@ class UsersAdapter constructor(private val lifecycleOwner: LifecycleOwner, val v
             setVariable(BR.listener,viewModel)
             setLifecycleOwner(lifecycleOwner)
             executePendingBindings()
-
         }
     }
 
