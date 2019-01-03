@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
-import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessStartFragment
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import com.wxsoft.fcare.utils.lazyFast
 import dagger.android.support.DaggerFragment
@@ -18,12 +17,12 @@ class EmrFragment : DaggerFragment() {
 
         private const val ARG_PATIENT = "arg.patient"
         @JvmStatic
-        fun newInstance( patientId:String): ProcessStartFragment {
+        fun newInstance( patientId:String): EmrFragment {
 
             val args = Bundle().apply {
                 putString(ARG_PATIENT,patientId)
             }
-            return ProcessStartFragment().apply { arguments = args }
+            return EmrFragment().apply { arguments = args }
 
         }
     }
@@ -50,6 +49,7 @@ class EmrFragment : DaggerFragment() {
         val args = arguments ?: throw IllegalStateException("Missing arguments!")
         args.getString(ARG_PATIENT)
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = activityViewModelProvider(factory)

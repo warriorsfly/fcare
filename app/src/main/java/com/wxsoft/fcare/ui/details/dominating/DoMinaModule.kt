@@ -4,6 +4,8 @@ import android.arch.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
 import com.wxsoft.fcare.ui.details.dominating.fragment.*
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -16,6 +18,11 @@ internal abstract class DoMinaModule {
     @IntoMap
     @ViewModelKey(DoMinaViewModel::class)
     abstract fun bindDoMinaViewModel(viewModel: DoMinaViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EmrViewModel::class)
+    abstract fun bindEmrViewModel(viewModel: EmrViewModel): ViewModel
 
     @ChildFragmentScoped
     @ContributesAndroidInjector
@@ -36,4 +43,8 @@ internal abstract class DoMinaModule {
     @ChildFragmentScoped
     @ContributesAndroidInjector
     abstract fun contributePatientManagerFragment(): PatientManagerFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeEmrFragment(): EmrFragment
 }
