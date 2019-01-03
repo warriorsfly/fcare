@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable name="task" type="com.wxsoft.fcare.core.data.entity.Task"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.EventActions"/>
@@ -9,7 +8,6 @@
     <android.support.design.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:strokeColor="@color/light_gray"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginTop="3dp"
@@ -66,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#7D8AA3"
-                    android:text="13:24"
+                    android:text="@{task.startAt}"
                     app:layout_constraintLeft_toRightOf="@+id/task_title2"
                     app:layout_constraintBottom_toBottomOf="@id/task_title2"/>
 
@@ -88,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#7D8AA3"
-                    android:text="13:44"
+                    android:text="@{task.arriveAt}"
                     app:layout_constraintLeft_toRightOf="@+id/task_title3"
                     app:layout_constraintBottom_toBottomOf="@id/task_title3"/>
 
@@ -131,7 +129,7 @@
                     android:textSize="13sp"
                     android:background="#F0F2F4"
                     android:textColor="#7D8AA3"
-                    android:text="皖A 02888"
+                    android:text="@{task.carId}"
                     app:layout_constraintLeft_toRightOf="@+id/task_title5"
                     app:layout_constraintBottom_toBottomOf="@id/task_title5"/>
 
@@ -165,7 +163,7 @@
                     android:layout_marginRight="5dp"
                     android:src="@drawable/ic_markact"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/arrive_hospital_time"/>
+                    app:layout_constraintTop_toBottomOf="@+id/task_title2"/>
 
 
         </android.support.constraint.ConstraintLayout>

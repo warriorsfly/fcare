@@ -56,6 +56,7 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
         getDoctors()
         getNurses()
         getDrivers()
+
     }
 
     private fun saveTask(){
@@ -134,8 +135,8 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
         staffs.addAll(nstaff)
         staffs.addAll(drtaff)
         task.value?.taskStaffs = staffs.toTypedArray()
+        task.value?.carId = selectedCar.id
         saveTask()
-
     }
 
 }
