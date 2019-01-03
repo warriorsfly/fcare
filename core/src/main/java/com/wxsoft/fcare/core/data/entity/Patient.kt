@@ -20,10 +20,10 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
 
     @SerializedName("Three_Without")
     @get:Bindable
-    var unKnow:Boolean=false
+    var unKnown:Boolean=false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.unKnow)
+            notifyPropertyChanged(BR.unKnown)
         }
 
     @SerializedName("Hospital_Id")

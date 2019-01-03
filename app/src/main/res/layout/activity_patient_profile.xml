@@ -2,6 +2,7 @@
 
 <layout>
     <data>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.patient.ProfileViewModel"/>
     </data>
 
@@ -18,7 +19,9 @@
             android:background="#F8F8F8">
 
             <include layout="@layout/layout_common_title"
-                     android:id="@+id/title"/>
+                     android:id="@+id/title"
+                     app:presenter="@{viewModel}"
+            />
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
@@ -32,10 +35,12 @@
                     android:layout_height="30dp"
                     android:gravity="center"
                     android:textSize="12sp"
-                    android:layout_marginLeft="23dp"
+                    android:textColor="@{viewModel.patient.unKnown ? @color/task_done  : @color/task_undo}"
+                    android:background="@{viewModel.patient.unKnown ? @color/patient_nothing_known  : @color/patient_known}"
+                    android:onClick="@{()->viewModel.patientIsUnkown()}"
+                    android:layout_marginLeft="15dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:background="#ffe9eaf2"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:text="三无人员"/>
             </android.support.constraint.ConstraintLayout>
@@ -214,7 +219,7 @@
                         android:hint="请输入年龄"
                         android:background="@null"
                         android:textSize="14sp"
-                        android:text="@={viewModel.patient.age}"
+                        android:text="@={Converter.intToString(viewModel.patient.age)}"
                         android:inputType="number"
                         android:maxLines="1"
                         android:maxLength="3"
