@@ -21,4 +21,6 @@
     <color name="task_done">#FFFFFF</color>
     <color name="task_select_car_able_text">#FE5F55</color>
     <color name="task_select_car_unable_text">#FFFFFF</color>
+    <color name="patient_nothing_known">#FF0000</color>
+    <color name="patient_known">#ffe9eaf2</color>
 </resources>

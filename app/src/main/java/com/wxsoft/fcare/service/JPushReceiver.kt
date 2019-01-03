@@ -28,14 +28,14 @@ class JPushReceiver : BroadcastReceiver() {
             val bundle = intent.extras
             when (intent.action) {
                 JPushInterface.ACTION_REGISTRATION_ID -> {
-                    val regId = bundle!!.getString(JPushInterface.EXTRA_REGISTRATION_ID)
+                    val regId = bundle?.getString(JPushInterface.EXTRA_REGISTRATION_ID)
 
                     processCustomMessage(context, RegistrationId, regId)
                 }
                 JPushInterface.ACTION_MESSAGE_RECEIVED -> {
-                    val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
-                    val message = bundle.getString(JPushInterface.EXTRA_MESSAGE)
-                    val title = bundle.getString(JPushInterface.EXTRA_TITLE)
+//                    val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
+                    val message = bundle?.getString(JPushInterface.EXTRA_MESSAGE)
+                    val title = bundle?.getString(JPushInterface.EXTRA_TITLE)
                     processCustomMessage(context, title, message)
                 }
                 JPushInterface.ACTION_NOTIFICATION_RECEIVED -> {//Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知");
@@ -43,16 +43,16 @@ class JPushReceiver : BroadcastReceiver() {
                 }
                 JPushInterface.ACTION_NOTIFICATION_OPENED -> {
 
-                    val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
+//                    val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
 
-                    val title = bundle.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
-                    if (title == "急救通知") {
-                        bundle.getString(JPushInterface.EXTRA_ALERT)
-
-                    }
+//                    val title = bundle?.getString(JPushInterface.EXTRA_NOTIFICATION_TITLE)
+//                    if (title == "急救通知") {
+//                        bundle?.getString(JPushInterface.EXTRA_ALERT)
+//
+//                    }
                 }
                 JPushInterface.ACTION_RICHPUSH_CALLBACK -> {
-                    bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
+                    bundle?.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
                 }
                 JPushInterface.ACTION_CONNECTION_CHANGE -> {
                     val connected = intent.getBooleanExtra(JPushInterface.EXTRA_CONNECTION_CHANGE, false)
@@ -71,11 +71,11 @@ class JPushReceiver : BroadcastReceiver() {
     }
 
     //send msg to MainActivity
-    private fun processCustomMessage(context: Context, title: String, message: String) {
+    private fun processCustomMessage(context: Context, title: String?, message: String?) {
         when (title) {
             "SendMessage" -> {
 
-                if (message.isNotEmpty()) {
+                if (!message.isNullOrEmpty()) {
 
                     val km = context.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager
                     if (km.isKeyguardLocked) {

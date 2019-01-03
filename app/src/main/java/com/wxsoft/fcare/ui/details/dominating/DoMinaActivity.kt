@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.details.dominating
 
 import android.app.AlertDialog
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -16,6 +17,8 @@ import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
+import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
@@ -46,6 +49,8 @@ class DoMinaActivity : BaseActivity() {
             setLifecycleOwner(this@DoMinaActivity)
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        back.setOnClickListener { onBackPressed() }
         taskId=intent.getStringExtra(TASK_ID)?:""
         viewModel=viewModelProvider(factory)
         binding.viewModel=viewModel
@@ -57,7 +62,7 @@ class DoMinaActivity : BaseActivity() {
         })
         viewModel.taskId=taskId
 
-        seekBar.setOnTouchListener { v, event ->  true }
+        seekBar.setOnTouchListener { _, _ ->  true }
 
         viewModel.mesAction.observe(this, EventObserver {
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
@@ -79,16 +84,29 @@ class DoMinaActivity : BaseActivity() {
             dialog.show()
         })
 
-
+        add_patient.setOnClickListener {
+            var intent = Intent(this, ProfileActivity::class.java).apply {
+                putExtra(ProfileActivity.TASK_ID, taskId)
+            }
+            startActivity(intent)
+        }
     }
 
     inner class TaskStateAdapter(fm: FragmentManager, private val task: Task) :
         FragmentPagerAdapter(fm) {
-        override fun getItem(position: Int): Fragment {
-            return when (position) {
-                PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance("","")
-                else -> ProcessFragment.newInstance(position)
+
+        private val statusFragments:List<Fragment> by lazyFast {
+            (0..4).map {
+                when (it) {
+                    PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance("", "")
+                    else -> ProcessFragment.newInstance(it)
+                }
             }
+        }
+
+        override fun getItem(position: Int): Fragment {
+
+            return statusFragments[position]
         }
 
         override fun getCount(): Int {

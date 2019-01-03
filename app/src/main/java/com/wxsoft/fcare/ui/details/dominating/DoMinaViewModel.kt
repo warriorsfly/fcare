@@ -3,9 +3,11 @@ package com.wxsoft.fcare.ui.details.dominating
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
+import com.google.gson.Gson
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task
+import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.utils.map
@@ -16,7 +18,10 @@ import javax.inject.Inject
 /**
  * 考虑到本程序的服务端特殊性（非restful  api），不显示状态的查询不使用result.Resource类进行结果封装
  */
-class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi) : BaseViewModel() {
+class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
+                                          override val sharedPreferenceStorage: SharedPreferenceStorage,
+                                          override val gson: Gson
+) : BaseViewModel(sharedPreferenceStorage,gson) {
 
     val task:LiveData<Task>
     val selectedItemPosition:LiveData<Int>

@@ -24,5 +24,5 @@ interface PatientApi{
     fun bindRfid(@Path("patientId")patientId:String,@Path("wristband_Number")rFid:String):Single<Response<String>>
 
     @POST("Patient/SavePatientInfo")
-    fun save(@Body patient:Patient):Maybe<String>
+    fun save(@Body patient:Patient):Maybe<Response<String>>
 }
