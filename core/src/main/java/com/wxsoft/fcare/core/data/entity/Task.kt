@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.core.data.entity
 
+import android.arch.persistence.room.Ignore
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
@@ -112,6 +113,7 @@ data class Task (val id:String): BaseObservable(){
     var carId: String? = ""
     var canceled: String? = ""
     var taskStaffs: Array<TaskStaff> = emptyArray()
+    @Ignore
     var patients: Array<Patient> = emptyArray()
     @SerializedName("isCanceled")var hasCanceled: Boolean = false
 

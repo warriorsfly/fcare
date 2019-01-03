@@ -3,7 +3,7 @@ package com.wxsoft.fcare.ui.details.dominating
 import android.arch.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
-import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -19,5 +19,21 @@ internal abstract class DoMinaModule {
 
     @ChildFragmentScoped
     @ContributesAndroidInjector
-    abstract fun contributeProcessFragment(): ProcessFragment
+    abstract fun contributeProcessStartFragment(): ProcessStartFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeProcessArriveFragment(): ProcessArriveFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeProcessReturningFragment(): ProcessReturningFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeProcessArriveHosFragment(): ProcessArriveHosFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributePatientManagerFragment(): PatientManagerFragment
 }

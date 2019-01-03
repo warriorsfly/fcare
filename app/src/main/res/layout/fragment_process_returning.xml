@@ -9,7 +9,7 @@
                  xmlns:tools="http://schemas.android.com/tools"
                  android:layout_width="match_parent"
                  android:layout_height="match_parent"
-                 tools:context=".ui.details.dominating.fragment.ProcessFragment">
+                 tools:context=".ui.details.dominating.fragment.ProcessStartFragment">
 
         <!-- TODO: Update blank fragment layout -->
         <ImageView
@@ -27,7 +27,7 @@
                 android:textSize="13sp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="284dp"
-                tools:text="车辆正在前往救护地点"/>
+                android:text="车辆正在从救护地点返回"/>
 
     </FrameLayout>
 </layout>
