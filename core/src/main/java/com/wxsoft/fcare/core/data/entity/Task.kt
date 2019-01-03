@@ -58,10 +58,11 @@ data class Task (val id:String): BaseObservable(){
         set(value) {
             field = value
             arriveTimeStamp=DateTimeUtils.formatter.parse(value)?.time
-            notifyPropertyChanged(BR.arrivalTime)
-            notifyPropertyChanged(BR.arriveAt)
 
+            notifyPropertyChanged(BR.arriveAt)
+            notifyPropertyChanged(BR.arrivalTime)
         }
+
     @get:Bindable
     var firstMet: String? = ""
         get() {
@@ -140,9 +141,9 @@ data class Task (val id:String): BaseObservable(){
 
     @Transient
     @get:Bindable
-    var arrivalTime:Long?= null
+    var arrivalTime:Int?= null
         get() {
-            return getLastMinutes(startTimeStamp,arriveTimeStamp)
+            return getLastMinutes(startTimeStamp,arriveTimeStamp)?.toInt()
         }
 
     @Transient
@@ -166,3 +167,4 @@ data class Task (val id:String): BaseObservable(){
             return getLastMinutes(returningTimeStamp,arriveHosTimeStamp)
         }
 }
+//TODO:delete useless propeties

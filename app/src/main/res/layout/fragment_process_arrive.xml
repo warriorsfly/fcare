@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="viewModel"
                   type="com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel"/>
     </data>
@@ -11,7 +12,6 @@
                  android:layout_height="match_parent"
                  tools:context=".ui.details.dominating.fragment.ProcessStartFragment">
 
-        <!-- TODO: Update blank fragment layout -->
         <ImageView
                 android:id="@+id/image"
                 android:layout_width="200dp"
@@ -29,6 +29,19 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="284dp"
                 android:text="车辆到达救护地点"/>
+
+        <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:text="@{`耗时`+Converter.intToString(viewModel.task.arrivalTime)}"
+                android:gravity="center_vertical"
+                android:textColor="#F45E50"
+                android:background="@drawable/bg_time_lasted"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="338dp"
+                tools:text="耗时：10分钟"/>
 
     </FrameLayout>
 </layout>

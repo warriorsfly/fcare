@@ -6,11 +6,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.databinding.FragmentPatientManagerBinding
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.utils.activityViewModelProvider
@@ -26,20 +28,27 @@ class PatientManagerFragment : DaggerFragment() {
 
     lateinit var viewModel:DoMinaViewModel
     lateinit var adapter: EmrAdapter
+    lateinit var binding: FragmentPatientManagerBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
+        binding=FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
+            setLifecycleOwner(this@PatientManagerFragment)
+        }
 
-        return inflater.inflate(R.layout.fragment_patient_manager, container, false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         tab.setupWithViewPager(patPager)
+
         viewModel=activityViewModelProvider(factory)
+
+        binding.viewModel=viewModel
 
         viewModel.task.observe(this, Observer {
             it ?: return@Observer
@@ -50,7 +59,9 @@ class PatientManagerFragment : DaggerFragment() {
                 patPager.adapter=adapter
             }
 
-
+//            if(it.patients.size==0){
+//                patPager.visibility=View.GONE
+//            }
         })
 
     }

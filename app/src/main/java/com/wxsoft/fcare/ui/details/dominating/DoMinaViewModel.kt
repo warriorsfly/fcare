@@ -26,7 +26,6 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     val task:LiveData<Task>
     val selectedItemPosition:LiveData<Int>
     val selectIndex = MediatorLiveData<Int>()
-
     var taskId:String=""
         set(value) {
             if(value!=field){
@@ -39,7 +38,6 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     private val loadTaskResult=MediatorLiveData<Response<Task>>()
     init {
         task=loadTaskResult.map {it.result?: Task("")}
-
         selectedItemPosition=selectIndex.map { it }
     }
 
@@ -198,4 +196,4 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     }
 }
 
-//TODO 修改各个时间点
+//TODO clock the process 
