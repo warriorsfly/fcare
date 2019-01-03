@@ -110,6 +110,7 @@ class JPushReceiver : BroadcastReceiver() {
         const val LineRefresh = "LineRefresh"
         const val RegistrationId = "RegistrationId"
         // 打印所有的 intent extra 数据
+        @JvmStatic
         private fun printBundle(bundle: Bundle): String {
             val sb = StringBuilder()
             for (key in bundle.keySet()) {

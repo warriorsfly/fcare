@@ -9,4 +9,14 @@ class EmrViewModel @Inject constructor(override val sharedPreferenceStorage: Sha
                                        gson: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gson) {
 
+    var patientId=""
+        set(value) {
+           field=value
+            loadEmr()
+        }
+
+
+    fun loadEmr(){
+
+    }
 }

@@ -15,6 +15,7 @@ class TimesUtils {
 
     companion object {
         private var mSelectTimeListener: SelectTimeListener? = null
+        @JvmStatic
         fun selectTime(contect: Context, selectTimeListener: SelectTimeListener, type: String) {
             var ca = Calendar.getInstance()
             var mYear = ca.get(Calendar.YEAR)

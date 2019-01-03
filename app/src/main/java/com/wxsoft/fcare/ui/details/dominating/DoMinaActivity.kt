@@ -10,13 +10,11 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.widget.Toast
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
-import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
@@ -35,7 +33,11 @@ class DoMinaActivity : BaseActivity() {
     companion object {
         const val TASK_ID = "TASK_ID"
         const val STATE_COUNT = 5
+        const val START_POSITION = 0
+        const val ARRIVE_POSITION = 1
         const val PATIENT_INFO_POSITION = 2
+        const val RETUNING_POSITION = 3
+        const val ARRIVE_HOS_POSITION = 4
 
     }
 
@@ -58,7 +60,7 @@ class DoMinaActivity : BaseActivity() {
         viewModel.task.observe(this, Observer{
             it ?: return@Observer
 
-            viewPager.adapter = TaskStateAdapter(supportFragmentManager, it)
+            viewPager.adapter = TaskStateAdapter(supportFragmentManager)
         })
         viewModel.taskId=taskId
 
@@ -92,14 +94,19 @@ class DoMinaActivity : BaseActivity() {
         }
     }
 
-    inner class TaskStateAdapter(fm: FragmentManager, private val task: Task) :
+    inner class TaskStateAdapter(fm: FragmentManager) :
         FragmentPagerAdapter(fm) {
 
         private val statusFragments:List<Fragment> by lazyFast {
             (0..4).map {
                 when (it) {
-                    PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance("", "")
-                    else -> ProcessFragment.newInstance(it)
+                    START_POSITION->ProcessStartFragment.newInstance()
+                    ARRIVE_POSITION->ProcessArriveFragment.newInstance()
+                    PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance()
+                    RETUNING_POSITION->ProcessReturningFragment.newInstance()
+                    ARRIVE_HOS_POSITION->ProcessArriveHosFragment.newInstance()
+
+                    else -> throw IllegalStateException("Unknown index $it")
                 }
             }
         }
