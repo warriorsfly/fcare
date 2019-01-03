@@ -51,12 +51,17 @@
         </activity>
         <activity
                 android:name=".ui.main.MainActivity"
-                android:label="@string/title_activity_main"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+                android:name=".ui.patient.ProfileActivity"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:screenOrientation="portrait"/>
         <activity
                 android:name=".ui.login.LoginActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

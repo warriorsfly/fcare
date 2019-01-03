@@ -17,12 +17,18 @@ import com.wxsoft.fcare.service.JPushReceiver.Companion.RegistrationId
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.utils.viewModelProvider
+import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 /**
  * A login screen that offers login via email/password.
  */
 class ProfileActivity : BaseActivity() {
+
+    companion object {
+        const val TASK_ID = "TASK_ID"
+
+    }
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -34,13 +40,17 @@ class ProfileActivity : BaseActivity() {
         var binding = DataBindingUtil.setContentView<ActivityPatientProfileBinding>(
             this,
             R.layout.activity_patient_profile
-        )
+        ).apply{
 
-        viewModel = viewModelProvider(factory)
-        binding.apply {
             setLifecycleOwner(this@ProfileActivity)
 
         }
+
+        back.setOnClickListener { onBackPressed() }
+        viewModel = viewModelProvider(factory)
+
+        binding.viewModel=viewModel
+
 
     }
 

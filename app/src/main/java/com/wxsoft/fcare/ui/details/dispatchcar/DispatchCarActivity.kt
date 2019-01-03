@@ -84,9 +84,10 @@ class DispatchCarActivity : BaseActivity() {
         }
     }
 
-    fun toDetail(id:String) {
-        var intent = Intent(this, DoMinaActivity::class.java)
-        intent.putExtra(DoMinaActivity.TASK_ID, id)
+    private fun toDetail(id:String) {
+        var intent = Intent(this, DoMinaActivity::class.java).apply {
+            putExtra(DoMinaActivity.TASK_ID, id)
+        }
         startActivity(intent)
     }
 

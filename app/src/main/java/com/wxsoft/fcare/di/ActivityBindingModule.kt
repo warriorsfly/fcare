@@ -9,6 +9,8 @@ import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
+import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.ui.patient.ProfileModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -39,5 +41,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DispatchCarModule::class])
     internal abstract fun dispatchCarActivity(): DispatchCarActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ProfileModule::class])
+    internal abstract fun profileActivity(): ProfileActivity
 
 }

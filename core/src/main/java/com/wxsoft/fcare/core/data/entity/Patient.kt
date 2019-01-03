@@ -15,7 +15,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var name: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.name)
         }
 
     @SerializedName("Three_Without")
@@ -23,7 +23,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var unKnow:Boolean=false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.unKnow)
         }
 
     @SerializedName("Hospital_Id")
@@ -31,7 +31,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var hospitalId:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.hospitalId)
         }
 
     @SerializedName("citizen_Card")
@@ -39,7 +39,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var citizen:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.citizen)
         }
 
     @SerializedName("wristband_Number")
@@ -47,7 +47,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var wristband:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.wristband)
         }
 
     @SerializedName("idcard")
@@ -55,14 +55,14 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var idcard:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.idcard)
         }
 
     @get:Bindable
     var gender:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.gender)
         }
 
     @SerializedName("age_Value")
@@ -70,7 +70,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var age:Int=0
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.age)
         }
 
     @SerializedName("age_Unit")
@@ -78,7 +78,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var ageUnit:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.ageUnit)
         }
 
     @SerializedName("contact_Phone")
@@ -86,7 +86,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var phone:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.phone)
         }
 
     @SerializedName("outpatient_Id")
@@ -94,7 +94,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var outId:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.outId)
         }
 
     @SerializedName("inpatient_Id")
@@ -102,7 +102,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var inId:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.inId)
         }
 
     @SerializedName("attack_Address")
@@ -110,7 +110,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var attackPosition:String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.attackPosition)
         }
 
     @SerializedName("is_Null_Attack_Detail_Time")
@@ -118,7 +118,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var unKnowAttackingTime: Boolean=false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.unKnowAttackingTime)
         }
 
     @SerializedName("attack_Zone")
@@ -126,7 +126,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var attackZone: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.attackZone)
         }
 
     @SerializedName("is_Help")
@@ -134,7 +134,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var callForHelp: Boolean= false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.callForHelp)
         }
 
     @SerializedName("help_Date")
@@ -142,7 +142,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var helpDate: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.helpDate)
         }
 
     @SerializedName("help_Code")
@@ -150,7 +150,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var helpCode: Int=0
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.helpCode)
         }
 
     @SerializedName("is_Source")
@@ -158,7 +158,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var source: Boolean=false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.source)
         }
 
 
@@ -166,14 +166,14 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var memo: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.memo)
         }
     @SerializedName("register_Id")
     @get:Bindable
     var registerId: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.registerId)
         }
 
     @SerializedName("data_Statu")
@@ -181,28 +181,28 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     var status: Int=0
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.status)
         }
 
     @get:Bindable
     var createdBy: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.createdBy)
         }
 
     @get:Bindable
     var createdDate: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.createdDate)
         }
 
     @get:Bindable
     var modifiedBy: String=""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.modifiedDate)
+            notifyPropertyChanged(BR.modifiedBy)
         }
     @get:Bindable
     var modifiedDate: String=""
