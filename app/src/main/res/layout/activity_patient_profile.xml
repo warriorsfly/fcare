@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout>
-    <!--<data>-->
-        <!--<variable name="viewModel" type="com.wxsoft.emergency.ui.detail.PatientDetailViewModel"/>-->
-    <!--</data>-->
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.patient.ProfileViewModel"/>
+    </data>
 
     <android.support.v4.widget.NestedScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"

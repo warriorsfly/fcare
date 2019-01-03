@@ -16,6 +16,7 @@ import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
+import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
@@ -84,11 +85,19 @@ class DoMinaActivity : BaseActivity() {
 
     inner class TaskStateAdapter(fm: FragmentManager, private val task: Task) :
         FragmentPagerAdapter(fm) {
-        override fun getItem(position: Int): Fragment {
-            return when (position) {
-                PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance("","")
-                else -> ProcessFragment.newInstance(position)
+
+        private val statusFragments:List<Fragment> by lazyFast {
+            (0..4).map {
+                when (it) {
+                    PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance("", "")
+                    else -> ProcessFragment.newInstance(it)
+                }
             }
+        }
+
+        override fun getItem(position: Int): Fragment {
+
+            return statusFragments[position]
         }
 
         override fun getCount(): Int {
