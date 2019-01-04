@@ -61,7 +61,8 @@ class DoMinaActivity : BaseActivity() {
         viewModel.task.observe(this, Observer{
             it ?: return@Observer
 
-            binding.viewPager.adapter = TaskStateAdapter(supportFragmentManager)
+            if( binding.viewPager.adapter ==null)
+                binding.viewPager.adapter= TaskStateAdapter(supportFragmentManager)
         })
         viewModel.taskId=taskId
 
@@ -122,7 +123,7 @@ class DoMinaActivity : BaseActivity() {
         }
 
         override fun getCount(): Int {
-            return STATE_COUNT
+            return statusFragments.size
         }
     }
 
