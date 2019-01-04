@@ -35,13 +35,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="@{`耗时`+Converter.intToString(viewModel.task.arrivalTime)}"
+
                 android:gravity="center_vertical"
                 android:textColor="#F45E50"
                 android:background="@drawable/bg_time_lasted"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="338dp"
                 tools:text="耗时：10分钟"/>
-
+        <!--android:text="@{`耗时`+Converter.intToString(viewModel.task.arrivalTime)}"-->
     </FrameLayout>
 </layout>

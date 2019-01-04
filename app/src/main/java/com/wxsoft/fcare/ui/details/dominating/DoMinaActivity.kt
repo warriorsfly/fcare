@@ -57,10 +57,11 @@ class DoMinaActivity : BaseActivity() {
         viewModel=viewModelProvider(factory)
         binding.viewModel=viewModel
 
+//        binding.processTabs.setupWithViewPager(viewPager)
         viewModel.task.observe(this, Observer{
             it ?: return@Observer
 
-            viewPager.adapter = TaskStateAdapter(supportFragmentManager)
+            binding.viewPager.adapter = TaskStateAdapter(supportFragmentManager)
         })
         viewModel.taskId=taskId
 
@@ -84,6 +85,10 @@ class DoMinaActivity : BaseActivity() {
                 .setNegativeButton("取消"){ _, _ -> }
 
             dialog.show()
+        })
+
+        viewModel.pageAction.observe(this,EventObserver{
+            viewPager.setCurrentItem(it,true)
         })
 
         add_patient.setOnClickListener {

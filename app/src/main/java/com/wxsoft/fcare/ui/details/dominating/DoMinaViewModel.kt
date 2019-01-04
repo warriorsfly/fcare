@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.details.dominating
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
+import android.databinding.ObservableInt
 import com.google.gson.Gson
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.core.data.entity.Response
@@ -10,6 +11,7 @@ import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -24,8 +26,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
 ) : BaseViewModel(sharedPreferenceStorage,gson) {
 
     val task:LiveData<Task>
-    val selectedItemPosition:LiveData<Int>
-    val selectIndex = MediatorLiveData<Int>()
+    val selectIndex = ObservableInt()
     var taskId:String=""
         set(value) {
             if(value!=field){
@@ -36,9 +37,40 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             }
         }
     private val loadTaskResult=MediatorLiveData<Response<Task>>()
+
+    /**
+     * 时间处理
+     */
+
+    private var startTimeStamp:Long?=null
+        set(value) {
+
+        }
+
+    private var arriveTimeStamp:Long?=null
+
+    private var firstMetTimeStamp:Long?=null
+    private var returningTimeStamp:Long?=null
+    private var arriveHosTimeStamp:Long?=null
+
+//    val startTime=ObservableInt()
+//    val arriveTime=ObservableInt()
+//    val firstMetTime=ObservableInt()
+//    val returningTime=ObservableInt()
+//    val arriveHosTime=ObservableInt()
+
     init {
-        task=loadTaskResult.map {it.result?: Task("")}
-        selectedItemPosition=selectIndex.map { it }
+        task=loadTaskResult.map {
+
+            val theTask=it.result?: Task("")
+            startTimeStamp = if(theTask.startAt==null) null else DateTimeUtils.formatter.parse(theTask.startAt)?.time
+            arriveTimeStamp = if(theTask.arriveAt==null) null else DateTimeUtils.formatter.parse(theTask.arriveAt)?.time
+            firstMetTimeStamp = if(theTask.firstMet==null) null else DateTimeUtils.formatter.parse(theTask.firstMet)?.time
+            returningTimeStamp = if(theTask.returnAt==null) null else DateTimeUtils.formatter.parse(theTask.returnAt)?.time
+            arriveHosTimeStamp = if(theTask.arriveHosAt==null) null else DateTimeUtils.formatter.parse(theTask.arriveHosAt)?.time
+
+            return@map theTask
+        }
     }
 
     /**
@@ -47,6 +79,10 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     private val _atAction = MutableLiveData<Event<Int>>()
     val atAction: LiveData<Event<Int>>
         get() = _atAction
+
+    private val _pageAction = MutableLiveData<Event<Int>>()
+    val pageAction: LiveData<Event<Int>>
+        get() = _pageAction
 
     /**
      * 拉取任务
@@ -57,7 +93,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 {  loadTaskResult.value = it
-                    selectIndex.value=if(it.result?.status?:0==0) 0 else it.result?.status
+                    selectIndex.set(it.result?.status?:0)
                 },
                 { messageAction.value = Event(it.message ?: "") }
             )
@@ -67,19 +103,34 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
      * 供binding调用
      * 和task.status对应
      */
-    fun startAction(status:Int){
-        _atAction.value=Event(status)
+    fun startAction(status:Int) {
+        if (status==0   || status > (task.value?.status ?: 0)) {
+
+            _pageAction.value = Event(status)
+        } else {
+
+            _atAction.value = Event(status)
+        }
     }
 
     /**
      * 执行操作
      */
     fun doAction(status: Int){
-        when(status){
-            1->{arrive()}
-            2->{met()}
-            3->{returning()}
-            4->{arriveHos()}
+
+        when (status) {
+            1 -> {
+                arrive()
+            }
+            2 -> {
+                met()
+            }
+            3 -> {
+                returning()
+            }
+            4 -> {
+                arriveHos()
+            }
         }
     }
     /**
@@ -99,7 +150,9 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                             if (resp.success) {
                                 loadTaskResult.value?.result?.arriveAt = resp.result
                                 loadTaskResult.value?.result?.status = 2
-                                selectIndex.value=2
+                                arriveTimeStamp =  DateTimeUtils.formatter.parse(resp.result)?.time
+
+                                selectIndex.set(2)
                                 messageAction.value = Event(it.carId + "到达成功")
                             } else {
                                 messageAction.value = Event(resp.msg)
@@ -128,7 +181,9 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                             if (resp.success) {
                                 loadTaskResult.value?.result?.firstMet = resp.result
                                 loadTaskResult.value?.result?.status = 3
-                                selectIndex.value=3
+                                selectIndex.set(3)
+                                firstMetTimeStamp =DateTimeUtils.formatter.parse(resp.result)?.time
+
                                 messageAction.value = Event(it.carId + "首次接触")
                             } else {
                                 messageAction.value = Event(resp.msg)
@@ -156,7 +211,9 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                             if (resp.success) {
                                 loadTaskResult.value?.result?.returnAt = resp.result
                                 loadTaskResult.value?.result?.status = 4
-                                selectIndex.value=4
+                                selectIndex.set(4)
+                                returningTimeStamp = DateTimeUtils.formatter.parse(resp.result)?.time
+
                                 messageAction.value = Event(it.carId + "开始返回医院")
                             } else {
                                 messageAction.value = Event(resp.msg)
@@ -184,7 +241,8 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                             if (resp.success) {
                                 loadTaskResult.value?.result?.arriveHosAt = resp.result
                                 loadTaskResult.value?.result?.status = 5
-                                selectIndex.value=5
+                                selectIndex.set(5)
+                                arriveHosTimeStamp = DateTimeUtils.formatter.parse(resp.result)?.time
                                 messageAction.value = Event(it.carId + "返回医院大门")
                             } else {
                                 messageAction.value = Event(resp.msg)

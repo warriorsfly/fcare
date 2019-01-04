@@ -24,6 +24,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.unKnown)
+            name="三无患者"
         }
 
     @SerializedName("Hospital_Id")

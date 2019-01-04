@@ -8,22 +8,18 @@
             android:id="@+id/appbar"
             style="@style/Widget.AppBar"
             android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:fitsSystemWindows="true">
-         <FrameLayout
-            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingHorizontal="@dimen/margin_normal"
-            app:layout_scrollFlags="scroll|snap|enterAlwaysCollapsed">
+            android:fitsSystemWindows="true">
 
             <android.support.constraint.ConstraintLayout
                 android:id="@+id/container"
-
+                android:background="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="10dp"
-                android:paddingBottom="10dp">
+                android:paddingBottom="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
                 <TextView
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -66,7 +62,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/arrive_time"
                         tools:text="11:11"
-                        android:text="@{viewModel.task.startAt}"
+                        app:doneAt="@{viewModel.task.startAt}"
                         android:textSize="10sp"
                         android:id="@+id/start_time"
                         android:gravity="center"
@@ -80,7 +76,7 @@
                         app:layout_constraintLeft_toRightOf="@id/start_time"
                         app:layout_constraintRight_toLeftOf="@id/met_time"
                         tools:text="11:18"
-                        android:text="@{viewModel.task.arriveAt}"
+                        app:doneAt="@{viewModel.task.arriveAt}"
                         android:layout_marginBottom="5dp"
                         android:textSize="10sp"
                         android:id="@+id/arrive_time"
@@ -94,8 +90,7 @@
                         app:layout_constraintLeft_toRightOf="@id/arrive_time"
                         app:layout_constraintRight_toLeftOf="@id/returning_time"
                         tools:text="11:32"
-
-                        android:text="@{viewModel.task.firstMet}"
+                        app:doneAt="@{viewModel.task.firstMet}"
                         android:layout_marginBottom="5dp"
                         android:textSize="10sp"
                         android:id="@+id/met_time"
@@ -113,7 +108,7 @@
                         tools:text="11:41"
                         android:textSize="10sp"
                         android:gravity="center"
-                        android:text="@{viewModel.task.returnAt}"
+                        app:doneAt="@{viewModel.task.returnAt}"
                         android:id="@+id/returning_time"
                         app:layout_constraintBottom_toTopOf="@id/seekBar"/>
 
@@ -125,7 +120,7 @@
                         app:layout_constraintRight_toRightOf="parent"
                         android:textSize="10sp"
                         android:gravity="center"
-                        android:text="@{viewModel.task.arriveHosAt}"
+                        app:doneAt="@{viewModel.task.arriveHosAt}"
                         android:layout_marginBottom="5dp"
                         android:id="@+id/returnarrival_time"
                         app:layout_constraintBottom_toTopOf="@id/seekBar"/>
@@ -135,6 +130,7 @@
                         android:elevation="0.5dp"
                         android:gravity="center"
                         android:textSize="9sp"
+                        android:onClick="@{()->viewModel.startAction(0)}"
                         app:taskAt="@{viewModel.task.status>0}"
                         app:layout_constraintTop_toTopOf="@id/seekBar"
                         app:layout_constraintBottom_toBottomOf="@id/seekBar"
@@ -287,6 +283,5 @@
                         android:id="@+id/returnarrival"
                         app:layout_constraintBottom_toBottomOf="parent"/>
         </android.support.constraint.ConstraintLayout>
-        </FrameLayout>
     </android.support.design.widget.AppBarLayout>
 </layout>

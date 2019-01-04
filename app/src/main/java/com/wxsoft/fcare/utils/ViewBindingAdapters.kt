@@ -43,6 +43,15 @@ fun taskAt(view: TextView, visible: Boolean) {
     view.setTextColor(if (visible) view.context.resources.getColor(R.color.task_done) else view.context.resources.getColor(R.color.task_undo))
 }
 
+/**
+ * task complated time only show hour and minute
+ */
+@BindingAdapter("doneAt")
+fun doneAt(view: TextView, doneAt:String?) {
+    view.text=doneAt?.substring(11,16)
+}
+
+
 @BindingAdapter("invisibleUnless")
 fun invisibleUnless(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.INVISIBLE
