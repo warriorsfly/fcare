@@ -92,7 +92,7 @@ data class Task (val id:String): BaseObservable(){
     @SerializedName("isCanceled")var hasCanceled: Boolean = false
 
     var createdBy: String? = ""
-    var createdDate: String? = ""
+    var createdDate: String? = "0001-01-01 00:00:00"
     var modifiedBy: String? = ""
     var modifiedDate: String? = ""
 

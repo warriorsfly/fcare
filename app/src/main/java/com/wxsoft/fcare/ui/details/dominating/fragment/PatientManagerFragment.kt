@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
@@ -15,6 +16,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentPatientManagerBinding
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
+import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_patient_manager.*
@@ -36,7 +38,9 @@ class PatientManagerFragment : DaggerFragment() {
 
         binding=FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
             setLifecycleOwner(this@PatientManagerFragment)
+
         }
+
 
         return binding.root
     }
@@ -49,7 +53,15 @@ class PatientManagerFragment : DaggerFragment() {
         viewModel=activityViewModelProvider(factory)
 
         binding.viewModel=viewModel
+        if(!binding.image.hasOnClickListeners()) {
+            binding.image.setOnClickListener {
+                var intent = Intent(activity, ProfileActivity::class.java).apply {
+                    putExtra(ProfileActivity.TASK_ID, viewModel.taskId)
+                }
+                startActivity(intent)
 
+            }
+        }
         viewModel.task.observe(this, Observer {
             it ?: return@Observer
 
@@ -63,6 +75,8 @@ class PatientManagerFragment : DaggerFragment() {
 //                patPager.visibility=View.GONE
 //            }
         })
+
+
 
     }
 
