@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.utils.clearDecorations
 import com.wxsoft.fcare.utils.lazyFast
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -27,6 +29,7 @@ class EmrFragment : DaggerFragment() {
         }
     }
 
+
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -34,6 +37,7 @@ class EmrFragment : DaggerFragment() {
 
     private lateinit var viewModel: EmrViewModel
 
+    private lateinit var adapter: EmrAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +46,8 @@ class EmrFragment : DaggerFragment() {
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
             setLifecycleOwner(this@EmrFragment)
         }
+        adapter= EmrAdapter(this)
+        binding.list.adapter=adapter
         return binding.root
     }
 
@@ -56,6 +62,19 @@ class EmrFragment : DaggerFragment() {
 
         binding.viewModel=viewModel
         viewModel.patientId=patientId
+
+        viewModel.emrs.observe(this, Observer {
+            binding.list?.clearDecorations()
+            adapter.items=it ?: emptyList()
+
+
+//            if (it != null && it.isNotEmpty()) {
+//                binding.list?.addItemDecoration(
+//                    EmrItemDecoration(context!!, it)
+//                )
+//
+//            }
+        })
     }
 
 }

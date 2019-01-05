@@ -12,7 +12,7 @@
     <dimen name="dialog_horizontal_margin">12dp</dimen>
 
     <dimen name="spacing_normal">8dp</dimen>
-    <dimen name="emr_keyline">120dp</dimen>
+    <dimen name="emr_keyline">62dp</dimen>
     <dimen name="share_header">60dp</dimen>
     <dimen name="share_content">160dp</dimen>
     <dimen name="emr_keyline_2times">160dp</dimen>

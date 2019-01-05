@@ -44,18 +44,18 @@ class ShareShotUtils constructor(
 
 
 
-        padding = attrsHeader.getDimensionPixelSize(R.styleable.TimeHeader_android_paddingTop, 0)
+        padding = attrsHeader.getDimensionPixelSize(R.styleable.ShareInfo_android_paddingTop, 0)
         paddingTitle = 2 * padding
         widthTitle = attrsHeader.getDimensionPixelSize(R.styleable.ShareInfo_android_width, 0)
         widthProperty = attrsHeader.getDimensionPixelSize(R.styleable.ShareInfo_android_width, 0)
         widthContent = attrsContent.getDimensionPixelSize(R.styleable.ShareContent_android_width, 0)
         paintContentNormal = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor, 0)
+            color = attrsHeader.getColor(R.styleable.ShareInfo_shareMeridiemTextSize, 0)
             textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize, 10f)
             try {
                 typeface = ResourcesCompat.getFont(
                     context,
-                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily, 0)
+                    attrsHeader.getResourceId(R.styleable.ShareInfo_android_fontFamily, 0)
                 )
             } catch (_: Exception) {
                 // ignore
@@ -63,12 +63,12 @@ class ShareShotUtils constructor(
         }
 
         paintPropertyName = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor, 0)
-            textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize, 10f)
+            color = attrsHeader.getColor(R.styleable.ShareInfo_android_textColor, 0)
+            textSize = attrsHeader.getDimension(R.styleable.ShareInfo_shareMeridiemTextSize, 10f)
             try {
                 typeface = ResourcesCompat.getFont(
                     context,
-                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily, 0)
+                    attrsHeader.getResourceId(R.styleable.ShareInfo_android_fontFamily, 0)
                 )
             } catch (_: Exception) {
                 // ignore
@@ -76,12 +76,12 @@ class ShareShotUtils constructor(
         }
 
         paintTitle = TextPaint(Paint.ANTI_ALIAS_FLAG).apply {
-            color = attrsHeader.getColor(R.styleable.TimeHeader_android_textColor, 0)
+            color = attrsHeader.getColor(R.styleable.ShareInfo_android_textColor, 0)
             textSize = attrsHeader.getDimension(R.styleable.EmrItemHeader_userCaseTextSize, 10f)
             try {
                 typeface = ResourcesCompat.getFont(
                     context,
-                    attrsHeader.getResourceId(R.styleable.TimeHeader_android_fontFamily, 0)
+                    attrsHeader.getResourceId(R.styleable.ShareInfo_android_fontFamily, 0)
                 )
             } catch (_: Exception) {
                 // ignore
