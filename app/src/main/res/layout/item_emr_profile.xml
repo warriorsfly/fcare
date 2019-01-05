@@ -20,7 +20,8 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:id="@+id/container"
                 android:layout_width="293dp"
-                android:padding="10dp"
+                android:elevation="2dp"
+                android:translationZ="2dp"
                 android:background="@drawable/bg_item_emr"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content">

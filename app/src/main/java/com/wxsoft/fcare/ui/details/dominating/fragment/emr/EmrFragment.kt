@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.utils.clearDecorations
 import com.wxsoft.fcare.utils.lazyFast
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -63,7 +64,16 @@ class EmrFragment : DaggerFragment() {
         viewModel.patientId=patientId
 
         viewModel.emrs.observe(this, Observer {
+            binding.list?.clearDecorations()
             adapter.items=it ?: emptyList()
+
+
+            if (it != null && it.isNotEmpty()) {
+                binding.list?.addItemDecoration(
+                    EmrItemDecoration(context!!, it)
+                )
+
+            }
         })
     }
 
