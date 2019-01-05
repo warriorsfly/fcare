@@ -1,13 +1,11 @@
 package com.wxsoft.fcare.core.data.remote
 
+import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface PatientApi{
 
@@ -25,4 +23,7 @@ interface PatientApi{
 
     @POST("Patient/SavePatientInfo")
     fun save(@Body patient:Patient):Maybe<Response<String>>
+
+    @GET("Patient/GetPreEmssTimeLine")
+    fun getEmrs(@Query("patientId")patientId:String):Single<Response<List<EmrItem>>>
 }

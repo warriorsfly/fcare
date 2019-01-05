@@ -2,10 +2,7 @@ package com.wxsoft.fcare.core.di
 
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.BuildConfig
-import com.wxsoft.fcare.core.data.remote.AccountApi
-import com.wxsoft.fcare.core.data.remote.CarApi
-import com.wxsoft.fcare.core.data.remote.PatientApi
-import com.wxsoft.fcare.core.data.remote.TaskApi
+import com.wxsoft.fcare.core.data.remote.*
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
 import dagger.Module
@@ -81,6 +78,12 @@ class NetWorkModule {
     fun provideCarApi(retrofit: Retrofit):CarApi{
 
         return retrofit.create(CarApi::class.java)
+    }
+
+    @Provides
+    fun provideFileApi(retrofit: Retrofit):FileApi{
+
+        return retrofit.create(FileApi::class.java)
     }
 
 

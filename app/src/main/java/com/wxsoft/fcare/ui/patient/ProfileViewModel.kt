@@ -2,10 +2,12 @@ package com.wxsoft.fcare.ui.patient
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
+import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.FileApi
 import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
@@ -18,6 +20,7 @@ import javax.inject.Inject
 
 class ProfileViewModel @Inject constructor(
     private val patientApi: PatientApi,
+    private val fileApi: FileApi,
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gson: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gson), ICommonPresenter {
@@ -28,6 +31,8 @@ class ProfileViewModel @Inject constructor(
 
     var taskId=""
     val patient:LiveData<Patient>
+
+    val bitmaps=ArrayList<Bitmap>()
 
     override val clickable:LiveData<Boolean>
 
@@ -57,6 +62,8 @@ class ProfileViewModel @Inject constructor(
 
     override fun click(){
         if(patientSavable){
+
+            uploadFile()
             //在上面patientSavable已经判定了patient.value非空才会执行到这一步
             patientApi.save(patient.value!!.apply {
                 taskId=this@ProfileViewModel.taskId
@@ -111,4 +118,24 @@ class ProfileViewModel @Inject constructor(
             }?:false
 
     }
+
+    fun uploadFile(){
+        fileApi.save(bitmaps).toResource().subscribe {
+            when (it) {
+                is Resource.Success -> {
+                    clickResult.value=true
+                    savePatientResult.value = it
+                    messageAction.value = Event("保存成功")
+                }
+                is Resource.Error -> {
+                    clickResult.value=true
+                    messageAction.value = Event(it.throwable.message ?: "")
+                }
+                else->{
+                    clickResult.value=false
+                }
+            }
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class EmrFragment : DaggerFragment() {
         }
     }
 
+
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -34,6 +36,7 @@ class EmrFragment : DaggerFragment() {
 
     private lateinit var viewModel: EmrViewModel
 
+    private lateinit var adapter: EmrAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +45,8 @@ class EmrFragment : DaggerFragment() {
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
             setLifecycleOwner(this@EmrFragment)
         }
+        adapter= EmrAdapter(this)
+        binding.list.adapter=adapter
         return binding.root
     }
 
@@ -56,6 +61,10 @@ class EmrFragment : DaggerFragment() {
 
         binding.viewModel=viewModel
         viewModel.patientId=patientId
+
+        viewModel.emrs.observe(this, Observer {
+            adapter.items=it ?: emptyList()
+        })
     }
 
 }

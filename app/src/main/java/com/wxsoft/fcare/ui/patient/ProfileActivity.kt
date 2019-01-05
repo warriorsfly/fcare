@@ -116,7 +116,6 @@ class ProfileActivity : BaseActivity() {
                     showPhotoTaking()
                 }
             }
-
         }
     }
 
@@ -125,8 +124,8 @@ class ProfileActivity : BaseActivity() {
         if (CAMERA_PIC_REQUEST == requestCode) {
             val photo = data?.extras?.get("data") as Bitmap
 
-            photos.add(photo)
-            adapter.attachs= photos.toList()
+            viewModel.bitmaps.add(photo)
+            adapter.attachs= viewModel.bitmaps.toList()
         }
     }
 

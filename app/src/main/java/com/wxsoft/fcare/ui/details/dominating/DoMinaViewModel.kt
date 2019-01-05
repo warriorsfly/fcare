@@ -252,6 +252,8 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             }
         }
     }
+
+
 }
 
 //TODO clock the process
