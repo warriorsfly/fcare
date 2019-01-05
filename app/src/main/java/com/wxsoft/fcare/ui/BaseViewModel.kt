@@ -11,7 +11,7 @@ import com.wxsoft.fcare.core.result.Event
 abstract class BaseViewModel constructor(protected open val sharedPreferenceStorage: SharedPreferenceStorage,
                                          protected open val gson:Gson): ViewModel() {
 
-    protected val account: Account by lazy {  gson.fromJson(sharedPreferenceStorage.userInfo!!,Account::class.java)}
+    protected open val account: Account by lazy {  gson.fromJson(sharedPreferenceStorage.userInfo!!,Account::class.java)}
 
     /**
      * 结果信息

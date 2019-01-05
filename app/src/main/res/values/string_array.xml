@@ -19,4 +19,12 @@
         <item>无单位</item>
     </array>
 
+    <array name="killip_leavel">
+        <item>==请选择==</item>
+        <item>I级(no CHF)</item>
+        <item>II级(rales and/or JVD)</item>
+        <item>III级(pulmonary edema)</item>
+        <item>IV级(cardiogenic shock)</item>
+    </array>
+
 </resources>

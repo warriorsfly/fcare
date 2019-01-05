@@ -12,24 +12,25 @@ import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
-class DispatchCarViewModel @Inject constructor(gson: Gson,
-                                               sharedPreferenceStorage: SharedPreferenceStorage,
-                                               val  taskApi: TaskApi,
-                                               val carApi: CarApi): ViewModel(), EventActions {
+class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
+                                               val carApi: CarApi,
+                                               override val sharedPreferenceStorage: SharedPreferenceStorage,
+                                               override val gson: Gson): BaseViewModel(sharedPreferenceStorage,gson), EventActions {
 
     val task: LiveData<Task>
     val doctors: LiveData<List<User>>
     val nurses: LiveData<List<User>>
     val drivers: LiveData<List<User>>
     val cars: LiveData<List<Car>>
-    val account: Account
     var taskId: LiveData<String>
     var selectedCar:Car
+    override val account: Account
 
     private val initTask= MediatorLiveData<Task>()
     private val initTaskId= MediatorLiveData<Resource<Response<String>>>()
@@ -56,6 +57,7 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
         getDoctors()
         getNurses()
         getDrivers()
+
     }
 
     private fun saveTask(){
@@ -134,8 +136,8 @@ class DispatchCarViewModel @Inject constructor(gson: Gson,
         staffs.addAll(nstaff)
         staffs.addAll(drtaff)
         task.value?.taskStaffs = staffs.toTypedArray()
+        task.value?.carId = selectedCar.id
         saveTask()
-
     }
 
 }

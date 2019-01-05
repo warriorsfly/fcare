@@ -19,12 +19,12 @@
             app:cardCornerRadius="6dp">
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/container"
-                android:layout_width="wrap_content"
+                android:layout_width="85dp"
                 taskSelectUser="@{user.status}"
                 android:layout_gravity="center"
                 android:padding="10dp"
                 android:onClick="@{() -> listener.selectDoctor(user)}"
-                android:layout_height="wrap_content">
+                android:layout_height="56dp">
             <TextView
                     android:id="@+id/user_name"
                     android:layout_width="wrap_content"
