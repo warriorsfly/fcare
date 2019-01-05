@@ -7,6 +7,8 @@ import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
+import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
+import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsModule
 import com.wxsoft.fcare.ui.login.LoginActivity
@@ -57,5 +59,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ProfileModule::class])
     internal abstract fun profileActivity(): ProfileActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [MedicalHistoryModule::class])
+    internal abstract fun medicalHistoryActivity(): MedicalHistoryActivity
 
 }
