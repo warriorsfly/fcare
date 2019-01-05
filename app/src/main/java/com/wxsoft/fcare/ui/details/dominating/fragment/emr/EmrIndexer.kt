@@ -16,6 +16,6 @@ fun indexEmr(items: List<EmrItem>): List<Triple<Int, Boolean,String?>> {
 
     return items.mapIndexed { index,e->
 
-        return@mapIndexed Triple(index,e.done,e.complatedAt?.substring(11,16))
+        return@mapIndexed Triple(index,e.done,e.completedAt?.substring(11,16))
     }
 }

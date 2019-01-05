@@ -68,12 +68,12 @@ class EmrFragment : DaggerFragment() {
             adapter.items=it ?: emptyList()
 
 
-            if (it != null && it.isNotEmpty()) {
-                binding.list?.addItemDecoration(
-                    EmrItemDecoration(context!!, it)
-                )
-
-            }
+//            if (it != null && it.isNotEmpty()) {
+//                binding.list?.addItemDecoration(
+//                    EmrItemDecoration(context!!, it)
+//                )
+//
+//            }
         })
     }
 

@@ -35,11 +35,13 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             is ItemViewHolder.NoneViewHolder -> holder.binding.apply {
                 setLifecycleOwner(lifecycleOwner)
                 item=differ.currentList[position]
+                visiable=position<differ.currentList.size-1
                 executePendingBindings()
             }
             is ItemViewHolder.ProfileViewHolder -> holder.binding.apply {
-
-                item=differ.currentList[position].result  as Patient
+                item=differ.currentList[position]
+                visiable= position<differ.currentList.size-1
+                patient=differ.currentList[position].result  as Patient
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }
