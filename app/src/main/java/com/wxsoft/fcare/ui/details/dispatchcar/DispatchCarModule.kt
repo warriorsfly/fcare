@@ -14,10 +14,4 @@ internal abstract class DispatchCarModule {
     @IntoMap
     @ViewModelKey(DispatchCarViewModel::class)
     abstract fun bindDispatchCarViewModel(viewModel: DispatchCarViewModel): ViewModel
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(VitalSignsViewModel::class)
-    abstract fun bindVitalSignsViewModel(viewModel: VitalSignsViewModel): ViewModel
-
 }

@@ -12,8 +12,10 @@ import com.wxsoft.fcare.core.result.EventObserver
 import android.arch.lifecycle.Observer
 
 import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
+import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
+import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
@@ -92,14 +94,29 @@ class AssignmentFragment : DaggerFragment() {
 
 
     fun toDispatchCar() {
+        toCheckBody()
+    }
+
+    fun startTask(){
         var intent = Intent(activity!!, DispatchCarActivity::class.java)
         startActivity(intent)
     }
 
     fun toDetail(id: String) {
-
         var intent = Intent(activity!!, DoMinaActivity::class.java)
         intent.putExtra(DoMinaActivity.TASK_ID, id)
+        startActivity(intent)
+    }
+
+    fun toVital(){//生命体征录入
+        var intent = Intent(activity!!, VitalSignsActivity::class.java)
+        intent.putExtra(VitalSignsActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
+        startActivity(intent)
+    }
+
+    fun toCheckBody(){//查体
+        var intent = Intent(activity!!, CheckBodyActivity::class.java)
+        intent.putExtra(CheckBodyActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 

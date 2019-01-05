@@ -1,11 +1,14 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
+import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
+import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsModule
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
@@ -44,10 +47,12 @@ abstract class ActivityBindingModule {
     internal abstract fun dispatchCarActivity(): DispatchCarActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [DispatchCarModule::class])
-    internal abstract fun ambulanceActivity(): VitalSignsActivity
+    @ContributesAndroidInjector(modules = [VitalSignsModule::class])
+    internal abstract fun vitalSignsActivity(): VitalSignsActivity
 
-
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [CheckBodyModule::class])
+    internal abstract fun checkBodyActivity(): CheckBodyActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ProfileModule::class])

@@ -1,48 +1,53 @@
-package com.wxsoft.fcare.ui.details.vitalsigns
+package com.wxsoft.fcare.ui.details.checkbody
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.MenuItem
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.databinding.ActivityVitalSignsBinding
+import com.wxsoft.fcare.databinding.ActivityCheckBodyBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.utils.viewModelProvider
 import javax.inject.Inject
 
-class VitalSignsActivity : BaseActivity() {
+class CheckBodyActivity : BaseActivity()  {
 
     private lateinit var patientId:String
-
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
     }
 
-    private lateinit var viewModel: VitalSignsViewModel
+    private lateinit var viewModel: CheckBodyViewModel
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var binding: ActivityVitalSignsBinding
+    lateinit var binding: ActivityCheckBodyBinding
+
+    lateinit var adapter: CheckBodyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("生命体征信息")
+        setTitle("查体")
 
         viewModel = viewModelProvider(factory)
-        binding = DataBindingUtil.setContentView<ActivityVitalSignsBinding>(this, R.layout.activity_vital_signs)
+        binding = DataBindingUtil.setContentView<ActivityCheckBodyBinding>(this, R.layout.activity_check_body)
             .apply {
-                setLifecycleOwner(this@VitalSignsActivity)
+                setLifecycleOwner(this@CheckBodyActivity)
             }
-        patientId=intent.getStringExtra(PATIENT_ID)?:""
-
-        binding.viewModel = viewModel
+        patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
+        binding.viewModel = viewModel
+        viewModel.loadItems()
+        viewModel.loadCheckBody()
 
-        viewModel.loadVitalSign()
-
+        adapter = CheckBodyAdapter(this,viewModel,this)
+        binding.checkList.adapter = adapter
+        viewModel.checkBody.observe(this, Observer {  })
 
     }
+
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -55,4 +60,6 @@ class VitalSignsActivity : BaseActivity() {
             else -> return super.onOptionsItemSelected(item)
         }
     }
+
+
 }

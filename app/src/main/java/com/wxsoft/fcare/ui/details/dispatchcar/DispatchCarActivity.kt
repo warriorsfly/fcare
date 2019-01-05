@@ -64,6 +64,7 @@ class DispatchCarActivity : BaseActivity() {
         binding.submitBtn.setOnClickListener {
             viewModel.submitBtnClick()
         }
+        viewModel.task.observe(this, Observer {  })
 
         viewModel.taskId.observe(this, Observer {
             if (it != null){
