@@ -2,10 +2,7 @@ package com.wxsoft.fcare.core.di
 
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.BuildConfig
-import com.wxsoft.fcare.core.data.remote.AccountApi
-import com.wxsoft.fcare.core.data.remote.CarApi
-import com.wxsoft.fcare.core.data.remote.PatientApi
-import com.wxsoft.fcare.core.data.remote.TaskApi
+import com.wxsoft.fcare.core.data.remote.*
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
 import dagger.Module
@@ -99,6 +96,12 @@ class NetWorkModule {
     fun provideCheckBodyApi(retrofit: Retrofit):CheckBodyApi{
 
         return retrofit.create(CheckBodyApi::class.java)
+    }
+
+    @Provides
+    fun provideMedicalHistoryApi(retrofit: Retrofit):MedicalHistoryApi{
+
+        return retrofit.create(MedicalHistoryApi::class.java)
     }
 
     @Provides

@@ -12,7 +12,6 @@ import retrofit2.http.Path
 
 interface FileApi{
 
-
     @POST("File/UploadAsync")
     fun save(@Body bitmaps:List<Bitmap>):Maybe<Response<String>>
 }

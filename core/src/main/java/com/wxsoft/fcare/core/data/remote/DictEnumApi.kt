@@ -32,4 +32,12 @@ interface DictEnumApi {
 
     @GET("EnumDic/enumItems/209")
     fun loadResponseLightItems(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/210")
+    fun loadMedicalHistoryProviderItems(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/211")
+    fun loadMedicalHistoryItems(): Maybe<List<Dictionary>>
+
+
 }
