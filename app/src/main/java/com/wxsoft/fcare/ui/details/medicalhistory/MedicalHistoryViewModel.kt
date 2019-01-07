@@ -16,6 +16,10 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.map
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
@@ -90,7 +94,15 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     }
 
     fun uploadFile(){
-        fileApi.save(photos).toResource().subscribe {
+        val files = photos.map {
+            val stream = ByteArrayOutputStream()
+            it.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val byteArray = stream.toByteArray()
+
+            return@map MultipartBody.Part.create(RequestBody.create(MediaType.parse("multipart/form-data"), byteArray))
+        }
+
+        fileApi.save(files).toResource().subscribe {
             when (it) {
                 is Resource.Success -> {
                     messageAction.value = Event("保存成功")
