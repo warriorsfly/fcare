@@ -35,10 +35,10 @@ class PatientManagerFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        viewModel=activityViewModelProvider(factory)
         binding=FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
             setLifecycleOwner(this@PatientManagerFragment)
-
+            viewModel=this@PatientManagerFragment.viewModel
         }
 
 
@@ -50,7 +50,7 @@ class PatientManagerFragment : DaggerFragment() {
 
         tab.setupWithViewPager(patPager)
 
-        viewModel=activityViewModelProvider(factory)
+
 
         binding.viewModel=viewModel
         if(!binding.image.hasOnClickListeners()) {
@@ -81,7 +81,7 @@ class PatientManagerFragment : DaggerFragment() {
     }
 
 
-    inner class EmrAdapter(fm: FragmentManager,patients:Array<Patient>) :
+    class EmrAdapter(fm: FragmentManager,patients:Array<Patient>) :
         FragmentPagerAdapter(fm) {
 
         private var fragments:MutableList<Fragment> = patients.map { EmrFragment.newInstance(it.id) }.toMutableList()

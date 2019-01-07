@@ -101,7 +101,7 @@ class DoMinaActivity : BaseActivity() {
         }
     }
 
-    inner class TaskStateAdapter(fm: FragmentManager) :
+    class TaskStateAdapter(fm: FragmentManager) :
         FragmentPagerAdapter(fm) {
 
         private val statusFragments:List<Fragment> by lazyFast {

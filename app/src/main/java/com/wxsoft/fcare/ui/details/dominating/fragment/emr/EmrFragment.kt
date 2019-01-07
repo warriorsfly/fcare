@@ -48,14 +48,28 @@ class EmrFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        viewModel = activityViewModelProvider(factory)
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
             setLifecycleOwner(this@EmrFragment)
+
+            viewModel=this@EmrFragment.viewModel
         }
         adapter= EmrAdapter(this)
         adapter.setActionListener(EventAction(activity!!,patientId))
         binding.list.adapter=adapter
+
+        viewModel.patientId=patientId
+
+        viewModel.emrs.observe(this, Observer {
+            //    binding.list?.clearDecorations()
+            adapter.items=it ?: emptyList()
+
+        })
         return binding.root
+
+
+
+
     }
 
     class EventAction constructor(private val context: Context,private val patientId:String):EventActions{
@@ -75,27 +89,6 @@ class EmrFragment : DaggerFragment() {
     private val patientId: String by lazyFast {
         val args = arguments ?: throw IllegalStateException("Missing arguments!")
         args.getString(ARG_PATIENT)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = activityViewModelProvider(factory)
-
-        binding.viewModel=viewModel
-        viewModel.patientId=patientId
-
-        viewModel.emrs.observe(this, Observer {
-        //    binding.list?.clearDecorations()
-            adapter.items=it ?: emptyList()
-
-
-//            if (it != null && it.isNotEmpty()) {
-//                binding.list?.addItemDecoration(
-//                    EmrItemDecoration(context!!, it)
-//                )
-//
-//            }
-        })
     }
 
 }

@@ -36,21 +36,13 @@ class ProcessArriveFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
+        viewModel = activityViewModelProvider(factory)
         binding=FragmentProcessArriveBinding.inflate(inflater,container, false).apply {
             setLifecycleOwner(this@ProcessArriveFragment)
+            viewModel=this@ProcessArriveFragment.viewModel
         }
 
         return binding.root
     }
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-        viewModel = activityViewModelProvider(factory)
-        binding.viewModel=viewModel
-
-    }
 }
