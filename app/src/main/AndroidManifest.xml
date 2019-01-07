@@ -45,6 +45,8 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.details.measures.MeasuresActivity">
+        </activity>
         <activity android:name=".ui.details.vitalsigns.VitalSignsActivity">
         </activity>
         <activity android:name=".ui.details.checkbody.CheckBodyActivity">
@@ -60,15 +62,13 @@
                 android:name=".ui.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
                 android:name=".ui.patient.ProfileActivity"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:screenOrientation="portrait"/>
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.login.LoginActivity"
-                android:theme="@style/AppTheme.NoActionBar"
-                >
+                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
