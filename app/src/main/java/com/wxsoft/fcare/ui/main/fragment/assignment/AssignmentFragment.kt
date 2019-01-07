@@ -86,7 +86,8 @@ class AssignmentFragment : DaggerFragment() {
                 mMonth = monthOfYear
                 mDay = dayOfMonth
                 viewModel.taskDate = year.toString() + "-" +
-                        DateTimeUtils.frontCompWithZore(monthOfYear + 1, 2).toString() + "-" + dayOfMonth.toString()
+                        DateTimeUtils.frontCompWithZore(monthOfYear + 1, 2) + "-" +
+                        DateTimeUtils.frontCompWithZore(dayOfMonth, 2)
                 binding.selectTaskDate.setText(viewModel.taskDate)
                 viewModel.onSwipeRefresh()
             }, mYear, mMonth, mDay)
