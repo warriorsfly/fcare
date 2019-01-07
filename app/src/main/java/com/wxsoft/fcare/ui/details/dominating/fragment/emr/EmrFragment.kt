@@ -85,7 +85,7 @@ class EmrFragment : DaggerFragment() {
         viewModel.patientId=patientId
 
         viewModel.emrs.observe(this, Observer {
-            binding.list?.clearDecorations()
+        //    binding.list?.clearDecorations()
             adapter.items=it ?: emptyList()
 
 
