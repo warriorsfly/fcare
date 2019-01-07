@@ -1,6 +1,9 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.ui.EventActions
+import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import com.wxsoft.fcare.utils.clearDecorations
 import com.wxsoft.fcare.utils.lazyFast
@@ -49,16 +53,19 @@ class EmrFragment : DaggerFragment() {
             setLifecycleOwner(this@EmrFragment)
         }
         adapter= EmrAdapter(this)
-        adapter.setActionListener(EventAction())
+        adapter.setActionListener(EventAction(activity!!,patientId))
         binding.list.adapter=adapter
         return binding.root
     }
 
-    class EventAction:EventActions{
+    class EventAction constructor(private val context: Context,private val patientId:String):EventActions{
         override fun onOpen(id: String) {
             when(id){
                 ActionRes.ActionType.患者信息录入->{
-
+                    var intent = Intent(context, ProfileActivity::class.java).apply {
+                        putExtra(ProfileActivity.PATIENT_ID, patientId)
+                    }
+                    context.startActivity(intent)
                 }
             }
         }

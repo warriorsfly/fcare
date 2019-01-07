@@ -51,13 +51,12 @@ class ProfileActivity : BaseActivity() {
     private val photos= ArrayList<Bitmap>()
 
     private val patientId: String by lazyFast {
-        val args = intent ?: throw IllegalStateException("Missing arguments!")
-        args.getStringExtra(PATIENT_ID)
+        intent?.getStringExtra(PATIENT_ID)?:""
     }
 
     private val taskId: String by lazyFast {
-        val args = intent ?: throw IllegalStateException("Missing arguments!")
-        args.getStringExtra(PATIENT_ID)
+         intent ?.getStringExtra(TASK_ID)?:""
+
     }
 
 
