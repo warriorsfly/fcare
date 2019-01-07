@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
+import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import com.wxsoft.fcare.utils.clearDecorations
 import com.wxsoft.fcare.utils.lazyFast
@@ -47,8 +49,20 @@ class EmrFragment : DaggerFragment() {
             setLifecycleOwner(this@EmrFragment)
         }
         adapter= EmrAdapter(this)
+        adapter.setActionListener(EventAction())
         binding.list.adapter=adapter
         return binding.root
+    }
+
+    class EventAction:EventActions{
+        override fun onOpen(id: String) {
+            when(id){
+                ActionRes.ActionType.患者信息录入->{
+
+                }
+            }
+        }
+
     }
 
     private val patientId: String by lazyFast {

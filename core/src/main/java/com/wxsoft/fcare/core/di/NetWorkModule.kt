@@ -2,10 +2,7 @@ package com.wxsoft.fcare.core.di
 
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.BuildConfig
-import com.wxsoft.fcare.core.data.remote.AccountApi
-import com.wxsoft.fcare.core.data.remote.CarApi
-import com.wxsoft.fcare.core.data.remote.PatientApi
-import com.wxsoft.fcare.core.data.remote.TaskApi
+import com.wxsoft.fcare.core.data.remote.*
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
 import dagger.Module
@@ -84,7 +81,7 @@ class NetWorkModule {
     }
 
     @Provides
-    fun provideVitalSignApi(retrofit: Retrofit):VitalSignApi{
+    fun provideVitalSignApi(retrofit: Retrofit): VitalSignApi {
 
         return retrofit.create(VitalSignApi::class.java)
     }
@@ -105,6 +102,12 @@ class NetWorkModule {
     fun provideFileApi(retrofit: Retrofit):FileApi{
 
         return retrofit.create(FileApi::class.java)
+    }
+
+    @Provides
+    fun provideEmrApi(retrofit: Retrofit):EmrApi{
+
+        return retrofit.create(EmrApi::class.java)
     }
 
 

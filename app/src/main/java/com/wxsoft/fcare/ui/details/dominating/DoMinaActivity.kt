@@ -95,6 +95,7 @@ class DoMinaActivity : BaseActivity() {
         add_patient.setOnClickListener {
             var intent = Intent(this, ProfileActivity::class.java).apply {
                 putExtra(ProfileActivity.TASK_ID, taskId)
+                putExtra(ProfileActivity.TASK_ID, taskId)
             }
             startActivity(intent)
         }

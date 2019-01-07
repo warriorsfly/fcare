@@ -45,8 +45,8 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.details.medicalhistory.MedicalHistoryActivity">
-        </activity>
+        <!--<activity android:name=".ui.details.medicalhistory.MedicalHistoryActivity">-->
+        <!--</activity>-->
         <activity android:name=".ui.details.checkbody.CheckBodyActivity">
         </activity>
         <activity android:name=".ui.details.vitalsigns.VitalSignsActivity">
@@ -56,13 +56,6 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.details.dispatchcar.DispatchCarActivity">
         </activity>
-        <activity
-                android:name=".ui.details.dominating.DoMinaActivity"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:screenOrientation="portrait"/>
-        <activity
-                android:name=".ui.details.dispatchcar.DispatchCarActivity"
-                android:screenOrientation="portrait"/>
         <activity
                 android:name=".ui.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"
@@ -77,7 +70,6 @@
                 android:theme="@style/AppTheme.NoActionBar"
                 android:screenOrientation="portrait"
                 >
-                android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

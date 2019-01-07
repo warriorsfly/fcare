@@ -26,6 +26,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.common.AttachmentAdapter
 import com.wxsoft.fcare.ui.common.ForNewItem
 import com.wxsoft.fcare.ui.main.MainActivity
+import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -42,11 +43,23 @@ class ProfileActivity : BaseActivity() {
 
     companion object {
         const val TASK_ID = "TASK_ID"
+        const val PATIENT_ID = "PATIENT_ID"
         const val CAMERA_PIC_REQUEST=10
         const val CAMERA_PERMISSION_REQUEST=11
     }
 
     private val photos= ArrayList<Bitmap>()
+
+    private val patientId: String by lazyFast {
+        val args = intent ?: throw IllegalStateException("Missing arguments!")
+        args.getStringExtra(PATIENT_ID)
+    }
+
+    private val taskId: String by lazyFast {
+        val args = intent ?: throw IllegalStateException("Missing arguments!")
+        args.getStringExtra(PATIENT_ID)
+    }
+
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -69,9 +82,8 @@ class ProfileActivity : BaseActivity() {
 
         binding.viewModel=viewModel
 
-        viewModel.clickable.observe(this, Observer {
-
-        })
+        viewModel.taskId=taskId
+        viewModel.patientId=patientId
 
         viewModel.mesAction.observe(this, EventObserver {
             toast.setText(it)
@@ -89,6 +101,8 @@ class ProfileActivity : BaseActivity() {
 
         adapter.attachs= emptyList()
         attachments.adapter=adapter
+
+
     }
 
 

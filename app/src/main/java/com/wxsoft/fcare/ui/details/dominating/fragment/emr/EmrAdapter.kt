@@ -2,21 +2,28 @@ package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ViewDataBinding
+import android.sax.EndElementListener
 import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.databinding.ItemEmrNoneBinding
 import com.wxsoft.fcare.databinding.ItemEmrProfileBinding
+import com.wxsoft.fcare.ui.EventActions
 
 class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
+    private var action:EventActions?=null
 
+    fun setActionListener(actions: EventActions){
+        this.action=actions
+    }
     private val differ = AsyncListDiffer<EmrItem>(this, DiffCallback)
 
     override fun getItemCount(): Int {
@@ -36,10 +43,19 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 setLifecycleOwner(lifecycleOwner)
                 item=differ.currentList[position]
                 visiable=position<differ.currentList.size-1
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
                 executePendingBindings()
             }
             is ItemViewHolder.ProfileViewHolder -> holder.binding.apply {
                 item=differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+
                 visiable= position<differ.currentList.size-1
                 patient=differ.currentList[position].result  as Patient
                 setLifecycleOwner(lifecycleOwner)

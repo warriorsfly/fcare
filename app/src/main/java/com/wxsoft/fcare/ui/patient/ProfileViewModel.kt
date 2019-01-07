@@ -15,8 +15,16 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
+import okhttp3.MediaType
 import java.lang.Error
 import javax.inject.Inject
+import okhttp3.RequestBody
+import mapsdkvi.com.gdi.bgl.android.java.EnvDrawText.bmp
+import java.io.ByteArrayOutputStream
+import okhttp3.MultipartBody
+
+
+
 
 class ProfileViewModel @Inject constructor(
     private val patientApi: PatientApi,
@@ -30,6 +38,11 @@ class ProfileViewModel @Inject constructor(
         get() = "保存"
 
     var taskId=""
+    var patientId=""
+        set(value) {
+            field=value
+            loadPatient()
+        }
     val patient:LiveData<Patient>
 
     val bitmaps=ArrayList<Bitmap>()
@@ -49,9 +62,20 @@ class ProfileViewModel @Inject constructor(
             (it as? Resource.Success)?.data?.result?:Patient("")
         }
 
-        loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
-            this.result= Patient("")
-        })
+
+    }
+
+    private fun loadPatient(){
+
+        if(patientId.isNullOrEmpty()){
+            loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
+                this.result= Patient("")
+            })
+        }else {
+            patientApi.getOne(patientId).toResource().subscribe { it ->
+                loadPatientResult.value = it
+            }
+        }
     }
 
     fun patientIsUnkown(){
@@ -65,25 +89,25 @@ class ProfileViewModel @Inject constructor(
 
             uploadFile()
             //在上面patientSavable已经判定了patient.value非空才会执行到这一步
-            patientApi.save(patient.value!!.apply {
-                taskId=this@ProfileViewModel.taskId
-                createdBy=account.id
-            }).toResource().subscribe {
-                when (it) {
-                    is Resource.Success -> {
-                        clickResult.value=true
-                        savePatientResult.value = it
-                        messageAction.value = Event("保存成功")
-                    }
-                    is Resource.Error -> {
-                        clickResult.value=true
-                        messageAction.value = Event(it.throwable.message ?: "")
-                    }
-                    else->{
-                        clickResult.value=false
-                    }
-                }
-            }
+//            patientApi.save(patient.value!!.apply {
+//                taskId=this@ProfileViewModel.taskId
+//                createdBy=account.id
+//            }).toResource().subscribe {
+//                when (it) {
+//                    is Resource.Success -> {
+//                        clickResult.value=true
+//                        savePatientResult.value = it
+//                        messageAction.value = Event("保存成功")
+//                    }
+//                    is Resource.Error -> {
+//                        clickResult.value=true
+//                        messageAction.value = Event(it.throwable.message ?: "")
+//                    }
+//                    else->{
+//                        clickResult.value=false
+//                    }
+//                }
+//            }
         }
     }
 
@@ -119,8 +143,18 @@ class ProfileViewModel @Inject constructor(
 
     }
 
-    fun uploadFile(){
-        fileApi.save(bitmaps).toResource().subscribe {
+    private fun uploadFile(){
+
+
+        val files = bitmaps.map {
+            val stream = ByteArrayOutputStream()
+            it.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val byteArray = stream.toByteArray()
+
+            return@map MultipartBody.Part.create(RequestBody.create(MediaType.parse("multipart/form-data"), byteArray))
+        }
+
+        fileApi.save(files).toResource().subscribe {
             when (it) {
                 is Resource.Success -> {
                     clickResult.value=true
