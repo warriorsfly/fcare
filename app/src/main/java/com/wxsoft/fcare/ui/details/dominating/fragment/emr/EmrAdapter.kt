@@ -120,15 +120,14 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
 }
 
-object ForNewItem
-
-
 sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
+    //无结果
     class NoneViewHolder(
         val binding: ItemEmrNoneBinding
     ) : ItemViewHolder(binding)
 
+    //基本信息
     class ProfileViewHolder(
         val binding: ItemEmrProfileBinding
     ) : ItemViewHolder(binding)
