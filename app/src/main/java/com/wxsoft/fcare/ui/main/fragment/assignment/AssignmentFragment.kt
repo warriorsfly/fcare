@@ -15,6 +15,7 @@ import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
+import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.activityViewModelProvider
@@ -94,7 +95,7 @@ class AssignmentFragment : DaggerFragment() {
 
 
     fun toDispatchCar() {
-        toCheckBody()
+        toMedicalHistory()
     }
 
     fun startTask(){
@@ -117,6 +118,12 @@ class AssignmentFragment : DaggerFragment() {
     fun toCheckBody(){//查体
         var intent = Intent(activity!!, CheckBodyActivity::class.java)
         intent.putExtra(CheckBodyActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
+        startActivity(intent)
+    }
+
+    fun toMedicalHistory(){//病史
+        var intent = Intent(activity!!, MedicalHistoryActivity::class.java)
+        intent.putExtra(MedicalHistoryActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 

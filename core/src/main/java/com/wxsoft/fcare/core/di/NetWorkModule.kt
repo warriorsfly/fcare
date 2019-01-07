@@ -99,6 +99,12 @@ class NetWorkModule {
     }
 
     @Provides
+    fun provideMedicalHistoryApi(retrofit: Retrofit):MedicalHistoryApi{
+
+        return retrofit.create(MedicalHistoryApi::class.java)
+    }
+
+    @Provides
     fun provideFileApi(retrofit: Retrofit):FileApi{
 
         return retrofit.create(FileApi::class.java)
