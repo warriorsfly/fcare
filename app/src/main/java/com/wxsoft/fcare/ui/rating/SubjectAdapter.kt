@@ -72,7 +72,7 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
                 val presenter = differ.currentList[position] as Option
                 holder.binding.apply {
                     item=presenter
-                    
+                    subject=subjects.first { it.options.contains(presenter) }
                     setLifecycleOwner(lifecycleOwner)
                     executePendingBindings()
                 }

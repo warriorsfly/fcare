@@ -18,10 +18,13 @@ package com.wxsoft.fcare.utils
 
 import android.databinding.BindingAdapter
 import android.databinding.InverseMethod
+import android.support.design.card.MaterialCardView
 import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.TextView
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.rating.Option
+import com.wxsoft.fcare.core.data.entity.rating.Subject
 
 @BindingAdapter("taskSelectUser")
 fun taskSelectUser(view: View, visible: Boolean) {
@@ -49,6 +52,15 @@ fun taskAt(view: TextView, visible: Boolean) {
 @BindingAdapter("doneAt")
 fun doneAt(view: TextView, doneAt:String?) {
     view.text=doneAt?.substring(11,16)
+}
+
+@BindingAdapter("subject","option","selectedIndex")
+fun selectedOptionAt(view: View, subject:Subject,option:Option,selectedIndex:Int?) {
+    if(selectedIndex==null || selectedIndex==-1){
+        view.setBackgroundResource(R.color.white)
+    }else{
+        view.setBackgroundResource(if(subject.options[selectedIndex]==option) R.color.rating_red else R.color.white)
+    }
 }
 
 
