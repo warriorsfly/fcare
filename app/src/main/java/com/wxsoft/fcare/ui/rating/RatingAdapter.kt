@@ -4,74 +4,63 @@ package com.wxsoft.fcare.ui.rating
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ViewDataBinding
 import android.support.v7.recyclerview.extensions.AsyncListDiffer
+import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
-
 import com.wxsoft.fcare.core.data.entity.rating.Rating
+import com.wxsoft.fcare.core.data.entity.rating.Subject
+import com.wxsoft.fcare.databinding.ItemRatingBinding
+import com.wxsoft.fcare.databinding.ItemRatingSubjectBinding
+import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
+import com.wxsoft.fcare.ui.EventActions
 
 
-class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): RecyclerView.Adapter< ItemViewHolder>() {
+class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): ListAdapter<Rating,RatingAdapter.ItemViewHolder>(DiffCallback) {
 
-    private val differ = AsyncListDiffer<Any>(this, DiffCallback)
+    override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ItemViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return ItemViewHolder(ItemRatingBinding.inflate(inflater,parent,false))
+    }
 
-    var groups: List<Rating> = emptyList()
-        set(value) {
-            field = value
-            val newList=field.map {
-                var l = ArrayList<Any>()
-                l.add(it)
-                l.addAll(it.)
-                return@map l
-            }
-            val tot=ArrayList<Any>()
-            for( group in newList){
-                tot.addAll(group)
-            }
-
-            differ.submitList(tot)
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
+        holder.binding.apply {
+            item=getItem(position)
+            root.setOnClickListener { action?.onOpen(getItem(position).id) }
+            setLifecycleOwner(lifecycleOwner)
         }
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
     }
 
 
-    object DiffCallback : DiffUtil.ItemCallback<Any>() {
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when{
-                oldItem is Rating && newItem is Rating-> oldItem.id == newItem.id
-                oldItem is Option && newItem is Option-> oldItem.id == newItem.id
-                else-> false
-            }
+    class ItemViewHolder(bind: ItemRatingBinding) : RecyclerView.ViewHolder(bind.root) {
+
+        var binding: ItemRatingBinding
+            private set
+
+        init {
+            this.binding = bind
         }
 
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when{
-                oldItem is Rating && newItem is Rating-> oldItem.id == newItem.id
-                oldItem is Option && newItem is Option-> oldItem.id == newItem.id
-                else-> false
-            }
+    }
+
+    private var action: EventActions?=null
+
+    fun setActionListener(actions: EventActions){
+        this.action=actions
+    }
+    object DiffCallback : DiffUtil.ItemCallback<Rating>() {
+        override fun areItemsTheSame(oldItem: Rating, newItem: Rating): Boolean {
+            return return oldItem.id==newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Rating, newItem: Rating): Boolean {
+            return oldItem.id==newItem.id
         }
     }
 }
 
-
-/**
- * [RecyclerView.ViewHolder] types used by this adapter.
- */
-sealed class ItemViewHolder(bind: ViewDataBinding) : RecyclerView.ViewHolder(bind.root) {
-
-    class ScoreGroupViewHolder(
-        val binding: ItemScoreGroupBinding
-    ) : ItemViewHolder(binding)
-
-    class ScoreItemViewHolder(
-        val binding: ItemScoreSelectionBinding
-    ) : ItemViewHolder(binding)
-}
 
 

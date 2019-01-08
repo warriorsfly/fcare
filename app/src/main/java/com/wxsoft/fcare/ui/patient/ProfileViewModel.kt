@@ -16,10 +16,8 @@ import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
 import okhttp3.MediaType
-import java.lang.Error
 import javax.inject.Inject
 import okhttp3.RequestBody
-import mapsdkvi.com.gdi.bgl.android.java.EnvDrawText.bmp
 import java.io.ByteArrayOutputStream
 import okhttp3.MultipartBody
 
@@ -30,8 +28,8 @@ class ProfileViewModel @Inject constructor(
     private val patientApi: PatientApi,
     private val fileApi: FileApi,
     override val sharedPreferenceStorage: SharedPreferenceStorage,
-    override val gson: Gson
-) : BaseViewModel(sharedPreferenceStorage,gson), ICommonPresenter {
+    override val gon: Gson
+) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
     override val title: String
         get() = "基本信息"
     override val clickableTitle: String
@@ -90,7 +88,7 @@ class ProfileViewModel @Inject constructor(
             uploadFile()
             //在上面patientSavable已经判定了patient.value非空才会执行到这一步
 //            patientApi.save(patient.value!!.apply {
-//                taskId=this@ProfileViewModel.taskId
+//                patientId=this@ProfileViewModel.patientId
 //                createdBy=account.id
 //            }).toResource().subscribe {
 //                when (it) {

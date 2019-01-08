@@ -63,6 +63,7 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     implementation 'com.android.support:support-v4:28.0.0'
     implementation 'android.arch.lifecycle:extensions:1.1.1'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "com.android.support.test:runner:${runner_version}"
     androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
@@ -75,7 +76,7 @@ dependencies {
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     //picasso
 //    implementation "com.squareup.picasso:picasso:$picasso_version"
-    //for  gson
+    //for  gon
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     //rxkotlin
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"

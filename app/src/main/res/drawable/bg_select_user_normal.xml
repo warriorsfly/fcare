@@ -18,5 +18,5 @@
     <!--<gradient-->
             <!--android:angle="270"-->
             <!--android:endColor="#FB6C65"-->
-            <!--android:startColor="#FE5F55" />-->
+            <!--android:startColor="@color/rating_red" />-->
 </shape>

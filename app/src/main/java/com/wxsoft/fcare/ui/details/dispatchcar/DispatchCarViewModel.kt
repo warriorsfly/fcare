@@ -3,7 +3,6 @@ package com.wxsoft.fcare.ui.details.dispatchcar
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -21,7 +20,7 @@ import javax.inject.Inject
 class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
                                                val carApi: CarApi,
                                                override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                               override val gson: Gson): BaseViewModel(sharedPreferenceStorage,gson), EventActions {
+                                               override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions {
 
     val task: LiveData<Task>
     val doctors: LiveData<List<User>>
@@ -44,7 +43,7 @@ class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
 
     init {
         val s = sharedPreferenceStorage.userInfo!!
-        account = gson.fromJson(s, Account::class.java)
+        account = gon.fromJson(s, Account::class.java)
         task = initTask.map { it }
         initTask.value = Task("")
         selectedCar = Car("","","",false,"","",false)

@@ -6,8 +6,18 @@
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.rating.Option"/>
     </data>
 
+    <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_marginTop="17dp"
+            android:layout_marginBottom="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginLeft="42dp"
+            app:cardCornerRadius="4dp"
+            android:shadowRadius="2"
+            android:layout_height="wrap_content">
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/container"
+                android:padding="10dp"
                 android:layout_width="match_parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_height="wrap_content">
@@ -15,14 +25,16 @@
             <TextView
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="44dp"
+                    android:layout_marginStart="17dp"
                     android:id="@+id/content"
                     android:text="@{item.name}"
+                    tools:text="12345"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_width="0dp"
-                    android:textSize="18sp"
+                    android:textSize="16sp"
                     android:layout_height="wrap_content"/>
         </android.support.constraint.ConstraintLayout>
+    </android.support.design.card.MaterialCardView>
 
 </layout>

@@ -150,7 +150,7 @@
                     android:layout_height="16dp"
                     android:textAlignment="center"
                     android:textSize="13sp"
-                    android:background="#FE5F55"
+                    android:background="@color/rating_red"
                     android:textColor="#FFFFFF"
                     android:text="张三"
                     app:layout_constraintLeft_toRightOf="@+id/task_title6"

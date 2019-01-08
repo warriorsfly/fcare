@@ -26,7 +26,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                                                   private val medicalHistoryApi: MedicalHistoryApi,
                                                   private val fileApi: FileApi,
                                                   override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                                  override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) {
+                                                  override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id

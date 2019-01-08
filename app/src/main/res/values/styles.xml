@@ -18,6 +18,15 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
+    <style name="AppTheme.RatingSubject">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:statusBarColor">@color/rating_red</item>
+        <item name="android:screenOrientation">portrait</item>
+        <item name="android:windowBackground">@color/rating_red</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
 
     <style name="AppTheme.PopupOverlay" parent="Theme.MaterialComponents.Light"/>

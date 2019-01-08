@@ -20,8 +20,9 @@
     <color name="black_checked_nomal">#131D35</color>
     <color name="task_undo">#A5A9B3</color>
     <color name="task_done">#FFFFFF</color>
-    <color name="task_select_car_able_text">#FE5F55</color>
+    <color name="task_select_car_able_text">@color/rating_red</color>
     <color name="task_select_car_unable_text">#FFFFFF</color>
     <color name="patient_nothing_known">#FF0000</color>
     <color name="patient_known">#ffe9eaf2</color>
+    <color name="rating_red">#FE5F55</color>
 </resources>

@@ -14,6 +14,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -22,8 +23,8 @@ import javax.inject.Inject
  */
 class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                          override val gson: Gson
-) : BaseViewModel(sharedPreferenceStorage,gson) {
+                                          override val gon: Gson
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     val task:LiveData<Task>
     val selectIndex = ObservableInt()
@@ -91,8 +92,10 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
         taskApi.task(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeWith(DisposableSingleObserver<Response<Task>>())
             .subscribe(
-                {  loadTaskResult.value = it
+                {
+                    loadTaskResult.value = it
                     selectIndex.set(it.result?.status?:0)
                 },
                 { messageAction.value = Event(it.message ?: "") }

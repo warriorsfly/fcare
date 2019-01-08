@@ -19,6 +19,9 @@ import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
+import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.rating.RatingModule
+import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -70,4 +73,11 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [MeasuresModule::class])
     internal abstract fun medicalMeasuresActivity(): MeasuresActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [RatingModule::class])
+    internal abstract fun ratingActivity(): RatingActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [RatingModule::class])
+    internal abstract fun ratingSubjectActivity(): RatingSubjectActivity
 }

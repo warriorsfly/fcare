@@ -2,19 +2,15 @@ package com.wxsoft.fcare.ui.details.checkbody
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.databinding.Bindable
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.CheckBody
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.CheckBodyApi
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
-import com.wxsoft.fcare.core.data.remote.VitalSignApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.core.result.succeeded
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
@@ -22,7 +18,7 @@ import javax.inject.Inject
 class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                              private val checkBodyApi:CheckBodyApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                             override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) {
+                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id

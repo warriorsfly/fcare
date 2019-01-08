@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android"
+android:paddingLeft="42dp">
+    <item android:width="111dp" android:height="36dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#ffed402e" />
+            <corners android:radius="18dp" />
+        </shape>
+    </item>
+    <item android:width="36dp" android:height="36dp" android:drawable="@drawable/ic_score_rating"/>
+</layer-list>

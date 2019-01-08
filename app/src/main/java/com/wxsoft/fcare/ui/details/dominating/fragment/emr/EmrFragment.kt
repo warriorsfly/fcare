@@ -13,10 +13,12 @@ import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import com.wxsoft.fcare.utils.clearDecorations
 import com.wxsoft.fcare.utils.lazyFast
 import dagger.android.support.DaggerFragment
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class EmrFragment : DaggerFragment() {
@@ -55,7 +57,7 @@ class EmrFragment : DaggerFragment() {
             viewModel=this@EmrFragment.viewModel
         }
         adapter= EmrAdapter(this)
-        adapter.setActionListener(EventAction(activity!!,patientId))
+        adapter.setActionListener(EventAction(WeakReference(activity!!),patientId))
         binding.list.adapter=adapter
 
         viewModel.patientId=patientId
@@ -72,14 +74,19 @@ class EmrFragment : DaggerFragment() {
 
     }
 
-    class EventAction constructor(private val context: Context,private val patientId:String):EventActions{
+    class EventAction constructor(private val context: WeakReference<Context>,private val patientId:String):EventActions{
         override fun onOpen(id: String) {
             when(id){
                 ActionRes.ActionType.患者信息录入->{
-                    var intent = Intent(context, ProfileActivity::class.java).apply {
+                    var intent = Intent(context.get(), ProfileActivity::class.java).apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
-                    context.startActivity(intent)
+                    context.get()?.startActivity(intent)
+                }
+
+                ActionRes.ActionType.GRACE->{
+                    var intent = Intent(context.get(), RatingActivity::class.java)
+                    context.get()?.startActivity(intent)
                 }
             }
         }

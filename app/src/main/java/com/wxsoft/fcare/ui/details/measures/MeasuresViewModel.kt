@@ -10,7 +10,7 @@ import javax.inject.Inject
 class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                             private val checkBodyApi: CheckBodyApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                            override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) {
+                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
     /**
      * 病人id
      */
