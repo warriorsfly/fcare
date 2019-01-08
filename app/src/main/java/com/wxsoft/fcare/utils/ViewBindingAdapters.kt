@@ -24,6 +24,7 @@ import android.view.View
 import android.widget.TextView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
+import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.Subject
 
 @BindingAdapter("taskSelectUser")
@@ -54,13 +55,14 @@ fun doneAt(view: TextView, doneAt:String?) {
     view.text=doneAt?.substring(11,16)
 }
 
-@BindingAdapter("subject","option","selectedIndex")
-fun selectedOptionAt(view: View, subject:Subject,option:Option,selectedIndex:Int?) {
+@BindingAdapter("subject","option","selectedIndex","rating")
+fun selectedOptionAt(view: View, subject:Subject,option:Option,selectedIndex:Int?,rating: Rating?) {
     if(selectedIndex==null || selectedIndex==-1){
         view.setBackgroundResource(R.color.white)
     }else{
         view.setBackgroundResource(if(subject.options[selectedIndex]==option) R.color.rating_red else R.color.white)
     }
+    rating?.changeScore()
 }
 
 

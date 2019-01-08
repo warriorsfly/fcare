@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <variable name="rating" type="com.wxsoft.fcare.core.data.entity.rating.Rating"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.rating.Option"/>
         <variable name="subject" type="com.wxsoft.fcare.core.data.entity.rating.Subject"/>
     </data>
@@ -21,6 +22,7 @@
                 android:padding="10dp"
                 app:subject="@{subject}"
                 app:option="@{item}"
+                app:rating="@{rating}"
                 app:selectedIndex="@{subject.selectedIndex}"
                 android:onClick="@{() -> subject.check(item)}"
                 android:layout_width="match_parent"

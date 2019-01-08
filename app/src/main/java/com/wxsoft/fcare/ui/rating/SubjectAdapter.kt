@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
+import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.Subject
 import com.wxsoft.fcare.databinding.ItemRatingSubjectBinding
 import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
@@ -21,6 +22,7 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
+    var rating: Rating?=null
     var subjects: List<Subject> = emptyList()
         set(value) {
             field = value
@@ -72,6 +74,7 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
                 val presenter = differ.currentList[position] as Option
                 holder.binding.apply {
                     item=presenter
+                    rating=this@SubjectAdapter.rating
                     subject=subjects.first { it.options.contains(presenter) }
                     setLifecycleOwner(lifecycleOwner)
                     executePendingBindings()

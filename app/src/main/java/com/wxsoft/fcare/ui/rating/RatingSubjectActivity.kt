@@ -53,6 +53,7 @@ class RatingSubjectActivity : BaseActivity() {
 
         viewModel.rating.observe(this, Observer {
             it ?: return@Observer
+            adapter.rating=it
             adapter.subjects=it.subjects
         })
 

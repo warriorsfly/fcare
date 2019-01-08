@@ -37,7 +37,7 @@ class RatingSubjectViewModel @Inject constructor(
 
     init {
 
-        rating=loadRatingResult.map { it ?: Rating("","","",0f) }
+        rating=loadRatingResult.map { it ?: Rating("","","") }
 //        loadRating()
     }
 
