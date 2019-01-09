@@ -35,8 +35,6 @@ class ProfileActivity : BaseActivity() {
     companion object {
         const val TASK_ID = "TASK_ID"
         const val PATIENT_ID = "PATIENT_ID"
-        const val CAMERA_PIC_REQUEST=10
-        const val CAMERA_PERMISSION_REQUEST=11
     }
 
     private val photos= ArrayList<Bitmap>()
@@ -89,7 +87,7 @@ class ProfileActivity : BaseActivity() {
             }
         },1))
 
-        adapter.attachs= emptyList()
+        adapter.uris= emptyList()
         attachments.adapter=adapter
 
 
@@ -100,14 +98,13 @@ class ProfileActivity : BaseActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ||
             ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
 
-
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
                 CAMERA_PERMISSION_REQUEST
             )
 
         }else{
-            showPhotoTaking()
+            dispatchTakePictureIntent()
         }
     }
 
@@ -117,7 +114,7 @@ class ProfileActivity : BaseActivity() {
             CAMERA_PERMISSION_REQUEST->{
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-                    showPhotoTaking()
+                    dispatchTakePictureIntent()
                 }
             }
         }
@@ -126,16 +123,16 @@ class ProfileActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if (CAMERA_PIC_REQUEST == requestCode) {
-            val photo = data?.extras?.get("data") as Bitmap
+//            xval photo = data?.extras?.get("data") as Bitmap
 
-            viewModel.bitmaps.add(photo)
-            adapter.attachs= viewModel.bitmaps.toList()
+            viewModel.bitmaps.add(mCurrentPhotoPath!!)
+            adapter.uris= viewModel.bitmaps.toList()
         }
     }
 
-    private fun showPhotoTaking(){
-        val cameraIntent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST)
-    }
+//    private fun showPhotoTaking(){
+//        val cameraIntent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+//        startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST)
+//    }
 
 }

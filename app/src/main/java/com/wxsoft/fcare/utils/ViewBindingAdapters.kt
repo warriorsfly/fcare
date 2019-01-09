@@ -18,10 +18,13 @@ package com.wxsoft.fcare.utils
 
 import android.databinding.BindingAdapter
 import android.databinding.InverseMethod
-import android.support.design.card.MaterialCardView
+import android.graphics.drawable.Drawable
+import android.net.Uri
 import android.support.v4.view.ViewPager
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import com.squareup.picasso.Picasso
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
 import com.wxsoft.fcare.core.data.entity.rating.Rating
@@ -79,6 +82,11 @@ fun goneUnless(view: View, visible: Boolean) {
 @BindingAdapter("pageMargin")
 fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
     viewPager.pageMargin = pageMargin.toInt()
+}
+
+@BindingAdapter(value = ["imageUri"], requireAll = false)
+fun setImageUrl(imageView: ImageView, uri: Uri?) {
+    Picasso.get().load(uri).error(R.mipmap.img_electrocardiogram).into(imageView)
 }
 
 object Converter{

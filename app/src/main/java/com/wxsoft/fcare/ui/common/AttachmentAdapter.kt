@@ -1,16 +1,17 @@
 package com.wxsoft.fcare.ui.common
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ViewDataBinding
-import android.graphics.Bitmap
+import android.net.Uri
 import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.databinding.ItemAttachmentBinding
-import com.wxsoft.fcare.databinding.ItemNewAttachmentBinding
+import com.wxsoft.fcare.databinding.ItemImageBinding
+import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.generated.callback.OnClickListener
 
 class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,private val onClickListener: OnClickListener) :
@@ -23,14 +24,14 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
         return differ.currentList.size
     }
 
-    var attachs: List<Bitmap> = emptyList()
+    var uris: List<Uri> = emptyList()
         set(value) {
             field = value
             differ.submitList(buildMergedList(value))
         }
 
     private fun buildMergedList(
-        images: List<Bitmap> =attachs): List<Any> {
+        images: List<Uri> =uris): List<Any> {
         val merged = mutableListOf<Any>()
         if (images.isNotEmpty() && images.size==4) {
 
@@ -51,8 +52,9 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
 
         when (holder) {
             is ItemViewHolder.ImageViewHolder -> holder.binding.apply {
+                val presenter =differ.currentList[position] as Uri
                 root.setOnClickListener(onClickListener)
-                image.setImageBitmap(attachs[position])
+                uri=presenter
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }
@@ -69,11 +71,11 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
 
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            R.layout.item_attachment -> ItemViewHolder.ImageViewHolder(
-                ItemAttachmentBinding.inflate(inflater, parent, false)
+            R.layout.item_image -> ItemViewHolder.ImageViewHolder(
+                ItemImageBinding.inflate(inflater, parent, false)
             )
-            R.layout.item_new_attachment -> ItemViewHolder.PlaceViewHolder(
-                ItemNewAttachmentBinding.inflate(inflater, parent, false)
+            R.layout.item_new_image -> ItemViewHolder.PlaceViewHolder(
+                ItemNewImageBinding.inflate(inflater, parent, false)
             )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
@@ -82,8 +84,8 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
 
     override fun getItemViewType(position: Int): Int {
         return when (differ.currentList[position]) {
-            is ForNewItem -> R.layout.item_new_attachment
-            is Bitmap -> R.layout.item_attachment
+            is ForNewItem -> R.layout.item_new_image
+            is Uri -> R.layout.item_image
             else -> throw IllegalStateException("Unknown view type at position $position")
         }
     }
@@ -93,14 +95,15 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when {
                 oldItem === ForNewItem && newItem === ForNewItem -> true
-                oldItem is Bitmap && newItem is Bitmap -> oldItem == newItem
+                oldItem is Uri && newItem is Uri -> oldItem == newItem
                 else -> false
             }
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when {
-                oldItem is Bitmap && newItem is Bitmap -> newItem == oldItem
+                oldItem is Uri && newItem is Uri -> newItem == oldItem
                 else -> false
             }
         }
@@ -116,10 +119,10 @@ object ForNewItem
 sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
     class ImageViewHolder(
-        val binding: ItemAttachmentBinding
+        val binding: ItemImageBinding
     ) : ItemViewHolder(binding)
 
     class PlaceViewHolder(
-        val binding: ItemNewAttachmentBinding
+        val binding: ItemNewImageBinding
     ) : ItemViewHolder(binding)
 }

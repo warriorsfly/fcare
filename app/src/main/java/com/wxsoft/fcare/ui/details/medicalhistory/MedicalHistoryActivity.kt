@@ -70,7 +70,7 @@ class MedicalHistoryActivity : BaseActivity() {
 
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                ProfileActivity.CAMERA_PERMISSION_REQUEST
+                CAMERA_PERMISSION_REQUEST
             )
 
         }else{
@@ -81,7 +81,7 @@ class MedicalHistoryActivity : BaseActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode){
-            ProfileActivity.CAMERA_PERMISSION_REQUEST ->{
+            CAMERA_PERMISSION_REQUEST ->{
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED){
                     showPhotoTaking()
@@ -93,17 +93,17 @@ class MedicalHistoryActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        if (ProfileActivity.CAMERA_PIC_REQUEST == requestCode) {
+        if (CAMERA_PIC_REQUEST == requestCode) {
             val photo = data?.extras?.get("data") as Bitmap
 
             viewModel.photos.add(photo)
-            adapter.photoAdapter.attachs= viewModel.photos.toList()
+//            adapter.photoAdapter.uris= viewModel.photos.toList()
         }
     }
 
     private fun showPhotoTaking(){
         val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        startActivityForResult(cameraIntent, ProfileActivity.CAMERA_PIC_REQUEST)
+        startActivityForResult(cameraIntent, CAMERA_PIC_REQUEST)
     }
 
 

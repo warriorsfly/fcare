@@ -1,10 +1,8 @@
 package com.wxsoft.fcare.ui.details.medicalhistory
 
 import android.arch.lifecycle.LifecycleOwner
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -34,7 +32,7 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
                 }
             }
         },1))
-        photoAdapter.attachs= emptyList()
+        photoAdapter.uris= emptyList()
     }
 
     override fun getItemCount(): Int {

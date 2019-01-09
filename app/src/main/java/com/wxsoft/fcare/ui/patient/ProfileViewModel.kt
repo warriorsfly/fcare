@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.patient
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.graphics.Bitmap
+import android.net.Uri
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
@@ -43,7 +44,7 @@ class ProfileViewModel @Inject constructor(
         }
     val patient:LiveData<Patient>
 
-    val bitmaps=ArrayList<Bitmap>()
+    val bitmaps= mutableListOf<Uri>()
 
     override val clickable:LiveData<Boolean>
 
@@ -144,30 +145,30 @@ class ProfileViewModel @Inject constructor(
     private fun uploadFile(){
 
 
-        val files = bitmaps.map {
-            val stream = ByteArrayOutputStream()
-            it.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            val byteArray = stream.toByteArray()
-
-            return@map MultipartBody.Part.create(RequestBody.create(MediaType.parse("multipart/form-data"), byteArray))
-        }
-
-        fileApi.save(files).toResource().subscribe {
-            when (it) {
-                is Resource.Success -> {
-                    clickResult.value=true
-                    savePatientResult.value = it
-                    messageAction.value = Event("保存成功")
-                }
-                is Resource.Error -> {
-                    clickResult.value=true
-                    messageAction.value = Event(it.throwable.message ?: "")
-                }
-                else->{
-                    clickResult.value=false
-                }
-            }
-        }
+//        val files = bitmaps.map {
+//            val stream = ByteArrayOutputStream()
+//            it.compress(Bitmap.CompressFormat.PNG, 100, stream)
+//            val byteArray = stream.toByteArray()
+//
+//            return@map MultipartBody.Part.create(RequestBody.create(MediaType.parse("multipart/form-data"), byteArray))
+//        }
+//
+//        fileApi.save(files).toResource().subscribe {
+//            when (it) {
+//                is Resource.Success -> {
+//                    clickResult.value=true
+//                    savePatientResult.value = it
+//                    messageAction.value = Event("保存成功")
+//                }
+//                is Resource.Error -> {
+//                    clickResult.value=true
+//                    messageAction.value = Event(it.throwable.message ?: "")
+//                }
+//                else->{
+//                    clickResult.value=false
+//                }
+//            }
+//        }
     }
 
 }

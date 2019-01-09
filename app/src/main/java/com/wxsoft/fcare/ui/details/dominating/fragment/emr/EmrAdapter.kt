@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.databinding.ItemEmrElectrocardiogramBinding
 import com.wxsoft.fcare.databinding.ItemEmrNoneBinding
 import com.wxsoft.fcare.databinding.ItemEmrProfileBinding
 import com.wxsoft.fcare.ui.EventActions
@@ -61,6 +62,15 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }
+
+            is ItemViewHolder.ElectrocardiogramViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!)
+                    }
+                }
+            }
         }
     }
 
@@ -74,6 +84,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             R.layout.item_emr_profile -> ItemViewHolder.ProfileViewHolder(
                 ItemEmrProfileBinding.inflate(inflater, parent, false)
             )
+            R.layout.item_emr_electrocardiogram->ItemViewHolder.ElectrocardiogramViewHolder(
+                ItemEmrElectrocardiogramBinding.inflate(inflater,parent,false)
+            )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
     }
@@ -83,6 +96,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
         return when (differ.currentList[position].result) {
             null->R.layout.item_emr_none
             is Patient -> R.layout.item_emr_profile
+
             else -> throw IllegalStateException("Unknown view type at position $position")
         }
     }
@@ -107,7 +121,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             val result2=newItem.result
             return when {
                 result1 is Any && result2 is Any->
-                     oldItem.code==newItem.code && result1 == result2
+                     oldItem.code==newItem.code
 
                 result1 is Patient && result2 is Patient ->
                     result1.id == result2.id &&  oldItem.code==newItem.code
@@ -130,5 +144,10 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //基本信息
     class ProfileViewHolder(
         val binding: ItemEmrProfileBinding
+    ) : ItemViewHolder(binding)
+
+    //基本信息
+    class ElectrocardiogramViewHolder(
+        val binding: ItemEmrElectrocardiogramBinding
     ) : ItemViewHolder(binding)
 }
