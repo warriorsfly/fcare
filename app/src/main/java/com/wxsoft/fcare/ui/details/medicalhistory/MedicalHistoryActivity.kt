@@ -17,6 +17,7 @@ import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.viewModelProvider
+import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 class MedicalHistoryActivity : BaseActivity() {
@@ -38,8 +39,6 @@ class MedicalHistoryActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("病史")
 
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityMedicalHistoryBinding>(this, R.layout.activity_medical_history)
@@ -49,8 +48,9 @@ class MedicalHistoryActivity : BaseActivity() {
         patientId=intent.getStringExtra(MedicalHistoryActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
+        back.setOnClickListener { onBackPressed() }
 
-        adapter = MedicalHistoryAdapter(this,viewModel,this)
+        adapter = MedicalHistoryAdapter(this,viewModel)
         binding.medicalHistoryList.adapter = adapter
 
         viewModel.loadMedicalHistory()
@@ -107,15 +107,6 @@ class MedicalHistoryActivity : BaseActivity() {
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle presses on the action bar items
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
+
 
 }

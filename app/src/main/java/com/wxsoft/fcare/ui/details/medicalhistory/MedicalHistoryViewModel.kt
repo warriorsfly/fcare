@@ -15,6 +15,7 @@ import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
+import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -26,7 +27,19 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                                                   private val medicalHistoryApi: MedicalHistoryApi,
                                                   private val fileApi: FileApi,
                                                   override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                                  override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
+                                                  override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) ,
+    ICommonPresenter {
+
+    override val title: String
+        get() = "病史"
+    override val clickableTitle: String
+        get() = "保存"
+    override val clickable:LiveData<Boolean>
+
+    private val clickResult  = MediatorLiveData<Boolean>().apply {
+        value=true
+    }
+
 
     /**
      * 病人id
@@ -51,6 +64,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     private val loadHistoryItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
     init {
+        clickable = clickResult.map { it }
         historyPhoto = loadPhoto.map { it }
         providerItems = loadProviderItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         historyItems = loadHistoryItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
@@ -142,6 +156,8 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         saveMedicalHistory()
     }
 
-
+    override fun click(){
+        submit()
+    }
 
 }

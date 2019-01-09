@@ -14,12 +14,24 @@ import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
+import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
 class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSignApi, private val dictEnumApi: DictEnumApi,
                                               override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                              override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
+                                              override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) ,
+    ICommonPresenter {
+
+    override val title: String
+        get() = "生命体征信息"
+    override val clickableTitle: String
+        get() = "保存"
+    override val clickable:LiveData<Boolean>
+
+    private val clickResult  = MediatorLiveData<Boolean>().apply {
+        value=true
+    }
     /**
      * 病人id
      */
@@ -43,6 +55,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
 
 
     init {
+        clickable=clickResult.map { it }
         vital = loadVitalResult.map { (it as? Resource.Success)?.data ?: VitalSign("") }
         consciousnessItems = loadConsciousnessResult.map {
             val cos=(it as? Resource.Success)?.data?: emptyList()
@@ -98,6 +111,10 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                     }
                 }
             }
+    }
+
+    override fun click(){
+        saveVitalSign()
     }
 
 }

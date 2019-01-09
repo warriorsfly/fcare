@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.details.dispatchcar
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -13,6 +14,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
+import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
@@ -20,19 +22,32 @@ import javax.inject.Inject
 class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
                                                val carApi: CarApi,
                                                override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                               override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions {
+                                               override val gson: Gson): BaseViewModel(sharedPreferenceStorage,gson), EventActions ,
+    ICommonPresenter {
+
+    override val title: String
+        get() = "发车"
+    override val clickableTitle: String
+        get() = "立即发车"
+    override val clickable:LiveData<Boolean>
+
+    private val clickResult  = MediatorLiveData<Boolean>().apply {
+        value=true
+    }
 
     val task: LiveData<Task>
+    private val initTask= MediatorLiveData<Task>()
+
     val doctors: LiveData<List<User>>
     val nurses: LiveData<List<User>>
     val drivers: LiveData<List<User>>
     val cars: LiveData<List<Car>>
-    var taskId: LiveData<String>
     var selectedCar:Car
     override val account: Account
 
-    private val initTask= MediatorLiveData<Task>()
+    var taskId: LiveData<String>
     private val initTaskId= MediatorLiveData<Resource<Response<String>>>()
+
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
     private val loadDoctorsResult= MediatorLiveData<Resource<Response<List<User>>>>()
     private val loadNursesResult= MediatorLiveData<Resource<Response<List<User>>>>()
@@ -42,8 +57,9 @@ class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
         get() = _navigateToOperationAction
 
     init {
+        clickable = clickResult.map { it }
         val s = sharedPreferenceStorage.userInfo!!
-        account = gon.fromJson(s, Account::class.java)
+        account = gson.fromJson(s, Account::class.java)
         task = initTask.map { it }
         initTask.value = Task("")
         selectedCar = Car("","","",false,"","",false)
@@ -138,5 +154,10 @@ class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
         task.value?.carId = selectedCar.id
         saveTask()
     }
+
+    override fun click(){
+        submitBtnClick()
+    }
+
 
 }

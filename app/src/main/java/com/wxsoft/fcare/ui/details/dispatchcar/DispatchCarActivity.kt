@@ -12,6 +12,7 @@ import com.wxsoft.fcare.databinding.ActivityDispatchCarBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.utils.viewModelProvider
+import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 class DispatchCarActivity : BaseActivity() {
@@ -29,8 +30,7 @@ class DispatchCarActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("选择车辆")
+
 
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityDispatchCarBinding>(this, R.layout.activity_dispatch_car)
@@ -45,6 +45,8 @@ class DispatchCarActivity : BaseActivity() {
         carAdapter = CarAdapter(this,viewModel)
         viewModel.cars.observe(this, Observer { it -> carAdapter.cars = it ?: emptyList() })
         binding.carList.adapter = carAdapter
+
+        back.setOnClickListener { onBackPressed() }
 
         doctorAdapter = UsersAdapter(this,viewModel)
         doctorAdapter.type = "doctor"
@@ -61,9 +63,6 @@ class DispatchCarActivity : BaseActivity() {
         viewModel.drivers.observe(this, Observer { it -> driverAdapter.users = it ?: emptyList() })
         binding.driverList.adapter = driverAdapter
 
-        binding.submitBtn.setOnClickListener {
-            viewModel.submitBtnClick()
-        }
         viewModel.task.observe(this, Observer {  })
 
         viewModel.taskId.observe(this, Observer {
@@ -74,16 +73,6 @@ class DispatchCarActivity : BaseActivity() {
     }
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle presses on the action bar items
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
 
     private fun toDetail(id:String) {
         var intent = Intent(this, DoMinaActivity::class.java).apply {

@@ -11,6 +11,8 @@ import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresModule
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
+import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
+import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsModule
 import com.wxsoft.fcare.ui.login.LoginActivity
@@ -72,6 +74,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [MeasuresModule::class])
     internal abstract fun medicalMeasuresActivity(): MeasuresActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [PharmacyModule::class])
+    internal abstract fun pharmacyActivity(): PharmacyActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [RatingModule::class])

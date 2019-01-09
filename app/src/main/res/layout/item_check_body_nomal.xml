@@ -26,9 +26,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
+                app:spanCount="4"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title_name"/>
+                app:layout_constraintTop_toBottomOf="@+id/title_name"
+                app:layoutManager="android.support.v7.widget.GridLayoutManager"/>
 
 
     </android.support.constraint.ConstraintLayout>

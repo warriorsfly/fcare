@@ -55,6 +55,16 @@
                 android:name=".ui.rating.RatingSubjectActivity"
                 android:theme="@style/AppTheme.RatingSubject"/>
         <activity android:name=".ui.details.vitalsigns.VitalSignsActivity">
+        <activity android:name=".ui.details.pharmacy.PharmacyActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ui.details.vitalsigns.VitalSignsActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name=".ui.details.measures.MeasuresActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".ui.details.checkbody.CheckBodyActivity">
         </activity>
@@ -69,6 +79,7 @@
                 android:name=".ui.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
         <activity
                 android:name=".ui.patient.ProfileActivity"
                 android:screenOrientation="portrait"

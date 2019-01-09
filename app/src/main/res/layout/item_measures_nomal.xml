@@ -11,28 +11,27 @@
             android:layout_height="wrap_content">
 
         <TextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/medical_other_title_name"
+                android:id="@+id/measures_title_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFFFFF"
                 android:padding="10dp"
                 android:textSize="15sp"
                 android:textColor="#131D35"
-                tool:text="既往病史"
+                tool:text="治疗结果"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
         <android.support.v7.widget.RecyclerView
                 android:background="#FFFFFF"
-                android:id="@+id/medical_other_items_rv"
+                android:id="@+id/measures_items_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                app:spanCount="4"
+                app:spanCount="3"
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/medical_other_title_name"
+                app:layout_constraintTop_toBottomOf="@+id/measures_title_name"
                 app:layoutManager="android.support.v7.widget.GridLayoutManager"/>
 
 

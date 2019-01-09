@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.Dictionary"/>
+        <variable name="listener" type="com.wxsoft.fcare.ui.details.measures.MeasuresViewModel"/>
+    </data>
+    <android.support.design.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            taskSelectUser="@{item.checked}"
+            android:onClick="@{() ->listener.clickSelect(item)}"
+            android:elevation="2dp"
+            app:cardCornerRadius="6dp">
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center">
+            <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:textSize="14sp"
+                    android:gravity="center"
+                    android:text="@{item.itemName}"
+                    tools:text="张三"
+                    android:textColor="@{item.checked?@color/white:@color/black_checked_nomal}"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.card.MaterialCardView>
+</layout>

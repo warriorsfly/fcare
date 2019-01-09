@@ -1,13 +1,21 @@
 package com.wxsoft.fcare.ui.details.measures
 
+
+import android.app.AlertDialog
+import android.arch.lifecycle.Observer
+import android.content.DialogInterface
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.MenuItem
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMeasuresBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.utils.viewModelProvider
+import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 class MeasuresActivity : BaseActivity()  {
@@ -22,10 +30,11 @@ class MeasuresActivity : BaseActivity()  {
 
     lateinit var binding: ActivityMeasuresBinding
 
+    lateinit var adapter: MeasuresAdapter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setTitle("措施")
 
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityMeasuresBinding>(this, R.layout.activity_measures)
@@ -35,17 +44,49 @@ class MeasuresActivity : BaseActivity()  {
         patientId=intent.getStringExtra(MeasuresActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
+        back.setOnClickListener { onBackPressed() }
+
+        adapter = MeasuresAdapter(this,viewModel)
+        binding.viewModel = viewModel
+        binding.measuresList.adapter = adapter
+
+        viewModel.loadMeasure()
+
+        viewModel.pharmacy.observe(this, Observer {
+            showDialog(it!!)
+        })
+
+        viewModel.measure.observe(this, Observer {  })
+
+        viewModel.resultString.observe(this, Observer {
+            onBackPressed()
+        })
+
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle presses on the action bar items
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
+
+    fun showDialog(item: Dictionary){
+        AlertDialog.Builder(this)
+            .setMessage("确定使用药物吗？")
+            .setTitle("用药")
+            .setPositiveButton("是", DialogInterface.OnClickListener { _, _ ->
+                item.checked = true
+                toPharmacy()
+            })
+            .setNeutralButton("否", DialogInterface.OnClickListener { _, _ ->
+                item.checked = false
+            })
+            .create()
+            .show()
     }
+
+    fun toPharmacy(){
+        var intent = Intent(this, PharmacyActivity::class.java)
+        intent.putExtra(PharmacyActivity.PATIENT_ID,patientId)
+        startActivity(intent)
+    }
+
+
+
 
 }
