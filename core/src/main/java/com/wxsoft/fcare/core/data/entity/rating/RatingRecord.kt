@@ -5,12 +5,12 @@ import com.google.gson.annotations.SerializedName
 /**
  * 评分
  */
-data class RatingRecord(val id:String,
+data class RatingRecord(val id:String="",
                         val patientId:String,
-                        @SerializedName("scoreSheetId")val ratingId:String,
-                        @SerializedName("scoreSheetName")val ratingName:String,
+                        val ratingId:String,
+                        val ratingName:String,
                         /**
                          * 1低危2中危3高危
                          */
-                        @SerializedName("riskLevel")val level:Int,
-                        @SerializedName("passScore")val score:Int)
+                        @SerializedName("resultLevel")val level:Int=0,
+                        val score:Int=0)
