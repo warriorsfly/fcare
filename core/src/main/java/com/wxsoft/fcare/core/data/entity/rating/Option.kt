@@ -8,5 +8,5 @@ import com.google.gson.annotations.SerializedName
 data class Option(val id:String,
                   val subjectId:String,
                   val name:String,
-                  val score:Float,
+                  val score:Int,
                   @SerializedName("sortNum")val index:Int)

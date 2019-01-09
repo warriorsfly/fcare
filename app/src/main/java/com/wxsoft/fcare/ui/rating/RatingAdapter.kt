@@ -16,6 +16,7 @@ import com.wxsoft.fcare.core.data.entity.rating.Subject
 import com.wxsoft.fcare.databinding.ItemRatingBinding
 import com.wxsoft.fcare.databinding.ItemRatingSubjectBinding
 import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
+import com.wxsoft.fcare.ui.EventAction
 import com.wxsoft.fcare.ui.EventActions
 
 
@@ -29,7 +30,7 @@ class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): Lis
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
             item=getItem(position)
-            root.setOnClickListener { action?.onOpen(getItem(position).id) }
+            root.setOnClickListener { action?.onOpen(getItem(position)) }
             setLifecycleOwner(lifecycleOwner)
         }
     }
@@ -46,9 +47,9 @@ class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): Lis
 
     }
 
-    private var action: EventActions?=null
+    private var action: EventAction<Rating>?=null
 
-    fun setActionListener(actions: EventActions){
+    fun setActionListener(actions: EventAction<Rating>){
         this.action=actions
     }
     object DiffCallback : DiffUtil.ItemCallback<Rating>() {

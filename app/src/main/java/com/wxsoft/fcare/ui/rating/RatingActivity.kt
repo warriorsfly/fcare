@@ -8,10 +8,12 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity;
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.ActivityRatingBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.EventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.common.AttachmentAdapter
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
@@ -55,7 +57,7 @@ class RatingActivity : BaseActivity() {
         viewModel.patientId=patientId
 
         adapter=RatingAdapter(this)
-        adapter.setActionListener(EventAction(WeakReference(this), patientId))
+        adapter.setActionListener(EventActions(WeakReference(this), patientId))
         binding.list.adapter=adapter
         binding.list.adapter=adapter
 
@@ -67,12 +69,13 @@ class RatingActivity : BaseActivity() {
     }
 
 
-    class EventAction constructor(private val context: WeakReference<Context>, private val patientId:String):
-        EventActions {
-        override fun onOpen(id: String) {
+    class EventActions constructor(private val context: WeakReference<Context>, private val patientId:String):
+        EventAction<Rating> {
+        override fun onOpen(rating: Rating) {
             var intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
                 putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
-                putExtra(RatingSubjectActivity.RATING_ID, id)
+                putExtra(RatingSubjectActivity.RATING_ID, rating.id)
+                putExtra(RatingSubjectActivity.RATING_NAME, rating.name)
             }
             context.get()?.startActivity(intent)
         }

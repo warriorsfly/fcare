@@ -8,16 +8,16 @@ import com.wxsoft.fcare.core.BR
 /**
  * 评分
  */
-data class Rating(val id:String,
-                  val name:String,
-                  val memo:String
+data class Rating(val id:String="",
+                  val name:String="",
+                  val memo:String=""
                   ):BaseObservable(){
 
 
     var subjects:List<Subject> = emptyList()
 
     @get:Bindable
-    @SerializedName("passScore")var score:Float=0f
+    @SerializedName("passScore")var score:Int=0
         set(value) {
             field=value
             notifyPropertyChanged(BR.score)
@@ -25,7 +25,7 @@ data class Rating(val id:String,
 
     fun changeScore(){
         score = subjects.filter { (it.selectedIndex?:-1)>=0 }
-            .sumByDouble{ it.options[it.selectedIndex!!].score.toDouble() }.toFloat()
+            .sumBy{ it.options[it.selectedIndex!!].score }
     }
 
 }
