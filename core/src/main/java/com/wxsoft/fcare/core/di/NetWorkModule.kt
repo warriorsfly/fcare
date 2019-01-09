@@ -19,6 +19,7 @@ import javax.inject.Singleton
 class NetWorkModule {
 
     @Provides
+    @Singleton
     fun provideGson():Gson{
         return Gson()
     }
@@ -116,10 +117,15 @@ class NetWorkModule {
     }
 
     @Provides
-    fun provideRatingApi(retrofit: Retrofit):RatingApi{
+    fun provideMeasuresApi(retrofit: Retrofit):MeasuresApi{
 
-        return retrofit.create(RatingApi::class.java)
+        return retrofit.create(MeasuresApi::class.java)
     }
 
+    @Provides
+    fun providePharmacyApi(retrofit: Retrofit):PharmacyApi{
+
+        return retrofit.create(PharmacyApi::class.java)
+    }
 
 }

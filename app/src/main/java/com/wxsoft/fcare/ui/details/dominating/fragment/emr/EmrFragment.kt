@@ -12,6 +12,10 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.ui.EventActions
+import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
+import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
+import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
@@ -88,6 +92,31 @@ class EmrFragment : DaggerFragment() {
                     var intent = Intent(context.get(), RatingActivity::class.java)
                     context.get()?.startActivity(intent)
                 }
+                ActionRes.ActionType.生命体征->{
+                    var intent = Intent(context, VitalSignsActivity::class.java).apply {
+                        putExtra(VitalSignsActivity.PATIENT_ID, patientId)
+                    }
+                    context.startActivity(intent)
+                }
+                ActionRes.ActionType.查体->{
+                    var intent = Intent(context, CheckBodyActivity::class.java).apply {
+                        putExtra(CheckBodyActivity.PATIENT_ID, patientId)
+                    }
+                    context.startActivity(intent)
+                }
+                ActionRes.ActionType.病史->{
+                    var intent = Intent(context, MedicalHistoryActivity::class.java).apply {
+                        putExtra(MedicalHistoryActivity.PATIENT_ID, patientId)
+                    }
+                    context.startActivity(intent)
+                }
+                ActionRes.ActionType.措施->{
+                    var intent = Intent(context, MeasuresActivity::class.java).apply {
+                        putExtra(MeasuresActivity.PATIENT_ID, patientId)
+                    }
+                    context.startActivity(intent)
+                }
+
             }
         }
 

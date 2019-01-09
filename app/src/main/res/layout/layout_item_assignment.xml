@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#7D8AA3"
-                    android:text="@{task.startAt}"
+                    app:doneAt="@{task.startAt}"
                     app:layout_constraintLeft_toRightOf="@+id/task_title2"
                     app:layout_constraintBottom_toBottomOf="@id/task_title2"/>
 
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#7D8AA3"
-                    android:text="@{task.arriveAt}"
+                    app:doneAt="@{task.arriveAt}"
                     app:layout_constraintLeft_toRightOf="@+id/task_title3"
                     app:layout_constraintBottom_toBottomOf="@id/task_title3"/>
 

@@ -1,4 +1,5 @@
-package com.wxsoft.fcare.ui.details.checkbody
+package com.wxsoft.fcare.ui.details.pharmacy
+
 
 import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
@@ -6,51 +7,48 @@ import android.os.Bundle
 import android.view.MenuItem
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.databinding.ActivityCheckBodyBinding
+import com.wxsoft.fcare.databinding.ActivityPharmacyBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
-class CheckBodyActivity : BaseActivity()  {
+class PharmacyActivity : BaseActivity() {
 
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
     }
 
-    private lateinit var viewModel: CheckBodyViewModel
+    private lateinit var viewModel: PharmacyViewModel
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var binding: ActivityCheckBodyBinding
+    lateinit var binding: ActivityPharmacyBinding
 
-    lateinit var adapter: CheckBodyAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         viewModel = viewModelProvider(factory)
-        binding = DataBindingUtil.setContentView<ActivityCheckBodyBinding>(this, R.layout.activity_check_body)
+        binding = DataBindingUtil.setContentView<ActivityPharmacyBinding>(this, R.layout.activity_pharmacy)
             .apply {
-                setLifecycleOwner(this@CheckBodyActivity)
+                setLifecycleOwner(this@PharmacyActivity)
             }
-        patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
-        viewModel.loadItems()
-        viewModel.loadCheckBody()
-        back.setOnClickListener { onBackPressed() }
 
-        adapter = CheckBodyAdapter(this,viewModel)
-        binding.checkList.adapter = adapter
-        viewModel.checkBody.observe(this, Observer {  })
+        back.setOnClickListener { onBackPressed() }
+        var  bagAdapter = DrugBagAdapter(this,viewModel)
+        binding.drugbagList.adapter = bagAdapter
+
+        var drugsAdapter = DrugsAdapter(this,viewModel)
+        binding.drugsList.adapter = drugsAdapter
+
+        viewModel.pharmacy.observe(this, Observer {  })
 
     }
-
-
-
 
 
 
