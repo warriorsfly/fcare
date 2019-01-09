@@ -26,5 +26,5 @@ interface RatingApi {
     fun getOne(@Path("ratingId")id:String): Single<Response<Rating>>
 
     @POST("Rating/SaveAnswerRecord")
-    fun saveRatingResult(@Body record: RatingRecord):Maybe<Response<String>>
+    fun saveRatingResult(@Body record: RatingRecord):Maybe<Response<RatingRecord>>
 }

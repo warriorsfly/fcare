@@ -23,6 +23,7 @@ import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 
 import kotlinx.android.synthetic.main.activity_rating.*
+import kotlinx.android.synthetic.main.layout_common_title.*
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 
@@ -65,6 +66,8 @@ class RatingActivity : BaseActivity() {
             it ?: return@Observer
             adapter.submitList(it)
         })
+
+        back.setOnClickListener{onBackPressed()}
 
     }
 

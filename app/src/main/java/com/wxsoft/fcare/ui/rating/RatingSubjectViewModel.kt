@@ -79,12 +79,8 @@ class RatingSubjectViewModel @Inject constructor(
             ratingApi.saveRatingResult(ratingRecord)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( {
-                    messageAction.value= Event("保存成功")
-                },
-                    {
-                        messageAction.value=Event(it.message?:"")
-                    })
+                .subscribe( {messageAction.value= Event("保存成功") },
+                    { messageAction.value=Event(it.message?:"")})
         }
     }
 

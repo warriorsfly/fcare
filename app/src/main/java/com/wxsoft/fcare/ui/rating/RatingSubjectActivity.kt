@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Toast
+import com.squareup.leakcanary.LeakCanary
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -73,10 +74,14 @@ class RatingSubjectActivity : BaseActivity() {
             toast.setText(it)
             toast.show()
         })
-
+        back.setOnClickListener{onBackPressed()}
         viewModel.patientId=patientId
         viewModel.ratingId=ratingId
 
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        LeakCanary.installedRefWatcher().watch(this)
+    }
 }

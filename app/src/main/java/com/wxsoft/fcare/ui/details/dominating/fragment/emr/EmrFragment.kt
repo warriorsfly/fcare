@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
-import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
@@ -18,9 +17,8 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
-import com.wxsoft.fcare.utils.activityViewModelProvider
-import com.wxsoft.fcare.utils.clearDecorations
 import com.wxsoft.fcare.utils.lazyFast
+import com.wxsoft.fcare.utils.viewModelProvider
 import dagger.android.support.DaggerFragment
 import java.lang.ref.WeakReference
 import javax.inject.Inject
@@ -54,7 +52,7 @@ class EmrFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = activityViewModelProvider(factory)
+        viewModel = viewModelProvider(factory)
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
             setLifecycleOwner(this@EmrFragment)
 
@@ -90,6 +88,9 @@ class EmrFragment : DaggerFragment() {
 
                 ActionRes.ActionType.GRACE->{
                     var intent = Intent(context.get(), RatingActivity::class.java)
+                        .apply {
+                            putExtra(ProfileActivity.PATIENT_ID, patientId)
+                        }
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.生命体征->{
