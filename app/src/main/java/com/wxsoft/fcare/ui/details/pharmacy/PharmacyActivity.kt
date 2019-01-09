@@ -41,12 +41,18 @@ class PharmacyActivity : BaseActivity() {
 
         back.setOnClickListener { onBackPressed() }
         var  bagAdapter = DrugBagAdapter(this,viewModel)
+        viewModel.drugPackages.observe(this, Observer { it -> bagAdapter.items = it ?: emptyList() })
         binding.drugbagList.adapter = bagAdapter
 
         var drugsAdapter = DrugsAdapter(this,viewModel)
+        viewModel.drugs.observe(this, Observer { it -> drugsAdapter.items = it ?: emptyList() })
         binding.drugsList.adapter = drugsAdapter
 
         viewModel.pharmacy.observe(this, Observer {  })
+
+        var drugBottomListAdapter = DrugBottomListAdapter(this,viewModel)
+        viewModel.selectedDrugs.observe(this, Observer { it -> drugBottomListAdapter.items = it ?: emptyList()  })
+        binding.bottomList.adapter = drugBottomListAdapter
 
     }
 

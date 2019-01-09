@@ -8,31 +8,28 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.BR
-import com.wxsoft.fcare.core.data.entity.Dictionary
-import com.wxsoft.fcare.databinding.ItemMeasuresOnlyNameBinding
-import com.wxsoft.fcare.databinding.ItemPharmacyDrugBagItemBinding
+import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.databinding.ItemPharmacyDrugBinding
 
 class DrugsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: PharmacyViewModel) :
     RecyclerView.Adapter<DrugsAdapter.ItemViewHolder>(){
 
-    private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
+    private val differ = AsyncListDiffer<Drug>(this, DiffCallback)
 
-    var items: List<Dictionary> = emptyList()
+    var items: List<Drug> = emptyList()
         set(value) {
             field = value
             differ.submitList(value)
         }
 
     override fun getItemCount(): Int {
-//        return differ.currentList.size
-        return 5
+        return differ.currentList.size
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-//            setVariable(BR.item, differ.currentList[position])
+            setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
             setLifecycleOwner(lifecycleOwner)
             executePendingBindings()
@@ -56,13 +53,13 @@ class DrugsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val v
     }
 
 
-    object DiffCallback : DiffUtil.ItemCallback<Dictionary>() {
-        override fun areItemsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
+    object DiffCallback : DiffUtil.ItemCallback<Drug>() {
+        override fun areItemsTheSame(oldItem: Drug, newItem: Drug): Boolean {
 
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
+        override fun areContentsTheSame(oldItem: Drug, newItem: Drug): Boolean {
 
             return oldItem.id == newItem.id
         }

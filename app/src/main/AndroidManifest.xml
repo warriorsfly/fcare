@@ -31,8 +31,8 @@
             android:name="${applicationId}.permission.JPUSH_MESSAGE"
             android:protectionLevel="signature"/>
 
-    <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE"/>
-    <!--<uses-permission android:name="android.permission.WRITE_SETTINGS"/> &lt;!&ndash; 强启动 &ndash;&gt;-->
+    <uses-permission
+            android:name="${applicationId}.permission.JPUSH_MESSAGE"/> <!-- <uses-permission android:name="android.permission.WRITE_SETTINGS"/> &lt;!&ndash; 强启动 &ndash;&gt; -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
@@ -45,25 +45,29 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".ui.details.diagnose.DiagnoseActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.ContainerActivity">
         </activity>
         <activity
                 android:name=".ui.rating.RatingActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-
         <activity
                 android:name=".ui.rating.RatingSubjectActivity"
                 android:theme="@style/AppTheme.RatingSubject"/>
-        <activity android:name=".ui.details.pharmacy.PharmacyActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".ui.details.pharmacy.PharmacyActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.details.vitalsigns.VitalSignsActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".ui.details.vitalsigns.VitalSignsActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.details.measures.MeasuresActivity"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+                android:name=".ui.details.measures.MeasuresActivity"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity android:name=".ui.details.checkbody.CheckBodyActivity">
         </activity>
@@ -78,7 +82,6 @@
                 android:name=".ui.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
                 android:name=".ui.patient.ProfileActivity"
                 android:screenOrientation="portrait"
@@ -207,15 +210,12 @@
                 android:value="developer-default"/>
         <meta-data
                 android:name="JPUSH_APPKEY"
-                android:value="ed68c08860ca1c894e6c038d"/>
-
-        <!--<activity-->
-                <!--android:name=".ui.calling.CallingActivity"-->
-                <!--android:configChanges="orientation|keyboardHidden|screenSize"-->
-                <!--android:label="@string/title_activity_calling"-->
-                <!--android:theme="@style/AppTheme.NoActionBar">-->
-        <!--</activity>-->
-
+                android:value="ed68c08860ca1c894e6c038d"/> <!-- <activity -->
+        <!-- android:name=".ui.calling.CallingActivity" -->
+        <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
+        <!-- android:label="@string/title_activity_calling" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar"> -->
+        <!-- </activity> -->
         <provider
                 android:name="android.support.v4.content.FileProvider"
                 android:authorities="${applicationId}.fileProvider"

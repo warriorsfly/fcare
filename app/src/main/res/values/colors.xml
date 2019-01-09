@@ -25,4 +25,5 @@
     <color name="patient_nothing_known">#FF0000</color>
     <color name="patient_known">#ffe9eaf2</color>
     <color name="rating_red">#FE5F55</color>
+    <color name="light_green">#1BD568</color>
 </resources>

@@ -13,6 +13,7 @@ import android.arch.lifecycle.Observer
 
 import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -97,7 +98,7 @@ class AssignmentFragment : DaggerFragment() {
 
 
     fun toDispatchCar() {
-        toMeasures()
+        toDiagnose()
     }
 
     fun startTask(){
@@ -132,6 +133,12 @@ class AssignmentFragment : DaggerFragment() {
     fun toMeasures(){//措施
         var intent = Intent(activity!!, MeasuresActivity::class.java)
         intent.putExtra(MeasuresActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
+        startActivity(intent)
+    }
+
+    fun toDiagnose(){//诊断
+        var intent = Intent(activity!!, DiagnoseActivity::class.java)
+        intent.putExtra(DiagnoseActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 

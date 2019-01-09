@@ -3,6 +3,8 @@ package com.wxsoft.fcare.di
 import com.wxsoft.fcare.core.di.ActivityScoped
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
+import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.DiagnoseModule
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
@@ -86,4 +88,8 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [RatingModule::class])
     internal abstract fun ratingSubjectActivity(): RatingSubjectActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DiagnoseModule::class])
+    internal abstract fun diagnoseActivity(): DiagnoseActivity
 }

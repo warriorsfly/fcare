@@ -5,20 +5,20 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.wxsoft.fcare.utils.Converter"/>
-        <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.DrugPackageItem"/>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.Drug"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.details.pharmacy.PharmacyViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
             android:id="@+id/item_container"
             android:orientation="vertical"
-            android:background="#FFFFFF"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <android.support.constraint.ConstraintLayout
                 android:id="@+id/container1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
             <TextView
@@ -27,9 +27,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="20dp"
                     android:textSize="14sp"
-                    android:textColor="#9399A4"
-                    android:text="@{item.drug.name}"
+                    android:textColor="#FFFFFF"
+                    android:text="@{item.name}"
                     tool:text="阿司匹林:"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -40,8 +41,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginLeft="10dp"
+                    android:minWidth="50dp"
                     android:textSize="14sp"
-                    android:textColor="#9399A4"
+                    android:textColor="#FFFFFF"
                     android:text="@{Converter.intToString(item.dose)}"
                     tool:text="300"
                     android:layout_width="0dp"
@@ -51,17 +53,26 @@
                     android:id="@+id/drug_dose_unit"
                     app:layout_constraintLeft_toRightOf="@+id/drug_dose"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginLeft="2dp"
+                    android:minWidth="20dp"
                     android:textSize="14sp"
-                    android:textColor="#9399A4"
-                    android:text="mg"
+                    android:textColor="#FFFFFF"
+                    android:text="@{item.doseUnit}"
                     tool:text="mg"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-
+            <ImageView
+                    android:id="@+id/remove_drug"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:onClick="@{() ->listener.removeDrug(item)}"
+                    android:src="@drawable/ic_remove_white"
+                    android:layout_marginRight="100dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
         </android.support.constraint.ConstraintLayout>
     </android.support.constraint.ConstraintLayout>
