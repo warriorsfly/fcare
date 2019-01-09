@@ -20,7 +20,7 @@ import javax.inject.Inject
 
 class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSignApi, private val dictEnumApi: DictEnumApi,
                                               override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                              override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) ,
+                                              override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
     override val title: String

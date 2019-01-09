@@ -19,8 +19,11 @@ import javax.inject.Inject
 class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                              private val checkBodyApi:CheckBodyApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                             override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) ,
+                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
+    override fun click() {
+
+    }
 
     override val title: String
         get() = "查体"
@@ -31,7 +34,11 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
     private val clickResult  = MediatorLiveData<Boolean>().apply {
         value=true
     }
-                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
+
+    init {
+
+        clickable=clickResult.map { it }
+    }
 
     /**
      * 病人id

@@ -19,10 +19,11 @@ import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
-class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
-                                               val carApi: CarApi,
-                                               override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                               override val gson: Gson): BaseViewModel(sharedPreferenceStorage,gson), EventActions ,
+class DispatchCarViewModel @Inject constructor(
+    private val  taskApi: TaskApi,
+    private val carApi: CarApi,
+    override val sharedPreferenceStorage: SharedPreferenceStorage,
+    override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions ,
     ICommonPresenter {
 
     override val title: String
@@ -59,7 +60,7 @@ class DispatchCarViewModel @Inject constructor(val  taskApi: TaskApi,
     init {
         clickable = clickResult.map { it }
         val s = sharedPreferenceStorage.userInfo!!
-        account = gson.fromJson(s, Account::class.java)
+        account = gon.fromJson(s, Account::class.java)
         task = initTask.map { it }
         initTask.value = Task("")
         selectedCar = Car("","","",false,"","",false)

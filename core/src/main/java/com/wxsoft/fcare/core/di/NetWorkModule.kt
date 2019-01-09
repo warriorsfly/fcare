@@ -128,4 +128,10 @@ class NetWorkModule {
         return retrofit.create(PharmacyApi::class.java)
     }
 
+    @Provides
+    fun provideRatingApi(retrofit: Retrofit):RatingApi{
+
+        return retrofit.create(RatingApi::class.java)
+    }
+
 }

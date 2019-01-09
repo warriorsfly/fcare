@@ -20,7 +20,7 @@ import javax.inject.Inject
 class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                             private val measuresApi: MeasuresApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                            override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson), ICommonPresenter {
+                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
     override val title: String
         get() = "措施"

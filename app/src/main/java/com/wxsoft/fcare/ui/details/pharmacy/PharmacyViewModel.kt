@@ -17,7 +17,7 @@ import javax.inject.Inject
 class PharmacyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                             private val pharmacyApi: PharmacyApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                            override val gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) ,
+                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
     override val title: String

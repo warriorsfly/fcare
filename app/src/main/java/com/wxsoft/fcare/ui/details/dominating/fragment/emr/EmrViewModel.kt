@@ -17,7 +17,7 @@ import javax.inject.Inject
 
 class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                        override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                       gson: Gson) : BaseViewModel(sharedPreferenceStorage,gson) {
+                                       override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     val emrs:LiveData<List<EmrItem>>
     private val loadEmrResult=MediatorLiveData<Response<List<EmrItem>>>()
