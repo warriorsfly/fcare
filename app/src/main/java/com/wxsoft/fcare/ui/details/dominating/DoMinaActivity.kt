@@ -97,7 +97,7 @@ class DoMinaActivity : BaseActivity() {
                 putExtra(ProfileActivity.TASK_ID, taskId)
                 putExtra(ProfileActivity.PATIENT_ID, "")
             }
-            startActivity(intent)
+            startActivityForResult(intent,NEW_PATIENT_REQUEST)
         }
     }
 
@@ -128,5 +128,15 @@ class DoMinaActivity : BaseActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when(requestCode){
+            NEW_PATIENT_REQUEST->{
+                val pId=data?.getStringExtra(NEW_PATIENT_ID)
+                viewModel.loadTask()
+            }
+        }
+    }
 
 }

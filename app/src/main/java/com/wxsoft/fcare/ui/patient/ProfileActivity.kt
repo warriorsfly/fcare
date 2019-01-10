@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.patient
 
 import android.Manifest
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
@@ -12,6 +13,7 @@ import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
 import com.wxsoft.fcare.generated.callback.OnClickListener
 import com.wxsoft.fcare.ui.BaseActivity
@@ -90,7 +92,23 @@ class ProfileActivity : BaseActivity() {
         adapter.uris= emptyList()
         attachments.adapter=adapter
 
+        viewModel.savePatientResult.observe(this, Observer {
 
+            when(it){
+                is Resource.Success->{
+
+
+                    Intent().let {intent->
+
+
+                        intent.putExtra(NEW_PATIENT_ID,it.data)
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                }
+            }
+
+        })
     }
 
 
@@ -105,7 +123,6 @@ class ProfileActivity : BaseActivity() {
 
         }else{
             dispatchTakePictureIntent()
-//            dispatchPickPictureIntent()
         }
     }
 

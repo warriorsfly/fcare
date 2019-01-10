@@ -2,14 +2,13 @@ package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ViewDataBinding
-import android.sax.EndElementListener
 import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.CheckBody
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.databinding.ItemEmrElectrocardiogramBinding
@@ -96,8 +95,10 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
         return when (differ.currentList[position].result) {
             null->R.layout.item_emr_none
             is Patient -> R.layout.item_emr_profile
-
-            else -> throw IllegalStateException("Unknown view type at position $position")
+            is CheckBody->R.layout.item_emr_none
+            is List<*> ->R.layout.item_emr_none
+            else->R.layout.item_emr_none
+//            else -> throw IllegalStateException("Unknown view type at position $position")
         }
     }
 
@@ -112,6 +113,12 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
                 result1 is Patient && result2 is Patient ->
                     result1.id == result2.id &&  oldItem.code==newItem.code
+
+                result1 is CheckBody && result2 is CheckBody ->
+                    result1.id == result2.id &&  oldItem.code==newItem.code
+
+                result1 is List<*> && result2 is List<*> ->
+                    oldItem.code==newItem.code
                 else -> false
             }
         }
@@ -125,6 +132,13 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
                 result1 is Patient && result2 is Patient ->
                     result1.id == result2.id &&  oldItem.code==newItem.code
+
+                result1 is CheckBody && result2 is CheckBody ->
+                    result1.id == result2.id &&  oldItem.code==newItem.code
+
+                result1 is List<*> && result2 is List<*> ->
+                    oldItem.code==newItem.code
+
                 else -> false
             }
         }

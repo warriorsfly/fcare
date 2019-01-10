@@ -45,7 +45,7 @@ class ProfileViewModel @Inject constructor(
         value=true
     }
     private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
-    private val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
+    val savePatientResult =MediatorLiveData<Resource<String>>()
 
     init {
 
@@ -79,27 +79,29 @@ class ProfileViewModel @Inject constructor(
     override fun click(){
         if(patientSavable){
 
-            uploadFile()
+//            uploadFile()
             //在上面patientSavable已经判定了patient.value非空才会执行到这一步
-//            patientApi.save(patient.value!!.apply {
-//                patientId=this@ProfileViewModel.patientId
-//                createdBy=account.id
-//            }).toResource().subscribe {
-//                when (it) {
-//                    is Resource.Success -> {
-//                        clickResult.value=true
-//                        savePatientResult.value = it
-//                        messageAction.value = Event("保存成功")
-//                    }
-//                    is Resource.Error -> {
-//                        clickResult.value=true
-//                        messageAction.value = Event(it.throwable.message ?: "")
-//                    }
-//                    else->{
-//                        clickResult.value=false
-//                    }
-//                }
-//            }
+            patientApi.save(patient.value!!.apply {
+                patientId=this@ProfileViewModel.patientId
+                createdBy=account.id
+                hospitalId=account.hospitalId
+                taskId=this@ProfileViewModel.taskId
+            }).toResource().subscribe {
+                when (it) {
+                    is Resource.Success -> {
+                        clickResult.value=true
+                        savePatientResult.value = it
+                        messageAction.value = Event("保存成功")
+                    }
+                    is Resource.Error -> {
+                        clickResult.value=true
+                        messageAction.value = Event(it.throwable.message ?: "")
+                    }
+                    else->{
+                        clickResult.value=false
+                    }
+                }
+            }
         }
     }
 

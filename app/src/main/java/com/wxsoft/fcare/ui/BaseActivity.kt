@@ -19,7 +19,8 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
         const val CAMERA_PERMISSION_REQUEST=10
         const val CAMERA_PIC_REQUEST=11
         const val PICK_PIC_REQUEST=12
-
+        const val NEW_PATIENT_REQUEST=13
+        const val NEW_PATIENT_ID="new_patient_id"
     }
 
     protected var mCurrentPhotoPath: Uri?=null

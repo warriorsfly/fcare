@@ -65,15 +65,9 @@ class PatientManagerFragment : DaggerFragment() {
         viewModel.task.observe(this, Observer {
             it ?: return@Observer
 
-            if(patPager.adapter==null) {
-                adapter = EmrAdapter(childFragmentManager, it.patients)
+            adapter = EmrAdapter(childFragmentManager, it.patients)
 
-                patPager.adapter=adapter
-            }
-
-//            if(it.patients.size==0){
-//                patPager.visibility=View.GONE
-//            }
+            patPager.adapter=adapter
         })
 
 

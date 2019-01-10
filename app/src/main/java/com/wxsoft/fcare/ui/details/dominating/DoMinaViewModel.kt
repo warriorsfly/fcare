@@ -88,7 +88,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     /**
      * 拉取任务
      */
-    private fun loadTask() {
+    fun loadTask() {
         taskApi.task(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
