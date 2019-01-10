@@ -134,4 +134,10 @@ class NetWorkModule {
         return retrofit.create(RatingApi::class.java)
     }
 
+    @Provides
+    fun provideDiagnoseApi(retrofit: Retrofit):DiagnoseApi{
+
+        return retrofit.create(DiagnoseApi::class.java)
+    }
+
 }

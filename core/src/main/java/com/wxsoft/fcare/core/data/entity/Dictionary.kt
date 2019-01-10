@@ -8,7 +8,7 @@ class Dictionary(val id:String, val itemName:String, val itemCode:String): BaseO
 
 
     /**
-     * 来源
+     *
      */
     @Bindable
     var patientId:String=""
@@ -19,6 +19,7 @@ class Dictionary(val id:String, val itemName:String, val itemCode:String): BaseO
         }
 
     @Bindable
+    @Transient
     var checked:Boolean=false
         set(value) {
             field=value
@@ -26,10 +27,15 @@ class Dictionary(val id:String, val itemName:String, val itemCode:String): BaseO
         }
 
     @Bindable
+    @Transient
     var section:Int=0
         set(value) {
             field=value
             notifyPropertyChanged(BR.section)
         }
+
+    fun selected(){
+        checked = !checked
+    }
 
 }

@@ -6,7 +6,6 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
 import com.wxsoft.fcare.BuildConfig
-import com.wxsoft.fcare.Manifest
 import dagger.android.support.DaggerAppCompatActivity
 import java.io.File
 import java.io.IOException

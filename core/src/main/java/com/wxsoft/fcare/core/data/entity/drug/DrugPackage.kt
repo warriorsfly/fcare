@@ -4,7 +4,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 
-class DrugPackage  (val id:String): BaseObservable() {
+data class DrugPackage  (val id:String): BaseObservable() {
 
     @Bindable
     var name: String = ""

@@ -7,6 +7,7 @@ import com.wxsoft.fcare.core.data.entity.Pharmacy
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.core.data.entity.drug.DrugPackage
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.PharmacyApi
 import com.wxsoft.fcare.core.data.toResource
@@ -73,6 +74,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
         pharmacyApi.getAllDrugs().toResource()
             .subscribe {
                 loadDrugsResult.value = it
+                checkedPharmacy()
             }
     }
 
@@ -80,9 +82,24 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
         pharmacyApi.getAllDrugPackages().toResource()
             .subscribe {
                 loaddrugPackagesResult.value = it
+                checkedPharmacy()
             }
     }
 
+    fun savePharmacy(){
+        pharmacyApi.save(pharmacy.value!!).toResource()
+            .subscribe {
+                initPharmacy.value = it
+            }
+    }
+
+    fun getDrugRecord(){
+        pharmacyApi.getDrugRecord(patientId).toResource()
+            .subscribe {
+                initPharmacy.value = it
+                checkedPharmacy()
+            }
+    }
 
     fun selected(drugPackage:DrugPackage){
         drugPackage.checked = !drugPackage.checked
@@ -119,8 +136,41 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
         loadSelectedDrugsResult.value = dsg
     }
 
+    fun checkedPharmacy(){
+        pharmacy.value?.drugRecordDetails?.map {
+            var bagId = it.drugPackageId
+            var druId = it.drugId
+            var dose = it.dose
+            drugPackages.value?.filter { it.id.equals(bagId) }?.map { it.checked = true }
+            drugs.value?.filter {it.id.equals(druId) }?.map {
+                it.checked = true
+                it.dose = dose
+                it.doseNum = dose.toString()
+            }
+        }
+        refresh()
+    }
+
     fun submit(){
 
+        pharmacy.value?.patientId = patientId
+        var asg = ArrayList<DrugRecord>()
+        val af=drugPackages.value?.filter { it.checked }
+            ?.map { DrugRecord("").apply {
+                drugPackageId = it.id
+            } }?: emptyList()
+        asg.addAll(af)
+
+        val bf=drugs.value?.filter { it.checked }
+            ?.map {DrugRecord("").apply {
+                drugId = it.id
+                drugName = it.name
+                dose = it.dose
+            } }?: emptyList()
+        asg.addAll(bf)
+        pharmacy.value?.drugRecordDetails = asg
+
+        savePharmacy()
     }
 
 }

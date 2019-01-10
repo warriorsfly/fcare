@@ -38,12 +38,13 @@
                     <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/drugbag_list"
+                            android:id="@+id/diagnose_type_list"
+                            app:spanCount="3"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                            app:layoutManager="android.support.v7.widget.GridLayoutManager"/>
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout
@@ -66,12 +67,24 @@
                     <android.support.v7.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:id="@+id/drugs_list"
+                            android:id="@+id/diagnose_list"
+                            app:spanCount="3"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/title2"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layoutManager="android.support.v7.widget.GridLayoutManager"/>
+
+                    <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            goneUnless="@{viewModel.showSonList}"
+                            android:id="@+id/diagnose_other_list"
+                            app:spanCount="3"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/diagnose_list"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                            app:layoutManager="android.support.v7.widget.GridLayoutManager"/>
                 </android.support.constraint.ConstraintLayout>
 
                 <android.support.constraint.ConstraintLayout

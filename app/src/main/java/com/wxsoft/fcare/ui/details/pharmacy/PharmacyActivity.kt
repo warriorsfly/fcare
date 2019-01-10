@@ -39,6 +39,8 @@ class PharmacyActivity : BaseActivity() {
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
+        viewModel.getDrugRecord()
+
         back.setOnClickListener { onBackPressed() }
         var  bagAdapter = DrugBagAdapter(this,viewModel)
         viewModel.drugPackages.observe(this, Observer { it -> bagAdapter.items = it ?: emptyList() })

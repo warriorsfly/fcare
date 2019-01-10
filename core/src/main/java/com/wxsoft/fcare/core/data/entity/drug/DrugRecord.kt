@@ -4,7 +4,14 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 
-data class DrugPackageItem (val id:String): BaseObservable() {
+data class DrugRecord (val id:String) : BaseObservable() {
+
+    @Bindable
+    var drugRecordId: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.drugRecordId)
+        }
 
     @Bindable
     var drugPackageId: String = ""
@@ -28,13 +35,6 @@ data class DrugPackageItem (val id:String): BaseObservable() {
         }
 
     @Bindable
-    var usage: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.usage)
-        }
-
-    @Bindable
     var dose: Int = 0
         set(value) {
             field = value
@@ -42,22 +42,14 @@ data class DrugPackageItem (val id:String): BaseObservable() {
         }
 
     @Bindable
-    var doseUnit: String =""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.doseUnit)
-        }
-
-
-    @Bindable
-    var sortNum: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.sortNum)
-        }
-
-    @Bindable
     var drug: Drug = Drug("")
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.drug)
+        }
+
+    @Bindable
+    var drugPackage: DrugPackage = DrugPackage("")
         set(value) {
             field = value
             notifyPropertyChanged(BR.drug)

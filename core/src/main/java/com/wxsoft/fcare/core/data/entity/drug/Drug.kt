@@ -5,7 +5,7 @@ import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
-class Drug (val id:String): BaseObservable() {
+data class Drug (val id:String): BaseObservable() {
 
     @Bindable
     var name: String = ""
