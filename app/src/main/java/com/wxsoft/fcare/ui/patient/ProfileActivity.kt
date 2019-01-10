@@ -105,6 +105,7 @@ class ProfileActivity : BaseActivity() {
 
         }else{
             dispatchTakePictureIntent()
+//            dispatchPickPictureIntent()
         }
     }
 
@@ -122,12 +123,16 @@ class ProfileActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        if (CAMERA_PIC_REQUEST == requestCode) {
-//            xval photo = data?.extras?.get("data") as Bitmap
-
-            viewModel.bitmaps.add(mCurrentPhotoPath!!)
-            adapter.uris= viewModel.bitmaps.toList()
+        when(requestCode){
+            CAMERA_PIC_REQUEST->{
+                viewModel.bitmaps.add(mCurrentPhotoPath!!)
+                adapter.uris= viewModel.bitmaps.toList()
+            }
+            PICK_PIC_REQUEST->{
+//                data?.data?.
+            }
         }
+
     }
 
 //    private fun showPhotoTaking(){

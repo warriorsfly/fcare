@@ -18,6 +18,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
     companion object {
         const val CAMERA_PERMISSION_REQUEST=10
         const val CAMERA_PIC_REQUEST=11
+        const val PICK_PIC_REQUEST=12
 
     }
 
@@ -34,7 +35,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
             storageDir.createNewFile()
         }
         return File.createTempFile(
-            "JPEG_${timeStamp}_", /* prefix */
+            "FCARE_${timeStamp}_", /* prefix */
             ".jpg", /* suffix */
             storageDir /* directory */
         )
@@ -67,6 +68,14 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
                     startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST)
                 }
             }
+        }
+    }
+
+    protected fun dispatchPickPictureIntent() {
+        Intent(Intent.ACTION_PICK).also { pickPictureIntent ->
+            pickPictureIntent.type = "image/*";
+            pickPictureIntent.action = Intent.ACTION_GET_CONTENT;
+            startActivityForResult(pickPictureIntent, PICK_PIC_REQUEST)
         }
     }
 }

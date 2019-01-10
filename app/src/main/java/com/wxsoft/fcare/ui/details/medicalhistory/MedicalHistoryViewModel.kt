@@ -31,7 +31,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     ICommonPresenter {
 
     override val title: String
-        get() = "病史"
+        get() = "IllnessHistory"
     override val clickableTitle: String
         get() = "保存"
     override val clickable:LiveData<Boolean>

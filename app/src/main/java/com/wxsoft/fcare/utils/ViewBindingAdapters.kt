@@ -85,8 +85,8 @@ fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
 }
 
 @BindingAdapter(value = ["imageUri"], requireAll = false)
-fun setImageUrl(imageView: ImageView, uri: Uri?) {
-    Picasso.get().load(uri).error(R.mipmap.img_electrocardiogram).into(imageView)
+fun setImageUrl(imageView: ImageView, url: Uri?) {
+    Picasso.get().load(url).error(R.mipmap.img_electrocardiogram).into(imageView)
 }
 
 object Converter{

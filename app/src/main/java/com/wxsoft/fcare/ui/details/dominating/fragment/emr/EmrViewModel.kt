@@ -55,7 +55,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                         if(vital.isNullOrEmpty()) return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vital
                     }
-                //体格检查
+                //PhysicalExamination
                 emrApi.getBodyCheck(patientId)
                     .subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe {

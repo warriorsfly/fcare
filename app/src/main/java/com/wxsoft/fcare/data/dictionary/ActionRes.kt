@@ -42,10 +42,12 @@ class ActionRes {
         ActionType.导管室完成准备, ActionType.CABG, ActionType.初步诊断, ActionType.消息通知, ActionType.知情同意书,
         ActionType.CT, ActionType.出院诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
         ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,
-        ActionType.接受通知, ActionType.PCI,ActionType.发车,ActionType.查体,ActionType.措施,ActionType.病史,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式
+        ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式
     )
     annotation class ActionType {
         companion object {
+
+            @Deprecated(message = "replace  with StartVehicle")
             const val 救护车 = "120"
             const val 绑定腕带 = "bdwd"
             const val 病情评估 = "bqpg"
@@ -74,10 +76,14 @@ class ActionRes {
             const val 来院方式 = "lyfs"
             const val 知情同意书 = "zqtys"
             const val 给药 = "hzgy"
-            const val 发车 = "fc"
-            const val 查体 = "ct"
-            const val 病史 = "bs"
-            const val 措施 = "cs"
+            //发车
+            const val StartVehicle = "start_vehicle"
+            //体格检查
+            const val PhysicalExamination = "physical_examination"
+            //病史
+            const val IllnessHistory = "illness_history"
+            //处置措施
+            const val DispostionMeasures = "disposition_measures"
         }
     }
 }

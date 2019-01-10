@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_check_body_other.view.*
 class CheckBodyAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: CheckBodyViewModel) :
     RecyclerView.Adapter<CheckBodyAdapter.ItemViewHolder>() {
 
-    var titleArray:Array<String> = arrayOf("体格检查","皮肤", "左瞳孔", "左瞳孔对光反应","右瞳孔", "右瞳孔对光反应","其他描述")
+    var titleArray:Array<String> = arrayOf("查体","皮肤", "左瞳孔", "左瞳孔对光反应","右瞳孔", "右瞳孔对光反应","其他描述")
 
     override fun getItemCount(): Int {
         return 7

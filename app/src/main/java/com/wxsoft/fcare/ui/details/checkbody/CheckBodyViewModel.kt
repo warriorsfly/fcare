@@ -26,7 +26,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
     }
 
     override val title: String
-        get() = "查体"
+        get() = "体格检查"
     override val clickableTitle: String
         get() = "保存"
     override val clickable:LiveData<Boolean>

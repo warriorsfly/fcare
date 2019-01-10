@@ -2,7 +2,6 @@ package com.wxsoft.fcare.ui.patient
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.graphics.Bitmap
 import android.net.Uri
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Patient
@@ -16,13 +15,7 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
-import okhttp3.MediaType
 import javax.inject.Inject
-import okhttp3.RequestBody
-import java.io.ByteArrayOutputStream
-import okhttp3.MultipartBody
-
-
 
 
 class ProfileViewModel @Inject constructor(

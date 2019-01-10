@@ -99,19 +99,19 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivity(intent)
                 }
-                ActionRes.ActionType.查体->{
+                ActionRes.ActionType.PhysicalExamination->{
                     var intent = Intent(context.get(), CheckBodyActivity::class.java).apply {
                         putExtra(CheckBodyActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
-                ActionRes.ActionType.病史->{
+                ActionRes.ActionType.IllnessHistory->{
                     var intent = Intent(context.get(), MedicalHistoryActivity::class.java).apply {
                         putExtra(MedicalHistoryActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
-                ActionRes.ActionType.措施->{
+                ActionRes.ActionType.DispostionMeasures->{
                     var intent = Intent(context.get(), MeasuresActivity::class.java).apply {
                         putExtra(MeasuresActivity.PATIENT_ID, patientId)
                     }

@@ -65,9 +65,13 @@
                   android:screenOrientation="portrait"
                   android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.details.checkbody.CheckBodyActivity">
+        <activity android:name=".ui.details.checkbody.CheckBodyActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.details.medicalhistory.MedicalHistoryActivity">
+        <activity android:name=".ui.details.medicalhistory.MedicalHistoryActivity"
+                  android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".ui.details.dominating.DoMinaActivity"
