@@ -41,7 +41,8 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             field = value
         }
 
-
+    val backToLast:LiveData<Boolean>
+    private val initbackToLast = MediatorLiveData<Boolean>()
 
     val pharmacy:LiveData<Pharmacy>
     private val initPharmacy = MediatorLiveData<Resource<Response<Pharmacy>>>()
@@ -56,6 +57,9 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     private val loadSelectedDrugsResult = MediatorLiveData<MutableList<Drug>>()
 
     init {
+
+        backToLast = initbackToLast.map { it }
+
         clickable = clickResult.map { it }
         pharmacy = initPharmacy.map { (it as? Resource.Success)?.data?.result ?: Pharmacy("") }
         drugs = loadDrugsResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }

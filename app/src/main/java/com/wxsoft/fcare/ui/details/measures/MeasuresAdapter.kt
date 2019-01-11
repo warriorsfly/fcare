@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.item_measures_nomal.view.*
 class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MeasuresViewModel) :
     RecyclerView.Adapter<MeasuresAdapter.ItemViewHolder>() {
 
-    var titleArray:Array<String> = arrayOf("DispostionMeasures","救治结果", "出诊结果","备注")
+    var titleArray:Array<String> = arrayOf("治疗措施","救治结果", "出诊结果","备注")
 
     override fun getItemCount(): Int {
         return 4

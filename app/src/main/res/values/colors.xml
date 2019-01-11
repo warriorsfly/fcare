@@ -26,4 +26,10 @@
     <color name="patient_known">#ffe9eaf2</color>
     <color name="rating_red">#FE5F55</color>
     <color name="light_green">#1BD568</color>
+
+    <color name="seriousnessest">#E13E2D</color>
+    <color name="seriousness">#FE5F55</color>
+    <color name="emergency">#FC7E00</color>
+    <color name="lowemergency">#FDAD1F</color>
+    <color name="lightemergency">#FFDA6F</color>
 </resources>

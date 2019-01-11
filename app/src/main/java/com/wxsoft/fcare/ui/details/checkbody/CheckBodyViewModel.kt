@@ -35,8 +35,11 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
         value=true
     }
 
-    init {
+    val backToLast:LiveData<Boolean>
+    private val initbackToLast = MediatorLiveData<Boolean>()
 
+    init {
+        backToLast = initbackToLast.map { it }
         clickable=clickResult.map { it }
     }
 
@@ -148,7 +151,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
     fun saveCheckBody(){
         checkBodyApi.save(checkBody.value!!).toResource()
             .subscribe {
-                it
+                initbackToLast.value = true
             }
     }
 

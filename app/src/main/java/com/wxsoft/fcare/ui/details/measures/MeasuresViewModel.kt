@@ -23,7 +23,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
     override val title: String
-        get() = "DispostionMeasures"
+        get() = "治疗措施"
     override val clickableTitle: String
         get() = "保存"
 
@@ -120,7 +120,11 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     }
 
     fun haveData(){
-//        measuresItems.value?.filter { measure.value?.measures.contains(it)  }?.map {it.checked = true }
+        measure.value?.measures?.map {
+            var code = it.measureCode
+            measuresItems.value?.filter { it.itemCode.equals(code) }?.map {it.checked = true }
+        }
+
         cureResultItems.value?.filter { it.itemCode.equals(measure.value?.preCureResultCode) }?.map {it.checked = true }
         outcallResultItems.value?.filter { it.itemCode.equals(measure.value?.preVisitResultCode) }?.map {it.checked = true }
     }

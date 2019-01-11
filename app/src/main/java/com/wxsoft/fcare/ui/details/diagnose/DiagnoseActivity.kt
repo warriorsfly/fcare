@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.ui.details.diagnose
 
+import android.app.AlertDialog
 import android.arch.lifecycle.Observer
+import android.content.DialogInterface
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.wxsoft.fcare.R
@@ -48,9 +50,42 @@ class DiagnoseActivity : BaseActivity() {
         binding.diagnoseList.adapter = diagnoseAdapter
 
         var sondiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
+        sondiagnoseAdapter.section = 3
         viewModel.sonItems.observe(this, Observer { it -> sondiagnoseAdapter.items = it ?: emptyList() })
         binding.diagnoseOtherList.adapter = sondiagnoseAdapter
 
+        var illnessdiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
+        illnessdiagnoseAdapter.section = 4
+        viewModel.illnessItems.observe(this, Observer { it -> illnessdiagnoseAdapter.items = it ?: emptyList() })
+        binding.illnessList.adapter = illnessdiagnoseAdapter
+
+        viewModel.startConduitRoom.observe(this, Observer {
+            startConduitRoom()
+        })
+
+        viewModel.getDiagnose()
+
+        viewModel.diagnosis.observe(this, Observer {  })
+
+        viewModel.backToLast.observe(this, Observer { onBackPressed() })
 
     }
+
+
+
+
+    fun startConduitRoom(){
+        AlertDialog.Builder(this)
+            .setMessage("通知院内启动导管室？")
+            .setTitle("启动导管室")
+            .setPositiveButton("确定", DialogInterface.OnClickListener { _, _ ->
+
+            })
+            .setNeutralButton("取消", DialogInterface.OnClickListener { _, _ ->
+
+            })
+            .create()
+            .show()
+    }
+
 }
