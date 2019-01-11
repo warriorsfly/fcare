@@ -87,14 +87,10 @@ class ProfileViewModel @Inject constructor(
                     RequestBody.create(MediaType.parse("multipart/form-data"), file)
                 )
             }
-            //uploadFile()
-            //在上面patientSavable已经判定了patient.value非空才会执行到这一步
-
             if (files.isNullOrEmpty()){
                 patientApi.save(patient.value!!.apply {
                     createdBy = account.id
                     hospitalId = account.hospitalId
-                    taskId = this@ProfileViewModel.taskId
                 }).toResource().subscribe {
                     when (it) {
                         is Resource.Success -> {
@@ -113,10 +109,8 @@ class ProfileViewModel @Inject constructor(
                 }
             }else{
                     patientApi.save(patient.value!!.apply {
-                        patientId = this@ProfileViewModel.patientId
                         createdBy = account.id
                         hospitalId = account.hospitalId
-                        taskId = this@ProfileViewModel.taskId
                     }, files).toResource().subscribe {
                         when (it) {
                             is Resource.Success -> {

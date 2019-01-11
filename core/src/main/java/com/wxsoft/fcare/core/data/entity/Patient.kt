@@ -11,7 +11,7 @@ import com.wxsoft.fcare.core.BR
 @Entity(tableName = "patients")
 data class Patient(@PrimaryKey val id:String):BaseObservable(){
 
-    var taskId: String=""
+    var taskId: String?=null
 
     @get:Bindable
     var name: String=""

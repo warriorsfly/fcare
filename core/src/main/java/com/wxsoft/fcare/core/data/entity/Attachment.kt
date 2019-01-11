@@ -1,7 +1,8 @@
 package com.wxsoft.fcare.core.data.entity
 
-class Attachment{
-    var id:String=""
+data class Attachment(var id:String=""){
+
+    var httpUrl:String=""
 }
 //    fileName	string
 //    fileType	string

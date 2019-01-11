@@ -62,7 +62,8 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val 
                     merged.addAll(local)
 
                 }
-                merged += ForNewItem
+                if(local.size + remote.size < max)
+                    merged += ForNewItem
             }
         }
         return merged
@@ -76,7 +77,7 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val 
             is ItemViewHolder.ImageViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as Pair<LocalMedia, Uri>
 //                presenter.first.num
-                root.setOnClickListener{action?.localSelected(locals)}
+                root.setOnClickListener{action?.localSelected()}
                 uri=presenter.second
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
@@ -90,7 +91,7 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val 
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
-                root.setOnClickListener{action?.localSelected(locals)}
+                root.setOnClickListener{action?.localSelected()}
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }

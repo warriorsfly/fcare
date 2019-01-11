@@ -93,8 +93,7 @@ fun setImageUrl(imageView: ImageView, url: Uri?) {
 @BindingAdapter(value = ["imageUrl"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: String?) {
 
-    val imageUrl=BuildConfig.API_ENDPOINT+"File/$url"
-    GlideApp.with(imageView).load(imageUrl).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
+    GlideApp.with(imageView).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
 }
 
 object Converter{

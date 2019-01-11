@@ -140,4 +140,10 @@ class NetWorkModule {
         return retrofit.create(DiagnoseApi::class.java)
     }
 
+    @Provides
+    fun provideECGApi(retrofit: Retrofit):ECGApi{
+
+        return retrofit.create(ECGApi::class.java)
+    }
+
 }

@@ -7,6 +7,7 @@ import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.EmrApi
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.map
@@ -50,19 +51,32 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 emrApi.getVitals(patientId)
                     .subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
+                    .subscribe ({
                         vital->
                         if(vital.isNullOrEmpty()) return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vital
-                    }
+                    },{
+                        messageAction.value= Event(it.message?:"")
+                    })
                 //PhysicalExamination
                 emrApi.getBodyCheck(patientId)
                     .subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe {
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe( {
                             check->
                         check?.result?: return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.辅助检查}?.result=check
-                    }
+                    }, {
+                        messageAction.value = Event(it.message ?: "")
+                    })
+
+                emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+                            check->
+                        check?.result?: return@subscribe
+                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.result=check
+                    },{
+                        messageAction.value= Event(it.message?:"")
+                    })
         }
 
 

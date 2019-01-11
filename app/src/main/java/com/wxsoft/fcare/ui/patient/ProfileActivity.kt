@@ -111,7 +111,7 @@ class ProfileActivity : BaseActivity() {
         attachments.adapter=adapter
         viewModel.patient.observe(this, Observer {
             it ?: return@Observer
-            adapter.remotes=it.attachments.map { attachment -> attachment.id }
+            adapter.remotes=it.attachments.map { attachment -> attachment.httpUrl }
         })
 
         viewModel.savePatientResult.observe(this, Observer {
@@ -146,7 +146,7 @@ class ProfileActivity : BaseActivity() {
             )
 
         }else{
-//            dispatchTakePictureIntent(4-adapter.locals.size-adapter.remotes.size)
+            dispatchTakePictureIntent(adapter.locals.map { it.first },4-adapter.remotes.size)
         }
     }
 
@@ -156,15 +156,15 @@ class ProfileActivity : BaseActivity() {
             CAMERA_PERMISSION_REQUEST->{
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-//                    dispatchTakePictureIntent(4-adapter.locals.size-adapter.remotes.size)
+                  dispatchTakePictureIntent(adapter.locals.map { it.first },4-adapter.remotes.size)
                 }
             }
         }
     }
 
     inner class EventAction() :PhotoEventAction{
-        override fun localSelected(list: List<Pair<LocalMedia, Uri>>) {
-            dispatchTakePictureIntent(list.map { it.first },4-adapter.remotes.size)
+        override fun localSelected() {
+            checkPhotoTaking()
         }
 
         override fun enlargeRemote(root:View,url: String) {

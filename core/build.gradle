@@ -15,8 +15,8 @@ android {
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
-//        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.0.190:5001/api/"'
-        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44398/api/"'
+        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.0.190:5001/api/"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44398/api/"'
 //        buildConfigField 'String', 'API_ENDPOINT', '"https://192.168.30.21:5100/api/"'
 
         sourceSets {

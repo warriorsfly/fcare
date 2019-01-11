@@ -30,8 +30,16 @@ interface EmrApi{
     @GET("VitalSigns/GetById/{id}")
     fun getVitals(@Path("id")id:String): Maybe<List<VitalSign>>
 
+    /**
+     * 体格检查
+     */
     @GET("BodyCheck/GetById/{patientId}")
     fun getBodyCheck(@Path("patientId")patientId:String): Maybe<Response<CheckBody>>
 
+    /**
+     * 心电图
+     */
+    @GET("ECG/GetElectroCardiogramByPatientId/{patientId}")
+    fun getEcgs(@Path("patientId")id:String):Maybe<Response<List<ElectroCardiogram>>>
 
 }
