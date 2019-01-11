@@ -24,21 +24,31 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
         return differ.currentList.size
     }
 
-    var uris: List<Uri> = emptyList()
+    var locals: List<Uri> = emptyList()
         set(value) {
             field = value
-            differ.submitList(buildMergedList(value))
+            differ.submitList(buildMergedList(remotes,value))
+        }
+
+    var remotes:List<String> = emptyList()
+        set(value) {
+            field = value
+            differ.submitList(buildMergedList(value,locals))
         }
 
     private fun buildMergedList(
-        images: List<Uri> =uris): List<Any> {
+        remote:List<String> =remotes,
+        local: List<Uri> =locals): List<Any> {
         val merged = mutableListOf<Any>()
-        if (images.isNotEmpty() && images.size==4) {
+        if(remote.isNotEmpty()){
+            merged.addAll(remote)
+        }
+        if (local.isNotEmpty() && local.size+remote.size==4) {
 
-            merged.addAll(images)
+            merged.addAll(local)
         }else{
-            if(images.isNotEmpty()){
-                merged.addAll(images)
+            if(local.isNotEmpty()){
+                merged.addAll(local)
 
             }
             merged+=ForNewItem
@@ -95,6 +105,7 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when {
                 oldItem === ForNewItem && newItem === ForNewItem -> true
+                oldItem is String && newItem is String -> newItem == oldItem
                 oldItem is Uri && newItem is Uri -> oldItem == newItem
                 else -> false
             }
@@ -104,6 +115,7 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when {
                 oldItem is Uri && newItem is Uri -> newItem == oldItem
+                oldItem is String && newItem is String -> newItem == oldItem
                 else -> false
             }
         }

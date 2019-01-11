@@ -32,7 +32,7 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
                 }
             }
         },1))
-        photoAdapter.uris= emptyList()
+        photoAdapter.locals= emptyList()
     }
 
     override fun getItemCount(): Int {

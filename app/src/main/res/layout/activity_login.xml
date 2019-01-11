@@ -35,7 +35,7 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:id="@+id/login_progress"
                 android:layout_marginTop="281dp"
-                android:elevation="5dp"
+                android:elevation="8dp"
                 style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,20 +47,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <ImageView android:layout_width="55dp"
-                       android:layout_height="55dp"
-                       android:layout_marginTop="80dp"
-                       android:src="@mipmap/icon"
-                       android:elevation="5dp"
-                       android:layout_gravity="center_horizontal"/>
+               android:layout_height="55dp"
+               android:layout_marginTop="80dp"
+               android:src="@mipmap/icon"
+               android:elevation="5dp"
+               android:layout_gravity="center_horizontal"/>
             <android.support.constraint.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="363dp"
-                    android:elevation="5dp"
-                    android:translationZ="1dp"
-                    app:layout_anchorGravity="top|center"
-                    android:layout_gravity="bottom|center_horizontal"
-                    app:layout_anchor="@id/email_login_form">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="363dp"
+                android:elevation="5dp"
+                android:translationZ="1dp"
+                app:layout_anchorGravity="top|center"
+                android:layout_gravity="bottom|center_horizontal"
+                app:goneUnless="@{!(viewModel.isLoading || viewModel.logined) }"
+                app:layout_anchor="@id/email_login_form">
                 <!--app:goneUnless="@{!(viewModel.isLoading || viewModel.logined) }"-->
                 <Button
                         app:layout_constraintTop_toTopOf="parent"
@@ -77,7 +78,7 @@
             <android.support.constraint.ConstraintLayout
                     android:id="@+id/email_login_form"
                     android:layout_width="325dp"
-
+                    app:goneUnless="@{!(viewModel.isLoading || viewModel.logined) }"
                     android:layout_height="195dp"
                     android:layout_marginTop="193dp"
                     android:layout_gravity="center_horizontal"

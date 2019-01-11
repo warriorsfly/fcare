@@ -94,7 +94,7 @@ class ProfileActivity : BaseActivity() {
             }
         },1))
 
-        adapter.uris= emptyList()
+        adapter.locals= emptyList()
         attachments.adapter=adapter
 
         viewModel.savePatientResult.observe(this, Observer {
@@ -149,7 +149,7 @@ class ProfileActivity : BaseActivity() {
             when (requestCode) {
                 CAMERA_PIC_REQUEST -> {
                     viewModel.bitmaps.add(mCurrentPhotoPath!!)
-                    adapter.uris = viewModel.bitmaps.map {
+                    adapter.locals = viewModel.bitmaps.map {
                         FileProvider.getUriForFile(
                             this,
                             BuildConfig.APPLICATION_ID + ".fileProvider",

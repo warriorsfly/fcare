@@ -97,7 +97,7 @@ class MedicalHistoryActivity : BaseActivity() {
             val photo = data?.extras?.get("data") as Bitmap
 
             viewModel.photos.add(photo)
-//            adapter.photoAdapter.uris= viewModel.photos.toList()
+//            adapter.photoAdapter.locals= viewModel.photos.toList()
         }
     }
 
