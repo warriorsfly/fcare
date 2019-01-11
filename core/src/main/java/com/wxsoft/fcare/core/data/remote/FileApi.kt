@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
+import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import okhttp3.MultipartBody
@@ -11,5 +12,5 @@ interface FileApi{
 
     @Multipart
     @POST("File/UploadAsync")
-    fun save(@Part files: List<MultipartBody.Part>):Maybe<Response<String>>
+    fun save(@Part("patient")patient: Patient,@Part files: List<MultipartBody.Part>):Maybe<Response<List<String>>>
 }

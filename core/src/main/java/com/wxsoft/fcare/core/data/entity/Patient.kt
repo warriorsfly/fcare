@@ -18,7 +18,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.name)
         }
 
-    @SerializedName("Three_Without")
+    @SerializedName("three_Without")
     @get:Bindable
     var unKnown:Boolean=false
         set(value) {
@@ -27,7 +27,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             name="三无患者"
         }
 
-    @SerializedName("Hospital_Id")
+    @SerializedName("hospital_Id")
     @get:Bindable
     var hospitalId:String=""
         set(value) {

@@ -22,7 +22,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
         const val NEW_PATIENT_ID="new_patient_id"
     }
 
-    protected var mCurrentPhotoPath: Uri?=null
+    protected var mCurrentPhotoPath: String?=null
     /**
      * 创建图片文件
      */
@@ -38,11 +38,9 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
             "FCARE_${timeStamp}_", /* prefix */
             ".jpg", /* suffix */
             storageDir /* directory */
-        )
-//            .apply {
-//            // Save a file: path for use with ACTION_VIEW intents
-//            mCurrentPhotoPath = absolutePath
-//        }
+        ).apply {
+            mCurrentPhotoPath = absolutePath
+        }
     }
 
     protected fun dispatchTakePictureIntent() {
@@ -61,9 +59,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
                         this,
                         BuildConfig.APPLICATION_ID+".fileProvider",
                         file
-                    ).apply {
-                        mCurrentPhotoPath=this
-                    }
+                    )
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
                     startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST)
                 }

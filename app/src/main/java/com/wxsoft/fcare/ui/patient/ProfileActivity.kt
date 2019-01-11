@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.patient
 
 import android.Manifest
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -24,6 +25,10 @@ import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
+import android.support.v4.content.FileProvider
+import com.wxsoft.fcare.BuildConfig
+import java.io.File
+
 
 /**
  * A login screen that offers login via email/password.
@@ -101,7 +106,7 @@ class ProfileActivity : BaseActivity() {
                     Intent().let {intent->
 
 
-                        intent.putExtra(NEW_PATIENT_ID,it.data)
+                        intent.putExtra(NEW_PATIENT_ID,it.data.result)
                         setResult(RESULT_OK, intent);
                         finish();
                     }
@@ -140,13 +145,21 @@ class ProfileActivity : BaseActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
-        when(requestCode){
-            CAMERA_PIC_REQUEST->{
-                viewModel.bitmaps.add(mCurrentPhotoPath!!)
-                adapter.uris= viewModel.bitmaps.toList()
-            }
-            PICK_PIC_REQUEST->{
+        if(resultCode== Activity.RESULT_OK) {
+            when (requestCode) {
+                CAMERA_PIC_REQUEST -> {
+                    viewModel.bitmaps.add(mCurrentPhotoPath!!)
+                    adapter.uris = viewModel.bitmaps.map {
+                        FileProvider.getUriForFile(
+                            this,
+                            BuildConfig.APPLICATION_ID + ".fileProvider",
+                            File(it)
+                        )
+                    }
+                }
+                PICK_PIC_REQUEST -> {
 //                data?.data?.
+                }
             }
         }
 

@@ -2,12 +2,10 @@ package com.wxsoft.fcare.ui.patient
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.net.Uri
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
-import com.wxsoft.fcare.core.data.remote.FileApi
 import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
@@ -15,12 +13,15 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 
 class ProfileViewModel @Inject constructor(
     private val patientApi: PatientApi,
-    private val fileApi: FileApi,
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
@@ -37,7 +38,7 @@ class ProfileViewModel @Inject constructor(
         }
     val patient:LiveData<Patient>
 
-    val bitmaps= mutableListOf<Uri>()
+    val bitmaps= mutableListOf<String>()
 
     override val clickable:LiveData<Boolean>
 
@@ -45,7 +46,7 @@ class ProfileViewModel @Inject constructor(
         value=true
     }
     private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
-    val savePatientResult =MediatorLiveData<Resource<String>>()
+    val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
 
     init {
 
@@ -77,31 +78,62 @@ class ProfileViewModel @Inject constructor(
     }
 
     override fun click(){
-        if(patientSavable){
-
-//            uploadFile()
+        if(patientSavable) {
+            val files = bitmaps.map {
+                val file = File(it)
+                return@map MultipartBody.Part.createFormData(
+                    "images",
+                    it.split("/").last(),
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                )
+            }
+            //uploadFile()
             //在上面patientSavable已经判定了patient.value非空才会执行到这一步
-            patientApi.save(patient.value!!.apply {
-                patientId=this@ProfileViewModel.patientId
-                createdBy=account.id
-                hospitalId=account.hospitalId
-                taskId=this@ProfileViewModel.taskId
-            }).toResource().subscribe {
-                when (it) {
-                    is Resource.Success -> {
-                        clickResult.value=true
-                        savePatientResult.value = it
-                        messageAction.value = Event("保存成功")
-                    }
-                    is Resource.Error -> {
-                        clickResult.value=true
-                        messageAction.value = Event(it.throwable.message ?: "")
-                    }
-                    else->{
-                        clickResult.value=false
+
+            if (files.isNullOrEmpty()){
+                patientApi.save(patient.value!!.apply {
+                    createdBy = account.id
+                    hospitalId = account.hospitalId
+                    taskId = this@ProfileViewModel.taskId
+                }).toResource().subscribe {
+                    when (it) {
+                        is Resource.Success -> {
+                            clickResult.value = true
+                            savePatientResult.value = it
+                            messageAction.value = Event("保存成功")
+                        }
+                        is Resource.Error -> {
+                            clickResult.value = true
+                            messageAction.value = Event(it.throwable.message ?: "")
+                        }
+                        else -> {
+                            clickResult.value = false
+                        }
                     }
                 }
-            }
+            }else{
+                    patientApi.save(patient.value!!.apply {
+                        patientId = this@ProfileViewModel.patientId
+                        createdBy = account.id
+                        hospitalId = account.hospitalId
+                        taskId = this@ProfileViewModel.taskId
+                    }, files).toResource().subscribe {
+                        when (it) {
+                            is Resource.Success -> {
+                                clickResult.value = true
+                                savePatientResult.value = it
+                                messageAction.value = Event("保存成功")
+                            }
+                            is Resource.Error -> {
+                                clickResult.value = true
+                                messageAction.value = Event(it.throwable.message ?: "")
+                            }
+                            else -> {
+                                clickResult.value = false
+                            }
+                        }
+                    }
+                }
         }
     }
 
@@ -136,34 +168,4 @@ class ProfileViewModel @Inject constructor(
             }?:false
 
     }
-
-    private fun uploadFile(){
-
-
-//        val files = bitmaps.map {
-//            val stream = ByteArrayOutputStream()
-//            it.compress(Bitmap.CompressFormat.PNG, 100, stream)
-//            val byteArray = stream.toByteArray()
-//
-//            return@map MultipartBody.Part.create(RequestBody.create(MediaType.parse("multipart/form-data"), byteArray))
-//        }
-//
-//        fileApi.save(files).toResource().subscribe {
-//            when (it) {
-//                is Resource.Success -> {
-//                    clickResult.value=true
-//                    savePatientResult.value = it
-//                    messageAction.value = Event("保存成功")
-//                }
-//                is Resource.Error -> {
-//                    clickResult.value=true
-//                    messageAction.value = Event(it.throwable.message ?: "")
-//                }
-//                else->{
-//                    clickResult.value=false
-//                }
-//            }
-//        }
-    }
-
 }

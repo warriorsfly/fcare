@@ -78,7 +78,8 @@
         <activity
                 android:name=".ui.details.dominating.DoMinaActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.details.dispatchcar.DispatchCarActivity">
+        <activity android:name=".ui.details.dispatchcar.DispatchCarActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".ui.main.MainActivity"

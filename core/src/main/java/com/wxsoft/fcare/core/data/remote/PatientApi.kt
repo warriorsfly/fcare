@@ -5,6 +5,7 @@ import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import io.reactivex.Single
+import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface PatientApi{
@@ -21,8 +22,13 @@ interface PatientApi{
     @GET("Patient/SetPatientWristband/{patientId}/{wristband_Number}")
     fun bindRfid(@Path("patientId")patientId:String,@Path("wristband_Number")rFid:String):Single<Response<String>>
 
+    @Multipart
     @POST("Patient/SavePatientInfo")
-    fun save(@Body patient:Patient):Maybe<String>
+    fun save(@Part("patient")patient: Patient,@Part files: List<MultipartBody.Part>):Maybe<Response<String>>
+
+    @Multipart
+    @POST("Patient/SavePatientInfo")
+    fun save(@Part("patient")patient: Patient):Maybe<Response<String>>
 
     @GET("Patient/GetPreEmssTimeLine")
     fun getEmrs(@Query("patientId")patientId:String):Single<Response<List<EmrItem>>>

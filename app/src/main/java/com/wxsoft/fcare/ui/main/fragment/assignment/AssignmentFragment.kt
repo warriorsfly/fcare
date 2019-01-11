@@ -98,7 +98,8 @@ class AssignmentFragment : DaggerFragment() {
 
 
     fun toDispatchCar() {
-        toDiagnose()
+//        toDiagnose()
+        startTask()
     }
 
     fun startTask(){

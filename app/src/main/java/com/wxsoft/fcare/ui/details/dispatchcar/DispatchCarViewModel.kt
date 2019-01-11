@@ -27,7 +27,7 @@ class DispatchCarViewModel @Inject constructor(
     ICommonPresenter {
 
     override val title: String
-        get() = "StartVehicle"
+        get() = "发车"
     override val clickableTitle: String
         get() = "立即发车"
     override val clickable:LiveData<Boolean>

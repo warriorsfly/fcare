@@ -116,19 +116,19 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             return@map MultipartBody.Part.create(RequestBody.create(MediaType.parse("multipart/form-data"), byteArray))
         }
 
-        fileApi.save(files).toResource().subscribe {
-            when (it) {
-                is Resource.Success -> {
-                    messageAction.value = Event("保存成功")
-                }
-                is Resource.Error -> {
-                    messageAction.value = Event(it.throwable.message ?: "")
-                }
-                else->{
-
-                }
-            }
-        }
+//        fileApi.save(files).toResource().subscribe {
+//            when (it) {
+//                is Resource.Success -> {
+//                    messageAction.value = Event("保存成功")
+//                }
+//                is Resource.Error -> {
+//                    messageAction.value = Event(it.throwable.message ?: "")
+//                }
+//                else->{
+//
+//                }
+//            }
+//        }
     }
 
     fun haveData(){
