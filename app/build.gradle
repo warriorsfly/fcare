@@ -12,7 +12,7 @@ android {
     defaultConfig {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
-        targetSdkVersion 28
+//        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -86,6 +86,10 @@ dependencies {
         exclude group: "com.android.support"
     }
     kapt "com.github.bumptech.glide:compiler:$glide_version"
+
+//    PictureSelector
+    implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
+
     //for  gson
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     //rxkotlin

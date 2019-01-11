@@ -2,22 +2,14 @@ package com.wxsoft.fcare.ui.rating
 
 
 import android.arch.lifecycle.LifecycleOwner
-import android.databinding.ViewDataBinding
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.rating.Option
 import com.wxsoft.fcare.core.data.entity.rating.Rating
-import com.wxsoft.fcare.core.data.entity.rating.Subject
 import com.wxsoft.fcare.databinding.ItemRatingBinding
-import com.wxsoft.fcare.databinding.ItemRatingSubjectBinding
-import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
 import com.wxsoft.fcare.ui.EventAction
-import com.wxsoft.fcare.ui.EventActions
 
 
 class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): ListAdapter<Rating,RatingAdapter.ItemViewHolder>(DiffCallback) {

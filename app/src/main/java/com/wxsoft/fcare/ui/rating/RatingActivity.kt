@@ -5,24 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.ActivityRatingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.EventAction
-import com.wxsoft.fcare.ui.EventActions
-import com.wxsoft.fcare.ui.common.AttachmentAdapter
-import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
-import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.ui.patient.ProfileViewModel
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 
-import kotlinx.android.synthetic.main.activity_rating.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.lang.ref.WeakReference
 import javax.inject.Inject

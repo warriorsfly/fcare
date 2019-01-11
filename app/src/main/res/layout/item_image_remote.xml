@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+    <data>
+        <variable name="url" type="String"/>
+    </data>
+    <ImageView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/image"
+            android:scaleType="centerCrop"
+            android:layout_width="80dp"
+            android:background="@drawable/ic_big_add"
+            app:imageUrl="@{url}"
+            android:layout_height="80dp"/>
+</layout>

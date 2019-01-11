@@ -16,7 +16,7 @@ import javax.inject.Singleton
         , ViewModelModule::class
         , ActivityBindingModule::class
         , NetWorkModule::class
-        , RoomModule::class
+//        , RoomModule::class
         , BaiduMapModule::class]
 )
 interface AppComponent : AndroidInjector<App> {

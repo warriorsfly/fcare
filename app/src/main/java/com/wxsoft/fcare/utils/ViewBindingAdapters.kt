@@ -23,6 +23,7 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
 import com.wxsoft.fcare.core.data.entity.rating.Rating
@@ -87,6 +88,13 @@ fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
 fun setImageUrl(imageView: ImageView, url: Uri?) {
 
     GlideApp.with(imageView).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
+}
+
+@BindingAdapter(value = ["imageUrl"], requireAll = false)
+fun setImageUrl(imageView: ImageView, url: String?) {
+
+    val imageUrl=BuildConfig.API_ENDPOINT+"File/$url"
+    GlideApp.with(imageView).load(imageUrl).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
 }
 
 object Converter{

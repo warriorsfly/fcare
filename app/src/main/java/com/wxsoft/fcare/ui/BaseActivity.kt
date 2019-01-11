@@ -5,6 +5,10 @@ import android.net.Uri
 import android.os.Environment
 import android.provider.MediaStore
 import android.support.v4.content.FileProvider
+import com.luck.picture.lib.PictureSelector
+import com.luck.picture.lib.config.PictureConfig
+import com.luck.picture.lib.config.PictureMimeType
+import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.BuildConfig
 import dagger.android.support.DaggerAppCompatActivity
 import java.io.File
@@ -22,56 +26,27 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
         const val NEW_PATIENT_ID="new_patient_id"
     }
 
-    protected var mCurrentPhotoPath: String?=null
-    /**
-     * 创建图片文件
-     */
-    @Throws(IOException::class)
-    private fun createImageFile(): File {
-        // Create an image file name
-        val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
-        val storageDir: File = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-        if(!storageDir.exists()){
-            storageDir.createNewFile()
-        }
-        return File.createTempFile(
-            "FCARE_${timeStamp}_", /* prefix */
-            ".jpg", /* suffix */
-            storageDir /* directory */
-        ).apply {
-            mCurrentPhotoPath = absolutePath
-        }
+
+    protected fun dispatchTakePictureIntent(list:List<LocalMedia>) {
+
+
+        PictureSelector.create(this)
+            .openGallery(PictureMimeType.ofImage())//全部.PictureMimeType.ofAll()、图片.ofImage()、视频.ofVideo()、音频.ofAudio()
+            .maxSelectNum(4)// 最大图片选择数量 int
+            .imageSpanCount(4)// 每行显示个数 int
+            .selectionMode(PictureConfig.MULTIPLE)// 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
+            .previewImage(true)// 是否可预览图片 true or false
+            .isCamera(true)// 是否显示拍照按钮 true or false
+//            .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
+            .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
+            .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
+
+            .selectionMedia(list)// 是否传入已选图片 List<LocalMedia> list
+            .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
+            .minimumCompressSize(100)// 小于100kb的图片不压缩
+            .synOrAsy(true)//同步true或异步false 压缩 默认同步
+            .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
     }
 
-    protected fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                // Create the File where the photo should go
-                val photoFile: File? = try {
-                    createImageFile()
-                } catch (ex: IOException) {
 
-                    null
-                }
-                photoFile?.also {file->
-                    val photoURI: Uri = FileProvider.getUriForFile(
-                        this,
-                        BuildConfig.APPLICATION_ID+".fileProvider",
-                        file
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI)
-                    startActivityForResult(takePictureIntent, CAMERA_PIC_REQUEST)
-                }
-            }
-        }
-    }
-
-    protected fun dispatchPickPictureIntent() {
-        Intent(Intent.ACTION_PICK).also { pickPictureIntent ->
-            pickPictureIntent.type = "image/*";
-            pickPictureIntent.action = Intent.ACTION_GET_CONTENT;
-            startActivityForResult(pickPictureIntent, PICK_PIC_REQUEST)
-        }
-    }
 }

@@ -6,10 +6,13 @@
         <variable name="viewModel" type="com.wxsoft.fcare.ui.patient.ProfileViewModel"/>
     </data>
 
-    <android.support.v4.widget.NestedScrollView
+    <FrameLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+    <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         <android.support.constraint.ConstraintLayout
@@ -402,6 +405,14 @@
                         android:layout_marginRight="15dp"
                         android:layout_height="100dp"/>
             </android.support.constraint.ConstraintLayout>
+
         </android.support.constraint.ConstraintLayout>
+
     </android.support.v4.widget.NestedScrollView>
+        <ImageView
+                android:id="@+id/enlarged"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"/>
+    </FrameLayout>
 </layout>

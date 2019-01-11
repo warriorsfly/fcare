@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.core.data.entity
 
+import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 import android.databinding.*
 import com.google.gson.annotations.SerializedName
@@ -198,6 +200,10 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             field = value
             notifyPropertyChanged(BR.createdDate)
         }
+
+//    @Embedded
+    @Ignore
+    var attachments:List<Attachment> = emptyList()
 
     @get:Bindable
     var modifiedBy: String=""

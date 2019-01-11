@@ -24,9 +24,10 @@ buildscript {
         glide_version='4.8.0'
     }
     repositories {
+
+
         google()
         jcenter()
-        
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.0-alpha10'
@@ -40,7 +41,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+        maven { url 'https://jitpack.io' }
     }
 }
 

@@ -12,7 +12,7 @@ import com.wxsoft.fcare.databinding.ItemMedicalHistoryOtherBinding
 import com.wxsoft.fcare.databinding.ItemMedicalHistoryPhotoBinding
 import com.wxsoft.fcare.databinding.ItemMedicalHistoryVoiceBinding
 import com.wxsoft.fcare.generated.callback.OnClickListener
-import com.wxsoft.fcare.ui.common.AttachmentAdapter
+import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.common.ForNewItem
 import kotlinx.android.synthetic.main.item_medical_history_other.view.*
 import kotlinx.android.synthetic.main.item_medical_history_photo.view.*
@@ -22,17 +22,17 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
 
     var titleArray:Array<String> = arrayOf("","", "既往病史", "病历提供者")
 
-    val photoAdapter:AttachmentAdapter
+//    val photoAdapter:PictureAdapter
 
     init {
-        photoAdapter = AttachmentAdapter(lifecycleOwner, OnClickListener(OnClickListener.Listener{ _, view ->
-            when(view.tag){
-                ForNewItem ->{
-                    viewModel.loadPhoto.value = "111"
-                }
-            }
-        },1))
-        photoAdapter.locals= emptyList()
+//        photoAdapter = PictureAdapter(lifecycleOwner, OnClickListener(OnClickListener.Listener{ _, view ->
+//            when(view.tag){
+//                ForNewItem ->{
+//                    viewModel.loadPhoto.value = "111"
+//                }
+//            }
+//        },1))
+//        photoAdapter.locals= emptyList()
     }
 
     override fun getItemCount(): Int {
@@ -44,7 +44,7 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
             setLifecycleOwner(lifecycleOwner)
             if (position==0){//照片
                 if (root.medical_photo_items_rv.adapter == null){
-                    root.medical_photo_items_rv.adapter = photoAdapter
+//                    root.medical_photo_items_rv.adapter = photoAdapter
                 }
             }else if (position == 1){//主诉、现病史
                 setVariable(BR.listener,viewModel)

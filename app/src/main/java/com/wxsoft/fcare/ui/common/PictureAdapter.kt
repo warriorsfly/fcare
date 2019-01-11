@@ -9,14 +9,22 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemImageBinding
+import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
-import com.wxsoft.fcare.generated.callback.OnClickListener
+import com.wxsoft.fcare.ui.PhotoEventAction
 
-class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,private val onClickListener: OnClickListener) :
+class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
+
+    private var action: PhotoEventAction?=null
+
+    fun setActionListener(actions: PhotoEventAction){
+        this.action=actions
+    }
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
@@ -24,7 +32,7 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
         return differ.currentList.size
     }
 
-    var locals: List<Uri> = emptyList()
+    var locals: List<Pair<LocalMedia,Uri>> = emptyList()
         set(value) {
             field = value
             differ.submitList(buildMergedList(remotes,value))
@@ -38,7 +46,7 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
 
     private fun buildMergedList(
         remote:List<String> =remotes,
-        local: List<Uri> =locals): List<Any> {
+        local: List<Pair<LocalMedia,Uri>> =locals): List<Any> {
         val merged = mutableListOf<Any>()
         if(remote.isNotEmpty()){
             merged.addAll(remote)
@@ -62,15 +70,23 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
 
         when (holder) {
             is ItemViewHolder.ImageViewHolder -> holder.binding.apply {
-                val presenter =differ.currentList[position] as Uri
-                root.setOnClickListener(onClickListener)
-                uri=presenter
+                val presenter =differ.currentList[position] as Pair<LocalMedia, Uri>
+//                presenter.first.num
+                root.setOnClickListener{action?.localSelected(locals)}
+                uri=presenter.second
+                setLifecycleOwner(lifecycleOwner)
+                executePendingBindings()
+            }
+
+            is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
+                val presenter =differ.currentList[position] as String
+                root.setOnClickListener{action?.enlargeRemote(root,presenter)}
+                url=presenter
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
-                root.tag=ForNewItem
-                root.setOnClickListener(onClickListener)
+                root.setOnClickListener{action?.localSelected(locals)}
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }
@@ -84,6 +100,9 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
             R.layout.item_image -> ItemViewHolder.ImageViewHolder(
                 ItemImageBinding.inflate(inflater, parent, false)
             )
+            R.layout.item_image_remote -> ItemViewHolder.ImageRemoteViewHolder(
+                ItemImageRemoteBinding.inflate(inflater, parent, false)
+            )
             R.layout.item_new_image -> ItemViewHolder.PlaceViewHolder(
                 ItemNewImageBinding.inflate(inflater, parent, false)
             )
@@ -95,7 +114,8 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
     override fun getItemViewType(position: Int): Int {
         return when (differ.currentList[position]) {
             is ForNewItem -> R.layout.item_new_image
-            is Uri -> R.layout.item_image
+            is Pair<*, *> -> R.layout.item_image
+            is String -> R.layout.item_image_remote
             else -> throw IllegalStateException("Unknown view type at position $position")
         }
     }
@@ -106,7 +126,7 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
             return when {
                 oldItem === ForNewItem && newItem === ForNewItem -> true
                 oldItem is String && newItem is String -> newItem == oldItem
-                oldItem is Uri && newItem is Uri -> oldItem == newItem
+                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
                 else -> false
             }
         }
@@ -114,15 +134,13 @@ class AttachmentAdapter constructor(private val lifecycleOwner: LifecycleOwner,p
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when {
-                oldItem is Uri && newItem is Uri -> newItem == oldItem
+                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
                 oldItem is String && newItem is String -> newItem == oldItem
                 else -> false
             }
         }
 
     }
-
-
 }
 
 object ForNewItem
@@ -132,6 +150,10 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
 
     class ImageViewHolder(
         val binding: ItemImageBinding
+    ) : ItemViewHolder(binding)
+
+    class ImageRemoteViewHolder(
+        val binding: ItemImageRemoteBinding
     ) : ItemViewHolder(binding)
 
     class PlaceViewHolder(
