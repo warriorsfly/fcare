@@ -411,6 +411,7 @@
     </android.support.v4.widget.NestedScrollView>
         <ImageView
                 android:id="@+id/enlarged"
+                android:background="#A9A9A9"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="invisible"/>
