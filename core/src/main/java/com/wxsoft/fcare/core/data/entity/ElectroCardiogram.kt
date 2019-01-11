@@ -1,0 +1,40 @@
+package com.wxsoft.fcare.core.data.entity
+
+import android.databinding.BaseObservable
+import android.databinding.Bindable
+import com.google.gson.annotations.SerializedName
+
+data class ElectroCardiogram(val id:String):BaseObservable(){
+    var patientId=""
+
+    /**
+     * 确诊时间
+     */
+    @SerializedName("ecgDiagnoseTime")
+    @get:Bindable
+    var diagnosedAt="0001-01-01 00:00:00"
+    /**
+     * 心电图时间
+     */
+    @get:Bindable
+    @SerializedName("ecgTime")
+    var time="0001-01-01 00:00:00"
+    /**
+     * 是否远程传输
+     */
+    @SerializedName("isRemoteEcgtranChecked")
+    @get:Bindable
+    var remote=false
+    /**
+     * 是否已判读
+     */
+    @get:Bindable
+    @SerializedName("isDiagnosed")
+    var diagnosed=false
+    @get:Bindable
+    var diagnoseResult=""
+    @get:Bindable
+    var location=0
+    @get:Bindable
+    var attachmentIds:List<String>  = emptyList()
+}

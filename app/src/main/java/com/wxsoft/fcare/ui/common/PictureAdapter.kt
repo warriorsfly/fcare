@@ -16,7 +16,7 @@ import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
-class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
+class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val max:Int=0) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
 
@@ -51,15 +51,19 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
         if(remote.isNotEmpty()){
             merged.addAll(remote)
         }
-        if (local.isNotEmpty() && local.size+remote.size==4) {
-
+        if(max==0){
             merged.addAll(local)
-        }else{
-            if(local.isNotEmpty()){
-                merged.addAll(local)
+        }else {
+            if (local.isNotEmpty() && local.size + remote.size == max) {
 
+                merged.addAll(local)
+            } else {
+                if (local.isNotEmpty()) {
+                    merged.addAll(local)
+
+                }
+                merged += ForNewItem
             }
-            merged+=ForNewItem
         }
         return merged
     }

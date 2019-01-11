@@ -104,7 +104,7 @@ class ProfileActivity : BaseActivity() {
         })
 
 
-        adapter= PictureAdapter(this)
+        adapter= PictureAdapter(this,4)
 
         adapter.setActionListener(photoAction)
         adapter.locals= emptyList()
@@ -164,7 +164,7 @@ class ProfileActivity : BaseActivity() {
 
     inner class EventAction() :PhotoEventAction{
         override fun localSelected(list: List<Pair<LocalMedia, Uri>>) {
-            dispatchTakePictureIntent(list.map { it.first })
+            dispatchTakePictureIntent(list.map { it.first },4-adapter.remotes.size)
         }
 
         override fun enlargeRemote(root:View,url: String) {
