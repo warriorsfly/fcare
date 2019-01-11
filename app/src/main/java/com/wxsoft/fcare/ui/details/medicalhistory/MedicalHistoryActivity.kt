@@ -59,7 +59,7 @@ class MedicalHistoryActivity : BaseActivity() {
             checkPhotoTaking()
         })
 
-
+        viewModel.backToLast.observe(this, Observer { onBackPressed() })
     }
 
 

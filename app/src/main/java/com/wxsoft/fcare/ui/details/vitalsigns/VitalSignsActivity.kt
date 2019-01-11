@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.vitalsigns
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.MenuItem
@@ -41,6 +42,7 @@ class VitalSignsActivity : BaseActivity() {
 
         viewModel.loadVitalSign()
 
+        viewModel.backToLast.observe(this, Observer { onBackPressed() })
 
     }
 

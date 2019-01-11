@@ -49,6 +49,10 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             if (value == "") return
             field = value
         }
+
+    val backToLast:LiveData<Boolean>
+    private val initbackToLast = MediatorLiveData<Boolean>()
+
     val photos= ArrayList<Bitmap>()
 
     val medicalHistory:LiveData<MedicalHistory>
@@ -64,6 +68,8 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     private val loadHistoryItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
     init {
+
+        backToLast = initbackToLast.map { it }
         clickable = clickResult.map { it }
         historyPhoto = loadPhoto.map { it }
         providerItems = loadProviderItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
@@ -103,7 +109,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     fun saveMedicalHistory(){
         medicalHistoryApi.save(medicalHistory.value!!).toResource()
             .subscribe {
-                it
+                initbackToLast.value = true
             }
     }
 

@@ -47,6 +47,7 @@ class CheckBodyActivity : BaseActivity()  {
         binding.checkList.adapter = adapter
         viewModel.checkBody.observe(this, Observer {  })
 
+        viewModel.backToLast.observe(this, Observer { onBackPressed() })
     }
 
 

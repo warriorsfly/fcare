@@ -56,6 +56,7 @@ class PharmacyActivity : BaseActivity() {
         viewModel.selectedDrugs.observe(this, Observer { it -> drugBottomListAdapter.items = it ?: emptyList()  })
         binding.bottomList.adapter = drugBottomListAdapter
 
+        viewModel.backToLast.observe(this, Observer { onBackPressed() })
     }
 
 

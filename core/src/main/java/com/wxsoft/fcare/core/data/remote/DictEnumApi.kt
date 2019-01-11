@@ -51,5 +51,14 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/215")
     fun loadDiagnoseTypeResultItems(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/216")
+    fun loadIllnessResultItems(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/217")
+    fun loadApoplexyResultItems(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/218")
+    fun loadInfarct(): Maybe<List<Dictionary>>
+
 
 }

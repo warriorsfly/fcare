@@ -53,8 +53,14 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     */
     private val loadConsciousnessResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
+    val backToLast:LiveData<Boolean>
+    private val initbackToLast = MediatorLiveData<Boolean>()
+
 
     init {
+
+        backToLast = initbackToLast.map { it }
+
         clickable=clickResult.map { it }
         vital = loadVitalResult.map { (it as? Resource.Success)?.data ?: VitalSign("") }
         consciousnessItems = loadConsciousnessResult.map {
@@ -78,7 +84,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
         v.consciousness_Type = consciousItems.get(selectedConsciousnessPosition.get()).itemCode
         (if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
             .subscribe({
-
+                initbackToLast.value = true
                 messageAction.value = Event( "保存成功")},
                 {error->messageAction.value= Event(error.message?:"") })
     }
