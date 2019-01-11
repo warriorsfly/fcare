@@ -18,17 +18,16 @@ package com.wxsoft.fcare.utils
 
 import android.databinding.BindingAdapter
 import android.databinding.InverseMethod
-import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.squareup.picasso.Picasso
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.Subject
+import com.wxsoft.fcare.core.di.GlideApp
 
 @BindingAdapter("taskSelectUser")
 fun taskSelectUser(view: View, visible: Boolean) {
@@ -86,7 +85,8 @@ fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
 
 @BindingAdapter(value = ["imageUri"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: Uri?) {
-    Picasso.get().load(url).error(R.mipmap.img_electrocardiogram).into(imageView)
+
+    GlideApp.with(imageView).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
 }
 
 object Converter{

@@ -78,8 +78,15 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
     kapt "com.google.dagger:dagger-android-processor:$dagger_version"
     //picasso
-    implementation "com.squareup.picasso:picasso:$picasso_version"
-    //for  gon
+//    implementation "com.squareup.picasso:picasso:$picasso_version"
+
+    //glide
+    implementation "com.github.bumptech.glide:annotations:$glide_version"
+    implementation ("com.github.bumptech.glide:glide:$glide_version"){
+        exclude group: "com.android.support"
+    }
+    kapt "com.github.bumptech.glide:compiler:$glide_version"
+    //for  gson
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     //rxkotlin
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
