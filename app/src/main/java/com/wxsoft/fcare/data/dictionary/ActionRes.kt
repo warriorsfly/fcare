@@ -74,7 +74,7 @@ class ActionRes {
             const val 心电图 = "xdt"
             const val 消息通知 = "xxtz"
             const val 来院方式 = "lyfs"
-            const val 知情同意书 = "zqtys"
+            const val 知情同意书 = "informed_consent_statement"
             const val 给药 = "hzgy"
             //发车
             const val StartVehicle = "start_vehicle"
