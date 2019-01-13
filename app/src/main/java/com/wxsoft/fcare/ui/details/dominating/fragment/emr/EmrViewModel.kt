@@ -16,6 +16,10 @@ import com.wxsoft.fcare.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
@@ -100,7 +104,49 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                         messageAction.value= Event(it.message?:"")
                     })
         }
+    }
+
+    fun saveEcg(){
+        val files = bitmaps.map {
+            val file = File(it)
+            return@map MultipartBody.Part.createFormData(
+                "images",
+                it.split("/").last(),
+                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+            )
+        }
+        val item= (loadEmrResult.value?.result?.first {
+            it.code==ActionRes.ActionType.心电图
+        }?.result as? ElectroCardiogram )?.apply {
+            savable=false
+            patientId=this@EmrViewModel.patientId
+        }
 
 
+        item?.let {
+            emrApi.saveEcg(it,files).subscribeOn(Schedulers.single())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+
+                    emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+                                check->
+
+                            loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.result=check?.result?:ElectroCardiogram()
+                            val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(index)
+                            }
+                        },{
+                            messageAction.value= Event(it.message?:"")
+                        })
+
+                },{
+                    throwable->
+
+                    it.savable=true
+                    messageAction.value= Event(throwable.message?:"")
+                })
+
+        }
     }
 }

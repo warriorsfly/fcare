@@ -15,6 +15,7 @@ import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.databinding.ItemEmrElectrocardiogramBinding
 import com.wxsoft.fcare.databinding.ItemEmrNoneBinding
 import com.wxsoft.fcare.databinding.ItemEmrProfileBinding
+import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.common.PictureAdapter
 
@@ -27,6 +28,13 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
     fun setActionListener(actions: EventActions){
         this.action=actions
     }
+
+    private var commitAction:CommitEventAction?=null
+
+    fun setCommitEventActionListener(commitActions:CommitEventAction){
+        this.commitAction=commitActions
+    }
+
     private val differ = AsyncListDiffer<EmrItem>(this, DiffCallback)
 
     override fun getItemCount(): Int {
@@ -70,17 +78,11 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 item = differ.currentList[position]
 
                 val presenter = differ.currentList[position].result as ElectroCardiogram
+                ecg = presenter
+                action=commitAction
+                list.adapter = this@EmrAdapter.pictureAdapter
+                this@EmrAdapter.pictureAdapter.remotes = presenter.attachments.map { it.httpUrl }
 
-                ecg=presenter
-
-                list.adapter=this@EmrAdapter.pictureAdapter
-                this@EmrAdapter.pictureAdapter.remotes=presenter.attachments.map { it.httpUrl }
-
-                action?.let {
-                    root.setOnClickListener {
-                        action?.onOpen(differ.currentList[position].code!!)
-                    }
-                }
             }
         }
     }
@@ -118,53 +120,50 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
     object DiffCallback : DiffUtil.ItemCallback<EmrItem>() {
         override fun areItemsTheSame(oldItem: EmrItem, newItem: EmrItem): Boolean {
-            val result1=oldItem.result
-            val result2=newItem.result
+            val result1 = oldItem.result
+            val result2 = newItem.result
             return when {
-                result1 is Any && result2 is Any->
-                    oldItem.code==newItem.code && result1==result2
+                result1 is Any && result2 is Any ->
+                    oldItem.code == newItem.code && result1 == result2
 
                 result1 is Patient && result2 is Patient ->
-                    result1.id == result2.id &&  oldItem.code==newItem.code
+                    result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is CheckBody && result2 is CheckBody ->
-                    result1.id == result2.id &&  oldItem.code==newItem.code
+                    result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
-                    result1.id == result2.id &&  oldItem.code==newItem.code
+                    result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
-                    oldItem.code==newItem.code
+                    oldItem.code == newItem.code
                 else -> false
             }
         }
 
         override fun areContentsTheSame(oldItem: EmrItem, newItem: EmrItem): Boolean {
-            val result1=oldItem.result
-            val result2=newItem.result
+            val result1 = oldItem.result
+            val result2 = newItem.result
             return when {
-                result1 is Any && result2 is Any->
-                     oldItem.code==newItem.code
+                result1 is Any && result2 is Any ->
+                    oldItem.code == newItem.code
 
                 result1 is Patient && result2 is Patient ->
-                    result1.id == result2.id &&  oldItem.code==newItem.code
+                    result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is CheckBody && result2 is CheckBody ->
-                    result1.id == result2.id &&  oldItem.code==newItem.code
+                    result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
-                    result1.id == result2.id &&  oldItem.code==newItem.code
+                    result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
-                    oldItem.code==newItem.code
+                    oldItem.code == newItem.code
 
                 else -> false
             }
         }
-
     }
-
-
 }
 
 sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {

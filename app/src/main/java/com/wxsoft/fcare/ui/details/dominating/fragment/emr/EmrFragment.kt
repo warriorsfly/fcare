@@ -22,6 +22,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.Toast
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -35,6 +36,7 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -71,6 +73,14 @@ class EmrFragment : DaggerFragment() {
         PhotoAction()
     }
 
+    private val commitAction:CommitAction by lazy {
+        CommitAction()
+    }
+
+    private val toast:Toast by lazy {
+        Toast.makeText(context,"",Toast.LENGTH_SHORT)
+    }
+
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -96,6 +106,7 @@ class EmrFragment : DaggerFragment() {
         }
         adapter= EmrAdapter(this)
         adapter.setActionListener(EventAction(WeakReference(activity!!),patientId))
+        adapter.setCommitEventActionListener(commitAction)
         adapter.pictureAdapter.setActionListener(photoAction)
         binding.list.adapter=adapter
 
@@ -107,6 +118,11 @@ class EmrFragment : DaggerFragment() {
 
         })
 
+        viewModel.mesAction.observe(this,EventObserver{
+            toast.apply {
+                setText(it)
+            }.show()
+        })
         viewModel.emrItemLoaded.observe(this,EventObserver{
             adapter.notifyItemChanged(it)
         })
@@ -202,7 +218,17 @@ class EmrFragment : DaggerFragment() {
         override fun enlargeRemote(root:View,url: String) {
             zoomImageFromThumb(root,enlarged,url)
         }
+    }
 
+    inner class CommitAction() : CommitEventAction {
+        override fun commit(any: Any) {
+
+            when(any){
+                is ElectroCardiogram->{
+                    viewModel.saveEcg()
+                }
+            }
+        }
 
     }
 

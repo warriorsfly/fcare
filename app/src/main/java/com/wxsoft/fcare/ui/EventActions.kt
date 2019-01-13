@@ -14,3 +14,9 @@ interface PhotoEventAction{
     //点击远程文件查看大图
     fun enlargeRemote(imageView: View, url:String)
 }
+
+
+interface CommitEventAction{
+    //点击本地文件
+    fun commit(any: Any)
+}

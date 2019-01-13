@@ -3,9 +3,8 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.*
 import io.reactivex.Maybe
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 /**
  * emr信息通通从这个接口取，和别的接口有重叠，暂时考虑这样 可以防止多次引用各种api
@@ -41,5 +40,10 @@ interface EmrApi{
      */
     @GET("ECG/GetElectroCardiogramByPatientId/{patientId}")
     fun getEcgs(@Path("patientId")id:String):Maybe<Response<ElectroCardiogram>>
+
+    @Multipart
+    @POST("ECG/SaveElectroCardiogram")
+    fun saveEcg(@Part("diogram")diogram: ElectroCardiogram, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
+
 
 }
