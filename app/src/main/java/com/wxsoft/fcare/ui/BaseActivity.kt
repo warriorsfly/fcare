@@ -26,7 +26,7 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
     }
 
 
-    protected fun dispatchTakePictureIntent(list:List<LocalMedia>,max:Int) {
+    fun dispatchTakePictureIntent(list:List<LocalMedia>,max:Int) {
 
 
         PictureSelector.create(this)

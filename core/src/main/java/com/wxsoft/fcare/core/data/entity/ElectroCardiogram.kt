@@ -3,8 +3,9 @@ package com.wxsoft.fcare.core.data.entity
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
+import com.wxsoft.fcare.core.BR
 
-data class ElectroCardiogram(val id:String):BaseObservable(){
+data class ElectroCardiogram(val id:String=""):BaseObservable(){
     var patientId=""
 
     /**
@@ -33,8 +34,17 @@ data class ElectroCardiogram(val id:String):BaseObservable(){
     var diagnosed=false
     @get:Bindable
     var diagnoseResult=""
+
+    @Transient
+    @get:Bindable
+    var savable=false
+    set(value) {
+        field=value
+        notifyPropertyChanged(BR.savable)
+    }
+
     @get:Bindable
     var location=0
     @get:Bindable
-    var attachmentIds:List<String>  = emptyList()
+    var attachments:List<Attachment>  = emptyList()
 }

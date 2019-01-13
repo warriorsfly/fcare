@@ -40,6 +40,6 @@ interface EmrApi{
      * 心电图
      */
     @GET("ECG/GetElectroCardiogramByPatientId/{patientId}")
-    fun getEcgs(@Path("patientId")id:String):Maybe<Response<List<ElectroCardiogram>>>
+    fun getEcgs(@Path("patientId")id:String):Maybe<Response<ElectroCardiogram>>
 
 }

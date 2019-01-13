@@ -2,7 +2,9 @@ package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
+import android.arch.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -20,6 +22,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                        override val sharedPreferenceStorage: SharedPreferenceStorage,
                                        override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
+    val bitmaps= mutableListOf<String>()
     val emrs:LiveData<List<EmrItem>>
     private val loadEmrResult=MediatorLiveData<Response<List<EmrItem>>>()
 
@@ -33,6 +36,12 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             loadEms(field)
         }
 
+    /**
+     * 结果信息
+     */
+    private val _loadEmrItemAction = MutableLiveData<Event<Int>>()
+    val emrItemLoaded: LiveData<Event<Int>>
+        get() = _loadEmrItemAction
 
     private fun loadEms(id:String){
 
@@ -54,7 +63,12 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     .subscribe ({
                         vital->
                         if(vital.isNullOrEmpty()) return@subscribe
+
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vital
+                        val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
+                        index?.let {
+                            _loadEmrItemAction.value=Event(it)
+                        }
                     },{
                         messageAction.value= Event(it.message?:"")
                     })
@@ -65,6 +79,10 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             check->
                         check?.result?: return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.辅助检查}?.result=check
+                        val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
+                        index?.let {
+                            _loadEmrItemAction.value=Event(it)
+                        }
                     }, {
                         messageAction.value = Event(it.message ?: "")
                     })
@@ -72,8 +90,12 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe ({
                             check->
-                        check?.result?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.result=check
+//                        check?.result?: return@subscribe
+                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.result=check?.result?:ElectroCardiogram()
+                        val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
+                        index?.let {
+                            _loadEmrItemAction.value=Event(it)
+                        }
                     },{
                         messageAction.value= Event(it.message?:"")
                     })

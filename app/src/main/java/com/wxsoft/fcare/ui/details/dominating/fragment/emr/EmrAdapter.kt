@@ -9,16 +9,19 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.CheckBody
+import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.databinding.ItemEmrElectrocardiogramBinding
 import com.wxsoft.fcare.databinding.ItemEmrNoneBinding
 import com.wxsoft.fcare.databinding.ItemEmrProfileBinding
 import com.wxsoft.fcare.ui.EventActions
+import com.wxsoft.fcare.ui.common.PictureAdapter
 
 class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
+    val pictureAdapter=PictureAdapter(lifecycleOwner,2)
     private var action:EventActions?=null
 
     fun setActionListener(actions: EventActions){
@@ -63,7 +66,16 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             }
 
             is ItemViewHolder.ElectrocardiogramViewHolder -> holder.binding.apply {
+
                 item = differ.currentList[position]
+
+                val presenter = differ.currentList[position].result as ElectroCardiogram
+
+                ecg=presenter
+
+                list.adapter=this@EmrAdapter.pictureAdapter
+                this@EmrAdapter.pictureAdapter.remotes=presenter.attachments.map { it.httpUrl }
+
                 action?.let {
                     root.setOnClickListener {
                         action?.onOpen(differ.currentList[position].code!!)
@@ -95,6 +107,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
         return when (differ.currentList[position].result) {
             null->R.layout.item_emr_none
             is Patient -> R.layout.item_emr_profile
+            is ElectroCardiogram -> R.layout.item_emr_electrocardiogram
             is CheckBody->R.layout.item_emr_none
             is List<*> ->R.layout.item_emr_none
             else->R.layout.item_emr_none
@@ -117,6 +130,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 result1 is CheckBody && result2 is CheckBody ->
                     result1.id == result2.id &&  oldItem.code==newItem.code
 
+                result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
+                    result1.id == result2.id &&  oldItem.code==newItem.code
+
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code==newItem.code
                 else -> false
@@ -134,6 +150,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     result1.id == result2.id &&  oldItem.code==newItem.code
 
                 result1 is CheckBody && result2 is CheckBody ->
+                    result1.id == result2.id &&  oldItem.code==newItem.code
+
+                result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
                     result1.id == result2.id &&  oldItem.code==newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
