@@ -79,6 +79,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
                 val presenter = differ.currentList[position].result as ElectroCardiogram
                 ecg = presenter
+                visiable= position<differ.currentList.size-1
                 action=commitAction
                 list.adapter = this@EmrAdapter.pictureAdapter
                 this@EmrAdapter.pictureAdapter.remotes = presenter.attachments.map { it.httpUrl }

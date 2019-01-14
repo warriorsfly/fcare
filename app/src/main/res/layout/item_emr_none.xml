@@ -40,6 +40,7 @@
                     android:layout_marginTop="3dp"
                     tools:text="12:12"
                     android:id="@+id/time"
+                    app:goneUnless="@{item.result!=null}"
                     android:text="@{item.completedAt}"
                     app:layout_constraintTop_toBottomOf="@id/done"
                     app:layout_constraintLeft_toLeftOf="parent"

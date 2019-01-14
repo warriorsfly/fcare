@@ -85,13 +85,13 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val 
 
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
-                root.setOnClickListener{action?.enlargeRemote(root,presenter)}
+                image.setOnClickListener{action?.enlargeRemote(root,presenter)}
                 url=presenter
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
-                root.setOnClickListener{action?.localSelected()}
+                image.setOnClickListener{action?.localSelected()}
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }
@@ -121,7 +121,7 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val 
             is ForNewItem -> R.layout.item_new_image
             is Pair<*, *> -> R.layout.item_image
             is String -> R.layout.item_image_remote
-            else -> throw IllegalStateException("Unknown view type at position $position")
+            else -> R.layout.item_image
         }
     }
 

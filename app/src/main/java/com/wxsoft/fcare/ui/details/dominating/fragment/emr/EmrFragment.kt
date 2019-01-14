@@ -48,7 +48,6 @@ import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
 import java.lang.ref.WeakReference
