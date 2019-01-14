@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.ui.details.dominating
 
 import android.app.AlertDialog
-import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -29,6 +28,9 @@ class DoMinaActivity : BaseActivity() {
     private lateinit var viewModel:DoMinaViewModel
 
     private lateinit var taskId:String
+    private val adapter:TaskStateAdapter by lazy {
+        TaskStateAdapter(supportFragmentManager)
+    }
 
     companion object {
         const val TASK_ID = "TASK_ID"
@@ -56,19 +58,18 @@ class DoMinaActivity : BaseActivity() {
         taskId=intent.getStringExtra(TASK_ID)?:""
         viewModel=viewModelProvider(factory)
         binding.viewModel=viewModel
-
+        binding.viewPager.adapter=adapter
 //        binding.processTabs.setupWithViewPager(viewPager)
-        viewModel.task.observe(this, Observer{
-            it ?: return@Observer
-
-            if( binding.viewPager.adapter ==null)
-                binding.viewPager.adapter= TaskStateAdapter(supportFragmentManager)
-        })
+//        viewModel.task.observe(this, Observer{
+//            it ?: return@Observer
+//            binding.viewPager.visibility= View.VISIBLE
+//        })
         viewModel.taskId=taskId
 
         seekBar.setOnTouchListener { _, _ ->  true }
 
         viewModel.mesAction.observe(this, EventObserver {
+
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
@@ -126,6 +127,7 @@ class DoMinaActivity : BaseActivity() {
         override fun getCount(): Int {
             return statusFragments.size
         }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
