@@ -25,6 +25,7 @@ class MeasuresItemAdapter constructor(private val lifecycleOwner: LifecycleOwner
                 0->{viewModel.measuresItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
                 1->{viewModel.cureResultItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
                 2->{viewModel.outcallResultItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
+                3->{viewModel.departments.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
             }
         }
 

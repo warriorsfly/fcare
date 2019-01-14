@@ -41,19 +41,19 @@ data class DrugRecord (val id:String) : BaseObservable() {
             notifyPropertyChanged(BR.dose)
         }
 
-    @Bindable
-    var drug: Drug = Drug("")
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.drug)
-        }
-
-    @Bindable
-    var drugPackage: DrugPackage = DrugPackage("")
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.drug)
-        }
+//    @Bindable
+//    var drug: Drug = Drug("")
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.drug)
+//        }
+//
+//    @Bindable
+//    var drugPackage: DrugPackage = DrugPackage("")
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.drugPackage)
+//        }
 
 
 }

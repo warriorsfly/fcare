@@ -119,19 +119,19 @@ class AssignmentFragment : DaggerFragment() {
         startActivity(intent)
     }
 
-    fun toCheckBody(){//PhysicalExamination
+    fun toCheckBody(){//查体
         var intent = Intent(activity!!, CheckBodyActivity::class.java)
         intent.putExtra(CheckBodyActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 
-    fun toMedicalHistory(){//IllnessHistory
+    fun toMedicalHistory(){//病史
         var intent = Intent(activity!!, MedicalHistoryActivity::class.java)
         intent.putExtra(MedicalHistoryActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 
-    fun toMeasures(){//DispostionMeasures
+    fun toMeasures(){//措施
         var intent = Intent(activity!!, MeasuresActivity::class.java)
         intent.putExtra(MeasuresActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)

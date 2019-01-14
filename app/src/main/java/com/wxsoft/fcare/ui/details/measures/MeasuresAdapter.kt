@@ -13,12 +13,13 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemMeasuresNomalBinding
 import com.wxsoft.fcare.databinding.ItemMeasuresRemarkBinding
 import kotlinx.android.synthetic.main.item_measures_nomal.view.*
+import kotlinx.android.synthetic.main.item_measures_remark.view.*
 
 
 class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MeasuresViewModel) :
     RecyclerView.Adapter<MeasuresAdapter.ItemViewHolder>() {
 
-    var titleArray:Array<String> = arrayOf("治疗措施","救治结果", "出诊结果","备注")
+    var titleArray:Array<String> = arrayOf("治疗措施","救治结果", "出诊结果","绕行")
 
     override fun getItemCount(): Int {
         return 4
@@ -35,7 +36,9 @@ class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
                         root.measures_items_rv.adapter = adapter
                     }
                 }else{
-                    setVariable(BR.listener,viewModel)
+                    var adapter = MeasuresItemAdapter(lifecycleOwner,viewModel)
+                    adapter.section = position
+                    root.measures_detour_department_rv.adapter = adapter
                 }
             executePendingBindings()
         }

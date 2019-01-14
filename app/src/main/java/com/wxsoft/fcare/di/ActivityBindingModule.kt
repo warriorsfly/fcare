@@ -9,6 +9,9 @@ import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
+import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
+import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity_MembersInjector
+import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresModule
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
@@ -92,4 +95,8 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DiagnoseModule::class])
     internal abstract fun diagnoseActivity(): DiagnoseActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [InformedConsentModule::class])
+    internal abstract fun informedConsentActivity(): InformedConsentActivity
 }
