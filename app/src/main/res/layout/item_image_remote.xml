@@ -9,6 +9,7 @@
             android:id="@+id/image"
             android:scaleType="centerCrop"
             android:layout_width="80dp"
+            android:layout_margin="5dp"
             android:background="@drawable/ic_big_add"
             app:imageUrl="@{url}"
             android:layout_height="80dp"/>
