@@ -1,10 +1,12 @@
 package com.wxsoft.fcare.ui.main
 
 import android.arch.lifecycle.ViewModel
+import com.wxsoft.emergency.ui.main.fragment.patients.PatientsFragment
+import com.wxsoft.emergency.ui.main.fragment.patients.PatientsViewModel
 import com.wxsoft.fcare.core.di.FragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
-import com.wxsoft.fcare.ui.main.fragment.assignment.AssignmentFragment
-import com.wxsoft.fcare.ui.main.fragment.assignment.AssignmentViewModel
+import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
+import com.wxsoft.fcare.ui.main.fragment.task.TaskViewModel
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileViewModel
 import dagger.Binds
@@ -27,8 +29,13 @@ internal abstract class MainModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AssignmentViewModel::class)
-    abstract fun bindAssignmentViewModel(viewModel: AssignmentViewModel): ViewModel
+    @ViewModelKey(PatientsViewModel::class)
+    abstract fun bindPatientsViewModel(viewModel: PatientsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(TaskViewModel::class)
+    abstract fun bindAssignmentViewModel(viewModel: TaskViewModel): ViewModel
 
     @FragmentScoped
     @ContributesAndroidInjector
@@ -36,7 +43,11 @@ internal abstract class MainModule {
 
     @FragmentScoped
     @ContributesAndroidInjector
-    internal abstract fun contributeAssignmentFragment(): AssignmentFragment
+    internal abstract fun contributeTaskFragment(): TaskFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    internal abstract fun contributePatientsFragment(): PatientsFragment
 
 
 }
