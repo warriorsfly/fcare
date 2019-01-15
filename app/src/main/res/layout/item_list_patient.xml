@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="task" type="com.wxsoft.fcare.core.data.entity.Task"/>
+        <variable name="listener" type="com.wxsoft.fcare.ui.EventActions"/>
+    </data>
+    <android.support.design.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dp"
+            android:layout_marginRight="22dp"
+            android:layout_marginTop="7.5dp"
+            android:layout_marginBottom="7.5dp"
+            android:elevation="2dp"
+            app:cardElevation="4dp"
+            app:cardCornerRadius="6dp">
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/container"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="match_parent"
+                android:paddingLeft="12dp"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:onClick="@{() -> listener.onOpen(task.id)}"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/task_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="目的地："
+                    android:textColor="#131D35"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/task_destination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:textColor="#131D35"
+                    android:text="@{task.taskPosition}"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title1"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title1"/>
+
+
+
+            <TextView
+                    android:id="@+id/task_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="发车时间："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title1"
+                    app:layout_constraintTop_toBottomOf="@id/task_title1"/>
+
+            <TextView
+                    android:id="@+id/task_dispatch_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    app:doneAt="@{task.startAt}"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title2"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title2"/>
+
+            <TextView
+                    android:id="@+id/task_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:layout_marginLeft="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="到达医院："
+                    app:layout_constraintLeft_toRightOf="@id/task_dispatch_time"
+                    app:layout_constraintTop_toBottomOf="@id/task_title1"/>
+
+            <TextView
+                    android:id="@+id/arrive_hospital_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    app:doneAt="@{task.arriveAt}"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title3"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title3"/>
+
+            <TextView
+                    android:id="@+id/task_title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="总计时长："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title2"
+                    app:layout_constraintTop_toBottomOf="@id/task_title2"/>
+
+            <TextView
+                    android:id="@+id/all_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="15′24″"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title4"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title4"/>
+
+            <TextView
+                    android:id="@+id/task_title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="车辆信息："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title4"
+                    app:layout_constraintTop_toBottomOf="@id/task_title4"/>
+
+            <TextView
+                    android:id="@+id/car_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:background="#F0F2F4"
+                    android:textColor="#7D8AA3"
+                    android:text="@{task.carId}"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title5"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title5"/>
+
+            <TextView
+                    android:id="@+id/task_title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textSize="13sp"
+                    android:textColor="#7D8AA3"
+                    android:text="病人姓名："
+                    app:layout_constraintLeft_toLeftOf="@id/task_title5"
+                    app:layout_constraintTop_toBottomOf="@id/task_title5"/>
+
+            <TextView
+                    android:id="@+id/parient_name"
+                    android:layout_width="55dp"
+                    android:layout_height="16dp"
+                    android:textAlignment="center"
+                    android:textSize="13sp"
+                    android:background="@color/rating_red"
+                    android:textColor="#FFFFFF"
+                    android:text="张三"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title6"
+                    app:layout_constraintBottom_toBottomOf="@id/task_title6"/>
+
+            <ImageView
+                    android:id="@+id/status_image"
+                    android:layout_width="62dp"
+                    android:layout_height="62dp"
+                    android:layout_marginRight="5dp"
+                    android:src="@drawable/ic_markact"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/task_title2"/>
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.design.card.MaterialCardView>
+</layout>

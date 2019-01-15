@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.wxsoft.emergency.ui.main.fragment.patients.PatientsViewModel"/>
+    </data>
+    <android.support.design.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.home.HomeActivity">
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            <android.support.design.card.MaterialCardView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/search"
+                    app:strokeColor="@color/light_gray"
+                    android:layout_marginLeft="22dp"
+                    android:layout_marginRight="22dp"
+                    android:layout_marginTop="7.5dp"
+                    android:layout_marginBottom="7.5dp"
+                    android:elevation="2dp"
+                    app:cardElevation="4dp"
+                    app:cardCornerRadius="6dp">
+            <android.support.v7.widget.SearchView
+
+
+                    android:layout_width="match_parent"
+                    app:queryHint="请输入患者姓名"
+                    android:background="@null"
+                    android:elevation="4dp"
+                    app:iconifiedByDefault="false"
+                    android:layout_height="wrap_content">
+            </android.support.v7.widget.SearchView>
+
+            </android.support.design.card.MaterialCardView>
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_marginTop="12dp"
+                    app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"
+                    app:refreshing="@{viewModel.isLoading}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/search">
+                <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:id="@+id/list"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </android.support.constraint.ConstraintLayout>
+        <android.support.design.widget.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_24dp"
+                android:id="@+id/floating_action_button"
+                android:layout_gravity="bottom|right"
+                android:layout_margin="16dp"/>
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>
