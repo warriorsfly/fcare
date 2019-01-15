@@ -28,9 +28,6 @@ class DoMinaActivity : BaseActivity() {
     private lateinit var viewModel:DoMinaViewModel
 
     private lateinit var taskId:String
-    private val adapter:TaskStateAdapter by lazy {
-        TaskStateAdapter(supportFragmentManager)
-    }
 
     companion object {
         const val TASK_ID = "TASK_ID"
@@ -45,25 +42,22 @@ class DoMinaActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        viewModel=viewModelProvider(factory)
         var binding = DataBindingUtil.setContentView<ActivityDoMinaBinding>(
             this,
             R.layout.activity_do_mina
         ).apply {
+
+            viewPager.adapter = TaskStateAdapter(supportFragmentManager)
+            viewModel=this@DoMinaActivity.viewModel
             setLifecycleOwner(this@DoMinaActivity)
+
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         back.setOnClickListener { onBackPressed() }
         taskId=intent.getStringExtra(TASK_ID)?:""
-        viewModel=viewModelProvider(factory)
-        binding.viewModel=viewModel
-        binding.viewPager.adapter=adapter
-//        binding.processTabs.setupWithViewPager(viewPager)
-//        viewModel.task.observe(this, Observer{
-//            it ?: return@Observer
-//            binding.viewPager.visibility= View.VISIBLE
-//        })
+
         viewModel.taskId=taskId
 
         seekBar.setOnTouchListener { _, _ ->  true }
@@ -102,33 +96,7 @@ class DoMinaActivity : BaseActivity() {
         }
     }
 
-    class TaskStateAdapter(fm: FragmentManager) :
-        FragmentPagerAdapter(fm) {
 
-        private val statusFragments:List<Fragment> by lazyFast {
-            (0..4).map {
-                when (it) {
-                    START_POSITION->ProcessStartFragment.newInstance()
-                    ARRIVE_POSITION->ProcessArriveFragment.newInstance()
-                    PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance()
-                    RETUNING_POSITION->ProcessReturningFragment.newInstance()
-                    ARRIVE_HOS_POSITION->ProcessArriveHosFragment.newInstance()
-
-                    else -> throw IllegalStateException("Unknown index $it")
-                }
-            }
-        }
-
-        override fun getItem(position: Int): Fragment {
-
-            return statusFragments[position]
-        }
-
-        override fun getCount(): Int {
-            return statusFragments.size
-        }
-
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -141,6 +109,34 @@ class DoMinaActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+}
+
+class TaskStateAdapter(fm: FragmentManager) :
+    FragmentPagerAdapter(fm) {
+
+    private val statusFragments:List<Fragment> by lazyFast {
+        (0..4).map {
+            when (it) {
+                DoMinaActivity.START_POSITION ->ProcessStartFragment.newInstance()
+                DoMinaActivity.ARRIVE_POSITION ->ProcessArriveFragment.newInstance()
+                DoMinaActivity.PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance()
+                DoMinaActivity.RETUNING_POSITION ->ProcessReturningFragment.newInstance()
+                DoMinaActivity.ARRIVE_HOS_POSITION ->ProcessArriveHosFragment.newInstance()
+
+                else -> throw IllegalStateException("Unknown index $it")
+            }
+        }
+    }
+
+    override fun getItem(position: Int): Fragment {
+
+        return statusFragments[position]
+    }
+
+    override fun getCount(): Int {
+        return statusFragments.size
     }
 
 }

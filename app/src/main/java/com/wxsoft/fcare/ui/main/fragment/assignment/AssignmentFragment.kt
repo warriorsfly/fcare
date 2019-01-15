@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.main.fragment.assignment
 
 
 import android.app.DatePickerDialog
+import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
-import android.arch.lifecycle.Observer
-
 import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
@@ -22,7 +21,6 @@ import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_assignment.*
 import java.util.*
 import javax.inject.Inject
 
@@ -43,37 +41,29 @@ class AssignmentFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
-            setLifecycleOwner(this@AssignmentFragment)
-
-        }
-
-        binding.floatingActionButton.setOnClickListener {
-            toDispatchCar()
-        }
-
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
         viewModel = activityViewModelProvider(viewModelFactory)
 
-        adapter = AssignmentAdapter(this, viewModel)
-        binding.viewModel = viewModel
-        list.adapter = adapter
+        binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
 
-        viewModel.tasks.observe(this, Observer { it -> adapter.tasks = it ?: emptyList() })
+            floatingActionButton.setOnClickListener {
+                toDispatchCar()
+            }
+            selectTaskDate.setOnClickListener {
+                selectTime()
+            }
+            viewModel = this@AssignmentFragment.viewModel
 
-        binding.selectTaskDate.setOnClickListener {
-            selectTime()
+            this@AssignmentFragment.adapter= AssignmentAdapter(this@AssignmentFragment, this@AssignmentFragment.viewModel)
+            list.adapter = this@AssignmentFragment.adapter
+
+            setLifecycleOwner(this@AssignmentFragment)
         }
+        viewModel.tasks.observe(this, Observer { it -> adapter.tasks = it ?: emptyList() })
 
         viewModel.navigateToOperationAction.observe(this, EventObserver { t ->
             toDetail(t)
         })
-
+        return binding.root
     }
 
     fun selectTime() {

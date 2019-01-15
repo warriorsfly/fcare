@@ -5,16 +5,16 @@ import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.ObservableInt
 import com.google.gson.Gson
-import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.observers.DisposableSingleObserver
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -85,11 +85,16 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     val pageAction: LiveData<Event<Int>>
         get() = _pageAction
 
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
+
     /**
      * 拉取任务
      */
     fun loadTask() {
-        taskApi.task(taskId)
+        disposable.add(taskApi.task(taskId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 //            .subscribeWith(DisposableSingleObserver<Response<Task>>())
@@ -99,7 +104,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                     selectIndex.set(it.result?.status?:0)
                 },
                 { messageAction.value = Event(it.message ?: "") }
-            )
+            ))
     }
 
     /**
@@ -144,8 +149,8 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
         if(task.value==null){
             messageAction.value= Event("任务不存在")
         }else {
-            task.value?.let {
-                taskApi.arrive(it.id)
+           task.value?.let {
+               disposable.add(taskApi.arrive(it.id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -161,7 +166,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 messageAction.value = Event(resp.msg)
                             }
                         },
-                        {error->messageAction.value= Event(error.message?:"") })
+                        {error->messageAction.value= Event(error.message?:"") }))
 
             }
         }
@@ -176,7 +181,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             messageAction.value= Event("任务不存在")
         }else {
             task.value?.let {
-                taskApi.met(it.id)
+                disposable.add(taskApi.met(it.id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -192,7 +197,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 messageAction.value = Event(resp.msg)
                             }
                         },
-                        {error->messageAction.value= Event(error.message?:"") })
+                        {error->messageAction.value= Event(error.message?:"") }))
             }
         }
     }
@@ -206,7 +211,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             messageAction.value= Event("任务不存在")
         }else {
             task.value?.let {
-                taskApi.returning(it.id)
+                disposable.add(taskApi.returning(it.id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -222,7 +227,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 messageAction.value = Event(resp.msg)
                             }
                         },
-                        {error->messageAction.value= Event(error.message?:"") })
+                        {error->messageAction.value= Event(error.message?:"") }))
             }
         }
     }
@@ -236,7 +241,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             messageAction.value= Event("任务不存在")
         }else {
             task.value?.let {
-                taskApi.arriveHos(it.id)
+                disposable.add( taskApi.arriveHos(it.id)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -251,7 +256,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 messageAction.value = Event(resp.msg)
                             }
                         },
-                        {error->messageAction.value= Event(error.message?:"") })
+                        {error->messageAction.value= Event(error.message?:"") }))
             }
         }
     }

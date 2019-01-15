@@ -12,6 +12,7 @@ import com.wxsoft.fcare.core.data.remote.AccountApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.utils.map
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 class LoginViewModel @Inject constructor(
@@ -20,7 +21,7 @@ class LoginViewModel @Inject constructor(
     private val gson: Gson
 ) : ViewModel() {
 
-
+    private val disposable= CompositeDisposable()
     var name: String = ""
     var password: String = ""
     var registrationId: String = ""
@@ -75,12 +76,16 @@ class LoginViewModel @Inject constructor(
         registrationId = sharedPreferenceStorage.registrationId ?: ""
         if (isNameValid(name) && isPasswordValid(password)) {
             val loginInfo = LoginInfo(name, password, registrationId)
-            accountApi.login(loginInfo).toResource().subscribe {
+            disposable.add(accountApi.login(loginInfo).toResource().subscribe {
                 loadAccountResult.value = it
-            }
+            })
         }
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 
     private fun isNameValid(email: String): Boolean {
         return email.isNotEmpty()

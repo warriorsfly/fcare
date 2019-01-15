@@ -5,10 +5,7 @@ import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import io.reactivex.Maybe
 import io.reactivex.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface RatingApi {
 
@@ -27,4 +24,16 @@ interface RatingApi {
 
     @POST("Rating/SaveAnswerRecord")
     fun saveRatingResult(@Body record: RatingRecord):Maybe<Response<RatingRecord>>
+
+    /***
+     * 评分结果详情
+     */
+    @GET("Rating/GetAnswerRecordById")
+    fun getOneRecord(@Query("id")id:String): Single<Response<RatingRecord>>
+
+    /***
+     * 评分结果列表
+     */
+    @GET("Rating/GetLastestAnswerRecordByPatientId")
+    fun getRecords(@Path("patientId")id:String): Single<Response<List<RatingRecord>>>
 }
