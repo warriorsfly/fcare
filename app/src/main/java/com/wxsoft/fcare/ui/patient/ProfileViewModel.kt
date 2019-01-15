@@ -91,7 +91,9 @@ class ProfileViewModel @Inject constructor(
                 patientApi.save(patient.value!!.apply {
                     createdBy = account.id
                     hospitalId = account.hospitalId
+                    taskId=this@ProfileViewModel.taskId
                 }).toResource().subscribe {
+
                     when (it) {
                         is Resource.Success -> {
                             clickResult.value = true
@@ -111,6 +113,7 @@ class ProfileViewModel @Inject constructor(
                     patientApi.save(patient.value!!.apply {
                         createdBy = account.id
                         hospitalId = account.hospitalId
+                        taskId=this@ProfileViewModel.taskId
                     }, files).toResource().subscribe {
                         when (it) {
                             is Resource.Success -> {

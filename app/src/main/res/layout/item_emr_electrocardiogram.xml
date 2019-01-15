@@ -43,6 +43,7 @@
                 tools:text="12:12"
                 android:id="@+id/time"
                 android:text="@{item.completedAt}"
+                app:invisibleUnless="@{item.done}"
                 app:layout_constraintTop_toBottomOf="@id/done"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"/>

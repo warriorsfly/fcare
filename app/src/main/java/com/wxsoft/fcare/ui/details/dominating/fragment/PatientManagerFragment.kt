@@ -7,13 +7,12 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentPatientManagerBinding
+import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.patient.ProfileActivity
@@ -58,7 +57,7 @@ class PatientManagerFragment : DaggerFragment() {
                 var intent = Intent(activity, ProfileActivity::class.java).apply {
                     putExtra(ProfileActivity.TASK_ID, viewModel.taskId)
                 }
-                startActivity(intent)
+                activity?.startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
 
             }
         }

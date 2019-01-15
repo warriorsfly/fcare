@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">无限急救</string>
+    <string name="app_pre_name">院前急救</string>
+    <string name="app_in_name">院中急救</string>
     <string name="action_settings">添加</string>
     <string name="title_activity_emr">登记信息</string>
     <string name="a11y_filter_applied" translation_description="Alternative text when an event filter is applies">%1s

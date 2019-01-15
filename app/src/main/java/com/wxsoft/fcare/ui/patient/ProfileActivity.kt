@@ -121,8 +121,6 @@ class ProfileActivity : BaseActivity() {
 
 
                     Intent().let {intent->
-
-
                         intent.putExtra(NEW_PATIENT_ID,it.data.result)
                         setResult(RESULT_OK, intent);
                         finish();
