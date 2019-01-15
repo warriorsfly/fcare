@@ -123,7 +123,13 @@ class EmrFragment : DaggerFragment() {
             }.show()
         })
         viewModel.emrItemLoaded.observe(this,EventObserver{
-            adapter.notifyItemChanged(it)
+            adapter.notifyItemChanged(it.first)
+            when(it.second){
+                ActionRes.ActionType.心电图->{
+                    viewModel.bitmaps.clear()
+                    adapter.pictureAdapter.locals= emptyList()
+                }
+            }
         })
         return binding.root
 

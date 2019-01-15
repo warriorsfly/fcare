@@ -43,8 +43,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     /**
      * 结果信息
      */
-    private val _loadEmrItemAction = MutableLiveData<Event<Int>>()
-    val emrItemLoaded: LiveData<Event<Int>>
+    private val _loadEmrItemAction = MutableLiveData<Event<Pair<Int,String>>>()
+    val emrItemLoaded: LiveData<Event<Pair<Int,String>>>
         get() = _loadEmrItemAction
 
     private fun loadEms(id:String){
@@ -71,7 +71,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vital
                         val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
                         index?.let {
-                            _loadEmrItemAction.value=Event(it)
+                            _loadEmrItemAction.value=Event(Pair(it,ActionRes.ActionType.生命体征))
                         }
                     },{
                         messageAction.value= Event(it.message?:"")
@@ -83,9 +83,9 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             check->
                         check?.result?: return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.辅助检查}?.result=check
-                        val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
+                        val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.辅助检查}
                         index?.let {
-                            _loadEmrItemAction.value=Event(it)
+                            _loadEmrItemAction.value=Event(Pair(it,ActionRes.ActionType.辅助检查))
                         }
                     }, {
                         messageAction.value = Event(it.message ?: "")
@@ -96,9 +96,9 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             check->
 //                        check?.result?: return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.result=check?.result?:ElectroCardiogram()
-                        val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
+                        val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.心电图}
                         index?.let {
-                            _loadEmrItemAction.value=Event(it)
+                            _loadEmrItemAction.value=Event(Pair(it,ActionRes.ActionType.心电图))
                         }
                     },{
                         messageAction.value= Event(it.message?:"")
@@ -132,9 +132,9 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 check->
 
                             loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.result=check?.result?:ElectroCardiogram()
-                            val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.生命体征}
+                            val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.心电图}
                             index?.let { index ->
-                                _loadEmrItemAction.value = Event(index)
+                                _loadEmrItemAction.value = Event(Pair(index,ActionRes.ActionType.心电图))
                             }
                         },{
                             messageAction.value= Event(it.message?:"")
