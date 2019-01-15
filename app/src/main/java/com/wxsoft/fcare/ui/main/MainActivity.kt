@@ -6,11 +6,12 @@ import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import com.wxsoft.emergency.ui.main.fragment.patients.PatientsFragment
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMainBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.main.fragment.assignment.AssignmentFragment
+import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
 import com.wxsoft.fcare.utils.NfcUtils
 import com.wxsoft.fcare.utils.inTransaction
@@ -45,7 +46,7 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_dashboard -> {
-//                message.setText(R.string.title_dashboard)
+               replaceFragment(fragments[1])
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
@@ -53,7 +54,7 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_user -> {
-                replaceFragment(fragments[1])
+                replaceFragment(fragments[2])
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -75,7 +76,7 @@ class MainActivity : BaseActivity() {
 
         viewModel = viewModelProvider(factory)
 
-        fragments= listOf(AssignmentFragment(),UserProfileFragment())
+        fragments= listOf(TaskFragment(),PatientsFragment(),UserProfileFragment())
 
         binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .apply {
