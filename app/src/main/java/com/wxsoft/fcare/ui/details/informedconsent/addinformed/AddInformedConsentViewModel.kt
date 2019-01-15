@@ -19,18 +19,26 @@ class AddInformedConsentViewModel @Inject constructor(private val dicEnumApi: Di
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
     override val title: String
-        get() = "知情谈话"
+        get() = titleName
     override val clickableTitle: String
         get() = "保存"
 
     /**
      * 病人id
      */
+
+    var titleName: String = ""
+        set(value) {
+            field = value
+        }
+
     var patientId: String = ""
         set(value) {
             if (value == "") return
             field = value
         }
+    val bitmaps= mutableListOf<String>()
+
     val photos= ArrayList<Bitmap>()
 
     override val clickable: LiveData<Boolean>

@@ -3,10 +3,8 @@ package com.wxsoft.fcare.ui.details.informedconsent
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
-import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map

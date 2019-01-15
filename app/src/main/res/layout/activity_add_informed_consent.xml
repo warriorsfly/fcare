@@ -38,25 +38,25 @@
                         android:layout_height="match_parent">
 
                     <TextView
-                            android:id="@+id/title1"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:text="PCI术前知情同意书"
-                            android:textSize="15sp"
-                            android:gravity="center"
-                            android:textStyle="bold"
-                            android:textColor="#131D35"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
-
-                    <TextView
                             android:id="@+id/informed_content"
                             android:textColor="#131D35"
                             android:padding="5dp"
                             android:textSize="13sp"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/title1"
-                            android:text="1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n
+                            1.手术前知情手术前知情手术前知情手术前知情手术前知情 \n2.具体风险项\n"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
                 </android.support.constraint.ConstraintLayout>
