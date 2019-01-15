@@ -100,4 +100,5 @@ dependencies {
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
     // Optional, if you use support library fragments:
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
+    implementation 'android.arch.paging:runtime:1.0.1'
 }

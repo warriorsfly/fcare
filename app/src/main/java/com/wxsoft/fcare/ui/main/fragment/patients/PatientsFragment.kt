@@ -38,7 +38,7 @@ class PatientsFragment : DaggerFragment() {
             setLifecycleOwner (this@PatientsFragment)
 
         }
-        viewModel.patients.observe(this, Observer { it->adapter.patients=it?: emptyList() })
+//        viewModel.patients.observe(this, Observer { it->adapter.currentList =it?: emptyList() })
         viewModel.mesAction.observe(this, EventObserver{
                 t->
 

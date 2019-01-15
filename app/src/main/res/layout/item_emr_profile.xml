@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="patient" type="com.wxsoft.fcare.core.data.entity.Patient"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.EmrItem"/>
         <variable name="visiable" type="Boolean"/>
@@ -106,7 +107,7 @@
                     tools:text="男"
                     android:layout_marginLeft="80dp"
                     android:textColor="#000"
-                    android:text="@{patient.gender}"
+                    android:text="@{patient.gender==1?`男`:`女`}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/title1"/>
 
@@ -129,7 +130,7 @@
                     tools:text="74"
                     android:layout_marginLeft="80dp"
                     android:textColor="#000"
-                    android:text="@{patient.gender}"
+                    android:text="@{Converter.intToString(patient.age)}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/title2"/>
 

@@ -35,7 +35,7 @@
 
                     android:layout_width="match_parent"
                     app:queryHint="请输入患者姓名"
-                    android:background="@null"
+                    app:queryBackground="@null"
                     app:iconifiedByDefault="false"
                     android:layout_height="wrap_content">
             </android.support.v7.widget.SearchView>

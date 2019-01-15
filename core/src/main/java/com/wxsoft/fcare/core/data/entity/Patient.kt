@@ -61,8 +61,27 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.idcard)
         }
 
+    /**
+     * 01.卒中、02.胸痛
+     */
+    @SerializedName("symptom_Code")
     @get:Bindable
-    var gender:String=""
+    var symptom:String?=null
+        get() {
+            return when(field){
+                "01"->"卒中"
+                "02"->"胸痛"
+                null->""
+                else->"其他"
+            }
+        }
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.symptom)
+        }
+
+    @get:Bindable
+    var gender:Int=1
         set(value) {
             field = value
             notifyPropertyChanged(BR.gender)
@@ -179,7 +198,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.registerId)
         }
 
-    @SerializedName("data_Statu")
+    @SerializedName("statu")
     @get:Bindable
     var status: Int=0
         set(value) {

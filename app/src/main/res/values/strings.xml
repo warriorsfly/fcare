@@ -65,4 +65,5 @@
     <string name="title_activity_in_come">新增病人</string>
     <string name="action_save_base_info">保存</string>
     <string name="title_activity_rating">RatingActivity</string>
+    <string name="title_activity_patient_emr">PatientEmrActivity</string>
 </resources>

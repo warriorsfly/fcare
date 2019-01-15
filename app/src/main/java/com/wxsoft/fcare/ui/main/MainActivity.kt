@@ -108,6 +108,11 @@ class MainActivity : BaseActivity() {
 //        nfcAdapter?.disableForegroundDispatch(this); //启动
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+    }
+
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
 

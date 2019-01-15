@@ -13,6 +13,9 @@ interface PatientApi{
     @GET("Patient/GetPatients")
     fun patients():Maybe<Response<List<Patient>>>
 
+    @GET("Patient/GetPaged/{keyWord}/{pageIndex}/{pageSize}")
+    fun getPagedPatients(@Path("keyWord") keyword:String, @Path("pageIndex")index:Int, @Path("pageSize")size:Int):Maybe<List<Patient>>
+
     @GET("Patient/GetById/{id}")
     fun getOne(@Path("id")id:String):Single<Response<Patient>>
 

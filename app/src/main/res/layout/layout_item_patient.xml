@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools">
+<layout>
 	<data>
+		<import type="com.wxsoft.fcare.utils.Converter"/>
 		<variable name="patient" type="com.wxsoft.fcare.core.data.entity.Patient"/>
 	</data>
 	<android.support.design.card.MaterialCardView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		app:strokeColor="@color/light_gray"
@@ -21,7 +23,6 @@
 			android:background="?attr/selectableItemBackground"
 			android:layout_width="match_parent"
 			android:padding="10dp"
-
 			android:layout_height="wrap_content">
 
 			<TextView
@@ -39,7 +40,7 @@
 				app:layout_constraintTop_toTopOf="parent" />
 
 			<TextView
-				android:id="@+id/patient_age"
+				android:id="@+id/patient_phone"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_marginStart="@dimen/activity_horizontal_margin"
@@ -47,7 +48,7 @@
 				android:layout_marginTop="@dimen/spacing_normal"
 				android:textSize="12dp"
 				tools:text="76"
-				android:text="@{String.valueOf(patient.age)}"
+				android:text="@{String.valueOf(patient.phone)}"
 				app:layout_constraintLeft_toRightOf="@id/patient_name"
 				app:layout_constraintBottom_toBottomOf="@id/patient_name" />
 
@@ -61,63 +62,58 @@
 					android:textSize="12dp"
 					tools:text="急救中"
 					android:textColor="@android:color/holo_red_light"
-					android:text="@{String.valueOf(patient.status)}"
+					android:text="@{String.valueOf(patient.symptom)}"
 					app:layout_constraintBottom_toBottomOf="@id/patient_name"
 					app:layout_constraintRight_toRightOf="parent"/>
 
-            <ImageView
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"
-					android:layout_marginStart="@dimen/activity_horizontal_margin"
-					android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+					android:id="@+id/gender"
+					tools:text="男"
 					android:layout_marginTop="@dimen/spacing_normal"
-                    tools:src="@drawable/ic_gender_man"
+					android:text="@{ patient.gender==1 ? `男`:`女`}"
+                    app:layout_constraintLeft_toLeftOf="@id/patient_name"
+                    app:layout_constraintTop_toBottomOf="@id/patient_name"/>
 
-                    app:layout_constraintLeft_toRightOf="@id/patient_age"
-                    app:layout_constraintBottom_toBottomOf="@id/patient_age"/>
-			<!--android:src="@{ patient.gender==1 ? @drawable/ic_gender_man:@drawable/ic_gender_woman}"-->
-
+			<View
+					android:layout_width="0.5dp"
+					android:layout_height="0dp"
+					android:background="@color/dark_gray"
+					android:id="@+id/line1"
+					android:layout_marginLeft="4dp"
+					app:layout_constraintLeft_toRightOf="@id/gender"
+					app:layout_constraintTop_toTopOf="@id/gender"
+					app:layout_constraintBottom_toBottomOf="@id/gender"/>
 
 			<TextView
-					android:id="@+id/diagnose"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/spacing_normal"
-					android:textSize="12dp"
-					android:text="诊断：STEMI 2018-11—22 09:12:34"
-					app:layout_constraintLeft_toLeftOf="@id/patient_age"
-					app:layout_constraintTop_toBottomOf="@id/patient_name" />
+					android:id="@+id/age"
+					tools:text="24"
+					android:layout_marginLeft="4dp"
+					android:text="@{ Converter.intToString(  patient.age)+`岁`}"
+					app:layout_constraintLeft_toRightOf="@id/line1"
+					app:layout_constraintTop_toTopOf="@id/line1"/>
 
-			<TextView
-					android:id="@+id/attack"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/spacing_normal"
-					android:textSize="12dp"
-					android:text="@{`发病时间：`+patient.attackZone}"
-					app:layout_constraintLeft_toLeftOf="@id/diagnose"
-					app:layout_constraintTop_toBottomOf="@id/diagnose" />
+			<View
+					android:layout_width="0.5dp"
+					android:layout_height="0dp"
+					android:background="@color/dark_gray"
+					android:id="@+id/line2"
+					app:layout_constraintLeft_toRightOf="@id/age"
+					app:layout_constraintTop_toTopOf="@id/age"
+					app:layout_constraintBottom_toBottomOf="@id/age"/>
 
 			<TextView
 					android:id="@+id/attack_address"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/spacing_normal"
-					android:textSize="12dp"
-					android:text="@{`发病地址：`+patient.attackPosition}"
-					app:layout_constraintLeft_toLeftOf="@id/attack"
-					app:layout_constraintTop_toBottomOf="@id/attack" />
-
-			<TextView
-					android:id="@+id/memo"
-					android:layout_width="wrap_content"
-					android:layout_height="wrap_content"
-					android:layout_marginTop="@dimen/spacing_normal"
-					android:textSize="12dp"
-					tools:text="张三"
-					android:text="@{patient.toString()}"
-					app:layout_constraintLeft_toLeftOf="@id/attack_address"
-					app:layout_constraintTop_toBottomOf="@id/attack_address" />
+					android:layout_marginLeft="4dp"
+					tools:text="合肥市属山区"
+					android:text="@{ patient.attackPosition}"
+					app:layout_constraintLeft_toRightOf="@id/line2"
+					app:layout_constraintTop_toTopOf="@id/line2" />
 		</android.support.constraint.ConstraintLayout>
 	</android.support.design.card.MaterialCardView>
 </layout>

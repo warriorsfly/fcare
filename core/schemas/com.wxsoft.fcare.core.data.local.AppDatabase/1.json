@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c84827cd9ba2f6f14a5f2428369033f6",
+    "identityHash": "8d4ec45f2ad6f53c8ad29028d3927384",
     "entities": [
       {
         "tableName": "patients",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` TEXT, `name` TEXT NOT NULL, `unKnown` INTEGER NOT NULL, `hospitalId` TEXT NOT NULL, `citizen` TEXT NOT NULL, `wristband` TEXT NOT NULL, `idcard` TEXT NOT NULL, `gender` TEXT NOT NULL, `age` INTEGER NOT NULL, `ageUnit` TEXT NOT NULL, `phone` TEXT NOT NULL, `outId` TEXT NOT NULL, `inId` TEXT NOT NULL, `attackPosition` TEXT NOT NULL, `unKnowAttackingTime` INTEGER NOT NULL, `attackZone` TEXT NOT NULL, `callForHelp` INTEGER NOT NULL, `helpDate` TEXT NOT NULL, `helpCode` INTEGER NOT NULL, `source` INTEGER NOT NULL, `memo` TEXT NOT NULL, `registerId` TEXT NOT NULL, `status` INTEGER NOT NULL, `createdBy` TEXT NOT NULL, `createdDate` TEXT NOT NULL, `modifiedBy` TEXT NOT NULL, `modifiedDate` TEXT NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` TEXT, `name` TEXT NOT NULL, `unKnown` INTEGER NOT NULL, `hospitalId` TEXT NOT NULL, `citizen` TEXT NOT NULL, `wristband` TEXT NOT NULL, `idcard` TEXT NOT NULL, `symptom` TEXT, `gender` INTEGER NOT NULL, `age` INTEGER NOT NULL, `ageUnit` TEXT NOT NULL, `phone` TEXT NOT NULL, `outId` TEXT NOT NULL, `inId` TEXT NOT NULL, `attackPosition` TEXT NOT NULL, `unKnowAttackingTime` INTEGER NOT NULL, `attackZone` TEXT NOT NULL, `callForHelp` INTEGER NOT NULL, `helpDate` TEXT NOT NULL, `helpCode` INTEGER NOT NULL, `source` INTEGER NOT NULL, `memo` TEXT NOT NULL, `registerId` TEXT NOT NULL, `status` INTEGER NOT NULL, `createdBy` TEXT NOT NULL, `createdDate` TEXT NOT NULL, `modifiedBy` TEXT NOT NULL, `modifiedDate` TEXT NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "taskId",
@@ -51,9 +51,15 @@
             "notNull": true
           },
           {
+            "fieldPath": "symptom",
+            "columnName": "symptom",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
             "fieldPath": "gender",
             "columnName": "gender",
-            "affinity": "TEXT",
+            "affinity": "INTEGER",
             "notNull": true
           },
           {
@@ -189,7 +195,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c84827cd9ba2f6f14a5f2428369033f6\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"8d4ec45f2ad6f53c8ad29028d3927384\")"
     ]
   }
 }
