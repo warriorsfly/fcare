@@ -47,8 +47,15 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.details.informedconsent.InformedConsentActivity"
+        <activity android:name=".ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity"
                   android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".ui.details.informedconsent.addinformed.AddInformedConsentActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.informedconsent.InformedConsentActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".ui.details.diagnose.DiagnoseActivity"

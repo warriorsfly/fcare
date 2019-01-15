@@ -1,7 +1,8 @@
-package com.wxsoft.fcare.ui.details.informedconsent
+package com.wxsoft.fcare.ui.details.informedconsent.addinformed
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
+import android.graphics.Bitmap
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -12,15 +13,15 @@ import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
-class InformedConsentViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
-                                                   override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                                   override val gon: Gson
+class AddInformedConsentViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
+                                                      override val sharedPreferenceStorage: SharedPreferenceStorage,
+                                                      override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
     override val title: String
-        get() = "知情同意书"
+        get() = "知情谈话"
     override val clickableTitle: String
-        get() = "新增"
+        get() = "保存"
 
     /**
      * 病人id
@@ -30,32 +31,26 @@ class InformedConsentViewModel @Inject constructor(private val dicEnumApi: DictE
             if (value == "") return
             field = value
         }
+    val photos= ArrayList<Bitmap>()
 
     override val clickable: LiveData<Boolean>
+
     private val clickResult  = MediatorLiveData<Boolean>().apply {
         value=true
     }
-
-    val addInformedConsent:LiveData<Boolean>
-    private val addInitInformedConsent = MediatorLiveData<Boolean>()
-
-    val seeInformedConsent:LiveData<Boolean>
-    private val seeInitInformedConsent = MediatorLiveData<Boolean>()
-
+    val informedConsent:LiveData<InformedConsent>
+    private val initInformedConsent = MediatorLiveData<Resource<InformedConsent>>()
 
     init {
         clickable=clickResult.map { it }
-        addInformedConsent = addInitInformedConsent.map { it }
-        seeInformedConsent = seeInitInformedConsent.map { it }
+        informedConsent = initInformedConsent.map { (it as? Resource.Success)?.data?: InformedConsent("") }
     }
+
+
 
 
     override fun click() {
-        addInitInformedConsent.value = true
-    }
 
-    fun seeDetails(){
-        seeInitInformedConsent.value = true
     }
 
 }

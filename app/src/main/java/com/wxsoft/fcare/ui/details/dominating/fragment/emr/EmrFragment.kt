@@ -40,6 +40,7 @@ import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
@@ -181,6 +182,12 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.知情同意书 ->{
                     var intent = Intent(context.get(), InformedConsentActivity::class.java).apply {
                         putExtra(InformedConsentActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivity(intent)
+                }
+                ActionRes.ActionType.诊断 ->{
+                    var intent = Intent(context.get(), DiagnoseActivity::class.java).apply {
+                        putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
