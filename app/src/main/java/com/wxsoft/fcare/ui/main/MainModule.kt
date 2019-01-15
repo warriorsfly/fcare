@@ -35,7 +35,7 @@ internal abstract class MainModule {
     @Binds
     @IntoMap
     @ViewModelKey(TaskViewModel::class)
-    abstract fun bindAssignmentViewModel(viewModel: TaskViewModel): ViewModel
+    abstract fun bindTaskViewModel(viewModel: TaskViewModel): ViewModel
 
     @FragmentScoped
     @ContributesAndroidInjector

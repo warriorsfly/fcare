@@ -18,6 +18,7 @@
             <android.support.design.card.MaterialCardView
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/search"
@@ -35,7 +36,6 @@
                     android:layout_width="match_parent"
                     app:queryHint="请输入患者姓名"
                     android:background="@null"
-                    android:elevation="4dp"
                     app:iconifiedByDefault="false"
                     android:layout_height="wrap_content">
             </android.support.v7.widget.SearchView>
