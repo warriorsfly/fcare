@@ -47,22 +47,16 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <!--院前急救引导-->
-        <!--<activity android:name=".ui.launcher.PreHosActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
-        <!--&lt;!&ndash;院中急救引导&ndash;&gt;-->
-        <!--<activity android:name=".ui.launcher.InHosLauncherActivity">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
+        <activity android:name=".ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".ui.details.informedconsent.addinformed.AddInformedConsentActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.informedconsent.InformedConsentActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity
                 android:name=".ui.details.diagnose.DiagnoseActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

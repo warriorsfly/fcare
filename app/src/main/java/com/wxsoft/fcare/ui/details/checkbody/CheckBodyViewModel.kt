@@ -22,7 +22,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
                                              override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
     override fun click() {
-
+        submit()
     }
 
     override val title: String

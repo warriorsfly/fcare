@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.details.measures
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
+import android.databinding.ObservableInt
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Measure
@@ -47,6 +48,8 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
     val measuresItems: LiveData<List<Dictionary>>
     private val loadMeasuresItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+    val departments:LiveData<List<Dictionary>>
+    private val loaddetourItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
     val cureResultItems: LiveData<List<Dictionary>>
     private val loadCureResultItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -60,23 +63,22 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     var resultString: LiveData<String>
     private val initResultString= MediatorLiveData<Resource<Response<String>>>()
 
+
     init {
         clickable=clickResult.map { it }
         pharmacy = loadPharmacy.map { it }
-
         resultString = initResultString.map { (it as? Resource.Success)?.data?.result ?: ""}
-
-
+        departments = loaddetourItemsResult.map {(it as? Resource.Success)?.data?: emptyList()}
         measuresItems = loadMeasuresItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         cureResultItems = loadCureResultItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         outcallResultItems = loadOutcallResultItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
 
-        measure = loadMeasureResult.map { (it as? Resource.Success)?.data?.result?: Measure(emptyList(),"","") }
+        measure = loadMeasureResult.map { (it as? Resource.Success)?.data?.result?: Measure(emptyList(),"","","") }
 
         getMeasuresItems()
         getCureResultItems()
         getOutcallResultItems()
-
+        getDetourItems()
 
     }
 
@@ -86,6 +88,14 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
         dicEnumApi.loadMeasuresItems().toResource()
             .subscribe {
                 loadMeasuresItemsResult.value = it
+            }
+    }
+
+    fun getDetourItems(){
+        dicEnumApi.loadDetour().toResource()
+            .subscribe {
+                loaddetourItemsResult.value = it
+                departments.value?.filter { it.itemCode.equals(measure.value?.preDirectDepartId) }?.map {it.checked = true }
             }
     }
 
@@ -127,6 +137,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
         cureResultItems.value?.filter { it.itemCode.equals(measure.value?.preCureResultCode) }?.map {it.checked = true }
         outcallResultItems.value?.filter { it.itemCode.equals(measure.value?.preVisitResultCode) }?.map {it.checked = true }
+        departments.value?.filter { it.itemCode.equals(measure.value?.preDirectDepartId) }?.map {it.checked = true }
     }
 
     fun clickSelect(item: Dictionary){
@@ -142,6 +153,9 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                 item.checked = !item.checked}
             2->{ outcallResultItems.value?.filter { it.checked }?.map {it.checked = false }
                 item.checked = !item.checked}
+            3->{ departments.value?.filter { it.checked }?.map {it.checked = false }
+                item.checked = !item.checked}
+
         }
 
     }
@@ -158,6 +172,8 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
         outcallResultItems.value?.filter { it.checked }
             ?.map { measure.value?.preVisitResultCode =  it.itemCode }
+        departments.value?.filter { it.checked }
+            ?.map { measure.value?.preDirectDepartId =  it.itemCode }
 
         saveMeasure()
     }

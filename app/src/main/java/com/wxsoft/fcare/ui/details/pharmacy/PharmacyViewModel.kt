@@ -94,6 +94,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
         pharmacyApi.save(pharmacy.value!!).toResource()
             .subscribe {
                 initPharmacy.value = it
+                initbackToLast.value = true
             }
     }
 

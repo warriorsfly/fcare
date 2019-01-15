@@ -57,6 +57,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     private val initbackToLast = MediatorLiveData<Boolean>()
 
 
+
     init {
 
         backToLast = initbackToLast.map { it }
