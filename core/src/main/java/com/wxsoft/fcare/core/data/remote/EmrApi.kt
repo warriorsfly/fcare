@@ -20,8 +20,6 @@ interface EmrApi{
     @GET("Patient/GetInHospitalEmssTimeLine/{patientId}")
     fun getInEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
 
-//    Patient/GetInHospitalEmssTimeLine/{patientId}
-
     /**
      * 获取个人信息
      */
