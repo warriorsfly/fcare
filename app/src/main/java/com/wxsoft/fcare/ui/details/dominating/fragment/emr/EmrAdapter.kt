@@ -109,13 +109,24 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 visiable= position<differ.currentList.size-1
             }
 
+            is ItemViewHolder.StringViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                detail = (differ.currentList[position].result as CheckBody).toString()
+
+                visiable= position<differ.currentList.size-1
+            }
+
             is ItemViewHolder.VitalViewHolder -> holder.binding.apply {
                 item = differ.currentList[position]
                 action?.let {
                     root.setOnClickListener {
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
-                val presenter = differ.currentList[position] as VitalSign
+                val presenter = differ.currentList[position].result as VitalSign
                 vital = presenter
                 visiable= position<differ.currentList.size-1
             }
@@ -139,6 +150,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
         return when (viewType) {
             R.layout.item_emr_none -> ItemViewHolder.NoneViewHolder(
                 ItemEmrNoneBinding.inflate(inflater, parent, false)
+            )
+            R.layout.item_emr_simple_string -> ItemViewHolder.StringViewHolder(
+                ItemEmrSimpleStringBinding.inflate(inflater, parent, false)
             )
             R.layout.item_emr_profile -> ItemViewHolder.ProfileViewHolder(
                 ItemEmrProfileBinding.inflate(inflater, parent, false)
@@ -171,9 +185,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             is Patient -> R.layout.item_emr_profile
             is ElectroCardiogram -> R.layout.item_emr_ecg
             is MedicalHistory -> R.layout.item_emr_medical_history
-            is CheckBody->R.layout.item_emr_none
             is Diagnosis->R.layout.item_emr_diagnose
             is VitalSign->R.layout.item_emr_vital_signs
+            is CheckBody->R.layout.item_emr_simple_string
             is List<*> ->{
                 when(item.code){
                     ActionRes.ActionType.GRACE->{
@@ -231,13 +245,13 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 result1 is Patient && result2 is Patient ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
-                result1 is CheckBody && result2 is CheckBody ->
-                    result1.id == result2.id && oldItem.code == newItem.code
-
                 result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is MedicalHistory && result2 is MedicalHistory ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is CheckBody && result2 is CheckBody ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is VitalSign && result2 is VitalSign ->
@@ -267,12 +281,12 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
         val binding: ItemEmrProfileBinding
     ) : ItemViewHolder(binding)
 
-    //基本信息
+    //心电图
     class EcgViewHolder(
         val binding: ItemEmrEcgBinding
     ) : ItemViewHolder(binding)
 
-    //基本信息
+    //评分
     class RatingViewHolder(
         val binding: ItemEmrRatingBinding
     ) : ItemViewHolder(binding)
@@ -290,6 +304,11 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //院前诊断
     class DiagnoseViewHolder(
         val binding: ItemEmrDiagnoseBinding
+    ): ItemViewHolder(binding)
+
+    //普通文本
+    class StringViewHolder(
+        val binding: ItemEmrSimpleStringBinding
     ): ItemViewHolder(binding)
 
 }

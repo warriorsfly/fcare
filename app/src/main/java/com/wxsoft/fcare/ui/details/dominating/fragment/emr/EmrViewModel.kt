@@ -91,12 +91,18 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     .subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         check?.result ?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.辅助检查 }?.result =
-                                check
+                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
+                            item->
+                            item.result=check?.result
+                            if(!item.done){
+                                item.done=true
+                                item.completedAt=check?.result?.createdDate
+                            }
+                        }
                         val index =
-                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
+                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }
                         index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
+                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.PhysicalExamination))
                         }
                     }, {
                         messageAction.value = Event(it.message ?: "")

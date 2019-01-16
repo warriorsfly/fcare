@@ -97,7 +97,7 @@ data class VitalSign(val id:String): BaseObservable() {
         }
 
     @Bindable
-    var createdDate: String = "2019-01-16 21:55:30"
+    var createdDate: String = "0001-01-01 00:00:00"
         set(value) {
 
             field = value
