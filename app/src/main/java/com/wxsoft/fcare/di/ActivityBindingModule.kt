@@ -25,6 +25,7 @@ import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
+import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
 import com.wxsoft.fcare.ui.rating.RatingActivity
@@ -108,5 +109,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [InformedConsentModule::class])
     internal abstract fun informedConsentDetailsActivity(): InformedConsentDetailsActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ProfileModule::class,DoMinaModule::class])
+    internal abstract fun patientEmrActivity(): PatientEmrActivity
+
 
 }

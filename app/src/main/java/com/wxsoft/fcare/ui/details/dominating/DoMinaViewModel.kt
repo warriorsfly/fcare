@@ -69,7 +69,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             firstMetTimeStamp = if(theTask.firstMet==null) null else DateTimeUtils.formatter.parse(theTask.firstMet)?.time
             returningTimeStamp = if(theTask.returnAt==null) null else DateTimeUtils.formatter.parse(theTask.returnAt)?.time
             arriveHosTimeStamp = if(theTask.arriveHosAt==null) null else DateTimeUtils.formatter.parse(theTask.arriveHosAt)?.time
-
+            _pageAction.value=Event(it.result!!.status-1)
             return@map theTask
         }
     }
@@ -161,6 +161,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 arriveTimeStamp =  DateTimeUtils.formatter.parse(resp.result)?.time
 
                                 selectIndex.set(2)
+                                _pageAction.value = Event(1)
                                 messageAction.value = Event(it.carId + "到达成功")
                             } else {
                                 messageAction.value = Event(resp.msg)
@@ -191,7 +192,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 loadTaskResult.value?.result?.status = 3
                                 selectIndex.set(3)
                                 firstMetTimeStamp =DateTimeUtils.formatter.parse(resp.result)?.time
-
+                                _pageAction.value = Event(2)
                                 messageAction.value = Event(it.carId + "首次接触")
                             } else {
                                 messageAction.value = Event(resp.msg)
@@ -221,7 +222,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 loadTaskResult.value?.result?.status = 4
                                 selectIndex.set(4)
                                 returningTimeStamp = DateTimeUtils.formatter.parse(resp.result)?.time
-
+                                _pageAction.value = Event(3)
                                 messageAction.value = Event(it.carId + "开始返回医院")
                             } else {
                                 messageAction.value = Event(resp.msg)
@@ -250,6 +251,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 loadTaskResult.value?.result?.arriveHosAt = resp.result
                                 loadTaskResult.value?.result?.status = 5
                                 selectIndex.set(5)
+                                _pageAction.value = Event(4)
                                 arriveHosTimeStamp = DateTimeUtils.formatter.parse(resp.result)?.time
                                 messageAction.value = Event(it.carId + "返回医院大门")
                             } else {

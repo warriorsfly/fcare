@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -86,6 +87,7 @@ class DoMinaActivity : BaseActivity() {
         viewModel.pageAction.observe(this,EventObserver{
             viewPager.setCurrentItem(it,true)
         })
+
 
         add_patient.setOnClickListener {
             var intent = Intent(this, ProfileActivity::class.java).apply {

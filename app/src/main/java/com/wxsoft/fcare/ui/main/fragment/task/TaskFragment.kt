@@ -21,6 +21,7 @@ import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_assignment.*
 import java.util.*
 import javax.inject.Inject
 
@@ -34,16 +35,13 @@ class TaskFragment : DaggerFragment() {
 
     lateinit var adapter: TaskAdapter
 
-    lateinit var binding: FragmentAssignmentBinding
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewModel = activityViewModelProvider(viewModelFactory)
 
-        binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
+        val binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
 
             floatingActionButton.setOnClickListener {
                 toDispatchCar()
@@ -79,7 +77,7 @@ class TaskFragment : DaggerFragment() {
                 viewModel.taskDate = year.toString() + "-" +
                         DateTimeUtils.frontCompWithZore(monthOfYear + 1, 2) + "-" +
                         DateTimeUtils.frontCompWithZore(dayOfMonth, 2)
-                binding.selectTaskDate.setText(viewModel.taskDate)
+                select_task_date.text = viewModel.taskDate
                 viewModel.onSwipeRefresh()
             }, mYear, mMonth, mDay)
 

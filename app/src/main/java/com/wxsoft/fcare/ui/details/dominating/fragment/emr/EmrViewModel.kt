@@ -29,7 +29,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     val bitmaps= mutableListOf<String>()
     val emrs:LiveData<List<EmrItem>>
     private val loadEmrResult=MediatorLiveData<Response<List<EmrItem>>>()
-
+    var preHos=true
     init {
 
         emrs=loadEmrResult.map { it.result?: emptyList()}
@@ -49,7 +49,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
     private fun loadEms(id:String){
 
-        emrApi.getEmrs(id).zipWith(emrApi.getBaseInfo(patientId))
+        (if(preHos)emrApi.getPreEmrs(id)else emrApi.getInEmrs(id)) .zipWith(emrApi.getBaseInfo(patientId))
             .subscribeOn(Schedulers.computation())
             .doOnSuccess {zip->
                 val list= zip.first.result

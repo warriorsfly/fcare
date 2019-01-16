@@ -18,9 +18,6 @@ class UserProfileFragment : DaggerFragment() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-
-    lateinit var binding: FragmentUserProfileBinding
-
     private lateinit var viewModel: UserProfileViewModel
 
     override fun onCreateView(
@@ -28,7 +25,7 @@ class UserProfileFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
         viewModel = viewModelProvider(factory)
-        binding = FragmentUserProfileBinding.inflate(inflater, container, false).apply {
+        val binding = FragmentUserProfileBinding.inflate(inflater, container, false).apply {
 
             logout.setOnClickListener {
                 viewModel.loginOut()

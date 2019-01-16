@@ -25,10 +25,12 @@ class ProfileViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
+
+    var preHos=true
     override val title: String
-        get() = "基本信息"
+        get() = if(preHos)"基本信息" else "病人信息"
     override val clickableTitle: String
-        get() = "保存"
+        get() = if(preHos)"保存" else ""
 
     var taskId=""
     var patientId=""
@@ -78,7 +80,7 @@ class ProfileViewModel @Inject constructor(
     }
 
     override fun click(){
-        if(patientSavable) {
+        if(preHos && patientSavable) {
             val files = bitmaps.map {
                 val file = File(it)
                 return@map MultipartBody.Part.createFormData(

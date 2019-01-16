@@ -61,15 +61,18 @@ class EmrFragment : DaggerFragment() {
     companion object {
 
         private const val ARG_PATIENT = "arg.patient"
+        private const val ARG_PREHOS = "arg.prehos"
         @JvmStatic
-        fun newInstance( patientId:String): EmrFragment {
+        fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
             val args = Bundle().apply {
                 putString(ARG_PATIENT,patientId)
+                putBoolean(ARG_PREHOS,preHos)
             }
             return EmrFragment().apply { arguments = args }
 
         }
+
     }
     private val photoAction:PhotoAction by lazy {
         PhotoAction()
@@ -113,6 +116,8 @@ class EmrFragment : DaggerFragment() {
         binding.list.adapter=adapter
 
         viewModel.patientId=patientId
+
+        viewModel.preHos=preHos
 
         viewModel.emrs.observe(this, Observer {
             //    binding.list?.clearDecorations()
@@ -206,6 +211,11 @@ class EmrFragment : DaggerFragment() {
     private val patientId: String by lazyFast {
         val args = arguments ?: throw IllegalStateException("Missing arguments!")
         args.getString(ARG_PATIENT)
+    }
+
+    private val preHos: Boolean by lazyFast {
+        val args = arguments ?: throw IllegalStateException("Missing arguments!")
+        args.getBoolean(ARG_PREHOS,true)
     }
 
 
