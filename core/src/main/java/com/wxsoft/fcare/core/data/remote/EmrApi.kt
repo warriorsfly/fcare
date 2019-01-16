@@ -41,8 +41,8 @@ interface EmrApi{
     /**
      * 心电图
      */
-    @GET("ECG/GetElectroCardiogramByPatientId/{patientId}")
-    fun getEcgs(@Path("patientId")id:String):Maybe<Response<ElectroCardiogram>>
+    @GET("ECG/GetElectroCardiogramByPatientId/{patientId}/{location}")
+    fun getEcgs(@Path("patientId")id:String,@Path("location")location:Int=1):Maybe<Response<ElectroCardiogram>>
 
     @Multipart
     @POST("ECG/SaveElectroCardiogram")
