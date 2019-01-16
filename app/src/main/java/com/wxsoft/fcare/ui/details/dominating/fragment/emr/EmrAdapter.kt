@@ -115,7 +115,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     root.setOnClickListener {
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
-                detail = (differ.currentList[position].result as CheckBody).toString()
+                detail = differ.currentList[position].result.toString()
 
                 visiable= position<differ.currentList.size-1
             }
@@ -173,6 +173,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             is MedicalHistory -> R.layout.item_emr_medical_history
             is VitalSign->R.layout.item_emr_vital_signs
             is CheckBody->R.layout.item_emr_simple_string
+            is Measure->R.layout.item_emr_simple_string
             is List<*> ->{
                 when(item.code){
                     ActionRes.ActionType.GRACE->{
@@ -209,6 +210,8 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
                 result1 is VitalSign && result2 is VitalSign ->
                     result1.id == result2.id && oldItem.code == newItem.code
+                result1 is Measure && result2 is Measure ->
+                    oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code
@@ -239,6 +242,8 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
+                    oldItem.code == newItem.code
+                result1 is Measure && result2 is Measure ->
                     oldItem.code == newItem.code
 
                 else -> false

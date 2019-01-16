@@ -73,40 +73,40 @@ data class CheckBody (val id:String): BaseObservable(){
             "2"->"拒绝检测"
             "3"->"不配合"
             else->""
-        }).append("\t皮肤："+when(skin){
-            "1"->"正常"
-            "2"->"苍白"
-            "3"->"发红"
-            "4"->"黄染"
-            "5"->"青紫"
+        }).append(when(skin){
+            "1"->"\t\t皮肤：正常"
+            "2"->"\t\t皮肤：苍白"
+            "3"->"\t\t皮肤：发红"
+            "4"->"\t\t皮肤：黄染"
+            "5"->"\t\t皮肤：青紫"
             "6"->"湿冷"
             else->""
         }).append(
-            "\t左瞳孔："+when(leftPupils) {
-                "1" -> "正常"
-                "2" -> "扩大"
-                "3" -> "缩小"
-                "4" -> "不等"
+            when(leftPupils) {
+                "1" -> "\t\t左瞳孔：正常"
+                "2" -> "\t\t左瞳孔：扩大"
+                "3" -> "\t\t左瞳孔：缩小"
+                "4" -> "\t\t左瞳孔：不等"
                 else -> ""
             }).append(
-            "\t左瞳孔对光反应："+when(leftResponseLight) {
-                "1" -> "正常"
-                "2" -> "迟钝"
-                "3" -> "消失"
+            when(leftResponseLight) {
+                "1" -> "\t\t左瞳孔对光反应：正常"
+                "2" -> "\t\t左瞳孔对光反应：迟钝"
+                "3" -> "\t\t左瞳孔对光反应：消失"
                 else -> ""
             }).append(
-            "\t右瞳孔："+when(rightPupils) {
-                "1" -> "正常"
-                "2" -> "扩大"
-                "3" -> "缩小"
-                "4" -> "不等"
+            when(rightPupils) {
+                "1" -> "\t\t右瞳孔：正常"
+                "2" -> "\t\t右瞳孔：扩大"
+                "3" -> "\t\t右瞳孔：缩小"
+                "4" -> "\t\t右瞳孔：不等"
                 else -> ""
             }).append(
-            "\t右瞳孔对光反应："+when(rightResponseLight) {
-                "1" -> "正常"
-                "2" -> "迟钝"
-                "3" -> "消失"
+            when(rightResponseLight) {
+                "1" -> "\t\t右瞳孔对光反应：正常"
+                "2" -> "\t\t右瞳孔对光反应：迟钝"
+                "3" -> "\t\t右瞳孔对光反应：消失"
                 else -> ""
-            }).append(if(checkMemo.isNullOrEmpty())"" else "\t备注：$checkMemo").toString()
+            }).append(if(checkMemo.isNullOrEmpty())"" else "\t\t备注：$checkMemo").toString()
     }
 }

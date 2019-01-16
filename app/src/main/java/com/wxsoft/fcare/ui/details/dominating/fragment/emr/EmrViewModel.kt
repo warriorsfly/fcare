@@ -150,6 +150,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
 
                 refreshRating()
+
+                refreshMeasure()
             }
     }
 
@@ -243,6 +245,22 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.GRACE }
                 index?.let { index ->
                     _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.GRACE))
+                }
+            },{
+                messageAction.value= Event(it.message?:"")
+            })
+    }
+
+    fun refreshMeasure(){
+        emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
+                rating?.result ?: return@subscribe
+                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.result =
+                        rating?.result
+                val index =
+                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }
+                index?.let { index ->
+                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.DispostionMeasures))
                 }
             },{
                 messageAction.value= Event(it.message?:"")
