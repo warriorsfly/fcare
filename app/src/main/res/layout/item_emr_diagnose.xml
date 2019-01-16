@@ -3,7 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="medhistory" type="com.wxsoft.fcare.core.data.entity.MedicalHistory"/>
+        <variable name="diagnose" type="com.wxsoft.fcare.core.data.entity.Diagnosis"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.EmrItem"/>
         <variable name="visiable" type="Boolean"/>
     </data>
@@ -79,7 +79,7 @@
 
                 <TextView
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/medical_cc"
+                        app:layout_constraintBottom_toBottomOf="@id/gender"
                         android:layout_width="14dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="4dp"
@@ -90,7 +90,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="15sp"
-                        android:text="病史"
+                        android:text="院前诊断"
                         android:layout_marginLeft="17dp"
                         android:layout_marginTop="17dp"
                         android:textColor="#000"
@@ -103,23 +103,24 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
-                        android:text="主诉"
+                        android:text="病种"
                         android:layout_marginLeft="17dp"
                         android:layout_marginTop="17dp"
                         android:textColor="#9399A4"
-                        app:layout_constraintLeft_toLeftOf="@id/title"
-                        app:layout_constraintTop_toBottomOf="@id/title"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title"
                 />
 
                 <TextView
-                        android:id="@+id/medical_cc"
+                        android:id="@+id/gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
-                        tools:text="左肢体不灵活"
-                        android:text="@{medhistory.cc}"
+                        android:text="@{diagnose.diagnosisCode1Name}"
+                        tools:text="胸痛"
                         android:layout_marginLeft="80dp"
                         android:textColor="#000"
+
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintBottom_toBottomOf="@id/title1"/>
 
@@ -128,22 +129,32 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
-                        android:text="现病史"
                         android:layout_marginTop="13dp"
+                        android:layout_marginBottom="17dp"
                         android:textColor="#9399A4"
                         app:layout_constraintLeft_toLeftOf="@id/title1"
                         app:layout_constraintTop_toBottomOf="@id/title1"/>
 
                 <TextView
-                        android:id="@+id/medical_hpi"
+                        android:id="@+id/c1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
-                        tools:text="心脏疼"
-                        android:text="@{medhistory.hpi}"
+                        tools:text="74"
                         android:layout_marginLeft="80dp"
                         android:textColor="#000"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/title2"/>
+
+                <TextView
+                        android:id="@+id/c2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        tools:text="74"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="#000"
+                        app:layout_constraintLeft_toRightOf="@+id/c1"
                         app:layout_constraintBottom_toBottomOf="@id/title2"/>
 
                 <TextView
@@ -151,25 +162,26 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
-                        android:text="既往史"
+                        android:text="病情"
                         android:layout_marginTop="13dp"
                         android:layout_marginBottom="17dp"
                         android:textColor="#9399A4"
                         app:layout_constraintLeft_toLeftOf="@id/title1"
-                        app:layout_constraintTop_toBottomOf="@id/title2"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title1"/>
 
                 <TextView
-                        android:id="@+id/card"
+                        android:id="@+id/b1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
-                        tools:text="心脏病"
-                        android:text="@{medhistory.ah}"
+                        tools:text="74"
                         android:layout_marginLeft="80dp"
                         android:textColor="#000"
+                        android:text="@{diagnose.criticalLevelName}"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintBottom_toBottomOf="@id/title3"/>
+
 
             </android.support.constraint.ConstraintLayout>
         </android.support.design.card.MaterialCardView>
