@@ -33,6 +33,4 @@ interface PatientApi{
     @POST("Patient/SavePatientInfo")
     fun save(@Part("patient")patient: Patient):Maybe<Response<String>>
 
-    @GET("Patient/GetPreEmssTimeLine")
-    fun getEmrs(@Query("patientId")patientId:String):Single<Response<List<EmrItem>>>
 }

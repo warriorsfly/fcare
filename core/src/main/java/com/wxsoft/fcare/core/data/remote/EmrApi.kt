@@ -14,8 +14,8 @@ interface EmrApi{
     /**
      * 获取个人Emr列表
      */
-    @GET("Patient/GetPreEmssTimeLine")
-    fun getPreEmrs(@Query("patientId")patientId:String): Single<Response<List<EmrItem>>>
+    @GET("Patient/GetPreEmssTimeLine/{patientId}")
+    fun getPreEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
 
     @GET("Patient/GetInHospitalEmssTimeLine/{patientId}")
     fun getInEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>

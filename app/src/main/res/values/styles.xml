@@ -64,6 +64,14 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <!--<item name="android:backgroundDimEnabled">false</item>-->
     </style>
+    <style name="Theme.FCare.Dialog.Text" parent="Theme.MaterialComponents.Light.Dialog">
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+    </style>
 
     <style name="Widget.FCare.RaisedButton" parent="@style/Widget.AppCompat.Button.Colored">
         <item name="android:textStyle">bold</item>

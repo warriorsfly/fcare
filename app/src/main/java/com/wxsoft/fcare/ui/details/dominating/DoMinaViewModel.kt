@@ -112,7 +112,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
      * 和task.status对应
      */
     fun startAction(status:Int) {
-        if (status==1   || status <= (task.value?.status ?: 1)) {
+         if (status==1   || status <= (task.value?.status ?: 1)) {
 
             _pageAction.value = Event(status-1)
         } else {
