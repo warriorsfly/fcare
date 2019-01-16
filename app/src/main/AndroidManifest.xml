@@ -9,6 +9,8 @@
     <uses-permission android:name="android.permission.INTERNET"/> <!-- end 网络请求 -->
     <!-- 扫描射频 -->
     <uses-permission android:name="android.permission.NFC"/>
+    <!-- 录音权限 -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
     <uses-feature
             android:name="android.hardware.nfc"
