@@ -71,10 +71,10 @@ class DoMinaActivity : BaseActivity() {
         viewModel.atAction.observe(this,EventObserver{
 
             val mess=when(it){
-                1->"确认到达现场吗?"
-                2->"确认开始首次医疗接触吗?"
-                3->"确认开始返回医院吗?"
-                4->"确认到达医院大门吗?"
+                2->"确认到达现场吗?"
+                3->"确认开始首次医疗接触吗?"
+                4->"确认开始返回医院吗?"
+                5->"确认到达医院大门吗?"
                 else->throw IllegalStateException("Unknown type $it")
             }
             val dialog=AlertDialog.Builder(this).setMessage(mess)
