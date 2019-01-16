@@ -2,6 +2,7 @@ package com.wxsoft.fcare.core.data.entity
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
 data class Diagnosis (val id:String): BaseObservable(){
@@ -21,6 +22,14 @@ data class Diagnosis (val id:String): BaseObservable(){
     /// </summary>
     @Bindable
     var diagnosisCode1: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.diagnosisCode1)
+        }
+
+    @Bindable
+    @SerializedName("diagnosisCode1_Name")
+    var diagnosisCode1Name: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.diagnosisCode1)
@@ -55,6 +64,14 @@ data class Diagnosis (val id:String): BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.criticalLevel)
+        }
+
+    @Bindable
+    @SerializedName("criticalLevel_Name")
+    var criticalLevelName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.diagnosisCode1)
         }
 
     /// <summary>

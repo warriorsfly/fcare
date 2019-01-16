@@ -40,6 +40,7 @@ class DiagnoseTypeAdapter constructor(private val lifecycleOwner: LifecycleOwner
                 "创伤" ->{root.icon_for_type.setImageResource(R.drawable.ic_item_icon_chuangshang)}
                 "危重孕产妇" ->{root.icon_for_type.setImageResource(R.drawable.ic_item_icon_yunchanfu)}
                 "危重新生儿" ->{root.icon_for_type.setImageResource(R.drawable.ic_item_icon_ertong)}
+                "其他" ->{root.icon_for_type.setImageResource(R.drawable.ic_item_icon_other)}
             }
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener,viewModel)

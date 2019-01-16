@@ -127,20 +127,19 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     }, {
                         messageAction.value = Event(it.message ?: "")
                     })
-
-                emrApi.getVitalSigns(patientId).subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe ({
-                           vital->
-                        if (vital.isNullOrEmpty()) return@subscribe
-                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vital?.get(0)?: VitalSign("")
+                emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                            diagnose->
+                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.result=diagnose?.result?: Diagnosis("")
                         val index =
-                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.生命体征 }
+                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.院前诊断 }
                         index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.院前诊断))
                         }
                     }, {
                         messageAction.value = Event(it.message ?: "")
                     })
+
 
 
                 refreshRating()

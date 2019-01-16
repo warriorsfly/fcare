@@ -119,6 +119,17 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 vital = presenter
                 visiable= position<differ.currentList.size-1
             }
+
+            is ItemViewHolder.DiagnoseViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                val presenter = differ.currentList[position].result as Diagnosis
+                diagnose = presenter
+                visiable= position<differ.currentList.size-1
+            }
         }
     }
 
@@ -145,6 +156,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             R.layout.item_emr_vital_signs -> ItemViewHolder.VitalViewHolder(
                 ItemEmrVitalSignsBinding.inflate(inflater,parent,false)
             )
+            R.layout.item_emr_diagnose -> ItemViewHolder.DiagnoseViewHolder(
+                ItemEmrDiagnoseBinding.inflate(inflater,parent,false)
+            )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
     }
@@ -158,6 +172,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             is ElectroCardiogram -> R.layout.item_emr_ecg
             is MedicalHistory -> R.layout.item_emr_medical_history
             is CheckBody->R.layout.item_emr_none
+            is Diagnosis->R.layout.item_emr_diagnose
             is VitalSign->R.layout.item_emr_vital_signs
             is List<*> ->{
                 when(item.code){
@@ -196,6 +211,10 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 result1 is VitalSign && result2 is VitalSign ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
+                result1 is Diagnosis && result2 is Diagnosis ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code
                 else -> false
@@ -222,6 +241,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is VitalSign && result2 is VitalSign ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is Diagnosis && result2 is Diagnosis ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
@@ -260,9 +282,14 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
         val binding: ItemEmrMedicalHistoryBinding
     ): ItemViewHolder(binding)
 
-    //病史
+    //生命体征
     class VitalViewHolder(
         val binding: ItemEmrVitalSignsBinding
+    ): ItemViewHolder(binding)
+
+    //院前诊断
+    class DiagnoseViewHolder(
+        val binding: ItemEmrDiagnoseBinding
     ): ItemViewHolder(binding)
 
 }

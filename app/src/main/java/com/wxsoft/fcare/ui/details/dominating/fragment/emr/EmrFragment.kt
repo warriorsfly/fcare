@@ -205,7 +205,7 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivity(intent)
                 }
-                ActionRes.ActionType.诊断 ->{
+                ActionRes.ActionType.院前诊断 ->{
                     var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
