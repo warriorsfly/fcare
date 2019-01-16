@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.CheckBody
 import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.databinding.ItemEmrElectrocardiogramBinding
+import com.wxsoft.fcare.databinding.ItemEmrEcgBinding
 import com.wxsoft.fcare.databinding.ItemEmrNoneBinding
 import com.wxsoft.fcare.databinding.ItemEmrProfileBinding
 import com.wxsoft.fcare.ui.CommitEventAction
@@ -73,7 +73,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 executePendingBindings()
             }
 
-            is ItemViewHolder.ElectrocardiogramViewHolder -> holder.binding.apply {
+            is ItemViewHolder.EcgViewHolder -> holder.binding.apply {
 
                 item = differ.currentList[position]
 
@@ -98,8 +98,8 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             R.layout.item_emr_profile -> ItemViewHolder.ProfileViewHolder(
                 ItemEmrProfileBinding.inflate(inflater, parent, false)
             )
-            R.layout.item_emr_electrocardiogram->ItemViewHolder.ElectrocardiogramViewHolder(
-                ItemEmrElectrocardiogramBinding.inflate(inflater,parent,false)
+            R.layout.item_emr_ecg->ItemViewHolder.EcgViewHolder(
+                ItemEmrEcgBinding.inflate(inflater,parent,false)
             )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
@@ -110,7 +110,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
         return when (differ.currentList[position].result) {
             null->R.layout.item_emr_none
             is Patient -> R.layout.item_emr_profile
-            is ElectroCardiogram -> R.layout.item_emr_electrocardiogram
+            is ElectroCardiogram -> R.layout.item_emr_ecg
             is CheckBody->R.layout.item_emr_none
             is List<*> ->R.layout.item_emr_none
             else->R.layout.item_emr_none
@@ -180,7 +180,7 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     ) : ItemViewHolder(binding)
 
     //基本信息
-    class ElectrocardiogramViewHolder(
-        val binding: ItemEmrElectrocardiogramBinding
+    class EcgViewHolder(
+        val binding: ItemEmrEcgBinding
     ) : ItemViewHolder(binding)
 }

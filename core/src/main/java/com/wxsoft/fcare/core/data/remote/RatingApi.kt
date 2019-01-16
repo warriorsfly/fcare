@@ -28,12 +28,12 @@ interface RatingApi {
     /***
      * 评分结果详情
      */
-    @GET("Rating/GetAnswerRecordById")
-    fun getOneRecord(@Query("id")id:String): Single<Response<RatingRecord>>
+    @GET("Rating/GetAnswerRecordById/{id}")
+    fun getOneRecord(@Path("id")id:String): Single<Response<RatingRecord>>
 
     /***
      * 评分结果列表
      */
-    @GET("Rating/GetLastestAnswerRecordByPatientId")
+    @GET("Rating/GetLastestAnswerRecordByPatientId/{patientId}")
     fun getRecords(@Path("patientId")id:String): Single<Response<List<RatingRecord>>>
 }

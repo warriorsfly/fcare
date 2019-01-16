@@ -32,6 +32,14 @@ data class ElectroCardiogram(val id:String=""):BaseObservable(){
     @get:Bindable
     @SerializedName("isDiagnosed")
     var diagnosed=false
+
+    @get:Bindable
+    @SerializedName("diagnoseDoctorId")
+    var doctorId=""
+
+    @get:Bindable
+    @SerializedName("diagnoseDocgorName")
+    var doctorName=""
     @get:Bindable
     var diagnoseResult=""
 

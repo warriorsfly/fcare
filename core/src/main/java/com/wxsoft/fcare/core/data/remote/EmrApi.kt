@@ -48,5 +48,8 @@ interface EmrApi{
     @POST("ECG/SaveElectroCardiogram")
     fun saveEcg(@Part("diogram")diogram: ElectroCardiogram, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
 
+    @POST("ECG/Diagnosed")
+    fun diagnose(@Body diogram: ElectroCardiogram):Maybe<Response<ElectroCardiogram>>
+
 
 }

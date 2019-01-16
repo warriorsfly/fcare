@@ -18,5 +18,5 @@ interface PhotoEventAction{
 
 interface CommitEventAction{
     //点击本地文件
-    fun commit(any: Any)
+    fun commit(any: Any,type:Int=0)
 }

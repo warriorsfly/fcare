@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
@@ -21,7 +22,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
+import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
@@ -78,9 +81,7 @@ class EmrFragment : DaggerFragment() {
         PhotoAction()
     }
 
-    private val commitAction:CommitAction by lazy {
-        CommitAction()
-    }
+    private var commitAction:CommitAction? =CommitAction()
 
     private val toast:Toast by lazy {
         Toast.makeText(context,"",Toast.LENGTH_SHORT)
@@ -111,7 +112,7 @@ class EmrFragment : DaggerFragment() {
         }
         adapter= EmrAdapter(this)
         adapter.setActionListener(EventAction(WeakReference(activity!!),patientId))
-        adapter.setCommitEventActionListener(commitAction)
+        adapter.setCommitEventActionListener(commitAction!!)
         adapter.pictureAdapter.setActionListener(photoAction)
         binding.list.adapter=adapter
 
@@ -257,15 +258,39 @@ class EmrFragment : DaggerFragment() {
     }
 
     inner class CommitAction() : CommitEventAction {
-        override fun commit(any: Any) {
+        override fun commit(any: Any,type:Int) {
 
             when(any){
                 is ElectroCardiogram->{
-                    viewModel.saveEcg()
+                    when(type){
+                        0->viewModel.saveEcg()
+                        1-> {
+                            val editView=EditText(activity).apply {
+                                layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,LinearLayout.LayoutParams.WRAP_CONTENT)
+                            }
+                            val dialog = AlertDialog.Builder(activity, R.style.Theme_FCare_Dialog_Text)
+                                .setView(editView)
+                                .setMessage("心电图判读")
+                                .setPositiveButton("确定") { _, _ ->
+                                    if(editView.text.toString().isNotEmpty())
+                                        viewModel.diagnose(editView.text.toString())
+                                }
+                                .setNegativeButton("取消") { _, _ -> }
+
+                            dialog.show()
+                        }
+                    }
+
                 }
             }
         }
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        commitAction=null
     }
 
 
