@@ -4,10 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
-import com.wxsoft.fcare.core.data.entity.EmrItem
-import com.wxsoft.fcare.core.data.entity.MedicalHistory
-import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.EmrApi
 import com.wxsoft.fcare.core.result.Event
@@ -130,6 +127,21 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     }, {
                         messageAction.value = Event(it.message ?: "")
                     })
+
+                emrApi.getVitalSigns(patientId).subscribeOn(Schedulers.single())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+                           vital->
+                        if (vital.isNullOrEmpty()) return@subscribe
+                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vital?.get(0)?: VitalSign("")
+                        val index =
+                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.生命体征 }
+                        index?.let { index ->
+                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+                        }
+                    }, {
+                        messageAction.value = Event(it.message ?: "")
+                    })
+
 
                 refreshRating()
             }

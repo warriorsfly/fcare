@@ -15,11 +15,7 @@ import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.core.data.entity.*
-import com.wxsoft.fcare.databinding.ItemEmrEcgBinding
-import com.wxsoft.fcare.databinding.ItemEmrMedicalHistoryBinding
-import com.wxsoft.fcare.databinding.ItemEmrNoneBinding
-import com.wxsoft.fcare.databinding.ItemEmrProfileBinding
-import com.wxsoft.fcare.databinding.ItemEmrRatingBinding
+import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.common.PictureAdapter
@@ -112,6 +108,17 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 medhistory = presenter
                 visiable= position<differ.currentList.size-1
             }
+
+            is ItemViewHolder.VitalViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                val presenter = differ.currentList[position] as VitalSign
+                vital = presenter
+                visiable= position<differ.currentList.size-1
+            }
         }
     }
 
@@ -135,6 +142,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             R.layout.item_emr_medical_history -> ItemViewHolder.MedicalHistoryViewHolder(
                 ItemEmrMedicalHistoryBinding.inflate(inflater,parent,false)
             )
+            R.layout.item_emr_vital_signs -> ItemViewHolder.VitalViewHolder(
+                ItemEmrVitalSignsBinding.inflate(inflater,parent,false)
+            )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
     }
@@ -148,6 +158,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             is ElectroCardiogram -> R.layout.item_emr_ecg
             is MedicalHistory -> R.layout.item_emr_medical_history
             is CheckBody->R.layout.item_emr_none
+            is VitalSign->R.layout.item_emr_vital_signs
             is List<*> ->{
                 when(item.code){
                     ActionRes.ActionType.GRACE->{
@@ -182,6 +193,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 result1 is MedicalHistory && result2 is MedicalHistory ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
+                result1 is VitalSign && result2 is VitalSign ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code
                 else -> false
@@ -205,6 +219,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is MedicalHistory && result2 is MedicalHistory ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is VitalSign && result2 is VitalSign ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
@@ -241,6 +258,11 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //病史
     class MedicalHistoryViewHolder(
         val binding: ItemEmrMedicalHistoryBinding
+    ): ItemViewHolder(binding)
+
+    //病史
+    class VitalViewHolder(
+        val binding: ItemEmrVitalSignsBinding
     ): ItemViewHolder(binding)
 
 }

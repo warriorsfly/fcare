@@ -136,7 +136,7 @@
                           android:layout_marginLeft="6dp"
                           android:layout_marginRight="6dp"
                           android:textColor="#9399A4"
-                          android:hint="请填写心跳次数"
+                          android:hint="请填写呼吸次数"
                           android:gravity="center"
                           android:text="@={Converter.intToString( viewModel.vital.respiration_Rate)}"
                           android:maxLines="1"
