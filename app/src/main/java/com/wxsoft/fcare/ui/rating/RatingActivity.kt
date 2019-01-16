@@ -5,12 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityRatingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.EventAction
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 
@@ -62,8 +64,24 @@ class RatingActivity : BaseActivity() {
 
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
-    class EventActions constructor(private val context: WeakReference<Context>, private val patientId:String):
+        if(resultCode==RESULT_OK) {
+            when (requestCode) {
+                EmrFragment.ARG_NEW_ITEM_CODE -> {
+
+                    Intent().let { intent->
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
+                }
+            }
+        }
+    }
+
+
+    class EventActions constructor(private val context: WeakReference<FragmentActivity>, private val patientId:String):
         EventAction<Rating> {
         override fun onOpen(rating: Rating) {
             var intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
@@ -71,7 +89,7 @@ class RatingActivity : BaseActivity() {
                 putExtra(RatingSubjectActivity.RATING_ID, rating.id)
                 putExtra(RatingSubjectActivity.RATING_NAME, rating.name)
             }
-            context.get()?.startActivity(intent)
+            context.get()?.startActivityForResult(intent,EmrFragment.ARG_NEW_ITEM_CODE)
         }
 
     }

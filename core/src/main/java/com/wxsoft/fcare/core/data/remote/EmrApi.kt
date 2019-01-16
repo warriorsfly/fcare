@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import io.reactivex.Maybe
 import io.reactivex.Single
 import okhttp3.MultipartBody
@@ -50,6 +51,12 @@ interface EmrApi{
 
     @POST("ECG/Diagnosed")
     fun diagnose(@Body diogram: ElectroCardiogram):Maybe<Response<ElectroCardiogram>>
+
+    /***
+     * 评分结果列表
+     */
+    @GET("Rating/GetAnswerRecords/{patientId}")
+    fun getRecords(@Path("patientId")id:String): Single<Response<List<RatingRecord>>>
 
 
 }

@@ -11,13 +11,16 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.databinding.BindingAdapter
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
+import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +36,8 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
+import com.wxsoft.fcare.core.data.entity.EmrItem
+import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import com.wxsoft.fcare.core.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -53,6 +58,7 @@ import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
+import dagger.android.support.DaggerAppCompatActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
@@ -65,6 +71,8 @@ class EmrFragment : DaggerFragment() {
 
         private const val ARG_PATIENT = "arg.patient"
         private const val ARG_PREHOS = "arg.prehos"
+        const val ARG_NEW_ITEM = "arg.new_item"
+        const val ARG_NEW_ITEM_CODE = 20
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -111,7 +119,7 @@ class EmrFragment : DaggerFragment() {
             viewModel=this@EmrFragment.viewModel
         }
         adapter= EmrAdapter(this)
-        adapter.setActionListener(EventAction(WeakReference(activity!!),patientId))
+        adapter.setActionListener(EventAction(WeakReference(this),patientId))
         adapter.setCommitEventActionListener(commitAction!!)
         adapter.pictureAdapter.setActionListener(photoAction)
         binding.list.adapter=adapter
@@ -144,61 +152,61 @@ class EmrFragment : DaggerFragment() {
 
     }
 
-    class EventAction constructor(private val context: WeakReference<Context>,private val patientId:String):EventActions{
+    class EventAction constructor(private val context: WeakReference<DaggerFragment>,private val patientId:String):EventActions{
         override fun onOpen(id: String) {
             when(id){
                 ActionRes.ActionType.患者信息录入->{
-                    var intent = Intent(context.get(), ProfileActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, ProfileActivity::class.java).apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
 
                 ActionRes.ActionType.GRACE->{
-                    var intent = Intent(context.get(), RatingActivity::class.java)
+                    var intent = Intent(context.get()?.activity, RatingActivity::class.java)
                         .apply {
                             putExtra(ProfileActivity.PATIENT_ID, patientId)
                         }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, ARG_NEW_ITEM_CODE)
                 }
                 ActionRes.ActionType.生命体征->{
-                    var intent = Intent(context.get(), VitalSignsActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {
                         putExtra(VitalSignsActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.PhysicalExamination->{
-                    var intent = Intent(context.get(), CheckBodyActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, CheckBodyActivity::class.java).apply {
                         putExtra(CheckBodyActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.IllnessHistory->{
-                    var intent = Intent(context.get(), MedicalHistoryActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, MedicalHistoryActivity::class.java).apply {
                         putExtra(MedicalHistoryActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.DispostionMeasures->{
-                    var intent = Intent(context.get(), MeasuresActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, MeasuresActivity::class.java).apply {
                         putExtra(MeasuresActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.给药 ->{
-                    var intent = Intent(context.get(), PharmacyActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
                         putExtra(PharmacyActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.知情同意书 ->{
-                    var intent = Intent(context.get(), InformedConsentActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
                         putExtra(InformedConsentActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.诊断 ->{
-                    var intent = Intent(context.get(), DiagnoseActivity::class.java).apply {
+                    var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
@@ -314,6 +322,10 @@ class EmrFragment : DaggerFragment() {
                     (viewModel.emrs.value?.first {
                             emr->emr.code==ActionRes.ActionType.心电图
                     }?.result as? ElectroCardiogram)?.savable=adapter.pictureAdapter.locals.isNotEmpty()
+                }
+
+                EmrFragment.ARG_NEW_ITEM_CODE -> {
+                    viewModel.refreshRating()
                 }
             }
         }
@@ -445,6 +457,7 @@ class EmrFragment : DaggerFragment() {
     }
 
 
+
     fun dispatchTakePictureIntent(list:List<LocalMedia>, max:Int) {
 
 
@@ -466,4 +479,13 @@ class EmrFragment : DaggerFragment() {
             .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
     }
 
+}
+
+@BindingAdapter(value = ["ratingRecords"], requireAll = false)
+fun setRatingRecords(recyclerView: RecyclerView, item:EmrItem) {
+
+    recyclerView.adapter = (recyclerView.adapter as? EmrRatingRecordAdapter ?: EmrRatingRecordAdapter())
+        .apply {
+            submitList((item.result as? List<RatingRecord>)?:emptyList())
+        }
 }

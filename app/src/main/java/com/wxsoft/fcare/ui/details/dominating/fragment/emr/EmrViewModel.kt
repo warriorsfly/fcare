@@ -47,37 +47,36 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     val emrItemLoaded: LiveData<Event<Pair<Int,String>>>
         get() = _loadEmrItemAction
 
-    private fun loadEms(id:String){
+    private fun loadEms(id:String) {
 
-        (if(preHos)emrApi.getPreEmrs(id)else emrApi.getInEmrs(id)) .zipWith(emrApi.getBaseInfo(patientId))
+        (if (preHos) emrApi.getPreEmrs(id) else emrApi.getInEmrs(id)).zipWith(emrApi.getBaseInfo(patientId))
             .subscribeOn(Schedulers.computation())
-            .doOnSuccess {zip->
-                val list= zip.first.result
-                list?.first{it.code==ActionRes.ActionType.患者信息录入}?.apply {
-                    result=zip.second.result
-                    done=true
-                    completedAt=zip.second.result?.createdDate
+            .doOnSuccess { zip ->
+                val list = zip.first.result
+                list?.first { it.code == ActionRes.ActionType.患者信息录入 }?.apply {
+                    result = zip.second.result
+                    done = true
+                    completedAt = zip.second.result?.createdDate
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe{ it->
+            .subscribe { it ->
 
-                loadEmrResult.value=it?.first
+                loadEmrResult.value = it?.first
 
                 //生命体征
                 emrApi.getVitals(patientId)
                     .subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe ({
-                        vital->
-                        if(vital.isNullOrEmpty()) return@subscribe
+                    .subscribe({ vital ->
+                        if (vital.isNullOrEmpty()) return@subscribe
 
-                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}
+                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.生命体征 }
                             ?.let {
-                                if(!vital.isNullOrEmpty()) {
+                                if (!vital.isNullOrEmpty()) {
                                     it.result = vital
                                     it.done = true
-                                    it.completedAt =vital[0].createdDate
+                                    it.completedAt = vital[0].createdDate
                                 }
                             }
                         val index =
@@ -86,16 +85,16 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
                         }
 
-                    },{
-                        messageAction.value= Event(it.message?:"")
+                    }, {
+                        messageAction.value = Event(it.message ?: "")
                     })
                 //PhysicalExamination
                 emrApi.getBodyCheck(patientId)
                     .subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe( {
-                            check->
-                        check?.result?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.辅助检查}?.result=check
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
+                        check?.result ?: return@subscribe
+                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.辅助检查 }?.result =
+                                check
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
                         index?.let { index ->
@@ -106,19 +105,21 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     })
 
                 emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe ({
-                            check->
-//                        check?.result?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.result=check?.result?:ElectroCardiogram()
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
+                        //                        check?.result?: return@subscribe
+                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                            ?.result = check?.result ?: ElectroCardiogram()
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
                         index?.let { index ->
                             _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
                         }
-                    },{
-                        messageAction.value= Event(it.message?:"")
+                    }, {
+                        messageAction.value = Event(it.message ?: "")
                     })
-        }
+
+                refreshRating()
+            }
     }
 
     fun diagnose(string:String) {
@@ -199,5 +200,21 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 })
 
         }
+    }
+
+    fun refreshRating(){
+        emrApi.getRecords(patientId).subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
+                rating?.result ?: return@subscribe
+                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.GRACE }?.result =
+                        rating?.result
+                val index =
+                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.GRACE }
+                index?.let { index ->
+                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.GRACE))
+                }
+            },{
+                messageAction.value= Event(it.message?:"")
+            })
     }
 }

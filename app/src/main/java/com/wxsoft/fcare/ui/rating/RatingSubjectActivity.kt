@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.rating
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Toast
@@ -73,6 +74,11 @@ class RatingSubjectActivity : BaseActivity() {
         viewModel.mesAction.observe(this,EventObserver{
             toast.setText(it)
             toast.show()
+
+            Intent().let { intent->
+                setResult(RESULT_OK, intent);
+                finish();
+            }
         })
         back.setOnClickListener{onBackPressed()}
         viewModel.patientId=patientId

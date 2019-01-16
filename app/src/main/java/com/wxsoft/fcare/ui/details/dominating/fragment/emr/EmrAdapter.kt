@@ -12,9 +12,12 @@ import com.wxsoft.fcare.core.data.entity.CheckBody
 import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
+import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.ItemEmrEcgBinding
 import com.wxsoft.fcare.databinding.ItemEmrNoneBinding
 import com.wxsoft.fcare.databinding.ItemEmrProfileBinding
+import com.wxsoft.fcare.databinding.ItemEmrRatingBinding
 import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.common.PictureAdapter
@@ -85,6 +88,17 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 this@EmrAdapter.pictureAdapter.remotes = presenter.attachments.map { it.httpUrl }
 
             }
+
+            is ItemViewHolder.RatingViewHolder -> holder.binding.apply {
+
+                item = differ.currentList[position]
+                action?.let {
+                    newOne.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                visiable= position<differ.currentList.size-1
+
+            }
         }
     }
 
@@ -101,18 +115,30 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             R.layout.item_emr_ecg->ItemViewHolder.EcgViewHolder(
                 ItemEmrEcgBinding.inflate(inflater,parent,false)
             )
+
+            R.layout.item_emr_rating->ItemViewHolder.RatingViewHolder(
+                ItemEmrRatingBinding.inflate(inflater,parent,false)
+            )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
     }
 
 
     override fun getItemViewType(position: Int): Int {
-        return when (differ.currentList[position].result) {
+        val item=differ.currentList[position]
+        return when (item.result) {
             null->R.layout.item_emr_none
             is Patient -> R.layout.item_emr_profile
             is ElectroCardiogram -> R.layout.item_emr_ecg
             is CheckBody->R.layout.item_emr_none
-            is List<*> ->R.layout.item_emr_none
+            is List<*> ->{
+                when(item.code){
+                    ActionRes.ActionType.GRACE->{
+                        R.layout.item_emr_rating
+                    }
+                    else->R.layout.item_emr_none
+                }
+            }
             else->R.layout.item_emr_none
 //            else -> throw IllegalStateException("Unknown view type at position $position")
         }
@@ -182,5 +208,10 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //基本信息
     class EcgViewHolder(
         val binding: ItemEmrEcgBinding
+    ) : ItemViewHolder(binding)
+
+    //基本信息
+    class RatingViewHolder(
+        val binding: ItemEmrRatingBinding
     ) : ItemViewHolder(binding)
 }
