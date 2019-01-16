@@ -58,14 +58,14 @@ class InformedConsentDetailsViewModel @Inject constructor(private val informedAp
     fun getTalkById(id:String){
         informedApi.getTalkById(id).toResource()
             .subscribe {
-
+                loadTalkResult.value = it
             }
     }
 
     fun getInformedConsentById(id:String){
         informedApi.getInformedConsentById(id).toResource()
             .subscribe {
-
+                loadInformedResult.value = it
             }
     }
 

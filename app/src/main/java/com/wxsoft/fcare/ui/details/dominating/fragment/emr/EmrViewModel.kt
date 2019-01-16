@@ -6,6 +6,7 @@ import android.arch.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
 import com.wxsoft.fcare.core.data.entity.EmrItem
+import com.wxsoft.fcare.core.data.entity.MedicalHistory
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.EmrApi
@@ -113,6 +114,18 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
                         index?.let { index ->
                             _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
+                        }
+                    },{
+                        messageAction.value= Event(it.message?:"")
+                    })
+                emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
+                    .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                            history->
+                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.result=history?.result?: MedicalHistory("")
+                        val index =
+                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.IllnessHistory }
+                        index?.let { index ->
+                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.IllnessHistory))
                         }
                     }, {
                         messageAction.value = Event(it.message ?: "")

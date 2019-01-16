@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.informedconsent.informeddetails
 
+import android.arch.lifecycle.Observer
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.wxsoft.fcare.R
@@ -28,6 +29,8 @@ class InformedConsentDetailsActivity : BaseActivity() {
 
     lateinit var binding: ActivityInformedConsentDetailsBinding
 
+    private lateinit var adapter: InformedDetailsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
@@ -48,6 +51,15 @@ class InformedConsentDetailsActivity : BaseActivity() {
 
         viewModel.getTalkById(talkId)
         viewModel.getInformedConsentById(informedId)
+
+        adapter = InformedDetailsAdapter(this,10)
+        binding.attachments.adapter = adapter
+
+        viewModel.talk.observe(this, Observer {
+            if (it != null){
+                adapter.remotes = it.attachments.map { it.httpUrl }
+            }
+        })
 
 
     }

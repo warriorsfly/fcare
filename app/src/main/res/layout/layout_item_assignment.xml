@@ -36,6 +36,16 @@
                     app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
+                    android:id="@+id/task_det"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15sp"
+                    android:text="@{task.taskPosition}"
+                    android:textColor="#131D35"
+                    app:layout_constraintLeft_toRightOf="@+id/task_title1"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
                     android:id="@+id/task_destination"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -86,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#7D8AA3"
-                    app:doneAt="@{task.arriveAt}"
+                    app:doneAt="@{task.arriveHosAt}"
                     app:layout_constraintLeft_toRightOf="@+id/task_title3"
                     app:layout_constraintBottom_toBottomOf="@id/task_title3"/>
 
@@ -107,7 +117,6 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:textColor="#7D8AA3"
-                    android:text="15′24″"
                     app:layout_constraintLeft_toRightOf="@+id/task_title4"
                     app:layout_constraintBottom_toBottomOf="@id/task_title4"/>
 
@@ -146,13 +155,11 @@
 
             <TextView
                     android:id="@+id/parient_name"
-                    android:layout_width="55dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="16dp"
                     android:textAlignment="center"
                     android:textSize="13sp"
-                    android:background="@color/rating_red"
-                    android:textColor="#FFFFFF"
-                    android:text="张三"
+                    android:textColor="#7D8AA3"
                     app:layout_constraintLeft_toRightOf="@+id/task_title6"
                     app:layout_constraintBottom_toBottomOf="@id/task_title6"/>
 

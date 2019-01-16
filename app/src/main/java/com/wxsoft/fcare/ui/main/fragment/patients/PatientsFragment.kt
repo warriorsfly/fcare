@@ -1,6 +1,5 @@
 package com.wxsoft.emergency.ui.main.fragment.patients
 
-import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

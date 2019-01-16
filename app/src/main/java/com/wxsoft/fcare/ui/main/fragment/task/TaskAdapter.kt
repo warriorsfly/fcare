@@ -10,6 +10,10 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
+import kotlinx.android.synthetic.main.layout_item_assignment.view.*
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: TaskViewModel) :
@@ -30,7 +34,20 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
+            var task  = differ.currentList[position]
+            var patients = differ.currentList[position].patients
+            var names = ""
+            patients.map {
+                names = if (names.equals("")) it.name else names+"  "+it.name
+            }
+            if (patients.size>0){
+                differ.currentList[position].taskPosition = patients[0].attackPosition
+            }
+            if ((task.startAt!=null) && (task.arriveHosAt != null)){
+               root.all_time.setText(getTimeDifference(task.startAt!!,task.arriveHosAt!!))
+            }
 
+            root.parient_name.setText(names)
             setVariable(BR.task, differ.currentList[position])
             setVariable(BR.listener, viewModel)
             setLifecycleOwner(lifecycleOwner)
@@ -68,6 +85,37 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
 
             return oldItem.id == newItem.id
         }
+    }
+
+    fun getTimeDifference(starTime:String , endTime:String ):String{
+        var timeString = ""
+        var dateFormat =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            var parse = dateFormat.parse(starTime);
+            var parse1 = dateFormat.parse(endTime);
+
+            var diff = parse1.getTime() - parse.getTime();
+
+            var day = diff / (24 * 60 * 60 * 1000);
+            var hour = (diff / (60 * 60 * 1000) - day * 24);
+            var min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
+            var s = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+            var ms = (diff - day * 24 * 60 * 60 * 1000 - hour * 60 * 60 * 1000
+                    - min * 60 * 1000 - s * 1000);
+            // System.out.println(day + "天" + hour + "小时" + min + "分" + s +
+            // "秒");
+            var hour1 = diff / (60 * 60 * 1000);
+            var hourString = hour1.toString()
+            var min1 = ((diff / (60 * 1000)) - hour1 * 60);
+            timeString = hour1.toString() + "小时" + min1 + "分";
+            // System.out.println(day + "天" + hour + "小时" + min + "分" + s +
+            // "秒");
+        }catch (e: ParseException){
+            e.printStackTrace()
+        }
+        return timeString;
+
     }
 
 

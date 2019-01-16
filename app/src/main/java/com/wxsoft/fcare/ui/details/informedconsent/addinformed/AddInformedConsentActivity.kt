@@ -107,6 +107,8 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
 
         })
 
+        viewModel.backToLast.observe(this, Observer { onBackPressed() })
+
         viewModel.showVoiceTime.observe(this, Observer {  })
 
 

@@ -36,6 +36,9 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
      */
     var saveAble=true
 
+    val backToLast:LiveData<Boolean>
+    private val initbackToLast = MediatorLiveData<Boolean>()
+
 
     var titleName: String = ""
         set(value) {
@@ -91,6 +94,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     val saveTalkResult =MediatorLiveData<Resource<Response<String>>>()
 
     init {
+        backToLast = initbackToLast.map { it }
         voiceStart = initVoiceStart.map { it }
         showVoiceTime = initShowVoiceTime.map { it }
         clickable=clickResult.map { it }
@@ -109,7 +113,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
 
         if (saveAble){
             saveAble = false
-            bitmaps.add(voicePath)
+            if (voicePath.isNotEmpty()) bitmaps.add(voicePath)
             val files = bitmaps.map {
                 val file = File(it)
                 return@map MultipartBody.Part.createFormData(
@@ -130,6 +134,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
                             clickResult.value = true
                             saveTalkResult.value = it
                             messageAction.value = Event("保存成功")
+                            initbackToLast.value = true
                             saveAble = true
                         }
                         is Resource.Error -> {
@@ -152,6 +157,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
                             clickResult.value = true
                             saveTalkResult.value = it
                             messageAction.value = Event("保存成功")
+                            initbackToLast.value = true
                             saveAble = true
                         }
                         is Resource.Error -> {

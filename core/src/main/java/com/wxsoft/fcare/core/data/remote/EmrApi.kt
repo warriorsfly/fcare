@@ -52,6 +52,10 @@ interface EmrApi{
     @POST("ECG/Diagnosed")
     fun diagnose(@Body diogram: ElectroCardiogram):Maybe<Response<ElectroCardiogram>>
 
+    //病史
+    @GET("MedicalHistory/GetById/{patientId}")
+    fun loadMedicalHistory(@Path("patientId")patientId:String): Maybe<Response<MedicalHistory>>
+
     /***
      * 评分结果列表
      */
