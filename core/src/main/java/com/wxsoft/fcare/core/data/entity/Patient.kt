@@ -87,6 +87,13 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.gender)
         }
 
+    fun setMale(male:Boolean){
+        gender=if(male)1 else 2
+    }
+
+    fun getMale():Boolean{
+       return gender==1
+    }
     @SerializedName("age_Value")
     @get:Bindable
     var age:Int=0

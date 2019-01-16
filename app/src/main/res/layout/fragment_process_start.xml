@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <!--<data>-->
-        <!--<variable name="viewModel"-->
-                  <!--type="com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel"/>-->
-    <!--</data>-->
+    <data>
+        <variable name="viewModel"
+                  type="com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel"/>
+    </data>
 
     <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
                  xmlns:tools="http://schemas.android.com/tools"
@@ -22,6 +22,7 @@
 
         <TextView
                 android:id="@+id/goTo"
+                goneUnless="@{viewModel.task.status==1}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"

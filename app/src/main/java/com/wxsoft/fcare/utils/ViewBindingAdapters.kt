@@ -106,3 +106,14 @@ object Converter{
         return if(value.isEmpty()) 0 else value.toInt()
     }
 }
+
+object LongConverter{
+    @InverseMethod("stringToLong")
+    @JvmStatic fun longToString(value: Long): String {
+        return if(value==0L) "0"  else value.toString()
+    }
+
+    @JvmStatic fun stringToLong(value:String): Long {
+        return if(value.isEmpty()) 0L else value.toLong()
+    }
+}

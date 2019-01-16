@@ -32,12 +32,6 @@ data class Task (val id:String): BaseObservable(){
 
     @get:Bindable
     var arriveAt: String? = ""
-//        get() {
-//            if (field == null)
-//                return field
-//
-//            return field?.substring(11,16)
-//        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.arriveAt)

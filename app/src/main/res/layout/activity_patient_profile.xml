@@ -251,17 +251,31 @@
                         android:layout_marginLeft="15dp"
                         android:layout_height="wrap_content"/>
 
-                <TextView
+                <RadioGroup
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toRightOf="@id/title6"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:hint="请选择病人性别"
+                        android:orientation="horizontal"
                         android:textSize="14sp"
-                        android:layout_marginRight="15dp"
+                        android:layout_height="wrap_content">
+                    <RadioButton
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="right|center_vertical"/>
+                        android:text="男"
+                        android:id="@+id/male"
+                        android:checked="@={viewModel.patient.male}"/>
+
+                    <RadioButton
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="女"
+                            android:id="@+id/female"/>
+
+
+                    />
+                </RadioGroup>
             </android.support.constraint.ConstraintLayout>
 
             <android.support.constraint.ConstraintLayout

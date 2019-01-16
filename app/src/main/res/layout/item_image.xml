@@ -11,6 +11,7 @@
             android:scaleType="centerCrop"
             android:layout_width="80dp"
             android:background="@drawable/ic_big_add"
+            android:src="@drawable/ic_big_add"
             app:imageUri="@{uri}"
             android:layout_height="80dp"/>
 </layout>
