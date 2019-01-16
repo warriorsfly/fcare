@@ -7,32 +7,30 @@ import com.wxsoft.fcare.core.BR
 data class InformedConsent(val id:String) : BaseObservable() {
 
     @Bindable
-    var patientId: String = ""
+    var name: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.patientId)
+            notifyPropertyChanged(BR.name)
         }
 
     @Bindable
-    var checked: Boolean = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.checked)
-        }
+        var informedType: Int = 0
+            set(value) {
+                field = value
+                notifyPropertyChanged(BR.informedType)
+            }
 
     @Bindable
-    var spand: Boolean = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.spand)
-        }
+        var content: String = ""
+            set(value) {
+                field = value
+                notifyPropertyChanged(BR.content)
+            }
 
 
-    fun select(){
-        spand = !spand
-    }
 
-    fun checkedItem(){
-        checked = !checked
-    }
+
+
+
+
 }

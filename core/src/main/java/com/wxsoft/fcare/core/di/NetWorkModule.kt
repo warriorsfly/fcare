@@ -146,4 +146,10 @@ class NetWorkModule {
         return retrofit.create(ECGApi::class.java)
     }
 
+    @Provides
+    fun provideInformedApi(retrofit: Retrofit):InformedApi{
+
+        return retrofit.create(InformedApi::class.java)
+    }
+
 }

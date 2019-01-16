@@ -7,6 +7,8 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.InformedConsent
+import com.wxsoft.fcare.core.data.entity.Talk
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityInformedConsentBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -43,21 +45,30 @@ class InformedConsentActivity : BaseActivity()  {
         back.setOnClickListener { onBackPressed() }
 
         var adapter = InformedConsentAdapter(this,viewModel)
+        viewModel.talkRecords.observe(this, Observer { it -> adapter.items = it ?: emptyList() })
         binding.informedList.adapter = adapter
 
-        viewModel.addInformedConsent.observe(this, Observer {
+        viewModel.getTalkRecords(patientId)
+        viewModel.getInformedConsents()
 
-            val list = arrayOf("溶栓术前知情同意书","PCI术前知情同意书")
-            val dialog = AlertDialog.Builder(this@InformedConsentActivity)
-            dialog.setTitle("选择知情同意书")
-                .setItems(list, DialogInterface.OnClickListener { _, i ->
-                    toAddInformed(list.get(i))
-                })
-                .create().show()
+        viewModel.informeds.observe(this, Observer {  })
+
+        viewModel.addInformedConsent.observe(this, Observer {
+            if (viewModel.informeds.value != null){
+                //            val list = arrayOf("溶栓术前知情同意书","PCI术前知情同意书")
+                val list = viewModel.informeds.value!!.map { it.name }?.toTypedArray()
+                val dialog = AlertDialog.Builder(this@InformedConsentActivity)
+                dialog.setTitle("选择知情同意书")
+                    .setItems(list, DialogInterface.OnClickListener { _, i ->
+                        toAddInformed(viewModel.informeds.value!!.get(i))
+                    })
+                    .create().show()
+            }
+
         })
 
-        viewModel.seeInformedConsent.observe(this, Observer {
-            toDetails()
+        viewModel.talk.observe(this, Observer {
+            toDetails(it!!)
         })
 
 
@@ -65,17 +76,24 @@ class InformedConsentActivity : BaseActivity()  {
     }
 
 
-    fun toAddInformed(name:String){//新增知情同意书
+    fun toAddInformed(informed: InformedConsent){//新增知情同意书
         var intent = Intent(this, AddInformedConsentActivity::class.java)
         intent.putExtra(AddInformedConsentActivity.PATIENT_ID,patientId)
-        intent.putExtra(AddInformedConsentActivity.TITLE_NAME,name)
+        intent.putExtra(AddInformedConsentActivity.TITLE_NAME,informed.name)
+        intent.putExtra(AddInformedConsentActivity.TITLE_CONTENT,informed.content)
+        intent.putExtra(AddInformedConsentActivity.INFORMED_ID,informed.id)
         startActivity(intent)
     }
 
-    fun toDetails(){//知情同意书详情页
+    fun toDetails(talk:Talk){//知情同意书详情页
         var intent = Intent(this, InformedConsentDetailsActivity::class.java)
         intent.putExtra(InformedConsentDetailsActivity.PATIENT_ID,patientId)
+        intent.putExtra(InformedConsentDetailsActivity.TALK_ID,talk.id)
+        intent.putExtra(InformedConsentDetailsActivity.TALK_NAME,talk.informedConsentName)
+        intent.putExtra(InformedConsentDetailsActivity.INFORMED_ID,talk.informedConsentId)
         startActivity(intent)
     }
+
+
 
 }
