@@ -126,7 +126,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     root.setOnClickListener {
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
-                val presenter = differ.currentList[position] as VitalSign
+                val presenter = differ.currentList[position].result as VitalSign
                 vital = presenter
                 visiable= position<differ.currentList.size-1
             }
@@ -171,7 +171,6 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             is Patient -> R.layout.item_emr_profile
             is ElectroCardiogram -> R.layout.item_emr_ecg
             is MedicalHistory -> R.layout.item_emr_medical_history
-            is CheckBody->R.layout.item_emr_none
             is VitalSign->R.layout.item_emr_vital_signs
             is CheckBody->R.layout.item_emr_simple_string
             is List<*> ->{
@@ -208,9 +207,6 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 result1 is MedicalHistory && result2 is MedicalHistory ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
-                result1 is CheckBody && result2 is CheckBody ->
-                    result1.id == result2.id && oldItem.code == newItem.code
-
                 result1 is VitalSign && result2 is VitalSign ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
@@ -228,9 +224,6 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     oldItem.code == newItem.code
 
                 result1 is Patient && result2 is Patient ->
-                    result1.id == result2.id && oldItem.code == newItem.code
-
-                result1 is CheckBody && result2 is CheckBody ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
@@ -281,7 +274,7 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
         val binding: ItemEmrMedicalHistoryBinding
     ): ItemViewHolder(binding)
 
-    //病史
+    //生命体征
     class VitalViewHolder(
         val binding: ItemEmrVitalSignsBinding
     ): ItemViewHolder(binding)

@@ -59,7 +59,7 @@ data class CheckBody (val id:String): BaseObservable(){
         }
 
     @Bindable
-    var createdDate: String = ""
+    var createdDate: String = "0001-01-01 00:00:00"
         set(value) {
             field = value
             notifyPropertyChanged(BR.createdDate)
