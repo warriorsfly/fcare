@@ -52,14 +52,14 @@ class InformedConsentDetailsActivity : BaseActivity() {
         viewModel.getTalkById(talkId)
         viewModel.getInformedConsentById(informedId)
 
-        adapter = InformedDetailsAdapter(this,10)
-        binding.attachments.adapter = adapter
-
-        viewModel.talk.observe(this, Observer {
-            if (it != null){
-                adapter.remotes = it.attachments.map { it.httpUrl }
-            }
-        })
+//        adapter = InformedDetailsAdapter(this,10)
+//        binding.attachments.adapter = adapter
+//
+//        viewModel.talk.observe(this, Observer {
+//            if (it != null){
+//                adapter.remotes = it.attachments.map { it.httpUrl }
+//            }
+//        })
 
 
     }

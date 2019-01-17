@@ -7,6 +7,7 @@ import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
@@ -46,7 +47,13 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
             if ((task.startAt!=null) && (task.arriveHosAt != null)){
                root.all_time.setText(getTimeDifference(task.startAt!!,task.arriveHosAt!!))
             }
-
+            when(task.status){
+                1->root.status_image.setImageResource(R.drawable.ic_task_status_start)
+                2->root.status_image.setImageResource(R.drawable.ic_task_status_arrived)
+                3->root.status_image.setImageResource(R.drawable.ic_task_status_tuch_patient)
+                4->root.status_image.setImageResource(R.drawable.ic_task_status_back)
+                5->root.status_image.setImageResource(R.drawable.ic_task_status_end)
+            }
             root.parient_name.setText(names)
             setVariable(BR.task, differ.currentList[position])
             setVariable(BR.listener, viewModel)

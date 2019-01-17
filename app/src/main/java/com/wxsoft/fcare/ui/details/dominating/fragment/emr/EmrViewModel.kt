@@ -124,6 +124,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({
                             history->
+                        history?.result ?: return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.result=history?.result?: MedicalHistory("")
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.IllnessHistory }
@@ -136,6 +137,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({
                             diagnose->
+                        diagnose?.result ?: return@subscribe
                         loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.result=diagnose?.result?: Diagnosis("")
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.院前诊断 }
@@ -146,7 +148,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                         messageAction.value = Event(it.message ?: "")
                     })
 
-
+                refreshVitals()
 
                 refreshRating()
 
@@ -235,6 +237,22 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 })
 
         }
+    }
+
+    fun refreshVitals(){
+        emrApi.getVitals(patientId).subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    vitals->
+                if (vitals.isNullOrEmpty()) return@subscribe
+                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vitals?.get(0)?: VitalSign("")
+                val index =
+                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.生命体征 }
+                index?.let { index ->
+                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+                }
+            }, {
+                messageAction.value = Event(it.message ?: "")
+            })
     }
 
     fun refreshRating(){
