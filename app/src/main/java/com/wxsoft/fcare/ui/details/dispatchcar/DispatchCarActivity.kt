@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -70,7 +71,13 @@ class DispatchCarActivity : BaseActivity() {
                 toDetail(it)
                 finish()
             }
+
         })
+        viewModel.haveSelectCar.observe(this, Observer {
+            Toast.makeText(this@DispatchCarActivity, "请先选择车辆", Toast.LENGTH_SHORT).show()
+
+        })
+
     }
 
 

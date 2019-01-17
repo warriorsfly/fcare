@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.widget.Toast
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -57,7 +58,12 @@ class DispatchCarViewModel @Inject constructor(
     val navigateToOperationAction: LiveData<Event<String>>
         get() = _navigateToOperationAction
 
+    val haveSelectCar:LiveData<Boolean>
+    private val initHaveSelectCar = MediatorLiveData<Boolean>()
+
+
     init {
+        haveSelectCar = initHaveSelectCar.map { it }
         clickable = clickResult.map { it }
         val s = sharedPreferenceStorage.userInfo!!
         account = gon.fromJson(s, Account::class.java)
@@ -152,7 +158,12 @@ class DispatchCarViewModel @Inject constructor(
         staffs.addAll(nstaff)
         staffs.addAll(drtaff)
         task.value?.taskStaffs = staffs.toTypedArray()
-        task.value?.carId = selectedCar.id
+        if (selectedCar.id.isNullOrEmpty()){
+            initHaveSelectCar.value = true
+            return
+        }else{
+            task.value?.carId = selectedCar.id
+        }
         saveTask()
     }
 
