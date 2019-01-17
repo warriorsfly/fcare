@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.details.checkbody
 
 import android.arch.lifecycle.Observer
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.MenuItem
@@ -47,7 +48,12 @@ class CheckBodyActivity : BaseActivity()  {
         binding.checkList.adapter = adapter
         viewModel.checkBody.observe(this, Observer {  })
 
-        viewModel.backToLast.observe(this, Observer { onBackPressed() })
+        viewModel.backToLast.observe(this, Observer {
+            Intent().let { intent->
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        })
     }
 
 

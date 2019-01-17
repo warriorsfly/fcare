@@ -1,11 +1,16 @@
 package com.wxsoft.fcare.ui.details.informedconsent
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.arch.lifecycle.Observer
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.WindowManager
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.entity.Talk
@@ -55,7 +60,6 @@ class InformedConsentActivity : BaseActivity()  {
 
         viewModel.addInformedConsent.observe(this, Observer {
             if (viewModel.informeds.value != null){
-                //            val list = arrayOf("溶栓术前知情同意书","PCI术前知情同意书")
                 val list = viewModel.informeds.value!!.map { it.name }?.toTypedArray()
                 val dialog = AlertDialog.Builder(this@InformedConsentActivity)
                 dialog.setTitle("选择知情同意书")
@@ -64,16 +68,14 @@ class InformedConsentActivity : BaseActivity()  {
                     })
                     .create().show()
             }
-
         })
 
         viewModel.talk.observe(this, Observer {
             toDetails(it!!)
         })
 
-
-
     }
+
 
 
     fun toAddInformed(informed: InformedConsent){//新增知情同意书

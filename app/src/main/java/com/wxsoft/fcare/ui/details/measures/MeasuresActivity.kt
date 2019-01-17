@@ -59,7 +59,10 @@ class MeasuresActivity : BaseActivity()  {
         viewModel.measure.observe(this, Observer {  })
 
         viewModel.resultString.observe(this, Observer {
-            onBackPressed()
+            Intent().let { intent->
+                setResult(RESULT_OK, intent);
+                finish();
+            }
         })
 
     }

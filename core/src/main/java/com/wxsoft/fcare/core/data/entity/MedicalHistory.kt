@@ -2,6 +2,7 @@ package com.wxsoft.fcare.core.data.entity
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable
+import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
 data class MedicalHistory(val id:String): BaseObservable() {
@@ -39,6 +40,14 @@ data class MedicalHistory(val id:String): BaseObservable() {
         set(value) {
             field=value
             notifyPropertyChanged(BR.ph)
+        }
+
+    @Bindable
+    @SerializedName("pH_Name")
+    var phName:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.phName)
         }
 
     @Bindable

@@ -15,6 +15,7 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -59,7 +60,12 @@ class MedicalHistoryActivity : BaseActivity() {
             checkPhotoTaking()
         })
 
-        viewModel.backToLast.observe(this, Observer { onBackPressed() })
+        viewModel.backToLast.observe(this, Observer {
+            Intent().let { intent->
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        })
     }
 
 
@@ -91,14 +97,16 @@ class MedicalHistoryActivity : BaseActivity() {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
         if (CAMERA_PIC_REQUEST == requestCode) {
             val photo = data?.extras?.get("data") as Bitmap
 
             viewModel.photos.add(photo)
 //            adapter.photoAdapter.locals= viewModel.photos.toList()
         }
+
     }
 
     private fun showPhotoTaking(){

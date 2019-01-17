@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.details.diagnose
 import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.content.DialogInterface
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import com.wxsoft.fcare.R
@@ -67,7 +68,12 @@ class DiagnoseActivity : BaseActivity() {
 
         viewModel.diagnosis.observe(this, Observer {  })
 
-        viewModel.backToLast.observe(this, Observer { onBackPressed() })
+        viewModel.backToLast.observe(this, Observer {
+            Intent().let { intent->
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        })
 
     }
 

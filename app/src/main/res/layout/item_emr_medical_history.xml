@@ -79,7 +79,7 @@
 
                 <TextView
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/medical_cc"
+                        app:layout_constraintBottom_toBottomOf="@id/title"
                         android:layout_width="14dp"
                         android:layout_height="24dp"
                         android:layout_marginRight="4dp"
@@ -104,7 +104,6 @@
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
                         android:text="主诉"
-                        android:layout_marginLeft="17dp"
                         android:layout_marginTop="17dp"
                         android:textColor="#9399A4"
                         app:layout_constraintLeft_toLeftOf="@id/title"
@@ -165,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
                         tools:text="心脏病"
-                        android:text="@{medhistory.ah}"
+                        android:text="@{medhistory.phName}"
                         android:layout_marginLeft="80dp"
                         android:textColor="#000"
                         app:layout_constraintLeft_toLeftOf="parent"

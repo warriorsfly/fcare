@@ -73,6 +73,11 @@ class EmrFragment : DaggerFragment() {
         private const val ARG_PREHOS = "arg.prehos"
         const val ARG_NEW_ITEM = "arg.new_item"
         const val ARG_NEW_ITEM_CODE = 20
+        const val MEDICAL_HISTORY_CODE = 30
+        const val VITAL_SIGNS = 40
+        const val CHECK_BODY = 50
+        const val DIAGNOSE = 60
+        const val MEASURES = 70
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -172,25 +177,25 @@ class EmrFragment : DaggerFragment() {
                     var intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {
                         putExtra(VitalSignsActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, VITAL_SIGNS)
                 }
                 ActionRes.ActionType.PhysicalExamination->{
                     var intent = Intent(context.get()?.activity, CheckBodyActivity::class.java).apply {
                         putExtra(CheckBodyActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, CHECK_BODY)
                 }
                 ActionRes.ActionType.IllnessHistory->{
                     var intent = Intent(context.get()?.activity, MedicalHistoryActivity::class.java).apply {
                         putExtra(MedicalHistoryActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, MEDICAL_HISTORY_CODE)
                 }
                 ActionRes.ActionType.DispostionMeasures->{
                     var intent = Intent(context.get()?.activity, MeasuresActivity::class.java).apply {
                         putExtra(MeasuresActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, MEASURES)
                 }
                 ActionRes.ActionType.给药 ->{
                     var intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
@@ -208,7 +213,7 @@ class EmrFragment : DaggerFragment() {
                     var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, DIAGNOSE)
                 }
 
             }
@@ -326,6 +331,22 @@ class EmrFragment : DaggerFragment() {
                 EmrFragment.ARG_NEW_ITEM_CODE -> {
                     viewModel.refreshRating()
                 }
+                EmrFragment.MEDICAL_HISTORY_CODE -> {
+                    viewModel.refreshMedicalHistory()
+                }
+                EmrFragment.VITAL_SIGNS -> {
+                    viewModel.refreshVitals()
+                }
+                EmrFragment.CHECK_BODY -> {
+                    viewModel.refreshChekBody()
+                }
+                EmrFragment.DIAGNOSE -> {
+                    viewModel.refreshDiagnose()
+                }
+                EmrFragment.MEASURES -> {
+                    viewModel.refreshMeasure()
+                }
+
             }
         }
 

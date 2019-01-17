@@ -86,27 +86,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     }, {
                         messageAction.value = Event(it.message ?: "")
                     })
-                //PhysicalExamination
-                emrApi.getBodyCheck(patientId)
-                    .subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
-                        check?.result ?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
-                            item->
-                            item.result=check?.result
-                            if(!item.done){
-                                item.done=true
-                                item.completedAt=check?.result?.createdDate
-                            }
-                        }
-                        val index =
-                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }
-                        index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.PhysicalExamination))
-                        }
-                    }, {
-                        messageAction.value = Event(it.message ?: "")
-                    })
+
 
                 emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
@@ -121,38 +101,20 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     },{
                         messageAction.value= Event(it.message?:"")
                     })
-                emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe({
-                            history->
-                        history?.result ?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.result=history?.result?: MedicalHistory("")
-                        val index =
-                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.IllnessHistory }
-                        index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.IllnessHistory))
-                        }
-                    }, {
-                        messageAction.value = Event(it.message ?: "")
-                    })
-                emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread()).subscribe({
-                            diagnose->
-                        diagnose?.result ?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.result=diagnose?.result?: Diagnosis("")
-                        val index =
-                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.院前诊断 }
-                        index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.院前诊断))
-                        }
-                    }, {
-                        messageAction.value = Event(it.message ?: "")
-                    })
+
+
+
+                refreshMedicalHistory()
 
                 refreshVitals()
 
                 refreshRating()
 
                 refreshMeasure()
+
+                refreshDiagnose()
+
+                refreshChekBody()
             }
     }
 
@@ -237,6 +199,62 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 })
 
         }
+    }
+
+    fun refreshDiagnose(){
+        emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    diagnose->
+                diagnose?.result ?: return@subscribe
+                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.result=diagnose?.result?: Diagnosis("")
+                val index =
+                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.院前诊断 }
+                index?.let { index ->
+                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.院前诊断))
+                }
+            }, {
+                messageAction.value = Event(it.message ?: "")
+            })
+    }
+
+    fun refreshChekBody(){
+        //PhysicalExamination
+        emrApi.getBodyCheck(patientId)
+            .subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
+                check?.result ?: return@subscribe
+                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
+                        item->
+                    item.result=check?.result
+                    if(!item.done){
+                        item.done=true
+                        item.completedAt=check?.result?.createdDate
+                    }
+                }
+                val index =
+                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }
+                index?.let { index ->
+                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.PhysicalExamination))
+                }
+            }, {
+                messageAction.value = Event(it.message ?: "")
+            })
+    }
+
+    fun refreshMedicalHistory(){
+        emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe({
+                    history->
+                history?.result ?: return@subscribe
+                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.result=history?.result?: MedicalHistory("")
+                val index =
+                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.IllnessHistory }
+                index?.let { index ->
+                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.IllnessHistory))
+                }
+            }, {
+                messageAction.value = Event(it.message ?: "")
+            })
     }
 
     fun refreshVitals(){
