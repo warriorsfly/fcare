@@ -119,7 +119,7 @@ class DispatchCarViewModel @Inject constructor(
 
     }
     fun selectCar(car:Car){
-        if (car.status == 1){
+        if (car.status.equals("203-1")){
             if (!car.id.equals(selectedCar.id)){
                 selectedCar.selectStatus = !selectedCar.selectStatus
                 car.selectStatus = !car.selectStatus

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="task" type="com.wxsoft.fcare.core.data.entity.Task"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.EventActions"/>
@@ -155,13 +155,15 @@
 
             <TextView
                     android:id="@+id/parient_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="16dp"
-                    android:textAlignment="center"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:textSize="13sp"
+                    tools:text="张三"
                     android:textColor="#7D8AA3"
                     app:layout_constraintLeft_toRightOf="@+id/task_title6"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title6"/>
+                    app:layout_constraintTop_toTopOf="@+id/task_title6"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                     android:id="@+id/status_image"
@@ -170,7 +172,7 @@
                     android:layout_marginRight="5dp"
                     android:src="@drawable/ic_markact"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/task_title2"/>
+                    app:layout_constraintBottom_toBottomOf="@+id/task_title5"/>
 
 
         </android.support.constraint.ConstraintLayout>

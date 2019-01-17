@@ -16,7 +16,7 @@ data class Car(var id:String,
 
     @SerializedName("statu")
     @get:Bindable
-    var status: Int = 0
+    var status: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.status)
