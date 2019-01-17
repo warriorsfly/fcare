@@ -21,7 +21,7 @@
                     android:padding="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/search"
+                    android:id="@+id/search_placeholder"
                     app:strokeColor="@color/light_gray"
                     android:layout_marginLeft="22dp"
                     android:layout_marginRight="22dp"
@@ -31,27 +31,26 @@
                     app:cardElevation="4dp"
                     app:cardCornerRadius="6dp">
             <android.support.v7.widget.SearchView
-
-
+                    android:id="@+id/search"
                     android:layout_width="match_parent"
                     app:queryHint="请输入患者姓名"
                     app:queryBackground="@null"
                     app:iconifiedByDefault="false"
-                    android:layout_height="wrap_content">
-            </android.support.v7.widget.SearchView>
+                    android:layout_height="wrap_content"/>
 
             </android.support.design.card.MaterialCardView>
 
+            <!--app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"-->
+            <!--app:refreshing="@{viewModel.isLoading}"-->
             <android.support.v4.widget.SwipeRefreshLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_marginTop="12dp"
-                    app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"
-                    app:refreshing="@{viewModel.isLoading}"
+
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/search">
+                    app:layout_constraintTop_toBottomOf="@id/search_placeholder">
                 <android.support.v7.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

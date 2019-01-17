@@ -2,51 +2,39 @@ package com.wxsoft.emergency.ui.main.fragment.patients
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Transformations.map
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
-import com.wxsoft.fcare.core.data.remote.PatientApi
-import com.wxsoft.fcare.core.data.toResource
-import com.wxsoft.fcare.core.result.Event
-import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.map
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import com.wxsoft.fcare.utils.switchMap
 import javax.inject.Inject
 
-class PatientsViewModel @Inject constructor(private val api: PatientApi,
+class PatientsViewModel @Inject constructor(private val repository: IPatientRepository,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
                                             override val gon: Gson
 ):  BaseViewModel(sharedPreferenceStorage,gon) {
 
-    val isLoading: LiveData<Boolean>
-    val patients: LiveData<List<Patient>>
-    private val loadPatientsResult= MediatorLiveData<Resource<Response<List<Patient>>>>()
+    private val patientName = MediatorLiveData<String>()
 
-    init {
-
-        load()
-        isLoading=loadPatientsResult.map { it== Resource.Loading }
-
-        patients = loadPatientsResult.map {(it as? Resource.Success)?.data?.result?: emptyList()}
-
+    private val patientResult = patientName.map{
+        repository.getPatients(it, 10)
     }
 
-    fun onSwipeRefresh() {
-        load()
+    val patients = patientResult.switchMap {
+        it.pagedList
+    }
+    val networkState = patientResult.switchMap {
+        it.networkState
     }
 
-    private fun load() {
-
-        api.patients().toResource()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { loadPatientsResult.value = it }
+    fun showPatients(name: String): Boolean {
+        if (patientName.value == name) {
+            return false
+        }
+        patientName.value = name
+        return true
     }
-
-
-
 }

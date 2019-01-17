@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.EmrItem
+import com.wxsoft.fcare.core.data.entity.Page
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
@@ -14,7 +15,7 @@ interface PatientApi{
     fun patients():Maybe<Response<List<Patient>>>
 
     @GET("Patient/GetPaged/{keyWord}/{pageIndex}/{pageSize}")
-    fun getPagedPatients(@Path("keyWord") keyword:String, @Path("pageIndex")index:Int, @Path("pageSize")size:Int):Maybe<List<Patient>>
+    fun getPagedPatients(@Path("keyWord") keyword:String, @Path("pageIndex")index:Int, @Path("pageSize")size:Int):Maybe<Page<Patient>>
 
     @GET("Patient/GetById/{id}")
     fun getOne(@Path("id")id:String):Single<Response<Patient>>

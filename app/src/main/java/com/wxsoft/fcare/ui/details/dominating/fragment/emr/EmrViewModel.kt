@@ -203,32 +203,35 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
 
         item?.let {
-            emrApi.saveEcg(it,files).subscribeOn(Schedulers.single())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+            emrApi.saveEcg(it, files)
+                .subscribeOn(Schedulers.single())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
 
-                    emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
-                        .observeOn(AndroidSchedulers.mainThread()).subscribe ({
-                                check->
-                            check  ?: return@subscribe
-                            loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.心电图}?.let {
-                                emr->
-                                emr.result=check?.result
-                                emr.done =true
-                                emr.completedAt=check?.result?.time
-                            }
-                            val index=loadEmrResult.value?.result?.indexOfFirst { emr->emr.code==ActionRes.ActionType.心电图}
+                    emrApi.getEcgs(patientId)
+                        .subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe({ check ->
+                            check ?: return@subscribe
+                            loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                                ?.let { emr ->
+                                    emr.result = check?.result
+                                    emr.done = true
+                                    emr.completedAt = check?.result?.time
+                                }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
                             index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index,ActionRes.ActionType.心电图))
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
                             }
-                        },{
-                            messageAction.value= Event(it.message?:"")
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
                         })
 
-                },{
-                    throwable->
+                }, { throwable ->
 
-                    it.savable=true
-                    messageAction.value= Event(throwable.message?:"")
+                    it.savable = true
+                    messageAction.value = Event(throwable.message ?: "")
                 })
 
         }

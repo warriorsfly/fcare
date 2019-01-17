@@ -5,6 +5,8 @@ import com.wxsoft.fcare.core.BuildConfig
 import com.wxsoft.fcare.core.data.remote.*
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
+import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
+import com.wxsoft.fcare.core.domain.repository.patients.PageKeyPatientRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -150,6 +152,11 @@ class NetWorkModule {
     fun provideInformedApi(retrofit: Retrofit):InformedApi{
 
         return retrofit.create(InformedApi::class.java)
+    }
+
+    @Provides
+    fun providePatientRepository(patientApi: PatientApi):IPatientRepository{
+        return PageKeyPatientRepository(patientApi)
     }
 
 }

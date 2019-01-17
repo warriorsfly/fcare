@@ -124,9 +124,8 @@ class EmrFragment : DaggerFragment() {
         adapter.pictureAdapter.setActionListener(photoAction)
         binding.list.adapter=adapter
 
-        viewModel.patientId=patientId
-
         viewModel.preHos=preHos
+        viewModel.patientId=patientId
 
         viewModel.emrs.observe(this, Observer {
             //    binding.list?.clearDecorations()

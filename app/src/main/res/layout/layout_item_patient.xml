@@ -62,7 +62,7 @@
 					android:textSize="12dp"
 					tools:text="急救中"
 					android:textColor="@android:color/holo_red_light"
-					android:text="@{String.valueOf(patient.symptom)}"
+
 					app:layout_constraintBottom_toBottomOf="@id/patient_name"
 					app:layout_constraintRight_toRightOf="parent"/>
 

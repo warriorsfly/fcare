@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.core.data.entity
 
-import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
-import android.databinding.*
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
@@ -61,23 +61,15 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.idcard)
         }
 
-    /**
-     * 01.卒中、02.胸痛
-     */
-    @SerializedName("symptom_Code")
+//    /**
+//     * 01.卒中、02.胸痛
+//     */
     @get:Bindable
-    var symptom:String?=null
-        get() {
-            return when(field){
-                "01"->"卒中"
-                "02"->"胸痛"
-                null->""
-                else->"其他"
-            }
-        }
+    var firstMet:String?=null
+
         set(value) {
             field = value
-            notifyPropertyChanged(BR.symptom)
+            notifyPropertyChanged(BR.firstMet)
         }
 
     @get:Bindable
@@ -182,12 +174,12 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.helpCode)
         }
 
-    @SerializedName("is_Source")
+    @SerializedName("Diagnosis_Code")
     @get:Bindable
-    var source: Boolean=false
+    var diagnosisCode: Boolean=false
         set(value) {
             field = value
-            notifyPropertyChanged(BR.source)
+            notifyPropertyChanged(BR.diagnosisCode)
         }
 
 
