@@ -206,7 +206,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     diagnose->
                 diagnose?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.result=diagnose?.result?: Diagnosis("")
+                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.let {
+                    item->
+                    item.result=diagnose?.result
+                    if(!item.done){
+                        item.done=true
+                        item.completedAt=diagnose?.result?.createdDate
+                    }
+                }
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.院前诊断 }
                 index?.let { index ->
@@ -246,7 +253,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     history->
                 history?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.result=history?.result?: MedicalHistory("")
+                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.let {
+                    item->
+                    item.result=history.result
+                    if(!item.done){
+                        item.done=true
+                        item.completedAt=history?.result?.createdDate
+                    }
+                }
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.IllnessHistory }
                 index?.let { index ->
@@ -262,7 +276,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     vitals->
                 if (vitals.isNullOrEmpty()) return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.result=vitals?.get(0)?: VitalSign("")
+                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.let {
+                    item->
+                    item.result=vitals.get(0)
+                    if(!item.done){
+                        item.done=true
+                        item.completedAt=vitals?.get(0)?.createdDate
+                    }
+                }
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.生命体征 }
                 index?.let { index ->
@@ -293,8 +314,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
                 rating?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.result =
-                        rating?.result
+                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
+                    item->
+                    item.result=rating.result
+                    if(!item.done){
+                        item.done=true
+                        item.completedAt=rating?.result?.createdDate
+                    }
+                }
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }
                 index?.let { index ->
