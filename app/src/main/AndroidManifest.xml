@@ -48,8 +48,8 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name=".ui.details.thrombolysis.ThrombolysisActivity">
-        </activity>
+        <activity android:name=".ui.details.thrombolysis.ThrombolysisActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.patient.PatientEmrActivity"
                 android:label="@string/title_activity_patient_emr"

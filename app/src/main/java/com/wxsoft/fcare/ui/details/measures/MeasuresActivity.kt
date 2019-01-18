@@ -79,7 +79,7 @@ class MeasuresActivity : BaseActivity()  {
                 if (item.id.equals("212-5")){//用药
                     toPharmacy()
                 }else if(item.id.equals("212-6")){//溶栓
-
+                    toThrombolysis()
                 }
 
             })
