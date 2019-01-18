@@ -84,6 +84,17 @@ fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
     viewPager.pageMargin = pageMargin.toInt()
 }
 
+@BindingAdapter("diagnosisCode")
+fun diagnosisCode(textView: TextView, diagnosisCode: String) {
+    when(diagnosisCode){
+        "215-1"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        "215-2"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        "215-3"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        "215-4"->textView.setBackgroundResource(R.drawable.ic_diagnosis4)
+        "215-5"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
+    }
+}
+
 @BindingAdapter(value = ["imageUri"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: Uri?) {
 
@@ -99,7 +110,7 @@ fun setImageUrl(imageView: ImageView, url: String?) {
 object Converter{
     @InverseMethod("stringToInt")
     @JvmStatic fun intToString(value: Int): String {
-        return if(value==0) ""  else value.toString()
+        return value.toString()
     }
 
     @JvmStatic fun stringToInt(value:String): Int {

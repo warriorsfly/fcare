@@ -6,6 +6,8 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -35,11 +37,14 @@ import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
+import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_patient_profile.*
+import kotlinx.android.synthetic.main.fragment_assignment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.File
+import java.util.*
 import javax.inject.Inject
 
 
@@ -129,6 +134,10 @@ class ProfileActivity : BaseActivity() {
             }
 
         })
+
+        attack_button.setOnClickListener {
+            selectTime()
+        }
 
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
     }
@@ -316,6 +325,20 @@ class ProfileActivity : BaseActivity() {
                 start()
             }
         }
+    }
+
+    fun selectTime() {
+        var ca = Calendar.getInstance()
+        var mYear = ca.get(Calendar.YEAR)
+        var mMonth = ca.get(Calendar.MONTH)
+        var mDay = ca.get(Calendar.DAY_OF_MONTH)
+        var mHour = ca.get(Calendar.HOUR)
+        var mMinute = ca.get(Calendar.MINUTE)
+        TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+            viewModel.patient.value?.attackZone = "$mYear-" + DateTimeUtils.frontCompWithZore(mMonth + 1, 2) +
+                    "-" + DateTimeUtils.frontCompWithZore(mDay, 2) + " " +
+                    String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute)+":00"
+        }, mHour, mMinute, true).show()
     }
 
 }

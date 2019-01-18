@@ -22,7 +22,6 @@
 			android:id="@+id/container"
 			android:background="?attr/selectableItemBackground"
 			android:layout_width="match_parent"
-			android:padding="10dp"
 			android:layout_height="wrap_content">
 
 			<TextView
@@ -35,7 +34,7 @@
 				android:textSize="16dp"
 				tools:text="老王"
 				android:text="@{patient.name}"
-
+				android:textStyle="bold"
 				app:layout_constraintLeft_toLeftOf="parent"
 				app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,14 +55,19 @@
 					android:id="@+id/patient_state"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:layout_marginStart="@dimen/activity_horizontal_margin"
-					android:layout_marginLeft="@dimen/activity_horizontal_margin"
-					android:layout_marginTop="@dimen/spacing_normal"
+					android:layout_marginEnd="@dimen/activity_horizontal_margin"
+					android:layout_marginRight="@dimen/activity_horizontal_margin"
 					android:textSize="12dp"
 					tools:text="急救中"
-					android:textColor="@android:color/holo_red_light"
 
-					app:layout_constraintBottom_toBottomOf="@id/patient_name"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:paddingTop="3dp"
+					android:paddingBottom="3dp"
+					app:diagnosisCode="@{patient.diagnosisCode}"
+					android:textColor="@android:color/white"
+					android:text="@{patient.diagnosisName}"
+					app:layout_constraintTop_toTopOf="parent"
 					app:layout_constraintRight_toRightOf="parent"/>
 
             <TextView
@@ -96,24 +100,42 @@
 					app:layout_constraintLeft_toRightOf="@id/line1"
 					app:layout_constraintTop_toTopOf="@id/line1"/>
 
-			<View
-					android:layout_width="0.5dp"
-					android:layout_height="0dp"
-					android:background="@color/dark_gray"
-					android:id="@+id/line2"
-					app:layout_constraintLeft_toRightOf="@id/age"
-					app:layout_constraintTop_toTopOf="@id/age"
-					app:layout_constraintBottom_toBottomOf="@id/age"/>
 
 			<TextView
-					android:id="@+id/attack_address"
+					android:id="@+id/lin1"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
+					android:text="发病时间："
+					android:layout_marginTop="8dp"
+					app:layout_constraintLeft_toLeftOf="@id/patient_name"
+					app:layout_constraintTop_toBottomOf="@id/line1" />
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@{patient.attackZone}"
 					android:layout_marginLeft="4dp"
-					tools:text="合肥市属山区"
-					android:text="@{ patient.attackPosition}"
-					app:layout_constraintLeft_toRightOf="@id/line2"
-					app:layout_constraintTop_toTopOf="@id/line2" />
+					app:layout_constraintLeft_toRightOf="@id/lin1"
+					app:layout_constraintTop_toTopOf="@id/lin1" />
+
+			<TextView
+					android:id="@+id/lin2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="发病地点："
+					android:layout_marginBottom="8dp"
+					android:layout_marginTop="8dp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintLeft_toLeftOf="@id/patient_name"
+					app:layout_constraintTop_toBottomOf="@id/lin1" />
+
+			<TextView
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:text="@{patient.attackPosition}"
+					android:layout_marginLeft="4dp"
+					app:layout_constraintLeft_toRightOf="@id/lin2"
+					app:layout_constraintTop_toTopOf="@id/lin2" />
 		</android.support.constraint.ConstraintLayout>
 	</android.support.design.card.MaterialCardView>
 </layout>

@@ -174,12 +174,20 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.helpCode)
         }
 
-    @SerializedName("Diagnosis_Code")
+    @SerializedName("diagnosis_Code")
     @get:Bindable
-    var diagnosisCode: Boolean=false
+    var diagnosisCode: String=""
         set(value) {
             field = value
             notifyPropertyChanged(BR.diagnosisCode)
+        }
+
+    @SerializedName("diagnosis_Code_Name")
+    @get:Bindable
+    var diagnosisName: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.diagnosisName)
         }
 
 

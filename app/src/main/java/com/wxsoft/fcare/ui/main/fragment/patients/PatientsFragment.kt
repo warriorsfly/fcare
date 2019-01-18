@@ -19,7 +19,7 @@ import javax.inject.Inject
 
 class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
     override fun onQueryTextSubmit(p0: String?): Boolean {
-        return viewModel.showPatients(p0?:"")
+        return viewModel.showPatients(if(p0.isNullOrEmpty())"" else p0)
     }
 
     override fun onQueryTextChange(p0: String?): Boolean {
@@ -53,25 +53,24 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
         viewModel.patients.observe(this, Observer { it->
             adapter.submitList(it)
         })
-        viewModel.mesAction.observe(this, EventObserver{
+        viewModel.detailAction.observe(this, EventObserver{
                 t->
 
             toDetail(t)
         })
 
+        viewModel.showPatients("")
+
 
         return binding.root
     }
 
-    fun toDetail(id:String) {
+    private fun toDetail(id:String) {
 
         Intent(activity!!, PatientEmrActivity::class.java).let {
-            it.putExtra(ProfileActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
+            it.putExtra(ProfileActivity.PATIENT_ID,id)
             startActivity(it)
         }
 
-//        var intent = Intent(activity!!, PatientDetailActivity::class.java)
-//        intent.putExtra(PatientDetailActivity.PATIENT_ID, id)
-//        startActivity(intent)
     }
 }

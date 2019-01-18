@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.databinding.LayoutItemPatientBinding
 
 
@@ -17,14 +18,17 @@ class PatientsAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            patient=getItem(position)
+            val p=getItem(position)
+            patient=p
+            p?.let {
+                pat->
+                root.setOnClickListener { viewModel.onOpen(pat.id) }
+            }
+
             setLifecycleOwner(lifecycleOwner)
             executePendingBindings()
 
         }
-
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

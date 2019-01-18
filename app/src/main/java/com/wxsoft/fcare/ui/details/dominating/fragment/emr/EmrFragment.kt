@@ -8,7 +8,6 @@ import android.animation.ObjectAnimator
 import android.app.Activity
 import android.app.AlertDialog
 import android.arch.lifecycle.Observer
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.BindingAdapter
@@ -17,7 +16,6 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.support.v7.widget.RecyclerView
@@ -58,7 +56,6 @@ import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
-import dagger.android.support.DaggerAppCompatActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
