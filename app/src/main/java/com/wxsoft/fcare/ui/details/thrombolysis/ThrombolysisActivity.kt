@@ -6,6 +6,11 @@ import com.wxsoft.fcare.R
 
 class ThrombolysisActivity : AppCompatActivity() {
 
+    private lateinit var patientId:String
+    companion object {
+        const val PATIENT_ID = "PATIENT_ID"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_thrombolysis)
