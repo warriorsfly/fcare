@@ -132,20 +132,22 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     fun haveData(){
         measure.value?.measures?.map {
             var code = it.measureCode
-            measuresItems.value?.filter { it.itemCode.equals(code) }?.map {it.checked = true }
+            measuresItems.value?.filter { it.id.equals(code) }?.map {it.checked = true }
         }
 
-        cureResultItems.value?.filter { it.itemCode.equals(measure.value?.preCureResultCode) }?.map {it.checked = true }
-        outcallResultItems.value?.filter { it.itemCode.equals(measure.value?.preVisitResultCode) }?.map {it.checked = true }
-        departments.value?.filter { it.itemCode.equals(measure.value?.preDirectDepartId) }?.map {it.checked = true }
+        cureResultItems.value?.filter { it.id.equals(measure.value?.preCureResultCode) }?.map {it.checked = true }
+        outcallResultItems.value?.filter { it.id.equals(measure.value?.preVisitResultCode) }?.map {it.checked = true }
+        departments.value?.filter { it.id.equals(measure.value?.preDirectDepartId) }?.map {it.checked = true }
     }
 
     fun clickSelect(item: Dictionary){
         when(item.section){
             0->{
-                if (item.itemCode.equals("5") ){//用药 跳转用药界面
+                if (item.id.equals("212-5") ){//用药 跳转用药界面
                     loadPharmacy.value = item
-                }else{
+                }else if(item.id.equals("212-6")){//溶栓 跳转溶栓界面
+                    loadPharmacy.value = item
+                } else{
                     item.checked = !item.checked
                 }
             }
@@ -164,16 +166,16 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     override fun click(){
 
         val ds=measuresItems.value?.filter { it.checked }
-            ?.map { MeasureDic("",patientId,it.itemCode) }?: emptyList()
+            ?.map { MeasureDic("",patientId,it.id) }?: emptyList()
         measure.value?.measures = ds.toList()
 
         cureResultItems.value?.filter { it.checked }
-            ?.map { measure.value?.preCureResultCode =  it.itemCode }
+            ?.map { measure.value?.preCureResultCode =  it.id }
 
         outcallResultItems.value?.filter { it.checked }
-            ?.map { measure.value?.preVisitResultCode =  it.itemCode }
+            ?.map { measure.value?.preVisitResultCode =  it.id }
         departments.value?.filter { it.checked }
-            ?.map { measure.value?.preDirectDepartId =  it.itemCode }
+            ?.map { measure.value?.preDirectDepartId =  it.id }
 
         saveMeasure()
     }

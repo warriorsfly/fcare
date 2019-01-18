@@ -159,4 +159,9 @@ class NetWorkModule {
         return PageKeyPatientRepository(patientApi)
     }
 
+    @Provides
+    fun provideThrombolysisApi(retrofit: Retrofit):ThrombolysisApi{
+        return retrofit.create(ThrombolysisApi::class.java)
+    }
+
 }

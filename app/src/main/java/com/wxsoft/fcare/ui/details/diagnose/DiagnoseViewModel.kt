@@ -167,10 +167,10 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
 
     fun havedata(){
-        typeItems.value?.filter { it.itemCode.equals(diagnosis.value?.diagnosisCode1) }?.map { selected(it) }
-        thoracalgiaItems.value?.filter { it.itemCode.equals(diagnosis.value?.diagnosisCode2) }?.map { selectDiagnose(it) }
-        sonItems.value?.filter { it.itemCode.equals(diagnosis.value?.diagnosisCode3) }?.map { it.checked=true }
-        illnessItems.value?.filter { it.itemCode.equals(diagnosis.value?.criticalLevel) }?.map { it.checked=true }
+        typeItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode1) }?.map { selected(it) }
+        thoracalgiaItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode2) }?.map { selectDiagnose(it) }
+        sonItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode3) }?.map { it.checked=true }
+        illnessItems.value?.filter { it.id.equals(diagnosis.value?.criticalLevel) }?.map { it.checked=true }
     }
 
     override fun click(){
@@ -178,10 +178,10 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         diagnosis.value?.location = 1
         diagnosis.value?.doctorId = "3"
         diagnosis.value?.doctorName = "张三"
-        typeItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode1 = it.itemCode }
+        typeItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode1 = it.id }
 //        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.itemCode }
 //        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.itemCode }
-        illnessItems.value?.filter { it.checked }?.map { diagnosis.value?.criticalLevel = it.itemCode }
+        illnessItems.value?.filter { it.checked }?.map { diagnosis.value?.criticalLevel = it.id }
         saveDiagnose()
     }
 
@@ -226,14 +226,14 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
                 diagnosis.value?.diagnosisCode3 = ""
             }
         }
-        diagnosis.value?.diagnosisCode2 = item.itemCode
+        diagnosis.value?.diagnosisCode2 = item.id
     }
 
     fun selectDiagnoseSon(item:Dictionary){
         when(item.section){
             3->{ sonItems.value?.filter { it.checked }?.map { it.checked = false }
                 item.checked = true
-                diagnosis.value?.diagnosisCode3 = item.itemCode
+                diagnosis.value?.diagnosisCode3 = item.id
             }
             4->{ illnessItems.value?.filter { it.checked }?.map { it.checked = false }
                 item.checked = true

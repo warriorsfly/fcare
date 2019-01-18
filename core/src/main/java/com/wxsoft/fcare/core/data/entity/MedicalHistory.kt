@@ -70,6 +70,12 @@ data class MedicalHistory(val id:String): BaseObservable() {
 //            field=value
 //            notifyPropertyChanged(BR.attachments)
 //        }
+    @Bindable
+    var createdDate:String="2019-01-19 12:00:00"
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.createdDate)
+        }
 
 
 }

@@ -19,6 +19,8 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
+import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
+import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsModule
 import com.wxsoft.fcare.ui.login.LoginActivity
@@ -113,12 +115,17 @@ abstract class ActivityBindingModule {
     internal abstract fun informedConsentDetailsActivity(): InformedConsentDetailsActivity
 
     @ActivityScoped
+    @ContributesAndroidInjector(modules = [ThrombolysisModule::class])
+    internal abstract fun thrombolysisActivity(): ThrombolysisActivity
+
+    @ActivityScoped
     @ContributesAndroidInjector(modules = [ProfileModule::class,DoMinaModule::class])
     internal abstract fun patientEmrActivity(): PatientEmrActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [MessageViewModel::class])
     internal abstract fun messageActivity(): MessageActivity
+
 
 
 }

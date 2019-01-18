@@ -14,6 +14,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMeasuresBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
+import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
@@ -68,13 +69,19 @@ class MeasuresActivity : BaseActivity()  {
     }
 
 
+
     fun showDialog(item: Dictionary){
         AlertDialog.Builder(this)
-            .setMessage("确定使用药物吗？")
-            .setTitle("用药")
+            .setMessage("确定"+item.itemName+"吗？")
+            .setTitle(item.itemName)
             .setPositiveButton("是", DialogInterface.OnClickListener { _, _ ->
                 item.checked = true
-                toPharmacy()
+                if (item.id.equals("212-5")){//用药
+                    toPharmacy()
+                }else if(item.id.equals("212-6")){//溶栓
+                    toThrombolysis()
+                }
+
             })
             .setNeutralButton("否", DialogInterface.OnClickListener { _, _ ->
                 item.checked = false
@@ -83,9 +90,15 @@ class MeasuresActivity : BaseActivity()  {
             .show()
     }
 
-    fun toPharmacy(){
+    fun toPharmacy(){//用药界面
         var intent = Intent(this, PharmacyActivity::class.java)
         intent.putExtra(PharmacyActivity.PATIENT_ID,patientId)
+        startActivity(intent)
+    }
+
+    fun toThrombolysis(){//溶栓
+        var intent = Intent(this, ThrombolysisActivity::class.java)
+        intent.putExtra(ThrombolysisActivity.PATIENT_ID,patientId)
         startActivity(intent)
     }
 

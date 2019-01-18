@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.core.data.entity
 
+import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
+import com.wxsoft.fcare.core.BR
 import java.lang.StringBuilder
 
 data class Measure (@SerializedName("measureDtos")
@@ -10,7 +12,8 @@ data class Measure (@SerializedName("measureDtos")
                     @SerializedName("pre_Direct_DepartId")
                     var preDirectDepartId:String?,
                     @SerializedName("pre_Cure_Result_Code")
-                    var preCureResultCode:String?
+                    var preCureResultCode:String?,
+                    var createdDate:String?="2019-01-19 12:00:00"
                     ){
     override fun toString(): String {
         return StringBuilder().append( if(measures.isNullOrEmpty()) "" else ("治疗措施:"+
@@ -39,4 +42,7 @@ data class Measure (@SerializedName("measureDtos")
                 else -> "\t\t绕行：其他"
             }).toString()
     }
+
+
+
 }
