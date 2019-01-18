@@ -25,6 +25,8 @@ import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
+import com.wxsoft.fcare.ui.message.MessageActivity
+import com.wxsoft.fcare.ui.message.MessageViewModel
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
@@ -113,6 +115,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ProfileModule::class,DoMinaModule::class])
     internal abstract fun patientEmrActivity(): PatientEmrActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [MessageViewModel::class])
+    internal abstract fun messageActivity(): MessageActivity
 
 
 }

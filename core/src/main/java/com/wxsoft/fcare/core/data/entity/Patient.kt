@@ -150,6 +150,14 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.attackZone)
         }
 
+    @SerializedName("attack_Time")
+    @get:Bindable
+    var attackTime: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.attackTime)
+        }
+
     @SerializedName("is_Help")
     @get:Bindable
     var callForHelp: Boolean= false

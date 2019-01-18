@@ -335,7 +335,7 @@ class ProfileActivity : BaseActivity() {
         var mHour = ca.get(Calendar.HOUR)
         var mMinute = ca.get(Calendar.MINUTE)
         TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            viewModel.patient.value?.attackZone = "$mYear-" + DateTimeUtils.frontCompWithZore(mMonth + 1, 2) +
+            viewModel.patient.value?.attackTime = "$mYear-" + DateTimeUtils.frontCompWithZore(mMonth + 1, 2) +
                     "-" + DateTimeUtils.frontCompWithZore(mDay, 2) + " " +
                     String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute)+":00"
         }, mHour, mMinute, true).show()

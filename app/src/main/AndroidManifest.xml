@@ -48,6 +48,11 @@
             android:roundIcon="@mipmap/icon"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity
+                android:name="com.wxsoft.fcare.ui.message.MessageActivity"
+                android:label="@string/title_activity_message"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
         <activity android:name=".ui.details.thrombolysis.ThrombolysisActivity">
         </activity>
         <activity
