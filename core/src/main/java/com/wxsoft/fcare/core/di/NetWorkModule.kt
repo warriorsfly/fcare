@@ -155,6 +155,12 @@ class NetWorkModule {
     }
 
     @Provides
+    fun provideInterventionApi(retrofit: Retrofit):InterventionApi{
+
+        return retrofit.create(InterventionApi::class.java)
+    }
+
+    @Provides
     fun providePatientRepository(patientApi: PatientApi):IPatientRepository{
         return PageKeyPatientRepository(patientApi)
     }

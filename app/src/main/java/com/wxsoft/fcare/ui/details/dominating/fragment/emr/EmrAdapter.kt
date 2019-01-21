@@ -141,6 +141,17 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 diagnose = presenter
                 visiable= position<differ.currentList.size-1
             }
+
+            is ItemViewHolder.CatheterViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+//                val presenter = differ.currentList[position].result as
+//                diagnose = presenter
+//                visiable= position<differ.currentList.size-1
+            }
         }
     }
 
@@ -173,6 +184,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
             R.layout.item_emr_diagnose -> ItemViewHolder.DiagnoseViewHolder(
                 ItemEmrDiagnoseBinding.inflate(inflater,parent,false)
             )
+            R.layout.item_emr_catheter -> ItemViewHolder.CatheterViewHolder(
+                ItemEmrCatheterBinding.inflate(inflater,parent,false)
+            )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
     }
@@ -194,6 +208,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     ActionRes.ActionType.GRACE->{
                         R.layout.item_emr_rating
                     }
+//                    ActionRes.ActionType.Catheter->{
+//                        R.layout.item_emr_catheter
+//                    }
                     else->R.layout.item_emr_none
                 }
             }
@@ -309,6 +326,11 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //院前诊断
     class DiagnoseViewHolder(
         val binding: ItemEmrDiagnoseBinding
+    ): ItemViewHolder(binding)
+
+    //导管室操作
+    class CatheterViewHolder(
+        val binding: ItemEmrCatheterBinding
     ): ItemViewHolder(binding)
 
     //普通文本

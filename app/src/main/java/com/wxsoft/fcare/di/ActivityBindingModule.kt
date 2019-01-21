@@ -19,6 +19,8 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
+import com.wxsoft.fcare.ui.details.thrombolysis.CatheterActivity
+import com.wxsoft.fcare.ui.details.thrombolysis.CatheterModule
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
@@ -28,6 +30,7 @@ import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
 import com.wxsoft.fcare.ui.message.MessageActivity
+import com.wxsoft.fcare.ui.message.MessageModule
 import com.wxsoft.fcare.ui.message.MessageViewModel
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
@@ -123,8 +126,12 @@ abstract class ActivityBindingModule {
     internal abstract fun patientEmrActivity(): PatientEmrActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [MessageViewModel::class])
+    @ContributesAndroidInjector(modules = [MessageModule::class])
     internal abstract fun messageActivity(): MessageActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [CatheterModule::class])
+    internal abstract fun catheterActivity(): CatheterActivity
 
 
 

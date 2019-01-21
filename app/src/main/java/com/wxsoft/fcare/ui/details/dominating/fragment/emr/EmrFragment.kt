@@ -51,6 +51,7 @@ import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
+import com.wxsoft.fcare.ui.details.thrombolysis.CatheterActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
@@ -70,11 +71,12 @@ class EmrFragment : DaggerFragment() {
         private const val ARG_PREHOS = "arg.prehos"
         const val ARG_NEW_ITEM = "arg.new_item"
         const val ARG_NEW_ITEM_CODE = 20
-        const val MEDICAL_HISTORY_CODE = 30
-        const val VITAL_SIGNS = 40
-        const val CHECK_BODY = 50
-        const val DIAGNOSE = 60
-        const val MEASURES = 70
+        const val MEDICAL_HISTORY_CODE = 21
+        const val VITAL_SIGNS = 22
+        const val CHECK_BODY = 23
+        const val DIAGNOSE = 24
+        const val MEASURES = 25
+        const val INV = 26
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -208,6 +210,13 @@ class EmrFragment : DaggerFragment() {
                 }
                 ActionRes.ActionType.院前诊断 ->{
                     var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
+                        putExtra(DiagnoseActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, DIAGNOSE)
+                }
+
+                ActionRes.ActionType.Catheter ->{
+                    var intent = Intent(context.get()?.activity, CatheterActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, DIAGNOSE)

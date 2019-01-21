@@ -53,8 +53,6 @@
                 android:label="@string/title_activity_message"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".ui.details.thrombolysis.ThrombolysisActivity">
-        </activity>
         <activity android:name=".ui.details.thrombolysis.ThrombolysisActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -71,6 +69,11 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.informedconsent.InformedConsentActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+                android:name=".ui.details.thrombolysis.CatheterActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity

@@ -1,22 +1,14 @@
 package com.wxsoft.fcare.ui
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Environment
-import android.provider.MediaStore
-import android.support.v4.content.FileProvider
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
-import com.wxsoft.fcare.BuildConfig
 import dagger.android.support.DaggerAppCompatActivity
-import java.io.File
-import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.*
 
-abstract class BaseActivity : DaggerAppCompatActivity(){
+
+abstract class BaseActivity : DaggerAppCompatActivity() {
+
 
     companion object {
         const val CAMERA_PERMISSION_REQUEST=10
@@ -24,6 +16,8 @@ abstract class BaseActivity : DaggerAppCompatActivity(){
         const val NEW_PATIENT_REQUEST=13
         const val NEW_PATIENT_ID="new_patient_id"
     }
+
+
 
 
     fun dispatchTakePictureIntent(list:List<LocalMedia>,max:Int) {
