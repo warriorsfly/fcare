@@ -17,6 +17,7 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.databinding.ActivityCatheterBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.details.catheter.CatheterViewModel
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_catheter.*

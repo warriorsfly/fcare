@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.details.thrombolysis
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Thrombolysis
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -41,22 +43,116 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             field = value
         }
 
+    val clickLine:LiveData<String>
+    private val loadClickLine =  MediatorLiveData<String>()
+
+    val modifySome:LiveData<String>
+    private val initModifySome =  MediatorLiveData<String>()
+
     val thrombolysis:LiveData<Thrombolysis>
     private val loadThrombolysis = MediatorLiveData<Resource<Response<Thrombolysis>>>()
 
+    val thromPlaces:LiveData<List<Dictionary>>
+    private val loadThromPlaces = MediatorLiveData<Resource<List<Dictionary>>>()
+
+    val informed:LiveData<InformedConsent>
+    private val loadInformedResult = MediatorLiveData<Resource<Response<InformedConsent>>>()
+
     init {
+        modifySome = initModifySome.map { it }
+        clickLine = loadClickLine.map { it }
         clickable = clickResult.map { it }
         thrombolysis = loadThrombolysis.map { (it as? Resource.Success)?.data?.result ?: Thrombolysis("")  }
+        thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
+        informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
+
+        loadPlaces()
+        getInformedConsent()
     }
 
-    fun loadThrombolysis(isPre:Boolean){
-        thrombolysisApi.loadThrombolysis(patientId,isPre).toResource()
+
+    fun loadPlaces(){
+        dictEnumApi.loadThromPlaces().toResource()
+            .subscribe {
+                loadThromPlaces.value = it
+            }
+    }
+
+    //获取溶栓数据
+    fun loadThrombolysis(id:String){
+        if (id.isNullOrEmpty()) {
+            loadThrombolysis.value = null
+            return
+        }
+        thrombolysisApi.loadThrombolysis(id).toResource()
             .subscribe {
                 loadThrombolysis.value = it
             }
     }
 
+    //获取溶栓知情同意书内容
+    fun getInformedConsent(){
+        thrombolysisApi.getInformedConsentById("2").toResource()
+            .subscribe {
+                loadInformedResult.value = it
+            }
+    }
 
+    //点击选择溶栓场所
+    fun selectPlace(line:Int){
+        if (thrombolysis.value != null){
+            when(line){
+                1 -> loadClickLine.value = "place"
+            }
+
+        }
+    }
+
+    //点击去做知情同意书
+    fun toInformedConsent(){
+        if (informed.value != null){
+            loadClickLine.value = "informedConsent"
+        }
+    }
+    //修改知情同意书时间
+    fun modifyInformedTime(isStart:Int){
+        if (isStart.equals(1)){//知情同意书开始时间
+
+        }else{//知情同意书签署时间
+
+        }
+    }
+
+    //开始溶栓点击事件
+    fun startthromTiem(timeStr:String){
+
+    }
+
+    //结束溶栓点击事件
+    fun endthromTime(timeStr:String){
+
+    }
+
+    //溶栓后造影
+    fun radiographyTime(timeStr:String){
+
+    }
+
+    //溶栓用药
+    fun toDrugs(){
+
+    }
+
+
+
+
+
+    //溶栓场所列表点击选择
+    fun clickPlaces(item:Dictionary){
+        thrombolysis.value?.thromTreatmentPlaceName = item.itemName
+        thrombolysis.value?.throm_Treatment_Place = item.id
+        initModifySome.value = "HidenDialog"
+    }
 
     override fun click() {
 

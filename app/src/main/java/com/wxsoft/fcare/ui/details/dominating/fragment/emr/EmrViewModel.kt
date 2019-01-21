@@ -115,6 +115,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshDiagnose()
 
                 refreshChekBody()
+
+                refreshThrombolysis()
             }
     }
 
@@ -312,14 +314,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
     fun refreshMeasure(){
         emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
-                rating?.result ?: return@subscribe
+            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ measure ->
+                measure?.result ?: return@subscribe
                 loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
                     item->
-                    item.result=rating.result
+                    item.result=measure.result
                     if(!item.done){
                         item.done=true
-                        item.completedAt=rating?.result?.createdDate
+                        item.completedAt=measure?.result?.createdDate
                     }
                 }
                 val index =
@@ -331,4 +333,28 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 messageAction.value= Event(it.message?:"")
             })
     }
+
+    fun refreshThrombolysis(){
+        emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ thrombolysis ->
+                thrombolysis?.result ?: return@subscribe
+//                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.溶栓处置 }?.let {
+//                        item->
+//                    item.result=thrombolysis.result
+//                    if(!item.done){
+//                        item.done=true
+//                        item.completedAt=thrombolysis?.result?.last()?.createdDate
+//                    }
+//                }
+                val index =
+                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
+                index?.let { index ->
+                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.溶栓处置))
+                }
+            },{
+                messageAction.value= Event(it.message?:"")
+            })
+    }
+
+
 }

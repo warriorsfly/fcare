@@ -53,12 +53,14 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     private lateinit var titleName:String
     private lateinit var informedConten:String
     private lateinit var informedContenId:String
+    private lateinit var comeFrom:String
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val TITLE_NAME = "TITLE_NAME"
         const val TITLE_CONTENT = "TITLE_CONTENT"
         const val INFORMED_ID = "INFORMED_ID"
+        const val COME_FROM= "COME_FROM"
     }
 
     private var mCurrentAnimator: Animator? = null
@@ -88,6 +90,8 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
         titleName=intent.getStringExtra(AddInformedConsentActivity.TITLE_NAME)?:""
         informedConten=intent.getStringExtra(AddInformedConsentActivity.TITLE_CONTENT)?:""
         informedContenId=intent.getStringExtra(AddInformedConsentActivity.INFORMED_ID)?:""
+        comeFrom=intent.getStringExtra(AddInformedConsentActivity.COME_FROM)?:""
+
 
         viewModel.informedContenId = informedContenId
         viewModel.informedname = titleName
@@ -103,11 +107,24 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
         AudioConfig.patientId = patientId
         AudioConfig.titleName = titleName
 
-        viewModel.talk.observe(this, Observer {
+        viewModel.talk.observe(this, Observer {})
+        viewModel.talkResultId.observe(this, Observer {})
+
+
+        viewModel.backToLast.observe(this, Observer {
+            if (comeFrom.equals("THROMBOLYSIS")){
+                Intent().let { intent->
+                    intent.putExtra("informedConsentId",viewModel.talkResultId.value)
+                    intent.putExtra("startTime",viewModel.talk.value?.startTime)
+                    intent.putExtra("endTime",viewModel.talk.value?.endTime)
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
+            }else{
+                finish()
+            }
 
         })
-
-        viewModel.backToLast.observe(this, Observer { onBackPressed() })
 
         viewModel.showVoiceTime.observe(this, Observer {  })
 
