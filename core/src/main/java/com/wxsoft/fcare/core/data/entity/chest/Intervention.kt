@@ -25,45 +25,45 @@ data class Intervention(val id:String="",
                          * 启动 导管室
                          */
                         @SerializedName("start_Conduit_Time")
-                        var startConduitTime	:String="",
-                        var start_Agree_Time	:String="",
-                        var sign_Agree_Time	:String="",
+                        var startConduitTime	:String?=null,
+                        var start_Agree_Time	:String?=null,
+                        var sign_Agree_Time	:String?=null,
                         @SerializedName("activate_Conduit_Time")
-                        var activateConduitTime	:String="",
+                        var activateConduitTime	:String?=null,
                         @SerializedName("arrive_Conduit_Time")
-                        var arriveConduitTime	:String="",
+                        var arriveConduitTime	:String?=null,
 
                         /**
                          * 造影
                          */
                         @SerializedName("start_Radiography_Time")
-                        var startRadiographyTime	:String="",
+                        var startRadiographyTime	:String?=null,
                         @SerializedName("end_Radiography_Time")
-                        var endRadiographyTime	:String="",
+                        var endRadiographyTime	:String?=null,
 
-                        var again_Sign_Agree_Time	:String="",
+                        var again_Sign_Agree_Time	:String?=null,
                         /**
                          * 球囊扩张
                          */
 
                         @SerializedName("balloon_Expansion_Time")
-                        var balloonExpansionTime	:String="",
+                        var balloonExpansionTime	:String?=null,
                         @SerializedName("start_Operation_Time")
-                        var startOperationTime	:String="",
+                        var startOperationTime	:String?=null,
                         @SerializedName("end_Operation_Time")
-                        var endOperationTime	:String="",
+                        var endOperationTime	:String?=null,
                         /**
                          * 穿刺
                          */
                         @SerializedName("start_Puncture_Time")
-                        var startPunctureTime	:String="",
+                        var startPunctureTime	:String?=null,
                         @SerializedName("successPunctureTime")
-                        var successPunctureTime	:String="",
+                        var successPunctureTime	:String?=null,
                         @SerializedName("leave_Conduit_Time")
-                        var leave	:String="",
+                        var leave	:String?=null,
                         /**
                          * 大门到球囊扩张
                          */
-                        var d2B	:String="",
-                        var createdDate	:String=""
+                        var d2B	:String?=null,
+                        var createdDate	:String?=null
                         )

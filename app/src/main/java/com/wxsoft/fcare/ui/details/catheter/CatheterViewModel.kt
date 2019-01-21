@@ -44,7 +44,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 
     val intervention:LiveData<Intervention>
     private val loadInterventionResult = MediatorLiveData<Resource<Response<Intervention>>>()
-    val commitInterventionResult = MediatorLiveData<Resource<Response<String>>>()
+    val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
         clickable = clickResult.map { it }
@@ -62,15 +62,21 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 
     override fun click() {
         intervention.value?.let {
+            if (it.id.isNullOrEmpty()) {
+                it.doctorId = account.id
+                it.doctorName = account.userName
+                it.patientId = patientId
+            }
+
             interventionApi.save(it).toResource()
-                .subscribe {result->
-                    when(result){
-                        is Resource.Success->{
-                            commitInterventionResult.value=result
-                            messageAction.value= Event("保存成功")
+                .subscribe { result ->
+                    when (result) {
+                        is Resource.Success -> {
+                            commitResult.value = result
+                            messageAction.value = Event("保存成功")
                         }
-                        is Error->{
-                            messageAction.value=Event(result.message?:"")
+                        is Error -> {
+                            messageAction.value = Event(result.message ?: "")
                         }
                     }
                 }

@@ -23,17 +23,24 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
+
+    private var dialog: TimePickerDialog?=null
     override fun onClick(v: View?) {
-        v?.let {
+        (v as? Button)?.let {
             selectedId=it.id
+            val currentTime=it.text.toString()?.let {text->
+                return@let if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            }
 
-            dialog.show(supportFragmentManager, "all");
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all");
         }
-
     }
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
 
+        dialog?.onDestroy()
+        dialog=null
         (findViewById<Button>(selectedId))?.text=DateTimeUtils.formatter.format(millseconds)
     }
 
@@ -76,7 +83,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.commitInterventionResult.observe(this, Observer {
+        viewModel.commitResult .observe(this, Observer {
             if(it is Resource.Success){
                 Intent().let { intent->
                     setResult(RESULT_OK, intent);
@@ -86,21 +93,22 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         })
     }
 
-    private val dialog: TimePickerDialog by lazy {
-        TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(System.currentTimeMillis())
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .build()
+    private fun createDialog(time:Long): TimePickerDialog {
+
+            return TimePickerDialog.Builder()
+                .setCallBack(this)
+                .setCancelStringId("取消")
+                .setSureStringId("确定")
+                .setTitleStringId("选择时间")
+                .setYearText("")
+                .setMonthText("")
+                .setDayText("")
+                .setHourText("")
+                .setMinuteText("")
+                .setCyclic(false)
+                .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
+                .setType(Type.ALL)
+                .setWheelItemTextSize(12)
+                .build()
     }
 }
