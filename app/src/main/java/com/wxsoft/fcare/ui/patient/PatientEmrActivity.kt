@@ -42,7 +42,6 @@ class PatientEmrActivity : BaseActivity() {
         }
     }
 
-
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
