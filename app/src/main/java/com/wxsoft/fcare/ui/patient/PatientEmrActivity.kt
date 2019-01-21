@@ -15,6 +15,7 @@ import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 
 import kotlinx.android.synthetic.main.activity_patient_emr.*
+import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 class PatientEmrActivity : BaseActivity() {
@@ -35,6 +36,7 @@ class PatientEmrActivity : BaseActivity() {
             setLifecycleOwner(this@PatientEmrActivity)
         }
 
+        back.setOnClickListener { onBackPressed() }
         supportFragmentManager.inTransaction {
             replace(R.id.fragment_container, EmrFragment.newInstance(patientId,false))
         }

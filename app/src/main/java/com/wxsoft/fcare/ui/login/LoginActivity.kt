@@ -34,7 +34,9 @@ class LoginActivity : BaseActivity() {
         var binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
             this,
             R.layout.activity_login
-        )
+        ).apply {
+            setLifecycleOwner(this@LoginActivity)
+        }
 
         viewModel = viewModelProvider(factory)
         binding.apply {

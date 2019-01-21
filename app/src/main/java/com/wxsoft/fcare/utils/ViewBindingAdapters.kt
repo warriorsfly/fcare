@@ -121,7 +121,7 @@ object Converter{
 object LongConverter{
     @InverseMethod("stringToLong")
     @JvmStatic fun longToString(value: Long): String {
-        return if(value==0L) "0"  else value.toString()
+        return if(value==0L) ""  else value.toString()
     }
 
     @JvmStatic fun stringToLong(value:String): Long {
