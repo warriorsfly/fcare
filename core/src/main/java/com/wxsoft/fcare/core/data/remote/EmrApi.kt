@@ -69,8 +69,10 @@ interface EmrApi{
     fun getDiagnosis(@Path("patientId")patientId:String,
                      @Path("location")location:Int): Maybe<Response<Diagnosis>>
 
-
-
     @GET("Measure/GetById/{patientId}")
     fun loadMeasure(@Path("patientId")patientId:String): Maybe<Response<Measure>>
+
+    @GET("Throm/GetThromRecords/{patientId}")
+    fun loadThrombolysis(@Path("patientId")patientId:String): Maybe<Response<List<Thrombolysis>>>
+
 }

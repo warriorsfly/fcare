@@ -4,6 +4,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 
 class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     /**
@@ -25,7 +26,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      */
     @SerializedName("is_Thrombolysis")
     @Bindable
-    var areSuitable:String=""
+    var areSuitable:String="1"
         set(value) {
             field=value
             notifyPropertyChanged(BR.areSuitable)
@@ -96,6 +97,15 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             field=value
             notifyPropertyChanged(BR.throm_Treatment_Place)
         }
+
+    @Bindable
+    @Transient
+    var thromTreatmentPlaceName:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.thromTreatmentPlaceName)
+        }
+
     /**
      * 开始知情同意
      */
@@ -146,11 +156,21 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     /**
      * 溶栓药物类别代码  字典：25
      */
+//    @Bindable
+//    var throm_Drug_Type:String=""
+//        set(value) {
+//            field=value
+//            notifyPropertyChanged(BR.throm_Drug_Type)
+//        }
+    /**
+     * 溶栓药物类别代码  字典：25
+     */
     @Bindable
-    var throm_Drug_Type:String=""
+    @Transient
+    var throm_Drug_Name:String=""
         set(value) {
             field=value
-            notifyPropertyChanged(BR.throm_Drug_Type)
+            notifyPropertyChanged(BR.throm_Drug_Name)
         }
 
     /**
@@ -173,7 +193,6 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             field=value
             notifyPropertyChanged(BR.repatency)
         }
-
 
     /**
      *结果描述
@@ -216,9 +235,28 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.informedConsentId)
         }
 
+    @Bindable
+    var drugRecords:List<DrugRecord> = emptyList()
+        set(value){
+            field=value
+            throm_Drug_Name = ""
+            value.map {
+                if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
+            }
+            notifyPropertyChanged(BR.drugRecords)
+        }
+
+
+    @Bindable
+    var createdDate:String="2019-01-19 18:32:00"
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.createdDate)
+        }
+
+
+
     fun setUpChecked(){
-//        suitable = areSuitable.equals("1")
-//        hasScreening = screening.equals("1")
         hasDirect = direct.equals("1")
 
     }

@@ -90,10 +90,11 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     val talk:LiveData<Talk>
     private val initTalk = MediatorLiveData<Resource<Response<Talk>>>()
 
-
+    val talkResultId:LiveData<String>
     val saveTalkResult =MediatorLiveData<Resource<Response<String>>>()
 
     init {
+        talkResultId = saveTalkResult.map { (it as? Resource.Success)?.data?.result?: ""}
         backToLast = initbackToLast.map { it }
         voiceStart = initVoiceStart.map { it }
         showVoiceTime = initShowVoiceTime.map { it }

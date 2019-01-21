@@ -15,6 +15,9 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/5")
     fun loadDetour(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/16")
+    fun loadThromPlaces(): Maybe<List<Dictionary>>
+
     @GET("EnumDic/enumItems/27")
     fun loadDict27Diagnosis(): Maybe<List<Dictionary>>
 
