@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.ui.details.thrombolysis
+package com.wxsoft.fcare.ui.details.catheter
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
@@ -15,7 +15,6 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.databinding.ActivityCatheterBinding
-import com.wxsoft.fcare.generated.callback.OnClickListener
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.viewModelProvider

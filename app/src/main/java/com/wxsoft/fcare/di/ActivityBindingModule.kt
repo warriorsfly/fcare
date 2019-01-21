@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
+import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
+import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
@@ -19,8 +21,6 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
-import com.wxsoft.fcare.ui.details.thrombolysis.CatheterActivity
-import com.wxsoft.fcare.ui.details.thrombolysis.CatheterModule
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity

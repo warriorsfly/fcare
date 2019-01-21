@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.ui.details.thrombolysis
+package com.wxsoft.fcare.ui.details.catheter
 
 import android.arch.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ViewModelKey

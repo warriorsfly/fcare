@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.thrombolysis.CatheterViewModel"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.catheter.CatheterViewModel"/>
     </data>
 
     <android.support.constraint.ConstraintLayout

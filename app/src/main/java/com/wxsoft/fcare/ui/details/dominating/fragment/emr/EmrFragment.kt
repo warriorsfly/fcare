@@ -51,7 +51,7 @@ import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
-import com.wxsoft.fcare.ui.details.thrombolysis.CatheterActivity
+import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity

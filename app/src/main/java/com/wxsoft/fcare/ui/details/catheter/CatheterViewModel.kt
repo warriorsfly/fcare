@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.ui.details.thrombolysis
+package com.wxsoft.fcare.ui.details.catheter
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
