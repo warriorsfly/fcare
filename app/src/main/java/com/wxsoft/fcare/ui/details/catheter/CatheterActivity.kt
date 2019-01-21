@@ -31,7 +31,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         when(v?.id) {
             R.id.thromboly_place -> {
 
-                val list=viewModel.docs.map { it.userName }?.toTypedArray()
+                val list=viewModel.docs.map { it.trueName }?.toTypedArray()
 
                 val selectedItems=(viewModel.docs.map {  user ->
 
@@ -52,7 +52,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                     }
 
                     viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.userName?:""
+                        viewModel.docs.get(it)?.trueName?:""
                     }
                 }.show()
 
