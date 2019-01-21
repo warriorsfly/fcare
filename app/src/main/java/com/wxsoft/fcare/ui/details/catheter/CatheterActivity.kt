@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.catheter
 
+import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -25,15 +26,50 @@ import javax.inject.Inject
 class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
 
     private var dialog: TimePickerDialog?=null
+    private val selectedIndex= mutableListOf<Int>()
     override fun onClick(v: View?) {
-        (v as? Button)?.let {
-            selectedId=it.id
-            val currentTime=it.text.toString()?.let {text->
-                return@let if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
-            }
+        when(v?.id) {
+            R.id.thromboly_place -> {
 
-            dialog = createDialog(currentTime)
-            dialog?.show(supportFragmentManager, "all");
+                val list=viewModel.docs.map { it.userName }?.toTypedArray()
+
+                val selectedItems=(viewModel.docs.map {  user ->
+
+                    viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
+                }?: emptyList()).toBooleanArray()
+
+                val dialog = AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems
+                ) { _, which, isChecked ->
+                    if(selectedIndex.contains(which) && !isChecked){
+                        selectedIndex.remove(which)
+
+                    }else if(!selectedIndex.contains(which) && isChecked){
+                        selectedIndex.add(which)
+                    }
+
+                    viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
+                        viewModel.docs.get(it)?.id?:""
+                    }
+
+                    viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
+                        viewModel.docs.get(it)?.userName?:""
+                    }
+                }.show()
+
+
+            }
+            else ->{
+
+                (v as? Button)?.let {
+                    selectedId = it.id
+                    val currentTime = it.text.toString()?.let { text ->
+                        return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+                    }
+
+                    dialog = createDialog(currentTime)
+                    dialog?.show(supportFragmentManager, "all");
+                }
+            }
         }
     }
 
@@ -78,16 +114,20 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         wire.setOnClickListener  (this)
         end.setOnClickListener  (this)
         leave.setOnClickListener  (this)
+        thromboly_place.setOnClickListener  (this)
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
         viewModel.commitResult .observe(this, Observer {
-            if(it is Resource.Success){
-                Intent().let { intent->
-                    setResult(RESULT_OK, intent);
-                    finish();
+            when(it) {
+                is Resource.Success -> {
+                    Intent().let { intent ->
+
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 }
             }
         })
@@ -108,7 +148,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                 .setCyclic(false)
                 .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
                 .setType(Type.ALL)
-                .setWheelItemTextSize(12)
+                .setWheelItemTextSize(16)
                 .build()
     }
 }

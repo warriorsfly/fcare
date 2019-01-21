@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.FragmentPatientsBinding
+import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
@@ -46,7 +47,10 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             viewModel=this@PatientsFragment.viewModel
 
             search.setOnQueryTextListener(this@PatientsFragment)
-            floatingActionButton.setOnClickListener { toDetail("") }
+            floatingActionButton.setOnClickListener {
+                var intent = Intent(activity!!, ProfileActivity::class.java)
+                startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
+            }
             setLifecycleOwner (this@PatientsFragment)
 
         }

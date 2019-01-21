@@ -46,6 +46,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginBottom="15dp"
                         android:text="介入人员"
+                        android:gravity="right"
                         android:textSize="15sp"
                         android:textColor="#131D35"
                         android:layout_width="wrap_content"
@@ -57,12 +58,16 @@
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
                         android:textSize="13sp"
+                        android:text="@{viewModel.intervention.interventionMates}"
+
+                        android:background="?attr/selectableItemBackground"
                         android:textColor="#7D7D7D"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/title1"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/rowe1"
                         tools:text="本院急诊科"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"/>
 
                     <TextView

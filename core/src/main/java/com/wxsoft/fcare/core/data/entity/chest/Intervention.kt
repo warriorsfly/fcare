@@ -1,6 +1,9 @@
 package com.wxsoft.fcare.core.data.entity.chest
 
+import android.databinding.BaseObservable
+import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
+import com.wxsoft.fcare.core.BR
 
 data class Intervention(val id:String="",
                         var patientId:String="",
@@ -14,12 +17,8 @@ data class Intervention(val id:String="",
                          */
                         @SerializedName("doctor_Name")
                         var doctorName	:String="",
-                        /**
-                         * 决定 医生Id
-                         */
-                        var intervention_Person_Id	:String="",
-                        var intervention_Person	:String="",
-                        var decision_Operation_Time	:String="",
+
+                        var decision_Operation_Time	:String?=null,
                         var informedConsentId	:String="",
                         /**
                          * 启动 导管室
@@ -66,4 +65,20 @@ data class Intervention(val id:String="",
                          */
                         var d2B	:String?=null,
                         var createdDate	:String?=null
-                        )
+                        ):BaseObservable(){
+    @get:Bindable
+    @SerializedName("intervention_Person_Id")
+    var interventionMateIds	:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.interventionMateIds)
+        }
+    @get:Bindable
+    @SerializedName("intervention_Person")
+    var interventionMates	:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.interventionMates)
+        }
+
+}
