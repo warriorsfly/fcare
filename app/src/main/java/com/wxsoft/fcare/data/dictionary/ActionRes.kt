@@ -43,7 +43,8 @@ class ActionRes {
         ActionType.CT, ActionType.出院诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
         ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,
         ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,
-        ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式,ActionType.Catheter
+        ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式,ActionType.Catheter,
+        ActionType.CT_OPERATION
     )
     annotation class ActionType {
         companion object {
@@ -87,6 +88,7 @@ class ActionRes {
             const val DispostionMeasures = "disposition_measures"
             //导管室操作
             const val Catheter = "dgscz"
+            const val CT_OPERATION = "ctscz"
         }
     }
 }
