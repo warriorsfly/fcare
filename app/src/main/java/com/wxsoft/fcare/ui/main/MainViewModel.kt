@@ -8,11 +8,4 @@ import javax.inject.Inject
 
 class MainViewModel @Inject constructor(val api: PatientApi) : ViewModel() {
 
-
-    init {
-
-
-    }
-
-
 }

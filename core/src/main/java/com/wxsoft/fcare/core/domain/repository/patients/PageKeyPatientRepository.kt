@@ -7,12 +7,9 @@ import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.domain.repository.Listing
 import com.wxsoft.fcare.core.domain.source.PatientSourceFactory
 import com.wxsoft.fcare.utils.map
-import java.util.concurrent.Executor
-import javax.inject.Inject
 
 class PageKeyPatientRepository constructor(private val api: PatientApi):
     IPatientRepository {
-
     @MainThread
     override fun getPatients(key: String, pageSize: Int): Listing<Patient> {
 
@@ -20,9 +17,6 @@ class PageKeyPatientRepository constructor(private val api: PatientApi):
         val livePagedList = LivePagedListBuilder(factory, pageSize)
             .build()
 
-        val refreshState =factory.sourceLiveData.map {
-
-        }
         return Listing(
             pagedList = livePagedList,
             networkState = factory.sourceLiveData.map {

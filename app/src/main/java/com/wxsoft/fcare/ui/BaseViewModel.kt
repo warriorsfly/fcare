@@ -22,4 +22,9 @@ abstract class BaseViewModel constructor(protected open val sharedPreferenceStor
     protected val messageAction = MutableLiveData<Event<String>>()
     val mesAction: LiveData<Event<String>>
         get() = messageAction
+
+    override fun onCleared() {
+        super.onCleared()
+        disposable.clear()
+    }
 }

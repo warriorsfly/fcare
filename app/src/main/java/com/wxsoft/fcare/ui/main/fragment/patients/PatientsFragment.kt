@@ -15,7 +15,6 @@ import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.item_get_picture.view.*
 import javax.inject.Inject
 
 class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{

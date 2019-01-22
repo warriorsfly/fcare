@@ -120,12 +120,6 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     private val _pageAction = MutableLiveData<Event<Int>>()
     val pageAction: LiveData<Event<Int>>
         get() = _pageAction
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
-    }
-
     /**
      * 拉取任务
      */
