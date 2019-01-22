@@ -10,18 +10,56 @@ import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
+import com.jzxiang.pickerview.TimePickerDialog
+import com.jzxiang.pickerview.data.Type
+import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Pharmacy
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityThrombolysisBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
+import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
+import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
+import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 
-class ThrombolysisActivity : BaseActivity() {
+class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
+
+    private var dialog: TimePickerDialog?=null
+
+
+    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        when(selectedId){
+            R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time = DateTimeUtils.formatter.format(millseconds)
+            R.id.end_thromboly_time -> viewModel.thrombolysis.value?.throm_End_Time = DateTimeUtils.formatter.format(millseconds)
+            R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time = DateTimeUtils.formatter.format(millseconds)
+        }
+    }
+
+    private fun showDatePicker(v: View?){
+        (v as? TextView)?.let {
+            selectedId=it.id
+            val currentTime=it.text.toString()?.let {text->
+                return@let if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            }
+
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all");
+        }
+    }
+
+    private var selectedId=0;
 
     private lateinit var patientId:String
     private lateinit var thrombolysisId:String
@@ -55,7 +93,8 @@ class ThrombolysisActivity : BaseActivity() {
 
         back.setOnClickListener { onBackPressed() }
 
-        viewModel.loadThrombolysis(thrombolysisId)
+//        viewModel.loadThrombolysis(thrombolysisId)
+        viewModel.loadThrombolysis("4c597994fa4449bdaa5dccfa718ea9e7")
 
         viewModel.informed.observe(this, Observer {  })
 
@@ -63,14 +102,27 @@ class ThrombolysisActivity : BaseActivity() {
             when(it){
                 "place" -> selectPlace()
                 "informedConsent" ->{
-                    toInformedConsent()
+                    if (viewModel.thrombolysis.value?.informedConsentId.isNullOrEmpty()){
+                        toInformedConsent()
+                    }else{
+                        toSeeInformedConsent()
+                    }
                 }
+                "drugs" -> toDrugs()
             }
         })
 
         viewModel.modifySome.observe(this, Observer {
             when(it){
                 "HidenDialog" ->placeDialog.dismiss()
+                "ModifyStartInformedTime" -> showDatePicker(findViewById(R.id.start_informed_time))
+                "ModifyEndInformedTime" -> showDatePicker(findViewById(R.id.end_informed_time))
+                "ModifyStartThromTime" -> showDatePicker(findViewById(R.id.start_thromboly_time))
+                "ModifyEndThromTime" -> showDatePicker(findViewById(R.id.end_thromboly_time))
+                "ModifyRadiographyTime" -> showDatePicker(findViewById(R.id.end_thromboly_radiography_time))
+                "saveSuccess" -> {
+                    finish()
+                }
             }
         })
 
@@ -103,6 +155,23 @@ class ThrombolysisActivity : BaseActivity() {
         startActivityForResult(intent, ThrombolysisActivity.INFORMED_CONSENT)
     }
 
+    fun toSeeInformedConsent(){
+        var intent = Intent(this@ThrombolysisActivity, InformedConsentDetailsActivity::class.java).apply {
+            putExtra(InformedConsentDetailsActivity.PATIENT_ID,patientId)
+            putExtra(InformedConsentDetailsActivity.TALK_ID,viewModel.thrombolysis.value?.informedConsentId)
+            putExtra(InformedConsentDetailsActivity.TALK_NAME,viewModel.informed.value?.name)
+            putExtra(InformedConsentDetailsActivity.INFORMED_ID,viewModel.informed.value?.id)
+        }
+        startActivity(intent)
+    }
+
+    fun toDrugs(){
+        var intent = Intent(this@ThrombolysisActivity, PharmacyActivity::class.java).apply {
+            putExtra(PharmacyActivity.PATIENT_ID,patientId)
+            putExtra(PharmacyActivity.COME_FROM,"THROMBOLYSIS")
+        }
+        startActivityForResult(intent, ThrombolysisActivity.DRUG)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -115,11 +184,32 @@ class ThrombolysisActivity : BaseActivity() {
 
                 }
                 ThrombolysisActivity.DRUG ->{//用药
-
+                    var pharmacy = data?.getSerializableExtra("drugRecords") as Pharmacy
+                    viewModel.thrombolysis.value?.drugRecords = emptyList()
+                    viewModel.thrombolysis.value?.drugRecords = pharmacy.drugRecordDetails
                 }
 
             }
         }
+    }
+
+    private fun createDialog(time:Long): TimePickerDialog {
+
+        return TimePickerDialog.Builder()
+            .setCallBack(this)
+            .setCancelStringId("取消")
+            .setSureStringId("确定")
+            .setTitleStringId("选择时间")
+            .setYearText("")
+            .setMonthText("")
+            .setDayText("")
+            .setHourText("")
+            .setMinuteText("")
+            .setCyclic(false)
+            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
+            .setType(Type.ALL)
+            .setWheelItemTextSize(12)
+            .build()
     }
 
 }

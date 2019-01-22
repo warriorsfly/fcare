@@ -83,9 +83,8 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     var hasDirect:Boolean=false
         set(value) {
             field=value
-            notifyPropertyChanged(BR.hasDirect)
             if (value)direct="1" else direct="2"
-
+            notifyPropertyChanged(BR.hasDirect)
         }
 
     /**
@@ -98,7 +97,10 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.throm_Treatment_Place)
         }
 
+
+
     @Bindable
+    @SerializedName("throm_Treatment_Place_Name")
     @Transient
     var thromTreatmentPlaceName:String=""
         set(value) {
@@ -110,7 +112,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      * 开始知情同意
      */
     @Bindable
-    var start_Agree_Time:String=""
+    var start_Agree_Time:String?=null
         set(value) {
             field=value
             notifyPropertyChanged(BR.start_Agree_Time)
@@ -120,7 +122,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      *  签署知情同意
      */
     @Bindable
-    var sign_Agree_Time:String=""
+    var sign_Agree_Time:String?=null
         set(value) {
             field=value
             notifyPropertyChanged(BR.sign_Agree_Time)
@@ -130,7 +132,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      *  溶栓开始时间
      */
     @Bindable
-    var throm_Start_Time:String=""
+    var throm_Start_Time:String?=null
         set(value) {
             field=value
             notifyPropertyChanged(BR.throm_Start_Time)
@@ -139,7 +141,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      *  溶栓结束时间
      */
     @Bindable
-    var throm_End_Time:String=""
+    var throm_End_Time:String?=null
         set(value) {
             field=value
             notifyPropertyChanged(BR.throm_End_Time)
@@ -148,7 +150,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      *  溶栓后造影时间
      */
     @Bindable
-    var start_Radiography_Time:String=""
+    var start_Radiography_Time:String?=null
         set(value) {
             field=value
             notifyPropertyChanged(BR.start_Radiography_Time)
@@ -171,6 +173,13 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
         set(value) {
             field=value
             notifyPropertyChanged(BR.throm_Drug_Name)
+        }
+    @Bindable
+    @Transient
+    var throm_Drug_Dose:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.throm_Drug_Dose)
         }
 
     /**
@@ -242,6 +251,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             throm_Drug_Name = ""
             value.map {
                 if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
+                if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
             }
             notifyPropertyChanged(BR.drugRecords)
         }
@@ -258,7 +268,10 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 
     fun setUpChecked(){
         hasDirect = direct.equals("1")
-
+        drugRecords.map {
+            if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
+            if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+        }
     }
 
 }

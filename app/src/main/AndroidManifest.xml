@@ -78,10 +78,6 @@
         </activity>
 
         <activity
-                android:name=".ui.details.ct.CTActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity
                 android:name=".ui.details.diagnose.DiagnoseActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.ContainerActivity">

@@ -3,8 +3,9 @@ package com.wxsoft.fcare.core.data.entity.drug
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
+import java.io.Serializable
 
-data class DrugRecord (val id:String) : BaseObservable() {
+data class DrugRecord (val id:String) : BaseObservable() , Serializable {
 
     @Bindable
     var drugRecordId: String = ""

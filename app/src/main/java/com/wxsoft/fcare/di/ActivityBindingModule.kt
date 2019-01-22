@@ -5,8 +5,6 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
-import com.wxsoft.fcare.ui.details.ct.CTActivity
-import com.wxsoft.fcare.ui.details.ct.CTModule
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseModule
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
@@ -135,9 +133,6 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [CatheterModule::class])
     internal abstract fun catheterActivity(): CatheterActivity
 
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = [CTModule::class])
-    internal abstract fun ctActivity(): CTActivity
 
 
 }

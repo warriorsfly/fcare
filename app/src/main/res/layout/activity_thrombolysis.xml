@@ -195,6 +195,7 @@
                                 android:layout_height="wrap_content"/>
                         <ImageView
                                 android:id="@+id/modify_start_time_icon"
+                                goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
                                 android:src="@drawable/ic_time_edit"
                                 android:onClick="@{()-> viewModel.modifyInformedTime(1)}"
                                 app:layout_constraintRight_toRightOf="@+id/rown3_1"
@@ -226,6 +227,7 @@
                                 android:layout_height="wrap_content"/>
                         <ImageView
                                 android:id="@+id/modify_end_time_icon"
+                                goneUnless="@{viewModel.thrombolysis.sign_Agree_Time != null}"
                                 android:src="@drawable/ic_time_edit"
                                 app:layout_constraintRight_toRightOf="@+id/rown3_1"
                                 app:layout_constraintBottom_toBottomOf="@+id/end_informed_time"
@@ -247,7 +249,7 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/model3_1"
                             android:layout_width="match_parent"
-                            android:onClick="@{() -> viewModel.startthromTiem(viewModel.thrombolysis.throm_Start_Time)}"
+                            android:onClick="@{() -> viewModel.startthromTiem()}"
                             android:layout_height="50dp">
 
                         <TextView
@@ -302,7 +304,7 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/model3_2"
                             android:layout_width="match_parent"
-                            android:onClick="@{() -> viewModel.endthromTime(viewModel.thrombolysis.throm_End_Time)}"
+                            android:onClick="@{() -> viewModel.endthromTime()}"
                             android:layout_height="50dp">
 
                         <TextView
@@ -357,7 +359,7 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/model3_3"
                             android:layout_width="match_parent"
-                            android:onClick="@{() -> viewModel.endthromTime(viewModel.thrombolysis.start_Radiography_Time)}"
+                            android:onClick="@{() -> viewModel.radiographyTime()}"
                             android:layout_height="50dp">
 
                         <TextView
@@ -486,7 +488,7 @@
                             app:layout_constraintTop_toTopOf="@+id/title4_2"
                             app:layout_constraintBottom_toBottomOf="@+id/title4_2"
                             android:textSize="13sp"
-                            android:text="@{viewModel.thrombolysis.throm_Drug_Name}"
+                            android:text="@{viewModel.thrombolysis.throm_Drug_Dose}"
                             tools:text="半量"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>

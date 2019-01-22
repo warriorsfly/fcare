@@ -62,7 +62,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
         clickable = clickResult.map { it }
-        thrombolysis = loadThrombolysis.map { (it as? Resource.Success)?.data?.result ?: Thrombolysis("")  }
+        thrombolysis = loadThrombolysis.map { (it as? Resource.Success)?.data?.result ?: Thrombolysis("") }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
 
@@ -87,6 +87,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         thrombolysisApi.loadThrombolysis(id).toResource()
             .subscribe {
                 loadThrombolysis.value = it
+                thrombolysis.value?.setUpChecked()
             }
     }
 
@@ -117,33 +118,31 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     //修改知情同意书时间
     fun modifyInformedTime(isStart:Int){
         if (isStart.equals(1)){//知情同意书开始时间
-
+            initModifySome.value = "ModifyStartInformedTime"
         }else{//知情同意书签署时间
-
+            initModifySome.value = "ModifyEndInformedTime"
         }
     }
 
     //开始溶栓点击事件
-    fun startthromTiem(timeStr:String){
-
+    fun startthromTiem(){
+        initModifySome.value = "ModifyStartThromTime"
     }
 
     //结束溶栓点击事件
-    fun endthromTime(timeStr:String){
-
+    fun endthromTime(){
+        initModifySome.value = "ModifyEndThromTime"
     }
 
     //溶栓后造影
-    fun radiographyTime(timeStr:String){
-
+    fun radiographyTime(){
+        initModifySome.value = "ModifyRadiographyTime"
     }
 
     //溶栓用药
     fun toDrugs(){
-
+        loadClickLine.value = "drugs"
     }
-
-
 
 
 
@@ -155,7 +154,16 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
     override fun click() {
+        thrombolysis.value?.patientId = patientId
+        thrombolysisApi.save(thrombolysis.value!!).toResource()
+            .subscribe {
+                when(it){
+                    is Resource.Success->{
+                        initModifySome.value = "saveSuccess"
+                    }
+                }
 
+            }
     }
 
 }

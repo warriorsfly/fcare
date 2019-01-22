@@ -41,6 +41,12 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             field = value
         }
 
+    var comeFrom: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
+
     val backToLast:LiveData<Boolean>
     private val initbackToLast = MediatorLiveData<Boolean>()
 
@@ -157,7 +163,6 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     }
 
     fun submit(){
-
         pharmacy.value?.patientId = patientId
         var asg = ArrayList<DrugRecord>()
         val af=drugPackages.value?.filter { it.checked }
@@ -174,7 +179,10 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             } }?: emptyList()
         asg.addAll(bf)
         pharmacy.value?.drugRecordDetails = asg
-
+        if (comeFrom.isNullOrEmpty()||comeFrom.equals("THROMBOLYSIS")){
+            initbackToLast.value = true
+            return
+        }
         savePharmacy()
     }
 
