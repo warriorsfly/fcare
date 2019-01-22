@@ -54,8 +54,8 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
         intervention = loadInterventionResult.map { it?.result ?: Intervention("")  }
     }
 
-    fun loadIntervention(){
-        interventionApi.getIntervention(patientId).zipWith(interventionApi.getInterventionDocs(account.id))
+    private fun loadIntervention(){
+        disposable.add(interventionApi.getIntervention(patientId).zipWith(interventionApi.getInterventionDocs(account.id))
             .toResource()
             .subscribe {
                 when(it){
@@ -64,7 +64,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
                         docs=it.data.second.result?: emptyList()
                     }
                 }
-            }
+            })
 
     }
 
@@ -78,7 +78,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
                 it.patientId = patientId
             }
 
-            interventionApi.save(it).toResource()
+            disposable.add(interventionApi.save(it).toResource()
                 .subscribe { result ->
                     when (result) {
                         is Resource.Success -> {
@@ -89,7 +89,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
                             messageAction.value = Event(result.message ?: "")
                         }
                     }
-                }
+                })
         }
 
     }

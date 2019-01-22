@@ -34,10 +34,10 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
 
                 val list=viewModel.docs.map { it.trueName }?.toTypedArray()
 
-                val selectedItems=(viewModel.docs.map {  user ->
+                val selectedItems= viewModel.docs.map { user ->
 
                     viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
-                }?: emptyList()).toBooleanArray()
+                }.toBooleanArray()
 
                 val dialog = AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems
                 ) { _, which, isChecked ->
@@ -49,11 +49,11 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                     }
 
                     viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.id?:""
+                        viewModel.docs.get(it)?.id
                     }
 
                     viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.trueName?:""
+                        viewModel.docs.get(it)?.trueName
                     }
                 }.show()
 

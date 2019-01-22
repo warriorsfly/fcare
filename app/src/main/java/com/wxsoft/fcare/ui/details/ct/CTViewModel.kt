@@ -51,7 +51,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
     }
 
     private fun loadPacs(){
-        api.getPAC(patientId)
+        disposable.add(api.getPAC(patientId)
             .toResource()
             .subscribe {
                 when(it){
@@ -59,7 +59,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
                         loadInterventionResult.value=it?.data
                     }
                 }
-            }
+            })
 
     }
 
@@ -73,7 +73,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
                 it.patientId = patientId
             }
 
-            api.savePAC(it).toResource()
+            disposable.add(api.savePAC(it).toResource()
                 .subscribe { result ->
                     when (result) {
                         is Resource.Success -> {
@@ -84,7 +84,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
                             messageAction.value = Event(result.message ?: "")
                         }
                     }
-                }
+                })
         }
 
     }

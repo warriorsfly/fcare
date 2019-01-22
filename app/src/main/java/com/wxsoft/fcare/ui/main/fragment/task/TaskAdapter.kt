@@ -41,13 +41,14 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
                 allTime.text = getTimeDifference(item.startAt!!, item.arriveHosAt!!)
             }
             statusImage.setImageResource(
-                when (item.status) {
+                when (val status=item.status) {
+
                     1 -> R.drawable.ic_task_status_start
                     2 -> R.drawable.ic_task_status_arrived
                     3 -> R.drawable.ic_task_status_tuch_patient
                     4 -> R.drawable.ic_task_status_back
                     5 -> R.drawable.ic_task_status_end
-                    else -> throw IllegalStateException("Unknown status `$item.status`")
+                    else -> throw IllegalStateException("Unknown status $status")
                 }
             )
             parientName.text = names
@@ -63,8 +64,7 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding: LayoutItemAssignmentBinding =
-            LayoutItemAssignmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = LayoutItemAssignmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 
