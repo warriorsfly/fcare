@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.ui.details.ct
 
-import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -28,37 +27,7 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
     private var dialog: TimePickerDialog?=null
     private val selectedIndex= mutableListOf<Int>()
     override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.thromboly_place -> {
 
-                val list=viewModel.docs.map { it.trueName }?.toTypedArray()
-
-                val selectedItems=(viewModel.docs.map {  user ->
-
-                    viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
-                }?: emptyList()).toBooleanArray()
-
-                val dialog = AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems
-                ) { _, which, isChecked ->
-                    if(selectedIndex.contains(which) && !isChecked){
-                        selectedIndex.remove(which)
-
-                    }else if(!selectedIndex.contains(which) && isChecked){
-                        selectedIndex.add(which)
-                    }
-
-                    viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.id?:""
-                    }
-
-                    viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.trueName?:""
-                    }
-                }.show()
-
-
-            }
-            else ->{
 
                 (v as? Button)?.let {
                     selectedId = it.id
@@ -69,8 +38,7 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
                     dialog = createDialog(currentTime)
                     dialog?.show(supportFragmentManager, "all");
                 }
-            }
-        }
+
     }
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
@@ -110,7 +78,6 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
         start_puncture.setOnClickListener  (this)
         punctured.setOnClickListener  (this)
         start_angiography.setOnClickListener  (this)
-        thromboly_place.setOnClickListener  (this)
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()

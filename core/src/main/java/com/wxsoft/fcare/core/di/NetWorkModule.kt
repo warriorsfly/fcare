@@ -170,4 +170,14 @@ class NetWorkModule {
         return retrofit.create(ThrombolysisApi::class.java)
     }
 
+    @Provides
+    fun provideDischargeApi(retrofit: Retrofit):DischargeApi{
+        return retrofit.create(DischargeApi::class.java)
+    }
+
+    @Provides
+    fun providePACSApi(retrofit: Retrofit):PACSApi{
+        return retrofit.create(PACSApi::class.java)
+    }
+
 }

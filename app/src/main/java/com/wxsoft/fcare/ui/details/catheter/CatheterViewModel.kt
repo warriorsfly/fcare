@@ -74,7 +74,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
         intervention.value?.let {
             if (it.id.isNullOrEmpty()) {
                 it.doctorId = account.id
-                it.doctorName = account.userName
+                it.doctorName = account.trueName
                 it.patientId = patientId
             }
 

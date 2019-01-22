@@ -52,6 +52,7 @@ import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
+import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
@@ -230,6 +231,13 @@ class EmrFragment : DaggerFragment() {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, Catheter)
+                }
+
+                ActionRes.ActionType.CT_OPERATION ->{
+                    var intent = Intent(context.get()?.activity, CTActivity::class.java).apply {
+                        putExtra(CTActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, CT)
                 }
 
 
