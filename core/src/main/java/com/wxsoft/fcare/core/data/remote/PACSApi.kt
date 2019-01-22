@@ -17,4 +17,7 @@ interface PACSApi {
 
     @POST("PACS/Save")
     fun savePAC(@Body pacs : Pacs): Maybe<Response<String>>
+
+    @GET("PACS/NoticeStartCT/{patientId}/{currUserId}")
+    fun notice(@Path("patientId")id:String,@Path("currUserId")accountId:String):Maybe<Response<String>>
 }
