@@ -233,7 +233,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
                 loadsonItemsResult.value = loadInfarctItemsResult.value
                 initShowSonList.value = true
             }
-            "主动脉夹层" ->{
+            "主动脉夹层","肺动脉栓塞" ->{
                 initStartCT.value = true
             }
             "STEMI" ->{
