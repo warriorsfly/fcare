@@ -37,8 +37,6 @@ import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
 import com.wxsoft.fcare.ui.message.MessageActivity
 import com.wxsoft.fcare.ui.message.MessageModule
-import com.wxsoft.fcare.ui.outcome.OutComeActivity
-import com.wxsoft.fcare.ui.outcome.OutComeModule
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
@@ -151,7 +149,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [AssistantExaminationModule::class])
     internal abstract fun assistantExaminationActivity(): AssistantExaminationActivity
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = [OutComeModule::class])
-    internal abstract fun outcomeActivity(): OutComeActivity
+
+
+
+
+
 }

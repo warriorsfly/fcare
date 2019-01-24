@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.reperfusion.ReperfusionViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F8F8F9"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:context=".ui.details.reperfusion.ReperfusionActivity">
+        <include layout="@layout/layout_common_title"
+                 android:id="@+id/title"
+                 app:presenter="@{viewModel}"
+        />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

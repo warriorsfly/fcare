@@ -137,13 +137,13 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
             .build()
     }
 //
-//    override fun onDismiss(dialog: DialogInterface?) {
-//        super.onDismiss(dialog)
-//        val activity = getActivity()
-//        if (activity is DialogInterface.OnDismissListener) {
-//            (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
-//        }
-//    }
+    override fun onDismiss(dialog: DialogInterface?) {
+        super.onDismiss(dialog)
+        val activity = getActivity()
+        if (activity is DialogInterface.OnDismissListener) {
+            (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
+        }
+    }
 
 
 

@@ -15,8 +15,6 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 
-
-
 class PharmacyActivity : BaseActivity() {
 
     private lateinit var patientId:String

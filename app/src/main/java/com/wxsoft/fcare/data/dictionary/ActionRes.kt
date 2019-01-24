@@ -41,7 +41,7 @@ class ActionRes {
         ActionType.给药, ActionType.溶栓处置, ActionType.绕行导管室, ActionType.心电图, ActionType.生命体征,
         ActionType.导管室完成准备, ActionType.CABG, ActionType.院前诊断, ActionType.消息通知, ActionType.知情同意书,
         ActionType.CT, ActionType.出院诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
-        ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,
+        ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,ActionType.治疗方案,
         ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,
         ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式,ActionType.Catheter,
         ActionType.CT_OPERATION
@@ -89,6 +89,7 @@ class ActionRes {
             //导管室操作
             const val Catheter = "dgscz"
             const val CT_OPERATION = "ctscz"
+            const val 治疗方案 = "zlfa"
         }
     }
 }
