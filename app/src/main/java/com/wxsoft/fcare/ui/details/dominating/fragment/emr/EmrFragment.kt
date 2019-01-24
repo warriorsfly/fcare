@@ -152,6 +152,7 @@ class EmrFragment : DaggerFragment() {
             }.show()
         })
         viewModel.emrItemLoaded.observe(this,EventObserver{
+            if(it.first<0)return@EventObserver
             adapter.notifyItemChanged(it.first)
             when(it.second){
                 ActionRes.ActionType.心电图->{
