@@ -61,30 +61,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                 loadEmrResult.value = it?.first
 
-                //生命体征
-                disposable.add(emrApi.getVitals(patientId)
-                    .subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ vital ->
-                        if (vital.isNullOrEmpty()) return@subscribe
 
-                         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.生命体征 }
-                            ?.let {
-                                if (!vital.isNullOrEmpty()) {
-                                    it.result = vital
-                                    it.done = true
-                                    it.completedAt = vital[0].createdDate
-                                }
-                            }
-                        val index =
-                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
-                        index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
-                        }
-
-                    }, {
-                        messageAction.value = Event(it.message ?: "")
-                    }))
 
 
                 disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
@@ -281,27 +258,27 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     }
 
     fun refreshVitals(){
-        disposable.add(emrApi.getVitals(patientId).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({
-                    vitals->
-                if (vitals.isNullOrEmpty()) return@subscribe
-                 loadEmrResult.value?.result?.firstOrNull { emr->emr.code==ActionRes.ActionType.生命体征}?.let {
-                    item->
-                    item.result=vitals.get(0)
-                    if(!item.done){
-                        item.done=true
-                        item.completedAt=vitals?.get(0)?.createdDate
-                    }
-                }
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.生命体征 }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
-                }
-            }, {
-                messageAction.value = Event(it.message ?: "")
-            })
-        )
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.生命体征 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getVitals(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshRating(){

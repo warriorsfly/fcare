@@ -37,7 +37,7 @@ interface EmrApi{
      * 获取生命体征列表
      */
     @GET("VitalSigns/GetById/{id}")
-    fun getVitals(@Path("id")id:String): Maybe<List<VitalSign>>
+    fun getVitals(@Path("id")id:String): Maybe<Response<List<VitalSign>>>
 
     /**
      * 体格检查
