@@ -99,5 +99,8 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/218")
     fun loadInfarct(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/219")
+    fun loadAssistantTypes(): Maybe<List<Dictionary>>
+
 
 }
