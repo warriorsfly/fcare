@@ -15,14 +15,18 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.databinding.ActivityDischargeBinding
+import com.wxsoft.fcare.databinding.ActivityOutcomeChestBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.viewModelProvider
-import kotlinx.android.synthetic.main.activity_discharge.*
+import kotlinx.android.synthetic.main.layout_activity_outcome_chest1.*
+import kotlinx.android.synthetic.main.layout_activity_outcome_chest2.*
+import kotlinx.android.synthetic.main.layout_activity_outcome_chest3.*
+import kotlinx.android.synthetic.main.layout_activity_outcome_chest4.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
-class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
+class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
 
     private var dialog: TimePickerDialog?=null
     override fun onClick(v: View?) {
@@ -52,7 +56,7 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
     }
-    private lateinit var viewModel: DisChargeViewModel
+    private lateinit var viewModel: OutComeViewModel
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -60,12 +64,12 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        DataBindingUtil.setContentView<ActivityDischargeBinding>(this, R.layout.activity_discharge)
+        DataBindingUtil.setContentView<ActivityOutcomeChestBinding>(this, R.layout.activity_outcome_chest)
             .apply {
-//                viewModel = this@DisChargeActivity. viewModel
-                setLifecycleOwner(this@DisChargeActivity)
+                viewModel = this@OutComeActivity. viewModel
+                setLifecycleOwner(this@OutComeActivity)
             }
-        patientId=intent.getStringExtra(DisChargeActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(OutComeActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
         back.setOnClickListener { onBackPressed() }
@@ -74,13 +78,6 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
-//        viewModel.des.observe(this, Observer {
-//            if( diagnose_list.adapter==null){
-//                diagnose_list.adapter=DiagnoseAdapter(this@DisChargeActivity,viewModel)
-//            }
-//
-//            (diagnose_list.adapter as DiagnoseAdapter).items=it?: emptyList()
-//        })
 
         viewModel.commitResult .observe(this, Observer {
             when(it) {
@@ -94,7 +91,11 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
             }
         })
 
-        start.setOnClickListener(this)
+        start1.setOnClickListener(this)
+        start2.setOnClickListener(this)
+        start3.setOnClickListener(this)
+        start4.setOnClickListener(this)
+        pci_start.setOnClickListener(this)
     }
 
     private fun createDialog(time:Long): TimePickerDialog {

@@ -136,6 +136,12 @@
                 android:name=".ui.discharge.DisChargeActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
+
+        <activity
+                android:name=".ui.outcome.OutComeActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <activity
                 android:name=".ui.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar">

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.outcome.OutComeViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+
+        app:goneUnless="@{viewModel.data.outcomeCode.equals(`11-1`)}"
+        android:layout_height="match_parent">
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/model1"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_height="50dp">
+
+            <TextView
+                    android:id="@+id/title3_2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="出院时间"
+                    android:textSize="15sp"
+                    android:textColor="#131D35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <Button
+                    android:hint="选择时间"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:id="@+id/start1"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="13sp"
+                    android:textColor="#7D7D7D"
+                    android:minWidth="90dp"
+                    android:text="@={viewModel.data.handTime}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
+                    tools:text="2019-01-18 13:23:15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/rowe3_2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/title3_2"
+                    android:layout_width="14dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@drawable/ic_right_arrow"/>
+            <View
+                    android:background="#EDEDED"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <TextView
+            android:text="治疗结果"
+            android:id="@+id/title1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/o"
+            app:layout_constraintBottom_toBottomOf="@id/h"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+
+        <RadioButton
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@id/model1"
+                app:layout_constraintLeft_toRightOf="@id/title1"
+                app:layout_constraintRight_toLeftOf="@id/d"
+                android:layout_width="0dp"
+                android:id="@+id/o"
+                android:checked="@{viewModel.data.resultCode.equals(`12-1`)}"
+                android:onClick="@{()->viewModel.data.setResultCode(0)}"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:text="治愈"
+        />
+
+
+        <RadioButton
+                app:layout_constraintTop_toBottomOf="@id/model1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/o"
+                android:layout_width="0dp"
+                android:text="好转"
+                android:id="@+id/d"
+                android:layout_marginTop="10dp"
+                android:checked="@{viewModel.data.resultCode.equals(`12-2`)}"
+                android:onClick="@{()->viewModel.data.setResultCode(1)}"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"/>
+
+
+
+        <RadioButton
+
+                app:layout_constraintTop_toBottomOf="@id/o"
+                app:layout_constraintLeft_toRightOf="@id/title1"
+                app:layout_constraintRight_toLeftOf="@id/d"
+                android:layout_width="0dp"
+                android:checked="@{viewModel.data.resultCode.equals(`12-3`)}"
+                android:onClick="@{()->viewModel.data.setResultCode(2)}"
+                android:text="脑死亡离院"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/h"
+                android:layout_height="wrap_content"/>
+
+
+
+        <RadioButton
+                app:layout_constraintTop_toBottomOf="@id/o"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/o"
+                android:layout_width="0dp"
+                android:text="其他原因离院"
+                android:checked="@{viewModel.data.resultCode.equals(`12-4`)}"
+                android:onClick="@{()->viewModel.data.setResultCode(3)}"
+                android:layout_marginRight="20dp"
+                android:id="@+id/de"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="出院带药"
+                android:layout_marginTop="10dp"
+                android:id="@+id/title2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/de"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+
+        <CheckBox
+                app:layout_constraintTop_toBottomOf="@id/title2"
+                app:layout_constraintLeft_toRightOf="@id/title1"
+                app:layout_constraintRight_toLeftOf="@id/d"
+                android:layout_width="0dp"
+                android:id="@+id/o1"
+
+                android:layout_marginTop="10dp"
+                android:checked="@={viewModel.data.outDapt}"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:text="DAPT"
+        />
+
+
+        <CheckBox
+                app:layout_constraintTop_toBottomOf="@id/title2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/o1"
+                android:layout_width="0dp"
+                android:text="ACEI/ARB"
+                android:id="@+id/d1"
+                android:layout_marginTop="10dp"
+                android:checked="@{viewModel.data.outAceiorarb}"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"/>
+
+
+
+        <CheckBox
+                app:layout_constraintTop_toBottomOf="@id/o1"
+                app:layout_constraintLeft_toRightOf="@id/title1"
+                app:layout_constraintRight_toLeftOf="@id/d"
+                android:layout_width="0dp"
+                android:checked="@{viewModel.data.outStatins}"
+                android:text="他汀"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/h1"
+                android:layout_height="wrap_content"/>
+
+
+
+        <CheckBox
+                app:layout_constraintTop_toBottomOf="@id/o1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/o1"
+                android:layout_width="0dp"
+                android:text="β阻滞剂"
+                android:checked="@{viewModel.data.outRetardant}"
+                android:layout_marginRight="20dp"
+                android:id="@+id/de1"
+                android:layout_height="wrap_content"/>
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

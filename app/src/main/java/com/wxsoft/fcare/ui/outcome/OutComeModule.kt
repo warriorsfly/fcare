@@ -6,10 +6,10 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 
 @Module
-internal abstract class DisChargeModule {
+internal abstract class OutComeModule {
     @Binds
     @IntoMap
-    @ViewModelKey(DisChargeViewModel::class)
-    abstract fun bindDisChargeViewModel(viewModel: DisChargeViewModel): ViewModel
+    @ViewModelKey(OutComeViewModel::class)
+    abstract fun bindOutComeViewModel(viewModel: OutComeViewModel): ViewModel
 
 }

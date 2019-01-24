@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.outcome.OutComeViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff">
+        <include layout="@layout/layout_common_title"
+             android:id="@+id/title"
+             app:presenter="@{viewModel}"/>
+
+
+        <RadioButton
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/d"
+                android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/o"
+                android:checked="@{viewModel.data.outcomeCode.equals(`11-1`)}"
+                android:onClick="@{()->viewModel.data.setCode(0)}"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content"
+                android:text="出院"
+                />
+
+
+        <RadioButton
+                app:layout_constraintTop_toBottomOf="@id/title"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/o"
+                android:layout_width="0dp"
+                android:layout_marginTop="10dp"
+                android:text="转送其他科室"
+                android:id="@+id/d"
+                android:checked="@{viewModel.data.outcomeCode.equals(`11-3`)}"
+                android:onClick="@{()->viewModel.data.setCode(2)}"
+                android:layout_marginRight="20dp"
+                android:layout_height="wrap_content"/>
+
+
+
+        <RadioButton
+                app:layout_constraintTop_toBottomOf="@id/o"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/d"
+                android:layout_width="0dp"
+                android:checked="@{viewModel.data.outcomeCode.equals(`11-2`)}"
+                android:onClick="@{()->viewModel.data.setCode(1)}"
+                android:text="转送其他医院"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/h"
+                android:layout_height="wrap_content"/>
+
+
+
+        <RadioButton
+                app:layout_constraintTop_toBottomOf="@id/o"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/o"
+                android:layout_width="0dp"
+                android:text="死亡"
+                android:checked="@{viewModel.data.outcomeCode.equals(`11-4`)}"
+                android:onClick="@{()->viewModel.data.setCode(3)}"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                android:id="@+id/de"
+                android:layout_height="wrap_content"/>
+
+        <include layout="@layout/layout_activity_outcome_chest1"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:viewModel="@{viewModel}"
+
+             app:layout_constraintTop_toBottomOf="@id/de"
+             app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <include layout="@layout/layout_activity_outcome_chest2"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 app:viewModel="@{viewModel}"
+
+                 app:layout_constraintTop_toBottomOf="@id/de"
+                 app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <include layout="@layout/layout_activity_outcome_chest3"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 app:viewModel="@{viewModel}"
+                 app:layout_constraintTop_toBottomOf="@id/de"
+                 app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <include layout="@layout/layout_activity_outcome_chest4"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 app:viewModel="@{viewModel}"
+                 app:layout_constraintTop_toBottomOf="@id/de"
+                 app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>
