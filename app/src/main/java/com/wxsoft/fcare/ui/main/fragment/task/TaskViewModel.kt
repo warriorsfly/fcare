@@ -4,24 +4,28 @@ package com.wxsoft.fcare.ui.main.fragment.task
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task
+import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
 
-class TaskViewModel @Inject constructor(val taskApi: TaskApi) : ViewModel(), EventActions {
+class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
+                                        override val sharedPreferenceStorage: SharedPreferenceStorage,
+                                        override val gon: Gson
+):  BaseViewModel(sharedPreferenceStorage,gon), EventActions {
 
     val isLoading: LiveData<Boolean>
     val tasks: LiveData<List<Task>>
-//    val t:ObservableField<String>
     var taskDate: String = DateTimeUtils.getCurrentDate()
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
     private val _errorToOperationAction = MutableLiveData<Event<String>>()
@@ -47,19 +51,17 @@ class TaskViewModel @Inject constructor(val taskApi: TaskApi) : ViewModel(), Eve
     }
 
     private fun load() {
-        taskApi.tasks(taskDate).toResource()
+        disposable.add(taskApi.tasks(taskDate).toResource()
             .subscribe {
                 loadTasksResult.value = it
                 if (it is Resource.Error) {
                     _errorToOperationAction.value = Event(it.throwable.message ?: "错误")
                 }
-            }
+            })
 
     }
 
     override fun onOpen(id: String) {
         _navigateToOperationAction.value = Event(id)
     }
-
-
 }

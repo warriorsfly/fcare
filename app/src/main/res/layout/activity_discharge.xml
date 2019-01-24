@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.discharge.DisChargeViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F8F8F9">
+        <include layout="@layout/layout_common_title"
+             android:id="@+id/title"
+             app:presenter="@{viewModel}"/>
+
+        <android.support.v7.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+            app:spanCount="2"
+            android:id="@+id/diagnose_list"
+            android:maxHeight="360dp"
+            android:layout_height="wrap_content"/>
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/model1"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/diagnose_list"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <TextView
+                    android:id="@+id/title3_2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="确诊时间"
+                    android:textSize="15sp"
+                    android:textColor="#131D35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <Button
+                    android:hint="选择时间"
+                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:id="@+id/start"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="13sp"
+                    android:textColor="#7D7D7D"
+                    android:minWidth="90dp"
+                    android:text="@={viewModel.data.diagnosisTime}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
+                    tools:text="2019-01-18 13:23:15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/rowe3_2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/title3_2"
+                    android:layout_width="14dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@drawable/ic_right_arrow"/>
+            <View
+                    android:background="#EDEDED"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/model2"
+                app:layout_constraintTop_toBottomOf="@id/model1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white">
+            <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="wrap_content"
+                    android:text="住院天数"
+                    android:textSize="15sp"
+                    android:id="@+id/title2"
+                    android:textColor="@color/edit_text_title"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/title2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:hint="输入住院天数"
+                    android:background="@null"
+                    android:textSize="14sp"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:text="@={FloatConverter.floatToString(viewModel.data.days)}"
+                    android:imeOptions="actionNext"
+                    android:layout_marginRight="15dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"/>
+        </android.support.constraint.ConstraintLayout>
+
+
+        <android.support.constraint.ConstraintLayout
+                android:id="@+id/model3"
+                app:layout_constraintTop_toBottomOf="@id/model2"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white">
+            <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="wrap_content"
+                    android:text="住院费用"
+                    android:textSize="15sp"
+                    android:id="@+id/title8"
+                    android:textColor="@color/edit_text_title"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/title8"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:hint="请输入住院费用"
+                    android:background="@null"
+                    android:textSize="14sp"
+                    android:inputType="numberDecimal"
+                    android:maxLines="1"
+                    android:text="@={FloatConverter.floatToString(viewModel.data.cost)}"
+                    android:imeOptions="actionNext"
+                    android:layout_marginRight="15dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"/>
+        </android.support.constraint.ConstraintLayout>
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

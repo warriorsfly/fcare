@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.core.data
+package com.wxsoft.fcare.core.data.entity
 
 import android.databinding.BaseObservable
 import android.databinding.Bindable

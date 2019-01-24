@@ -47,7 +47,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
     private fun loadEms(id:String) {
 
-        (if (preHos) emrApi.getPreEmrs(id) else emrApi.getInEmrs(id)).zipWith(emrApi.getBaseInfo(patientId))
+
+       val dis= (if (preHos) emrApi.getPreEmrs(id) else emrApi.getInEmrs(id)).zipWith(emrApi.getBaseInfo(patientId))
             .subscribeOn(Schedulers.computation())
             .doOnSuccess { zip ->
                 val list = zip.first.result
@@ -63,7 +64,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 loadEmrResult.value = it?.first
 
                 //生命体征
-                emrApi.getVitals(patientId)
+                disposable.add(emrApi.getVitals(patientId)
                     .subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ vital ->
@@ -85,10 +86,10 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                     }, {
                         messageAction.value = Event(it.message ?: "")
-                    })
+                    }))
 
 
-                emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
+                disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         //                        check?.result?: return@subscribe
                         loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -101,6 +102,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     },{
                         messageAction.value= Event(it.message?:"")
                     })
+                )
 
 
 
@@ -118,6 +120,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                 refreshThrombolysis()
             }
+
+        disposable.add(dis)
     }
 
     fun diagnose(string:String) {
@@ -129,7 +133,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             doctorName = account.userName
         }
         item?.let {
-            emrApi.diagnose(it).subscribeOn(Schedulers.single())
+            disposable.add(emrApi.diagnose(it).subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({
 
                     loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -145,6 +149,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     it.savable = true
                     messageAction.value = Event(throwable.message ?: "")
                 })
+            )
 
         }
     }
@@ -169,7 +174,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
 
         item?.let {
-            emrApi.saveEcg(it, files)
+            disposable.add(emrApi.saveEcg(it, files)
                 .subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
@@ -199,12 +204,13 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     it.savable = true
                     messageAction.value = Event(throwable.message ?: "")
                 })
+            )
 
         }
     }
 
     fun refreshDiagnose(){
-        emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     diagnose->
                 diagnose?.result ?: return@subscribe
@@ -224,11 +230,12 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             }, {
                 messageAction.value = Event(it.message ?: "")
             })
+        )
     }
 
     fun refreshChekBody(){
         //PhysicalExamination
-        emrApi.getBodyCheck(patientId)
+        disposable.add(emrApi.getBodyCheck(patientId)
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                 check?.result ?: return@subscribe
@@ -248,10 +255,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             }, {
                 messageAction.value = Event(it.message ?: "")
             })
+        )
     }
 
     fun refreshMedicalHistory(){
-        emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     history->
                 history?.result ?: return@subscribe
@@ -271,10 +279,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             }, {
                 messageAction.value = Event(it.message ?: "")
             })
+        )
     }
 
     fun refreshVitals(){
-        emrApi.getVitals(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.getVitals(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     vitals->
                 if (vitals.isNullOrEmpty()) return@subscribe
@@ -294,10 +303,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             }, {
                 messageAction.value = Event(it.message ?: "")
             })
+        )
     }
 
     fun refreshRating(){
-        emrApi.getRecords(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.getRecords(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
                 rating?.result ?: return@subscribe
                 loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.GRACE }?.result =
@@ -310,10 +320,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             },{
                 messageAction.value= Event(it.message?:"")
             })
+        )
     }
 
     fun refreshMeasure(){
-        emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ measure ->
                 measure?.result ?: return@subscribe
                 loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
@@ -332,10 +343,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             },{
                 messageAction.value= Event(it.message?:"")
             })
+        )
     }
 
     fun refreshThrombolysis(){
-        emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ thrombolysis ->
                 thrombolysis?.result ?: return@subscribe
 //                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.溶栓处置 }?.let {
@@ -354,6 +366,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             },{
                 messageAction.value= Event(it.message?:"")
             })
+        )
     }
 
 

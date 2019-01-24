@@ -82,11 +82,6 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
-    }
-
     private fun isNameValid(email: String): Boolean {
         return email.isNotEmpty()
     }

@@ -10,7 +10,8 @@
             <!--android:startColor="@color/colorPrimaryDark"-->
             <!--android:type="linear" />-->
 
-            <solid android:color="#ff0000"/>
+            <solid android:color="@color/dark_gray"/>
+            <!--<solid android:color="#ff0000"/>-->
         </shape>
     </item>
 </layer-list>

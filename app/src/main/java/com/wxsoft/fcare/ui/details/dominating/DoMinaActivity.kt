@@ -44,7 +44,7 @@ class DoMinaActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        var binding = DataBindingUtil.setContentView<ActivityDoMinaBinding>(
+        DataBindingUtil.setContentView<ActivityDoMinaBinding>(
             this,
             R.layout.activity_do_mina
         ).apply {

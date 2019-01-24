@@ -86,6 +86,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="14sp"
                         tools:text="张三"
+                        android:textStyle="bold"
                         android:layout_marginLeft="18dp"
                         android:textColor="#131D35"
                         android:text="@{item.name}"

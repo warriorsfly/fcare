@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.ui.details.ct
+package com.wxsoft.fcare.ui.discharge
 
 import android.arch.lifecycle.Observer
 import android.content.Intent
@@ -14,30 +14,28 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.databinding.ActivityCtBinding
+import com.wxsoft.fcare.databinding.ActivityDischargeBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.viewModelProvider
-import kotlinx.android.synthetic.main.activity_ct.*
+import kotlinx.android.synthetic.main.activity_discharge.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
-class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
+class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
 
     private var dialog: TimePickerDialog?=null
-    private val selectedIndex= mutableListOf<Int>()
     override fun onClick(v: View?) {
 
+        (v as? Button)?.let {
+            selectedId = it.id
+            val currentTime = it.text.toString()?.let { text ->
+                return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            }
 
-                (v as? Button)?.let {
-                    selectedId = it.id
-                    val currentTime = it.text.toString()?.let { text ->
-                        return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
-                    }
-
-                    dialog = createDialog(currentTime)
-                    dialog?.show(supportFragmentManager, "all");
-                }
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all");
+        }
 
     }
 
@@ -54,7 +52,7 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
     }
-    private lateinit var viewModel: CTViewModel
+    private lateinit var viewModel: DisChargeViewModel
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -62,25 +60,26 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        DataBindingUtil.setContentView<ActivityCtBinding>(this, R.layout.activity_ct)
+        DataBindingUtil.setContentView<ActivityDischargeBinding>(this, R.layout.activity_discharge)
             .apply {
-                viewModel = this@CTActivity. viewModel
-                setLifecycleOwner(this@CTActivity)
+                viewModel = this@DisChargeActivity. viewModel
+                setLifecycleOwner(this@DisChargeActivity)
             }
-        patientId=intent.getStringExtra(CTActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(DisChargeActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
         back.setOnClickListener { onBackPressed() }
 
-        start.setOnClickListener  (this)
-        end_thromboly_time.setOnClickListener  (this)
-        patient_arrive.setOnClickListener  (this)
-        start_puncture.setOnClickListener  (this)
-        punctured.setOnClickListener  (this)
-        start_angiography.setOnClickListener  (this)
-
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.des.observe(this, Observer {
+            if( diagnose_list.adapter==null){
+                diagnose_list.adapter=DiagnoseAdapter(this@DisChargeActivity,viewModel)
+            }
+
+            (diagnose_list.adapter as DiagnoseAdapter).items=it?: emptyList()
         })
 
         viewModel.commitResult .observe(this, Observer {
@@ -94,24 +93,26 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
                 }
             }
         })
+
+        start.setOnClickListener(this)
     }
 
     private fun createDialog(time:Long): TimePickerDialog {
 
-            return TimePickerDialog.Builder()
-                .setCallBack(this)
-                .setCancelStringId("取消")
-                .setSureStringId("确定")
-                .setTitleStringId("选择时间")
-                .setYearText("")
-                .setMonthText("")
-                .setDayText("")
-                .setHourText("")
-                .setMinuteText("")
-                .setCyclic(false)
-                .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-                .setType(Type.ALL)
-                .setWheelItemTextSize(16)
-                .build()
+        return TimePickerDialog.Builder()
+            .setCallBack(this)
+            .setCancelStringId("取消")
+            .setSureStringId("确定")
+            .setTitleStringId("选择时间")
+            .setYearText("")
+            .setMonthText("")
+            .setDayText("")
+            .setHourText("")
+            .setMinuteText("")
+            .setCyclic(false)
+            .setCurrentMillseconds(if (time == 0L) System.currentTimeMillis() else time)
+            .setType(Type.ALL)
+            .setWheelItemTextSize(16)
+            .build()
     }
 }

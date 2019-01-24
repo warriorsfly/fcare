@@ -20,4 +20,7 @@ interface InterventionApi{
 
     @POST("Intervention/Save")
     fun save(@Body intervention: Intervention):Maybe<Response<String>>
+
+    @GET("Intervention/NoticeStartConduit/{patientId}/{currUserId}")
+    fun notice(@Path("patientId")id:String,@Path("currUserId")accountId:String):Maybe<Response<String>>
 }

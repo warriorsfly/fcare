@@ -29,6 +29,7 @@ import com.wxsoft.fcare.core.data.entity.rating.Option
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.Subject
 import com.wxsoft.fcare.core.di.GlideApp
+import kotlin.math.roundToInt
 
 @BindingAdapter("taskSelectUser")
 fun taskSelectUser(view: View, visible: Boolean) {
@@ -126,5 +127,17 @@ object LongConverter{
 
     @JvmStatic fun stringToLong(value:String): Long {
         return if(value.isEmpty()) 0L else value.toLong()
+    }
+}
+
+object FloatConverter{
+    @InverseMethod("stringToFloat")
+    @JvmStatic fun floatToString(value: Float):String  {
+        return if(value==0f) ""  else value.toString()
+
+    }
+
+    @JvmStatic fun stringToFloat(value:String): Float {
+        return if(value.isEmpty()) 0f else value.toFloat()
     }
 }

@@ -27,13 +27,14 @@ import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsModule
+import com.wxsoft.fcare.ui.discharge.DisChargeActivity
+import com.wxsoft.fcare.ui.discharge.DisChargeModule
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
 import com.wxsoft.fcare.ui.message.MessageActivity
 import com.wxsoft.fcare.ui.message.MessageModule
-import com.wxsoft.fcare.ui.message.MessageViewModel
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
@@ -134,6 +135,16 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [CatheterModule::class])
     internal abstract fun catheterActivity(): CatheterActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [CTModule::class])
+    internal abstract fun ctActivity(): CTActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DisChargeModule::class])
+    internal abstract fun dischargeActivity(): DisChargeActivity
+
+
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [CTModule::class])

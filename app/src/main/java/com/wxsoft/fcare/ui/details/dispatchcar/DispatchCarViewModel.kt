@@ -85,39 +85,44 @@ class DispatchCarViewModel @Inject constructor(
     private fun saveTask(){
         task.value?.createdDate = DateTimeUtils.getCurrentTime()
         task.value?.createdBy = account.userName
-        taskApi.save(task.value!!).toResource()
+        disposable.add(taskApi.save(task.value!!).toResource()
             .subscribe{
                 initTaskId.value = it
             }
+        )
     }
 
     private fun getCars(){
-        carApi.cars().toResource()
+        disposable.add(carApi.cars().toResource()
             .subscribe{
                 loadCarsResult.value = it
 
             }
+        )
     }
 
     private fun getDoctors(){
-        taskApi.getDoctors(account.id).toResource()
+        disposable.add(taskApi.getDoctors(account.id).toResource()
             .subscribe{
                 loadDoctorsResult.value = it
             }
+        )
     }
 
     private fun getNurses(){
-        taskApi.getNurses(account.id).toResource()
+        disposable.add(taskApi.getNurses(account.id).toResource()
             .subscribe{
                 loadNursesResult.value = it
             }
+        )
     }
 
     private fun getDrivers(){
-        taskApi.getDrivers(account.id).toResource()
+        disposable.add(taskApi.getDrivers(account.id).toResource()
             .subscribe{
                 loadDriversResult.value = it
             }
+        )
     }
 
 

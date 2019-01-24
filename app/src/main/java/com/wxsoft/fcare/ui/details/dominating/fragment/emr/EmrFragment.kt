@@ -52,8 +52,10 @@ import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
+import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
+import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.lazyFast
@@ -80,6 +82,7 @@ class EmrFragment : DaggerFragment() {
         const val INV = 26
         const val Catheter = 27
         const val CT = 28
+        const val DISCHARGE = 29
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -222,7 +225,6 @@ class EmrFragment : DaggerFragment() {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
-//                    context.get()?.startActivityForResult(intent, DIAGNOSE)
                 }
 
                 ActionRes.ActionType.Catheter ->{
@@ -230,6 +232,20 @@ class EmrFragment : DaggerFragment() {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, Catheter)
+                }
+
+                ActionRes.ActionType.CT_OPERATION ->{
+                    var intent = Intent(context.get()?.activity, CTActivity::class.java).apply {
+                        putExtra(CTActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, CT)
+                }
+
+                ActionRes.ActionType.出院诊断 ->{
+                    var intent = Intent(context.get()?.activity, DisChargeActivity::class.java).apply {
+                        putExtra(CTActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, DISCHARGE)
                 }
 
 

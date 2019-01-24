@@ -71,7 +71,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
         }
     }
 
-    fun saveVitalSign() {
+    private fun saveVitalSign() {
 
         val v = vital.value!!
         if (v.id.isEmpty())
@@ -83,15 +83,15 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
         ) return
         if (selectedConsciousnessPosition.get() == -1) return
         v.consciousness_Type = consciousItems.get(selectedConsciousnessPosition.get()).itemCode
-        (if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
+        disposable.add((if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
             .subscribe({
                 initbackToLast.value = true
                 messageAction.value = Event( "保存成功")},
-                {error->messageAction.value= Event(error.message?:"") })
+                {error->messageAction.value= Event(error.message?:"") }))
     }
 
     fun loadVitalSign() {
-        dictEnumApi.loadConsciousness().toResource()
+        disposable.add(dictEnumApi.loadConsciousness().toResource()
             .doOnSuccess {  loadConsciousnessResult.value = it}
             .flatMap {vitalSignApi.list(patientId).toResource()  }
             .subscribe {vi->
@@ -117,7 +117,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                         _errorToOperationAction.value = Event(vi.throwable.message ?: "错误")
                     }
                 }
-            }
+            })
     }
 
     override fun click(){

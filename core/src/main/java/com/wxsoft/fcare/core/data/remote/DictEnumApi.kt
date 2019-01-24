@@ -9,6 +9,9 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/1")
     fun loadDictEvaluations(): Maybe<List<Dictionary>>
 
+    /**
+     * 胸痛大诊断
+     */
     @GET("EnumDic/enumItems/4")
     fun loadDict4Diagnosis(): Maybe<List<Dictionary>>
 
@@ -18,6 +21,9 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/16")
     fun loadThromPlaces(): Maybe<List<Dictionary>>
 
+    /**
+     * 非心源ACS
+     */
     @GET("EnumDic/enumItems/27")
     fun loadDict27Diagnosis(): Maybe<List<Dictionary>>
 
@@ -39,30 +45,57 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/209")
     fun loadResponseLightItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 疾病史来源
+     */
     @GET("EnumDic/enumItems/210")
     fun loadMedicalHistoryProviderItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 疾病史
+     */
     @GET("EnumDic/enumItems/211")
     fun loadMedicalHistoryItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 现场治疗措施
+     */
     @GET("EnumDic/enumItems/212")
     fun loadMeasuresItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 抢救结果
+     */
     @GET("EnumDic/enumItems/213")
     fun loadCureResultItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 配合程度
+     */
     @GET("EnumDic/enumItems/214")
     fun loadOutcallResultItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 疾病大类
+     */
     @GET("EnumDic/enumItems/215")
     fun loadDiagnoseTypeResultItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 疾病严重程度
+     */
     @GET("EnumDic/enumItems/216")
     fun loadIllnessResultItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 卒中大诊断
+     */
     @GET("EnumDic/enumItems/217")
     fun loadApoplexyResultItems(): Maybe<List<Dictionary>>
 
+    /**
+     * 脑梗死小诊断
+     */
     @GET("EnumDic/enumItems/218")
     fun loadInfarct(): Maybe<List<Dictionary>>
 

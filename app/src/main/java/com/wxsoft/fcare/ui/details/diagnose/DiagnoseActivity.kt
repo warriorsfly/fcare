@@ -6,8 +6,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityDiagnoseBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
@@ -64,6 +66,10 @@ class DiagnoseActivity : BaseActivity() {
             startConduitRoom()
         })
 
+        viewModel.startCT.observe(this, Observer {
+            startCT()
+        })
+
         viewModel.getDiagnose()
 
         viewModel.diagnosis.observe(this, Observer {  })
@@ -75,23 +81,36 @@ class DiagnoseActivity : BaseActivity() {
             }
         })
 
+        viewModel.mesAction.observe(this,EventObserver{
+            Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+        })
+
     }
 
 
 
 
-    fun startConduitRoom(){
-        AlertDialog.Builder(this)
+    private fun startConduitRoom(){
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
             .setMessage("通知院内启动导管室？")
-            .setTitle("启动导管室")
-            .setPositiveButton("确定", DialogInterface.OnClickListener { _, _ ->
+            .setPositiveButton("确定") { _, _ ->
+                viewModel.commitNoticeInv()
+            }
+            .setNegativeButton("取消") { _, _ ->
 
-            })
-            .setNeutralButton("取消", DialogInterface.OnClickListener { _, _ ->
+            }.show()
+    }
 
-            })
-            .create()
-            .show()
+
+    private fun startCT(){
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
+            .setMessage("通知院内CT室？")
+            .setPositiveButton("确定") { _, _ ->
+                viewModel.commitNoticePacs()
+            }
+            .setNegativeButton("取消") { _, _ ->
+
+            }.show()
     }
 
 }

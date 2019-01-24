@@ -15,7 +15,6 @@ import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -120,12 +119,6 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     private val _pageAction = MutableLiveData<Event<Int>>()
     val pageAction: LiveData<Event<Int>>
         get() = _pageAction
-
-    override fun onCleared() {
-        super.onCleared()
-        disposable.clear()
-    }
-
     /**
      * 拉取任务
      */
