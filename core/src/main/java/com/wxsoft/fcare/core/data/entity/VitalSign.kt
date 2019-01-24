@@ -4,7 +4,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 
-data class VitalSign(val id:String): BaseObservable() {
+data class VitalSign(val id:String=""): BaseObservable() {
 
     @Bindable
     var consciousness_Type: String = ""

@@ -40,6 +40,12 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
             if (value == "") return
             field = value
         }
+
+    var id: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
     private val _errorToOperationAction = MutableLiveData<Event<String>>()
 
     val vital: LiveData<VitalSign>
@@ -91,33 +97,61 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     }
 
     fun loadVitalSign() {
-        disposable.add(dictEnumApi.loadConsciousness().toResource()
-            .doOnSuccess {  loadConsciousnessResult.value = it}
-            .flatMap {vitalSignApi.list(patientId).toResource()  }
-            .subscribe {vi->
+        if(id.isNullOrEmpty()) {
+            disposable.add(dictEnumApi.loadConsciousness().toResource()
+                .doOnSuccess { loadConsciousnessResult.value = it }
+                .flatMap { vitalSignApi.list(patientId).toResource() }
+                .subscribe { vi ->
 
-                when (vi) {
-                    is Resource.Success -> {
-                        val l = (vi as? Resource.Success)?.data ?: emptyList()
+                    when (vi) {
+                        is Resource.Success -> {
+                            val l = (vi as? Resource.Success)?.data ?: emptyList()
 
-                        if (l.isEmpty()) {
-                            loadVitalResult.value = Resource.Success(VitalSign(""))
-                        } else {
-                            loadVitalResult.value = Resource.Success(l[0])
-                            vital.value?.setUpChecked()
-                            selectedConsciousnessPosition.set(consciousnessItems.value?.indexOf(l[0].consciousness_Type)?:-1)
+                            if (l.isEmpty()) {
+                                loadVitalResult.value = Resource.Success(VitalSign(""))
+                            } else {
+                                loadVitalResult.value = Resource.Success(l[0])
+                                vital.value?.setUpChecked()
+                                selectedConsciousnessPosition.set(
+                                    consciousnessItems.value?.indexOf(l[0].consciousness_Type) ?: -1
+                                )
+                            }
+
                         }
+                        is Resource.Loading -> {
+                            loadVitalResult.value = Resource.Loading
+                        }
+                        is Resource.Error -> {
+                            loadVitalResult.value = vi
+                            _errorToOperationAction.value = Event(vi.throwable.message ?: "错误")
+                        }
+                    }
+                })
+        }else{
+            disposable.add(dictEnumApi.loadConsciousness().toResource()
+                .doOnSuccess { loadConsciousnessResult.value = it }
+                .flatMap { vitalSignApi.getOne(id).toResource() }
+                .subscribe { vi ->
 
+                    when (vi) {
+                        is Resource.Success -> {
+                            loadVitalResult.value = Resource.Success(vi.data.result?: VitalSign())
+                            vital.value?.setUpChecked()
+                            selectedConsciousnessPosition.set(
+                                consciousnessItems.value?.indexOf(vi.data.result?.consciousness_Type) ?: -1
+                            )
+
+                        }
+                        is Resource.Loading -> {
+                            loadVitalResult.value = Resource.Loading
+                        }
+                        is Resource.Error -> {
+                            loadVitalResult.value = vi
+                            _errorToOperationAction.value = Event(vi.throwable.message ?: "错误")
+                        }
                     }
-                    is Resource.Loading -> {
-                        loadVitalResult.value = Resource.Loading
-                    }
-                    is Resource.Error -> {
-                        loadVitalResult.value = vi
-                        _errorToOperationAction.value = Event(vi.throwable.message ?: "错误")
-                    }
-                }
-            })
+                })
+        }
     }
 
     override fun click(){

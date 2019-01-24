@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.core.data.entity.rating.Rating
+import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.生命体征
 import com.wxsoft.fcare.databinding.ItemEmrListItemVitalSignsBinding
 import com.wxsoft.fcare.databinding.ItemEmrRatingBinding
+import com.wxsoft.fcare.ui.EmrEventAction
 
-class EmrItemAdapter<T> constructor(private val lifecycleOwner: LifecycleOwner) :
+class EmrItemAdapter<T> constructor(private val lifecycleOwner: LifecycleOwner,private val  action: EmrEventAction?) :
     ListAdapter<T,ItemViewHolder>(DiffCallback<T>()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
@@ -32,8 +34,9 @@ class EmrItemAdapter<T> constructor(private val lifecycleOwner: LifecycleOwner) 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         when (holder){
             is ItemViewHolder.VitalViewHolder -> holder.binding.apply{
-                vital = getItem(position)  as VitalSign
 
+                vital = getItem(position)  as VitalSign
+                root.setOnClickListener { action?.onOpen(生命体征,vital?.id?:"") }
                 setLifecycleOwner(lifecycleOwner)
                 executePendingBindings()
             }

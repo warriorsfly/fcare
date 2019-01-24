@@ -41,10 +41,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
-import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.CommitEventAction
-import com.wxsoft.fcare.ui.EventActions
-import com.wxsoft.fcare.ui.PhotoEventAction
+import com.wxsoft.fcare.ui.*
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
@@ -165,9 +162,21 @@ class EmrFragment : DaggerFragment() {
 
     }
 
-    class EventAction constructor(private val context: WeakReference<DaggerFragment>,private val patientId:String):EventActions{
-        override fun onOpen(id: String) {
-            when(id){
+    class EventAction constructor(private val context: WeakReference<DaggerFragment>,private val patientId:String):EmrEventAction{
+        override fun onNew(type: String) {
+            when(type) {
+                ActionRes.ActionType.生命体征 -> {
+                    var intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {
+                        putExtra(VitalSignsActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, VITAL_SIGNS)
+                }
+            }
+        }
+
+
+        override fun onOpen(type: String, id: String) {
+            when(type){
                 ActionRes.ActionType.患者信息录入->{
                     var intent = Intent(context.get()?.activity, ProfileActivity::class.java).apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
@@ -185,6 +194,7 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.生命体征->{
                     var intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {
                         putExtra(VitalSignsActivity.PATIENT_ID, patientId)
+                        putExtra(VitalSignsActivity.ID, id)
                     }
                     context.get()?.startActivityForResult(intent, VITAL_SIGNS)
                 }

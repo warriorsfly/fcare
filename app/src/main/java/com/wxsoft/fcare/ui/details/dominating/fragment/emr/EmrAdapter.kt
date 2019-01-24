@@ -16,6 +16,7 @@ import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.CommitEventAction
+import com.wxsoft.fcare.ui.EmrEventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.common.PictureAdapter
 
@@ -23,9 +24,9 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
     val pictureAdapter=PictureAdapter(lifecycleOwner,2)
-    private var action:EventActions?=null
+    private var action: EmrEventAction?=null
 
-    fun setActionListener(actions: EventActions){
+    fun setActionListener(actions: EmrEventAction){
         this.action=actions
     }
 
@@ -157,7 +158,11 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 when(emr.code){
                     ActionRes.ActionType.生命体征->{
                         if(list.adapter==null){
-                            list.adapter = EmrItemAdapter<VitalSign>(lifecycleOwner)
+                            list.adapter = EmrItemAdapter<VitalSign>(lifecycleOwner,action)
+                        }
+                         action?.let {
+                             newOne.setOnClickListener {
+                                action?.onNew(differ.currentList[position].code!!) }
                         }
                         (list.adapter as? EmrItemAdapter<VitalSign>)?.submitList((emr.result as? List<VitalSign>)?: emptyList<VitalSign>())
                     }
