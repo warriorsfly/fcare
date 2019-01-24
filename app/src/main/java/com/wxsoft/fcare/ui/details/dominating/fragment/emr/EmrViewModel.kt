@@ -52,10 +52,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .subscribeOn(Schedulers.computation())
             .doOnSuccess { zip ->
                 val list = zip.first.result
-                list?.first { it.code == ActionRes.ActionType.患者信息录入 }?.apply {
+                list?.firstOrNull { it.code == ActionRes.ActionType.患者信息录入 }?.apply {
                     result = zip.second.result
-                    done = true
-                    completedAt = zip.second.result?.createdDate
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
@@ -70,7 +68,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     .subscribe({ vital ->
                         if (vital.isNullOrEmpty()) return@subscribe
 
-                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.生命体征 }
+                         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.生命体征 }
                             ?.let {
                                 if (!vital.isNullOrEmpty()) {
                                     it.result = vital
@@ -92,7 +90,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         //                        check?.result?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                             ?.result = check?.result ?: ElectroCardiogram()
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -125,7 +123,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     }
 
     fun diagnose(string:String) {
-        val item = (loadEmrResult.value?.result?.first {
+        val item = ( loadEmrResult.value?.result?.firstOrNull {
             it.code == ActionRes.ActionType.心电图
         }?.result as? ElectroCardiogram)?.apply {
             diagnoseResult = string
@@ -136,7 +134,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             disposable.add(emrApi.diagnose(it).subscribeOn(Schedulers.single())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({
 
-                    loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                     loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                         ?.result = it?.result ?: ElectroCardiogram()
                     val index =
                         loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -163,7 +161,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 RequestBody.create(MediaType.parse("multipart/form-data"), file)
             )
         }
-        val item= (loadEmrResult.value?.result?.first {
+        val item= ( loadEmrResult.value?.result?.firstOrNull {
             it.code==ActionRes.ActionType.心电图
         }?.result as? ElectroCardiogram )?.apply {
             savable=false
@@ -184,7 +182,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ check ->
                             check ?: return@subscribe
-                            loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                             loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                                 ?.let { emr ->
                                     emr.result = check?.result
                                     emr.done = true
@@ -214,7 +212,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     diagnose->
                 diagnose?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr->emr.code==ActionRes.ActionType.院前诊断}?.let {
                     item->
                     item.result=diagnose?.result
                     if(!item.done){
@@ -239,7 +237,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                 check?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
                         item->
                     item.result=check?.result
                     if(!item.done){
@@ -263,7 +261,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     history->
                 history?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.let {
                     item->
                     item.result=history.result
                     if(!item.done){
@@ -287,7 +285,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     vitals->
                 if (vitals.isNullOrEmpty()) return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr->emr.code==ActionRes.ActionType.生命体征}?.let {
                     item->
                     item.result=vitals.get(0)
                     if(!item.done){
@@ -310,7 +308,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         disposable.add(emrApi.getRecords(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
                 rating?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.GRACE }?.result =
+                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.GRACE }?.result =
                         rating?.result
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.GRACE }
@@ -327,7 +325,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         disposable.add(emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ measure ->
                 measure?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
                     item->
                     item.result=measure.result
                     if(!item.done){
@@ -350,7 +348,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         disposable.add(emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ thrombolysis ->
                 thrombolysis?.result ?: return@subscribe
-//                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.溶栓处置 }?.let {
+//                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.溶栓处置 }?.let {
 //                        item->
 //                    item.result=thrombolysis.result
 //                    if(!item.done){
