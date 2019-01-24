@@ -265,8 +265,6 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, OUTCOME)
                 }
 
-
-
             }
         }
 

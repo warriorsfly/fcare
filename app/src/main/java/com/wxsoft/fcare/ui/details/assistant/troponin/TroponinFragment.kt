@@ -19,6 +19,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentTroponinBinding
 import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.utils.viewModelProvider
 import com.wxsoft.fcare.widget.WxDimDialogFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -39,7 +40,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
 
         dialog?.onDestroy()
         dialog=null
-        (getActivity()?.findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        (activity?.findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
             R.id.draw_blood_time -> viewModel.lisCr.value?.samplingTime = DateTimeUtils.formatter.format(millseconds)
             R.id.draw_blood_report_time -> viewModel.lisCr.value?.reportTime = DateTimeUtils.formatter.format(millseconds)
@@ -83,33 +84,12 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
         AndroidSupportInjection.inject(this)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        viewModel=activityViewModelProvider(factory)
-//        binding.viewModel=viewModel
-//
-//        viewModel.patientId = patientId
-//        viewModel.getCrById(recordId)
-//        viewModel.lisCr.observe(this, Observer {  })
-//
-//        viewModel.clickEdit.observe(this, Observer {
-//            when(it){
-//                "1"-> showDatePicker(binding.drawBloodTime)
-//                "2"-> showDatePicker(binding.drawBloodReportTime)
-//                "success" -> {
-//                    dismiss()
-//                    onDestroy()
-//                }
-//            }
-//        })
-
-    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        viewModel=activityViewModelProvider(factory)
+        viewModel=viewModelProvider(factory)
         binding=FragmentTroponinBinding.inflate(inflater,container,false).apply {
 
             viewModel=this@TroponinFragment.viewModel

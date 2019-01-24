@@ -154,10 +154,4 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [OutComeModule::class])
     internal abstract fun outcomeActivity(): OutComeActivity
-
-
-
-
-
-
 }
