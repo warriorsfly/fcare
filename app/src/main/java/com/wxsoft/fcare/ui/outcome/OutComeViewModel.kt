@@ -106,14 +106,11 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
                 }
                 "11-3"->{
                     if (it.admissionDept.isNullOrEmpty()) {
-                        messageAction.value = Event("请选择接诊可是")
+                        messageAction.value = Event("请选择接诊科室")
                         return
                     }
 
-                    if (it.remark.isNullOrEmpty()) {
-                        messageAction.value = Event("请输入描述")
-                        return
-                    }
+
                 }
                 "11-4"->{
                     if (it.deadAt.isNullOrEmpty()) {
