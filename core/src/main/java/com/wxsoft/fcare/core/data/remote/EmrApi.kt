@@ -15,11 +15,17 @@ interface EmrApi{
     /**
      * 获取个人Emr列表
      */
-    @GET("Patient/GetPreEmssTimeLine/{patientId}")
-    fun getPreEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
+//
+//    @Deprecated(replaceWith = ReplaceWith("getEmrs",""),message = "时间轴接口调整，界面部分调试完毕之后这部分代码直接删除")
+//    @GET("Patient/GetPreEmssTimeLine/{patientId}")
+//    fun getPreEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
+//
+//    @Deprecated(replaceWith = ReplaceWith("getEmrs",""),message = "时间轴接口调整，界面部分调试完毕之后这部分代码直接删除")
+//    @GET("Patient/GetInHospitalEmssTimeLine/{patientId}")
+//    fun getInEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
 
-    @GET("Patient/GetInHospitalEmssTimeLine/{patientId}")
-    fun getInEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
+    @GET("Patient/GetEmssTimeLine/{patientId}/{currUserId}/{isPreHospital}")
+    fun getEmrs(@Path("patientId")patientId:String,@Path("currUserId")userId:String,@Path("isPreHospital")pre:Boolean): Single<Response<List<EmrItem>>>
 
     /**
      * 获取个人信息

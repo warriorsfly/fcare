@@ -48,7 +48,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     private fun loadEms(id:String) {
 
 
-       val dis= (if (preHos) emrApi.getPreEmrs(id) else emrApi.getInEmrs(id)).zipWith(emrApi.getBaseInfo(patientId))
+       val dis= emrApi.getEmrs(patientId,account.id,preHos).zipWith(emrApi.getBaseInfo(patientId))
             .subscribeOn(Schedulers.computation())
             .doOnSuccess { zip ->
                 val list = zip.first.result
