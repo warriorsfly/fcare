@@ -45,6 +45,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.PhotoEventAction
+import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
@@ -225,6 +226,7 @@ class EmrFragment : DaggerFragment() {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
+//                    context.get()?.startActivityForResult(intent, DIAGNOSE)
                 }
 
                 ActionRes.ActionType.Catheter ->{
@@ -248,6 +250,12 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, DISCHARGE)
                 }
 
+                ActionRes.ActionType.辅助检查 ->{
+                    var intent = Intent(context.get()?.activity, AssistantExaminationActivity::class.java).apply {
+                        putExtra(AssistantExaminationActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivity(intent)
+                }
 
 
             }

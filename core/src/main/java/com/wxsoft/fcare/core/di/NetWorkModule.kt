@@ -180,4 +180,9 @@ class NetWorkModule {
         return retrofit.create(PACSApi::class.java)
     }
 
+    @Provides
+    fun provideLISApi(retrofit: Retrofit):LISApi{
+        return retrofit.create(LISApi::class.java)
+    }
+
 }

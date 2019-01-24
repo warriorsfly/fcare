@@ -101,7 +101,6 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 
     @Bindable
     @SerializedName("throm_Treatment_Place_Name")
-    @Transient
     var thromTreatmentPlaceName:String=""
         set(value) {
             field=value

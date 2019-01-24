@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.assistant.AssistantExaminationViewModel"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F8F8F9"
+            tools:context=".ui.details.assistant.AssistantExaminationActivity">
+        <include layout="@layout/layout_common_title"
+                 android:id="@+id/title"
+                 app:presenter="@{viewModel}"
+        />
+
+        <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title">
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/model1"
+                    android:background="@color/white"
+                    android:padding="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/types_list"
+                        app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                        android:orientation="horizontal"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+            </android.support.constraint.ConstraintLayout>
+
+
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/model2"
+                    android:background="@color/white"
+                    android:layout_marginTop="10dp"
+                    android:padding="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/model1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                <android.support.v7.widget.RecyclerView
+                        android:id="@+id/container_list"
+                        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"/>
+            </android.support.constraint.ConstraintLayout>
+
+
+        </android.support.constraint.ConstraintLayout>
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

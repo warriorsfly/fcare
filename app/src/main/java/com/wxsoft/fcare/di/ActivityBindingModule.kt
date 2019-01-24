@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
+import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -144,11 +146,11 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [DisChargeModule::class])
     internal abstract fun dischargeActivity(): DisChargeActivity
 
-
-
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [CTModule::class])
-    internal abstract fun cTActivity(): CTActivity
+    @ContributesAndroidInjector(modules = [AssistantExaminationModule::class])
+    internal abstract fun assistantExaminationActivity(): AssistantExaminationActivity
+
+
 
 
 }
