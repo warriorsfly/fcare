@@ -2,6 +2,8 @@ package com.wxsoft.fcare.ui.details.assistant
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
+import android.databinding.Observable
+import android.databinding.ObservableField
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.lis.LisItem
@@ -21,8 +23,9 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "辅助检查"
+
     override val clickableTitle: String
         get() = ""
     override val clickable: LiveData<Boolean>
@@ -62,6 +65,7 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
         lisItems = loadLisItemsResult.map { (it as? Resource.Success)?.data?.result?: emptyList() }
         lisRecords = loadLisRecordsResult.map { (it as? Resource.Success)?.data?.result?: emptyList() }
         getLisItems()
+
     }
 
 

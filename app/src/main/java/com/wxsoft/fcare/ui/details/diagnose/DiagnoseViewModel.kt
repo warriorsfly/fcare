@@ -28,7 +28,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "诊断"
     override val clickableTitle: String
         get() = "确定"

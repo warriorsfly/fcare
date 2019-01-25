@@ -61,7 +61,7 @@ class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOw
             }
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener,viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@DiagnoseSonListAdapter.lifecycleOwner
             executePendingBindings()
 
         }

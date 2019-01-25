@@ -51,7 +51,7 @@ class DoMinaActivity : BaseActivity() {
 
             viewPager.adapter = TaskStateAdapter(supportFragmentManager)
             viewModel=this@DoMinaActivity.viewModel
-            setLifecycleOwner(this@DoMinaActivity)
+            lifecycleOwner = this@DoMinaActivity
 
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

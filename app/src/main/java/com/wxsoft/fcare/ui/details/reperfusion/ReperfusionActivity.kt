@@ -30,7 +30,7 @@ class ReperfusionActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityReperfusionBinding>(this, R.layout.activity_reperfusion)
             .apply {
-                setLifecycleOwner(this@ReperfusionActivity)
+                lifecycleOwner = this@ReperfusionActivity
             }
         patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

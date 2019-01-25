@@ -93,7 +93,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
         binding=FragmentTroponinBinding.inflate(inflater,container,false).apply {
 
             viewModel=this@TroponinFragment.viewModel
-            setLifecycleOwner(this@TroponinFragment)
+            lifecycleOwner = this@TroponinFragment
         }
 
         viewModel.patientId = patientId

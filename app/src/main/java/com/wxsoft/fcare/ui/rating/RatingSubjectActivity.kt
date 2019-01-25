@@ -55,7 +55,7 @@ class RatingSubjectActivity : BaseActivity() {
 
             viewModel=this@RatingSubjectActivity.viewModel
 
-            setLifecycleOwner(this@RatingSubjectActivity)
+            lifecycleOwner = this@RatingSubjectActivity
         }
 
         page_title.text=ratingName

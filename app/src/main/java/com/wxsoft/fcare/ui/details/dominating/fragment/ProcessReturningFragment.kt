@@ -37,7 +37,7 @@ class ProcessReturningFragment : DaggerFragment() {
     ): View? {
         viewModel = activityViewModelProvider(factory)
         binding=FragmentProcessReturningBinding.inflate(inflater,container, false).apply {
-            setLifecycleOwner(this@ProcessReturningFragment)
+            lifecycleOwner = this@ProcessReturningFragment
             viewModel=this@ProcessReturningFragment.viewModel
         }
 

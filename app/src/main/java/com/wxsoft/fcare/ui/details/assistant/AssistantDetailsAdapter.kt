@@ -33,7 +33,7 @@ class AssistantDetailsAdapter constructor(private val lifecycleOwner: LifecycleO
                 setVariable(BR.item, differ.currentList[position-1])
                 setVariable(BR.listener, viewModel)
             }
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@AssistantDetailsAdapter. lifecycleOwner
             executePendingBindings()
         }
 

@@ -23,7 +23,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                                               override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "生命体征信息"
     override val clickableTitle: String
         get() = "保存"

@@ -45,7 +45,7 @@ class UsersAdapter constructor(private val lifecycleOwner: LifecycleOwner, val v
         holder.binding.apply {
             setVariable(BR.user,differ.currentList[position])
             setVariable(BR.listener,viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@UsersAdapter.lifecycleOwner
             executePendingBindings()
         }
     }

@@ -124,7 +124,7 @@ class EmrFragment : DaggerFragment() {
     ): View? {
         viewModel = viewModelProvider(factory)
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
-            setLifecycleOwner(this@EmrFragment)
+            lifecycleOwner = this@EmrFragment
 
             viewModel=this@EmrFragment.viewModel
         }

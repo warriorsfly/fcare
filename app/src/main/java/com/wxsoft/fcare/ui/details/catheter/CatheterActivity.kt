@@ -98,7 +98,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         DataBindingUtil.setContentView<ActivityCatheterBinding>(this, R.layout.activity_catheter)
             .apply {
                 viewModel = this@CatheterActivity. viewModel
-                setLifecycleOwner(this@CatheterActivity)
+                lifecycleOwner = this@CatheterActivity
             }
         patientId=intent.getStringExtra(CatheterActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

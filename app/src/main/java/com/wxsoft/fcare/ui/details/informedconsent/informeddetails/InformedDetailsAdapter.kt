@@ -79,7 +79,7 @@ class InformedDetailsAdapter constructor(private val lifecycleOwner: LifecycleOw
 //                presenter.first.num
                 root.setOnClickListener{action?.localSelected()}
                 uri=presenter.second
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner =  this@InformedDetailsAdapter. lifecycleOwner
                 executePendingBindings()
             }
 
@@ -87,7 +87,7 @@ class InformedDetailsAdapter constructor(private val lifecycleOwner: LifecycleOw
                 val presenter =differ.currentList[position] as String
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
                 url=presenter
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@InformedDetailsAdapter.lifecycleOwner
                 executePendingBindings()
             }
         }

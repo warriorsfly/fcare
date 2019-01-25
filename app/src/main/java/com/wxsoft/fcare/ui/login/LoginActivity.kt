@@ -35,14 +35,10 @@ class LoginActivity : BaseActivity() {
             this,
             R.layout.activity_login
         ).apply {
-            setLifecycleOwner(this@LoginActivity)
+            lifecycleOwner = this@LoginActivity
         }
 
         viewModel = viewModelProvider(factory)
-        binding.apply {
-            setLifecycleOwner(this@LoginActivity)
-
-        }
 
         receiver = RegistrationBroadcastReceiver(viewModel)
         val intentFilter = IntentFilter()

@@ -38,7 +38,7 @@ class ProcessArriveFragment : DaggerFragment() {
     ): View? {
         viewModel = activityViewModelProvider(factory)
         binding=FragmentProcessArriveBinding.inflate(inflater,container, false).apply {
-            setLifecycleOwner(this@ProcessArriveFragment)
+            lifecycleOwner = this@ProcessArriveFragment
             viewModel=this@ProcessArriveFragment.viewModel
         }
 

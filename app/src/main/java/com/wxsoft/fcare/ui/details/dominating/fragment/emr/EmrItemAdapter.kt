@@ -37,7 +37,7 @@ class EmrItemAdapter<T> constructor(private val lifecycleOwner: LifecycleOwner,p
 
                 vital = getItem(position)  as VitalSign
                 root.setOnClickListener { action?.onOpen(生命体征,vital?.id?:"") }
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrItemAdapter.lifecycleOwner
                 executePendingBindings()
             }
         }

@@ -54,7 +54,7 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
             parientName.text = names
             task = item
             listener = viewModel
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@TaskAdapter. lifecycleOwner
             executePendingBindings()
 
         }

@@ -36,7 +36,7 @@ class AssistantTypeAdapter constructor(private val lifecycleOwner: LifecycleOwne
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@AssistantTypeAdapter.lifecycleOwner
             executePendingBindings()
 
         }

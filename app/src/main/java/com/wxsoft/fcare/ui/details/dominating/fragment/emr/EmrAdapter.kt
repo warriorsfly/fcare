@@ -52,7 +52,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
         when (holder) {
             is ItemViewHolder.NoneViewHolder -> holder.binding.apply {
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter. lifecycleOwner
                 item=differ.currentList[position]
                 visiable=position<differ.currentList.size-1
                 action?.let {
@@ -70,7 +70,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
 
                 visiable= position<differ.currentList.size-1
                 patient=differ.currentList[position].result  as Patient
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
             }
 
@@ -84,7 +84,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 action=commitAction
                 list.adapter = this@EmrAdapter.pictureAdapter
                 this@EmrAdapter.pictureAdapter.remotes = presenter.attachments.map { it.httpUrl }
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
 
             }
@@ -97,7 +97,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
                 visiable= position<differ.currentList.size-1
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
 
             }
@@ -111,7 +111,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 val presenter = differ.currentList[position].result as MedicalHistory
                 medhistory = presenter
                 visiable= position<differ.currentList.size-1
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
             }
 
@@ -124,7 +124,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 detail = differ.currentList[position].result.toString()
 
                 visiable= position<differ.currentList.size-1
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
             }
 
@@ -138,7 +138,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 val presenter = differ.currentList[position].result as Diagnosis
                 diagnose = presenter
                 visiable= position<differ.currentList.size-1
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
             }
 
@@ -148,7 +148,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                     root.setOnClickListener {
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
             }
             is ItemViewHolder.ListViewHolder -> holder.binding.apply {
@@ -158,7 +158,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                 when(emr.code){
                     ActionRes.ActionType.生命体征->{
                         if(list.adapter==null){
-                            list.adapter = EmrItemAdapter<VitalSign>(lifecycleOwner,action)
+                            list.adapter = EmrItemAdapter<VitalSign>(this@EmrAdapter.lifecycleOwner,action)
                         }
                          action?.let {
                              newOne.setOnClickListener {
@@ -167,7 +167,7 @@ class EmrAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
                         (list.adapter as? EmrItemAdapter<VitalSign>)?.submitList((emr.result as? List<VitalSign>)?: emptyList<VitalSign>())
                     }
                 }
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@EmrAdapter.lifecycleOwner
                 executePendingBindings()
             }
         }

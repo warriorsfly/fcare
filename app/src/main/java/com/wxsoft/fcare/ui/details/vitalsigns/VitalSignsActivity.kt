@@ -35,7 +35,7 @@ class VitalSignsActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityVitalSignsBinding>(this, R.layout.activity_vital_signs)
             .apply {
-                setLifecycleOwner(this@VitalSignsActivity)
+                lifecycleOwner = this@VitalSignsActivity
             }
         back.setOnClickListener { onBackPressed() }
 

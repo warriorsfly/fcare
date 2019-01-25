@@ -35,7 +35,7 @@ class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vie
         holder.binding.apply {
             setVariable(BR.car,differ.currentList[position])
             setVariable(BR.listener,viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@CarAdapter.lifecycleOwner
             executePendingBindings()
 
         }

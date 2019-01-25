@@ -41,7 +41,7 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@MedicalHistoryAdapter.lifecycleOwner
             if (position==0){//照片
                 if (root.medical_photo_items_rv.adapter == null){
 //                    root.medical_photo_items_rv.adapter = photoAdapter
@@ -51,7 +51,7 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
 
             }else{//既往病史、病历提供者
                 if (root.medical_other_items_rv.adapter == null){
-                    var adapter = MedicalHistoryItemAdapter(lifecycleOwner,viewModel)
+                    var adapter = MedicalHistoryItemAdapter(this@MedicalHistoryAdapter.lifecycleOwner,viewModel)
                     adapter.section = position
                     root.medical_other_title_name.setText(titleArray.get(position))
                     root.medical_other_items_rv.adapter = adapter

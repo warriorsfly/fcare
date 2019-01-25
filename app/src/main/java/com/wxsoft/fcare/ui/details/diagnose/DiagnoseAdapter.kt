@@ -31,7 +31,7 @@ class DiagnoseAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener,viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@DiagnoseAdapter.lifecycleOwner
             executePendingBindings()
 
         }

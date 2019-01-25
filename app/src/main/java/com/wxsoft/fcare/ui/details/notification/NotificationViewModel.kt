@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 import com.wxsoft.fcare.ui.ICommonPresenter
 
 class NotificationViewModel : ViewModel(),ICommonPresenter {
-    override val title: String
+    override var title: String=""
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
     override val clickableTitle: String
         get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.

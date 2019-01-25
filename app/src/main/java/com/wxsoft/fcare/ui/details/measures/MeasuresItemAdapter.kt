@@ -45,7 +45,7 @@ class MeasuresItemAdapter constructor(private val lifecycleOwner: LifecycleOwner
             differ.currentList[position].section = section
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@MeasuresItemAdapter.lifecycleOwner
             executePendingBindings()
 
         }

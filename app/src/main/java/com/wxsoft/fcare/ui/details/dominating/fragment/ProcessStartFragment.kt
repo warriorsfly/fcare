@@ -39,7 +39,7 @@ class ProcessStartFragment : DaggerFragment() {
 
         viewModel = activityViewModelProvider(factory)
         binding=FragmentProcessStartBinding.inflate(inflater,container, false).apply {
-            setLifecycleOwner(this@ProcessStartFragment)
+            lifecycleOwner = this@ProcessStartFragment
             viewModel=this@ProcessStartFragment.viewModel
         }
 

@@ -16,7 +16,7 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "再灌注措施"
     override val clickableTitle: String
         get() = ""

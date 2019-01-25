@@ -27,16 +27,16 @@ class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@MeasuresAdapter.lifecycleOwner
                 if (position != 3){
                     if (root.measures_items_rv.adapter == null){
-                        var adapter = MeasuresItemAdapter(lifecycleOwner,viewModel)
+                        var adapter = MeasuresItemAdapter(this@MeasuresAdapter.lifecycleOwner,viewModel)
                         adapter.section = position
                         root.measures_title_name.setText(titleArray.get(position))
                         root.measures_items_rv.adapter = adapter
                     }
                 }else{
-                    var adapter = MeasuresItemAdapter(lifecycleOwner,viewModel)
+                    var adapter = MeasuresItemAdapter(this@MeasuresAdapter.lifecycleOwner,viewModel)
                     adapter.section = position
                     root.measures_detour_department_rv.adapter = adapter
                 }

@@ -34,7 +34,7 @@ class UserProfileFragment : DaggerFragment() {
                 }
                 startActivity(intent);
             }
-         setLifecycleOwner(this@UserProfileFragment)
+            lifecycleOwner = this@UserProfileFragment
         }
 
         return binding.root

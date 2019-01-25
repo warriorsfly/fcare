@@ -27,7 +27,7 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
     var preHos=true
-    override val title: String
+    override var title: String=""
         get() = if(preHos)"基本信息" else "病人信息"
     override val clickableTitle: String
         get() = if(preHos)"保存" else ""

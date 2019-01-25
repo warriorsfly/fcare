@@ -54,7 +54,7 @@ class TaskFragment : DaggerFragment() {
             this@TaskFragment.adapter= TaskAdapter(this@TaskFragment, this@TaskFragment.viewModel)
             list.adapter = this@TaskFragment.adapter
 
-            setLifecycleOwner(this@TaskFragment)
+            lifecycleOwner = this@TaskFragment
         }
         viewModel.tasks.observe(this, Observer { it -> adapter.tasks = it ?: emptyList() })
 

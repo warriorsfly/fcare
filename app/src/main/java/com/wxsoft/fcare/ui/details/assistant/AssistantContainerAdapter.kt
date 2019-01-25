@@ -36,12 +36,12 @@ class AssistantContainerAdapter constructor(private val lifecycleOwner: Lifecycl
             if (position!=differ.currentList.size){
                 var record = differ.currentList[position]
                 setVariable(BR.item, record)
-                var adapter = AssistantDetailsAdapter(lifecycleOwner,viewModel)
+                var adapter = AssistantDetailsAdapter(this@AssistantContainerAdapter.lifecycleOwner,viewModel)
                 adapter.items = record.lisRecordDetails
                 root.details_list.adapter = adapter
             }
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = lifecycleOwner
             executePendingBindings()
         }
     }

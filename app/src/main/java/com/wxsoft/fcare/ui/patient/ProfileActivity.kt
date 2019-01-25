@@ -91,7 +91,7 @@ class ProfileActivity : BaseActivity() {
             R.layout.activity_patient_profile
         ).apply{
 
-            setLifecycleOwner(this@ProfileActivity)
+            lifecycleOwner = this@ProfileActivity
 
         }
 

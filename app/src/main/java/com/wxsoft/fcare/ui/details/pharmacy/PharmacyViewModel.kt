@@ -22,7 +22,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "用药"
     override val clickableTitle: String
         get() = ""

@@ -36,7 +36,7 @@ class PatientManagerFragment : DaggerFragment() {
     ): View? {
         viewModel=activityViewModelProvider(factory)
         binding=FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
-            setLifecycleOwner(this@PatientManagerFragment)
+            lifecycleOwner = this@PatientManagerFragment
             viewModel=this@PatientManagerFragment.viewModel
         }
 

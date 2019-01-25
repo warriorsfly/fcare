@@ -38,7 +38,7 @@ class PharmacyActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityPharmacyBinding>(this, R.layout.activity_pharmacy)
             .apply {
-                setLifecycleOwner(this@PharmacyActivity)
+                lifecycleOwner = this@PharmacyActivity
             }
         patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
         comeFrom=intent.getStringExtra(PharmacyActivity.COME_FROM)?:""

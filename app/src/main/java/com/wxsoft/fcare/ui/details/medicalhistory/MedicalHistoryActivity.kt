@@ -44,7 +44,7 @@ class MedicalHistoryActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityMedicalHistoryBinding>(this, R.layout.activity_medical_history)
             .apply {
-                setLifecycleOwner(this@MedicalHistoryActivity)
+                lifecycleOwner = this@MedicalHistoryActivity
             }
         patientId=intent.getStringExtra(MedicalHistoryActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

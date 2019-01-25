@@ -40,7 +40,7 @@ class MeasuresActivity : BaseActivity()  {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityMeasuresBinding>(this, R.layout.activity_measures)
             .apply {
-                setLifecycleOwner(this@MeasuresActivity)
+                lifecycleOwner = this@MeasuresActivity
             }
         patientId=intent.getStringExtra(MeasuresActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

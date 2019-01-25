@@ -35,7 +35,7 @@ class CheckBodyActivity : BaseActivity()  {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityCheckBodyBinding>(this, R.layout.activity_check_body)
             .apply {
-                setLifecycleOwner(this@CheckBodyActivity)
+                lifecycleOwner = this@CheckBodyActivity
             }
         patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

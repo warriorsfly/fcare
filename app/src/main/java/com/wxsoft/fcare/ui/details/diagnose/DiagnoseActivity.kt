@@ -36,7 +36,7 @@ class DiagnoseActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityDiagnoseBinding>(this, R.layout.activity_diagnose)
             .apply {
-                setLifecycleOwner(this@DiagnoseActivity)
+                lifecycleOwner = this@DiagnoseActivity
             }
         patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

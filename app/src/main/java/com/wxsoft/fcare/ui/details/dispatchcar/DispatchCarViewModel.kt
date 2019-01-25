@@ -27,7 +27,7 @@ class DispatchCarViewModel @Inject constructor(
     override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "发车"
     override val clickableTitle: String
         get() = "立即发车"

@@ -82,7 +82,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityThrombolysisBinding>(this, R.layout.activity_thrombolysis)
             .apply {
-                setLifecycleOwner(this@ThrombolysisActivity)
+                lifecycleOwner = this@ThrombolysisActivity
             }
         patientId=intent.getStringExtra(ThrombolysisActivity.PATIENT_ID)?:""
         thrombolysisId=intent.getStringExtra(ThrombolysisActivity.THROMBOLYSIS_ID)?:""

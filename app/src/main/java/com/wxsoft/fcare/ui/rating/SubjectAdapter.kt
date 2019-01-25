@@ -66,7 +66,7 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
                 val presenter = differ.currentList[position] as Subject
                 holder.binding.apply {
                     item=presenter
-                    setLifecycleOwner(lifecycleOwner)
+                    lifecycleOwner = this@SubjectAdapter.lifecycleOwner
                     executePendingBindings()
                 }
             }
@@ -76,7 +76,7 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
                     item=presenter
                     rating=this@SubjectAdapter.rating
                     subject=subjects.first { it.options.contains(presenter) }
-                    setLifecycleOwner(lifecycleOwner)
+                    lifecycleOwner = this@SubjectAdapter.lifecycleOwner
                     executePendingBindings()
                 }
 

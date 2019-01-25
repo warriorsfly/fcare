@@ -23,7 +23,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "治疗措施"
     override val clickableTitle: String
         get() = "保存"

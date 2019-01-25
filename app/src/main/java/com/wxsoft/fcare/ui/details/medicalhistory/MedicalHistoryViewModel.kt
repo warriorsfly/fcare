@@ -30,7 +30,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                                                   override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "病史"
     override val clickableTitle: String
         get() = "保存"

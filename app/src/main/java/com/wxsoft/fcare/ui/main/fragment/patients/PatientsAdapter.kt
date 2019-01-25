@@ -25,7 +25,7 @@ class PatientsAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
                 root.setOnClickListener { viewModel.onOpen(pat.id) }
             }
 
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@PatientsAdapter.lifecycleOwner
             executePendingBindings()
 
         }

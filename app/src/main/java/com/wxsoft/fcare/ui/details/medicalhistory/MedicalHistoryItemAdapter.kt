@@ -43,7 +43,7 @@ class MedicalHistoryItemAdapter constructor(private val lifecycleOwner: Lifecycl
             differ.currentList[position].section = section
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@MedicalHistoryItemAdapter. lifecycleOwner
             executePendingBindings()
 
         }

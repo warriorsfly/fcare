@@ -24,7 +24,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "溶栓"
     override val clickableTitle: String
         get() = "保存"

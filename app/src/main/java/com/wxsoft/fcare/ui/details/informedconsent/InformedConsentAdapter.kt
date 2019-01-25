@@ -38,7 +38,7 @@ class InformedConsentAdapter constructor(private val lifecycleOwner: LifecycleOw
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.viewmodel, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = lifecycleOwner
             executePendingBindings()
         }
     }
