@@ -30,7 +30,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
     ICommonPresenter {
 
     override var title: String=""
-        get() = "出院诊断"
+        get() = "诊断"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>

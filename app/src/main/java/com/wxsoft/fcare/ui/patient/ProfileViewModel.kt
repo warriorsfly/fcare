@@ -32,7 +32,7 @@ class ProfileViewModel @Inject constructor(
     override val clickableTitle: String
         get() = if(preHos)"保存" else ""
 
-    var taskId=""
+    var taskId:String=""
     var patientId=""
         set(value) {
             field=value
@@ -93,7 +93,9 @@ class ProfileViewModel @Inject constructor(
                 patientApi.save(patient.value!!.apply {
                     createdBy = account.id
                     hospitalId = account.hospitalId
-                    taskId=this@ProfileViewModel.taskId
+                    if(this@ProfileViewModel.taskId.isNotEmpty()) {
+                        taskId = this@ProfileViewModel.taskId
+                    }
                 }).toResource().subscribe {
 
                     when (it) {
@@ -115,7 +117,9 @@ class ProfileViewModel @Inject constructor(
                     patientApi.save(patient.value!!.apply {
                         createdBy = account.id
                         hospitalId = account.hospitalId
-                        taskId=this@ProfileViewModel.taskId
+                        if(this@ProfileViewModel.taskId.isNotEmpty()) {
+                            taskId = this@ProfileViewModel.taskId
+                        }
                     }, files).toResource().subscribe {
                         when (it) {
                             is Resource.Success -> {

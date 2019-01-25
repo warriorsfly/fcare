@@ -46,6 +46,12 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             field = value
         }
 
+    var id: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
+
     val backToLast:LiveData<Boolean>
     private val initbackToLast = MediatorLiveData<Boolean>()
 
@@ -159,7 +165,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     }
 
     fun getDiagnose(){
-        disposable.add(diagnoseApi.getDiagnosis(patientId,1).toResource()
+        disposable.add(diagnoseApi.getDiagnosis(id).toResource()
             .subscribe{
                 loadDiagnosisResult.value = it
                 havedata()

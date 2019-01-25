@@ -171,6 +171,13 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivityForResult(intent, VITAL_SIGNS)
                 }
+
+                ActionRes.ActionType.诊断 ->{
+                    var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
+                        putExtra(DiagnoseActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, DIAGNOSE)
+                }
             }
         }
 
@@ -228,9 +235,10 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivity(intent)
                 }
-                ActionRes.ActionType.院前诊断 ->{
+                ActionRes.ActionType.诊断 ->{
                     var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
+                        putExtra(DiagnoseActivity.ID, id)
                     }
                     context.get()?.startActivityForResult(intent, DIAGNOSE)
                 }
@@ -256,7 +264,7 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, CT)
                 }
 
-                ActionRes.ActionType.出院诊断 ->{
+                ActionRes.ActionType.诊断 ->{
                     var intent = Intent(context.get()?.activity, DisChargeActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
                     }

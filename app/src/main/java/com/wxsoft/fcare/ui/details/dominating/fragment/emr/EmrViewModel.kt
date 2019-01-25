@@ -184,28 +184,29 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         }
     }
 
-    fun refreshDiagnose(){
-        disposable.add(emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({
-                    diagnose->
-                diagnose?.result ?: return@subscribe
-                 loadEmrResult.value?.result?.firstOrNull { emr->emr.code==ActionRes.ActionType.院前诊断}?.let {
-                    item->
-                    item.result=diagnose?.result
-                    if(!item.done){
-                        item.done=true
-                        item.completedAt=diagnose?.result?.createdDate
-                    }
-                }
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.院前诊断 }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.院前诊断))
-                }
-            }, {
-                messageAction.value = Event(it.message ?: "")
-            })
-        )
+    fun refreshDiagnose() {
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.诊断 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getDiagnosisList(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+//                            val index =
+//                                loadEmrResult.value?.result?.indexOf(emr)
+//                            index?.let { index ->
+//                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+//                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshChekBody(){
@@ -257,7 +258,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         )
     }
 
-    fun refreshVitals(){
+    fun refreshVitals() {
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.生命体征 }
             ?.let { emr ->
                 disposable.add(
@@ -269,11 +270,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 emr.done = true
                                 emr.completedAt = vitals.result?.lastOrNull()?.createdDate
                             }
-                            val index =
-                                loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
-                            }
+//                            val index =
+//                                loadEmrResult.value?.result?.indexOf(emr)
+//                            index?.let { index ->
+//                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+//                            }
                         }, {
                             messageAction.value = Event(it.message ?: "")
                         })

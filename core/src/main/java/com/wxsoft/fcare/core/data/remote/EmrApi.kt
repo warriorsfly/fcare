@@ -71,13 +71,11 @@ interface EmrApi{
     @GET("Rating/GetAnswerRecords/{patientId}")
     fun getRecords(@Path("patientId")id:String): Single<Response<List<RatingRecord>>>
 
-    /***
-     * 诊断
+    /**
+     * 获取诊断列表
      */
-    @GET("Diagnosis/GetDiagnosisByPatientId/{patientId}/{location}")
-    fun getDiagnosis(@Path("patientId")patientId:String,
-                     @Path("location")location:Int): Maybe<Response<Diagnosis>>
-
+    @GET("Diagnosis/GetDiagnosisByPatientId/{patientId}")
+    fun getDiagnosisList(@Path("patientId")id:String): Maybe<Response<List<Diagnosis>>>
     @GET("Measure/GetById/{patientId}")
     fun loadMeasure(@Path("patientId")patientId:String): Maybe<Response<Measure>>
 
