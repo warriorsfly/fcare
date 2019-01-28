@@ -62,9 +62,11 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     private var selectedId=0;
 
     private lateinit var patientId:String
+    private lateinit var id:String
     private lateinit var thrombolysisId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val ID = "ID"
         const val THROMBOLYSIS_ID = "THROMBOLYSIS_ID"
         const val INFORMED_CONSENT = 20
         const val DRUG = 30
@@ -85,8 +87,10 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 lifecycleOwner = this@ThrombolysisActivity
             }
         patientId=intent.getStringExtra(ThrombolysisActivity.PATIENT_ID)?:""
+        id=intent.getStringExtra(ThrombolysisActivity.ID)?:""
         thrombolysisId=intent.getStringExtra(ThrombolysisActivity.THROMBOLYSIS_ID)?:""
         viewModel.patientId = patientId
+        viewModel.id = id
         binding.viewModel = viewModel
 
         placeDialog = Dialog(this)
@@ -94,7 +98,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         back.setOnClickListener { onBackPressed() }
 
 //        viewModel.loadThrombolysis(thrombolysisId)
-        viewModel.loadThrombolysis("4c597994fa4449bdaa5dccfa718ea9e7")
+        viewModel.loadThrombolysis(id)
 
         viewModel.informed.observe(this, Observer {  })
 

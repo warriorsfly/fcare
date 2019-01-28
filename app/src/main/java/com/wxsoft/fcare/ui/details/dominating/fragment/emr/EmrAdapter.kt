@@ -173,6 +173,17 @@ class EmrAdapter constructor(private val owner: LifecycleOwner) :
                         }
                         (list.adapter as? EmrItemAdapter<Talk>)?.submitList((emr.result as? List<Talk>)?: emptyList<Talk>())
                     }
+
+                    ActionRes.ActionType.溶栓处置->{
+                        if(list.adapter==null){
+                            list.adapter = EmrItemAdapter<Thrombolysis>(owner,action)
+                        }
+                        action?.let {
+                            newOne.setOnClickListener {
+                                action?.onNew(differ.currentList[position].code!!) }
+                        }
+                        (list.adapter as? EmrItemAdapter<Thrombolysis>)?.submitList((emr.result as? List<Thrombolysis>)?: emptyList<Thrombolysis>())
+                    }
                 }
                 lifecycleOwner = owner
                 executePendingBindings()
@@ -234,6 +245,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner) :
                         R.layout.item_emr_item_list
                     }
                     ActionRes.ActionType.知情同意书->{
+                        R.layout.item_emr_item_list
+                    }
+                    ActionRes.ActionType.溶栓处置->{
                         R.layout.item_emr_item_list
                     }
 
@@ -366,6 +380,11 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //普通文本
     class ListViewHolder(
         val binding: ItemEmrItemListBinding
+    ): ItemViewHolder(binding)
+
+    //普通文本
+    class ThrombolysisViewHolder(
+        val binding: ItemEmrListItemThrombolysisBinding
     ): ItemViewHolder(binding)
 
 }

@@ -43,6 +43,12 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             field = value
         }
 
+    var id: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
+
     val clickLine:LiveData<String>
     private val loadClickLine =  MediatorLiveData<String>()
 

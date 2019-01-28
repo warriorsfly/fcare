@@ -51,7 +51,6 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
-import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
@@ -86,6 +85,7 @@ class EmrFragment : DaggerFragment() {
         const val DISCHARGE = 29
         const val OUTCOME = 30
         const val INFORMEDCONSENT = 31
+        const val THROMBOLYSIS = 32
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -187,6 +187,13 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivityForResult(intent, INFORMEDCONSENT)
                 }
+
+                ActionRes.ActionType.溶栓处置 ->{
+                    var intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
+                        putExtra(InformedConsentActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, THROMBOLYSIS)
+                }
             }
         }
 
@@ -255,9 +262,10 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.溶栓处置 ->{
                     var intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
+                        putExtra(DiagnoseActivity.ID, id)
                     }
-                    context.get()?.startActivity(intent)
-//                    context.get()?.startActivityForResult(intent, DIAGNOSE)
+//                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
 
                 ActionRes.ActionType.Catheter ->{
@@ -290,6 +298,7 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.患者转归 ->{
                     var intent = Intent(context.get()?.activity, OutComeActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
+
                     }
                     context.get()?.startActivityForResult(intent, OUTCOME)
                 }
@@ -427,7 +436,9 @@ class EmrFragment : DaggerFragment() {
                 EmrFragment.INFORMEDCONSENT -> {
                     viewModel.refreshInformedConsent()
                 }
-
+                EmrFragment.THROMBOLYSIS -> {
+                    viewModel.refreshThrombosis()
+                }
             }
         }
 

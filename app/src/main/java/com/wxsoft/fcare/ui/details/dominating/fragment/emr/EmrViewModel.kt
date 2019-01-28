@@ -93,7 +93,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                 refreshChekBody()
 
-                refreshThrombolysis()
+                refreshThrombosis()
 
                 refreshInformedConsent()
             }
@@ -272,11 +272,6 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 emr.done = true
                                 emr.completedAt = vitals.result?.lastOrNull()?.createdDate
                             }
-//                            val index =
-//                                loadEmrResult.value?.result?.indexOf(emr)
-//                            index?.let { index ->
-//                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
-//                            }
                         }, {
                             messageAction.value = Event(it.message ?: "")
                         })
@@ -348,27 +343,24 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             }
     }
 
-    fun refreshThrombolysis(){
-        disposable.add(emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ thrombolysis ->
-                thrombolysis?.result ?: return@subscribe
-//                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.溶栓处置 }?.let {
-//                        item->
-//                    item.result=thrombolysis.result
-//                    if(!item.done){
-//                        item.done=true
-//                        item.completedAt=thrombolysis?.result?.last()?.createdDate
-//                    }
-//                }
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.溶栓处置))
-                }
-            },{
-                messageAction.value= Event(it.message?:"")
-            })
-        )
+    fun refreshThrombosis(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
 

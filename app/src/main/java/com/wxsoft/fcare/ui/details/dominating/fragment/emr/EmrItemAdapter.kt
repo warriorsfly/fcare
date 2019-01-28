@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Talk
 import com.wxsoft.fcare.core.data.entity.Diagnosis
+import com.wxsoft.fcare.core.data.entity.Thrombolysis
 import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.core.data.entity.rating.Rating
+import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.溶栓处置
 import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.生命体征
 import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.知情同意书
-import com.wxsoft.fcare.databinding.ItemEmrListItemInformedConsentBinding
 import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.诊断
-import com.wxsoft.fcare.databinding.ItemEmrListItemDiagnoseBinding
-import com.wxsoft.fcare.databinding.ItemEmrListItemVitalSignsBinding
-import com.wxsoft.fcare.databinding.ItemEmrRatingBinding
+import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.EmrEventAction
 
 class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner, private val  action: EmrEventAction?) :
@@ -38,6 +37,10 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner, private v
 
             R.layout.item_emr_list_item_diagnose -> ItemViewHolder.DiagnoseViewHolder(
                 ItemEmrListItemDiagnoseBinding.inflate(inflater,parent,false)
+            )
+
+            R.layout.item_emr_list_item_thrombolysis -> ItemViewHolder.ThrombolysisViewHolder(
+                ItemEmrListItemThrombolysisBinding.inflate(inflater,parent,false)
             )
 
             else -> throw IllegalStateException("Unknown viewType $viewType")
@@ -65,7 +68,15 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner, private v
 
                 talk = getItem(position)  as Talk
                 root.setOnClickListener { action?.onOpen(知情同意书,talk?.id?:"") }
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = owner
+                executePendingBindings()
+            }
+
+            is ItemViewHolder.ThrombolysisViewHolder -> holder.binding.apply{
+
+                thrombolysis = getItem(position)  as Thrombolysis
+                root.setOnClickListener { action?.onOpen(溶栓处置,thrombolysis?.id?:"") }
+                lifecycleOwner = owner
                 executePendingBindings()
             }
 
@@ -78,6 +89,7 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner, private v
             is Talk-> R.layout.item_emr_list_item_informed_consent
             is Rating-> R.layout.item_emr_rating
             is Diagnosis-> R.layout.item_emr_list_item_diagnose
+            is Thrombolysis-> R.layout.item_emr_list_item_thrombolysis
             else -> throw IllegalStateException("Unknown viewType at position $position")
         }
     }
@@ -90,6 +102,8 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner, private v
                 oldItem is Rating && newItem is Rating->oldItem.id==newItem.id
                 oldItem is Diagnosis && newItem is Diagnosis->oldItem.id==newItem.id
                 oldItem is Talk && newItem is Talk->oldItem.id==newItem.id
+
+                oldItem is Thrombolysis && newItem is Thrombolysis->oldItem.id==newItem.id
             }
             return false
         }
@@ -100,6 +114,7 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner, private v
                 oldItem is Rating && newItem is Rating->oldItem.id==newItem.id
                 oldItem is Talk && newItem is Talk->oldItem.id==newItem.id
                 oldItem is Diagnosis && newItem is Diagnosis->oldItem.id==newItem.id
+                oldItem is Thrombolysis && newItem is Thrombolysis->oldItem.id==newItem.id
             }
             return false
         }
