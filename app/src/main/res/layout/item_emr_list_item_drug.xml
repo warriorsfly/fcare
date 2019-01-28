@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout >
     <data>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="drugs" type="com.wxsoft.fcare.core.data.entity.drug.DrugRecord"/>
     </data>
 
@@ -11,7 +12,6 @@
             android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_gravity="center"
-            android:padding="8dp"
             android:layout_height="wrap_content">
 
         <TextView
@@ -19,38 +19,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="13sp"
-                tools:text="用药时间"
+                android:text="@{drugs.drugName}"
                 android:layout_marginTop="5dp"
                 android:textColor="#000"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-        />
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-                android:id="@+id/drug_time"
+                android:id="@+id/drug_dose"
                 app:layout_constraintLeft_toRightOf="@+id/title1"
                 app:layout_constraintBottom_toBottomOf="@+id/title1"
                 android:textSize="13sp"
                 android:textColor="#9399A4"
                 android:layout_marginLeft="19dp"
-                tools:text="2019-01-25 19:00:00"
+                android:text="@{Converter.intToString( drugs.dose)}"
+                tools:text="15"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        <android.support.v7.widget.RecyclerView
-                android:id="@+id/drugs_list"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title1"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-        </android.support.v7.widget.RecyclerView>
-
-
+        <TextView
+                android:id="@+id/drug_unit"
+                goneUnless=""
+                app:layout_constraintLeft_toRightOf="@+id/drug_dose"
+                app:layout_constraintBottom_toBottomOf="@+id/title1"
+                android:textSize="13sp"
+                android:textColor="#9399A4"
+                android:text="mg"
+                android:layout_marginLeft="5dp"
+                tools:text="mg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
 
     </android.support.constraint.ConstraintLayout>

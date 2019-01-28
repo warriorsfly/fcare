@@ -86,6 +86,7 @@ class EmrFragment : DaggerFragment() {
         const val OUTCOME = 30
         const val INFORMEDCONSENT = 31
         const val THROMBOLYSIS = 32
+        const val DRUGRECORD = 33
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -194,6 +195,13 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
+                ActionRes.ActionType.给药 ->{
+                    var intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
+                        putExtra(PharmacyActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, DRUGRECORD)
+                }
+
             }
         }
 
@@ -242,8 +250,9 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.给药 ->{
                     var intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
                         putExtra(PharmacyActivity.PATIENT_ID, patientId)
+                        putExtra(PharmacyActivity.DRUG_RECORD_ID, id)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }
                 ActionRes.ActionType.知情同意书 ->{
                     if (id.isNullOrEmpty()){
@@ -445,6 +454,9 @@ class EmrFragment : DaggerFragment() {
                 }
                 EmrFragment.THROMBOLYSIS -> {
                     viewModel.refreshThrombosis()
+                }
+                EmrFragment.DRUGRECORD -> {
+                    viewModel.refreshDrugRecords()
                 }
             }
         }

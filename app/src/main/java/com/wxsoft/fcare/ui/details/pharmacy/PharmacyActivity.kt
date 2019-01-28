@@ -22,6 +22,7 @@ class PharmacyActivity : BaseActivity() {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val COME_FROM = "COME_FROM"
+        const val DRUG_RECORD_ID = "DRUG_RECORD_ID"
 
     }
 
@@ -58,6 +59,7 @@ class PharmacyActivity : BaseActivity() {
         binding.drugsList.adapter = drugsAdapter
 
         viewModel.pharmacy.observe(this, Observer {  })
+        viewModel.drugRecords.observe(this, Observer {  })
 
         var drugBottomListAdapter = DrugBottomListAdapter(this,viewModel)
         viewModel.selectedDrugs.observe(this, Observer { it -> drugBottomListAdapter.items = it ?: emptyList()  })
@@ -73,7 +75,8 @@ class PharmacyActivity : BaseActivity() {
                     finish();
                 }
             }else{
-                finish()
+                setResult(RESULT_OK, intent);
+                finish();
             }
         })
     }
