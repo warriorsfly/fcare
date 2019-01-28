@@ -73,6 +73,12 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
         lisApi.getLisItems().toResource()
             .subscribe {
                 loadLisItemsResult.value = it
+                if (lisItems.value != null){
+                    if (lisItems.value!!.isNotEmpty()){
+                        selectType(lisItems.value!!.first())
+                    }
+                }
+
             }
     }
 

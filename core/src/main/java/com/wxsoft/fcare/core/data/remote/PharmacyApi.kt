@@ -19,7 +19,7 @@ interface PharmacyApi {
     fun getAllDrugPackages(): Maybe<Response<List<DrugPackage>>>
 
     @GET("Drug/GetDrugRecordByPatientId/{patientId}")
-    fun getDrugRecord(@Path("patientId")patientId:String):Maybe<Response<Pharmacy>>
+    fun getDrugRecord(@Path("patientId")patientId:String):Maybe<Response<List<Pharmacy>>>
 
     @POST("Drug/SaveDrugRecord")
     fun save(@Body pharmacy: Pharmacy):Maybe<Response<Pharmacy>>

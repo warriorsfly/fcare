@@ -105,11 +105,11 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     }
 
     fun getDrugRecord(){
-        pharmacyApi.getDrugRecord(patientId).toResource()
-            .subscribe {
-                initPharmacy.value = it
-                checkedPharmacy()
-            }
+//        pharmacyApi.getDrugRecord(patientId).toResource()
+//            .subscribe {
+//                initPharmacy.value = it
+//                checkedPharmacy()
+//            }
     }
 
     fun selected(drugPackage:DrugPackage){

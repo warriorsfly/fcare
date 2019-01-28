@@ -13,7 +13,6 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemImageBinding
 import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
-import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
 class InformedDetailsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val max:Int=0) :

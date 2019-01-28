@@ -246,11 +246,18 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.知情同意书 ->{
-                    var intent = Intent(context.get()?.activity, InformedConsentDetailsActivity::class.java).apply {
-                        putExtra(InformedConsentDetailsActivity.PATIENT_ID, patientId)
-                        putExtra(InformedConsentDetailsActivity.TALK_ID,id)
+                    if (id.isNullOrEmpty()){
+                        var intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
+                            putExtra(InformedConsentActivity.PATIENT_ID, patientId)
+                        }
+                        context.get()?.startActivityForResult(intent, INFORMEDCONSENT)
+                    }else{
+                        var intent = Intent(context.get()?.activity, InformedConsentDetailsActivity::class.java).apply {
+                            putExtra(InformedConsentDetailsActivity.PATIENT_ID, patientId)
+                            putExtra(InformedConsentDetailsActivity.TALK_ID,id)
+                        }
+                        context.get()?.startActivity(intent)
                     }
-                    context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.诊断 ->{
                     var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
