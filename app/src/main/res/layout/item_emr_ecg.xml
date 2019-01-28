@@ -101,11 +101,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
-                    android:text="√"
+                    android:text="上传"
+                    android:clickable="true"
+                    android:padding="6dp"
                     android:id="@+id/new_item"
                     android:onClick="@{()->action.commit(ecg,0)}"
-                    goneUnless="@{ecg.savable}"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"/>
+                    goneUnless="@{ecg.savable}"/>
 
                 <Button
                         app:layout_constraintRight_toRightOf="parent"
@@ -115,9 +116,10 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
                         android:text="判读"
+                        android:padding="6dp"
+                        android:clickable="true"
                         android:onClick="@{()->action.commit(ecg,1)}"
-                        goneUnless="@{!(ecg.attachments.size()==0  || ecg.diagnosed)}"
-                        style="@style/Widget.MaterialComponents.Button.TextButton.Dialog"/>
+                        goneUnless="@{!(ecg.attachments.size()==0  || ecg.diagnosed)}"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:layout_width="match_parent"

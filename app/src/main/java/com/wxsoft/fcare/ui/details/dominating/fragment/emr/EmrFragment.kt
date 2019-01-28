@@ -65,6 +65,7 @@ import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
 import java.lang.ref.WeakReference
 import javax.inject.Inject
+import javax.inject.Named
 
 class EmrFragment : DaggerFragment() {
 
@@ -114,6 +115,14 @@ class EmrFragment : DaggerFragment() {
 
     lateinit var binding: FragmentEmrBinding
 
+    @Inject
+    @field:Named("emrViewPool")
+    lateinit var emrViewPool: RecyclerView.RecycledViewPool
+
+    @Inject
+    @field:Named("emrItemViewPool")
+    lateinit var emrItemViewPool: RecyclerView.RecycledViewPool
+
     private lateinit var viewModel: EmrViewModel
 
     private lateinit var adapter: EmrAdapter
@@ -128,10 +137,10 @@ class EmrFragment : DaggerFragment() {
         viewModel = viewModelProvider(factory)
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@EmrFragment
-
+//            list.setRecycledViewPool(emrViewPool)
             viewModel=this@EmrFragment.viewModel
         }
-        adapter= EmrAdapter(this)
+        adapter= EmrAdapter(this,emrItemViewPool)
         adapter.setActionListener(EventAction(WeakReference(this),patientId))
         adapter.setCommitEventActionListener(commitAction!!)
         adapter.pictureAdapter.setActionListener(photoAction)

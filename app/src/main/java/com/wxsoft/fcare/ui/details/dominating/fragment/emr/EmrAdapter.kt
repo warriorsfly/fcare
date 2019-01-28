@@ -19,7 +19,8 @@ import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EmrEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 
-class EmrAdapter constructor(private val owner: LifecycleOwner) :
+class EmrAdapter constructor(private val owner: LifecycleOwner,
+                             private val pool:RecyclerView.RecycledViewPool) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
     val pictureAdapter=PictureAdapter(owner,2)
@@ -205,11 +206,15 @@ class EmrAdapter constructor(private val owner: LifecycleOwner) :
                 ItemEmrProfileBinding.inflate(inflater, parent, false)
             )
             R.layout.item_emr_ecg->ItemViewHolder.EcgViewHolder(
-                ItemEmrEcgBinding.inflate(inflater,parent,false)
+                ItemEmrEcgBinding.inflate(inflater,parent,false).apply {
+                    list.setRecycledViewPool(pool)
+                }
             )
 
             R.layout.item_emr_rating->ItemViewHolder.RatingViewHolder(
-                ItemEmrRatingBinding.inflate(inflater,parent,false)
+                ItemEmrRatingBinding.inflate(inflater,parent,false).apply {
+                    list.setRecycledViewPool(pool)
+                }
             )
             R.layout.item_emr_medical_history -> ItemViewHolder.MedicalHistoryViewHolder(
                 ItemEmrMedicalHistoryBinding.inflate(inflater,parent,false)
@@ -218,7 +223,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner) :
                 ItemEmrCatheterBinding.inflate(inflater,parent,false)
             )
             R.layout.item_emr_item_list->ItemViewHolder.ListViewHolder(
-                ItemEmrItemListBinding.inflate(inflater,parent,false)
+                ItemEmrItemListBinding.inflate(inflater,parent,false).apply {
+                    list.setRecycledViewPool(pool)
+                }
             )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }

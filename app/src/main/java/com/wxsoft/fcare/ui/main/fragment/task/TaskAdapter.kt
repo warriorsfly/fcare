@@ -1,7 +1,7 @@
 package com.wxsoft.fcare.ui.main.fragment.task
 
 import android.arch.lifecycle.LifecycleOwner
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
+import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -13,29 +13,18 @@ import com.wxsoft.fcare.utils.DateTimeUtils.Companion.formatter
 import java.text.ParseException
 
 
-class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: TaskViewModel) :
-    RecyclerView.Adapter<TaskAdapter.ItemViewHolder>() {
-
-    private val differ = AsyncListDiffer<Task>(this, DiffCallback)
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
-    var tasks: List<Task> = emptyList()
-        set(value) {
-            field = value
-            differ.submitList(value)
-        }
+class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: TaskViewModel) :
+    ListAdapter<Task,TaskAdapter.ItemViewHolder>(DiffCallback) {
+    
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            val item = differ.currentList[position]
-            val patients = differ.currentList[position].patients
+            val item = getItem(position)
+            val patients = getItem(position).patients
             val names = patients.joinToString(separator = " ", transform = { it.name })
             if (patients.isNotEmpty()) {
-                differ.currentList[position].taskPosition = patients[0].attackPosition
+                getItem(position).taskPosition = patients[0].attackPosition
             }
             if ((item.startAt != null) && (item.arriveHosAt != null)) {
                 allTime.text = getTimeDifference(item.startAt!!, item.arriveHosAt!!)
@@ -54,7 +43,7 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
             parientName.text = names
             task = item
             listener = viewModel
-            lifecycleOwner = this@TaskAdapter. lifecycleOwner
+            lifecycleOwner = owner
             executePendingBindings()
 
         }

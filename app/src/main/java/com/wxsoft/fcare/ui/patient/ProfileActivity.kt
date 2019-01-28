@@ -22,8 +22,11 @@ import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
+import com.jzxiang.pickerview.data.Type
+import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.entity.LocalMedia
@@ -51,7 +54,31 @@ import javax.inject.Inject
 /**
  * A login screen that offers login via email/password.
  */
-class ProfileActivity : BaseActivity() {
+class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener{
+
+    private var dialog: com.jzxiang.pickerview.TimePickerDialog?=null
+
+    private var selectedId=0;
+    override fun onClick(v: View?) {
+
+        (v as? Button)?.let {
+            selectedId = it.id
+            val currentTime = it.text.toString()?.let { text ->
+                return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            }
+
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all");
+        }
+
+    }
+
+    override fun onDateSet(timePickerView: com.jzxiang.pickerview.TimePickerDialog?, millseconds: Long) {
+
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<Button>(selectedId))?.text=DateTimeUtils.formatter.format(millseconds)
+    }
 
     private val toast:Toast by  lazy {
         Toast.makeText(this,"",Toast.LENGTH_SHORT)
@@ -135,9 +162,7 @@ class ProfileActivity : BaseActivity() {
 
         })
 
-        attack_button.setOnClickListener {
-            selectTime()
-        }
+        attack_button.setOnClickListener(this)
 
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
     }
@@ -327,18 +352,24 @@ class ProfileActivity : BaseActivity() {
         }
     }
 
-    fun selectTime() {
-        var ca = Calendar.getInstance()
-        var mYear = ca.get(Calendar.YEAR)
-        var mMonth = ca.get(Calendar.MONTH)
-        var mDay = ca.get(Calendar.DAY_OF_MONTH)
-        var mHour = ca.get(Calendar.HOUR)
-        var mMinute = ca.get(Calendar.MINUTE)
-        TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-            viewModel.patient.value?.attackTime = "$mYear-" + DateTimeUtils.frontCompWithZore(mMonth + 1, 2) +
-                    "-" + DateTimeUtils.frontCompWithZore(mDay, 2) + " " +
-                    String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute)+":00"
-        }, mHour, mMinute, true).show()
+
+    private fun createDialog(time:Long): com.jzxiang.pickerview.TimePickerDialog {
+
+        return com.jzxiang.pickerview.TimePickerDialog.Builder()
+            .setCallBack(this)
+            .setCancelStringId("取消")
+            .setSureStringId("确定")
+            .setTitleStringId("选择时间")
+            .setYearText("")
+            .setMonthText("")
+            .setDayText("")
+            .setHourText("")
+            .setMinuteText("")
+            .setCyclic(false)
+            .setCurrentMillseconds(if (time == 0L) System.currentTimeMillis() else time)
+            .setType(Type.ALL)
+            .setWheelItemTextSize(16)
+            .build()
     }
 
 }

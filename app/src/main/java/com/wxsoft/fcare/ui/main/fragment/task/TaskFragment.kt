@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.main.fragment.task
 
 
+import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
@@ -27,6 +28,10 @@ import javax.inject.Inject
 
 
 class TaskFragment : DaggerFragment() {
+
+    companion object {
+        const val NEW_TAK_REQUEST_CODE=14
+    }
 
     private lateinit var viewModel: TaskViewModel
 
@@ -56,10 +61,13 @@ class TaskFragment : DaggerFragment() {
 
             lifecycleOwner = this@TaskFragment
         }
-        viewModel.tasks.observe(this, Observer { it -> adapter.tasks = it ?: emptyList() })
+        viewModel.tasks.observe(this, Observer {
 
-        viewModel.navigateToOperationAction.observe(this, EventObserver { t ->
-            toDetail(t)
+            adapter.submitList(it ?: emptyList())
+        })
+
+        viewModel.navigateToOperationAction.observe(this, EventObserver {
+            toDetail(it)
         })
         return binding.root
     }
@@ -84,15 +92,24 @@ class TaskFragment : DaggerFragment() {
         dialog.show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode==RESULT_OK){
+            when(requestCode){
+                NEW_TAK_REQUEST_CODE ->viewModel.onSwipeRefresh()
+            }
+        }
+    }
 
-    fun toDispatchCar() {
+
+    private fun toDispatchCar() {
 //        toDiagnose()
         startTask()
     }
 
-    fun startTask(){
+    private fun startTask(){
         var intent = Intent(activity!!, DispatchCarActivity::class.java)
-        startActivity(intent)
+        startActivityForResult(intent, NEW_TAK_REQUEST_CODE)
     }
 
     fun toDetail(id: String) {
@@ -130,5 +147,6 @@ class TaskFragment : DaggerFragment() {
         intent.putExtra(DiagnoseActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
+
 
 }

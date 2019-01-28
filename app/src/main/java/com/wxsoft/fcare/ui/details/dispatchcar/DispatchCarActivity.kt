@@ -68,8 +68,13 @@ class DispatchCarActivity : BaseActivity() {
 
         viewModel.taskId.observe(this, Observer {
             if (it != null){
-                toDetail(it)
-                finish()
+
+                Intent().let { intent ->
+
+                    toDetail(it)
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
 
         })

@@ -7,6 +7,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.utils.DateTimeUtils
 
 @Entity(tableName = "patients")
 data class Patient(@PrimaryKey val id:String):BaseObservable(){
@@ -59,6 +60,10 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.idcard)
+            if(field.length==18) {
+                age=DateTimeUtils.getAgeByCertId(field)
+            }
+
         }
 
 //    /**
