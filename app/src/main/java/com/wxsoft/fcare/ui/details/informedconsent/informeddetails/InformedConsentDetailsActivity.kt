@@ -43,23 +43,24 @@ class InformedConsentDetailsActivity : BaseActivity() {
         talkName=intent.getStringExtra(InformedConsentDetailsActivity.TALK_NAME)?:""
         informedId=intent.getStringExtra(InformedConsentDetailsActivity.INFORMED_ID)?:""
 
-        viewModel.titleName = talkName
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
         back.setOnClickListener { onBackPressed() }
 
         viewModel.getTalkById(talkId)
-        viewModel.getInformedConsentById(informedId)
+
 
 //        adapter = InformedDetailsAdapter(this,10)
 //        binding.attachments.adapter = adapter
 //
-//        viewModel.talk.observe(this, Observer {
-//            if (it != null){
+        viewModel.talk.observe(this, Observer {
+            if (it != null){
 //                adapter.remotes = it.attachments.map { it.httpUrl }
-//            }
-//        })
+                viewModel.getInformedConsentById(it.informedConsentId)
+                viewModel.title = it.informedConsentName
+            }
+        })
 
 
     }

@@ -50,9 +50,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.assistant.AssistantExaminationActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity android:name=".ui.details.reperfusion.ReperfusionActivity"
+                  android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity
+                android:name=".ui.details.assistant.AssistantExaminationActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.message.MessageActivity"
                 android:label="@string/title_activity_message"

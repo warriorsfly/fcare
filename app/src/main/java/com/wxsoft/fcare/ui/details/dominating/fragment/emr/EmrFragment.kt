@@ -51,6 +51,8 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
+import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
+import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
@@ -83,6 +85,7 @@ class EmrFragment : DaggerFragment() {
         const val CT = 28
         const val DISCHARGE = 29
         const val OUTCOME = 30
+        const val INFORMEDCONSENT = 31
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -178,6 +181,12 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivityForResult(intent, DIAGNOSE)
                 }
+                ActionRes.ActionType.知情同意书 ->{
+                    var intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
+                        putExtra(InformedConsentActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, INFORMEDCONSENT)
+                }
             }
         }
 
@@ -230,8 +239,9 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.知情同意书 ->{
-                    var intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
-                        putExtra(InformedConsentActivity.PATIENT_ID, patientId)
+                    var intent = Intent(context.get()?.activity, InformedConsentDetailsActivity::class.java).apply {
+                        putExtra(InformedConsentDetailsActivity.PATIENT_ID, patientId)
+                        putExtra(InformedConsentDetailsActivity.TALK_ID,id)
                     }
                     context.get()?.startActivity(intent)
                 }
@@ -413,6 +423,9 @@ class EmrFragment : DaggerFragment() {
                 }
                 EmrFragment.MEASURES -> {
                     viewModel.refreshMeasure()
+                }
+                EmrFragment.INFORMEDCONSENT -> {
+                    viewModel.refreshInformedConsent()
                 }
 
             }

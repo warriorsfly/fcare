@@ -17,7 +17,7 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
     ICommonPresenter {
 
     override var title: String=""
-        get() = "再灌注措施"
+        get() = "CABG"
     override val clickableTitle: String
         get() = ""
     override val clickable: LiveData<Boolean>

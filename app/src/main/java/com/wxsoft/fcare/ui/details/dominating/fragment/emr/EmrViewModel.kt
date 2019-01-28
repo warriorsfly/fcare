@@ -94,6 +94,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshChekBody()
 
                 refreshThrombolysis()
+
+                refreshInformedConsent()
             }
 
         disposable.add(dis)
@@ -320,6 +322,30 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 messageAction.value= Event(it.message?:"")
             })
         )
+    }
+
+    fun refreshInformedConsent(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.知情同意书 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getTalks(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ talks ->
+                            if (talks.result.isNullOrEmpty()) return@subscribe
+                            emr.result = talks.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = talks.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.知情同意书))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshThrombolysis(){

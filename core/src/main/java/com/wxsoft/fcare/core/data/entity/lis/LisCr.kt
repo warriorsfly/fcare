@@ -233,6 +233,7 @@ data class LisCr (val id:String) : BaseObservable() {
 
         if (ctniValue!=null) ctniValueStr = ctniValue.toString()
         if (ctntValue!=null) ctntValueStr = ctntValue.toString()
+        if (crValue != null) crValueStr = crValue.toString()
     }
 
 }

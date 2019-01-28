@@ -82,4 +82,11 @@ interface EmrApi{
     @GET("Throm/GetThromRecords/{patientId}")
     fun loadThrombolysis(@Path("patientId")patientId:String): Maybe<Response<List<Thrombolysis>>>
 
+    /**
+     * 获取知情同意书
+     */
+    @GET("InformedConsent/GetTalkRecords/{patientId}")
+    fun getTalks(@Path("patientId")patientId:String): Maybe<Response<List<Talk>>>
+
+
 }
