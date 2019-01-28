@@ -1,5 +1,6 @@
 package com.wxsoft.emergency.ui.main.fragment.patients
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_patients.*
 import javax.inject.Inject
 
 class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
@@ -75,5 +77,18 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             startActivity(it)
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+
+                BaseActivity.NEW_PATIENT_REQUEST -> {
+
+                    viewModel.showPatients(search.query.toString())
+                }
+            }
+        }
     }
 }

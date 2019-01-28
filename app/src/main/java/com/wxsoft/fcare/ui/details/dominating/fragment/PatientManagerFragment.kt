@@ -29,38 +29,27 @@ class PatientManagerFragment : DaggerFragment() {
 
     lateinit var viewModel:DoMinaViewModel
     lateinit var adapter: EmrAdapter
-    lateinit var binding: FragmentPatientManagerBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         viewModel=activityViewModelProvider(factory)
-        binding=FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
+        return FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
             lifecycleOwner = this@PatientManagerFragment
             viewModel=this@PatientManagerFragment.viewModel
-        }
+            image.setOnClickListener {
+                var intent = Intent(activity, ProfileActivity::class.java).apply {
+                    putExtra(ProfileActivity.TASK_ID, viewModel?.taskId)
+                }
+                activity?.startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
 
-
-        return binding.root
+            }
+        }.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        tab.setupWithViewPager(patPager)
-
-
-
-        binding.viewModel=viewModel
-        if(!binding.image.hasOnClickListeners()) {
-            binding.image.setOnClickListener {
-                var intent = Intent(activity, ProfileActivity::class.java).apply {
-                    putExtra(ProfileActivity.TASK_ID, viewModel.taskId)
-                }
-                activity?.startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
-
-            }
-        }
         viewModel.task.observe(this, Observer {
             it ?: return@Observer
 
