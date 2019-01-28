@@ -272,7 +272,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 emr.done = true
                                 emr.completedAt = vitals.result?.lastOrNull()?.createdDate
                             }
-                        }, {
+
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+                            }
+                        },
+                            {
                             messageAction.value = Event(it.message ?: "")
                         })
                 )

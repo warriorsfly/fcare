@@ -292,9 +292,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is Diagnosis && result2 is Diagnosis ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
-
                 result1 is List<*> && result2 is List<*> ->
-                    oldItem.code == newItem.code && oldItem.result.hashCode()  == newItem.result.hashCode()
+                    oldItem.code == newItem.code && result1.size  == result2.size
                 else -> oldItem.code == newItem.code
             }
         }
@@ -322,7 +321,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
-                    oldItem.code == newItem.code && oldItem.result.hashCode()  == newItem.result.hashCode()
+                    oldItem.code == newItem.code && result1  == result2
                 result1 is Measure && result2 is Measure ->
                     oldItem.code == newItem.code
 
