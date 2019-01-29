@@ -100,6 +100,10 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshDrugRecords()
 
                 refreshOtDiagnosis()
+
+                refreshCT()
+
+                refreshInv()
             }
 
         disposable.add(dis)
@@ -280,6 +284,53 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 loadEmrResult.value?.result?.indexOf(emr)
                             index?.let { index ->
                                 _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.出院诊断))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshCT(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.CT_OPERATION }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getPAC(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result==null) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.CT_OPERATION))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+ fun refreshInv(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.Catheter }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getIntervention(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result==null) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.Catheter))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")

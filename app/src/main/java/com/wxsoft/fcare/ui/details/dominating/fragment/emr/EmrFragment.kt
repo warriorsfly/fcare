@@ -35,6 +35,7 @@ import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
 import com.wxsoft.fcare.core.data.entity.EmrItem
+import com.wxsoft.fcare.core.data.entity.Pacs
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import com.wxsoft.fcare.core.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -89,6 +90,8 @@ class EmrFragment : DaggerFragment() {
         const val THROMBOLYSIS = 32
         const val DRUGRECORD = 33
         const val OTDIAGNOSE = 34
+        const val CT_OPERATION = 35
+
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -212,6 +215,13 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }
 
+                ActionRes.ActionType.Catheter ->{
+                    var intent = Intent(context.get()?.activity,CatheterActivity ::class.java).apply {
+                        putExtra(PharmacyActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, Catheter)
+                }
+
             }
         }
 
@@ -327,6 +337,14 @@ class EmrFragment : DaggerFragment() {
 
                     }
                     context.get()?.startActivityForResult(intent, OUTCOME)
+                }
+
+                ActionRes.ActionType.CT_OPERATION ->{
+                    var intent = Intent(context.get()?.activity, CTActivity::class.java).apply {
+                        putExtra(CTActivity.PATIENT_ID, patientId)
+
+                    }
+                    context.get()?.startActivityForResult(intent, CT_OPERATION)
                 }
 
             }
@@ -471,6 +489,13 @@ class EmrFragment : DaggerFragment() {
 
                 EmrFragment.OTDIAGNOSE -> {
                     viewModel.refreshOtDiagnosis()
+                }
+
+                EmrFragment.CT_OPERATION -> {
+                    viewModel.refreshCT()
+                }
+                EmrFragment.Catheter -> {
+                    viewModel.refreshInv()
                 }
             }
         }

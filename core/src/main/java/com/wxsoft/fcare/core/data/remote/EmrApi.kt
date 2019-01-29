@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import io.reactivex.Maybe
@@ -97,5 +98,12 @@ interface EmrApi{
      */
     @GET("OutHospitalDiagnosis/GetById/{patientId}")
     fun getOtDiagnosis(@Path("patientId")patientId:String): Maybe<Response<DisChargeDiagnosis>>
+
+    @GET("PACS/GetPacsRecordByPatientId/{patientId}")
+    fun getPAC(@Path("patientId")patientId:String): Maybe<Response<Pacs>>
+
+    @GET("Intervention/GetById/{patientId}")
+    fun getIntervention(@Path("patientId")id:String):Maybe<Response<Intervention>>
+
 
 }

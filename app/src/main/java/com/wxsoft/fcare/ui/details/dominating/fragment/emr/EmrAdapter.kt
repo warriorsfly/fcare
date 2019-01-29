@@ -15,6 +15,7 @@ import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.CommitEventAction
@@ -61,6 +62,18 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     root.setOnClickListener {
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
+                executePendingBindings()
+            }
+
+            is ItemViewHolder.InterventionViewHolder -> holder.binding.apply {
+                lifecycleOwner = this@EmrAdapter. owner
+                item=differ.currentList[position]
+                visiable=position<differ.currentList.size-1
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                intervention=differ.currentList[position].result as Intervention
                 executePendingBindings()
             }
             is ItemViewHolder.ProfileViewHolder -> holder.binding.apply {
@@ -126,6 +139,19 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 }
                 val presenter = differ.currentList[position].result as MedicalHistory
                 medhistory = presenter
+                visiable= position<differ.currentList.size-1
+                lifecycleOwner = owner
+                executePendingBindings()
+            }
+
+            is ItemViewHolder.PacsViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                val presenter = differ.currentList[position].result as Pacs
+                intervention = presenter
                 visiable= position<differ.currentList.size-1
                 lifecycleOwner = owner
                 executePendingBindings()
@@ -261,6 +287,14 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     list.setRecycledViewPool(pool)
                 }
             )
+
+            R.layout.item_emr_ct->ItemViewHolder.PacsViewHolder(
+                ItemEmrCtBinding.inflate(inflater,parent,false)
+            )
+
+            R.layout.item_emr_opration_d->ItemViewHolder.InterventionViewHolder(
+                ItemEmrOprationDBinding.inflate(inflater,parent,false)
+            )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
     }
@@ -277,6 +311,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             is CheckBody->R.layout.item_emr_simple_string
             is Measure->R.layout.item_emr_simple_string
             is DisChargeDiagnosis->R.layout.item_emr_dis_diagnosis
+            is Pacs->R.layout.item_emr_ct
+            is Intervention->R.layout.item_emr_opration_d
             is List<*> ->{
                 when(item.code){
                     ActionRes.ActionType.GRACE->{
@@ -336,6 +372,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is Pacs && result2 is Pacs ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
+                result1 is Intervention && result2 is Intervention ->
+                    result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code && result1.size  == result2.size
@@ -369,6 +407,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is Pacs && result2 is Pacs ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is Intervention && result2 is Intervention ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
@@ -452,6 +493,16 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //出院诊断
     class DisDiagnoseViewHolder(
         val binding: ItemEmrDisDiagnosisBinding
+    ): ItemViewHolder(binding)
+
+    //CT
+    class PacsViewHolder(
+        val binding: ItemEmrCtBinding
+    ): ItemViewHolder(binding)
+
+    //CT
+    class InterventionViewHolder(
+        val binding: ItemEmrOprationDBinding
     ): ItemViewHolder(binding)
 
 }
