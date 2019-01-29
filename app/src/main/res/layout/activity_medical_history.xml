@@ -15,16 +15,80 @@
                  android:id="@+id/title"
                  app:presenter="@{viewModel}"
         />
-        <android.support.v7.widget.RecyclerView
+        <android.support.v4.widget.NestedScrollView
+                android:id="@+id/baseScroll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/medical_history_list"
+                app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+                app:layout_constraintBottom_toBottomOf="parent">
+            <android.support.constraint.ConstraintLayout
+                    android:id="@+id/container"
+                    android:padding="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <android.support.constraint.ConstraintLayout
+                        android:id="@+id/model1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:id="@+id/title_name"
+                            android:background="#FFFFFF"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:textSize="15sp"
+                            android:textColor="#131D35"
+                            android:text="拍照记录病史"
+                            tools:text="拍照记录病史"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
+                    <android.support.v7.widget.RecyclerView
+                            android:background="#FFFFFF"
+                            android:layout_marginBottom="10dp"
+                            android:id="@+id/medical_photo_items_rv"
+                            app:layoutManager="android.support.v7.widget.GridLayoutManager"
+                            app:spanCount="4"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/title_name"
+                            app:layout_constraintLeft_toLeftOf="@id/title_name"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+
+                </android.support.constraint.ConstraintLayout>
+
+                <android.support.constraint.ConstraintLayout
+                        android:id="@+id/up_file"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@id/model1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white">
+
+                    <android.support.v7.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/medical_history_list"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layoutManager="android.support.v7.widget.LinearLayoutManager"/>
+
+                </android.support.constraint.ConstraintLayout>
+
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.v4.widget.NestedScrollView>
 
     </android.support.constraint.ConstraintLayout>
 

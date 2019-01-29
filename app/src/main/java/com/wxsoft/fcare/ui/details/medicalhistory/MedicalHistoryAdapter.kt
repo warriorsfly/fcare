@@ -20,33 +20,16 @@ import kotlinx.android.synthetic.main.item_medical_history_photo.view.*
 class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
     RecyclerView.Adapter<MedicalHistoryAdapter.ItemViewHolder>() {
 
-    var titleArray:Array<String> = arrayOf("","", "既往病史", "病历提供者")
-
-//    val photoAdapter:PictureAdapter
-
-    init {
-//        photoAdapter = PictureAdapter(lifecycleOwner, OnClickListener(OnClickListener.Listener{ _, view ->
-//            when(view.tag){
-//                ForNewItem ->{
-//                    viewModel.loadPhoto.value = "111"
-//                }
-//            }
-//        },1))
-//        photoAdapter.locals= emptyList()
-    }
+    var titleArray:Array<String> = arrayOf("", "既往病史", "病历提供者")
 
     override fun getItemCount(): Int {
-        return 4
+        return 3
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
             lifecycleOwner = this@MedicalHistoryAdapter.lifecycleOwner
-            if (position==0){//照片
-                if (root.medical_photo_items_rv.adapter == null){
-//                    root.medical_photo_items_rv.adapter = photoAdapter
-                }
-            }else if (position == 1){//主诉、现病史
+            if (position == 0){//主诉、现病史
                 setVariable(BR.listener,viewModel)
 
             }else{//既往病史、病历提供者
@@ -67,15 +50,12 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
         var type: Int = 0
         when (position) {
             0 -> {
-                type = R.layout.item_medical_history_photo
-            }
-            1 -> {
                 type = R.layout.item_medical_history_voice
             }
-            2 -> {
+            1 -> {
                 type = R.layout.item_medical_history_other
             }
-            3 -> {
+            2 -> {
                 type = R.layout.item_medical_history_other
             }
         }
@@ -84,10 +64,6 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         when (viewType) {
-            R.layout.item_medical_history_photo -> {
-                val binding = ItemMedicalHistoryPhotoBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                return ItemViewHolder(binding)
-            }
             R.layout.item_medical_history_voice -> {
                 val binding = ItemMedicalHistoryVoiceBinding.inflate(LayoutInflater.from(parent.context), parent, false)
                 return ItemViewHolder(binding)
@@ -99,7 +75,7 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
             else -> {
                 val binding: ViewDataBinding = DataBindingUtil.inflate(
                     LayoutInflater.from(parent.context),
-                    R.layout.item_medical_history_photo,
+                    R.layout.item_medical_history_voice,
                     parent,
                     false
                 )

@@ -201,11 +201,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 emr.done = true
                                 emr.completedAt = vitals.result?.lastOrNull()?.createdDate
                             }
-//                            val index =
-//                                loadEmrResult.value?.result?.indexOf(emr)
-//                            index?.let { index ->
-//                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
-//                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.诊断 }
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.诊断))
+                            }
                         }, {
                             messageAction.value = Event(it.message ?: "")
                         })
@@ -274,14 +274,12 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 emr.done = true
                                 emr.completedAt = vitals.result?.lastOrNull()?.createdDate
                             }
-
                             val index =
-                                loadEmrResult.value?.result?.indexOf(emr)
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.生命体征 }
                             index?.let { index ->
                                 _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
                             }
-                        },
-                            {
+                        }, {
                             messageAction.value = Event(it.message ?: "")
                         })
                 )
@@ -317,6 +315,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             if (!drug.done) {
                                 drug.done = true
                                 drug.completedAt = records.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.给药 }
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.给药))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -384,6 +387,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             if (!emr.done) {
                                 emr.done = true
                                 emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.溶栓处置))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")

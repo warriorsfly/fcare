@@ -21,6 +21,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.ByteArrayOutputStream
+import java.io.File
 import javax.inject.Inject
 
 class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
@@ -50,10 +51,14 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             field = value
         }
 
+    var saveAble=true
+
+    val bitmaps= mutableListOf<String>()
+
+
     val backToLast:LiveData<Boolean>
     private val initbackToLast = MediatorLiveData<Boolean>()
 
-    val photos= ArrayList<Bitmap>()
 
     val medicalHistory:LiveData<MedicalHistory>
     private val loadMedicalHistoryResult = MediatorLiveData<Resource<Response<MedicalHistory>>>()
@@ -85,7 +90,13 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         dicEnumApi.loadMedicalHistoryProviderItems().toResource()
             .subscribe{
                 loadProviderItemsResult.value = it
-                providerItems.value?.filter { it.itemCode.equals(medicalHistory.value?.provide) }?.map {it.checked = true }
+                if (medicalHistory.value?.id.isNullOrEmpty()){
+                    providerItems.value?.first()?.checked = true
+                }else{
+                    providerItems.value?.filter { it.checked }?.map {it.checked = false }
+                    providerItems.value?.filter { it.id.equals(medicalHistory.value?.provide) }?.map {it.checked = true }
+                }
+
             }
     }
 
@@ -93,7 +104,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         dicEnumApi.loadMedicalHistoryItems().toResource()
             .subscribe{
                 loadHistoryItemsResult.value = it
-                historyItems.value?.filter { it.itemCode.equals(medicalHistory.value?.ph) }?.map {it.checked = true }
+                historyItems.value?.filter { it.id.equals(medicalHistory.value?.ph) }?.map {it.checked = true }
 
             }
     }
@@ -111,35 +122,69 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             .subscribe {
                 initbackToLast.value = true
             }
-    }
+        if (saveAble){
+            saveAble = false
+            val files = bitmaps.map {
+                val file = File(it)
+                return@map MultipartBody.Part.createFormData(
+                    "images",
+                    it.split("/").last(),
+                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                )
+            }
+            if (files.isNullOrEmpty()){
+                medicalHistoryApi.save(medicalHistory.value!!).toResource().subscribe {
 
-    fun uploadFile(){
-        val files = photos.map {
-            val stream = ByteArrayOutputStream()
-            it.compress(Bitmap.CompressFormat.PNG, 100, stream)
-            val byteArray = stream.toByteArray()
-
-            return@map MultipartBody.Part.create(RequestBody.create(MediaType.parse("multipart/form-data"), byteArray))
+                    when (it) {
+                        is Resource.Success -> {
+                            clickResult.value = true
+                            messageAction.value = Event("保存成功")
+                            initbackToLast.value = true
+                            saveAble = true
+                        }
+                        is Resource.Error -> {
+                            clickResult.value = true
+                            messageAction.value = Event(it.throwable.message ?: "")
+                        }
+                        else -> {
+                            clickResult.value = false
+                        }
+                    }
+                }
+            }else{
+                medicalHistoryApi.save(medicalHistory.value!!, files).toResource().subscribe {
+                    when (it) {
+                        is Resource.Success -> {
+                            clickResult.value = true
+                            messageAction.value = Event("保存成功")
+                            initbackToLast.value = true
+                            saveAble = true
+                        }
+                        is Resource.Error -> {
+                            clickResult.value = true
+                            messageAction.value = Event(it.throwable.message ?: "")
+                        }
+                        else -> {
+                            clickResult.value = false
+                        }
+                    }
+                }
+            }
         }
 
-//        fileApi.save(files).toResource().subscribe {
-//            when (it) {
-//                is Resource.Success -> {
-//                    messageAction.value = Event("保存成功")
-//                }
-//                is Resource.Error -> {
-//                    messageAction.value = Event(it.throwable.message ?: "")
-//                }
-//                else->{
-//
-//                }
-//            }
-//        }
+
     }
 
+
     fun haveData(){
-        providerItems.value?.filter { it.itemCode.equals(medicalHistory.value?.provide) }?.map {it.checked = true }
-        historyItems.value?.filter { it.itemCode.equals(medicalHistory.value?.ph) }?.map {it.checked = true }
+        if (medicalHistory.value?.id.isNullOrEmpty()){
+            providerItems.value?.first()?.checked = true
+        }else{
+            providerItems.value?.filter { it.checked }?.map {it.checked = false }
+            providerItems.value?.filter { it.id.equals(medicalHistory.value?.provide) }?.map {it.checked = true }
+            historyItems.value?.filter { it.id.equals(medicalHistory.value?.ph) }?.map {it.checked = true }
+        }
+
     }
 
 
@@ -154,11 +199,10 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
 
     fun submit(){
         providerItems.value?.filter { it.checked }
-            ?.map { medicalHistory.value?.provide = it.itemCode }
+            ?.map { medicalHistory.value?.provide = it.id }
         historyItems.value?.filter { it.checked }
-            ?.map { medicalHistory.value?.ph = it.itemCode }
+            ?.map { medicalHistory.value?.ph = it.id }
         medicalHistory.value?.patientId = patientId
-//        uploadFile()
         saveMedicalHistory()
     }
 
