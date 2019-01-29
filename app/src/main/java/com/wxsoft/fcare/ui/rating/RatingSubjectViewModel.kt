@@ -12,7 +12,6 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -52,7 +51,7 @@ class RatingSubjectViewModel @Inject constructor(
 
     private fun loadRecord(){
 
-        ratingApi.getOneRecord(recordId)
+        disposable.add(ratingApi.getOneRecord(recordId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
@@ -63,12 +62,12 @@ class RatingSubjectViewModel @Inject constructor(
                 {
                     messageAction.value= Event(it.message?:"")
                 }
-            )
+            ))
 
     }
 
     private fun loadRating(){
-            ratingApi.getOne(ratingId)
+            disposable.add(ratingApi.getOne(ratingId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
@@ -90,7 +89,7 @@ class RatingSubjectViewModel @Inject constructor(
                 {
                     messageAction.value= Event(it.message?:"")
                 }
-            )
+            ))
 
     }
 
@@ -139,11 +138,12 @@ class RatingSubjectViewModel @Inject constructor(
                 )
             }!!
 
-            ratingApi.saveRatingResult(ratingRecord)
+            disposable.add(ratingApi.saveRatingResult(ratingRecord)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ messageAction.value = Event("保存成功") },
                     { messageAction.value = Event(it.message ?: "") })
+            )
         }
     }
 

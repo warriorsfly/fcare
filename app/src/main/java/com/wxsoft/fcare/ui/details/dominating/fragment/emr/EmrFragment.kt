@@ -10,7 +10,6 @@ import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.databinding.BindingAdapter
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
@@ -34,25 +33,25 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
-import com.wxsoft.fcare.core.data.entity.EmrItem
-import com.wxsoft.fcare.core.data.entity.Pacs
-import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import com.wxsoft.fcare.core.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
-import com.wxsoft.fcare.ui.*
+import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.CommitEventAction
+import com.wxsoft.fcare.ui.EmrEventAction
+import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
+import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
-import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
-import com.wxsoft.fcare.ui.details.ct.CTActivity
-import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
@@ -311,7 +310,6 @@ class EmrFragment : DaggerFragment() {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
                         putExtra(DiagnoseActivity.ID, id)
                     }
-//                    context.get()?.startActivity(intent)
                     context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
 
