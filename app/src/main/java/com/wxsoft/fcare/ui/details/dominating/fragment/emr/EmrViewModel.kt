@@ -7,7 +7,11 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.EmrApi
+import com.wxsoft.fcare.core.data.remote.InterventionApi
+import com.wxsoft.fcare.core.data.remote.PACSApi
+import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.map
@@ -21,6 +25,8 @@ import java.io.File
 import javax.inject.Inject
 
 class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
+                                       private val pacsApi: PACSApi,
+                                       private val interventionApi: InterventionApi,
                                        override val sharedPreferenceStorage: SharedPreferenceStorage,
                                        override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
@@ -463,5 +469,38 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             }
     }
 
+    fun commitNoticePacs(){ //通知启动CT室
+        disposable.add(
+            pacsApi.notice(patientId,account.id).toResource()
+                .subscribe {
+
+                    when(it){
+                        is Resource.Success->{
+                            messageAction.value= Event("通知成功")
+                        }
+                        is Resource.Error->{
+                            messageAction.value=Event(it.throwable.message?:"")
+                        }
+                    }
+                }
+        )
+    }
+
+    fun commitNoticeInv(){//通知启动导管室
+        disposable.add(
+            interventionApi.notice(patientId,account.id).toResource()
+                .subscribe {
+
+                    when(it){
+                        is Resource.Success->{
+                            messageAction.value= Event("通知成功")
+                        }
+                        is Resource.Error->{
+                            messageAction.value=Event(it.throwable.message?:"")
+                        }
+                    }
+                }
+        )
+    }
 
 }

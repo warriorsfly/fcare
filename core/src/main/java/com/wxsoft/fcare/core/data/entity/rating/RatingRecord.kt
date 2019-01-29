@@ -18,5 +18,4 @@ data class RatingRecord(val id:String="",
                         val score:Int=0){
 
     @SerializedName("answerRecordDetails")var records:List<SubjectRecord> = emptyList()
-    var createDate:String = DateTimeUtils.getCurrentTime()
 }

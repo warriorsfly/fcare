@@ -176,11 +176,29 @@ class EmrFragment : DaggerFragment() {
                 }
             }
         })
+        viewModel.mesAction.observe(this,EventObserver{
+            Toast.makeText(this@EmrFragment.context,it,Toast.LENGTH_SHORT).show()
+        })
         return binding.root
 
     }
 
-    class EventAction constructor(private val context: WeakReference<DaggerFragment>,private val patientId:String):EmrEventAction{
+    fun showDialog(message:String,type:String){
+        AlertDialog.Builder(this@EmrFragment.context,R.style.Theme_FCare_Dialog_Text)
+            .setMessage(message)
+            .setPositiveButton("确定") { _, _ ->
+                when(type){
+                    "导管室" -> viewModel.commitNoticeInv()
+                    "CT室" -> viewModel.commitNoticePacs()
+                }
+            }
+            .setNegativeButton("取消") { _, _ ->
+
+            }.show()
+    }
+
+
+    inner class EventAction constructor(private val context: WeakReference<EmrFragment>,private val patientId:String):EmrEventAction{
         override fun onNew(type: String) {
             when(type) {
                 ActionRes.ActionType.生命体征 -> {
@@ -322,13 +340,6 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, Catheter)
                 }
 
-                ActionRes.ActionType.CT_OPERATION ->{
-                    var intent = Intent(context.get()?.activity, CTActivity::class.java).apply {
-                        putExtra(CTActivity.PATIENT_ID, patientId)
-                    }
-                    context.get()?.startActivityForResult(intent, CT)
-                }
-
                 ActionRes.ActionType.出院诊断 ->{
                     var intent = Intent(context.get()?.activity, DisChargeActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
@@ -356,6 +367,14 @@ class EmrFragment : DaggerFragment() {
 
                     }
                     context.get()?.startActivityForResult(intent, CT_OPERATION)
+                }
+
+                ActionRes.ActionType.通知启动CT室 ->{
+                    showDialog("通知启动CT室","CT室")
+                }
+
+                ActionRes.ActionType.通知启动导管室 ->{
+                    showDialog("通知启动导管室","导管室")
                 }
 
             }

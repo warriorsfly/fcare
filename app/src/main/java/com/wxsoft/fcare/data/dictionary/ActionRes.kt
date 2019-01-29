@@ -43,7 +43,7 @@ class ActionRes {
         ActionType.CT, ActionType.诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
         ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,ActionType.治疗方案,
         ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,
-        ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式,ActionType.Catheter,
+        ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室,ActionType.通知启动导管室,ActionType.通知启动CT室, ActionType.来院方式,ActionType.Catheter,
         ActionType.CT_OPERATION,ActionType.出院诊断
     )
     annotation class ActionType {
@@ -91,6 +91,8 @@ class ActionRes {
             const val Catheter = "dgscz"
             const val CT_OPERATION = "ctscz"
             const val 治疗方案 = "zlfa"
+            const val 通知启动CT室 = "tzqdcts"
+            const val 通知启动导管室 = "tzqddgs"
         }
     }
 }
