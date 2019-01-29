@@ -44,7 +44,7 @@ class ActionRes {
         ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,ActionType.治疗方案,
         ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,
         ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式,ActionType.Catheter,
-        ActionType.CT_OPERATION
+        ActionType.CT_OPERATION,ActionType.出院诊断
     )
     annotation class ActionType {
         companion object {
@@ -57,6 +57,7 @@ class ActionRes {
             const val 院前诊断 = "zd"
             const val CT = "ct"
             const val 诊断 = "zd"
+            const val 出院诊断 = "cyzd"
             const val 启动导管室 = "qddgs"
             const val 辅助检查 = "fzjc"
             const val GRACE = "gracepf"

@@ -92,5 +92,10 @@ interface EmrApi{
     @GET("Drug/GetDrugRecordByPatientId/{patientId}")
     fun getDrugRecord(@Path("patientId")patientId:String):Maybe<Response<List<DrugRecord>>>
 
+    /**
+     * 出院诊断
+     */
+    @GET("OutHospitalDiagnosis/GetById/{patientId}")
+    fun getOtDiagnosis(@Path("patientId")patientId:String): Maybe<Response<DisChargeDiagnosis>>
 
 }

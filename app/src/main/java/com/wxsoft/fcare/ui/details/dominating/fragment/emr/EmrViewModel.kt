@@ -98,6 +98,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshInformedConsent()
 
                 refreshDrugRecords()
+
+                refreshOtDiagnosis()
             }
 
         disposable.add(dis)
@@ -201,11 +203,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 emr.done = true
                                 emr.completedAt = vitals.result?.lastOrNull()?.createdDate
                             }
-//                            val index =
-//                                loadEmrResult.value?.result?.indexOf(emr)
-//                            index?.let { index ->
-//                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
-//                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.诊断))
+                            }
                         }, {
                             messageAction.value = Event(it.message ?: "")
                         })
@@ -260,6 +262,30 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 messageAction.value = Event(it.message ?: "")
             })
         )
+    }
+
+    fun refreshOtDiagnosis(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.出院诊断 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getOtDiagnosis(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result==null) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.出院诊断))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshVitals() {

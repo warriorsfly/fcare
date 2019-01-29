@@ -104,6 +104,20 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
 
             }
 
+            is ItemViewHolder.DisDiagnoseViewHolder -> holder.binding.apply {
+
+                item = differ.currentList[position]
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                visiable= position<differ.currentList.size-1
+                charge=differ.currentList[position].result  as DisChargeDiagnosis
+                lifecycleOwner = owner
+                executePendingBindings()
+
+            }
+
             is ItemViewHolder.MedicalHistoryViewHolder -> holder.binding.apply {
                 item = differ.currentList[position]
                 action?.let {
@@ -238,6 +252,10 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             R.layout.item_emr_catheter -> ItemViewHolder.CatheterViewHolder(
                 ItemEmrCatheterBinding.inflate(inflater,parent,false)
             )
+
+            R.layout.item_emr_dis_diagnosis -> ItemViewHolder.DisDiagnoseViewHolder(
+                ItemEmrDisDiagnosisBinding.inflate(inflater,parent,false)
+            )
             R.layout.item_emr_item_list->ItemViewHolder.ListViewHolder(
                 ItemEmrItemListBinding.inflate(inflater,parent,false).apply {
                     list.setRecycledViewPool(pool)
@@ -258,6 +276,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             is Diagnosis->R.layout.item_emr_list_item_diagnose
             is CheckBody->R.layout.item_emr_simple_string
             is Measure->R.layout.item_emr_simple_string
+            is DisChargeDiagnosis->R.layout.item_emr_dis_diagnosis
             is List<*> ->{
                 when(item.code){
                     ActionRes.ActionType.GRACE->{
@@ -311,6 +330,13 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is Diagnosis && result2 is Diagnosis ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
+                result1 is DisChargeDiagnosis && result2 is DisChargeDiagnosis ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is Pacs && result2 is Pacs ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code && result1.size  == result2.size
                 else -> oldItem.code == newItem.code
@@ -337,6 +363,12 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is Diagnosis && result2 is Diagnosis ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is DisChargeDiagnosis && result2 is DisChargeDiagnosis ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is Pacs && result2 is Pacs ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
@@ -415,6 +447,11 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //溶栓处置
     class ThrombolysisViewHolder(
         val binding: ItemEmrListItemThrombolysisBinding
+    ): ItemViewHolder(binding)
+
+    //出院诊断
+    class DisDiagnoseViewHolder(
+        val binding: ItemEmrDisDiagnosisBinding
     ): ItemViewHolder(binding)
 
 }

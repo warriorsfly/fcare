@@ -88,6 +88,7 @@ class EmrFragment : DaggerFragment() {
         const val INFORMEDCONSENT = 31
         const val THROMBOLYSIS = 32
         const val DRUGRECORD = 33
+        const val OTDIAGNOSE = 34
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -307,11 +308,11 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, CT)
                 }
 
-                ActionRes.ActionType.诊断 ->{
+                ActionRes.ActionType.出院诊断 ->{
                     var intent = Intent(context.get()?.activity, DisChargeActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivityForResult(intent, DISCHARGE)
+                    context.get()?.startActivityForResult(intent, OTDIAGNOSE)
                 }
 
                 ActionRes.ActionType.辅助检查 ->{
@@ -466,6 +467,10 @@ class EmrFragment : DaggerFragment() {
                 }
                 EmrFragment.DRUGRECORD -> {
                     viewModel.refreshDrugRecords()
+                }
+
+                EmrFragment.OTDIAGNOSE -> {
+                    viewModel.refreshOtDiagnosis()
                 }
             }
         }

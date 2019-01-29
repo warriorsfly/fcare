@@ -126,10 +126,11 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/list"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title"
                     android:layout_marginTop="10dp"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     android:orientation="horizontal"
-                    app:layout_constraintTop_toBottomOf="@id/title"/>
+                   />
                 <TextView
                     app:layout_constraintTop_toBottomOf="@id/list"
                     app:layout_constraintLeft_toLeftOf="parent"
