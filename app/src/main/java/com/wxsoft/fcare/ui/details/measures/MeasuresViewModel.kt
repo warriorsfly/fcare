@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.details.measures
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.databinding.ObservableInt
+import android.widget.Toast
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Measure
@@ -15,6 +16,7 @@ import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
+import com.wxsoft.fcare.utils.DateTimeUtils
 import com.wxsoft.fcare.utils.map
 import javax.inject.Inject
 
@@ -46,6 +48,9 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     val pharmacy:LiveData<Dictionary>
     val loadPharmacy = MediatorLiveData<Dictionary>()
 
+    val changeString:LiveData<String>
+    val loadChangeString = MediatorLiveData<String>()
+
     val measuresItems: LiveData<List<Dictionary>>
     private val loadMeasuresItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
     val departments:LiveData<List<Dictionary>>
@@ -65,6 +70,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
 
     init {
+        changeString = loadChangeString.map { it }
         clickable=clickResult.map { it }
         pharmacy = loadPharmacy.map { it }
         resultString = initResultString.map { (it as? Resource.Success)?.data?.result ?: ""}
@@ -88,6 +94,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
         dicEnumApi.loadMeasuresItems().toResource()
             .subscribe {
                 loadMeasuresItemsResult.value = it
+                haveData()
             }
     }
 
@@ -95,7 +102,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
         dicEnumApi.loadDetour().toResource()
             .subscribe {
                 loaddetourItemsResult.value = it
-                departments.value?.filter { it.itemCode.equals(measure.value?.preDirectDepartId) }?.map {it.checked = true }
+                haveData()
             }
     }
 
@@ -103,7 +110,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
         dicEnumApi.loadCureResultItems().toResource()
             .subscribe {
                 loadCureResultItemsResult.value = it
-                cureResultItems.value?.filter { it.itemCode.equals(measure.value?.preCureResultCode) }?.map {it.checked = true }
+                haveData()
             }
     }
 
@@ -111,7 +118,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
         dicEnumApi.loadOutcallResultItems().toResource()
             .subscribe {
                 loadOutcallResultItemsResult.value = it
-                outcallResultItems.value?.filter { it.itemCode.equals(measure.value?.preVisitResultCode) }?.map {it.checked = true }
+                haveData()
             }
     }
 
@@ -130,7 +137,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     }
 
     fun haveData(){
-        measure.value?.measures?.map {
+        measure.value?.measureDtos?.map {
             var code = it.measureCode
             measuresItems.value?.filter { it.id.equals(code) }?.map {it.checked = true }
         }
@@ -167,7 +174,11 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
         val ds=measuresItems.value?.filter { it.checked }
             ?.map { MeasureDic("",patientId,it.id) }?: emptyList()
-        measure.value?.measures = ds.toList()
+        if (ds.isEmpty()){
+            loadChangeString.value = "请选择治疗措施"
+            return
+        }
+        measure.value?.measureDtos = ds.toList()
 
         cureResultItems.value?.filter { it.checked }
             ?.map { measure.value?.preCureResultCode =  it.id }

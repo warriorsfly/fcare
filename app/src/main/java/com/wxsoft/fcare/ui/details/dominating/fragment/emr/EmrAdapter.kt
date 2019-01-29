@@ -56,7 +56,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
 
         when (holder) {
             is ItemViewHolder.NoneViewHolder -> holder.binding.apply {
-                lifecycleOwner = this@EmrAdapter. owner
+                lifecycleOwner = this@EmrAdapter.owner
                 item=differ.currentList[position]
                 visiable=position<differ.currentList.size-1
                 action?.let {

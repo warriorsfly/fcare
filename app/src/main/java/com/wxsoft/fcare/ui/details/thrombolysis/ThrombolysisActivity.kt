@@ -64,10 +64,12 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     private lateinit var patientId:String
     private lateinit var id:String
     private lateinit var thrombolysisId:String
+    private lateinit var comeFrom:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val ID = "ID"
         const val THROMBOLYSIS_ID = "THROMBOLYSIS_ID"
+        const val COME_FROM = "COME_FROM"
         const val INFORMED_CONSENT = 20
         const val DRUG = 30
     }
@@ -89,6 +91,9 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         patientId=intent.getStringExtra(ThrombolysisActivity.PATIENT_ID)?:""
         id=intent.getStringExtra(ThrombolysisActivity.ID)?:""
         thrombolysisId=intent.getStringExtra(ThrombolysisActivity.THROMBOLYSIS_ID)?:""
+        comeFrom=intent.getStringExtra(ThrombolysisActivity.COME_FROM)?:""
+
+        viewModel.comefrom = comeFrom
         viewModel.patientId = patientId
         viewModel.id = id
         binding.viewModel = viewModel
@@ -98,6 +103,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         back.setOnClickListener { onBackPressed() }
 
 //        viewModel.loadThrombolysis(thrombolysisId)
+        viewModel.thrombolysis.observe(this, Observer {  })
         viewModel.loadThrombolysis(id)
 
         viewModel.informed.observe(this, Observer {  })

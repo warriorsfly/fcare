@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.entity.rating
 
 import com.google.gson.annotations.SerializedName
+import com.wxsoft.fcare.utils.DateTimeUtils
 
 /**
  * 评分
@@ -17,4 +18,5 @@ data class RatingRecord(val id:String="",
                         val score:Int=0){
 
     @SerializedName("answerRecordDetails")var records:List<SubjectRecord> = emptyList()
+    var createDate:String = DateTimeUtils.getCurrentTime()
 }

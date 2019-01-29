@@ -43,6 +43,12 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             field = value
         }
 
+    var comefrom: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
+
     var id: String = ""
         set(value) {
             if (value == "") return
@@ -81,6 +87,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         dictEnumApi.loadThromPlaces().toResource()
             .subscribe {
                 loadThromPlaces.value = it
+                thrombolysis.value?.setPlaceCheck(comefrom)
             }
     }
 

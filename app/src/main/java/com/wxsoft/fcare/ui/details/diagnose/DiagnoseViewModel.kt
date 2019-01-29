@@ -182,6 +182,9 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
 
     private fun havedata(){
+        if (diagnosis.value?.diagnosisCode1.isNullOrEmpty()&&typeItems.value!=null){
+            selected(typeItems.value!!.first())
+        }
         typeItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode1) }?.map { selected(it) }
         thoracalgiaItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode2) }?.map { checkDianose(it) }
         sonItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode3) }?.map { it.checked=true }
@@ -191,8 +194,8 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     override fun click(){
         diagnosis.value?.patientId = patientId
         diagnosis.value?.location = 1
-        diagnosis.value?.doctorId = "3"
-        diagnosis.value?.doctorName = "张三"
+        diagnosis.value?.doctorId = account.id
+        diagnosis.value?.doctorName = account.trueName
         typeItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode1 = it.id }
 //        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.itemCode }
 //        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.itemCode }
