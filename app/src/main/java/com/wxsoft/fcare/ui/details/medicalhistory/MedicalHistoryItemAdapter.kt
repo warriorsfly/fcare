@@ -22,8 +22,8 @@ class MedicalHistoryItemAdapter constructor(private val lifecycleOwner: Lifecycl
         set(value) {
             field = value
             when(value){
-                2->{viewModel.historyItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                3->{viewModel.providerItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
+                1->{viewModel.historyItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
+                2->{viewModel.providerItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
             }
         }
 
