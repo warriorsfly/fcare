@@ -8,6 +8,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -59,6 +60,10 @@ class MeasuresActivity : BaseActivity()  {
 
         viewModel.measure.observe(this, Observer {  })
 
+        viewModel.changeString.observe(this, Observer {
+            Toast.makeText(this@MeasuresActivity,it,Toast.LENGTH_SHORT).show()
+        })
+
         viewModel.resultString.observe(this, Observer {
             Intent().let { intent->
                 setResult(RESULT_OK, intent);
@@ -71,23 +76,36 @@ class MeasuresActivity : BaseActivity()  {
 
 
     fun showDialog(item: Dictionary){
-        AlertDialog.Builder(this)
+
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
             .setMessage("确定"+item.itemName+"吗？")
-            .setTitle(item.itemName)
-            .setPositiveButton("是", DialogInterface.OnClickListener { _, _ ->
+            .setPositiveButton("是") { _, _ ->
                 item.checked = true
                 if (item.id.equals("212-5")){//用药
                     toPharmacy()
                 }else if(item.id.equals("212-6")){//溶栓
                     toThrombolysis()
                 }
-
-            })
-            .setNeutralButton("否", DialogInterface.OnClickListener { _, _ ->
+            }
+            .setNegativeButton("否") { _, _ ->
                 item.checked = false
-            })
-            .create()
-            .show()
+            }.show()
+
+//        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
+//            .setMessage("确定"+item.itemName+"吗？")
+//            .setTitle(item.itemName)
+//            .setPositiveButton("是"){ _, _ ->
+//                item.checked = true
+//                if (item.id.equals("212-5")){//用药
+//                    toPharmacy()
+//                }else if(item.id.equals("212-6")){//溶栓
+//                    toThrombolysis()
+//                }
+//            }
+//            .setNeutralButton("否" ){ _, _ ->
+//                item.checked = false
+//            }
+//            .show()
     }
 
     fun toPharmacy(){//用药界面

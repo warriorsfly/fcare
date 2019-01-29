@@ -400,7 +400,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     item.result=measure.result
                     if(!item.done){
                         item.done=true
-                        item.completedAt=measure?.result?.createdDate
+                        item.completedAt=measure?.result?.createDate
                     }
                 }
                 val index =

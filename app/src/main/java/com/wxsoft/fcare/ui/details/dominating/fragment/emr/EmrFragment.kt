@@ -205,7 +205,8 @@ class EmrFragment : DaggerFragment() {
 
                 ActionRes.ActionType.溶栓处置 ->{
                     var intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
-                        putExtra(InformedConsentActivity.PATIENT_ID, patientId)
+                        putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
+                        putExtra(ThrombolysisActivity.COME_FROM, "1")
                     }
                     context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
@@ -308,7 +309,8 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.溶栓处置 ->{
                     var intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
-                        putExtra(DiagnoseActivity.ID, id)
+                        putExtra(ThrombolysisActivity.ID, id)
+                        putExtra(ThrombolysisActivity.COME_FROM, "1")
                     }
                     context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
