@@ -41,7 +41,7 @@ class AssistantContainerAdapter constructor(private val lifecycleOwner: Lifecycl
                 root.details_list.adapter = adapter
             }
             setVariable(BR.listener, viewModel)
-            lifecycleOwner = lifecycleOwner
+            lifecycleOwner = this@AssistantContainerAdapter.lifecycleOwner
             executePendingBindings()
         }
     }

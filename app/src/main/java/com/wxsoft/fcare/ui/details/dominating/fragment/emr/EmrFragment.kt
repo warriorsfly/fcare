@@ -87,6 +87,7 @@ class EmrFragment : DaggerFragment() {
         const val OUTCOME = 30
         const val INFORMEDCONSENT = 31
         const val THROMBOLYSIS = 32
+        const val DRUGRECORD = 33
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
 
@@ -203,6 +204,13 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
+                ActionRes.ActionType.给药 ->{
+                    var intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
+                        putExtra(PharmacyActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, DRUGRECORD)
+                }
+
             }
         }
 
@@ -251,15 +259,23 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.给药 ->{
                     var intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
                         putExtra(PharmacyActivity.PATIENT_ID, patientId)
+                        putExtra(PharmacyActivity.DRUG_RECORD_ID, id)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }
                 ActionRes.ActionType.知情同意书 ->{
-                    var intent = Intent(context.get()?.activity, InformedConsentDetailsActivity::class.java).apply {
-                        putExtra(InformedConsentDetailsActivity.PATIENT_ID, patientId)
-                        putExtra(InformedConsentDetailsActivity.TALK_ID,id)
+                    if (id.isNullOrEmpty()){
+                        var intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
+                            putExtra(InformedConsentActivity.PATIENT_ID, patientId)
+                        }
+                        context.get()?.startActivityForResult(intent, INFORMEDCONSENT)
+                    }else{
+                        var intent = Intent(context.get()?.activity, InformedConsentDetailsActivity::class.java).apply {
+                            putExtra(InformedConsentDetailsActivity.PATIENT_ID, patientId)
+                            putExtra(InformedConsentDetailsActivity.TALK_ID,id)
+                        }
+                        context.get()?.startActivity(intent)
                     }
-                    context.get()?.startActivity(intent)
                 }
                 ActionRes.ActionType.诊断 ->{
                     var intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
@@ -447,6 +463,9 @@ class EmrFragment : DaggerFragment() {
                 }
                 EmrFragment.THROMBOLYSIS -> {
                     viewModel.refreshThrombosis()
+                }
+                EmrFragment.DRUGRECORD -> {
+                    viewModel.refreshDrugRecords()
                 }
             }
         }

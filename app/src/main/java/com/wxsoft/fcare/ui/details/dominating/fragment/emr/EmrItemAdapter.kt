@@ -11,10 +11,12 @@ import com.wxsoft.fcare.core.data.entity.Talk
 import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.data.entity.Thrombolysis
 import com.wxsoft.fcare.core.data.entity.VitalSign
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.溶栓处置
 import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.生命体征
 import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.知情同意书
+import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.给药
 import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.诊断
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.EmrEventAction
@@ -43,6 +45,10 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner,
 
             R.layout.item_emr_list_item_thrombolysis -> ItemViewHolder.ThrombolysisViewHolder(
                 ItemEmrListItemThrombolysisBinding.inflate(inflater,parent,false)
+            )
+
+            R.layout.item_emr_list_item_drug -> ItemViewHolder.DrugViewHolder(
+                ItemEmrListItemDrugBinding.inflate(inflater,parent,false)
             )
 
             else -> throw IllegalStateException("Unknown viewType $viewType")
@@ -82,6 +88,14 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner,
                 executePendingBindings()
             }
 
+            is ItemViewHolder.DrugViewHolder -> holder.binding.apply{
+
+                drugs = getItem(position)  as DrugRecord
+                root.setOnClickListener { action?.onOpen(给药,drugs?.id?:"") }
+                lifecycleOwner = owner
+                executePendingBindings()
+            }
+
         }
     }
 
@@ -92,6 +106,7 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner,
             is Rating-> R.layout.item_emr_rating
             is Diagnosis-> R.layout.item_emr_list_item_diagnose
             is Thrombolysis-> R.layout.item_emr_list_item_thrombolysis
+            is DrugRecord-> R.layout.item_emr_list_item_drug
             else -> throw IllegalStateException("Unknown viewType at position $position")
         }
     }
@@ -104,6 +119,7 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner,
                 oldItem is Rating && newItem is Rating->oldItem.id==newItem.id
                 oldItem is Diagnosis && newItem is Diagnosis->oldItem.id==newItem.id
                 oldItem is Talk && newItem is Talk->oldItem.id==newItem.id
+                oldItem is DrugRecord && newItem is DrugRecord->oldItem.id==newItem.id
 
                 oldItem is Thrombolysis && newItem is Thrombolysis->oldItem.id==newItem.id
             }
@@ -117,6 +133,7 @@ class EmrItemAdapter<T> constructor(private val owner: LifecycleOwner,
                 oldItem is Talk && newItem is Talk->oldItem.id==newItem.id
                 oldItem is Diagnosis && newItem is Diagnosis->oldItem.id==newItem.id
                 oldItem is Thrombolysis && newItem is Thrombolysis->oldItem.id==newItem.id
+                oldItem is DrugRecord && newItem is DrugRecord->oldItem.id==newItem.id
             }
             return false
         }

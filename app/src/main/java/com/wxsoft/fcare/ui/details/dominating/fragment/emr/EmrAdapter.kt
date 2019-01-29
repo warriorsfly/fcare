@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ViewDataBinding
 import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.util.DiffUtil
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,6 +15,7 @@ import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EmrEventAction
@@ -185,6 +187,20 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         }
                         (list.adapter as? EmrItemAdapter<Thrombolysis>)?.submitList((emr.result as? List<Thrombolysis>)?: emptyList<Thrombolysis>())
                     }
+
+                    ActionRes.ActionType.给药->{
+                        if(list.adapter==null){
+                            list.adapter = EmrItemAdapter<DrugRecord>(owner,action)
+                        }
+                        action?.let {
+                            newOne.setOnClickListener {
+                                action?.onNew(differ.currentList[position].code!!) }
+                        }
+                        val manager =  LinearLayoutManager(this.container.context);
+                        manager.setOrientation(LinearLayoutManager.VERTICAL);
+                        list.setLayoutManager(manager);
+                        (list.adapter as? EmrItemAdapter<DrugRecord>)?.submitList((emr.result as? List<DrugRecord>)?: emptyList<DrugRecord>())
+                    }
                 }
                 lifecycleOwner = owner
                 executePendingBindings()
@@ -255,6 +271,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         R.layout.item_emr_item_list
                     }
                     ActionRes.ActionType.溶栓处置->{
+                        R.layout.item_emr_item_list
+                    }
+                    ActionRes.ActionType.给药->{
                         R.layout.item_emr_item_list
                     }
 
@@ -368,6 +387,11 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
         val binding:ItemEmrListItemInformedConsentBinding
     ): ItemViewHolder(binding)
 
+    //患者用药
+    class DrugViewHolder(
+        val binding:ItemEmrListItemDrugBinding
+    ): ItemViewHolder(binding)
+
     //诊断
     class DiagnoseViewHolder(
         val binding: ItemEmrListItemDiagnoseBinding
@@ -388,7 +412,7 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
         val binding: ItemEmrItemListBinding
     ): ItemViewHolder(binding)
 
-    //普通文本
+    //溶栓处置
     class ThrombolysisViewHolder(
         val binding: ItemEmrListItemThrombolysisBinding
     ): ItemViewHolder(binding)

@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -87,6 +88,9 @@ interface EmrApi{
      */
     @GET("InformedConsent/GetTalkRecords/{patientId}")
     fun getTalks(@Path("patientId")patientId:String): Maybe<Response<List<Talk>>>
+
+    @GET("Drug/GetDrugRecordByPatientId/{patientId}")
+    fun getDrugRecord(@Path("patientId")patientId:String):Maybe<Response<List<DrugRecord>>>
 
 
 }

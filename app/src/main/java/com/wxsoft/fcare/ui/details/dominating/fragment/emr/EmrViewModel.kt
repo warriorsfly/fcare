@@ -96,6 +96,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshThrombosis()
 
                 refreshInformedConsent()
+
+                refreshDrugRecords()
             }
 
         disposable.add(dis)
@@ -301,6 +303,26 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 messageAction.value= Event(it.message?:"")
             })
         )
+    }
+
+    fun refreshDrugRecords(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.给药 }
+            ?.let { drug ->
+                disposable.add(
+                    emrApi.getDrugRecord(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
+                            if (records.result.isNullOrEmpty()) return@subscribe
+                            drug.result = records.result
+                            if (!drug.done) {
+                                drug.done = true
+                                drug.completedAt = records.result?.lastOrNull()?.createdDate
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshMeasure(){
