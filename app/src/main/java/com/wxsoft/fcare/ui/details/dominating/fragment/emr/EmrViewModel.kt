@@ -61,9 +61,6 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                 loadEmrResult.value = it?.first
 
-
-
-
                 disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         //                        check?.result?: return@subscribe
@@ -79,30 +76,17 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     })
                 )
 
-
-
                 refreshMedicalHistory()
-
                 refreshVitals()
-
                 refreshRating()
-
                 refreshMeasure()
-
                 refreshDiagnose()
-
                 refreshChekBody()
-
                 refreshThrombosis()
-
                 refreshInformedConsent()
-
                 refreshDrugRecords()
-
                 refreshOtDiagnosis()
-
                 refreshCT()
-
                 refreshInv()
             }
 

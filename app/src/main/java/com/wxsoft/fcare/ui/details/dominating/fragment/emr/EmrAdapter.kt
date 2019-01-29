@@ -17,6 +17,7 @@ import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
+import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EmrEventAction
@@ -107,10 +108,17 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             is ItemViewHolder.RatingViewHolder -> holder.binding.apply {
 
                 item = differ.currentList[position]
+
+
+                if(list.adapter==null){
+                    list.adapter = EmrRatingRecordAdapter(owner,action)
+                }
                 action?.let {
                     newOne.setOnClickListener {
-                        action?.onOpen(differ.currentList[position].code!!) }
+                        action?.onNew(differ.currentList[position].code!!) }
                 }
+                (list.adapter as? EmrRatingRecordAdapter)?.submitList((differ.currentList[position].result as? List<RatingRecord>)?: emptyList())
+
                 visiable= position<differ.currentList.size-1
                 lifecycleOwner = owner
                 executePendingBindings()
@@ -269,6 +277,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
 
             R.layout.item_emr_rating->ItemViewHolder.RatingViewHolder(
                 ItemEmrRatingBinding.inflate(inflater,parent,false).apply {
+
                     list.setRecycledViewPool(pool)
                 }
             )

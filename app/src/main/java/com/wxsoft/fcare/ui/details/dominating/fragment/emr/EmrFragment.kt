@@ -59,6 +59,7 @@ import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 import dagger.android.support.DaggerFragment
@@ -91,6 +92,7 @@ class EmrFragment : DaggerFragment() {
         const val DRUGRECORD = 33
         const val OTDIAGNOSE = 34
         const val CT_OPERATION = 35
+        const val RATING = 36
 
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
@@ -222,6 +224,14 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, Catheter)
                 }
 
+                ActionRes.ActionType.GRACE->{
+                    var intent = Intent(context.get()?.activity, RatingActivity::class.java)
+                        .apply {
+                            putExtra(ProfileActivity.PATIENT_ID, patientId)
+                        }
+                    context.get()?.startActivityForResult(intent, RATING)
+                }
+
             }
         }
 
@@ -236,11 +246,12 @@ class EmrFragment : DaggerFragment() {
                 }
 
                 ActionRes.ActionType.GRACE->{
-                    var intent = Intent(context.get()?.activity, RatingActivity::class.java)
+                    var intent = Intent(context.get()?.activity, RatingSubjectActivity::class.java)
                         .apply {
-                            putExtra(ProfileActivity.PATIENT_ID, patientId)
+                            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
+                            putExtra(RatingSubjectActivity.RECORD_ID, id)
                         }
-                    context.get()?.startActivityForResult(intent, ARG_NEW_ITEM_CODE)
+                    context.get()?.startActivityForResult(intent, RATING)
                 }
                 ActionRes.ActionType.生命体征->{
                     var intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {
@@ -459,7 +470,7 @@ class EmrFragment : DaggerFragment() {
                     }?.result as? ElectroCardiogram)?.savable=adapter.pictureAdapter.locals.isNotEmpty()
                 }
 
-                EmrFragment.ARG_NEW_ITEM_CODE -> {
+                EmrFragment.RATING -> {
                     viewModel.refreshRating()
                 }
                 EmrFragment.MEDICAL_HISTORY_CODE -> {
@@ -649,13 +660,4 @@ class EmrFragment : DaggerFragment() {
             .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
     }
 
-}
-
-@BindingAdapter(value = ["ratingRecords"], requireAll = false)
-fun setRatingRecords(recyclerView: RecyclerView, item:EmrItem) {
-
-    recyclerView.adapter = (recyclerView.adapter as? EmrRatingRecordAdapter ?: EmrRatingRecordAdapter())
-        .apply {
-            submitList((item.result as? List<RatingRecord>)?:emptyList())
-        }
 }

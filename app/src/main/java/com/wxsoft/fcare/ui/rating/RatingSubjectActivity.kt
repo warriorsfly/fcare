@@ -23,6 +23,7 @@ class RatingSubjectActivity : BaseActivity() {
         const val PATIENT_ID = "PATIENT_ID"
         const val RATING_ID = "RATING_ID"
         const val RATING_NAME = "RATING_NAME"
+        const val RECORD_ID = "RECORD_ID"
     }
 
     @Inject
@@ -43,6 +44,10 @@ class RatingSubjectActivity : BaseActivity() {
 
     private val ratingName: String by lazyFast {
         intent?.getStringExtra(RATING_NAME)?:""
+    }
+
+    private val recordId: String by lazyFast {
+        intent?.getStringExtra(RECORD_ID)?:""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,14 +80,18 @@ class RatingSubjectActivity : BaseActivity() {
             toast.setText(it)
             toast.show()
 
-            Intent().let { intent->
-                setResult(RESULT_OK, intent);
-                finish();
+            if(it=="保存成功") {
+                Intent().let { intent ->
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
         })
         back.setOnClickListener{onBackPressed()}
         viewModel.patientId=patientId
         viewModel.ratingId=ratingId
+        viewModel.recordId=recordId
+
 
     }
 

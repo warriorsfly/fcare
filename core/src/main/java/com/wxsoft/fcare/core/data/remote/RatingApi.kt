@@ -35,5 +35,5 @@ interface RatingApi {
      * 评分结果列表
      */
     @GET("Rating/GetLastestAnswerRecordByPatientId/{patientId}")
-    fun getRecords(@Path("patientId")id:String): Single<Response<List<RatingRecord>>>
+    fun getRecords(@Path("patientId")id:String): Maybe<Response<List<RatingRecord>>>
 }
