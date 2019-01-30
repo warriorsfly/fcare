@@ -105,5 +105,9 @@ interface EmrApi{
     @GET("Intervention/GetById/{patientId}")
     fun getIntervention(@Path("patientId")id:String):Maybe<Response<Intervention>>
 
+    @GET("CABG/GetById/{patientId}")
+    fun getCABG(@Path("patientId")patientId:String):Maybe<Response<CABG>>
+
+
 
 }

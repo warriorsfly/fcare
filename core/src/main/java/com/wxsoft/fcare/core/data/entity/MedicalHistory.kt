@@ -65,12 +65,12 @@ data class MedicalHistory(val id:String): BaseObservable() {
 //            notifyPropertyChanged(BR.medicalHistoryPhotos)
 //        }
 
-//    @Bindable
-//    var attachments:ArrayList<String> = emptyList()
-//        set(value) {
-//            field=value
-//            notifyPropertyChanged(BR.attachments)
-//        }
+    @Bindable
+    var attachments:List<Attachment>  = emptyList()
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.attachments)
+        }
     @Bindable
     var createdDate:String=DateTimeUtils.getCurrentTime()
         set(value) {

@@ -24,6 +24,7 @@
             <android.support.constraint.ConstraintLayout
                     android:id="@+id/model3_2"
                     android:background="@color/white"
+                    android:onClick="@{() ->viewModel.selectTime(`1`)}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="match_parent"
@@ -44,7 +45,7 @@
                         android:layout_height="wrap_content"/>
 
                 <TextView
-                        android:id="@+id/start_thromboly_time"
+                        android:id="@+id/decide_cabg_time"
                         android:layout_marginRight="19dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
@@ -54,6 +55,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
                         tools:text="2019-01-18 13:23:15"
+                        android:text="@{viewModel.cabg.decisionOperationTime}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -78,6 +80,7 @@
                     android:id="@+id/model3_3"
                     android:background="@color/white"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    android:onClick="@{() ->viewModel.selectTime(`2`)}"
                     app:layout_constraintTop_toBottomOf="@+id/model3_2"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
@@ -97,7 +100,7 @@
                         android:layout_height="wrap_content"/>
 
                 <TextView
-                        android:id="@+id/end_thromboly_time"
+                        android:id="@+id/start_cabg_time"
                         android:layout_marginRight="19dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
@@ -107,6 +110,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
                         tools:text="2019-01-18 13:23:15"
+                        android:text="@{viewModel.cabg.startOperationTime}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -131,6 +135,7 @@
                     android:id="@+id/model3_4"
                     android:background="@color/white"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    android:onClick="@{() ->viewModel.selectTime(`3`)}"
                     app:layout_constraintTop_toBottomOf="@+id/model3_3"
                     android:layout_width="match_parent"
                     android:layout_height="50dp">
@@ -150,7 +155,7 @@
                         android:layout_height="wrap_content"/>
 
                 <TextView
-                        android:id="@+id/end_thromboly_radiography_time"
+                        android:id="@+id/end_cabg_time"
                         android:layout_marginRight="19dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
@@ -160,6 +165,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/rowe3_4"
                         tools:text="2019-01-18 13:23:15"
+                        android:text="@{viewModel.cabg.endOperationTime}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
