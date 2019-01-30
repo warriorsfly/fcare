@@ -465,6 +465,9 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
                             if (vitals.result.isNullOrEmpty()) return@subscribe
+                            vitals.result!!.map {
+                                it.setUpChecked()
+                            }
                             emr.result = vitals.result
                             if (!emr.done) {
                                 emr.done = true
