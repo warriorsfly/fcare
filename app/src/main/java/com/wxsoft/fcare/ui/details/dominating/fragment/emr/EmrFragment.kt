@@ -60,6 +60,7 @@ import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
+import com.wxsoft.fcare.utils.activityViewModelProvider
 import com.wxsoft.fcare.utils.lazyFast
 import com.wxsoft.fcare.utils.viewModelProvider
 import dagger.android.support.DaggerFragment
@@ -137,6 +138,12 @@ class EmrFragment : DaggerFragment() {
 
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = viewModelProvider(factory)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

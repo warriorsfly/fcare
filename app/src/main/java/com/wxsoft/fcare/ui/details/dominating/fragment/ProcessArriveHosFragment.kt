@@ -32,11 +32,17 @@ class ProcessArriveHosFragment : DaggerFragment() {
 
     lateinit var binding: FragmentProcessArriveHosBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel=activityViewModelProvider(factory)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = activityViewModelProvider(factory)
+
         binding=FragmentProcessArriveHosBinding.inflate(inflater,container, false).apply {
             lifecycleOwner = this@ProcessArriveHosFragment
             viewModel=this@ProcessArriveHosFragment.viewModel

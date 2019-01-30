@@ -306,13 +306,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 )
             }
     }
- fun refreshInv(){
+
+    fun refreshInv() {
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.Catheter }
             ?.let { emr ->
                 disposable.add(
                     emrApi.getIntervention(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
-                            if (vitals.result==null) return@subscribe
+                            if (vitals.result == null) return@subscribe
                             emr.result = vitals.result
                             if (!emr.done) {
                                 emr.done = true

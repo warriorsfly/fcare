@@ -36,12 +36,17 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     lateinit var adapter: PatientsAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activityViewModelProvider(viewModelFactory)
+        viewModel.showPatients("")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = activityViewModelProvider(viewModelFactory)
+
         adapter= PatientsAdapter(this,viewModel)
         val binding= FragmentPatientsBinding.inflate(inflater, container, false).apply {
             list.adapter=adapter
@@ -63,9 +68,6 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
             toDetail(t)
         })
-
-        viewModel.showPatients("")
-
 
         return binding.root
     }

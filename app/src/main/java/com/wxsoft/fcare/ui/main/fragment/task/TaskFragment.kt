@@ -40,11 +40,16 @@ class TaskFragment : DaggerFragment() {
 
     lateinit var adapter: TaskAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activityViewModelProvider(viewModelFactory)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = activityViewModelProvider(viewModelFactory)
+
 
         val binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
 

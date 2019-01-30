@@ -29,11 +29,17 @@ class PatientManagerFragment : DaggerFragment() {
 
     lateinit var viewModel:DoMinaViewModel
     lateinit var adapter: EmrAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel=activityViewModelProvider(factory)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel=activityViewModelProvider(factory)
+
         return FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
             lifecycleOwner = this@PatientManagerFragment
             viewModel=this@PatientManagerFragment.viewModel
