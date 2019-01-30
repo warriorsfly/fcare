@@ -267,9 +267,11 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 
     fun setUpChecked(){
         hasDirect = direct.equals("1")
-        drugRecords.map {
-            if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
-            if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+        if (!drugRecords.isNullOrEmpty()){
+            drugRecords.map {
+                if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
+                if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+            }
         }
     }
 
