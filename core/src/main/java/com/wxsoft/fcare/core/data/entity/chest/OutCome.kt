@@ -14,7 +14,7 @@ data class OutCome(val id:String="", val patientId: String, val createrId: Strin
             field=value
             notifyPropertyChanged(BR.outcomeCode)
         }
-    @SerializedName("outcome_Name")
+    @SerializedName("outcome_Code_Name")
     var outcomeName: String = ""
     @Bindable
     @SerializedName("treatment_Result_Code")
@@ -23,7 +23,7 @@ data class OutCome(val id:String="", val patientId: String, val createrId: Strin
             field=value
             notifyPropertyChanged(BR.resultCode)
         }
-    @SerializedName("treatment_Result_Name")
+    @SerializedName("treatment_Result_Code_Name")
     var resultName: String = ""
     @Bindable
     @SerializedName("hand_Time")

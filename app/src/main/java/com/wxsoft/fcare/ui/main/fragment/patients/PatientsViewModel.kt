@@ -37,6 +37,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     val patients = patientResult.switchMap {
         it.pagedList
     }
+
     val networkState = patientResult.switchMap {
         it.networkState
     }
@@ -50,6 +51,4 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         showPatients(patientName.value?:"")
         return true
     }
-
-
 }

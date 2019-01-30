@@ -2,6 +2,7 @@ package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.chest.Intervention
+import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import io.reactivex.Maybe
@@ -13,19 +14,9 @@ import retrofit2.http.*
  * emr信息通通从这个接口取，和别的接口有重叠，暂时考虑这样 可以防止多次引用各种api
  */
 interface EmrApi{
-
     /**
-     * 获取个人Emr列表
+     * 获取emr时间轴
      */
-//
-//    @Deprecated(replaceWith = ReplaceWith("getEmrs",""),message = "时间轴接口调整，界面部分调试完毕之后这部分代码直接删除")
-//    @GET("Patient/GetPreEmssTimeLine/{patientId}")
-//    fun getPreEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
-//
-//    @Deprecated(replaceWith = ReplaceWith("getEmrs",""),message = "时间轴接口调整，界面部分调试完毕之后这部分代码直接删除")
-//    @GET("Patient/GetInHospitalEmssTimeLine/{patientId}")
-//    fun getInEmrs(@Path("patientId")patientId:String): Single<Response<List<EmrItem>>>
-
     @GET("Patient/GetEmssTimeLine/{patientId}/{currUserId}/{isPreHospital}")
     fun getEmrs(@Path("patientId")patientId:String,@Path("currUserId")userId:String,@Path("isPreHospital")pre:Boolean): Single<Response<List<EmrItem>>>
 
@@ -107,6 +98,13 @@ interface EmrApi{
 
     @GET("CABG/GetById/{patientId}")
     fun getCABG(@Path("patientId")patientId:String):Maybe<Response<CABG>>
+
+    /**
+     * 获取转归信息
+     */
+    @GET("Outcome/GetById/{patientId}")
+    fun getOt(@Path("patientId")patientId:String): Maybe<Response<OutCome>>
+
 
 
 

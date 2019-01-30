@@ -46,6 +46,14 @@ data class Diagnosis (val id:String): BaseObservable(){
             notifyPropertyChanged(BR.diagnosisCode2)
         }
 
+    @Bindable
+    @SerializedName("diagnosisCode2_Name")
+    var diagnosisCode2Name: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.diagnosisCode2Name)
+        }
+
     /// <summary>
     /// 诊断代码3
     /// </summary>

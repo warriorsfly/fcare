@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout>
     <data>
         <variable name="intervention" type="com.wxsoft.fcare.core.data.entity.CABG"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.EmrItem"/>
         <variable name="visiable" type="Boolean"/>
     </data>
     <android.support.constraint.ConstraintLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <android.support.constraint.Guideline

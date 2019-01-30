@@ -95,6 +95,7 @@ class EmrFragment : DaggerFragment() {
         const val CT_OPERATION = 35
         const val RATING = 36
         const val CABG = 37
+        const val BASE_INFO = 38
 
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
@@ -269,7 +270,7 @@ class EmrFragment : DaggerFragment() {
                     var intent = Intent(context.get()?.activity, ProfileActivity::class.java).apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivity(intent)
+                    context.get()?.startActivityForResult(intent, BASE_INFO)
                 }
 
                 ActionRes.ActionType.GRACE->{
@@ -552,6 +553,14 @@ class EmrFragment : DaggerFragment() {
                 }
                 EmrFragment.CABG ->{
                     viewModel.refreshCABG()
+                }
+
+                EmrFragment.OUTCOME ->{
+                    viewModel.refreshOt()
+                }
+
+                EmrFragment.BASE_INFO ->{
+                    viewModel.refreshBaseInfo()
                 }
             }
         }

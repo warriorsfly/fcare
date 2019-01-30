@@ -95,6 +95,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshCT()
                 refreshInv()
                 refreshCABG()
+                refreshOt()
             }
 
         disposable.add(dis)
@@ -544,5 +545,56 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 }
         )
     }
+
+    fun refreshOt(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.患者转归 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getOt(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
+                            records.result ?: return@subscribe
+                            emr.result = records.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = records.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.患者转归))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshBaseInfo(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.患者信息录入 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getBaseInfo(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
+                            records.result ?: return@subscribe
+                            emr.result = records.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = records.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.患者信息录入))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
 
 }
