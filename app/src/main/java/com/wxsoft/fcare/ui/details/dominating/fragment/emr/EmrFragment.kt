@@ -264,12 +264,20 @@ class EmrFragment : DaggerFragment() {
                 }
 
                 ActionRes.ActionType.GRACE->{
-                    var intent = Intent(context.get()?.activity, RatingSubjectActivity::class.java)
-                        .apply {
-                            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
-                            putExtra(RatingSubjectActivity.RECORD_ID, id)
-                        }
-                    context.get()?.startActivityForResult(intent, RATING)
+                    if(id.isNullOrEmpty()){
+                        var intent = Intent(context.get()?.activity, RatingActivity::class.java)
+                            .apply {
+                                putExtra(ProfileActivity.PATIENT_ID, patientId)
+                            }
+                        context.get()?.startActivityForResult(intent, RATING)
+                    }else {
+                        var intent = Intent(context.get()?.activity, RatingSubjectActivity::class.java)
+                            .apply {
+                                putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
+                                putExtra(RatingSubjectActivity.RECORD_ID, id)
+                            }
+                        context.get()?.startActivityForResult(intent, RATING)
+                    }
                 }
                 ActionRes.ActionType.生命体征->{
                     var intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {

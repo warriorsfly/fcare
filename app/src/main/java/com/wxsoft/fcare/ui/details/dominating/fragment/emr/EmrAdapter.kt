@@ -56,18 +56,19 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
 
         when (holder) {
             is ItemViewHolder.NoneViewHolder -> holder.binding.apply {
-                lifecycleOwner = this@EmrAdapter.owner
+                lifecycleOwner = owner
                 item=differ.currentList[position]
                 visiable=position<differ.currentList.size-1
                 action?.let {
                     root.setOnClickListener {
+
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
                 executePendingBindings()
             }
 
             is ItemViewHolder.InterventionViewHolder -> holder.binding.apply {
-                lifecycleOwner = this@EmrAdapter. owner
+                lifecycleOwner =  owner
                 item=differ.currentList[position]
                 visiable=position<differ.currentList.size-1
                 action?.let {
@@ -98,8 +99,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 ecg = presenter
                 visiable= position<differ.currentList.size-1
                 action=commitAction
-                list.adapter = this@EmrAdapter.pictureAdapter
-                this@EmrAdapter.pictureAdapter.remotes = presenter.attachments.map { it.httpUrl }
+                list.adapter = pictureAdapter
+                pictureAdapter.remotes = presenter.attachments.map { it.httpUrl }
                 lifecycleOwner = owner
                 executePendingBindings()
 

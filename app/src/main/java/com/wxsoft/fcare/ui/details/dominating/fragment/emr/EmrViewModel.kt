@@ -67,7 +67,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                 loadEmrResult.value = it?.first
 
-                disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
+                disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         //                        check?.result?: return@subscribe
                          loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -108,7 +108,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             doctorName = account.userName
         }
         item?.let {
-            disposable.add(emrApi.diagnose(it).subscribeOn(Schedulers.single())
+            disposable.add(emrApi.diagnose(it).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({
 
                      loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -150,12 +150,12 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
         item?.let {
             disposable.add(emrApi.saveEcg(it, files)
-                .subscribeOn(Schedulers.single())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 
                     emrApi.getEcgs(patientId)
-                        .subscribeOn(Schedulers.single())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ check ->
                             check ?: return@subscribe
@@ -189,7 +189,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.诊断 }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getDiagnosisList(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getDiagnosisList(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
                             if (vitals.result.isNullOrEmpty()) return@subscribe
                             emr.result = vitals.result
@@ -212,7 +212,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     fun refreshChekBody(){
         //PhysicalExamination
         disposable.add(emrApi.getBodyCheck(patientId)
-            .subscribeOn(Schedulers.single())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                 check?.result ?: return@subscribe
                  loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
@@ -235,7 +235,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     }
 
     fun refreshMedicalHistory(){
-        disposable.add(emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     history->
                 history?.result ?: return@subscribe
@@ -262,7 +262,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.出院诊断 }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getOtDiagnosis(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getOtDiagnosis(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
                             if (vitals.result==null) return@subscribe
                             emr.result = vitals.result
@@ -286,7 +286,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.CT_OPERATION }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getPAC(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getPAC(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
                             if (vitals.result==null) return@subscribe
                             emr.result = vitals.result
@@ -309,7 +309,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.Catheter }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getIntervention(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getIntervention(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
                             if (vitals.result==null) return@subscribe
                             emr.result = vitals.result
@@ -333,7 +333,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.生命体征 }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getVitals(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getVitals(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
                             if (vitals.result.isNullOrEmpty()) return@subscribe
                             emr.result = vitals.result
@@ -356,20 +356,31 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     }
 
     fun refreshRating(){
-        disposable.add(emrApi.getRecords(patientId).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
-                rating?.result ?: return@subscribe
-                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.GRACE }?.result =
-                        rating?.result
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.GRACE }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.GRACE))
-                }
-            },{
-                messageAction.value= Event(it.message?:"")
-            })
-        )
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.GRACE }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getRecords(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.GRACE))
+                            }
+                        },
+                            {
+                                messageAction.value = Event(it.message ?: "")
+                            })
+                )
+            }
+
     }
 
     fun refreshDrugRecords(){
@@ -377,7 +388,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.给药 }
             ?.let { drug ->
                 disposable.add(
-                    emrApi.getDrugRecord(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getDrugRecord(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
                             if (records.result.isNullOrEmpty()) return@subscribe
                             drug.result = records.result
@@ -398,7 +409,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     }
 
     fun refreshMeasure(){
-        disposable.add(emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.loadMeasure(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ measure ->
                 measure?.result ?: return@subscribe
                  loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
@@ -424,7 +435,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.知情同意书 }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getTalks(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getTalks(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ talks ->
                             if (talks.result.isNullOrEmpty()) return@subscribe
                             emr.result = talks.result
@@ -449,7 +460,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
+                    emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
                             if (vitals.result.isNullOrEmpty()) return@subscribe
                             emr.result = vitals.result
