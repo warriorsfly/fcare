@@ -301,10 +301,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             )
 
             R.layout.item_emr_rating->ItemViewHolder.RatingViewHolder(
-                ItemEmrRatingBinding.inflate(inflater,parent,false).apply {
-
-                    list.setRecycledViewPool(pool)
-                }
+                ItemEmrRatingBinding.inflate(inflater,parent,false)
             )
             R.layout.item_emr_medical_history -> ItemViewHolder.MedicalHistoryViewHolder(
                 ItemEmrMedicalHistoryBinding.inflate(inflater,parent,false)
