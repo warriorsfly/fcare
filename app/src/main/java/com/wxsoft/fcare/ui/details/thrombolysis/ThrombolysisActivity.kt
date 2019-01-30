@@ -131,7 +131,10 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 "ModifyEndThromTime" -> showDatePicker(findViewById(R.id.end_thromboly_time))
                 "ModifyRadiographyTime" -> showDatePicker(findViewById(R.id.end_thromboly_radiography_time))
                 "saveSuccess" -> {
-                    finish()
+                    Intent().let { intent->
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 }
             }
         })

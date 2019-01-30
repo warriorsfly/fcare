@@ -25,6 +25,8 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
+import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
+import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionModule
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
@@ -156,7 +158,9 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [OutComeModule::class])
     internal abstract fun outComeActivity(): OutComeActivity
 
-
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ReperfusionModule::class])
+    internal abstract fun reperfusionActivity(): ReperfusionActivity
 
 
 

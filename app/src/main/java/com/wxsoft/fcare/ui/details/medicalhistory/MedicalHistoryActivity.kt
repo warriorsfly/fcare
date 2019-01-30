@@ -33,7 +33,6 @@ import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_medical_history.*
-import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.File
 import javax.inject.Inject
@@ -93,6 +92,9 @@ class MedicalHistoryActivity : BaseActivity() {
                 setResult(RESULT_OK, intent);
                 finish();
             }
+        })
+        viewModel.medicalHistory.observe(this, Observer {
+            if (it != null) this@MedicalHistoryActivity.adapter.remotes = it.attachments.map { it.httpUrl }
         })
     }
 

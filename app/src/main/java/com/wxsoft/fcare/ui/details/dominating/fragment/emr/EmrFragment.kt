@@ -52,6 +52,7 @@ import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConse
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
+import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
@@ -92,6 +93,7 @@ class EmrFragment : DaggerFragment() {
         const val OTDIAGNOSE = 34
         const val CT_OPERATION = 35
         const val RATING = 36
+        const val CABG = 37
 
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
@@ -385,6 +387,12 @@ class EmrFragment : DaggerFragment() {
                     showDialog("通知启动导管室","导管室")
                 }
 
+                ActionRes.ActionType.CABG ->{
+                    var intent = Intent(context.get()?.activity, ReperfusionActivity::class.java).apply {
+                        putExtra(ReperfusionActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, CABG)
+                }
             }
         }
 
@@ -534,6 +542,9 @@ class EmrFragment : DaggerFragment() {
                 }
                 EmrFragment.Catheter -> {
                     viewModel.refreshInv()
+                }
+                EmrFragment.CABG ->{
+                    viewModel.refreshCABG()
                 }
             }
         }

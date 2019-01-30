@@ -90,6 +90,15 @@
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
 
+        <ImageView
+                android:id="@+id/enlarged"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"/>
+
     </android.support.constraint.ConstraintLayout>
+
+
 
 </layout>

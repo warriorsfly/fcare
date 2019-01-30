@@ -94,6 +94,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshOtDiagnosis()
                 refreshCT()
                 refreshInv()
+                refreshCABG()
             }
 
         disposable.add(dis)
@@ -479,6 +480,32 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 )
             }
     }
+
+
+    fun refreshCABG(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.CABG }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getCABG(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ cabg ->
+                            cabg?.result ?: return@subscribe
+                            emr.result = cabg.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = cabg.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.CABG }
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.CABG))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
 
     fun commitNoticePacs(){ //通知启动CT室
         disposable.add(

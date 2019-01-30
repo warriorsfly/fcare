@@ -61,14 +61,13 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 visiable=position<differ.currentList.size-1
                 action?.let {
                     root.setOnClickListener {
-
                         action?.onOpen(differ.currentList[position].code!!) }
                 }
                 executePendingBindings()
             }
 
             is ItemViewHolder.InterventionViewHolder -> holder.binding.apply {
-                lifecycleOwner =  owner
+                lifecycleOwner = this@EmrAdapter.owner
                 item=differ.currentList[position]
                 visiable=position<differ.currentList.size-1
                 action?.let {
@@ -189,6 +188,19 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 lifecycleOwner = owner
                 executePendingBindings()
             }
+
+            is ItemViewHolder.CABGViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+                visiable=position<differ.currentList.size-1
+                action?.let {
+                    root.setOnClickListener {
+                        action?.onOpen(differ.currentList[position].code!!) }
+                }
+                intervention=differ.currentList[position].result as CABG
+                lifecycleOwner = owner
+                executePendingBindings()
+            }
+
             is ItemViewHolder.ListViewHolder -> holder.binding.apply {
                 val emr=differ.currentList[position]
                 item = emr
@@ -305,6 +317,11 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             R.layout.item_emr_opration_d->ItemViewHolder.InterventionViewHolder(
                 ItemEmrOprationDBinding.inflate(inflater,parent,false)
             )
+
+            R.layout.item_emr_cabg->ItemViewHolder.CABGViewHolder(
+                ItemEmrCabgBinding.inflate(inflater,parent,false)
+            )
+
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
     }
@@ -323,6 +340,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             is DisChargeDiagnosis->R.layout.item_emr_dis_diagnosis
             is Pacs->R.layout.item_emr_ct
             is Intervention->R.layout.item_emr_opration_d
+            is CABG->R.layout.item_emr_cabg
             is List<*> ->{
                 when(item.code){
                     ActionRes.ActionType.GRACE->{
@@ -385,6 +403,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is Intervention && result2 is Intervention ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
+                result1 is CABG && result2 is CABG ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code && result1.size  == result2.size
                 else -> oldItem.code == newItem.code
@@ -420,6 +441,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is Intervention && result2 is Intervention ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is CABG && result2 is CABG ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
@@ -513,6 +537,11 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
     //CT
     class InterventionViewHolder(
         val binding: ItemEmrOprationDBinding
+    ): ItemViewHolder(binding)
+
+    //CABG
+    class CABGViewHolder(
+        val binding: ItemEmrCabgBinding
     ): ItemViewHolder(binding)
 
 }
