@@ -55,7 +55,7 @@ class PatientManagerFragment : DaggerFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-
+        tab.setupWithViewPager(patPager)
         viewModel.task.observe(this, Observer {
             it ?: return@Observer
 
