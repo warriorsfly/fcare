@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Page
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
+import io.reactivex.Observable
 import io.reactivex.Single
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -28,10 +28,10 @@ interface PatientApi{
 
     @Multipart
     @POST("Patient/SavePatientInfo")
-    fun save(@Part("patient")patient: Patient,@Part files: List<MultipartBody.Part>):Maybe<Response<String>>
+    fun save(@Part("patient")patient: Patient,@Part files: List<MultipartBody.Part>):Observable<Response<String>>
 
     @Multipart
     @POST("Patient/SavePatientInfo")
-    fun save(@Part("patient")patient: Patient):Maybe<Response<String>>
+    fun save(@Part("patient")patient: Patient):Observable<Response<String>>
 
 }

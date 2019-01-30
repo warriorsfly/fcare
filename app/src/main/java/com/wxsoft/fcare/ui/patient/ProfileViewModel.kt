@@ -39,6 +39,7 @@ class ProfileViewModel @Inject constructor(
             loadPatient()
         }
     val patient:LiveData<Patient>
+    val uploading:LiveData<Boolean>
 
     val bitmaps= mutableListOf<String>()
 
@@ -53,6 +54,7 @@ class ProfileViewModel @Inject constructor(
     init {
 
         clickable=clickResult.map { it }
+        uploading=savePatientResult.map { it==Resource.Loading }
         patient=loadPatientResult.map {
             (it as? Resource.Success)?.data?.result?:Patient("")
         }
@@ -97,11 +99,11 @@ class ProfileViewModel @Inject constructor(
                         taskId = this@ProfileViewModel.taskId
                     }
                 }).toResource().subscribe {
-
+                    savePatientResult.value = it
                     when (it) {
                         is Resource.Success -> {
                             clickResult.value = true
-                            savePatientResult.value = it
+
                             messageAction.value = Event("保存成功")
                         }
                         is Resource.Error -> {
@@ -121,10 +123,12 @@ class ProfileViewModel @Inject constructor(
                             taskId = this@ProfileViewModel.taskId
                         }
                     }, files).toResource().subscribe {
+
+                        savePatientResult.value = it
                         when (it) {
                             is Resource.Success -> {
                                 clickResult.value = true
-                                savePatientResult.value = it
+
                                 messageAction.value = Event("保存成功")
                             }
                             is Resource.Error -> {

@@ -9,15 +9,10 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.BR
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemMedicalHistoryOtherBinding
-import com.wxsoft.fcare.databinding.ItemMedicalHistoryPhotoBinding
 import com.wxsoft.fcare.databinding.ItemMedicalHistoryVoiceBinding
-import com.wxsoft.fcare.generated.callback.OnClickListener
-import com.wxsoft.fcare.ui.common.PictureAdapter
-import com.wxsoft.fcare.ui.common.ForNewItem
 import kotlinx.android.synthetic.main.item_medical_history_other.view.*
-import kotlinx.android.synthetic.main.item_medical_history_photo.view.*
 
-class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
+class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
     RecyclerView.Adapter<MedicalHistoryAdapter.ItemViewHolder>() {
 
     var titleArray:Array<String> = arrayOf("", "既往病史", "病历提供者")
@@ -28,13 +23,13 @@ class MedicalHistoryAdapter constructor(private val lifecycleOwner: LifecycleOwn
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            lifecycleOwner = this@MedicalHistoryAdapter.lifecycleOwner
+            setLifecycleOwner(owner)
             if (position == 0){//主诉、现病史
                 setVariable(BR.listener,viewModel)
 
             }else{//既往病史、病历提供者
                 if (root.medical_other_items_rv.adapter == null){
-                    var adapter = MedicalHistoryItemAdapter(this@MedicalHistoryAdapter.lifecycleOwner,viewModel)
+                    var adapter = MedicalHistoryItemAdapter(owner,viewModel)
                     adapter.section = position
                     root.medical_other_title_name.setText(titleArray.get(position))
                     root.medical_other_items_rv.adapter = adapter
