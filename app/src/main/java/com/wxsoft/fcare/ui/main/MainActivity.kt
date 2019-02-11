@@ -28,9 +28,7 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var binding: ActivityMainBinding
-
-    lateinit var viewModel: MainViewModel
+//    lateinit var viewModel: MainViewModel
 
     private lateinit var fragments:List<DaggerFragment>
 
@@ -63,7 +61,7 @@ class MainActivity : BaseActivity() {
     }
 
 
-    private fun <F> replaceFragment(fragment: F) where F : DaggerFragment {
+    private fun <F:DaggerFragment> replaceFragment(fragment: F)  {
         supportFragmentManager.inTransaction {
             replace(FRAGMENT_ID, fragment)
         }
@@ -74,13 +72,13 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel = viewModelProvider(factory)
+//        viewModel = viewModelProvider(factory)
 
         fragments= listOf(TaskFragment(),PatientsFragment(),UserProfileFragment())
 
-        binding = DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .apply {
-                viewModel=this@MainActivity.viewModel
+//                viewModel=this@MainActivity.viewModel
                 navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 if (savedInstanceState == null) {
                     navigation.selectedItemId = R.id.nav_home
