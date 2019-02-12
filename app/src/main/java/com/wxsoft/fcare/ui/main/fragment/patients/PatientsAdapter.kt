@@ -8,11 +8,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.databinding.LayoutItemPatientBinding
 
 
-class PatientsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: PatientsViewModel):
+class PatientsAdapter constructor(private val owner: LifecycleOwner, val viewModel: PatientsViewModel):
     PagedListAdapter<Patient, PatientsAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -25,7 +24,7 @@ class PatientsAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
                 root.setOnClickListener { viewModel.onOpen(pat.id) }
             }
 
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = owner
             executePendingBindings()
 
         }

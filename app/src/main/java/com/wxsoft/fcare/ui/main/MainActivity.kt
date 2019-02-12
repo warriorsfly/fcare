@@ -85,7 +85,7 @@ class MainActivity : BaseActivity() {
                 if (savedInstanceState == null) {
                     navigation.selectedItemId = R.id.nav_home
                 }
-                setLifecycleOwner(this@MainActivity)
+                lifecycleOwner = this@MainActivity
             }
 
 

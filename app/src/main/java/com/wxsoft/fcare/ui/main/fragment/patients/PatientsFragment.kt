@@ -50,7 +50,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
                 var intent = Intent(activity!!, ProfileActivity::class.java)
                 startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
             }
-            setLifecycleOwner (this@PatientsFragment)
+            lifecycleOwner = this@PatientsFragment
 
         }
         viewModel.patients.observe(this, Observer { it->

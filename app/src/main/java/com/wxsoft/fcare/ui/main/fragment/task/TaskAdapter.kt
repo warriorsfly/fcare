@@ -13,7 +13,7 @@ import com.wxsoft.fcare.utils.DateTimeUtils.Companion.formatter
 import java.text.ParseException
 
 
-class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: TaskViewModel) :
+class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: TaskViewModel) :
     RecyclerView.Adapter<TaskAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Task>(this, DiffCallback)
@@ -54,7 +54,7 @@ class TaskAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vi
             parientName.text = names
             task = item
             listener = viewModel
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = owner
             executePendingBindings()
 
         }
