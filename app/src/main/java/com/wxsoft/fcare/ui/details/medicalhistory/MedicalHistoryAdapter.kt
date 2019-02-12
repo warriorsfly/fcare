@@ -23,7 +23,7 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            setLifecycleOwner(owner)
+            lifecycleOwner = owner
             if (position == 0){//主诉、现病史
                 setVariable(BR.listener,viewModel)
 
