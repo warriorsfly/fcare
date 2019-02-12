@@ -139,6 +139,8 @@ class EmrFragment : DaggerFragment() {
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -342,6 +344,7 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.溶栓处置 ->{
                     var intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
+//                        putExtra(ThrombolysisActivity.TASK_ID, taskId)
                         putExtra(ThrombolysisActivity.ID, id)
                         putExtra(ThrombolysisActivity.COME_FROM, "1")
                     }
@@ -710,5 +713,7 @@ class EmrFragment : DaggerFragment() {
             .synOrAsy(true)//同步true或异步false 压缩 默认同步
             .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
     }
+
+
 
 }

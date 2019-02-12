@@ -102,6 +102,13 @@ class JPushReceiver : BroadcastReceiver() {
 
                 context.sendBroadcast(timeLineRefresh)
             }
+            StartCT ->{
+                val startCT = Intent(StartCT).apply {
+                    putExtra(StartCT, message)
+                }
+
+                context.sendBroadcast(startCT)
+            }
         }
     }
 
@@ -109,6 +116,7 @@ class JPushReceiver : BroadcastReceiver() {
 
         const val LineRefresh = "LineRefresh"
         const val RegistrationId = "RegistrationId"
+        const val StartCT = "StartCT"
         // 打印所有的 intent extra 数据
         @JvmStatic
         private fun printBundle(bundle: Bundle): String {

@@ -27,21 +27,31 @@ class MessageViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
     override fun click(){}
 
+
+    /**
+     * 病人id
+     */
+    var patientId: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
+
     val message:LiveData<String>
     private val _message=MediatorLiveData<String>().apply {
         value="请即刻启动导管室"
     }
 
-    init{
-        message=_message.map { it }
-    }
 
     val patientType:LiveData<String>
     private val _patientType=MediatorLiveData<String>().apply {
         value="胸痛病人"
     }
 
-    init{
+
+
+    init {
+        message=_message.map { it }
         patientType=_patientType.map { it }
     }
 

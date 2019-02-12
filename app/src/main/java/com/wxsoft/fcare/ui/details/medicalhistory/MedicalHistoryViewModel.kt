@@ -116,10 +116,6 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     }
 
     fun saveMedicalHistory(){
-        medicalHistoryApi.save(medicalHistory.value!!).toResource()
-            .subscribe {
-                initbackToLast.value = true
-            }
         if (saveAble){
             saveAble = false
             val files = bitmaps.map {
@@ -189,8 +185,8 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
 
     fun clickSelect(item:Dictionary){
         when(item.section){
-            2->{ historyItems.value?.filter { it.checked }?.map {it.checked = false } }
-            3->{ providerItems.value?.filter { it.checked }?.map {it.checked = false } }
+            1->{ historyItems.value?.filter { it.checked }?.map {it.checked = false } }
+            2->{ providerItems.value?.filter { it.checked }?.map {it.checked = false } }
         }
         item.checked = !item.checked
     }

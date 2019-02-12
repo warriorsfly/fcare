@@ -68,7 +68,6 @@ class DispatchCarActivity : BaseActivity() {
             if (it != null){
 
                 Intent().let { intent ->
-
                     toDetail(it)
                     setResult(RESULT_OK, intent);
                     finish();

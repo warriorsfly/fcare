@@ -233,6 +233,20 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.patientId)
         }
 
+    @Bindable
+    var d2N:Int?=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.d2N)
+        }
+
+    @Bindable
+    var fmC2N:Int?=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.fmC2N)
+        }
+
     /**
      *  知情同意书id
      */
