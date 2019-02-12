@@ -6,6 +6,7 @@ import android.app.DatePickerDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,6 +44,7 @@ class TaskFragment : DaggerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = activityViewModelProvider(viewModelFactory)
+        adapter= TaskAdapter(this, viewModel)
     }
 
     override fun onCreateView(
@@ -61,7 +63,7 @@ class TaskFragment : DaggerFragment() {
             }
             viewModel = this@TaskFragment.viewModel
 
-            this@TaskFragment.adapter= TaskAdapter(this@TaskFragment, this@TaskFragment.viewModel)
+//            this@TaskFragment.adapter= TaskAdapter(this@TaskFragment, this@TaskFragment.viewModel)
             list.adapter = this@TaskFragment.adapter
 
             lifecycleOwner = this@TaskFragment
@@ -78,11 +80,11 @@ class TaskFragment : DaggerFragment() {
     }
 
     fun selectTime() {
-        var ca = Calendar.getInstance()
+        val ca = Calendar.getInstance()
         var mYear = ca.get(Calendar.YEAR)
         var mMonth = ca.get(Calendar.MONTH)
         var mDay = ca.get(Calendar.DAY_OF_MONTH)
-        var dialog =
+        val dialog =
             DatePickerDialog(this.context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
                 mYear = year
                 mMonth = monthOfYear
@@ -113,45 +115,49 @@ class TaskFragment : DaggerFragment() {
     }
 
     private fun startTask(){
-        var intent = Intent(activity!!, DispatchCarActivity::class.java)
+        val intent = Intent(activity!!, DispatchCarActivity::class.java)
         startActivityForResult(intent, NEW_TAK_REQUEST_CODE)
     }
 
     fun toDetail(id: String) {
-        var intent = Intent(activity!!, DoMinaActivity::class.java)
+        val intent = Intent(activity!!, DoMinaActivity::class.java)
         intent.putExtra(DoMinaActivity.TASK_ID, id)
         startActivity(intent)
     }
 
     fun toVital(){//生命体征录入
-        var intent = Intent(activity!!, VitalSignsActivity::class.java)
+        val intent = Intent(activity!!, VitalSignsActivity::class.java)
         intent.putExtra(VitalSignsActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 
     fun toCheckBody(){//PhysicalExamination
-        var intent = Intent(activity!!, CheckBodyActivity::class.java)
+        val intent = Intent(activity!!, CheckBodyActivity::class.java)
         intent.putExtra(CheckBodyActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 
     fun toMedicalHistory(){//IllnessHistory
-        var intent = Intent(activity!!, MedicalHistoryActivity::class.java)
+        val intent = Intent(activity!!, MedicalHistoryActivity::class.java)
         intent.putExtra(MedicalHistoryActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 
     fun toMeasures(){//DispostionMeasures
-        var intent = Intent(activity!!, MeasuresActivity::class.java)
+        val intent = Intent(activity!!, MeasuresActivity::class.java)
         intent.putExtra(MeasuresActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 
     fun toDiagnose(){//诊断
-        var intent = Intent(activity!!, DiagnoseActivity::class.java)
+        val intent = Intent(activity!!, DiagnoseActivity::class.java)
         intent.putExtra(DiagnoseActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
         startActivity(intent)
     }
 
 
+    override fun onStop() {
+        super.onStop()
+        Log.i("task fragment stoped?","yes")
+    }
 }

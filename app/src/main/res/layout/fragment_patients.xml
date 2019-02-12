@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
-        <variable name="viewModel" type="com.wxsoft.emergency.ui.main.fragment.patients.PatientsViewModel"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.main.fragment.patients.PatientsViewModel"/>
     </data>
 
         <android.support.constraint.ConstraintLayout

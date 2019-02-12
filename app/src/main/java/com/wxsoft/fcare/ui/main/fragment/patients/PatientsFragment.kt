@@ -1,4 +1,4 @@
-package com.wxsoft.emergency.ui.main.fragment.patients
+package com.wxsoft.fcare.ui.main.fragment.patients
 
 import android.app.Activity
 import android.arch.lifecycle.Observer
@@ -26,7 +26,6 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     override fun onQueryTextChange(p0: String?): Boolean {
         return false
-       // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private lateinit var viewModel: PatientsViewModel
@@ -39,6 +38,8 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = activityViewModelProvider(viewModelFactory)
+
+        adapter= PatientsAdapter(this,viewModel)
         viewModel.showPatients("")
     }
 
@@ -47,14 +48,13 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
         savedInstanceState: Bundle?
     ): View? {
 
-        adapter= PatientsAdapter(this,viewModel)
         val binding= FragmentPatientsBinding.inflate(inflater, container, false).apply {
             list.adapter=adapter
             viewModel=this@PatientsFragment.viewModel
 
             search.setOnQueryTextListener(this@PatientsFragment)
             floatingActionButton.setOnClickListener {
-                var intent = Intent(activity!!, ProfileActivity::class.java)
+                val intent = Intent(activity!!, ProfileActivity::class.java)
                 startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
             }
             lifecycleOwner = this@PatientsFragment

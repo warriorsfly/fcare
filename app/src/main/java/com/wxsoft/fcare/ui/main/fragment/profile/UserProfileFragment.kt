@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentUserProfileBinding
 import com.wxsoft.fcare.ui.login.LoginActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
@@ -24,7 +24,7 @@ class UserProfileFragment : DaggerFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = viewModelProvider(factory)
+        viewModel = activityViewModelProvider(factory)
         val binding = FragmentUserProfileBinding.inflate(inflater, container, false).apply {
 
             logout.setOnClickListener {
@@ -32,7 +32,7 @@ class UserProfileFragment : DaggerFragment() {
                 val intent = Intent(activity!!, LoginActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 }
-                startActivity(intent);
+                startActivity(intent)
             }
             lifecycleOwner = this@UserProfileFragment
         }
