@@ -56,6 +56,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation "junit:junit:$junit_version"
+    androidTestImplementation "com.android.support.test:runner:${runner_version}"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$espresso_version"
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     //dagger
     implementation "com.google.dagger:dagger:$dagger_version"

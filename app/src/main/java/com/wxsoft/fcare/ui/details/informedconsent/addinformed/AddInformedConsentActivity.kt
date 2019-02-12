@@ -14,9 +14,11 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.media.*
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.os.SystemClock
+import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
@@ -79,6 +81,7 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     private lateinit var adapter:PictureAdapter
 
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)

@@ -15,7 +15,7 @@ import java.text.ParseException
 
 class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: TaskViewModel) :
     ListAdapter<Task,TaskAdapter.ItemViewHolder>(DiffCallback) {
-    
+
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
@@ -83,22 +83,20 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
         var timeString = ""
 
         try {
-            var parse = formatter.parse(starTime);
-            var parse1 = formatter.parse(endTime);
+            val parse = formatter.parse(starTime);
+            val parse1 = formatter.parse(endTime);
 
-            var diff = parse1.time - parse.time;
+            val diff = parse1.time - parse.time;
 
-            var day = diff / (24 * 60 * 60 * 1000);
-            var hour = (diff / (60 * 60 * 1000) - day * 24);
-            var min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-            var s = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-            var ms = (diff - day * 24 * 60 * 60 * 1000 - hour * 60 * 60 * 1000
-                    - min * 60 * 1000 - s * 1000);
+            val day = diff / (24 * 60 * 60 * 1000);
+            val hour = (diff / (60 * 60 * 1000) - day * 24);
+            val min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
+            val s = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
             // System.out.println(day + "天" + hour + "小时" + min + "分" + s +
             // "秒");
-            var hour1 = diff / (60 * 60 * 1000);
+            val hour1 = diff / (60 * 60 * 1000);
 
-            var min1 = ((diff / (60 * 1000)) - hour1 * 60);
+            val min1 = ((diff / (60 * 1000)) - hour1 * 60);
             timeString = hour1.toString() + "小时" + min1 + "分";
 
         }catch (e: ParseException){
