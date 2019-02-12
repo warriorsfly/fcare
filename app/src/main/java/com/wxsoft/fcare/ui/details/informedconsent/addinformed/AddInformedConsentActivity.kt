@@ -25,7 +25,6 @@ import android.support.v4.content.FileProvider
 import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.Chronometer
 import android.widget.ImageView
 import android.widget.Toast
 import com.luck.picture.lib.PictureSelector
@@ -38,7 +37,7 @@ import com.wxsoft.fcare.databinding.ActivityAddInformedConsentBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.yanzhenjie.permission.Action
 import com.yanzhenjie.permission.AndPermission
 import kotlinx.android.synthetic.main.activity_add_informed_consent.*
@@ -115,7 +114,7 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
 
 
         viewModel.backToLast.observe(this, Observer {
-            if (comeFrom.equals("THROMBOLYSIS")){
+            if (comeFrom == "THROMBOLYSIS"){
                 Intent().let { intent->
                     intent.putExtra("informedConsentId",viewModel.talkResultId.value)
                     intent.putExtra("startTime",viewModel.talk.value?.startTime)
@@ -135,8 +134,8 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
         AndPermission.with(this@AddInformedConsentActivity).permission(Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE).onGranted(object :
             Action {
             override fun onAction(permissions: MutableList<String>?) {//同意权限
-                var rootDir: File = File(AudioConfig.rootDir)
-                var audioFile: File = File(AudioConfig.audioPath)
+                var rootDir = File(AudioConfig.rootDir)
+                var audioFile = File(AudioConfig.audioPath)
                 if (!rootDir.exists()) {
                     var isDir = rootDir.mkdir()
                     if (!isDir) {
@@ -176,14 +175,14 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
                 viewModel.voicePath = AudioConfig.audioPath
                 viewModel.talk.value?.endTime = getCurrentTime()
                 viewModel.initShowVoiceTime.value = true
-                binding.timeVoice.setText(binding.voiceTime.text)
+                binding.timeVoice.text = binding.voiceTime.text
             }else{
                 AudioRecordManager.isAudioRecord = true
                 var audioRecord = AudioRecordManager()
                 audioRecord.start()
                 viewModel.talk.value?.startTime = getCurrentTime()
-                binding.voiceTime.setBase(SystemClock.elapsedRealtime());
-                binding.voiceTime.setCountDown(false);
+                binding.voiceTime.base = SystemClock.elapsedRealtime();
+                binding.voiceTime.isCountDown = false;
                 binding.voiceTime.start()
             }
         })
@@ -399,21 +398,20 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     fun getCurrentTime(): String {
         val calendar = Calendar.getInstance()
         //年
-        var year = calendar.get(Calendar.YEAR)
+        val year = calendar.get(Calendar.YEAR)
         //月
-        var month = frontCompWithZore(calendar.get(Calendar.MONTH) + 1, 2)
+        val month = frontCompWithZore(calendar.get(Calendar.MONTH) + 1, 2)
         //日
-        var day = frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH), 2)
+        val day = frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH), 2)
         //获取系统时间
         //小时
-        var hour = frontCompWithZore(calendar.get(Calendar.HOUR_OF_DAY), 2)
+        val hour = frontCompWithZore(calendar.get(Calendar.HOUR_OF_DAY), 2)
         //分钟
-        var minute = frontCompWithZore(calendar.get(Calendar.MINUTE), 2)
+        val minute = frontCompWithZore(calendar.get(Calendar.MINUTE), 2)
         //秒
-        var second = frontCompWithZore(calendar.get(Calendar.SECOND), 2)
+        val second = frontCompWithZore(calendar.get(Calendar.SECOND), 2)
 
-        var date = "" + year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
-        return date
+        return "$year-$month-$day $hour:$minute:$second"
     }
 
     /**
@@ -428,8 +426,7 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     　　      * formatLength 字符总长度为 formatLength
     　　      * d 代表为正数。
     　　      */
-        var newString = String.format("%0" + formatLength + "d", sourceDate)
-        return newString
+        return String.format("%0" + formatLength + "d", sourceDate)
 
     }
 
@@ -439,9 +436,9 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
 
 class AudioConfig {
     companion object {
-        val frequency:Int = 11025 //采样率
-        val audioFormat:Int = AudioFormat.ENCODING_PCM_16BIT //数据位宽
-        val channelConfig:Int = AudioFormat.CHANNEL_OUT_STEREO;//双通道
+        const val frequency:Int = 11025 //采样率
+        const val audioFormat:Int = AudioFormat.ENCODING_PCM_16BIT //数据位宽
+        const val channelConfig:Int = AudioFormat.CHANNEL_OUT_STEREO;//双通道
         val rootDir:String = Environment.getExternalStorageDirectory().absolutePath+"/fcareAudio";
         var patientId:String = ""
         var titleName:String = ""
@@ -455,9 +452,9 @@ class AudioRecordManager : Thread() {
         var isAudioRecord: Boolean = false
     }
 
-    val bufferSize: Int = AudioRecord.getMinBufferSize(AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat)
-    val audioRecord: AudioRecord = AudioRecord(MediaRecorder.AudioSource.MIC, AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat, bufferSize)
-    lateinit var dataOutput: DataOutputStream
+    private val bufferSize: Int = AudioRecord.getMinBufferSize(AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat)
+    private val audioRecord: AudioRecord = AudioRecord(MediaRecorder.AudioSource.MIC, AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat, bufferSize)
+    private lateinit var dataOutput: DataOutputStream
     override fun run() {
         super.run()
         val audioFile: File = File(AudioConfig.audioPath)
@@ -491,10 +488,10 @@ class AudioTrackManager :Thread(){
     companion object {
         var isPaly:Boolean = false
     }
-    val bufferSize: Int = AudioTrack.getMinBufferSize(AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat)
-    val buffer = ShortArray(bufferSize / 4)
-    lateinit var dataInputStream: DataInputStream
-    val audioTrack: AudioTrack = AudioTrack(AudioManager.STREAM_MUSIC, AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat, bufferSize, AudioTrack.MODE_STREAM)
+    private val bufferSize: Int = AudioTrack.getMinBufferSize(AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat)
+    private val buffer = ShortArray(bufferSize / 4)
+    private lateinit var dataInputStream: DataInputStream
+    private val audioTrack: AudioTrack = AudioTrack(AudioManager.STREAM_MUSIC, AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat, bufferSize, AudioTrack.MODE_STREAM)
 
     override fun run() {
         super.run()
@@ -507,10 +504,10 @@ class AudioTrackManager :Thread(){
             dataInputStream = DataInputStream(BufferedInputStream(FileInputStream(audioFile)))
             audioTrack.play()
             while (isPaly && dataInputStream.available() > 0) {
-                var i:Int = 0
+                var i = 0
                 while (dataInputStream.available() > 0 && i < buffer.size) {
-                    buffer[i] = dataInputStream.readShort();
-                    i++;
+                    buffer[i] = dataInputStream.readShort()
+                    i++
                 }
                 audioTrack.write(buffer, 0, buffer.size);
             }

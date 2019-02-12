@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.core.data.entity.rating
 
 import com.google.gson.annotations.SerializedName
-import com.wxsoft.fcare.utils.DateTimeUtils
 
 /**
  * 评分

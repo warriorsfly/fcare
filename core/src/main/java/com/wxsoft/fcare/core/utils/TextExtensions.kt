@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.wxsoft.fcare.utils
+package com.wxsoft.fcare.core.utils
 
 import android.content.res.Resources
 import android.databinding.ObservableBoolean

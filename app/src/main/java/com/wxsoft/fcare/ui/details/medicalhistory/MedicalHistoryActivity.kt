@@ -31,7 +31,7 @@ import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_medical_history.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.File
@@ -130,8 +130,8 @@ class MedicalHistoryActivity : BaseActivity() {
             checkPhotoTaking()
         }
 
-        override fun enlargeRemote(root: View, url: String) {
-            zoomImageFromThumb(root,enlarged,url)
+        override fun enlargeRemote(imageView: View, url: String) {
+            zoomImageFromThumb(imageView,enlarged,url)
         }
 
 

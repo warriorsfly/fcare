@@ -6,8 +6,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.app.DatePickerDialog
-import android.app.TimePickerDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -15,7 +13,6 @@ import android.databinding.DataBindingUtil
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
@@ -29,7 +26,6 @@ import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
-import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.GlideApp
@@ -40,14 +36,12 @@ import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.lazyFast
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_patient_profile.*
-import kotlinx.android.synthetic.main.fragment_assignment.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.File
-import java.util.*
 import javax.inject.Inject
 
 
@@ -58,17 +52,17 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
     private var dialog: com.jzxiang.pickerview.TimePickerDialog?=null
 
-    private var selectedId=0;
+    private var selectedId=0
     override fun onClick(v: View?) {
 
         (v as? Button)?.let {
             selectedId = it.id
-            val currentTime = it.text.toString()?.let { text ->
+            val currentTime = it.text.toString().let { text ->
                 return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
             }
 
             dialog = createDialog(currentTime)
-            dialog?.show(supportFragmentManager, "all");
+            dialog?.show(supportFragmentManager, "all")
         }
 
     }
@@ -77,7 +71,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
         dialog?.onDestroy()
         dialog=null
-        (findViewById<Button>(selectedId))?.text=DateTimeUtils.formatter.format(millseconds)
+        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private val toast:Toast by  lazy {
@@ -113,7 +107,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
     private lateinit var viewModel:ProfileViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var binding = DataBindingUtil.setContentView<ActivityPatientProfileBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityPatientProfileBinding>(
             this,
             R.layout.activity_patient_profile
         ).apply{
@@ -199,8 +193,8 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
             checkPhotoTaking()
         }
 
-        override fun enlargeRemote(root:View,url: String) {
-            zoomImageFromThumb(root,enlarged,url)
+        override fun enlargeRemote(imageView:View, url: String) {
+            zoomImageFromThumb(imageView,enlarged,url)
         }
 
 

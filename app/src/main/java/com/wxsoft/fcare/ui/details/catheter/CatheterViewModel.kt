@@ -13,7 +13,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import io.reactivex.rxkotlin.zipWith
 import java.lang.Error
 import javax.inject.Inject
@@ -72,7 +72,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 
     override fun click() {
         intervention.value?.let {
-            if (it.id.isNullOrEmpty()) {
+            if (it.id.isEmpty()) {
                 it.doctorId = account.id
                 it.doctorName = account.trueName
                 it.patientId = patientId

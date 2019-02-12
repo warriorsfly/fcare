@@ -16,8 +16,8 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
-import com.wxsoft.fcare.utils.NfcUtils
-import com.wxsoft.fcare.utils.lazyFast
+import com.wxsoft.fcare.core.utils.NfcUtils
+import com.wxsoft.fcare.core.utils.lazyFast
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 

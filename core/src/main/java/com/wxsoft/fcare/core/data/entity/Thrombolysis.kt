@@ -249,8 +249,8 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             field=value
             throm_Drug_Name = ""
             value.map {
-                if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
-                if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+                if (throm_Drug_Name.isEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
+                if (throm_Drug_Dose.isEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
             }
             notifyPropertyChanged(BR.drugRecords)
         }
@@ -269,8 +269,8 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
         hasDirect = direct.equals("1")
         if (!drugRecords.isNullOrEmpty()){
             drugRecords.map {
-                if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
-                if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+                if (throm_Drug_Name.isEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
+                if (throm_Drug_Dose.isEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
             }
         }
     }

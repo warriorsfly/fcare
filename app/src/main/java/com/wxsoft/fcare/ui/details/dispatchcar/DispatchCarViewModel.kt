@@ -3,8 +3,6 @@ package com.wxsoft.fcare.ui.details.dispatchcar
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.widget.Toast
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -16,8 +14,8 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class DispatchCarViewModel @Inject constructor(
@@ -163,7 +161,7 @@ class DispatchCarViewModel @Inject constructor(
         staffs.addAll(nstaff)
         staffs.addAll(drtaff)
         task.value?.taskStaffs = staffs.toTypedArray()
-        if (selectedCar.id.isNullOrEmpty()){
+        if (selectedCar.id.isEmpty()){
             initHaveSelectCar.value = true
             return
         }else{

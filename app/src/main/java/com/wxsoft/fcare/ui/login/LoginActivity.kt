@@ -15,7 +15,7 @@ import com.wxsoft.fcare.databinding.ActivityLoginBinding
 import com.wxsoft.fcare.service.JPushReceiver.Companion.RegistrationId
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.main.MainActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import javax.inject.Inject
 
 /**

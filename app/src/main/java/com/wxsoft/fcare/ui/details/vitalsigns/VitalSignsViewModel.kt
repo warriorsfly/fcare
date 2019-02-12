@@ -15,7 +15,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSignApi, private val dictEnumApi: DictEnumApi,
@@ -97,7 +97,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     }
 
     fun loadVitalSign() {
-        if(id.isNullOrEmpty()) {
+        if(id.isEmpty()) {
             disposable.add(dictEnumApi.loadConsciousness().toResource()
                 .doOnSuccess { loadConsciousnessResult.value = it }
                 .flatMap { vitalSignApi.list(patientId).toResource() }

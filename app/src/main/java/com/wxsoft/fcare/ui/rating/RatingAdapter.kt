@@ -46,7 +46,7 @@ class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): Lis
     }
     object DiffCallback : DiffUtil.ItemCallback<Rating>() {
         override fun areItemsTheSame(oldItem: Rating, newItem: Rating): Boolean {
-            return return oldItem.id==newItem.id
+            return oldItem.id==newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Rating, newItem: Rating): Boolean {

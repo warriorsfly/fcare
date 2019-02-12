@@ -16,8 +16,8 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.databinding.ActivityCtBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_ct.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
@@ -45,7 +45,7 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
 
         dialog?.onDestroy()
         dialog=null
-        (findViewById<Button>(selectedId))?.text=DateTimeUtils.formatter.format(millseconds)
+        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private var selectedId=0;

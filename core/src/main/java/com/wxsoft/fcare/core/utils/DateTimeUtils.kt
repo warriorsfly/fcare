@@ -1,8 +1,7 @@
-package com.wxsoft.fcare.utils
+package com.wxsoft.fcare.core.utils
 
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 
 class DateTimeUtils {
@@ -32,34 +31,32 @@ class DateTimeUtils {
         fun getCurrentTime():String{
             val calendar = Calendar.getInstance()
             //年
-            var year = calendar.get(Calendar.YEAR)
+            val year = calendar.get(Calendar.YEAR)
             //月
-            var month =frontCompWithZore(calendar.get(Calendar.MONTH)+1,2)
+            val month = frontCompWithZore(calendar.get(Calendar.MONTH)+1,2)
             //日
-            var day =frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH),2)
+            val day = frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH),2)
             //获取系统时间
             //小时
-            var hour = frontCompWithZore(calendar.get(Calendar.HOUR_OF_DAY),2)
+            val hour = frontCompWithZore(calendar.get(Calendar.HOUR_OF_DAY),2)
             //分钟
-            var minute = frontCompWithZore(calendar.get(Calendar.MINUTE),2)
+            val minute = frontCompWithZore(calendar.get(Calendar.MINUTE),2)
             //秒
-            var second =frontCompWithZore(calendar.get(Calendar.SECOND),2)
+            val second = frontCompWithZore(calendar.get(Calendar.SECOND),2)
 
-            var date = ""+year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second
-            return date
+            return "$year-$month-$day $hour:$minute:$second"
         }
 
         fun getCurrentDate():String{
             val calendar = Calendar.getInstance()
             //年
-            var year = calendar.get(Calendar.YEAR)
+            val year = calendar.get(Calendar.YEAR)
             //月
-            var month =frontCompWithZore(calendar.get(Calendar.MONTH)+1,2)
+            val month = frontCompWithZore(calendar.get(Calendar.MONTH)+1,2)
             //日
-            var day =frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH),2)
+            val day = frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH),2)
 
-            var date = ""+year+"-"+month+"-"+day
-            return date
+            return "$year-$month-$day"
         }
 
         /**
@@ -74,8 +71,7 @@ class DateTimeUtils {
         　　      * formatLength 字符总长度为 formatLength
         　　      * d 代表为正数。
         　　      */
-            var newString = String.format("%0"+formatLength+"d", sourceDate)
-            return newString
+            return String.format("%0"+formatLength+"d", sourceDate)
 
         }
 

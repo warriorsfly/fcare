@@ -10,10 +10,9 @@ import com.wxsoft.fcare.core.data.remote.PharmacyApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.core.result.succeeded
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class ReperfusionViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,

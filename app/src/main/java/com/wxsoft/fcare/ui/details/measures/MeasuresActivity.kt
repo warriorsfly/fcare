@@ -3,11 +3,9 @@ package com.wxsoft.fcare.ui.details.measures
 
 import android.app.AlertDialog
 import android.arch.lifecycle.Observer
-import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
@@ -16,7 +14,7 @@ import com.wxsoft.fcare.databinding.ActivityMeasuresBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 

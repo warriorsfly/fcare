@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
-import com.wxsoft.fcare.utils.DateTimeUtils.Companion.formatter
+import com.wxsoft.fcare.core.utils.DateTimeUtils.Companion.formatter
 import java.text.ParseException
 
 
@@ -83,26 +83,25 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
         var timeString = ""
 
         try {
-            val parse = formatter.parse(starTime);
-            val parse1 = formatter.parse(endTime);
+            val parse = formatter.parse(starTime)
+            val parse1 = formatter.parse(endTime)
 
-            val diff = parse1.time - parse.time;
+            val diff = parse1.time - parse.time
 
-            val day = diff / (24 * 60 * 60 * 1000);
-            val hour = (diff / (60 * 60 * 1000) - day * 24);
-            val min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-            val s = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
+            val day = diff / (24 * 60 * 60 * 1000)
+            val hour = (diff / (60 * 60 * 1000) - day * 24)
+            val min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60)
             // System.out.println(day + "天" + hour + "小时" + min + "分" + s +
-            // "秒");
-            val hour1 = diff / (60 * 60 * 1000);
+            // "秒")
+            val hour1 = diff / (60 * 60 * 1000)
 
-            val min1 = ((diff / (60 * 1000)) - hour1 * 60);
-            timeString = hour1.toString() + "小时" + min1 + "分";
+            val min1 = ((diff / (60 * 1000)) - hour1 * 60)
+            timeString = hour1.toString() + "小时" + min1 + "分"
 
         }catch (e: ParseException){
             e.printStackTrace()
         }
-        return timeString;
+        return timeString
 
     }
 

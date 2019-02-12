@@ -14,7 +14,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
@@ -41,7 +41,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     var patientId=""
         set(value) {
            field=value
-            loadEms(field)
+            loadEms()
         }
 
     /**
@@ -51,7 +51,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     val emrItemLoaded: LiveData<Event<Pair<Int,String>>>
         get() = _loadEmrItemAction
 
-    private fun loadEms(id:String) {
+    private fun loadEms() {
 
 
        val dis= emrApi.getEmrs(patientId,account.id,preHos).zipWith(emrApi.getBaseInfo(patientId))
@@ -144,7 +144,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             it.code==ActionRes.ActionType.心电图
         }?.result as? ElectroCardiogram )?.apply {
             savable=false
-            if(patientId.isNullOrEmpty()) {
+            if(patientId.isEmpty()) {
                 patientId = this@EmrViewModel.patientId
             }
         }
@@ -163,7 +163,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             check ?: return@subscribe
                              loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                                 ?.let { emr ->
-                                    emr.result = check?.result
+                                    emr.result = check.result
                                     emr.done = true
                                     emr.completedAt = check?.result?.time
                                 }

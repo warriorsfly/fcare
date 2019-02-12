@@ -9,8 +9,8 @@ import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
-import com.wxsoft.fcare.utils.map
-import com.wxsoft.fcare.utils.switchMap
+import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.core.utils.switchMap
 import javax.inject.Inject
 
 class PatientsViewModel @Inject constructor(private val repository: IPatientRepository,

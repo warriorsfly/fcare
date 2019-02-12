@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -64,7 +64,7 @@ class ProfileViewModel @Inject constructor(
 
     private fun loadPatient(){
 
-        if(patientId.isNullOrEmpty()){
+        if(patientId.isEmpty()){
             loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
                 this.result= Patient("")
             })
@@ -152,12 +152,12 @@ class ProfileViewModel @Inject constructor(
                     return@let true
                 }else{
                     when{
-                        it.name.isNullOrEmpty()->{
+                        it.name.isEmpty()->{
                             messageAction.value= Event("姓名不能为空")
                             return@let false
                         }
 
-                        it.idcard.isNullOrEmpty()->{
+                        it.idcard.isEmpty()->{
                             messageAction.value= Event("身份证不能为空")
                             return@let false
                         }

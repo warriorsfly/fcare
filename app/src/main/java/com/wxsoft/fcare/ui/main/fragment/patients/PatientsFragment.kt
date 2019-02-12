@@ -14,7 +14,7 @@ import com.wxsoft.fcare.databinding.FragmentPatientsBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_patients.*
 import javax.inject.Inject

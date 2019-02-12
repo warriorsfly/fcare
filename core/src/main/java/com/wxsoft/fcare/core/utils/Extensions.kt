@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.utils
+package com.wxsoft.fcare.core.utils
 
 
 import android.arch.lifecycle.*
@@ -19,7 +19,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.gson.Gson
 
 /**
  * Implementation of lazy that is not thread safe. Useful when you know what thread you will be
@@ -189,6 +188,3 @@ fun Context.getThemeColor(
         ContextCompat.getColor(this, fallbackColorResId)
     }
 }
-
-inline fun <reified T> Gson.fromJson(json: String) = fromJson(json, T::class.java)
-

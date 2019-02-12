@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
@@ -60,7 +60,7 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     }
 
     fun getCrById(id:String){
-        if (id.isNullOrEmpty()){
+        if (id.isEmpty()){
             loadLisCrResult.value = null
             return
         }

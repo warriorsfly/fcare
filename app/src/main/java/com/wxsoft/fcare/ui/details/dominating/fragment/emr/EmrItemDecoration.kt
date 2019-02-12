@@ -30,7 +30,7 @@ import android.text.TextPaint
 import android.view.View
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EmrItem
-import com.wxsoft.fcare.utils.withTranslation
+import com.wxsoft.fcare.core.utils.withTranslation
 
 /**
  * A [RecyclerView.ItemDecoration] which draws sticky headers marking the days in a given list of

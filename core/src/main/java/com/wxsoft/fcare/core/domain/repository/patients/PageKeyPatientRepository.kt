@@ -6,7 +6,7 @@ import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.domain.repository.Listing
 import com.wxsoft.fcare.core.domain.source.PatientSourceFactory
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 
 class PageKeyPatientRepository constructor(private val api: PatientApi):
     IPatientRepository {

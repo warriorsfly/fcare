@@ -16,7 +16,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_patient_manager.*
 import javax.inject.Inject

@@ -6,22 +6,16 @@ import android.app.DatePickerDialog
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
-import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
-import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
-import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
-import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
-import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_assignment.*
 import java.util.*
@@ -85,7 +79,7 @@ class TaskFragment : DaggerFragment() {
         var mMonth = ca.get(Calendar.MONTH)
         var mDay = ca.get(Calendar.DAY_OF_MONTH)
         val dialog =
-            DatePickerDialog(this.context, DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(this.context, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth
@@ -119,45 +113,10 @@ class TaskFragment : DaggerFragment() {
         startActivityForResult(intent, NEW_TAK_REQUEST_CODE)
     }
 
-    fun toDetail(id: String) {
+    private fun toDetail(id: String) {
         val intent = Intent(activity!!, DoMinaActivity::class.java)
         intent.putExtra(DoMinaActivity.TASK_ID, id)
         startActivity(intent)
     }
 
-    fun toVital(){//生命体征录入
-        val intent = Intent(activity!!, VitalSignsActivity::class.java)
-        intent.putExtra(VitalSignsActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
-        startActivity(intent)
-    }
-
-    fun toCheckBody(){//PhysicalExamination
-        val intent = Intent(activity!!, CheckBodyActivity::class.java)
-        intent.putExtra(CheckBodyActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
-        startActivity(intent)
-    }
-
-    fun toMedicalHistory(){//IllnessHistory
-        val intent = Intent(activity!!, MedicalHistoryActivity::class.java)
-        intent.putExtra(MedicalHistoryActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
-        startActivity(intent)
-    }
-
-    fun toMeasures(){//DispostionMeasures
-        val intent = Intent(activity!!, MeasuresActivity::class.java)
-        intent.putExtra(MeasuresActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
-        startActivity(intent)
-    }
-
-    fun toDiagnose(){//诊断
-        val intent = Intent(activity!!, DiagnoseActivity::class.java)
-        intent.putExtra(DiagnoseActivity.PATIENT_ID,"d6bf2a1287a64cc1bad9691c46a31fd5")
-        startActivity(intent)
-    }
-
-
-    override fun onStop() {
-        super.onStop()
-        Log.i("task fragment stoped?","yes")
-    }
 }

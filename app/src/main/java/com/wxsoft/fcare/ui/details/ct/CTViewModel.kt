@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class CTViewModel @Inject constructor(private val api: PACSApi,
@@ -67,7 +67,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
 
     override fun click() {
         intervention.value?.let {
-            if (it.id.isNullOrEmpty()) {
+            if (it.id.isEmpty()) {
                 it.createrId = account.id
                 it.createrName = account.trueName
                 it.patientId = patientId

@@ -2,7 +2,7 @@ package com.wxsoft.fcare.ui
 
 import android.os.Bundle
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.utils.lazyFast
+import com.wxsoft.fcare.core.utils.lazyFast
 
 class ContainerActivity : BaseActivity() {
 

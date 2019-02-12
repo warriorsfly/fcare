@@ -24,8 +24,8 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -147,13 +147,13 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         placeDialog.setContentView(view);
         viewModel.thromPlaces.observe(this, Observer { it -> adapter.items = it ?: emptyList() })
         view.findViewById<RecyclerView>(R.id.place_list).adapter = adapter
-        var  attributes = placeDialog.getWindow().getAttributes();
+        var  attributes = placeDialog.window.attributes
         attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
         attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
         attributes.gravity = Gravity.BOTTOM;
         attributes.windowAnimations = R.style.picture_alert_dialog;
-        placeDialog.getWindow().setAttributes(attributes);
-        placeDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        placeDialog.window.attributes = attributes;
+        placeDialog.window.setBackgroundDrawableResource(android.R.color.transparent);
         placeDialog.show();
     }
 

@@ -107,6 +107,6 @@ data class CheckBody (val id:String): BaseObservable(){
                 "2" -> "\n右瞳孔对光反应：迟钝"
                 "3" -> "\n右瞳孔对光反应：消失"
                 else -> ""
-            }).append(if(checkMemo.isNullOrEmpty())"" else "\n备注：$checkMemo").toString()
+            }).append(if(checkMemo.isEmpty())"" else "\n备注：$checkMemo").toString()
     }
 }

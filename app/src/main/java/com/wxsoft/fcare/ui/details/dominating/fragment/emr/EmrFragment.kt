@@ -60,9 +60,8 @@ import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
-import com.wxsoft.fcare.utils.activityViewModelProvider
-import com.wxsoft.fcare.utils.lazyFast
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
@@ -153,8 +152,6 @@ class EmrFragment : DaggerFragment() {
         viewModel = viewModelProvider(factory)
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@EmrFragment
-//            list.setRecycledViewPool(emrViewPool)
-            viewModel=this@EmrFragment.viewModel
         }
         adapter= EmrAdapter(this,emrItemViewPool)
         adapter.setActionListener(EventAction(WeakReference(this),patientId))
@@ -274,7 +271,7 @@ class EmrFragment : DaggerFragment() {
                 }
 
                 ActionRes.ActionType.GRACE->{
-                    if(id.isNullOrEmpty()){
+                    if(id.isEmpty()){
                         var intent = Intent(context.get()?.activity, RatingActivity::class.java)
                             .apply {
                                 putExtra(ProfileActivity.PATIENT_ID, patientId)
@@ -322,7 +319,7 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }
                 ActionRes.ActionType.知情同意书 ->{
-                    if (id.isNullOrEmpty()){
+                    if (id.isEmpty()){
                         var intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
                             putExtra(InformedConsentActivity.PATIENT_ID, patientId)
                         }

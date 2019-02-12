@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.utils
+package com.wxsoft.fcare.core.utils
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE

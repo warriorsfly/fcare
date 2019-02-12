@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.ui.rating
 
 import android.arch.lifecycle.Observer
-import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -13,8 +12,8 @@ import com.wxsoft.fcare.databinding.ActivityRatingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.EventAction
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
-import com.wxsoft.fcare.utils.lazyFast
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.lang.ref.WeakReference
