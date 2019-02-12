@@ -239,8 +239,8 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
             checkPhotoTaking()
         }
 
-        override fun enlargeRemote(root: View, url: String) {
-            zoomImageFromThumb(root,enlarged,url)
+        override fun enlargeRemote(imageView: View, url: String) {
+            zoomImageFromThumb(imageView,enlarged,url)
         }
 
 

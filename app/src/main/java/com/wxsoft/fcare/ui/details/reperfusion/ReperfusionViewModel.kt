@@ -73,7 +73,7 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
             .subscribe {
                when(it){
                    is Resource.Success ->{
-                       messageAction.value= Event(it.data.msg?:"")
+                       messageAction.value= Event(it.data.msg)
                        initbackToLast.value = true
                    }
                    is Resource.Error->{

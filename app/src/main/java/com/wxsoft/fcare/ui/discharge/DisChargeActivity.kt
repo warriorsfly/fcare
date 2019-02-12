@@ -30,7 +30,7 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
         (v as? Button)?.let {
             selectedId = it.id
             val currentTime = it.text.toString().let { text ->
-                return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+                if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
             }
 
             dialog = createDialog(currentTime)

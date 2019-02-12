@@ -79,7 +79,7 @@ class TaskFragment : DaggerFragment() {
         var mMonth = ca.get(Calendar.MONTH)
         var mDay = ca.get(Calendar.DAY_OF_MONTH)
         val dialog =
-            DatePickerDialog(this.context, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+            DatePickerDialog(this.context!!, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
                 mYear = year
                 mMonth = monthOfYear
                 mDay = dayOfMonth

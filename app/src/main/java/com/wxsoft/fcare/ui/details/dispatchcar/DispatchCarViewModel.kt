@@ -124,7 +124,7 @@ class DispatchCarViewModel @Inject constructor(
     }
 
 
-    override fun onOpen(id: String) {
+    override fun onOpen(t: String) {
 
     }
     fun selectCar(car:Car){

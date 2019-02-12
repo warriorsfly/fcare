@@ -82,11 +82,11 @@ class RatingActivity : BaseActivity() {
 
     class EventActions constructor(private val context: WeakReference<FragmentActivity>, private val patientId:String):
         EventAction<Rating> {
-        override fun onOpen(rating: Rating) {
+        override fun onOpen(t: Rating) {
             var intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
                 putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
-                putExtra(RatingSubjectActivity.RATING_ID, rating.id)
-                putExtra(RatingSubjectActivity.RATING_NAME, rating.name)
+                putExtra(RatingSubjectActivity.RATING_ID, t.id)
+                putExtra(RatingSubjectActivity.RATING_NAME, t.name)
             }
             context.get()?.startActivityForResult(intent,EmrFragment.ARG_NEW_ITEM_CODE)
         }

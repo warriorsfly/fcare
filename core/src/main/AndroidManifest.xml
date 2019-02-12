@@ -1,4 +1,4 @@
-<manifest
-        package="com.wxsoft.fcare.core">
-    <uses-permission name="android.permission.ACCESS_NETWORK_STATE"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="com.wxsoft.fcare.core" >
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>

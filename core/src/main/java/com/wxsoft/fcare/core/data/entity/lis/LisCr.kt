@@ -211,19 +211,16 @@ data class LisCr (val id:String) : BaseObservable() {
             when(crUnit){
                 "1"-> selectCrUnit = 0
                 "0"-> selectCrUnit = 1
-                null-> selectCrUnit = 1
             }
         }
         if (!ctntStatus.isEmpty()){
             when(ctntStatus){
-                null->selectCtntStatus = 0
                 "阴性"->selectCtntStatus = 1
                 "阳性"->selectCtntStatus = 2
             }
         }
         if (!ctniStatus.isEmpty()){
             when(ctniStatus){
-                null->selectCtniStatus = 0
                 "阴性"->selectCtniStatus = 1
                 "阳性"->selectCtniStatus = 2
             }
@@ -231,9 +228,9 @@ data class LisCr (val id:String) : BaseObservable() {
         if (!ctniUnit.isEmpty()) selectCtniUnit = ctniUnit.toInt()-1
         if (!ctntUnit.isEmpty()) selectCtntUnit = ctntUnit.toInt()-1
 
-        if (ctniValue!=null) ctniValueStr = ctniValue.toString()
-        if (ctntValue!=null) ctntValueStr = ctntValue.toString()
-        if (crValue != null) crValueStr = crValue.toString()
+        ctniValueStr = ctniValue.toString()
+        ctntValueStr = ctntValue.toString()
+        crValueStr = crValue.toString()
     }
 
 }

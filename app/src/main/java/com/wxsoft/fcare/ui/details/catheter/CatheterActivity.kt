@@ -31,15 +31,15 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         when(v?.id) {
             R.id.thromboly_place -> {
 
-                val list=viewModel.docs.map { it.trueName }?.toTypedArray()
+                val list= viewModel.docs.map { it.trueName }.toTypedArray()
 
                 val selectedItems= viewModel.docs.map { user ->
 
                     viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
                 }.toBooleanArray()
 
-                val dialog = AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems
-                ) { _, which, isChecked ->
+                AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems)
+                { _, which, isChecked ->
                     if(selectedIndex.contains(which) && !isChecked){
                         selectedIndex.remove(which)
 
@@ -48,11 +48,11 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                     }
 
                     viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.id
+                        viewModel.docs[it].id
                     }
 
                     viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.trueName
+                        viewModel.docs[it].trueName
                     }
                 }.show()
 
@@ -62,8 +62,8 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
 
                 (v as? Button)?.let {
                     selectedId = it.id
-                    val currentTime = it.text.toString()?.let { text ->
-                        return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+                    val currentTime = it.text.toString().let { text ->
+                        if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
                     }
 
                     dialog = createDialog(currentTime)

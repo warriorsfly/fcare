@@ -90,7 +90,6 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
 
             val day = diff / (24 * 60 * 60 * 1000)
             val hour = (diff / (60 * 60 * 1000) - day * 24)
-            val min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60)
             // System.out.println(day + "天" + hour + "小时" + min + "分" + s +
             // "秒")
             val hour1 = diff / (60 * 60 * 1000)

@@ -50,8 +50,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {
             selectedId=it.id
-            val currentTime=it.text.toString()?.let {text->
-                return@let if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            val currentTime= it.text.toString().let { txt->
+                if(txt.isEmpty()) 0L else DateTimeUtils.formatter.parse(txt).time
             }
 
             dialog = createDialog(currentTime)
@@ -147,13 +147,13 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         placeDialog.setContentView(view);
         viewModel.thromPlaces.observe(this, Observer { it -> adapter.items = it ?: emptyList() })
         view.findViewById<RecyclerView>(R.id.place_list).adapter = adapter
-        var  attributes = placeDialog.window.attributes
-        attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
-        attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        attributes.gravity = Gravity.BOTTOM;
-        attributes.windowAnimations = R.style.picture_alert_dialog;
-        placeDialog.window.attributes = attributes;
-        placeDialog.window.setBackgroundDrawableResource(android.R.color.transparent);
+        var  attributes = placeDialog.window?.attributes
+        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT;
+        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        attributes?.gravity = Gravity.BOTTOM;
+        attributes?.windowAnimations = R.style.picture_alert_dialog;
+        placeDialog.window?.attributes = attributes;
+        placeDialog.window?.setBackgroundDrawableResource(android.R.color.transparent);
         placeDialog.show();
     }
 

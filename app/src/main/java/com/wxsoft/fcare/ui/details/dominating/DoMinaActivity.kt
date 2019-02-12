@@ -105,7 +105,7 @@ class DoMinaActivity : BaseActivity() {
         if(resultCode==RESULT_OK) {
             when (requestCode) {
                 NEW_PATIENT_REQUEST -> {
-                    val pId = data?.getStringExtra(NEW_PATIENT_ID)
+//                    data?.getStringExtra(NEW_PATIENT_ID)
                     viewModel.loadTask()
                 }
             }

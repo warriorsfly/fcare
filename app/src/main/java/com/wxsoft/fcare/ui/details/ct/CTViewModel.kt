@@ -56,7 +56,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
             .subscribe {
                 when(it){
                     is Resource.Success->{
-                        loadInterventionResult.value=it?.data
+                        loadInterventionResult.value= it.data
                     }
                 }
             })
