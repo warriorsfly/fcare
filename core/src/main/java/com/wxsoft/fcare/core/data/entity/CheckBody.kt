@@ -74,39 +74,39 @@ data class CheckBody (val id:String): BaseObservable(){
             "3"->"不配合"
             else->""
         }).append(when(skin){
-            "1"->"\t\t皮肤：正常"
-            "2"->"\t\t皮肤：苍白"
-            "3"->"\t\t皮肤：发红"
-            "4"->"\t\t皮肤：黄染"
-            "5"->"\t\t皮肤：青紫"
+            "1"->"\n皮肤：正常"
+            "2"->"\n皮肤：苍白"
+            "3"->"\n皮肤：发红"
+            "4"->"\n皮肤：黄染"
+            "5"->"\n皮肤：青紫"
             "6"->"湿冷"
             else->""
         }).append(
             when(leftPupils) {
-                "1" -> "\t\t左瞳孔：正常"
-                "2" -> "\t\t左瞳孔：扩大"
-                "3" -> "\t\t左瞳孔：缩小"
-                "4" -> "\t\t左瞳孔：不等"
+                "1" -> "\n左瞳孔：正常"
+                "2" -> "\n左瞳孔：扩大"
+                "3" -> "\n左瞳孔：缩小"
+                "4" -> "\n左瞳孔：不等"
                 else -> ""
             }).append(
             when(leftResponseLight) {
-                "1" -> "\t\t左瞳孔对光反应：正常"
-                "2" -> "\t\t左瞳孔对光反应：迟钝"
-                "3" -> "\t\t左瞳孔对光反应：消失"
+                "1" -> "\n左瞳孔对光反应：正常"
+                "2" -> "\n左瞳孔对光反应：迟钝"
+                "3" -> "\n左瞳孔对光反应：消失"
                 else -> ""
             }).append(
             when(rightPupils) {
-                "1" -> "\t\t右瞳孔：正常"
-                "2" -> "\t\t右瞳孔：扩大"
-                "3" -> "\t\t右瞳孔：缩小"
-                "4" -> "\t\t右瞳孔：不等"
+                "1" -> "\n右瞳孔：正常"
+                "2" -> "\n右瞳孔：扩大"
+                "3" -> "\n右瞳孔：缩小"
+                "4" -> "\n右瞳孔：不等"
                 else -> ""
             }).append(
             when(rightResponseLight) {
-                "1" -> "\t\t右瞳孔对光反应：正常"
-                "2" -> "\t\t右瞳孔对光反应：迟钝"
-                "3" -> "\t\t右瞳孔对光反应：消失"
+                "1" -> "\n右瞳孔对光反应：正常"
+                "2" -> "\n右瞳孔对光反应：迟钝"
+                "3" -> "\n右瞳孔对光反应：消失"
                 else -> ""
-            }).append(if(checkMemo.isNullOrEmpty())"" else "\t\t备注：$checkMemo").toString()
+            }).append(if(checkMemo.isNullOrEmpty())"" else "\n备注：$checkMemo").toString()
     }
 }

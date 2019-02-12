@@ -35,7 +35,7 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityAssistantExaminationBinding>(this, R.layout.activity_assistant_examination)
             .apply {
-                setLifecycleOwner(this@AssistantExaminationActivity)
+                lifecycleOwner = this@AssistantExaminationActivity
             }
         back.setOnClickListener { onBackPressed() }
         patientId=intent.getStringExtra(VitalSignsActivity.PATIENT_ID)?:""

@@ -7,7 +7,11 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.EmrApi
+import com.wxsoft.fcare.core.data.remote.InterventionApi
+import com.wxsoft.fcare.core.data.remote.PACSApi
+import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.map
@@ -21,6 +25,8 @@ import java.io.File
 import javax.inject.Inject
 
 class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
+                                       private val pacsApi: PACSApi,
+                                       private val interventionApi: InterventionApi,
                                        override val sharedPreferenceStorage: SharedPreferenceStorage,
                                        override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
@@ -48,14 +54,12 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     private fun loadEms(id:String) {
 
 
-       val dis= (if (preHos) emrApi.getPreEmrs(id) else emrApi.getInEmrs(id)).zipWith(emrApi.getBaseInfo(patientId))
+       val dis= emrApi.getEmrs(patientId,account.id,preHos).zipWith(emrApi.getBaseInfo(patientId))
             .subscribeOn(Schedulers.computation())
             .doOnSuccess { zip ->
                 val list = zip.first.result
-                list?.first { it.code == ActionRes.ActionType.患者信息录入 }?.apply {
+                list?.firstOrNull { it.code == ActionRes.ActionType.患者信息录入 }?.apply {
                     result = zip.second.result
-                    done = true
-                    completedAt = zip.second.result?.createdDate
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
@@ -63,36 +67,10 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                 loadEmrResult.value = it?.first
 
-                //生命体征
-                disposable.add(emrApi.getVitals(patientId)
-                    .subscribeOn(Schedulers.single())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({ vital ->
-                        if (vital.isNullOrEmpty()) return@subscribe
-
-                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.生命体征 }
-                            ?.let {
-                                if (!vital.isNullOrEmpty()) {
-                                    it.result = vital
-                                    it.done = true
-                                    it.completedAt = vital[0].createdDate
-                                }
-                            }
-                        val index =
-                            loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
-                        index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
-                        }
-
-                    }, {
-                        messageAction.value = Event(it.message ?: "")
-                    }))
-
-
-                disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.single())
+                disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         //                        check?.result?: return@subscribe
-                        loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                             ?.result = check?.result ?: ElectroCardiogram()
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -104,28 +82,27 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     })
                 )
 
-
-
                 refreshMedicalHistory()
-
                 refreshVitals()
-
                 refreshRating()
-
                 refreshMeasure()
-
                 refreshDiagnose()
-
                 refreshChekBody()
-
-                refreshThrombolysis()
+                refreshThrombosis()
+                refreshInformedConsent()
+                refreshDrugRecords()
+                refreshOtDiagnosis()
+                refreshCT()
+                refreshInv()
+                refreshCABG()
+                refreshOt()
             }
 
         disposable.add(dis)
     }
 
     fun diagnose(string:String) {
-        val item = (loadEmrResult.value?.result?.first {
+        val item = ( loadEmrResult.value?.result?.firstOrNull {
             it.code == ActionRes.ActionType.心电图
         }?.result as? ElectroCardiogram)?.apply {
             diagnoseResult = string
@@ -133,10 +110,10 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             doctorName = account.userName
         }
         item?.let {
-            disposable.add(emrApi.diagnose(it).subscribeOn(Schedulers.single())
+            disposable.add(emrApi.diagnose(it).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({
 
-                    loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                     loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                         ?.result = it?.result ?: ElectroCardiogram()
                     val index =
                         loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
@@ -163,7 +140,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 RequestBody.create(MediaType.parse("multipart/form-data"), file)
             )
         }
-        val item= (loadEmrResult.value?.result?.first {
+        val item= ( loadEmrResult.value?.result?.firstOrNull {
             it.code==ActionRes.ActionType.心电图
         }?.result as? ElectroCardiogram )?.apply {
             savable=false
@@ -175,16 +152,16 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
         item?.let {
             disposable.add(emrApi.saveEcg(it, files)
-                .subscribeOn(Schedulers.single())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
 
                     emrApi.getEcgs(patientId)
-                        .subscribeOn(Schedulers.single())
+                        .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe({ check ->
                             check ?: return@subscribe
-                            loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.心电图 }
+                             loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                                 ?.let { emr ->
                                     emr.result = check?.result
                                     emr.done = true
@@ -209,37 +186,38 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         }
     }
 
-    fun refreshDiagnose(){
-        disposable.add(emrApi.getDiagnosis(patientId,1).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({
-                    diagnose->
-                diagnose?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.院前诊断}?.let {
-                    item->
-                    item.result=diagnose?.result
-                    if(!item.done){
-                        item.done=true
-                        item.completedAt=diagnose?.result?.createdDate
-                    }
-                }
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.院前诊断 }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.院前诊断))
-                }
-            }, {
-                messageAction.value = Event(it.message ?: "")
-            })
-        )
+    fun refreshDiagnose() {
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.诊断 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getDiagnosisList(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.诊断))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshChekBody(){
         //PhysicalExamination
         disposable.add(emrApi.getBodyCheck(patientId)
-            .subscribeOn(Schedulers.single())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                 check?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
                         item->
                     item.result=check?.result
                     if(!item.done){
@@ -259,11 +237,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     }
 
     fun refreshMedicalHistory(){
-        disposable.add(emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.loadMedicalHistory(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe({
                     history->
                 history?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr->emr.code==ActionRes.ActionType.IllnessHistory}?.let {
                     item->
                     item.result=history.result
                     if(!item.done){
@@ -282,57 +260,167 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         )
     }
 
-    fun refreshVitals(){
-        disposable.add(emrApi.getVitals(patientId).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe({
-                    vitals->
-                if (vitals.isNullOrEmpty()) return@subscribe
-                loadEmrResult.value?.result?.first { emr->emr.code==ActionRes.ActionType.生命体征}?.let {
-                    item->
-                    item.result=vitals.get(0)
-                    if(!item.done){
-                        item.done=true
-                        item.completedAt=vitals?.get(0)?.createdDate
-                    }
-                }
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.生命体征 }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
-                }
-            }, {
-                messageAction.value = Event(it.message ?: "")
-            })
-        )
+    fun refreshOtDiagnosis(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.出院诊断 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getOtDiagnosis(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result==null) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.出院诊断))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshCT(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.CT_OPERATION }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getPAC(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result==null) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.CT_OPERATION))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshInv() {
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.Catheter }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getIntervention(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result == null) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.Catheter))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshVitals() {
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.生命体征 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getVitals(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+                            }
+                        },
+                            {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshRating(){
-        disposable.add(emrApi.getRecords(patientId).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ rating ->
-                rating?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.GRACE }?.result =
-                        rating?.result
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.GRACE }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.GRACE))
-                }
-            },{
-                messageAction.value= Event(it.message?:"")
-            })
-        )
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.GRACE }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getRecords(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.GRACE))
+                            }
+                        },
+                            {
+                                messageAction.value = Event(it.message ?: "")
+                            })
+                )
+            }
+
+    }
+
+    fun refreshDrugRecords(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.给药 }
+            ?.let { drug ->
+                disposable.add(
+                    emrApi.getDrugRecord(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
+                            if (records.result.isNullOrEmpty()) return@subscribe
+                            drug.result = records.result
+                            if (!drug.done) {
+                                drug.done = true
+                                drug.completedAt = records.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.给药 }
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.给药))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
     fun refreshMeasure(){
-        disposable.add(emrApi.loadMeasure(patientId).subscribeOn(Schedulers.single())
+        disposable.add(emrApi.loadMeasure(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread()).subscribe ({ measure ->
                 measure?.result ?: return@subscribe
-                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
+                 loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
                     item->
                     item.result=measure.result
                     if(!item.done){
                         item.done=true
-                        item.completedAt=measure?.result?.createdDate
+                        item.completedAt=measure?.result?.createDate
                     }
                 }
                 val index =
@@ -346,27 +434,166 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         )
     }
 
-    fun refreshThrombolysis(){
-        disposable.add(emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.single())
-            .observeOn(AndroidSchedulers.mainThread()).subscribe ({ thrombolysis ->
-                thrombolysis?.result ?: return@subscribe
-//                loadEmrResult.value?.result?.first { emr -> emr.code == ActionRes.ActionType.溶栓处置 }?.let {
-//                        item->
-//                    item.result=thrombolysis.result
-//                    if(!item.done){
-//                        item.done=true
-//                        item.completedAt=thrombolysis?.result?.last()?.createdDate
-//                    }
-//                }
-                val index =
-                    loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.溶栓处置))
+    fun refreshInformedConsent(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.知情同意书 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getTalks(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ talks ->
+                            if (talks.result.isNullOrEmpty()) return@subscribe
+                            emr.result = talks.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = talks.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.知情同意书))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshThrombosis(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.loadThrombolysis(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ vitals ->
+                            if (vitals.result.isNullOrEmpty()) return@subscribe
+                            vitals.result!!.map {
+                                it.setUpChecked()
+                            }
+                            emr.result = vitals.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.溶栓处置))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+
+    fun refreshCABG(){
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.CABG }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getCABG(patientId).subscribeOn(Schedulers.single())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ cabg ->
+                            cabg?.result ?: return@subscribe
+                            emr.result = cabg.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = cabg.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.CABG }
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.CABG))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+
+    fun commitNoticePacs(){ //通知启动CT室
+        disposable.add(
+            pacsApi.notice(patientId,account.id).toResource()
+                .subscribe {
+
+                    when(it){
+                        is Resource.Success->{
+                            messageAction.value= Event("通知成功")
+                        }
+                        is Resource.Error->{
+                            messageAction.value=Event(it.throwable.message?:"")
+                        }
+                    }
                 }
-            },{
-                messageAction.value= Event(it.message?:"")
-            })
         )
+    }
+
+    fun commitNoticeInv(){//通知启动导管室
+        disposable.add(
+            interventionApi.notice(patientId,account.id).toResource()
+                .subscribe {
+
+                    when(it){
+                        is Resource.Success->{
+                            messageAction.value= Event("通知成功")
+                        }
+                        is Resource.Error->{
+                            messageAction.value=Event(it.throwable.message?:"")
+                        }
+                    }
+                }
+        )
+    }
+
+    fun refreshOt(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.患者转归 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getOt(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
+                            records.result ?: return@subscribe
+                            emr.result = records.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = records.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.患者转归))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshBaseInfo(){
+
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.患者信息录入 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getBaseInfo(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
+                            records.result ?: return@subscribe
+                            emr.result = records.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = records.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { index ->
+                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.患者信息录入))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
     }
 
 

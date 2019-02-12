@@ -23,7 +23,7 @@ class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): Lis
         holder.binding.apply {
             item=getItem(position)
             root.setOnClickListener { action?.onOpen(getItem(position)) }
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@RatingAdapter.lifecycleOwner
         }
     }
 

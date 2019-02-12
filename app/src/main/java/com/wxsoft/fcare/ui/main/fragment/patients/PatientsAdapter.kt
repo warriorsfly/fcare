@@ -1,4 +1,4 @@
-package com.wxsoft.emergency.ui.main.fragment.patients
+package com.wxsoft.fcare.ui.main.fragment.patients
 
 
 import android.arch.lifecycle.LifecycleOwner

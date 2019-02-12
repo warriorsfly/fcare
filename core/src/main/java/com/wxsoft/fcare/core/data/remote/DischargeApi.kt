@@ -17,6 +17,9 @@ interface DischargeApi {
     @POST("Outcome/Save")
     fun saveOt(@Body outCome : OutCome): Maybe<Response<String>>
 
+    /**
+     * 出院诊断
+     */
     @GET("OutHospitalDiagnosis/GetById/{patientId}")
     fun getOtDiagnosis(@Path("patientId")patientId:String): Maybe<Response<DisChargeDiagnosis>>
 

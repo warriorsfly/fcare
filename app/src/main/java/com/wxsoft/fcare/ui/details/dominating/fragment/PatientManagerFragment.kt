@@ -29,38 +29,33 @@ class PatientManagerFragment : DaggerFragment() {
 
     lateinit var viewModel:DoMinaViewModel
     lateinit var adapter: EmrAdapter
-    lateinit var binding: FragmentPatientManagerBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel=activityViewModelProvider(factory)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel=activityViewModelProvider(factory)
-        binding=FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
-            setLifecycleOwner(this@PatientManagerFragment)
+
+        return FragmentPatientManagerBinding.inflate(inflater,container,false).apply {
+            lifecycleOwner = this@PatientManagerFragment
             viewModel=this@PatientManagerFragment.viewModel
-        }
-
-
-        return binding.root
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        tab.setupWithViewPager(patPager)
-
-
-
-        binding.viewModel=viewModel
-        if(!binding.image.hasOnClickListeners()) {
-            binding.image.setOnClickListener {
+            image.setOnClickListener {
                 var intent = Intent(activity, ProfileActivity::class.java).apply {
-                    putExtra(ProfileActivity.TASK_ID, viewModel.taskId)
+                    putExtra(ProfileActivity.TASK_ID, viewModel?.taskId)
                 }
                 activity?.startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
 
             }
-        }
+        }.root
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        tab.setupWithViewPager(patPager)
         viewModel.task.observe(this, Observer {
             it ?: return@Observer
 

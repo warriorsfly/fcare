@@ -37,12 +37,8 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
         load()
         isLoading = loadTasksResult.map { it == Resource.Loading }
         tasks = loadTasksResult.map {
-            var ps = (it as? Resource.Success)?.data!!.result ?: emptyList()
-//            if(ps.isNotEmpty()){
-//                for(p in ps){
-//                }
-//            }
-            return@map ps
+
+            (it as? Resource.Success)?.data!!.result ?: emptyList()
         }
     }
 

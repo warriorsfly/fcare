@@ -20,7 +20,7 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
                                                    override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "知情同意书"
     override val clickableTitle: String
         get() = "新增"

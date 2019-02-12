@@ -25,7 +25,7 @@ class PatientEmrViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-    override val title: String
+    override var title: String=""
         get() = "基本信息"
     override val clickableTitle: String
         get() = "保存"

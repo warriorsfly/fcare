@@ -22,7 +22,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "用药"
     override val clickableTitle: String
         get() = ""
@@ -53,6 +53,9 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     val pharmacy:LiveData<Pharmacy>
     private val initPharmacy = MediatorLiveData<Resource<Response<Pharmacy>>>()
 
+    val drugRecords:LiveData<List<DrugRecord>>
+    private val initDrugRecords = MediatorLiveData<Resource<Response<List<DrugRecord>>>>()
+
     val drugs:LiveData<List<Drug>>
     private val loadDrugsResult = MediatorLiveData<Resource<Response<List<Drug>>>>()
 
@@ -65,9 +68,9 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     init {
 
         backToLast = initbackToLast.map { it }
-
-        clickable = clickResult.map { it }
         pharmacy = initPharmacy.map { (it as? Resource.Success)?.data?.result ?: Pharmacy("") }
+        clickable = clickResult.map { it }
+        drugRecords = initDrugRecords.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         drugs = loadDrugsResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         drugPackages = loaddrugPackagesResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         selectedDrugs = loadSelectedDrugsResult.map { it }
@@ -97,9 +100,9 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     }
 
     fun savePharmacy(){
-        pharmacyApi.save(pharmacy.value!!).toResource()
+        pharmacyApi.save(pharmacy.value?.drugRecordDetails!!).toResource()
             .subscribe {
-                initPharmacy.value = it
+                initDrugRecords.value = it
                 initbackToLast.value = true
             }
     }
@@ -107,8 +110,12 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     fun getDrugRecord(){
         pharmacyApi.getDrugRecord(patientId).toResource()
             .subscribe {
-                initPharmacy.value = it
+                initDrugRecords.value = it
                 checkedPharmacy()
+                initPharmacy.value = null
+                pharmacy.value?.let {
+                    it.drugRecordDetails = drugRecords.value!!
+                }
             }
     }
 
@@ -124,8 +131,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
 
     fun removeDrug(drug:Drug){
         if (drug.bagdrug){
-            drugPackages.value?.filter { it.id.equals(drug.id)}
-                ?.map { it.checked = false }
+            drugPackages.value?.filter { it.checked }?.map { it.checked = false }
         }else{
             drug.checked = !drug.checked
         }
@@ -134,13 +140,18 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
 
     fun refresh(){
         var dsg = ArrayList<Drug>()
-        val af=drugPackages.value?.filter { it.checked }
-            ?.map { Drug(it.id).apply {
-                name=it.name
-                doseUnit = ""
-                bagdrug = true
-            }}?: emptyList()
-        dsg.addAll(af)
+        drugPackages.value?.filter { it.checked }
+            ?.map {
+                dsg.addAll(
+                    it.drugPackageDetails.map {
+                        Drug("").apply {
+                            name=it.drugName
+                            dose = it.dose
+                            doseUnit = it.doseUnit
+                            bagdrug = true
+                        }
+                    }
+                ) }
         val bf=drugs.value?.filter { it.checked }
             ?.map { it }?: emptyList()
         dsg.addAll(bf)
@@ -163,13 +174,20 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     }
 
     fun submit(){
-        pharmacy.value?.patientId = patientId
         var asg = ArrayList<DrugRecord>()
-        val af=drugPackages.value?.filter { it.checked }
-            ?.map { DrugRecord("").apply {
-                drugPackageId = it.id
-            } }?: emptyList()
-        asg.addAll(af)
+        drugPackages.value?.filter { it.checked }
+            ?.map {
+                asg.addAll(
+                    it.drugPackageDetails.map {
+                        DrugRecord("").apply {
+                            patientId = this@PharmacyViewModel.patientId
+                            drugId = it.drugId
+                            drugName = it.drugName
+                            dose = it.dose
+                        }
+                    }
+                )
+            }
 
         val bf=drugs.value?.filter { it.checked }
             ?.map {DrugRecord("").apply {
@@ -179,7 +197,11 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             } }?: emptyList()
         asg.addAll(bf)
         pharmacy.value?.drugRecordDetails = asg
-        if (comeFrom.isNullOrEmpty()||comeFrom.equals("THROMBOLYSIS")){
+        pharmacy.value?.drugRecordDetails?.map {
+            it.patientId = patientId
+        }
+
+        if (comeFrom.equals("THROMBOLYSIS")){
             initbackToLast.value = true
             return
         }

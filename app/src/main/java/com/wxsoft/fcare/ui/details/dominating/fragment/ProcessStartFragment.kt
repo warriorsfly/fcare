@@ -32,14 +32,19 @@ class ProcessStartFragment : DaggerFragment() {
 
     lateinit var binding: FragmentProcessStartBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel=activityViewModelProvider(factory)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel = activityViewModelProvider(factory)
         binding=FragmentProcessStartBinding.inflate(inflater,container, false).apply {
-            setLifecycleOwner(this@ProcessStartFragment)
+            lifecycleOwner = this@ProcessStartFragment
             viewModel=this@ProcessStartFragment.viewModel
         }
 

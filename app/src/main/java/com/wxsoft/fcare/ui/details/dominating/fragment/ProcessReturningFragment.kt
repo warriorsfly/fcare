@@ -31,13 +31,19 @@ class ProcessReturningFragment : DaggerFragment() {
 
     lateinit var binding: FragmentProcessReturningBinding
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel=activityViewModelProvider(factory)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = activityViewModelProvider(factory)
+
         binding=FragmentProcessReturningBinding.inflate(inflater,container, false).apply {
-            setLifecycleOwner(this@ProcessReturningFragment)
+            lifecycleOwner = this@ProcessReturningFragment
             viewModel=this@ProcessReturningFragment.viewModel
         }
 

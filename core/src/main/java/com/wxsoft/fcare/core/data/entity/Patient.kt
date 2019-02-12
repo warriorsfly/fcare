@@ -7,6 +7,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.utils.DateTimeUtils
 
 @Entity(tableName = "patients")
 data class Patient(@PrimaryKey val id:String):BaseObservable(){
@@ -59,6 +60,10 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.idcard)
+            if(field.length==18) {
+                age=DateTimeUtils.getAgeByCertId(field)
+            }
+
         }
 
 //    /**
@@ -152,7 +157,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
 
     @SerializedName("attack_Time")
     @get:Bindable
-    var attackTime: String=""
+    var attackTime: String?=null
         set(value) {
             field = value
             notifyPropertyChanged(BR.attackTime)
@@ -229,7 +234,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
         }
 
     @get:Bindable
-    var createdDate: String="0001-01-01 00:00:00"
+    var createdDate: String?=null
         set(value) {
             field = value
             notifyPropertyChanged(BR.createdDate)
@@ -246,7 +251,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
             notifyPropertyChanged(BR.modifiedBy)
         }
     @get:Bindable
-    var modifiedDate: String=""
+    var modifiedDate: String?=null
         set(value) {
             field = value
             notifyPropertyChanged(BR.modifiedDate)

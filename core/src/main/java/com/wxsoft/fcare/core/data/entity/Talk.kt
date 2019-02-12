@@ -73,6 +73,13 @@ data class Talk (val id:String) : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.informedTime)
         }
+    @Bindable
+    var createdDate:String? = null
+    set(value) {
+        field = value
+        notifyPropertyChanged(BR.createdDate)
+    }
+
 
     fun judgeTime(){
 

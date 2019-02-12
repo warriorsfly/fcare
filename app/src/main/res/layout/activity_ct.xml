@@ -54,7 +54,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginBottom="15dp"
-                            android:text="通知CT室时间："
+                            android:text="通知CT室时间"
                             android:textSize="15sp"
                             android:textColor="#131D35"
                             android:layout_width="wrap_content"

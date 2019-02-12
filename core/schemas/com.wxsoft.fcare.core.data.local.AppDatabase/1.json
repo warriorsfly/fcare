@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "eab3026192a41e0c5f6ecf3aed24c148",
+    "identityHash": "f615cb7a4229fa65dce30a6b720755c3",
     "entities": [
       {
         "tableName": "patients",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` TEXT, `name` TEXT NOT NULL, `unKnown` INTEGER NOT NULL, `hospitalId` TEXT NOT NULL, `citizen` TEXT NOT NULL, `wristband` TEXT NOT NULL, `idcard` TEXT NOT NULL, `firstMet` TEXT, `gender` INTEGER NOT NULL, `age` INTEGER NOT NULL, `ageUnit` TEXT NOT NULL, `phone` TEXT NOT NULL, `outId` TEXT NOT NULL, `inId` TEXT NOT NULL, `attackPosition` TEXT NOT NULL, `unKnowAttackingTime` INTEGER NOT NULL, `attackZone` TEXT NOT NULL, `attackTime` TEXT NOT NULL, `callForHelp` INTEGER NOT NULL, `helpDate` TEXT NOT NULL, `helpCode` INTEGER NOT NULL, `diagnosisCode` TEXT NOT NULL, `diagnosisName` TEXT NOT NULL, `memo` TEXT NOT NULL, `registerId` TEXT NOT NULL, `status` INTEGER NOT NULL, `createdBy` TEXT NOT NULL, `createdDate` TEXT NOT NULL, `modifiedBy` TEXT NOT NULL, `modifiedDate` TEXT NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` TEXT, `name` TEXT NOT NULL, `unKnown` INTEGER NOT NULL, `hospitalId` TEXT NOT NULL, `citizen` TEXT NOT NULL, `wristband` TEXT NOT NULL, `idcard` TEXT NOT NULL, `firstMet` TEXT, `gender` INTEGER NOT NULL, `age` INTEGER NOT NULL, `ageUnit` TEXT NOT NULL, `phone` TEXT NOT NULL, `outId` TEXT NOT NULL, `inId` TEXT NOT NULL, `attackPosition` TEXT NOT NULL, `unKnowAttackingTime` INTEGER NOT NULL, `attackZone` TEXT NOT NULL, `attackTime` TEXT, `callForHelp` INTEGER NOT NULL, `helpDate` TEXT NOT NULL, `helpCode` INTEGER NOT NULL, `diagnosisCode` TEXT NOT NULL, `diagnosisName` TEXT NOT NULL, `memo` TEXT NOT NULL, `registerId` TEXT NOT NULL, `status` INTEGER NOT NULL, `createdBy` TEXT NOT NULL, `createdDate` TEXT, `modifiedBy` TEXT NOT NULL, `modifiedDate` TEXT, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "taskId",
@@ -114,7 +114,7 @@
             "fieldPath": "attackTime",
             "columnName": "attackTime",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "callForHelp",
@@ -174,7 +174,7 @@
             "fieldPath": "createdDate",
             "columnName": "createdDate",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "modifiedBy",
@@ -186,7 +186,7 @@
             "fieldPath": "modifiedDate",
             "columnName": "modifiedDate",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "id",
@@ -207,7 +207,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"eab3026192a41e0c5f6ecf3aed24c148\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"f615cb7a4229fa65dce30a6b720755c3\")"
     ]
   }
 }

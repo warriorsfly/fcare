@@ -111,7 +111,7 @@ fun setImageUrl(imageView: ImageView, url: String?) {
 object Converter{
     @InverseMethod("stringToInt")
     @JvmStatic fun intToString(value: Int): String {
-        return value.toString()
+        return if(value==0)"" else value.toString()
     }
 
     @JvmStatic fun stringToInt(value:String): Int {

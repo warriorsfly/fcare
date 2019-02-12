@@ -84,7 +84,7 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityAddInformedConsentBinding>(this, R.layout.activity_add_informed_consent)
             .apply {
-                setLifecycleOwner(this@AddInformedConsentActivity)
+                lifecycleOwner = this@AddInformedConsentActivity
             }
         patientId=intent.getStringExtra(AddInformedConsentActivity.PATIENT_ID)?:""
         titleName=intent.getStringExtra(AddInformedConsentActivity.TITLE_NAME)?:""

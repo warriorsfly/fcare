@@ -13,6 +13,7 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityDiagnoseBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
+import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
@@ -20,8 +21,10 @@ import javax.inject.Inject
 class DiagnoseActivity : BaseActivity() {
 
     private lateinit var patientId:String
+    private lateinit var id:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val ID = "ID"
     }
 
     private lateinit var viewModel: DiagnoseViewModel
@@ -36,10 +39,12 @@ class DiagnoseActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityDiagnoseBinding>(this, R.layout.activity_diagnose)
             .apply {
-                setLifecycleOwner(this@DiagnoseActivity)
+                lifecycleOwner = this@DiagnoseActivity
             }
-        patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(PATIENT_ID)?:""
+        id=intent.getStringExtra(ID)?:""
         viewModel.patientId = patientId
+        viewModel.id = id
         binding.viewModel = viewModel
 
         back.setOnClickListener { onBackPressed() }

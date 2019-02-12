@@ -46,7 +46,7 @@ class CheckBodyItemAdapter constructor(private val lifecycleOwner: LifecycleOwne
             differ.currentList[position].section = section
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@CheckBodyItemAdapter. lifecycleOwner
             executePendingBindings()
 
         }

@@ -16,9 +16,11 @@ import javax.inject.Inject
 class VitalSignsActivity : BaseActivity() {
 
     private lateinit var patientId:String
+    private lateinit var id:String
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val ID = "ID"
     }
 
     private lateinit var viewModel: VitalSignsViewModel
@@ -33,14 +35,20 @@ class VitalSignsActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityVitalSignsBinding>(this, R.layout.activity_vital_signs)
             .apply {
-                setLifecycleOwner(this@VitalSignsActivity)
+                lifecycleOwner = this@VitalSignsActivity
             }
         back.setOnClickListener { onBackPressed() }
+
         patientId=intent.getStringExtra(PATIENT_ID)?:""
+        id=intent.getStringExtra(ID)?:""
 
         binding.viewModel = viewModel
-        viewModel.patientId = patientId
 
+        if(id.isNotEmpty()){
+            viewModel.id = id
+        }else {
+            viewModel.patientId = patientId
+        }
         viewModel.loadVitalSign()
 
         viewModel.backToLast.observe(this, Observer {

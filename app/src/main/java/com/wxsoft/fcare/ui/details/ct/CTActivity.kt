@@ -65,7 +65,7 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
         DataBindingUtil.setContentView<ActivityCtBinding>(this, R.layout.activity_ct)
             .apply {
                 viewModel = this@CTActivity. viewModel
-                setLifecycleOwner(this@CTActivity)
+                lifecycleOwner = this@CTActivity
             }
         patientId=intent.getStringExtra(CTActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

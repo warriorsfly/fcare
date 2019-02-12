@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.ui.main
 
 import android.arch.lifecycle.ViewModel
-import com.wxsoft.emergency.ui.main.fragment.patients.PatientsFragment
-import com.wxsoft.emergency.ui.main.fragment.patients.PatientsViewModel
 import com.wxsoft.fcare.core.di.FragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
+import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment
+import com.wxsoft.fcare.ui.main.fragment.patients.PatientsViewModel
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskViewModel
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
@@ -22,10 +22,10 @@ internal abstract class MainModule {
     @ViewModelKey(UserProfileViewModel::class)
     abstract fun bindUserProfileViewModel(viewModel: UserProfileViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(MainViewModel::class)
-    abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(MainViewModel::class)
+//    abstract fun bindMainViewModel(viewModel: MainViewModel): ViewModel
 
     @Binds
     @IntoMap

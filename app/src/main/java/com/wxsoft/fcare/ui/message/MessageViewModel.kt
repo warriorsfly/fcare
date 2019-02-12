@@ -16,7 +16,7 @@ class MessageViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
                                           override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter{
-    override val title: String
+    override var title: String=""
         get() = "准备通知"
     override val clickableTitle: String
         get() = ""

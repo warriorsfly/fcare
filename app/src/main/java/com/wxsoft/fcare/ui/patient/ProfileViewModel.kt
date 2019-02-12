@@ -27,18 +27,19 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
     var preHos=true
-    override val title: String
+    override var title: String=""
         get() = if(preHos)"基本信息" else "病人信息"
     override val clickableTitle: String
         get() = if(preHos)"保存" else ""
 
-    var taskId=""
+    var taskId:String=""
     var patientId=""
         set(value) {
             field=value
             loadPatient()
         }
     val patient:LiveData<Patient>
+    val uploading:LiveData<Boolean>
 
     val bitmaps= mutableListOf<String>()
 
@@ -53,6 +54,7 @@ class ProfileViewModel @Inject constructor(
     init {
 
         clickable=clickResult.map { it }
+        uploading=savePatientResult.map { it==Resource.Loading }
         patient=loadPatientResult.map {
             (it as? Resource.Success)?.data?.result?:Patient("")
         }
@@ -93,13 +95,15 @@ class ProfileViewModel @Inject constructor(
                 patientApi.save(patient.value!!.apply {
                     createdBy = account.id
                     hospitalId = account.hospitalId
-                    taskId=this@ProfileViewModel.taskId
+                    if(this@ProfileViewModel.taskId.isNotEmpty()) {
+                        taskId = this@ProfileViewModel.taskId
+                    }
                 }).toResource().subscribe {
-
+                    savePatientResult.value = it
                     when (it) {
                         is Resource.Success -> {
                             clickResult.value = true
-                            savePatientResult.value = it
+
                             messageAction.value = Event("保存成功")
                         }
                         is Resource.Error -> {
@@ -115,12 +119,16 @@ class ProfileViewModel @Inject constructor(
                     patientApi.save(patient.value!!.apply {
                         createdBy = account.id
                         hospitalId = account.hospitalId
-                        taskId=this@ProfileViewModel.taskId
+                        if(this@ProfileViewModel.taskId.isNotEmpty()) {
+                            taskId = this@ProfileViewModel.taskId
+                        }
                     }, files).toResource().subscribe {
+
+                        savePatientResult.value = it
                         when (it) {
                             is Resource.Success -> {
                                 clickResult.value = true
-                                savePatientResult.value = it
+
                                 messageAction.value = Event("保存成功")
                             }
                             is Resource.Error -> {

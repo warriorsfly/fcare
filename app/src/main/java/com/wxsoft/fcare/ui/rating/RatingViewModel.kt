@@ -19,7 +19,7 @@ class RatingViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-    override val title: String
+    override var title: String=""
         get() = "评分"
     override val clickableTitle: String
         get() = ""

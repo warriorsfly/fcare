@@ -33,7 +33,7 @@ class PatientEmrActivity : BaseActivity() {
         viewModel.preHos=false
         DataBindingUtil.setContentView<ActivityPatientEmrBinding>(this,R.layout.activity_patient_emr).apply {
             viewModel=this@PatientEmrActivity.viewModel
-            setLifecycleOwner(this@PatientEmrActivity)
+            lifecycleOwner = this@PatientEmrActivity
         }
 
         back.setOnClickListener { onBackPressed() }

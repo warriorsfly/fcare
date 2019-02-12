@@ -11,9 +11,11 @@ import retrofit2.http.Path
 
 interface DiagnoseApi {
 
-    @GET("Diagnosis/GetDiagnosisByPatientId/{patientId}/{location}")
-    fun getDiagnosis(@Path("patientId")patientId:String,
-                     @Path("location")location:Int): Maybe<Response<Diagnosis>>
+    @GET("Diagnosis/GetDiagnoseById/{id}")
+    fun getDiagnosis(@Path("id")id:String): Maybe<Response<Diagnosis>>
+
+//    @GET("Diagnosis/GetDiagnosisByPatientId/{patientId}")
+//    fun getDiagnosisList(@Path("patientId")id:String): Maybe<Response<List<Diagnosis>>>
 
     @POST("Diagnosis/SaveDiagnosis")
     fun save(@Body diagnosis : Diagnosis): Maybe<Response<Diagnosis>>

@@ -26,16 +26,16 @@ class CheckBodyAdapter constructor(private val lifecycleOwner: LifecycleOwner, v
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@CheckBodyAdapter.lifecycleOwner
             if (position != 6){
                 if (root.items_rv.adapter == null){
-                    var adapter = CheckBodyItemAdapter(lifecycleOwner,viewModel)
+                    var adapter = CheckBodyItemAdapter(this@CheckBodyAdapter.lifecycleOwner,viewModel)
                     adapter.section = position
-                    root.title_name.setText(titleArray.get(position))
+                    root.title_name.text = titleArray[position]
                     root.items_rv.adapter = adapter
                 }
             }else{
-                root.other_title_name.setText(titleArray.get(position))
+                root.other_title_name.text = titleArray[position]
                 setVariable(BR.listener,viewModel)
             }
             executePendingBindings()

@@ -13,7 +13,6 @@ import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemImageBinding
 import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
-import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
 class InformedDetailsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val max:Int=0) :
@@ -79,7 +78,7 @@ class InformedDetailsAdapter constructor(private val lifecycleOwner: LifecycleOw
 //                presenter.first.num
                 root.setOnClickListener{action?.localSelected()}
                 uri=presenter.second
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner =  this@InformedDetailsAdapter. lifecycleOwner
                 executePendingBindings()
             }
 
@@ -87,7 +86,7 @@ class InformedDetailsAdapter constructor(private val lifecycleOwner: LifecycleOw
                 val presenter =differ.currentList[position] as String
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
                 url=presenter
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@InformedDetailsAdapter.lifecycleOwner
                 executePendingBindings()
             }
         }

@@ -63,7 +63,7 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
         DataBindingUtil.setContentView<ActivityDischargeBinding>(this, R.layout.activity_discharge)
             .apply {
                 viewModel = this@DisChargeActivity. viewModel
-                setLifecycleOwner(this@DisChargeActivity)
+                lifecycleOwner = this@DisChargeActivity
             }
         patientId=intent.getStringExtra(DisChargeActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

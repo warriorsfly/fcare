@@ -8,6 +8,12 @@ interface  EventAction<T>{
     fun onOpen(t:T)
 }
 
+interface EmrEventAction{
+    fun onNew(type:String)
+
+    fun onOpen(type:String,id:String="")
+}
+
 interface PhotoEventAction{
     //点击本地文件
     fun localSelected()

@@ -79,7 +79,8 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val 
 //                presenter.first.num
                 root.setOnClickListener{action?.localSelected()}
                 uri=presenter.second
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@PictureAdapter.lifecycleOwner
+
                 executePendingBindings()
             }
 
@@ -87,12 +88,12 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val 
                 val presenter =differ.currentList[position] as String
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
                 url=presenter
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@PictureAdapter.lifecycleOwner
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
                 image.setOnClickListener{action?.localSelected()}
-                setLifecycleOwner(lifecycleOwner)
+                lifecycleOwner = this@PictureAdapter.lifecycleOwner
                 executePendingBindings()
             }
         }

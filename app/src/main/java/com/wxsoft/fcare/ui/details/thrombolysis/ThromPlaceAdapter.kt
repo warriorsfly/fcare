@@ -36,7 +36,7 @@ class ThromPlaceAdapter constructor(private val lifecycleOwner: LifecycleOwner, 
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@ThromPlaceAdapter.lifecycleOwner
             executePendingBindings()
 
         }

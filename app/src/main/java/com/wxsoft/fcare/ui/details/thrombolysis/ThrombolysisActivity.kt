@@ -62,10 +62,14 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     private var selectedId=0;
 
     private lateinit var patientId:String
+    private lateinit var id:String
     private lateinit var thrombolysisId:String
+    private lateinit var comeFrom:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val ID = "ID"
         const val THROMBOLYSIS_ID = "THROMBOLYSIS_ID"
+        const val COME_FROM = "COME_FROM"
         const val INFORMED_CONSENT = 20
         const val DRUG = 30
     }
@@ -82,11 +86,16 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityThrombolysisBinding>(this, R.layout.activity_thrombolysis)
             .apply {
-                setLifecycleOwner(this@ThrombolysisActivity)
+                lifecycleOwner = this@ThrombolysisActivity
             }
         patientId=intent.getStringExtra(ThrombolysisActivity.PATIENT_ID)?:""
+        id=intent.getStringExtra(ThrombolysisActivity.ID)?:""
         thrombolysisId=intent.getStringExtra(ThrombolysisActivity.THROMBOLYSIS_ID)?:""
+        comeFrom=intent.getStringExtra(ThrombolysisActivity.COME_FROM)?:""
+
+        viewModel.comefrom = comeFrom
         viewModel.patientId = patientId
+        viewModel.id = id
         binding.viewModel = viewModel
 
         placeDialog = Dialog(this)
@@ -94,7 +103,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         back.setOnClickListener { onBackPressed() }
 
 //        viewModel.loadThrombolysis(thrombolysisId)
-        viewModel.loadThrombolysis("4c597994fa4449bdaa5dccfa718ea9e7")
+        viewModel.thrombolysis.observe(this, Observer {  })
+        viewModel.loadThrombolysis(id)
 
         viewModel.informed.observe(this, Observer {  })
 
@@ -121,7 +131,10 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 "ModifyEndThromTime" -> showDatePicker(findViewById(R.id.end_thromboly_time))
                 "ModifyRadiographyTime" -> showDatePicker(findViewById(R.id.end_thromboly_radiography_time))
                 "saveSuccess" -> {
-                    finish()
+                    Intent().let { intent->
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }
                 }
             }
         })

@@ -1,9 +1,8 @@
-package com.wxsoft.emergency.ui.main.fragment.patients
+package com.wxsoft.fcare.ui.main.fragment.patients
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Transformations.map
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
@@ -37,6 +36,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     val patients = patientResult.switchMap {
         it.pagedList
     }
+
     val networkState = patientResult.switchMap {
         it.networkState
     }
@@ -50,6 +50,4 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         showPatients(patientName.value?:"")
         return true
     }
-
-
 }

@@ -31,11 +31,17 @@ class RatingSubjectViewModel @Inject constructor(
             loadRating()
         }
 
-
+    var recordId=""
+        set(value) {
+            field=value
+            if(value.isNullOrEmpty())return
+            loadRecord()
+        }
 
 
     val rating:LiveData<Rating>
     private val loadRatingResult =MediatorLiveData<Rating>()
+    private val loadRecordResult =MediatorLiveData<RatingRecord>()
 
     init {
 
@@ -43,18 +49,62 @@ class RatingSubjectViewModel @Inject constructor(
 //        loadRating()
     }
 
-    private fun loadRating(){
-        ratingApi.getOne(ratingId)
+    private fun loadRecord(){
+
+        disposable.add(ratingApi.getOneRecord(recordId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe ({
-                loadRatingResult.value=it.result
+                loadRecordResult.value=it.result
+
+                ratingId=it.result?.ratingId?:""
             },
                 {
                     messageAction.value= Event(it.message?:"")
                 }
-        )
+            ))
+
     }
+
+    private fun loadRating(){
+            disposable.add(ratingApi.getOne(ratingId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe ({
+                loadRatingResult.value=it.result?.apply {
+
+                    loadRecordResult.value ?: return@apply
+                    subjects.forEach {
+                        subject->
+                        subject.selectedIndex=subject.options.indexOfFirst {
+                            option->
+                            option.id==loadRecordResult.value?.records?.firstOrNull { subjectRecord ->
+                                subjectRecord.subjectId == subject.id
+                            }?.selection
+
+                        }
+                    }
+                }
+            },
+                {
+                    messageAction.value= Event(it.message?:"")
+                }
+            ))
+
+    }
+
+//    private fun loadRating(){
+//        ratingApi.getOne(ratingId)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe ({
+//                loadRatingResult.value=it.result
+//            },
+//                {
+//                    messageAction.value= Event(it.message?:"")
+//                }
+//            )
+//    }
 
     private fun checkSavable():Boolean{
 
@@ -69,18 +119,32 @@ class RatingSubjectViewModel @Inject constructor(
     }
 
     fun saveRecord(){
-        if(checkSavable()){
+        if(checkSavable()) {
             //前面对rating.value进行判空
-            val ratingRecord=RatingRecord(patientId = patientId,ratingId = rating.value!!.id,ratingName = rating.value!!.name,score = rating.value!!.score)
-            ratingRecord.records=rating.value?.subjects?.filter { it.selectedIndex?:-1 >= 0 }?.map {
-                SubjectRecord(patientId=patientId,recordId = "",subjectId = it.id,selection = it.options[it.selectedIndex?:-1].id,score = it.options[it.selectedIndex?:-1].score)
+            val ratingRecord = RatingRecord(
+                id = recordId,
+                patientId = patientId,
+                ratingId = rating.value!!.id,
+                ratingName = rating.value!!.name,
+                score = rating.value!!.score,
+                createdDate = loadRecordResult.value!!.createdDate
+            )
+            ratingRecord.records = rating.value?.subjects?.filter { it.selectedIndex ?: -1 >= 0 }?.map {
+                SubjectRecord(
+                    patientId = patientId,
+                    recordId = "",
+                    subjectId = it.id,
+                    selection = it.options[it.selectedIndex ?: -1].id,
+                    score = it.options[it.selectedIndex ?: -1].score
+                )
             }!!
 
-            ratingApi.saveRatingResult(ratingRecord)
+            disposable.add(ratingApi.saveRatingResult(ratingRecord)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe( {messageAction.value= Event("保存成功") },
-                    { messageAction.value=Event(it.message?:"")})
+                .subscribe({ messageAction.value = Event("保存成功") },
+                    { messageAction.value = Event(it.message ?: "") })
+            )
         }
     }
 

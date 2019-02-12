@@ -54,5 +54,9 @@ data class ElectroCardiogram(val id:String=""):BaseObservable(){
     @get:Bindable
     var location = 1
     @get:Bindable
+    var fmC2ECG = 0f
+    @get:Bindable
+    var ecg = 0f
+    @get:Bindable
     var attachments:List<Attachment>  = emptyList()
 }

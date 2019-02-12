@@ -7,14 +7,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
+import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.GRACE
 import com.wxsoft.fcare.databinding.ItemEmrRatingRecordBinding
+import com.wxsoft.fcare.ui.EmrEventAction
 
-class EmrRatingRecordAdapter :ListAdapter<RatingRecord,EmrRatingRecordAdapter.ItemViewHolder>(DiffCallback) {
+class EmrRatingRecordAdapter(private val owner: LifecycleOwner,private val  action: EmrEventAction?) :ListAdapter<RatingRecord,EmrRatingRecordAdapter.ItemViewHolder>(DiffCallback) {
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-
+            root.setOnClickListener { action?.onOpen(GRACE,getItem(position).id?:"") }
             rating=getItem(position)
             executePendingBindings()
         }
@@ -26,7 +28,9 @@ class EmrRatingRecordAdapter :ListAdapter<RatingRecord,EmrRatingRecordAdapter.It
         val inflater = LayoutInflater.from(parent.context)
 
         return ItemViewHolder(
-            ItemEmrRatingRecordBinding.inflate(inflater, parent, false)
+            ItemEmrRatingRecordBinding.inflate(inflater, parent, false).apply {
+                lifecycleOwner=owner
+            }
         )
     }
     object DiffCallback : DiffUtil.ItemCallback<RatingRecord>() {

@@ -80,7 +80,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      */
     @Transient
     @Bindable
-    var hasDirect:Boolean=false
+    var hasDirect:Boolean=true
         set(value) {
             field=value
             if (value)direct="1" else direct="2"
@@ -196,7 +196,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      */
     @SerializedName("is_Repatency")
     @Bindable
-    var repatency:Boolean=false
+    var repatency:Boolean=true
         set(value) {
             field=value
             notifyPropertyChanged(BR.repatency)
@@ -267,9 +267,21 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 
     fun setUpChecked(){
         hasDirect = direct.equals("1")
-        drugRecords.map {
-            if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
-            if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+        if (!drugRecords.isNullOrEmpty()){
+            drugRecords.map {
+                if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
+                if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+            }
+        }
+    }
+
+    fun setPlaceCheck(comefrom:String){
+        if (comefrom.equals("1")) {
+            throm_Treatment_Place = "16-2"
+            thromTreatmentPlaceName = "救护车"
+        }else{
+            throm_Treatment_Place = "16-3"
+            thromTreatmentPlaceName = "本院急诊科"
         }
     }
 

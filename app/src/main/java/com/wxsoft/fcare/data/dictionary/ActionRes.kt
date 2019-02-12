@@ -26,7 +26,7 @@ class ActionRes {
             ActionType.PCI to R.drawable.ic_menu_pci,
             ActionType.院前诊断 to R.drawable.ic_menu_cbzd,
             ActionType.知情同意书 to R.drawable.ic_menu_zqtys,
-            ActionType.出院诊断 to R.drawable.ic_menu_cyzd,
+            ActionType.诊断 to R.drawable.ic_menu_cyzd,
             ActionType.患者转归 to R.drawable.ic_menu_hzzg,
             ActionType.到达导管室 to R.drawable.ic_menu_jhdgs,
             ActionType.启动导管室 to R.drawable.ic_menu_jhdgs,
@@ -40,11 +40,11 @@ class ActionRes {
         ActionType.救护车, ActionType.绑定腕带, ActionType.病情评估, ActionType.辅助检查, ActionType.GRACE,
         ActionType.给药, ActionType.溶栓处置, ActionType.绕行导管室, ActionType.心电图, ActionType.生命体征,
         ActionType.导管室完成准备, ActionType.CABG, ActionType.院前诊断, ActionType.消息通知, ActionType.知情同意书,
-        ActionType.CT, ActionType.出院诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
+        ActionType.CT, ActionType.诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
         ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,ActionType.治疗方案,
         ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,
-        ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室, ActionType.来院方式,ActionType.Catheter,
-        ActionType.CT_OPERATION
+        ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室,ActionType.通知启动导管室,ActionType.通知启动CT室, ActionType.来院方式,ActionType.Catheter,
+        ActionType.CT_OPERATION,ActionType.出院诊断
     )
     annotation class ActionType {
         companion object {
@@ -56,6 +56,7 @@ class ActionRes {
             const val CABG = "cabg"
             const val 院前诊断 = "zd"
             const val CT = "ct"
+            const val 诊断 = "zd"
             const val 出院诊断 = "cyzd"
             const val 启动导管室 = "qddgs"
             const val 辅助检查 = "fzjc"
@@ -90,6 +91,8 @@ class ActionRes {
             const val Catheter = "dgscz"
             const val CT_OPERATION = "ctscz"
             const val 治疗方案 = "zlfa"
+            const val 通知启动CT室 = "tzqdcts"
+            const val 通知启动导管室 = "tzqddgs"
         }
     }
 }

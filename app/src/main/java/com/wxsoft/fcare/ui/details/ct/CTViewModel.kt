@@ -21,7 +21,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
+    override var title: String=""
         get() = "CT室操作"
     override val clickableTitle: String
         get() = "保存"

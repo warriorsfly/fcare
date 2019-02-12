@@ -36,30 +36,31 @@ class InformedConsentDetailsActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityInformedConsentDetailsBinding>(this, R.layout.activity_informed_consent_details)
             .apply {
-                setLifecycleOwner(this@InformedConsentDetailsActivity)
+                lifecycleOwner = this@InformedConsentDetailsActivity
             }
         patientId=intent.getStringExtra(InformedConsentDetailsActivity.PATIENT_ID)?:""
         talkId=intent.getStringExtra(InformedConsentDetailsActivity.TALK_ID)?:""
         talkName=intent.getStringExtra(InformedConsentDetailsActivity.TALK_NAME)?:""
         informedId=intent.getStringExtra(InformedConsentDetailsActivity.INFORMED_ID)?:""
 
-        viewModel.titleName = talkName
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
         back.setOnClickListener { onBackPressed() }
 
         viewModel.getTalkById(talkId)
-        viewModel.getInformedConsentById(informedId)
+
 
 //        adapter = InformedDetailsAdapter(this,10)
 //        binding.attachments.adapter = adapter
 //
-//        viewModel.talk.observe(this, Observer {
-//            if (it != null){
+        viewModel.talk.observe(this, Observer {
+            if (it != null){
 //                adapter.remotes = it.attachments.map { it.httpUrl }
-//            }
-//        })
+                viewModel.getInformedConsentById(it.informedConsentId)
+                viewModel.title = it.informedConsentName
+            }
+        })
 
 
     }

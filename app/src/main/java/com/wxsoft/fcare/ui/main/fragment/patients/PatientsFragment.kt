@@ -1,5 +1,6 @@
-package com.wxsoft.emergency.ui.main.fragment.patients
+package com.wxsoft.fcare.ui.main.fragment.patients
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +16,7 @@ import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_patients.*
 import javax.inject.Inject
 
 class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
@@ -24,7 +26,6 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     override fun onQueryTextChange(p0: String?): Boolean {
         return false
-       // TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     private lateinit var viewModel: PatientsViewModel
@@ -34,20 +35,26 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     lateinit var adapter: PatientsAdapter
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activityViewModelProvider(viewModelFactory)
+
+        adapter= PatientsAdapter(this,viewModel)
+        viewModel.showPatients("")
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = activityViewModelProvider(viewModelFactory)
-        adapter= PatientsAdapter(this,viewModel)
+
         val binding= FragmentPatientsBinding.inflate(inflater, container, false).apply {
             list.adapter=adapter
             viewModel=this@PatientsFragment.viewModel
 
             search.setOnQueryTextListener(this@PatientsFragment)
             floatingActionButton.setOnClickListener {
-                var intent = Intent(activity!!, ProfileActivity::class.java)
+                val intent = Intent(activity!!, ProfileActivity::class.java)
                 startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
             }
             lifecycleOwner = this@PatientsFragment
@@ -62,9 +69,6 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             toDetail(t)
         })
 
-        viewModel.showPatients("")
-
-
         return binding.root
     }
 
@@ -75,5 +79,18 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             startActivity(it)
         }
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+
+                BaseActivity.NEW_PATIENT_REQUEST -> {
+
+                    viewModel.showPatients(search.query.toString())
+                }
+            }
+        }
     }
 }

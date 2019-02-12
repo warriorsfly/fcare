@@ -46,7 +46,7 @@ class RatingActivity : BaseActivity() {
 
             viewModel=this@RatingActivity.viewModel
 
-            setLifecycleOwner(this@RatingActivity)
+            lifecycleOwner = this@RatingActivity
         }
         viewModel.patientId=patientId
 

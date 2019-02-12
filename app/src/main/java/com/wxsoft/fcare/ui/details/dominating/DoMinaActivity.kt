@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import android.support.v4.view.ViewPager
 import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -49,9 +48,9 @@ class DoMinaActivity : BaseActivity() {
             R.layout.activity_do_mina
         ).apply {
 
-            viewPager.adapter = TaskStateAdapter(supportFragmentManager)
+
             viewModel=this@DoMinaActivity.viewModel
-            setLifecycleOwner(this@DoMinaActivity)
+            lifecycleOwner = this@DoMinaActivity
 
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -87,7 +86,7 @@ class DoMinaActivity : BaseActivity() {
         viewModel.pageAction.observe(this,EventObserver{
             viewPager.setCurrentItem(it,true)
         })
-
+        viewPager.adapter = TaskStateAdapter(supportFragmentManager)
 
         add_patient.setOnClickListener {
             var intent = Intent(this, ProfileActivity::class.java).apply {
@@ -121,11 +120,11 @@ class TaskStateAdapter(fm: FragmentManager) :
     private val statusFragments:List<Fragment> by lazyFast {
         (0..4).map {
             when (it) {
-                DoMinaActivity.START_POSITION ->ProcessStartFragment.newInstance()
-                DoMinaActivity.ARRIVE_POSITION ->ProcessArriveFragment.newInstance()
-                DoMinaActivity.PATIENT_INFO_POSITION -> PatientManagerFragment.newInstance()
-                DoMinaActivity.RETUNING_POSITION ->ProcessReturningFragment.newInstance()
-                DoMinaActivity.ARRIVE_HOS_POSITION ->ProcessArriveHosFragment.newInstance()
+                DoMinaActivity.START_POSITION ->ProcessStartFragment()
+                DoMinaActivity.ARRIVE_POSITION ->ProcessArriveFragment()
+                DoMinaActivity.PATIENT_INFO_POSITION -> PatientManagerFragment()
+                DoMinaActivity.RETUNING_POSITION ->ProcessReturningFragment()
+                DoMinaActivity.ARRIVE_HOS_POSITION ->ProcessArriveHosFragment()
 
                 else -> throw IllegalStateException("Unknown index $it")
             }

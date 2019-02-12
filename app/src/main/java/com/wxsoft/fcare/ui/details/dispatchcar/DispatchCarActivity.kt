@@ -36,7 +36,7 @@ class DispatchCarActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityDispatchCarBinding>(this, R.layout.activity_dispatch_car)
             .apply {
-                setLifecycleOwner(this@DispatchCarActivity)
+                lifecycleOwner = this@DispatchCarActivity
             }
         binding.viewModel = viewModel
 
@@ -68,8 +68,13 @@ class DispatchCarActivity : BaseActivity() {
 
         viewModel.taskId.observe(this, Observer {
             if (it != null){
-                toDetail(it)
-                finish()
+
+                Intent().let { intent ->
+
+                    toDetail(it)
+                    setResult(RESULT_OK, intent);
+                    finish();
+                }
             }
 
         })

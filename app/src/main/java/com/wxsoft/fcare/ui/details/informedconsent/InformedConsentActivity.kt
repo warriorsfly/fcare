@@ -42,7 +42,7 @@ class InformedConsentActivity : BaseActivity()  {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityInformedConsentBinding>(this, R.layout.activity_informed_consent)
             .apply {
-                setLifecycleOwner(this@InformedConsentActivity)
+                lifecycleOwner = this@InformedConsentActivity
             }
         patientId=intent.getStringExtra(InformedConsentActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

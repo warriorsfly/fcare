@@ -3,8 +3,14 @@ package com.wxsoft.fcare.ui.details.reperfusion
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.CABG
+import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.PharmacyApi
+import com.wxsoft.fcare.core.data.toResource
+import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.result.succeeded
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.utils.map
@@ -16,10 +22,10 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
-        get() = "再灌注措施"
+    override var title: String=""
+        get() = "CABG"
     override val clickableTitle: String
-        get() = ""
+        get() = "保存"
     override val clickable: LiveData<Boolean>
 
     private val clickResult  = MediatorLiveData<Boolean>().apply {
@@ -35,11 +41,55 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
             field = value
         }
 
+    val backToLast:LiveData<Boolean>
+    private val initbackToLast = MediatorLiveData<Boolean>()
+
+    val mSelectTime:LiveData<String>
+    private val initSelectTime = MediatorLiveData<String>()
+
+    val cabg:LiveData<CABG>
+    private val loadCABG = MediatorLiveData<Resource<Response<CABG>>>()
+
     init {
         clickable = clickResult.map { it }
+        backToLast = initbackToLast.map { it }
+        mSelectTime = initSelectTime.map { it }
+        cabg = loadCABG.map { (it as? Resource.Success)?.data?.result ?: CABG("") }
     }
 
     override fun click() {
-
+        saveCABG()
     }
+
+    fun getCABG(){
+        pharmacyApi.getCABG(patientId).toResource()
+            .subscribe {
+                loadCABG.value = it
+            }
+    }
+
+    fun saveCABG(){
+        cabg.value?.patientId = patientId
+        pharmacyApi.saveCABG(cabg.value!!).toResource()
+            .subscribe {
+               when(it){
+                   is Resource.Success ->{
+                       messageAction.value= Event(it.data.msg?:"")
+                       initbackToLast.value = true
+                   }
+                   is Resource.Error->{
+                       messageAction.value= Event(it.throwable.message?:"")
+                   }
+               }
+            }
+    }
+
+
+
+    fun selectTime(type:String){
+        initSelectTime.value = type
+    }
+
+
+
 }

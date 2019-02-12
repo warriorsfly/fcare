@@ -22,8 +22,8 @@ class MedicalHistoryItemAdapter constructor(private val lifecycleOwner: Lifecycl
         set(value) {
             field = value
             when(value){
-                2->{viewModel.historyItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                3->{viewModel.providerItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
+                1->{viewModel.historyItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
+                2->{viewModel.providerItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
             }
         }
 
@@ -43,7 +43,7 @@ class MedicalHistoryItemAdapter constructor(private val lifecycleOwner: Lifecycl
             differ.currentList[position].section = section
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@MedicalHistoryItemAdapter. lifecycleOwner
             executePendingBindings()
 
         }

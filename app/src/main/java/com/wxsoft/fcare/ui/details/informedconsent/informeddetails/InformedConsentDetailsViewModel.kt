@@ -20,8 +20,8 @@ class InformedConsentDetailsViewModel @Inject constructor(private val informedAp
                                                           override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
-    override val title: String
-        get() = titleName
+    override var title: String=""
+        get() = "知情同意书详情"
     override val clickableTitle: String
         get() = ""
 
@@ -33,10 +33,7 @@ class InformedConsentDetailsViewModel @Inject constructor(private val informedAp
             if (value == "") return
             field = value
         }
-    var titleName: String = ""
-        set(value) {
-            field = value
-        }
+
 
     val talk:LiveData<Talk>
     private val loadTalkResult = MediatorLiveData<Resource<Response<Talk>>>()

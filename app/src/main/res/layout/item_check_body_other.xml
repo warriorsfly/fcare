@@ -36,7 +36,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:text="@={listener.checkBody.checkMemo}"
-                android:hint="若有其他描述请补充"
+                android:hint="头颈部、胸背部、心肺、腹部、脊柱、四肢、神经系统、其他的情况"
                 android:background="@drawable/bg_edittextview_black_border"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"

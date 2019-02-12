@@ -25,6 +25,8 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
+import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
+import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionModule
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
@@ -37,6 +39,8 @@ import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
 import com.wxsoft.fcare.ui.message.MessageActivity
 import com.wxsoft.fcare.ui.message.MessageModule
+import com.wxsoft.fcare.ui.outcome.OutComeActivity
+import com.wxsoft.fcare.ui.outcome.OutComeModule
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
@@ -150,7 +154,13 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [AssistantExaminationModule::class])
     internal abstract fun assistantExaminationActivity(): AssistantExaminationActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [OutComeModule::class])
+    internal abstract fun outComeActivity(): OutComeActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ReperfusionModule::class])
+    internal abstract fun reperfusionActivity(): ReperfusionActivity
 
 
 

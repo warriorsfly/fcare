@@ -67,7 +67,7 @@ class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener 
         DataBindingUtil.setContentView<ActivityOutcomeChestBinding>(this, R.layout.activity_outcome_chest)
             .apply {
                 viewModel = this@OutComeActivity. viewModel
-                setLifecycleOwner(this@OutComeActivity)
+                lifecycleOwner = this@OutComeActivity
             }
         patientId=intent.getStringExtra(OutComeActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId

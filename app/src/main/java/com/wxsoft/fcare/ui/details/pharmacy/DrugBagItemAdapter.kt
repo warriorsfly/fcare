@@ -31,7 +31,7 @@ class DrugBagItemAdapter constructor(private val lifecycleOwner: LifecycleOwner,
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.listener, viewModel)
-            setLifecycleOwner(lifecycleOwner)
+            lifecycleOwner = this@DrugBagItemAdapter.lifecycleOwner
             executePendingBindings()
 
         }

@@ -29,8 +29,8 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override val title: String
-        get() = "出院诊断"
+    override var title: String=""
+        get() = "诊断"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>

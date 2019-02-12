@@ -25,8 +25,8 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
         submit()
     }
 
-    override val title: String
-        get() = "体格检查"
+    override var title: String=""
+        get() = "查体"
     override val clickableTitle: String
         get() = "保存"
     override val clickable:LiveData<Boolean>
@@ -98,7 +98,12 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
         dicEnumApi.loadCoordinationItems().toResource()
             .subscribe{
                 loadCoordinationItemsResult.value = it
-                coordinationItems.value?.filter { it.itemCode.equals(checkBody.value?.coordination) }?.map {it.checked = true }
+                if (checkBody.value?.id.isNullOrEmpty()){
+                    coordinationItems.value?.first()?.checked = true
+                }else{
+                    coordinationItems.value?.filter { it.checked }?.map { it.checked = false }
+                    coordinationItems.value?.filter { it.itemCode.equals(checkBody.value?.coordination)}?.map {it.checked = true }
+                }
             }
     }
 
@@ -106,7 +111,12 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
         dicEnumApi.loadSkinItems().toResource()
             .subscribe{
                 loadSkinItemsResult.value = it
-                skinItems.value?.filter { it.itemCode.equals(checkBody.value?.skin) }?.map {it.checked = true }
+                if (checkBody.value?.id.isNullOrEmpty()){
+                    skinItems.value?.first()?.checked = true
+                }else{
+                    skinItems.value?.filter { it.checked }?.map { it.checked = false }
+                    skinItems.value?.filter { it.itemCode.equals(checkBody.value?.skin)}?.map {it.checked = true }
+                }
             }
     }
 
@@ -114,14 +124,24 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
         dicEnumApi.loadPupilsItems().toResource()
             .subscribe{
                 loadLeftPupilsItemsResult.value = it
-                leftPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.leftPupils)}?.map {it.checked = true }
+                if (checkBody.value?.id.isNullOrEmpty()){
+                    leftPupilsItems.value?.first()?.checked = true
+                }else{
+                    leftPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
+                    leftPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.leftPupils)}?.map {it.checked = true }
+                }
             }
     }
     fun rightPupilsItems() {
         dicEnumApi.loadPupilsItems().toResource()
             .subscribe{
                 loadRightPupilsItemsResult.value = it
-                rightPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.rightPupils) }?.map {it.checked = true }
+                if (checkBody.value?.id.isNullOrEmpty()){
+                    rightPupilsItems.value?.first()?.checked = true
+                }else{
+                    rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
+                    rightPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.rightPupils)}?.map {it.checked = true }
+                }
             }
     }
 
@@ -129,14 +149,24 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
         dicEnumApi.loadResponseLightItems().toResource()
             .subscribe{
                 loadLeftResponseLightItemsResult.value = it
-                leftResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.leftResponseLight) }?.map {it.checked = true }
+                if (checkBody.value?.id.isNullOrEmpty()){
+                    leftResponseLightItems.value?.first()?.checked = true
+                }else{
+                    leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
+                    leftResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.leftResponseLight)}?.map {it.checked = true }
+                }
             }
     }
     fun loadRightResponseLightItems() {
         dicEnumApi.loadResponseLightItems().toResource()
             .subscribe{
                 loadRightResponseLightItemsResult.value = it
-                rightResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.rightResponseLight)}?.map {it.checked = true }
+                if (checkBody.value?.id.isNullOrEmpty()){
+                    rightResponseLightItems.value?.first()?.checked = true
+                }else{
+                    rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
+                    rightResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.rightResponseLight)}?.map {it.checked = true }
+                }
             }
     }
 
@@ -156,12 +186,28 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
     }
 
     fun haveData(){
-         coordinationItems.value?.filter { it.itemCode.equals(checkBody.value?.coordination) }?.map {it.checked = true }
-         skinItems.value?.filter { it.itemCode.equals(checkBody.value?.skin) }?.map {it.checked = true }
-         leftPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.leftPupils)}?.map {it.checked = true }
-         leftResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.leftResponseLight) }?.map {it.checked = true }
-         rightPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.rightPupils) }?.map {it.checked = true }
-         rightResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.rightResponseLight)}?.map {it.checked = true }
+        if (checkBody.value?.id.isNullOrEmpty()){
+            coordinationItems.value?.first()?.checked = true
+            skinItems.value?.first()?.checked = true
+            leftPupilsItems.value?.first()?.checked = true
+            leftResponseLightItems.value?.first()?.checked = true
+            rightPupilsItems.value?.first()?.checked = true
+            rightResponseLightItems.value?.first()?.checked = true
+        }else{
+            coordinationItems.value?.filter { it.checked }?.map { it.checked = false }
+            skinItems.value?.filter { it.checked }?.map { it.checked = false }
+            leftPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
+            leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
+            rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
+            rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
+            coordinationItems.value?.filter { it.itemCode.equals(checkBody.value?.coordination) }?.map {it.checked = true }
+            skinItems.value?.filter { it.itemCode.equals(checkBody.value?.skin) }?.map {it.checked = true }
+            leftPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.leftPupils)}?.map {it.checked = true }
+            leftResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.leftResponseLight) }?.map {it.checked = true }
+            rightPupilsItems.value?.filter { it.itemCode.equals(checkBody.value?.rightPupils) }?.map {it.checked = true }
+            rightResponseLightItems.value?.filter { it.itemCode.equals(checkBody.value?.rightResponseLight)}?.map {it.checked = true }
+        }
+
     }
 
     fun clickSelect(item:Dictionary){
