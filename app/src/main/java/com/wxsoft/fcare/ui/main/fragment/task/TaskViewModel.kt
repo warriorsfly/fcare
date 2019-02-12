@@ -38,7 +38,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
         isLoading = loadTasksResult.map { it == Resource.Loading }
         tasks = loadTasksResult.map {
 
-            (it as? Resource.Success)?.data!!.result ?: emptyList()
+            (it as? Resource.Success)?.data?.result ?: emptyList()
         }
     }
 
@@ -47,6 +47,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
     }
 
     private fun load() {
+
         disposable.add(taskApi.tasks(taskDate).toResource()
             .subscribe {
                 loadTasksResult.value = it

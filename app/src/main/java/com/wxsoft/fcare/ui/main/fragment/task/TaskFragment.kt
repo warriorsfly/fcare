@@ -18,6 +18,7 @@ import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_assignment.*
+import kotlinx.coroutines.GlobalScope
 import java.util.*
 import javax.inject.Inject
 
@@ -73,7 +74,7 @@ class TaskFragment : DaggerFragment() {
         return binding.root
     }
 
-    fun selectTime() {
+    private fun selectTime() {
         val ca = Calendar.getInstance()
         var mYear = ca.get(Calendar.YEAR)
         var mMonth = ca.get(Calendar.MONTH)
@@ -104,7 +105,9 @@ class TaskFragment : DaggerFragment() {
 
 
     private fun toDispatchCar() {
-//        toDiagnose()
+
+
+
         startTask()
     }
 

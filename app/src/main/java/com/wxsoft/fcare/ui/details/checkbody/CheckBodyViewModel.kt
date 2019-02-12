@@ -19,8 +19,7 @@ import javax.inject.Inject
 class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                              private val checkBodyApi:CheckBodyApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,ICommonPresenter {
     override fun click() {
         submit()
     }

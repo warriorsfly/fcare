@@ -108,4 +108,6 @@ dependencies {
     implementation 'android.arch.paging:runtime:1.0.1'
 
     implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+//    coroutines协程，比较下rxjava2和协程对内存泄漏的影响
+    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 }
