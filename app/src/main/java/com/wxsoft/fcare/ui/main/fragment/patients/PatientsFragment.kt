@@ -25,6 +25,10 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
     }
 
     override fun onQueryTextChange(p0: String?): Boolean {
+        if(p0.isNullOrEmpty()){
+            viewModel.showPatients("")
+            return true
+        }
         return false
     }
 

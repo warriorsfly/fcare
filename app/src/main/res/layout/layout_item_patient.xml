@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 	<data>
-		<import type="com.wxsoft.fcare.utils.Converter"/>
+		<!--<import type="com.wxsoft.fcare.utils.Converter"/>-->
 		<variable name="patient" type="com.wxsoft.fcare.core.data.entity.Patient"/>
 	</data>
 	<android.support.design.card.MaterialCardView
@@ -96,7 +96,7 @@
 					android:id="@+id/age"
 					tools:text="24"
 					android:layout_marginLeft="4dp"
-					android:text="@{ Converter.intToString(  patient.age)+`岁`}"
+					android:text="@{ String.valueOf(patient.age)+`岁`}"
 					app:layout_constraintLeft_toRightOf="@id/line1"
 					app:layout_constraintTop_toTopOf="@id/line1"/>
 

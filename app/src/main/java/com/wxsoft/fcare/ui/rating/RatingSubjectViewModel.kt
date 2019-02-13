@@ -127,7 +127,7 @@ class RatingSubjectViewModel @Inject constructor(
                 ratingId = rating.value!!.id,
                 ratingName = rating.value!!.name,
                 score = rating.value!!.score,
-                createdDate = loadRecordResult.value!!.createdDate
+                createdDate = loadRecordResult.value?.createdDate
             )
             ratingRecord.records = rating.value?.subjects?.filter { it.selectedIndex ?: -1 >= 0 }?.map {
                 SubjectRecord(
