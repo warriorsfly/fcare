@@ -89,7 +89,7 @@ fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
 fun diagnosisCode(textView: TextView, diagnosisCode: String) {
     when(diagnosisCode){
         "215-1"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
-        "215-2"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        "215-2"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
         "215-3"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
         "215-4"->textView.setBackgroundResource(R.drawable.ic_diagnosis4)
         "215-5"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)

@@ -85,6 +85,11 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     }
 
+    override fun onStop() {
+        search.clearFocus()
+        super.onStop()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
