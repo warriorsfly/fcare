@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import cn.jpush.android.api.JPushInterface
+import com.wxsoft.fcare.ui.message.MessageActivity
 //import com.wxsoft.fcare.data.prefs.SharedPreferenceStorage
 //import com.wxsoft.fcare.ui.calling.CallingActivity
 import org.json.JSONException
@@ -103,11 +104,14 @@ class JPushReceiver : BroadcastReceiver() {
                 context.sendBroadcast(timeLineRefresh)
             }
             StartCT ->{
-                val startCT = Intent(StartCT).apply {
-                    putExtra(StartCT, message)
-                }
 
-                context.sendBroadcast(startCT)
+                val alarmIntent = Intent(context, MessageActivity::class.java).apply {
+                    putExtra(MessageActivity.PATIENT_ID, message)
+                    putExtra(MessageActivity.NOTIFY_TYPE, "CT")
+                }
+                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(alarmIntent)
+
             }
         }
     }

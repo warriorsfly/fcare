@@ -56,7 +56,9 @@ class ProfileViewModel @Inject constructor(
         clickable=clickResult.map { it }
         uploading=savePatientResult.map { it==Resource.Loading }
         patient=loadPatientResult.map {
-            (it as? Resource.Success)?.data?.result?:Patient("")
+            (it as? Resource.Success)?.data?.result.apply {
+                if (this?.diagnosisName.equals("代码不存在"))this?.diagnosisName = ""
+            }?:Patient("")
         }
 
 

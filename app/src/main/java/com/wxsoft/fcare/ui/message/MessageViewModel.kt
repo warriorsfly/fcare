@@ -37,6 +37,19 @@ class MessageViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
             field = value
         }
 
+    var notifyType: String = ""
+        set(value) {
+            field = value
+            when(value){
+                "CT" ->{
+                    _message.value = "请即刻启动CT室"
+                }
+                else ->{
+                    _message.value = "请即刻启动导管室"
+                }
+            }
+        }
+
     val message:LiveData<String>
     private val _message=MediatorLiveData<String>().apply {
         value="请即刻启动导管室"
@@ -53,6 +66,11 @@ class MessageViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     init {
         message=_message.map { it }
         patientType=_patientType.map { it }
+
+    }
+
+    fun reject(){
+
     }
 
 

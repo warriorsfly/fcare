@@ -102,4 +102,9 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        search.clearFocus()
+    }
 }

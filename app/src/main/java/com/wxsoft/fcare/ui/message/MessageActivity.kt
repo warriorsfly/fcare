@@ -7,7 +7,6 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityMessageBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -16,6 +15,7 @@ class MessageActivity : BaseActivity()  {
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val NOTIFY_TYPE = "NOTIFY_TYPE"
     }
 
     private lateinit var viewModel: MessageViewModel
@@ -31,7 +31,8 @@ class MessageActivity : BaseActivity()  {
                 lifecycleOwner = this@MessageActivity
             }
         viewModel = viewModelProvider(factory)
-        patientId=intent.getStringExtra(DiagnoseActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(MessageActivity.PATIENT_ID)?:""
+        viewModel.notifyType = intent.getStringExtra(MessageActivity.NOTIFY_TYPE)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 

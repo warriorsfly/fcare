@@ -530,6 +530,8 @@ class EmrFragment : DaggerFragment() {
                 }
                 EmrFragment.MEASURES -> {
                     viewModel.refreshMeasure()
+                    viewModel.refreshThrombosis()
+                    viewModel.refreshDrugRecords()
                 }
                 EmrFragment.INFORMEDCONSENT -> {
                     viewModel.refreshInformedConsent()

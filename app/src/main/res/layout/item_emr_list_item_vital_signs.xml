@@ -14,6 +14,29 @@
                     android:layout_gravity="center"
                     android:layout_height="wrap_content">
 
+                <TextView
+                        android:id="@+id/title0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="采集时间"
+                        android:layout_marginTop="17dp"
+                        android:textColor="#9399A4"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                />
+
+                <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        tools:text="70"
+                        android:layout_marginLeft="80dp"
+                        android:textColor="#000"
+                        android:text="@{vital.createdDate}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/title0"/>
 
                 <TextView
                         android:id="@+id/title1"
@@ -24,7 +47,7 @@
                         android:layout_marginTop="17dp"
                         android:textColor="#9399A4"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title0"
                 />
 
                 <TextView

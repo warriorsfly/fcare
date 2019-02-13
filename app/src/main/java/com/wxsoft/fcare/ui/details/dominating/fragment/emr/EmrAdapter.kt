@@ -414,6 +414,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
 
                 result1 is VitalSign && result2 is VitalSign ->
                     result1.id == result2.id && oldItem.code == newItem.code
+
                 result1 is Measure && result2 is Measure ->
                     oldItem.code == newItem.code
 
