@@ -93,6 +93,8 @@ fun diagnosisCode(textView: TextView, diagnosisCode: String) {
         "215-3"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
         "215-4"->textView.setBackgroundResource(R.drawable.ic_diagnosis4)
         "215-5"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
+        //不在上述代码中则清空textView的背景
+        else->textView.setBackgroundResource(0)
     }
 }
 
