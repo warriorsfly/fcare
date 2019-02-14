@@ -74,8 +74,36 @@ class DateTimeUtils {
             return String.format("%0"+formatLength+"d", sourceDate)
 
         }
+        fun getStringToDate(dateString :String, pattern:String) :Long{
+            var dateFormat = SimpleDateFormat(pattern);
+            var date = Date();
+            date = dateFormat.parse(dateString);
+            return date.getTime();
+        }
+        fun getAfromB(startDate:String,endDaye:String):String{
+            var start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
+            var end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
+            var c=end-start
 
+            val hour=if(c>3600*1000)  String.format("%02d", c/3600000) else "00"
+            c %= (3600 * 1000)
+            val minute=if(c>60*1000) String.format("%02d", c/60000)   else  "00"
+            c %= (60 * 1000)
+            val second=if(c>1000) String.format("%02d", c/1000) else "00"
+            return StringBuilder().append(hour).append(":").append(minute).append(":").append(second).toString()
+        }
+        fun getAAfromBBMinutes(startDate:String,endDaye:String):String{
+            var start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
+            var end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
+            var c=end-start
 
+            val hour=if(c>3600*1000)  String.format("%02d", c/3600000) else "00"
+            c %= (3600 * 1000)
+            val minute=if(c>60*1000) String.format("%02d", c/60000)   else  "0"
+            c %= (60 * 1000)
+            val second=if(c>1000) String.format("%02d", c/1000) else "00"
+            return StringBuilder().append(minute).toString()
+        }
     }
 }
 
@@ -84,15 +112,5 @@ fun getLastMinutes(start:Long?,end:Long?) :Long?{
     var c=end?:0  -(start?:0)
     return if(c>60*1000) c/60000  else null
 }
-fun getAfromB(start:Long,end:Long):String{
 
-    var c=end-start
-
-    val hour=if(c>3600*1000)  String.format("%02d", c/3600000) else "00"
-    c %= (3600 * 1000)
-    val minute=if(c>60*1000) String.format("%02d", c/60000)   else  "00"
-    c %= (60 * 1000)
-    val second=if(c>1000) String.format("%02d", c/1000) else "00"
-    return StringBuilder().append(hour).append(":").append(minute).append(":").append(second).toString()
-}
 

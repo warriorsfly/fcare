@@ -441,6 +441,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     emrApi.getTalks(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ talks ->
                             if (talks.result.isNullOrEmpty()) return@subscribe
+                            talks.result?.map {
+                                it.apply {
+                                    judgeTime()
+                                }
+                            }
                             emr.result = talks.result
                             if (!emr.done) {
                                 emr.done = true

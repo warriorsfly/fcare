@@ -4,6 +4,7 @@ import android.arch.persistence.room.Ignore
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 
 data class Talk (val id:String) : BaseObservable() {
 
@@ -26,6 +27,14 @@ data class Talk (val id:String) : BaseObservable() {
         set(value) {
             field = value
             notifyPropertyChanged(BR.endTime)
+        }
+
+    @Transient
+    @Bindable
+    var allTime:String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.allTime)
         }
 
     @Bindable
@@ -68,7 +77,7 @@ data class Talk (val id:String) : BaseObservable() {
         }
 
     @Bindable
-    var informedTime:String = "07:24:20"
+    var informedTime:String = DateTimeUtils.getCurrentTime()
         set(value) {
             field = value
             notifyPropertyChanged(BR.informedTime)
@@ -82,7 +91,7 @@ data class Talk (val id:String) : BaseObservable() {
 
 
     fun judgeTime(){
-
+        allTime = DateTimeUtils.getAAfromBBMinutes(startTime,endTime)
     }
 
 }
