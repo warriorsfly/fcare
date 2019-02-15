@@ -87,9 +87,6 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
             val parse1 = formatter.parse(endTime)
 
             val diff = parse1.time - parse.time
-
-            val day = diff / (24 * 60 * 60 * 1000)
-            val hour = (diff / (60 * 60 * 1000) - day * 24)
             // System.out.println(day + "天" + hour + "小时" + min + "分" + s +
             // "秒")
             val hour1 = diff / (60 * 60 * 1000)

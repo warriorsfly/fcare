@@ -76,7 +76,7 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$glide_version"
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 //    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
     //rxkotlin
