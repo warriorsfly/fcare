@@ -51,19 +51,13 @@ data class MedicalHistory(val id:String): BaseObservable() {
             notifyPropertyChanged(BR.phName)
         }
 
+    //过敏史
     @Bindable
     var ah:String=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.ah)
         }
-
-//    @Bindable
-//    var medicalHistoryPhotos:ArrayList<String> = emptyList()
-//        set(value) {
-//            field=value
-//            notifyPropertyChanged(BR.medicalHistoryPhotos)
-//        }
 
     @Bindable
     var attachments:List<Attachment>  = emptyList()

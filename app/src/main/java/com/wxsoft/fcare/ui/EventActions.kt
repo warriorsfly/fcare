@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.ui
 
+import android.media.Image
 import android.view.View
+import android.widget.ImageView
 
 interface EventActions:EventAction<String>
 
@@ -25,4 +27,9 @@ interface PhotoEventAction{
 interface CommitEventAction{
     //点击本地文件
     fun commit(any: Any,type:Int=0)
+}
+
+interface PlayVoiceEventAction{
+    //点击播放语音文件
+    fun play(imageView: ImageView,url:String)
 }

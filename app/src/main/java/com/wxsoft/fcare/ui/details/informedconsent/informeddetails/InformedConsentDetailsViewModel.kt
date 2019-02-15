@@ -68,8 +68,6 @@ class InformedConsentDetailsViewModel @Inject constructor(private val informedAp
 
 
 
-
-
     override fun click() {
 
     }

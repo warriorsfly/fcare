@@ -26,6 +26,7 @@ import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConse
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -158,12 +159,12 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     }
 
     fun  toInformedConsent(){
-        var intent = Intent(this@ThrombolysisActivity, AddInformedConsentActivity::class.java).apply {
-            putExtra(AddInformedConsentActivity.PATIENT_ID,patientId)
-            putExtra(AddInformedConsentActivity.TITLE_NAME,viewModel.informed.value?.name)
-            putExtra(AddInformedConsentActivity.TITLE_CONTENT,viewModel.informed.value?.content)
-            putExtra(AddInformedConsentActivity.INFORMED_ID,viewModel.informed.value?.id)
-            putExtra(AddInformedConsentActivity.COME_FROM,"THROMBOLYSIS")
+        var intent = Intent(this@ThrombolysisActivity, AddInformedActivity::class.java).apply {
+            putExtra(AddInformedActivity.PATIENT_ID,patientId)
+            putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
+            putExtra(AddInformedActivity.TITLE_CONTENT,viewModel.informed.value?.content)
+            putExtra(AddInformedActivity.INFORMED_ID,viewModel.informed.value?.id)
+            putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
         }
         startActivityForResult(intent, ThrombolysisActivity.INFORMED_CONSENT)
     }
