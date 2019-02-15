@@ -15,6 +15,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -74,11 +75,11 @@ class InformedConsentActivity : BaseActivity()  {
 
 
     fun toAddInformed(informed: InformedConsent){//新增知情同意书
-        var intent = Intent(this, AddInformedConsentActivity::class.java)
-        intent.putExtra(AddInformedConsentActivity.PATIENT_ID,patientId)
-        intent.putExtra(AddInformedConsentActivity.TITLE_NAME,informed.name)
-        intent.putExtra(AddInformedConsentActivity.TITLE_CONTENT,informed.content)
-        intent.putExtra(AddInformedConsentActivity.INFORMED_ID,informed.id)
+        var intent = Intent(this, AddInformedActivity::class.java)
+        intent.putExtra(AddInformedActivity.PATIENT_ID,patientId)
+        intent.putExtra(AddInformedActivity.TITLE_NAME,informed.name)
+        intent.putExtra(AddInformedActivity.TITLE_CONTENT,informed.content)
+        intent.putExtra(AddInformedActivity.INFORMED_ID,informed.id)
         startActivity(intent)
     }
 
