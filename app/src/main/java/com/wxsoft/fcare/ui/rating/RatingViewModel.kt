@@ -25,6 +25,10 @@ class RatingViewModel @Inject constructor(
         get() = ""
 
     var patientId=""
+    set(value) {
+        field=value
+        loadRating()
+    }
 
     override val clickable:LiveData<Boolean>
 
@@ -39,11 +43,11 @@ class RatingViewModel @Inject constructor(
 
         clickable=clickResult.map { it }
         ratings=loadRatingResult.map { it ?: emptyList() }
-        loadRating()
+//        loadRating()
     }
 
     private fun loadRating(){
-        ratingApi.getRatings().subscribeOn(Schedulers.io())
+        ratingApi.getRatings(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 it->
