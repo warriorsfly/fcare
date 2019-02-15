@@ -47,12 +47,12 @@ class RatingViewModel @Inject constructor(
     }
 
     private fun loadRating(){
-        ratingApi.getRatings(patientId).subscribeOn(Schedulers.io())
+        disposable.add(ratingApi.getRatings(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
                 it->
                 loadRatingResult.value=it.result
-            }
+            })
     }
 
 
