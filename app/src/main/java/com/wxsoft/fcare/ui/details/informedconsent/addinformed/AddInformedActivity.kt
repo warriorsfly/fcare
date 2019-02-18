@@ -96,8 +96,6 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
 
     private lateinit var adapter:PictureAdapter
 
-
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
@@ -136,8 +134,8 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
                     intent.putExtra("informedConsentId",viewModel.talkResultId.value)
                     intent.putExtra("startTime",viewModel.talk.value?.startTime)
                     intent.putExtra("endTime",viewModel.talk.value?.endTime)
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
             }else{
                 finish()
@@ -155,12 +153,9 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
 
 
         viewModel.voiceStart.observe(this,Observer {
-            if (it!!){
-                startRecording()
-                viewModel.talk.value?.startTime = getCurrentTime()
-                binding.voiceTime.base = SystemClock.elapsedRealtime();
-                binding.voiceTime.isCountDown = false;
-                binding.voiceTime.start()
+            if (it ?: false){
+                checkAudioRecoder()
+
             }else{
                 pauseRecording()
                 binding.voiceTime.stop()
@@ -207,10 +202,17 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
                     dispatchTakePictureIntent(adapter.locals.map { it.first },10-adapter.remotes.size)
                 }
             }
+
+            AUDIO_RECRD_PERMISSION_REQUEST->{
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                    startRecording()
+                }
+            }
         }
     }
 
-    inner class EventAction() : PhotoEventAction {
+    inner class EventAction : PhotoEventAction {
         override fun localSelected() {
             checkPhotoTaking()
         }
@@ -321,7 +323,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
                 with(ObjectAnimator.ofFloat(imageView, View.SCALE_Y, startScale, 1f))
             }
             duration = mShortAnimationDuration.toLong()
-            interpolator = DecelerateInterpolator() as TimeInterpolator?
+            interpolator = DecelerateInterpolator()
             addListener(object : AnimatorListenerAdapter() {
 
                 override fun onAnimationEnd(animation: Animator) {
@@ -424,6 +426,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
         finishRecording()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun startRecording() {
         if (recordTime >= MAX_RECORD_TIME){
             toast("回答不能超过${MAX_RECORD_TIME / 1000}s")
@@ -433,12 +436,18 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
         if (recordState == STATE_RECORD_INIT) {
             recorder = createRecorder()
             recorder!!.startRecording()
+            viewModel.talk.value?.startTime = getCurrentTime()
+            binding.voiceTime.base = SystemClock.elapsedRealtime()
+            binding.voiceTime.isCountDown = false
+            binding.voiceTime.start()
+            startRecordTimer()
+            changeState(STATE_RECORD_RECORDING)
+
         }else{
             recorder!!.resumeRecording()
         }
 
-        startRecordTimer()
-        changeState(STATE_RECORD_RECORDING)
+
     }
 
     private fun deleteRecording(){
@@ -548,8 +557,8 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
             MediaRecorder.AudioSource.MIC, AudioFormat.ENCODING_PCM_16BIT,
             AudioFormat.CHANNEL_IN_MONO, 44100))
 
-    private fun file() = File(this!!.externalCacheDir, "record.wav")
-    private fun tempFile() = File(this!!.externalCacheDir, "temp.wav")
+    private fun file() = File(this.externalCacheDir, "record.wav")
+    private fun tempFile() = File(this.externalCacheDir, "temp.wav")
 
     fun toast(msg: String){
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
@@ -560,6 +569,20 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
         try {
             recorder?.stopRecording()
         }catch (e: IllegalStateException){}
+    }
+
+    private fun checkAudioRecoder(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                AUDIO_RECRD_PERMISSION_REQUEST
+            )
+
+        }else{
+            startRecording()
+        }
     }
 }
 
