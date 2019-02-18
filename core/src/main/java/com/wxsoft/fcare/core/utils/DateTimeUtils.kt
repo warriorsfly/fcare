@@ -20,7 +20,7 @@ class DateTimeUtils {
             }
             val sdf = SimpleDateFormat("yyyy-MM-dd")
             val now = Date()
-            var birth =sdf.parse(birthday)
+            val birth =sdf.parse(birthday)
 
             val intervalMilli = now.time - birth.time
             val age = (intervalMilli / (24 * 60 * 60 * 1000)).toInt() / 365
@@ -75,9 +75,9 @@ class DateTimeUtils {
 
         }
         private fun getStringToDate(dateString :String, pattern:String) :Long{
-            val dateFormat = SimpleDateFormat(pattern);
-            val date= dateFormat.parse(dateString);
-            return date.time;
+            val dateFormat = SimpleDateFormat(pattern)
+            val date= dateFormat.parse(dateString)
+            return date.time
         }
         fun getAfromB(startDate:String,endDaye:String):String{
             val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
@@ -105,7 +105,7 @@ class DateTimeUtils {
 
 fun getLastMinutes(start:Long?,end:Long?) :Long?{
 
-    var c=end?:0  -(start?:0)
+    val c=end?:0  -(start?:0)
     return if(c>60*1000) c/60000  else null
 }
 

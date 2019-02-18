@@ -16,8 +16,7 @@ class MessageViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
                                           override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter{
-    override var title: String=""
-        get() = "准备通知"
+    override var title = "准备通知"
     override val clickableTitle: String
         get() = ""
     override val clickable: LiveData<Boolean>
@@ -56,7 +55,7 @@ class MessageViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     }
 
 
-    val patientType:LiveData<String>
+    private val patientType:LiveData<String>
     private val _patientType=MediatorLiveData<String>().apply {
         value="胸痛病人"
     }

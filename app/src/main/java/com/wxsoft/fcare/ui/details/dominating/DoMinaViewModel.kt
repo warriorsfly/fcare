@@ -27,7 +27,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     val task:LiveData<Task>
-    val selectIndex = ObservableInt()
+    private val selectIndex = ObservableInt()
     var taskId:String=""
         set(value) {
             if(value!=field){
@@ -83,7 +83,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     /**
      * 首次医疗接触所需要的时间
      */
-    val firstMetTime=ObservableLong()
+    private val firstMetTime=ObservableLong()
     /**
      * 返回医院所需要的时间
      */

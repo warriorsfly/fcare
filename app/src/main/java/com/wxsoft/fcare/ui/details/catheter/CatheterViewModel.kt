@@ -24,10 +24,8 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "导管室操作"
-    override val clickableTitle: String
-        get() = "保存"
+    override var title="导管室操作"
+    override val clickableTitle="保存"
     override val clickable: LiveData<Boolean>
 
     private val clickResult  = MediatorLiveData<Boolean>().apply {

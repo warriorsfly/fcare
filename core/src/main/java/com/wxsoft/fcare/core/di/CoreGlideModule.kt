@@ -12,6 +12,6 @@ class YourAppGlideModule : AppGlideModule() {
     override fun applyOptions(context: Context, builder: GlideBuilder) {
         //80MB缓存
         val memoryCacheSizeBytes:Long = 1024 * 1024 * 80
-        builder.setMemoryCache( LruResourceCache(memoryCacheSizeBytes));
+        builder.setMemoryCache( LruResourceCache(memoryCacheSizeBytes))
     }
 }

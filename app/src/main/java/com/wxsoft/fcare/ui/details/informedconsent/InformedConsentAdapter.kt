@@ -9,14 +9,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Talk
-import com.wxsoft.fcare.core.data.entity.drug.DrugPackage
 import com.wxsoft.fcare.databinding.ItemInformedConsentBinding
-import com.wxsoft.fcare.databinding.ItemPharmacyDrugBagBinding
-import com.wxsoft.fcare.ui.details.measures.MeasuresItemAdapter
-import com.wxsoft.fcare.ui.details.pharmacy.DrugBagAdapter
-import com.wxsoft.fcare.ui.details.pharmacy.DrugBagItemAdapter
-import com.wxsoft.fcare.ui.details.pharmacy.PharmacyViewModel
-import kotlinx.android.synthetic.main.item_pharmacy_drug_bag.view.*
 
 class InformedConsentAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: InformedConsentViewModel) :
     RecyclerView.Adapter<InformedConsentAdapter.ItemViewHolder>(){

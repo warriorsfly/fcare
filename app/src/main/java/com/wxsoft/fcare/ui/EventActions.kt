@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.ui
 
-import android.media.Image
 import android.view.View
 import android.widget.ImageView
 

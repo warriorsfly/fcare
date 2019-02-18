@@ -45,11 +45,11 @@ class ReperfusionActivity : BaseActivity() , OnDateSetListener {
             }
 
             dialog = createDialog(currentTime)
-            dialog?.show(supportFragmentManager, "all");
+            dialog?.show(supportFragmentManager, "all")
         }
     }
 
-    private var selectedId=0;
+    private var selectedId=0
 
 
     private lateinit var patientId:String
@@ -91,8 +91,8 @@ class ReperfusionActivity : BaseActivity() , OnDateSetListener {
         viewModel.backToLast.observe(this, Observer {
 
             Intent().let { intent->
-                setResult(RESULT_OK, intent);
-                finish();
+                setResult(RESULT_OK, intent)
+                finish()
             }
         })
 

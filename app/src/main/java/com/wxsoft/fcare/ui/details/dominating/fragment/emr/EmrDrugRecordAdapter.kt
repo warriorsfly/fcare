@@ -17,7 +17,7 @@ class EmrDrugRecordAdapter (private val owner: LifecycleOwner,private val  actio
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            root.setOnClickListener { action?.onOpen(ActionRes.ActionType.给药,getItem(position).id?:"") }
+            root.setOnClickListener { action?.onOpen(ActionRes.ActionType.给药, getItem(position).id) }
             record=getItem(position)
             executePendingBindings()
         }

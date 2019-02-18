@@ -16,7 +16,7 @@ import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
-class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,val max:Int=0) :
+class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val max:Int=0) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
 

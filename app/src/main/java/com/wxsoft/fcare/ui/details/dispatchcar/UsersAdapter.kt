@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.User
-import com.wxsoft.fcare.databinding.ItemSelectCarBinding
 import com.wxsoft.fcare.databinding.ItemSelectDoctorBinding
 import com.wxsoft.fcare.databinding.ItemSelectDriverBinding
 import com.wxsoft.fcare.databinding.ItemSelectNurseBinding

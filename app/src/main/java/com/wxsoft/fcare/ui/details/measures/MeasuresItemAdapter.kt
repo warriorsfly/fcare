@@ -22,10 +22,10 @@ class MeasuresItemAdapter constructor(private val lifecycleOwner: LifecycleOwner
         set(value) {
             field = value
             when(value){
-                0->{viewModel.measuresItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                1->{viewModel.cureResultItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                2->{viewModel.outcallResultItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                3->{viewModel.departments.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
+                0->{viewModel.measuresItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                1->{viewModel.cureResultItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                2->{viewModel.outcallResultItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                3->{viewModel.departments.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
             }
         }
 

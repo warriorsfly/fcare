@@ -99,18 +99,17 @@ fun String.wrapInQuotes(): String {
 fun String.unwrapQuotes(): String {
     var formattedConfigString: String = this
     if (formattedConfigString.startsWith("\"")) {
-        if (formattedConfigString.length > 1) {
-            formattedConfigString = formattedConfigString.substring(1)
+        formattedConfigString = if (formattedConfigString.length > 1) {
+            formattedConfigString.substring(1)
         } else {
-            formattedConfigString = ""
+            ""
         }
     }
     if (formattedConfigString.endsWith("\"")) {
-        if (formattedConfigString.length > 1) {
-            formattedConfigString =
-                formattedConfigString.substring(0, formattedConfigString.length - 1)
+        formattedConfigString = if (formattedConfigString.length > 1) {
+            formattedConfigString.substring(0, formattedConfigString.length - 1)
         } else {
-            formattedConfigString = ""
+            ""
         }
     }
     return formattedConfigString

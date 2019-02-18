@@ -1,8 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.data.entity.Pacs
-import com.wxsoft.fcare.core.data.entity.Pharmacy
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import retrofit2.http.Body

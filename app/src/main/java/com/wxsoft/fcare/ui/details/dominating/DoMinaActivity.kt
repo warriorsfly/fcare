@@ -89,7 +89,7 @@ class DoMinaActivity : BaseActivity() {
         viewPager.adapter = TaskStateAdapter(supportFragmentManager)
 
         add_patient.setOnClickListener {
-            var intent = Intent(this, ProfileActivity::class.java).apply {
+            val intent = Intent(this, ProfileActivity::class.java).apply {
                 putExtra(ProfileActivity.TASK_ID, taskId)
                 putExtra(ProfileActivity.PATIENT_ID, "")
             }

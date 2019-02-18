@@ -31,7 +31,7 @@ class LoginActivity : BaseActivity() {
     private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
             this,
             R.layout.activity_login
         ).apply {
@@ -63,7 +63,7 @@ class LoginActivity : BaseActivity() {
 
         viewModel.account.observe(this, Observer {
             if (it != null && it.success) {
-                var intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.CABG
-import com.wxsoft.fcare.core.data.entity.Pharmacy
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.core.data.entity.drug.DrugPackage

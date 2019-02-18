@@ -163,7 +163,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
 
 
         viewModel.voiceStart.observe(this,Observer {
-            if (it ?: false){
+            if (it == true){
                 checkAudioRecoder()
 
             }else{
@@ -383,7 +383,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
     }
 
 
-    fun getCurrentTime(): String {
+    private fun getCurrentTime(): String {
         val calendar = Calendar.getInstance()
         //年
         val year = calendar.get(Calendar.YEAR)
@@ -408,7 +408,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
     　　* @param formatLength
     　　* @return 重组后的数据
     　　*/
-    fun frontCompWithZore(sourceDate: Int, formatLength: Int): String {
+    private fun frontCompWithZore(sourceDate: Int, formatLength: Int): String {
         /*
     　　      * 0 指前面补充零
     　　      * formatLength 字符总长度为 formatLength
@@ -565,7 +565,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
     }
 
-    fun dismiss() {
+    private fun dismiss() {
         // 如果reocrder再daialog关闭前已经停止，则调用stopRecording会抛出IllegalStateException
         try {
             recorder?.stopRecording()

@@ -74,7 +74,7 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     /**
      * 获取肌酐蛋白单位字典信息
      */
-    fun loadTroponin() {
+    private fun loadTroponin() {
         dictEnumApi.loadTroponinUnit().toResource()
             .subscribe {
                 loadTroponinDictEnumResult.value = it

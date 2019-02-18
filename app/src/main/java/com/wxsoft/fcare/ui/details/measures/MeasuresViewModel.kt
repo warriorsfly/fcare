@@ -22,8 +22,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
-    override var title: String=""
-        get() = "治疗措施"
+    override var title = "治疗措施"
     override val clickableTitle: String
         get() = "保存"
 
@@ -43,10 +42,10 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     }
 
     val pharmacy:LiveData<Dictionary>
-    val loadPharmacy = MediatorLiveData<Dictionary>()
+    private val loadPharmacy = MediatorLiveData<Dictionary>()
 
     val changeString:LiveData<String>
-    val loadChangeString = MediatorLiveData<String>()
+    private val loadChangeString = MediatorLiveData<String>()
 
     val measuresItems: LiveData<List<Dictionary>>
     private val loadMeasuresItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -87,7 +86,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
 
 
-    fun getMeasuresItems(){
+    private fun getMeasuresItems(){
         dicEnumApi.loadMeasuresItems().toResource()
             .subscribe {
                 loadMeasuresItemsResult.value = it
@@ -95,7 +94,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
             }
     }
 
-    fun getDetourItems(){
+    private fun getDetourItems(){
         dicEnumApi.loadDetour().toResource()
             .subscribe {
                 loaddetourItemsResult.value = it
@@ -103,7 +102,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
             }
     }
 
-    fun getCureResultItems(){
+    private fun getCureResultItems(){
         dicEnumApi.loadCureResultItems().toResource()
             .subscribe {
                 loadCureResultItemsResult.value = it
@@ -111,7 +110,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
             }
     }
 
-    fun getOutcallResultItems(){
+    private fun getOutcallResultItems(){
         dicEnumApi.loadOutcallResultItems().toResource()
             .subscribe {
                 loadOutcallResultItemsResult.value = it
@@ -126,33 +125,33 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                 haveData()
             }
     }
-    fun saveMeasure(){
+    private fun saveMeasure(){
         measuresApi.save(measure.value!!).toResource()
             .subscribe{
                 initResultString.value = it
             }
     }
 
-    fun haveData(){
+    private fun haveData(){
         measure.value?.measureDtos?.map {
-            var code = it.measureCode
-            measuresItems.value?.filter { it.id.equals(code) }?.map {it.checked = true }
+            val code = it.measureCode
+            measuresItems.value?.filter { it.id == code }?.map {it.checked = true }
         }
 
-        cureResultItems.value?.filter { it.id.equals(measure.value?.preCureResultCode) }?.map {it.checked = true }
-        outcallResultItems.value?.filter { it.id.equals(measure.value?.preVisitResultCode) }?.map {it.checked = true }
-        departments.value?.filter { it.id.equals(measure.value?.preDirectDepartId) }?.map {it.checked = true }
+        cureResultItems.value?.filter { it.id == measure.value?.preCureResultCode }?.map {it.checked = true }
+        outcallResultItems.value?.filter { it.id == measure.value?.preVisitResultCode }?.map {it.checked = true }
+        departments.value?.filter { it.id == measure.value?.preDirectDepartId }?.map {it.checked = true }
     }
 
     fun clickSelect(item: Dictionary){
         when(item.section){
             0->{
-                if (item.id.equals("212-5") ){//用药 跳转用药界面
-                    loadPharmacy.value = item
-                }else if(item.id.equals("212-6")){//溶栓 跳转溶栓界面
-                    loadPharmacy.value = item
-                } else{
-                    item.checked = !item.checked
+                when {
+                    item.id == "212-5" -> //用药 跳转用药界面
+                        loadPharmacy.value = item
+                    item.id == "212-6" -> //溶栓 跳转溶栓界面
+                        loadPharmacy.value = item
+                    else -> item.checked = !item.checked
                 }
             }
             1->{ cureResultItems.value?.filter { it.checked }?.map {it.checked = false }

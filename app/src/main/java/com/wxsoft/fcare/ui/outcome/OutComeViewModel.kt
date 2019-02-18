@@ -24,8 +24,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "患者转归"
+    override var title = "患者转归"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -46,7 +45,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
 
     val data:LiveData<OutCome>
     private val loadDiagnosisResult = MediatorLiveData<Response<OutCome>>()
-    val des:LiveData<List<Dictionary>>
+    private val des:LiveData<List<Dictionary>>
     private val loadDesResult = MediatorLiveData<List<Dictionary>>()
 
     val commitResult = MediatorLiveData<Resource<Response<String>>>()

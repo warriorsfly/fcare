@@ -55,11 +55,11 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
             }
 
             dialog = createDialog(currentTime)
-            dialog?.show(supportFragmentManager, "all");
+            dialog?.show(supportFragmentManager, "all")
         }
     }
 
-    private var selectedId=0;
+    private var selectedId=0
 
     private lateinit var patientId:String
     private lateinit var id:String
@@ -79,7 +79,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
     lateinit var binding: ActivityThrombolysisBinding
 
-    lateinit var placeDialog: Dialog
+    private lateinit var placeDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,8 +132,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 "ModifyRadiographyTime" -> showDatePicker(findViewById(R.id.end_thromboly_radiography_time))
                 "saveSuccess" -> {
                     Intent().let { intent->
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        setResult(RESULT_OK, intent)
+                        finish()
                     }
                 }
             }
@@ -141,24 +141,24 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
     }
 
-    fun selectPlace(){
+    private fun selectPlace(){
         val adapter = ThromPlaceAdapter(this,viewModel)
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_thrombolysis_places, null)
-        placeDialog.setContentView(view);
-        viewModel.thromPlaces.observe(this, Observer { it -> adapter.items = it ?: emptyList() })
+        placeDialog.setContentView(view)
+        viewModel.thromPlaces.observe(this, Observer { adapter.items = it ?: emptyList() })
         view.findViewById<RecyclerView>(R.id.place_list).adapter = adapter
-        var  attributes = placeDialog.window?.attributes
-        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT;
-        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        attributes?.gravity = Gravity.BOTTOM;
-        attributes?.windowAnimations = R.style.picture_alert_dialog;
-        placeDialog.window?.attributes = attributes;
-        placeDialog.window?.setBackgroundDrawableResource(android.R.color.transparent);
-        placeDialog.show();
+        val attributes = placeDialog.window?.attributes
+        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
+        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        attributes?.gravity = Gravity.BOTTOM
+        attributes?.windowAnimations = R.style.picture_alert_dialog
+        placeDialog.window?.attributes = attributes
+        placeDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        placeDialog.show()
     }
 
-    fun  toInformedConsent(){
-        var intent = Intent(this@ThrombolysisActivity, AddInformedActivity::class.java).apply {
+    private fun  toInformedConsent(){
+        val intent = Intent(this@ThrombolysisActivity, AddInformedActivity::class.java).apply {
             putExtra(AddInformedActivity.PATIENT_ID,patientId)
             putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
             putExtra(AddInformedActivity.TITLE_CONTENT,viewModel.informed.value?.content)
@@ -168,8 +168,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         startActivityForResult(intent, ThrombolysisActivity.INFORMED_CONSENT)
     }
 
-    fun toSeeInformedConsent(){
-        var intent = Intent(this@ThrombolysisActivity, InformedConsentDetailsActivity::class.java).apply {
+    private fun toSeeInformedConsent(){
+        val intent = Intent(this@ThrombolysisActivity, InformedConsentDetailsActivity::class.java).apply {
             putExtra(InformedConsentDetailsActivity.PATIENT_ID,patientId)
             putExtra(InformedConsentDetailsActivity.TALK_ID,viewModel.thrombolysis.value?.informedConsentId)
             putExtra(InformedConsentDetailsActivity.TALK_NAME,viewModel.informed.value?.name)
@@ -178,8 +178,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         startActivity(intent)
     }
 
-    fun toDrugs(){
-        var intent = Intent(this@ThrombolysisActivity, PharmacyActivity::class.java).apply {
+    private fun toDrugs(){
+        val intent = Intent(this@ThrombolysisActivity, PharmacyActivity::class.java).apply {
             putExtra(PharmacyActivity.PATIENT_ID,patientId)
             putExtra(PharmacyActivity.COME_FROM,"THROMBOLYSIS")
         }
@@ -197,7 +197,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
                 }
                 ThrombolysisActivity.DRUG ->{//用药
-                    var pharmacy = data?.getSerializableExtra("drugRecords") as Pharmacy
+                    val pharmacy = data?.getSerializableExtra("drugRecords") as Pharmacy
                     viewModel.thrombolysis.value?.drugRecords = emptyList()
                     viewModel.thrombolysis.value?.drugRecords = pharmacy.drugRecordDetails
                 }

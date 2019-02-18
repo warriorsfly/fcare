@@ -3,7 +3,6 @@ package com.wxsoft.fcare.core.data.entity
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
-import javax.inject.Inject
 
 data class User(
     var id:String,

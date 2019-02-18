@@ -17,9 +17,6 @@ class AssistantTypeAdapter constructor(private val lifecycleOwner: LifecycleOwne
     private val differ = AsyncListDiffer<LisItem>(this, DiffCallback)
 
     var section:Int = 0
-        set(value) {
-            field = value
-        }
 
     var items: List<LisItem> = emptyList()
         set(value) {

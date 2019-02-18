@@ -75,21 +75,21 @@ class MainActivity : BaseActivity() {
 //        )
     }
 
-    override fun onResume() {
-        super.onResume();
-//        nfcAdapter?.enableForegroundDispatch(this, pi, null, null); //启动
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-//        nfcAdapter?.disableForegroundDispatch(this); //启动
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-    }
+//    override fun onResume() {
+//        super.onResume();
+////        nfcAdapter?.enableForegroundDispatch(this, pi, null, null); //启动
+//    }
+//
+//    override fun onPause() {
+//        super.onPause()
+//
+////        nfcAdapter?.disableForegroundDispatch(this); //启动
+//    }
+//
+//    override fun onDestroy() {
+//        super.onDestroy()
+//
+//    }
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)

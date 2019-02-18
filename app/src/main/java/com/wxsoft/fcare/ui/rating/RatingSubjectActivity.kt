@@ -53,7 +53,7 @@ class RatingSubjectActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        var binding = DataBindingUtil.setContentView<ActivityRatingSubjectBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityRatingSubjectBinding>(
             this,
             R.layout.activity_rating_subject
         ).apply{
@@ -82,8 +82,8 @@ class RatingSubjectActivity : BaseActivity() {
 
             if(it=="保存成功") {
                 Intent().let { intent ->
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
             }
         })

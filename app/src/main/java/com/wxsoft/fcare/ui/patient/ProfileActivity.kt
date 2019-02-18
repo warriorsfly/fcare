@@ -95,10 +95,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
     }
 
-    private val photoAction:EventAction by lazy {
-        EventAction()
-    }
-
+    private val photoAction:EventAction?=EventAction()
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -132,7 +129,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
         adapter= PictureAdapter(this,4)
 
-        adapter.setActionListener(photoAction)
+        adapter.setActionListener(photoAction!!)
         adapter.locals= emptyList()
         attachments.adapter=adapter
         viewModel.patient.observe(this, Observer {
@@ -148,8 +145,8 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
                     Intent().let {intent->
                         intent.putExtra(NEW_PATIENT_ID,it.data.result)
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        setResult(RESULT_OK, intent)
+                        finish()
                     }
                 }
             }
@@ -188,7 +185,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
         }
     }
 
-    inner class EventAction() :PhotoEventAction{
+    inner class EventAction :PhotoEventAction{
         override fun localSelected() {
             checkPhotoTaking()
         }
@@ -196,10 +193,12 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
         override fun enlargeRemote(imageView:View, url: String) {
             zoomImageFromThumb(imageView,enlarged,url)
         }
-
-
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        photoAction=null
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if(resultCode== Activity.RESULT_OK) {

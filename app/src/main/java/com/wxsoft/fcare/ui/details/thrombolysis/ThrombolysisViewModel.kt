@@ -24,8 +24,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "溶栓"
+    override var title = "溶栓"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -83,7 +82,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
 
-    fun loadPlaces(){
+    private fun loadPlaces(){
         dictEnumApi.loadThromPlaces().toResource()
             .subscribe {
                 loadThromPlaces.value = it
@@ -105,7 +104,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
     //获取溶栓知情同意书内容
-    fun getInformedConsent(){
+    private fun getInformedConsent(){
         thrombolysisApi.getInformedConsentById("2").toResource()
             .subscribe {
                 loadInformedResult.value = it
@@ -130,7 +129,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
     //修改知情同意书时间
     fun modifyInformedTime(isStart:Int){
-        if (isStart.equals(1)){//知情同意书开始时间
+        if (isStart == 1){//知情同意书开始时间
             initModifySome.value = "ModifyStartInformedTime"
         }else{//知情同意书签署时间
             initModifySome.value = "ModifyEndInformedTime"

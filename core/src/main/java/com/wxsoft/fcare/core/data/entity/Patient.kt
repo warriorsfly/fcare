@@ -199,7 +199,7 @@ data class Patient(@PrimaryKey val id:String):BaseObservable(){
     @get:Bindable
     var diagnosisName: String=""
         set(value) {
-            if(value.equals("代码不存在"))return
+            if(value == "代码不存在")return
             field = value
             notifyPropertyChanged(BR.diagnosisName)
         }

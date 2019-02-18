@@ -29,8 +29,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                                                   override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "病史"
+    override var title = "病史"
     override val clickableTitle: String
         get() = "保存"
     override val clickable:LiveData<Boolean>
@@ -49,7 +48,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             field = value
         }
 
-    var saveAble=true
+    private var saveAble=true
 
     val bitmaps= mutableListOf<String>()
 
@@ -62,7 +61,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     private val loadMedicalHistoryResult = MediatorLiveData<Resource<Response<MedicalHistory>>>()
 
     val historyPhoto:LiveData<String>
-    val loadPhoto = MediatorLiveData<String>()
+    private val loadPhoto = MediatorLiveData<String>()
 
     val providerItems: LiveData<List<Dictionary>>
     private val loadProviderItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -84,7 +83,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         loadHistoryItems()
     }
 
-    fun loadProviderItems() {
+    private fun loadProviderItems() {
         dicEnumApi.loadMedicalHistoryProviderItems().toResource()
             .subscribe{
                 loadProviderItemsResult.value = it
@@ -92,17 +91,17 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                     providerItems.value?.first()?.checked = true
                 }else{
                     providerItems.value?.filter { it.checked }?.map {it.checked = false }
-                    providerItems.value?.filter { it.id.equals(medicalHistory.value?.provide) }?.map {it.checked = true }
+                    providerItems.value?.filter { it.id == medicalHistory.value?.provide }?.map {it.checked = true }
                 }
 
             }
     }
 
-    fun loadHistoryItems() {
+    private fun loadHistoryItems() {
         dicEnumApi.loadMedicalHistoryItems().toResource()
             .subscribe{
                 loadHistoryItemsResult.value = it
-                historyItems.value?.filter { it.id.equals(medicalHistory.value?.ph) }?.map {it.checked = true }
+                historyItems.value?.filter { it.id == medicalHistory.value?.ph }?.map {it.checked = true }
 
             }
     }
@@ -115,7 +114,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             }
     }
 
-    fun saveMedicalHistory(){
+    private fun saveMedicalHistory(){
         if (saveAble){
             saveAble = false
             val files = bitmaps.map {
@@ -170,13 +169,13 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     }
 
 
-    fun haveData(){
+    private fun haveData(){
         if (medicalHistory.value?.id.isNullOrEmpty()){
             providerItems.value?.first()?.checked = true
         }else{
             providerItems.value?.filter { it.checked }?.map {it.checked = false }
-            providerItems.value?.filter { it.id.equals(medicalHistory.value?.provide) }?.map {it.checked = true }
-            historyItems.value?.filter { it.id.equals(medicalHistory.value?.ph) }?.map {it.checked = true }
+            providerItems.value?.filter { it.id == medicalHistory.value?.provide }?.map {it.checked = true }
+            historyItems.value?.filter { it.id == medicalHistory.value?.ph }?.map {it.checked = true }
         }
 
     }

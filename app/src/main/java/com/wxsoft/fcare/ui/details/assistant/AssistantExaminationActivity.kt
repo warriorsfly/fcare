@@ -42,12 +42,12 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
         binding.viewModel = viewModel
         viewModel.patientId = patientId
 
-        var typeAdapter = AssistantTypeAdapter(this,viewModel)
-        viewModel.lisItems.observe(this, Observer { it -> typeAdapter.items = it ?: emptyList() })
+        val typeAdapter = AssistantTypeAdapter(this,viewModel)
+        viewModel.lisItems.observe(this, Observer { typeAdapter.items = it ?: emptyList() })
         binding.typesList.adapter = typeAdapter
 
-        var containerAdapter = AssistantContainerAdapter(this,viewModel)
-        viewModel.lisRecords.observe(this, Observer { it -> containerAdapter.items = it ?: emptyList() })
+        val containerAdapter = AssistantContainerAdapter(this,viewModel)
+        viewModel.lisRecords.observe(this, Observer { containerAdapter.items = it ?: emptyList() })
         binding.containerList.adapter = containerAdapter
 
         viewModel.clickEdit.observe(this, Observer {
@@ -64,8 +64,8 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
     }
 
 
-    fun toJGDB(id:String){
-        var dialog= TroponinFragment()
+    private fun toJGDB(id:String){
+        val dialog= TroponinFragment()
         dialog.patientId=viewModel.patientId
         dialog.recordId = id
         dialog.show(supportFragmentManager, TroponinFragment.TAG)

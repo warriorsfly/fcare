@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.Measure
-import com.wxsoft.fcare.core.data.entity.MedicalHistory
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import retrofit2.http.Body

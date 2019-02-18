@@ -9,11 +9,8 @@ import android.text.TextUtils
 import android.util.Log
 import cn.jpush.android.api.JPushInterface
 import com.wxsoft.fcare.ui.message.MessageActivity
-//import com.wxsoft.fcare.data.prefs.SharedPreferenceStorage
-//import com.wxsoft.fcare.ui.calling.CallingActivity
 import org.json.JSONException
 import org.json.JSONObject
-import javax.inject.Inject
 
 /**
  * 自定义接收器

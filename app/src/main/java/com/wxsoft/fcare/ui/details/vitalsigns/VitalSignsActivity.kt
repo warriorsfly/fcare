@@ -52,8 +52,8 @@ class VitalSignsActivity : BaseActivity() {
 
         viewModel.backToLast.observe(this, Observer {
             Intent().let { intent->
-                setResult(RESULT_OK, intent);
-                finish();
+                setResult(RESULT_OK, intent)
+                finish()
             }
         })
 

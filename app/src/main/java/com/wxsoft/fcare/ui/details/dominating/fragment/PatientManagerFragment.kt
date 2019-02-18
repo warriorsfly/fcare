@@ -44,7 +44,7 @@ class PatientManagerFragment : DaggerFragment() {
             lifecycleOwner = this@PatientManagerFragment
             viewModel=this@PatientManagerFragment.viewModel
             image.setOnClickListener {
-                var intent = Intent(activity, ProfileActivity::class.java).apply {
+                val intent = Intent(activity, ProfileActivity::class.java).apply {
                     putExtra(ProfileActivity.TASK_ID, viewModel?.taskId)
                 }
                 activity?.startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)

@@ -64,7 +64,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             lifecycleOwner = this@PatientsFragment
 
         }
-        viewModel.patients.observe(this, Observer { it->
+        viewModel.patients.observe(this, Observer {
             adapter.submitList(it)
         })
         viewModel.detailAction.observe(this, EventObserver{
