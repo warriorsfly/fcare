@@ -10,7 +10,7 @@ import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.RatingApi
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -27,14 +27,14 @@ class RatingSubjectViewModel @Inject constructor(
     var ratingId=""
         set(value) {
             field=value
-            if(value.isNullOrEmpty())return
+            if(value.isEmpty())return
             loadRating()
         }
 
     var recordId=""
         set(value) {
             field=value
-            if(value.isNullOrEmpty())return
+            if(value.isEmpty())return
             loadRecord()
         }
 
@@ -127,7 +127,7 @@ class RatingSubjectViewModel @Inject constructor(
                 ratingId = rating.value!!.id,
                 ratingName = rating.value!!.name,
                 score = rating.value!!.score,
-                createdDate = loadRecordResult.value!!.createdDate
+                createdDate = loadRecordResult.value?.createdDate
             )
             ratingRecord.records = rating.value?.subjects?.filter { it.selectedIndex ?: -1 >= 0 }?.map {
                 SubjectRecord(

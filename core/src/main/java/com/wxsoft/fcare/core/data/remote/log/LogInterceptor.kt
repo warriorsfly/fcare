@@ -122,7 +122,7 @@ class LogInterceptor @JvmOverloads constructor(private val logger: Logger = Logg
 
         val responseBody = response.body()
         val contentLength = responseBody!!.contentLength()
-        val bodySize = if (contentLength != -1L) contentLength.toString() + "-byte" else "unknown-length"
+        val bodySize = if (contentLength != -1L) "$contentLength-byte" else "unknown-length"
         logger.log("<-- code: "
                 + response.code()+ ' '.toString()+ response.message()+ ' '.toString()+ response.request().url() + " ("
                 + tookMs + "ms" + (if (!logHeaders) ", $bodySize body" else "") + ')'.toString())

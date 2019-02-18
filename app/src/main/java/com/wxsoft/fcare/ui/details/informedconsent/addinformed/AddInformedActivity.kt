@@ -1,12 +1,8 @@
 package com.wxsoft.fcare.ui.details.informedconsent.addinformed
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
+import android.animation.*
 import android.app.Activity
-import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
@@ -14,41 +10,73 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.media.*
-import android.os.Bundle
-import android.os.Environment
-import android.os.SystemClock
+import android.net.Uri
+import android.os.*
+import android.support.annotation.RequiresApi
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.FileProvider
-import android.util.Log
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.Chronometer
 import android.widget.ImageView
 import android.widget.Toast
+import cafe.adriel.androidaudioconverter.AndroidAudioConverter
+import cafe.adriel.androidaudioconverter.callback.IConvertCallback
+import cafe.adriel.androidaudioconverter.callback.ILoadCallback
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.di.GlideApp
+import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.databinding.ActivityAddInformedConsentBinding
+import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ActivityAddInformedBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
-import com.wxsoft.fcare.utils.viewModelProvider
-import com.yanzhenjie.permission.Action
-import com.yanzhenjie.permission.AndPermission
-import kotlinx.android.synthetic.main.activity_add_informed_consent.*
+import kotlinx.android.synthetic.main.activity_add_informed.*
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import omrecorder.AudioRecordConfig
+import omrecorder.PullTransport
+import omrecorder.PullableSource
 import java.io.*
+import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
+import android.arch.lifecycle.Observer
 
-class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
+class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallback {
+    override fun onSuccess(p0: File?) {
+        viewModel.voicePath = p0!!.absolutePath
+//                    onRecordFinishListener?.invoke(p0!!)
+        dismiss()
 
+    }
+    override fun onFailure(p0: Exception?) {
+        toast("录音组件异常")
+        dismiss()
+    }
 
+    private val STATE_RECORD_INIT = 1           // 初始状态
+    private val STATE_RECORD_RECORDING = 2      // 正在录音
+    private val STATE_RECORD_PLAY = 3           // 正在播放录音
+    private val STATE_RECORD_PAUSE = 4          // 暂停录音
+
+    private val MAX_RECORD_TIME = 1800000
+
+    private var recorder : CustomRecorder? = null
+    private val mediaPlayer by lazy { MediaPlayer() }
+    private var recordState = STATE_RECORD_INIT
+    private var recordTime = 0L  //录制时间，单位为ms
+
+    //录音计时器
+    private var recordTimer: CountDownTimer? = null
+
+    //录音播放计时器
+    private var recordPlayTimer: CountDownTimer? = null
+
+//*************************************************************************************
     private lateinit var patientId:String
     private lateinit var titleName:String
     private lateinit var informedConten:String
@@ -74,23 +102,25 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var binding: ActivityAddInformedConsentBinding
+    lateinit var binding: ActivityAddInformedBinding
 
     private lateinit var adapter:PictureAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        binding = DataBindingUtil.setContentView<ActivityAddInformedConsentBinding>(this, R.layout.activity_add_informed_consent)
+        binding = DataBindingUtil.setContentView<ActivityAddInformedBinding>(this, R.layout.activity_add_informed)
             .apply {
-                lifecycleOwner = this@AddInformedConsentActivity
+                lifecycleOwner = this@AddInformedActivity
             }
-        patientId=intent.getStringExtra(AddInformedConsentActivity.PATIENT_ID)?:""
-        titleName=intent.getStringExtra(AddInformedConsentActivity.TITLE_NAME)?:""
-        informedConten=intent.getStringExtra(AddInformedConsentActivity.TITLE_CONTENT)?:""
-        informedContenId=intent.getStringExtra(AddInformedConsentActivity.INFORMED_ID)?:""
-        comeFrom=intent.getStringExtra(AddInformedConsentActivity.COME_FROM)?:""
+
+        initConvertor()
+
+        patientId=intent.getStringExtra(AddInformedActivity.PATIENT_ID)?:""
+        titleName=intent.getStringExtra(AddInformedActivity.TITLE_NAME)?:""
+        informedConten=intent.getStringExtra(AddInformedActivity.TITLE_CONTENT)?:""
+        informedContenId=intent.getStringExtra(AddInformedActivity.INFORMED_ID)?:""
+        comeFrom=intent.getStringExtra(AddInformedActivity.COME_FROM)?:""
 
 
         viewModel.informedContenId = informedContenId
@@ -104,21 +134,18 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
 
         back.setOnClickListener { onBackPressed() }
 
-        AudioConfig.patientId = patientId
-        AudioConfig.titleName = titleName
 
         viewModel.talk.observe(this, Observer {})
         viewModel.talkResultId.observe(this, Observer {})
 
-
         viewModel.backToLast.observe(this, Observer {
-            if (comeFrom.equals("THROMBOLYSIS")){
+            if (comeFrom == "THROMBOLYSIS"){
                 Intent().let { intent->
                     intent.putExtra("informedConsentId",viewModel.talkResultId.value)
                     intent.putExtra("startTime",viewModel.talk.value?.startTime)
                     intent.putExtra("endTime",viewModel.talk.value?.endTime)
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
             }else{
                 finish()
@@ -129,59 +156,22 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
         viewModel.showVoiceTime.observe(this, Observer {  })
 
 
-        AndPermission.with(this@AddInformedConsentActivity).permission(Manifest.permission.RECORD_AUDIO,Manifest.permission.WRITE_EXTERNAL_STORAGE).onGranted(object :
-            Action {
-            override fun onAction(permissions: MutableList<String>?) {//同意权限
-                var rootDir: File = File(AudioConfig.rootDir)
-                var audioFile: File = File(AudioConfig.audioPath)
-                if (!rootDir.exists()) {
-                    var isDir = rootDir.mkdir()
-                    if (!isDir) {
-                        Toast.makeText(this@AddInformedConsentActivity, "创建文件夹失败", Toast.LENGTH_SHORT).show()
-                        return
-                    }
-                }
-                if (!audioFile.exists()) {
-                    var isFile = audioFile.createNewFile()
-                    if (isFile) {
-                        Toast.makeText(this@AddInformedConsentActivity, "创建文件成功", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(this@AddInformedConsentActivity, "创建文件失败", Toast.LENGTH_SHORT).show()
-                        return
-                    }
-                }
-            }
-
-        }).onDenied(object : Action {
-            //拒绝权限
-            override fun onAction(permissions: MutableList<String>?) {
-                Toast.makeText(this@AddInformedConsentActivity, "没有权限", Toast.LENGTH_SHORT).show()
-            }
-        }).start()
-
-
         adapter= PictureAdapter(this,10)
-
         adapter.setActionListener(photoAction)
         adapter.locals= emptyList()
         informed_attachments.adapter=adapter
 
-        viewModel.voiceStart.observe(this, Observer {
-            if (AudioRecordManager.isAudioRecord){
-                AudioRecordManager.isAudioRecord = false
+
+        viewModel.voiceStart.observe(this,Observer {
+            if (it == true){
+                checkAudioRecoder()
+
+            }else{
+                pauseRecording()
                 binding.voiceTime.stop()
-                viewModel.voicePath = AudioConfig.audioPath
                 viewModel.talk.value?.endTime = getCurrentTime()
                 viewModel.initShowVoiceTime.value = true
-                binding.timeVoice.setText(binding.voiceTime.text)
-            }else{
-                AudioRecordManager.isAudioRecord = true
-                var audioRecord = AudioRecordManager()
-                audioRecord.start()
-                viewModel.talk.value?.startTime = getCurrentTime()
-                binding.voiceTime.setBase(SystemClock.elapsedRealtime());
-                binding.voiceTime.setCountDown(false);
-                binding.voiceTime.start()
+                binding.timeVoice.text = binding.voiceTime.text
             }
         })
 
@@ -193,14 +183,7 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.voice_record -> {
-                if (AudioTrackManager.isPaly){
-                    AudioTrackManager.isPaly = false
-                }else{
-                    AudioTrackManager.isPaly = true
-                    var audioTrack = AudioTrackManager()
-                    audioTrack.start()
-                }
-
+                playRecoding()
             }
 
         }
@@ -229,16 +212,23 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
                     dispatchTakePictureIntent(adapter.locals.map { it.first },10-adapter.remotes.size)
                 }
             }
+
+            AUDIO_RECRD_PERMISSION_REQUEST->{
+                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                    && grantResults[1] == PackageManager.PERMISSION_GRANTED){
+                    startRecording()
+                }
+            }
         }
     }
 
-    inner class EventAction() : PhotoEventAction {
+    inner class EventAction : PhotoEventAction {
         override fun localSelected() {
             checkPhotoTaking()
         }
 
-        override fun enlargeRemote(root: View, url: String) {
-            zoomImageFromThumb(root,enlarged,url)
+        override fun enlargeRemote(imageView: View, url: String) {
+            zoomImageFromThumb(imageView,enlarged,url)
         }
 
 
@@ -393,24 +383,23 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     }
 
 
-    fun getCurrentTime(): String {
+    private fun getCurrentTime(): String {
         val calendar = Calendar.getInstance()
         //年
-        var year = calendar.get(Calendar.YEAR)
+        val year = calendar.get(Calendar.YEAR)
         //月
-        var month = frontCompWithZore(calendar.get(Calendar.MONTH) + 1, 2)
+        val month = frontCompWithZore(calendar.get(Calendar.MONTH) + 1, 2)
         //日
-        var day = frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH), 2)
+        val day = frontCompWithZore(calendar.get(Calendar.DAY_OF_MONTH), 2)
         //获取系统时间
         //小时
-        var hour = frontCompWithZore(calendar.get(Calendar.HOUR_OF_DAY), 2)
+        val hour = frontCompWithZore(calendar.get(Calendar.HOUR_OF_DAY), 2)
         //分钟
-        var minute = frontCompWithZore(calendar.get(Calendar.MINUTE), 2)
+        val minute = frontCompWithZore(calendar.get(Calendar.MINUTE), 2)
         //秒
-        var second = frontCompWithZore(calendar.get(Calendar.SECOND), 2)
+        val second = frontCompWithZore(calendar.get(Calendar.SECOND), 2)
 
-        var date = "" + year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
-        return date
+        return "$year-$month-$day $hour:$minute:$second"
     }
 
     /**
@@ -419,103 +408,184 @@ class AddInformedConsentActivity : BaseActivity() , View.OnClickListener {
     　　* @param formatLength
     　　* @return 重组后的数据
     　　*/
-    fun frontCompWithZore(sourceDate: Int, formatLength: Int): String {
+    private fun frontCompWithZore(sourceDate: Int, formatLength: Int): String {
         /*
     　　      * 0 指前面补充零
     　　      * formatLength 字符总长度为 formatLength
     　　      * d 代表为正数。
     　　      */
-        var newString = String.format("%0" + formatLength + "d", sourceDate)
-        return newString
+        return String.format("%0" + formatLength + "d", sourceDate)
 
     }
 
-
-
-}
-
-class AudioConfig {
-    companion object {
-        val frequency:Int = 11025 //采样率
-        val audioFormat:Int = AudioFormat.ENCODING_PCM_16BIT //数据位宽
-        val channelConfig:Int = AudioFormat.CHANNEL_OUT_STEREO;//双通道
-        val rootDir:String = Environment.getExternalStorageDirectory().absolutePath+"/fcareAudio";
-        var patientId:String = ""
-        var titleName:String = ""
-//        val fcarepcm:String = "/fcare.pcm"
-        var audioPath:String = rootDir+"/"+titleName+patientId+"fcare.pcm"
-    }
-}
-
-class AudioRecordManager : Thread() {
-    companion object {
-        var isAudioRecord: Boolean = false
+//**************************************************************************************************
+    private fun initConvertor() {
+        AndroidAudioConverter.load(this, object : ILoadCallback {
+            override fun onSuccess() {}
+            override fun onFailure(p0: Exception?) {
+                toast("录音组件初始化异常")
+            }
+        })
     }
 
-    val bufferSize: Int = AudioRecord.getMinBufferSize(AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat)
-    val audioRecord: AudioRecord = AudioRecord(MediaRecorder.AudioSource.MIC, AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat, bufferSize)
-    lateinit var dataOutput: DataOutputStream
-    override fun run() {
-        super.run()
-        val audioFile: File = File(AudioConfig.audioPath)
-//        val audioFile: File = File("http://112.27.113.252:44398/Upload/InformedConsent/54ddea58999b4d4cb72ac7646c1ec1ed.pcm")
-        if (!audioFile.exists()) {
-            Log.d(">>>>>>>>", ">>>>>文件不存在>>>>")
+    private fun pauseRecording() {
+        changeState(STATE_RECORD_PAUSE)
+        recordTimer?.cancel()
+        recorder!!.pauseRecording()
+
+        finishRecording()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.N)
+    private fun startRecording() {
+        if (recordTime >= MAX_RECORD_TIME){
+            toast("回答不能超过${MAX_RECORD_TIME / 1000}s")
             return
         }
-        try {
-            audioRecord.startRecording()
-            dataOutput = DataOutputStream(BufferedOutputStream(FileOutputStream(audioFile)))
-            val buffer = ShortArray(bufferSize)
-            audioRecord.startRecording()
-            while (isAudioRecord) {
-                val bufferReadResult = audioRecord.read(buffer, 0, bufferSize)
-                Log.d("cccc======", "cccc=====result:" + bufferReadResult + "////size:" + buffer.size)
-                for (i in 0 until bufferReadResult) {
-                    dataOutput.writeShort(buffer[i].toInt())
-                }
-            }
-            audioRecord.stop()
-            dataOutput.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
+
+        if (recordState == STATE_RECORD_INIT) {
+            recorder = createRecorder()
+            recorder!!.startRecording()
+            viewModel.talk.value?.startTime = getCurrentTime()
+            binding.voiceTime.base = SystemClock.elapsedRealtime()
+            binding.voiceTime.isCountDown = false
+            binding.voiceTime.start()
+            startRecordTimer()
+
+
+        }else{
+            recorder!!.resumeRecording()
         }
 
+        changeState(STATE_RECORD_RECORDING)
+    }
+
+    private fun deleteRecording(){
+
+        changeState(STATE_RECORD_INIT)
+        recordTime = 0
+        recorder!!.stopRecording()
+    }
+
+    private fun playRecoding(){
+        if (recordTime >= MAX_RECORD_TIME) {toast("录制时间到达上限"); return}
+
+        if (recordState == STATE_RECORD_PAUSE) {
+            mediaPlayer.setOnCompletionListener { playRecoding() }
+            mediaPlayer.reset()
+            mediaPlayer.setDataSource(this, Uri.fromFile(recorder!!.tempFile))
+            mediaPlayer.prepare()
+            mediaPlayer.start()
+            startPlayRecordTimer()
+            changeState(STATE_RECORD_PLAY)
+
+//            progress_view.maxProgress = 100f
+        }else{
+            recordPlayTimer?.cancel()
+//            progressAnim!!.cancel()
+//            progress_view.currentProgress = 0f
+            mediaPlayer.stop()
+            changeState(STATE_RECORD_PAUSE)
+        }
+    }
+
+    private fun finishRecording() {
+        recorder!!.stopRecording()
+
+        //将wav转化为mp3
+        AndroidAudioConverter.with(this).setFile(recorder!!.recordFile)
+            .setFormat(cafe.adriel.androidaudioconverter.model.AudioFormat.MP3)
+            .setCallback(this).convert()
+
+    }
+
+    /**
+     * 根据状态改变控件显示属性
+     */
+    private fun changeState(recordState: Int){
+        when(recordState){
+            STATE_RECORD_INIT -> {
+
+            }
+            STATE_RECORD_RECORDING -> {
+
+            }
+            STATE_RECORD_PAUSE -> {
+
+            }
+            STATE_RECORD_PLAY -> {
+
+            }
+        }
+        this.recordState = recordState
+    }
+
+    private fun startRecordTimer(){
+        recordTimer = object : CountDownTimer(MAX_RECORD_TIME - recordTime,100){
+            override fun onTick(millisUntilFinished: Long) {
+                recordTime += 100
+//                tv_time.text = "${recordTime / 60000}:${formatSecondLongToString((recordTime % 60000) / 1000)}"
+            }
+            override fun onFinish() {
+                pauseRecording()
+                toast("录制时间到达上限")
+            }
+        }.start()
+    }
+
+    private fun startPlayRecordTimer(){
+        var countDownTime = recordTime.toFloat()
+        recordPlayTimer = object : CountDownTimer(recordTime,100){
+            init {
+//                progress_view.maxProgress = countDownTime
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                val timeLeft = millisUntilFinished / 1000
+//                tv_time.text = "${timeLeft/60}:${formatSecondLongToString(timeLeft % 60)}"
+//                progress_view.currentProgress = countDownTime - millisUntilFinished
+            }
+            override fun onFinish() {}
+        }.start()
+    }
+
+    private fun createRecorder() = CustomRecorder(
+        PullTransport.Default(mic(),
+            PullTransport.OnAudioChunkPulledListener {}),file(),tempFile())
+
+    private fun mic() = PullableSource.Default(
+        AudioRecordConfig.Default(
+            MediaRecorder.AudioSource.MIC, AudioFormat.ENCODING_PCM_16BIT,
+            AudioFormat.CHANNEL_IN_MONO, 44100))
+
+    private fun file() = File(this.externalCacheDir, "record.wav")
+    private fun tempFile() = File(this.externalCacheDir, "temp.wav")
+
+    fun toast(msg: String){
+        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
+    }
+
+    private fun dismiss() {
+        // 如果reocrder再daialog关闭前已经停止，则调用stopRecording会抛出IllegalStateException
+        try {
+            recorder?.stopRecording()
+        }catch (e: IllegalStateException){}
+    }
+
+    private fun checkAudioRecoder(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                AUDIO_RECRD_PERMISSION_REQUEST
+            )
+
+        }else{
+            startRecording()
+        }
     }
 }
 
-class AudioTrackManager :Thread(){
-    companion object {
-        var isPaly:Boolean = false
-    }
-    val bufferSize: Int = AudioTrack.getMinBufferSize(AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat)
-    val buffer = ShortArray(bufferSize / 4)
-    lateinit var dataInputStream: DataInputStream
-    val audioTrack: AudioTrack = AudioTrack(AudioManager.STREAM_MUSIC, AudioConfig.frequency, AudioConfig.channelConfig, AudioConfig.audioFormat, bufferSize, AudioTrack.MODE_STREAM)
 
-    override fun run() {
-        super.run()
-        val audioFile: File = File(AudioConfig.audioPath)
-        if (!audioFile.exists()) {
-            Log.d(">>>>>>>>", ">>>>>文件不存在>>>>")
-            return
-        }
-        try {
-            dataInputStream = DataInputStream(BufferedInputStream(FileInputStream(audioFile)))
-            audioTrack.play()
-            while (isPaly && dataInputStream.available() > 0) {
-                var i:Int = 0
-                while (dataInputStream.available() > 0 && i < buffer.size) {
-                    buffer[i] = dataInputStream.readShort();
-                    i++;
-                }
-                audioTrack.write(buffer, 0, buffer.size);
-            }
-            dataInputStream.close();
-            audioTrack.release()
-            audioTrack.stop()
-        }catch (e:Exception){
-            e.stackTrace
-        }
-    }
-}
+

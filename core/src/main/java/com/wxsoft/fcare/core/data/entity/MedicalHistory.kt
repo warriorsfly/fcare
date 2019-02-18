@@ -4,7 +4,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
-import com.wxsoft.fcare.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 
 data class MedicalHistory(val id:String): BaseObservable() {
 
@@ -51,19 +51,13 @@ data class MedicalHistory(val id:String): BaseObservable() {
             notifyPropertyChanged(BR.phName)
         }
 
+    //过敏史
     @Bindable
     var ah:String=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.ah)
         }
-
-//    @Bindable
-//    var medicalHistoryPhotos:ArrayList<String> = emptyList()
-//        set(value) {
-//            field=value
-//            notifyPropertyChanged(BR.medicalHistoryPhotos)
-//        }
 
     @Bindable
     var attachments:List<Attachment>  = emptyList()
@@ -72,7 +66,7 @@ data class MedicalHistory(val id:String): BaseObservable() {
             notifyPropertyChanged(BR.attachments)
         }
     @Bindable
-    var createdDate:String=DateTimeUtils.getCurrentTime()
+    var createdDate:String= DateTimeUtils.getCurrentTime()
         set(value) {
             field=value
             notifyPropertyChanged(BR.createdDate)

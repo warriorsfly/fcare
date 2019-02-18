@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.paging.DataSource
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.remote.PatientApi
-import java.util.concurrent.Executor
 
 class PatientSourceFactory (
     private val api: PatientApi,

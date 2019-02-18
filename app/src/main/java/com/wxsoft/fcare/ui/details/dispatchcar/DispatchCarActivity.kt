@@ -4,15 +4,13 @@ import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.MenuItem
 import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityDispatchCarBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -22,10 +20,10 @@ class DispatchCarActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var carAdapter: CarAdapter
-    lateinit var doctorAdapter: UsersAdapter
-    lateinit var nurseAdapter: UsersAdapter
-    lateinit var driverAdapter: UsersAdapter
+    private lateinit var carAdapter: CarAdapter
+    private lateinit var doctorAdapter: UsersAdapter
+    private lateinit var nurseAdapter: UsersAdapter
+    private lateinit var driverAdapter: UsersAdapter
 
     lateinit var binding: ActivityDispatchCarBinding
 
@@ -44,24 +42,24 @@ class DispatchCarActivity : BaseActivity() {
 //            toDetail(t)
 //        })
         carAdapter = CarAdapter(this,viewModel)
-        viewModel.cars.observe(this, Observer { it -> carAdapter.cars = it ?: emptyList() })
+        viewModel.cars.observe(this, Observer { carAdapter.cars = it ?: emptyList() })
         binding.carList.adapter = carAdapter
 
         back.setOnClickListener { onBackPressed() }
 
         doctorAdapter = UsersAdapter(this,viewModel)
         doctorAdapter.type = "doctor"
-        viewModel.doctors.observe(this, Observer { it -> doctorAdapter.users = it ?: emptyList() })
+        viewModel.doctors.observe(this, Observer { doctorAdapter.users = it ?: emptyList() })
         binding.doctorList.adapter = doctorAdapter
 
         nurseAdapter = UsersAdapter(this,viewModel)
         nurseAdapter.type = "nurse"
-        viewModel.nurses.observe(this, Observer { it -> nurseAdapter.users = it ?: emptyList() })
+        viewModel.nurses.observe(this, Observer { nurseAdapter.users = it ?: emptyList() })
         binding.nurseList.adapter = nurseAdapter
 
         driverAdapter = UsersAdapter(this,viewModel)
         driverAdapter.type = "driver"
-        viewModel.drivers.observe(this, Observer { it -> driverAdapter.users = it ?: emptyList() })
+        viewModel.drivers.observe(this, Observer { driverAdapter.users = it ?: emptyList() })
         binding.driverList.adapter = driverAdapter
 
         viewModel.task.observe(this, Observer {  })
@@ -70,10 +68,9 @@ class DispatchCarActivity : BaseActivity() {
             if (it != null){
 
                 Intent().let { intent ->
-
                     toDetail(it)
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
             }
 
@@ -88,7 +85,7 @@ class DispatchCarActivity : BaseActivity() {
 
 
     private fun toDetail(id:String) {
-        var intent = Intent(this, DoMinaActivity::class.java).apply {
+        val intent = Intent(this, DoMinaActivity::class.java).apply {
             putExtra(DoMinaActivity.TASK_ID, id)
         }
         startActivity(intent)

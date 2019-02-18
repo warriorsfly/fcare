@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.data
+package com.wxsoft.fcare.core.data
 
 import com.wxsoft.fcare.core.result.Resource
 import io.reactivex.Flowable

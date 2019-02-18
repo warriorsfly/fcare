@@ -5,8 +5,6 @@ import cn.jiguang.share.android.api.JShareInterface
 import cn.jiguang.share.android.api.PlatformConfig
 import cn.jpush.android.api.BasicPushNotificationBuilder
 import cn.jpush.android.api.JPushInterface
-import com.baidu.mapapi.CoordType
-import com.baidu.mapapi.SDKInitializer
 import com.squareup.leakcanary.LeakCanary
 import com.wxsoft.fcare.di.DaggerAppComponent
 import dagger.android.AndroidInjector

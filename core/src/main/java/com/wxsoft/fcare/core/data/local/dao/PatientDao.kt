@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.data.core.local.dao
+package com.wxsoft.fcare.core.data.local.dao
 
 import android.arch.persistence.room.*
 import com.wxsoft.fcare.core.data.entity.Patient

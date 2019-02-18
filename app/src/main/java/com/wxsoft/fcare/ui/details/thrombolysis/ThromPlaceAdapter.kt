@@ -17,9 +17,6 @@ class ThromPlaceAdapter constructor(private val lifecycleOwner: LifecycleOwner, 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
 
     var section:Int = 0
-        set(value) {
-            field = value
-        }
 
     var items: List<Dictionary> = emptyList()
         set(value) {

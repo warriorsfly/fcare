@@ -16,7 +16,7 @@ class EmrRatingRecordAdapter(private val owner: LifecycleOwner,private val  acti
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            root.setOnClickListener { action?.onOpen(GRACE,getItem(position).id?:"") }
+            root.setOnClickListener { action?.onOpen(GRACE, getItem(position).id) }
             rating=getItem(position)
             executePendingBindings()
         }

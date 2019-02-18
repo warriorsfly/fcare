@@ -16,8 +16,8 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityReperfusionBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -40,16 +40,16 @@ class ReperfusionActivity : BaseActivity() , OnDateSetListener {
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {
             selectedId=it.id
-            val currentTime=it.text.toString()?.let {text->
-                return@let if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            val currentTime= it.text.toString().let { text->
+                if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
             }
 
             dialog = createDialog(currentTime)
-            dialog?.show(supportFragmentManager, "all");
+            dialog?.show(supportFragmentManager, "all")
         }
     }
 
-    private var selectedId=0;
+    private var selectedId=0
 
 
     private lateinit var patientId:String
@@ -91,8 +91,8 @@ class ReperfusionActivity : BaseActivity() , OnDateSetListener {
         viewModel.backToLast.observe(this, Observer {
 
             Intent().let { intent->
-                setResult(RESULT_OK, intent);
-                finish();
+                setResult(RESULT_OK, intent)
+                finish()
             }
         })
 

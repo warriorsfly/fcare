@@ -39,7 +39,7 @@ data class Drug (val id:String): BaseObservable() {
     var doseNum: String = ""
         set(value) {
             field = value
-            if(value != "") dose = value.toInt() else dose = 0
+            dose = if(value != "") value.toInt() else 0
             notifyPropertyChanged(BR.doseNum)
         }
 

@@ -9,8 +9,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/> <!-- end 网络请求 -->
     <!-- 扫描射频 -->
-    <uses-permission android:name="android.permission.NFC"/> <!-- 录音权限 -->
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/><!-- 录音权限 -->
 
     <uses-feature
             android:name="android.hardware.nfc"
@@ -50,8 +50,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.reperfusion.ReperfusionActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".ui.details.informedconsent.addinformed.AddInformedActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+                android:name=".ui.details.reperfusion.ReperfusionActivity"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".ui.details.assistant.AssistantExaminationActivity"
@@ -73,9 +77,6 @@
                 android:name=".ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity
-                android:name=".ui.details.informedconsent.addinformed.AddInformedConsentActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.informedconsent.InformedConsentActivity"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -133,20 +134,21 @@
                 android:name=".ui.discharge.DisChargeActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
                 android:name=".ui.outcome.OutComeActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
                 android:name=".ui.main.MainActivity"
-                android:theme="@style/AppTheme.NoActionBar">
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustPan">
         </activity>
         <activity
                 android:name=".ui.patient.ProfileActivity"
+                android:configChanges="orientation|keyboardHidden"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar"/>
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity
                 android:name=".ui.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar">

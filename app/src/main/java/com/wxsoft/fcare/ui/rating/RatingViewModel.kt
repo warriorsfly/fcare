@@ -8,7 +8,7 @@ import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.RatingApi
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -19,12 +19,15 @@ class RatingViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-    override var title: String=""
-        get() = "评分"
+    override var title = "评分"
     override val clickableTitle: String
         get() = ""
 
     var patientId=""
+    set(value) {
+        field=value
+        loadRating()
+    }
 
     override val clickable:LiveData<Boolean>
 
@@ -39,16 +42,16 @@ class RatingViewModel @Inject constructor(
 
         clickable=clickResult.map { it }
         ratings=loadRatingResult.map { it ?: emptyList() }
-        loadRating()
+//        loadRating()
     }
 
     private fun loadRating(){
-        ratingApi.getRatings().subscribeOn(Schedulers.io())
+        disposable.add(ratingApi.getRatings(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                it->
-                loadRatingResult.value=it.result
-            }
+                ratings->
+                loadRatingResult.value=ratings.result
+            })
     }
 
 

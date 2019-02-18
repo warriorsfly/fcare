@@ -71,6 +71,8 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 android:text="抽血时间:" />
                         <Button
+
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
                                 android:layout_width="0dp"
                                 android:layout_height="40dp"
                                 android:textSize="12sp"
@@ -102,6 +104,7 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 android:text="报告时间:" />
                         <Button
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
                                 android:layout_width="0dp"
                                 android:layout_height="40dp"
                                 android:textSize="12sp"

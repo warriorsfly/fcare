@@ -8,11 +8,9 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import cn.jpush.android.api.JPushInterface
-//import com.wxsoft.fcare.data.prefs.SharedPreferenceStorage
-//import com.wxsoft.fcare.ui.calling.CallingActivity
+import com.wxsoft.fcare.ui.message.MessageActivity
 import org.json.JSONException
 import org.json.JSONObject
-import javax.inject.Inject
 
 /**
  * 自定义接收器
@@ -102,6 +100,16 @@ class JPushReceiver : BroadcastReceiver() {
 
                 context.sendBroadcast(timeLineRefresh)
             }
+            StartCT ->{
+
+                val alarmIntent = Intent(context, MessageActivity::class.java).apply {
+                    putExtra(MessageActivity.PATIENT_ID, message)
+                    putExtra(MessageActivity.NOTIFY_TYPE, "CT")
+                }
+                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(alarmIntent)
+
+            }
         }
     }
 
@@ -109,6 +117,7 @@ class JPushReceiver : BroadcastReceiver() {
 
         const val LineRefresh = "LineRefresh"
         const val RegistrationId = "RegistrationId"
+        const val StartCT = "StartCT"
         // 打印所有的 intent extra 数据
         @JvmStatic
         private fun printBundle(bundle: Bundle): String {

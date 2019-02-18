@@ -4,21 +4,17 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
-import com.wxsoft.fcare.core.data.entity.DisChargeDiagnosis
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
-import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.DischargeApi
-import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -28,8 +24,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "患者转归"
+    override var title = "患者转归"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -50,7 +45,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
 
     val data:LiveData<OutCome>
     private val loadDiagnosisResult = MediatorLiveData<Response<OutCome>>()
-    val des:LiveData<List<Dictionary>>
+    private val des:LiveData<List<Dictionary>>
     private val loadDesResult = MediatorLiveData<List<Dictionary>>()
 
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
@@ -82,7 +77,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
                         return
                     }
 
-                    if(it.resultCode.isNullOrEmpty()){
+                    if(it.resultCode.isEmpty()){
                         messageAction.value=Event("治疗结果未选择")
                         return
                     }
@@ -94,7 +89,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
                         return
                     }
 
-                    if (it.hospitalName.isNullOrEmpty()) {
+                    if (it.hospitalName.isEmpty()) {
                         messageAction.value = Event("请选择医院")
                         return
                     }
@@ -105,7 +100,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
                     }
                 }
                 "11-3"->{
-                    if (it.admissionDept.isNullOrEmpty()) {
+                    if (it.admissionDept.isEmpty()) {
                         messageAction.value = Event("请选择接诊科室")
                         return
                     }

@@ -15,8 +15,8 @@ import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.utils.lazyFast
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
@@ -89,7 +89,7 @@ class DoMinaActivity : BaseActivity() {
         viewPager.adapter = TaskStateAdapter(supportFragmentManager)
 
         add_patient.setOnClickListener {
-            var intent = Intent(this, ProfileActivity::class.java).apply {
+            val intent = Intent(this, ProfileActivity::class.java).apply {
                 putExtra(ProfileActivity.TASK_ID, taskId)
                 putExtra(ProfileActivity.PATIENT_ID, "")
             }
@@ -105,7 +105,7 @@ class DoMinaActivity : BaseActivity() {
         if(resultCode==RESULT_OK) {
             when (requestCode) {
                 NEW_PATIENT_REQUEST -> {
-                    val pId = data?.getStringExtra(NEW_PATIENT_ID)
+//                    data?.getStringExtra(NEW_PATIENT_ID)
                     viewModel.loadTask()
                 }
             }

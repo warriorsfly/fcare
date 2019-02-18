@@ -3,8 +3,6 @@ package com.wxsoft.fcare.core.data.entity
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
-import java.lang.StringBuilder
-import kotlin.system.measureTimeMillis
 
 data class CheckBody (val id:String): BaseObservable(){
 
@@ -107,6 +105,6 @@ data class CheckBody (val id:String): BaseObservable(){
                 "2" -> "\n右瞳孔对光反应：迟钝"
                 "3" -> "\n右瞳孔对光反应：消失"
                 else -> ""
-            }).append(if(checkMemo.isNullOrEmpty())"" else "\n备注：$checkMemo").toString()
+            }).append(if(checkMemo.isEmpty())"" else "\n备注：$checkMemo").toString()
     }
 }

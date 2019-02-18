@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
-import com.wxsoft.fcare.R
-
 class NotificationFragment : Fragment() {
 
     companion object {

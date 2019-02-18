@@ -4,7 +4,7 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
-import com.wxsoft.fcare.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 
 data class Diagnosis (val id:String): BaseObservable(){
 
@@ -114,7 +114,7 @@ data class Diagnosis (val id:String): BaseObservable(){
         }
 
     @Bindable
-    var createdDate:String=DateTimeUtils.getCurrentTime()
+    var createdDate:String= DateTimeUtils.getCurrentTime()
         set(value) {
             field=value
             notifyPropertyChanged(BR.createdDate)

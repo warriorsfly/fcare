@@ -12,6 +12,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 
     companion object {
         const val CAMERA_PERMISSION_REQUEST=10
+        const val AUDIO_RECRD_PERMISSION_REQUEST=14
         const val CAMERA_PIC_REQUEST=11
         const val NEW_PATIENT_REQUEST=13
         const val NEW_PATIENT_ID="new_patient_id"
@@ -38,7 +39,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
             .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
             .minimumCompressSize(100)// 小于100kb的图片不压缩
             .synOrAsy(true)//同步true或异步false 压缩 默认同步
-            .forResult(PictureConfig.CHOOSE_REQUEST);//结果回调onActivityResult code
+            .forResult(PictureConfig.CHOOSE_REQUEST)//结果回调onActivityResult code
     }
 
 

@@ -15,7 +15,7 @@ import com.wxsoft.fcare.databinding.ActivityLoginBinding
 import com.wxsoft.fcare.service.JPushReceiver.Companion.RegistrationId
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.main.MainActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import javax.inject.Inject
 
 /**
@@ -31,7 +31,7 @@ class LoginActivity : BaseActivity() {
     private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
             this,
             R.layout.activity_login
         ).apply {
@@ -63,7 +63,7 @@ class LoginActivity : BaseActivity() {
 
         viewModel.account.observe(this, Observer {
             if (it != null && it.success) {
-                var intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
                 finish()
             }

@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class InformedConsentDetailsViewModel @Inject constructor(private val informedApi: InformedApi,
@@ -20,8 +20,7 @@ class InformedConsentDetailsViewModel @Inject constructor(private val informedAp
                                                           override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
-    override var title: String=""
-        get() = "知情同意书详情"
+    override var title = "知情同意书详情"
     override val clickableTitle: String
         get() = ""
 
@@ -65,8 +64,6 @@ class InformedConsentDetailsViewModel @Inject constructor(private val informedAp
                 loadInformedResult.value = it
             }
     }
-
-
 
 
 

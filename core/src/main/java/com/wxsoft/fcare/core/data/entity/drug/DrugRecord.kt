@@ -3,7 +3,7 @@ package com.wxsoft.fcare.core.data.entity.drug
 import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.wxsoft.fcare.core.BR
-import com.wxsoft.fcare.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import java.io.Serializable
 
 data class DrugRecord (val id:String) : BaseObservable() , Serializable {

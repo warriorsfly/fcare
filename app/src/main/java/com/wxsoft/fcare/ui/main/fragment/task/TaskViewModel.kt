@@ -14,8 +14,8 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 
@@ -38,7 +38,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
         isLoading = loadTasksResult.map { it == Resource.Loading }
         tasks = loadTasksResult.map {
 
-            (it as? Resource.Success)?.data!!.result ?: emptyList()
+            (it as? Resource.Success)?.data?.result ?: emptyList()
         }
     }
 
@@ -47,6 +47,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
     }
 
     private fun load() {
+
         disposable.add(taskApi.tasks(taskDate).toResource()
             .subscribe {
                 loadTasksResult.value = it
@@ -57,7 +58,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
 
     }
 
-    override fun onOpen(id: String) {
-        _navigateToOperationAction.value = Event(id)
+    override fun onOpen(t: String) {
+        _navigateToOperationAction.value = Event(t)
     }
 }

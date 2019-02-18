@@ -5,12 +5,11 @@ import android.arch.lifecycle.Observer
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.MenuItem
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityPharmacyBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -50,33 +49,33 @@ class PharmacyActivity : BaseActivity() {
         viewModel.getDrugRecord()
 
         back.setOnClickListener { onBackPressed() }
-        var  bagAdapter = DrugBagAdapter(this,viewModel)
-        viewModel.drugPackages.observe(this, Observer { it -> bagAdapter.items = it ?: emptyList() })
+        val bagAdapter = DrugBagAdapter(this,viewModel)
+        viewModel.drugPackages.observe(this, Observer { bagAdapter.items = it ?: emptyList() })
         binding.drugbagList.adapter = bagAdapter
 
-        var drugsAdapter = DrugsAdapter(this,viewModel)
-        viewModel.drugs.observe(this, Observer { it -> drugsAdapter.items = it ?: emptyList() })
+        val drugsAdapter = DrugsAdapter(this,viewModel)
+        viewModel.drugs.observe(this, Observer { drugsAdapter.items = it ?: emptyList() })
         binding.drugsList.adapter = drugsAdapter
 
         viewModel.pharmacy.observe(this, Observer {  })
         viewModel.drugRecords.observe(this, Observer {  })
 
-        var drugBottomListAdapter = DrugBottomListAdapter(this,viewModel)
-        viewModel.selectedDrugs.observe(this, Observer { it -> drugBottomListAdapter.items = it ?: emptyList()  })
+        val drugBottomListAdapter = DrugBottomListAdapter(this,viewModel)
+        viewModel.selectedDrugs.observe(this, Observer { drugBottomListAdapter.items = it ?: emptyList()  })
         binding.bottomList.adapter = drugBottomListAdapter
 
         viewModel.backToLast.observe(this, Observer {
-            if (comeFrom.equals("THROMBOLYSIS")){
+            if (comeFrom == "THROMBOLYSIS"){
                 Intent().let { intent->
                     val bundle = Bundle()
                     bundle.putSerializable("drugRecords",viewModel.pharmacy.value)
                     intent.putExtras(bundle)
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
             }else{
-                setResult(RESULT_OK, intent);
-                finish();
+                setResult(RESULT_OK, intent)
+                finish()
             }
         })
     }

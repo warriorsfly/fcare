@@ -283,6 +283,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="女"
+                            android:checked="@={!viewModel.patient.male}"
                             android:id="@+id/female"/>
 
 
@@ -395,6 +396,7 @@
                         android:id="@+id/attack_button"
                         android:text="@={viewModel.patient.attackTime}"
                         android:textSize="14sp"
+                        android:maxLength="16"
                         android:layout_marginRight="15dp"
                         android:layout_height="wrap_content"
                         android:gravity="right|center_vertical"/>

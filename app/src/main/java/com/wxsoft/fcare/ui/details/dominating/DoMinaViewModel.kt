@@ -12,8 +12,8 @@ import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -27,7 +27,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     val task:LiveData<Task>
-    val selectIndex = ObservableInt()
+    private val selectIndex = ObservableInt()
     var taskId:String=""
         set(value) {
             if(value!=field){
@@ -83,7 +83,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     /**
      * 首次医疗接触所需要的时间
      */
-    val firstMetTime=ObservableLong()
+    private val firstMetTime=ObservableLong()
     /**
      * 返回医院所需要的时间
      */
@@ -222,7 +222,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 loadTaskResult.value?.result?.firstMet = resp.result
                                 loadTaskResult.value?.result?.status = 3
                                 selectIndex.set(3)
-                                firstMetTimeStamp =DateTimeUtils.formatter.parse(resp.result)?.time
+                                firstMetTimeStamp = DateTimeUtils.formatter.parse(resp.result)?.time
                                 _pageAction.value = Event(2)
                                 messageAction.value = Event(it.carId + "首次接触")
 

@@ -3,8 +3,6 @@ package com.wxsoft.fcare.ui.details.dispatchcar
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
-import android.widget.Toast
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -16,8 +14,8 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class DispatchCarViewModel @Inject constructor(
@@ -27,8 +25,7 @@ class DispatchCarViewModel @Inject constructor(
     override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "发车"
+    override var title= "发车"
     override val clickableTitle: String
         get() = "立即发车"
     override val clickable:LiveData<Boolean>
@@ -44,7 +41,7 @@ class DispatchCarViewModel @Inject constructor(
     val nurses: LiveData<List<User>>
     val drivers: LiveData<List<User>>
     val cars: LiveData<List<Car>>
-    var selectedCar:Car
+    private var selectedCar:Car
     override val account: Account
 
     var taskId: LiveData<String>
@@ -126,12 +123,12 @@ class DispatchCarViewModel @Inject constructor(
     }
 
 
-    override fun onOpen(id: String) {
+    override fun onOpen(t: String) {
 
     }
     fun selectCar(car:Car){
-        if (car.status.equals("203-1")){
-            if (!car.id.equals(selectedCar.id)){
+        if (car.status == "203-1"){
+            if (car.id != selectedCar.id){
                 selectedCar.selectStatus = !selectedCar.selectStatus
                 car.selectStatus = !car.selectStatus
                 selectedCar = car
@@ -151,8 +148,8 @@ class DispatchCarViewModel @Inject constructor(
         driver.status = !driver.status
     }
 
-    fun submitBtnClick(){
-        var staffs:ArrayList<TaskStaff> = ArrayList()
+    private fun submitBtnClick(){
+        val staffs:ArrayList<TaskStaff> = ArrayList()
         val dstaff=doctors.value?.filter { it.status }
             ?.map { TaskStaff("","",it.id,it.trueName,"3")}?: emptyList()
         val nstaff=nurses.value?.filter { it.status }
@@ -163,7 +160,7 @@ class DispatchCarViewModel @Inject constructor(
         staffs.addAll(nstaff)
         staffs.addAll(drtaff)
         task.value?.taskStaffs = staffs.toTypedArray()
-        if (selectedCar.id.isNullOrEmpty()){
+        if (selectedCar.id.isEmpty()){
             initHaveSelectCar.value = true
             return
         }else{

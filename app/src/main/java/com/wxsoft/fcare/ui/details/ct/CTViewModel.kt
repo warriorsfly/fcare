@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class CTViewModel @Inject constructor(private val api: PACSApi,
@@ -21,8 +21,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "CT室操作"
+    override var title= "CT室操作"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -56,7 +55,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
             .subscribe {
                 when(it){
                     is Resource.Success->{
-                        loadInterventionResult.value=it?.data
+                        loadInterventionResult.value= it.data
                     }
                 }
             })
@@ -67,7 +66,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
 
     override fun click() {
         intervention.value?.let {
-            if (it.id.isNullOrEmpty()) {
+            if (it.id.isEmpty()) {
                 it.createrId = account.id
                 it.createrName = account.trueName
                 it.patientId = patientId

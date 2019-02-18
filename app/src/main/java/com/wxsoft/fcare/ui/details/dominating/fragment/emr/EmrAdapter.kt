@@ -1,24 +1,20 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.LifecycleOwner
 import android.databinding.ViewDataBinding
 import android.support.v7.recyclerview.extensions.AsyncListDiffer
 import android.support.v7.util.DiffUtil
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.CheckBody
-import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
-import com.wxsoft.fcare.core.data.entity.EmrItem
-import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
+import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EmrEventAction
@@ -125,6 +121,24 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 executePendingBindings()
 
             }
+
+            is ItemViewHolder.DrugViewHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+
+                if(druglist.adapter==null){
+                    druglist.adapter = EmrDrugRecordAdapter(owner,action)
+                }
+                action?.let {
+                    newOne.setOnClickListener {
+                        action?.onNew(differ.currentList[position].code!!) }
+                }
+                (druglist.adapter as? EmrDrugRecordAdapter)?.submitList((differ.currentList[position].result as? List<DrugRecord>)?: emptyList())
+
+                visiable= position<differ.currentList.size-1
+                lifecycleOwner = owner
+                executePendingBindings()
+            }
+
 
             is ItemViewHolder.DisDiagnoseViewHolder -> holder.binding.apply {
 
@@ -261,19 +275,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         (list.adapter as? EmrItemAdapter<Thrombolysis>)?.submitList((emr.result as? List<Thrombolysis>)?: emptyList<Thrombolysis>())
                     }
 
-                    ActionRes.ActionType.给药->{
-                        if(list.adapter==null){
-                            list.adapter = EmrItemAdapter<DrugRecord>(owner,action)
-                        }
-                        action?.let {
-                            newOne.setOnClickListener {
-                                action?.onNew(differ.currentList[position].code!!) }
-                        }
-                        val manager =  LinearLayoutManager(this.container.context);
-                        manager.setOrientation(LinearLayoutManager.VERTICAL);
-                        list.setLayoutManager(manager);
-                        (list.adapter as? EmrItemAdapter<DrugRecord>)?.submitList((emr.result as? List<DrugRecord>)?: emptyList<DrugRecord>())
-                    }
+
                 }
                 lifecycleOwner = owner
                 executePendingBindings()
@@ -316,6 +318,11 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             R.layout.item_emr_item_list->ItemViewHolder.ListViewHolder(
                 ItemEmrItemListBinding.inflate(inflater,parent,false).apply {
                     list.setRecycledViewPool(pool)
+                }
+            )
+            R.layout.item_emr_drug -> ItemViewHolder.DrugViewHolder(
+                ItemEmrDrugBinding.inflate(inflater,parent,false).apply {
+                    druglist.setRecycledViewPool(pool)
                 }
             )
 
@@ -371,7 +378,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         R.layout.item_emr_item_list
                     }
                     ActionRes.ActionType.给药->{
-                        R.layout.item_emr_item_list
+                        R.layout.item_emr_drug
                     }
 
                     else->R.layout.item_emr_none
@@ -402,6 +409,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
 
                 result1 is VitalSign && result2 is VitalSign ->
                     result1.id == result2.id && oldItem.code == newItem.code
+
                 result1 is Measure && result2 is Measure ->
                     oldItem.code == newItem.code
 
@@ -423,12 +431,16 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is CABG && result2 is CABG ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
+                result1 is DrugRecord && result2 is DrugRecord ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code && result1.size  == result2.size
                 else -> oldItem.code == newItem.code
             }
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: EmrItem, newItem: EmrItem): Boolean {
             val result1 = oldItem.result
             val result2 = newItem.result
@@ -464,6 +476,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is OutCome && result2 is OutCome ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is DrugRecord && result2 is DrugRecord ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->
@@ -516,7 +531,7 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(
 
     //患者用药
     class DrugViewHolder(
-        val binding:ItemEmrListItemDrugBinding
+        val binding:ItemEmrDrugBinding
     ): ItemViewHolder(binding)
 
     //诊断

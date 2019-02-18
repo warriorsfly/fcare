@@ -12,6 +12,7 @@ import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.Log
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.utils.withTranslation
 import java.io.File
 import java.io.FileOutputStream
 
@@ -103,7 +104,7 @@ class ShareShotUtils constructor(
     private fun drawBitmap(): Bitmap {
 
         val xPos = padding + 0f
-        var yPos = padding + 0f
+        val yPos = padding + 0f
 
         val bitmap = Bitmap.createBitmap(
             widthTitle + widthContent + padding * 4,

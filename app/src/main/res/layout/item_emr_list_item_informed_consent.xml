@@ -56,9 +56,7 @@
                 android:textSize="13sp"
                 android:text="签署知情同意书时间"
                 android:layout_marginTop="13dp"
-                android:layout_marginBottom="17dp"
                 android:textColor="#9399A4"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="@id/title2"
                 app:layout_constraintTop_toBottomOf="@id/title2"/>
 
@@ -73,6 +71,44 @@
                 android:text="@{talk.endTime}"
                 app:layout_constraintLeft_toRightOf="@+id/title3"
                 app:layout_constraintBottom_toBottomOf="@id/title3"/>
+
+        <TextView
+                android:id="@+id/title4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:text="总计耗时"
+                android:layout_marginTop="13dp"
+                android:layout_marginBottom="17dp"
+                android:textColor="#9399A4"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="@id/title3"
+                app:layout_constraintTop_toBottomOf="@id/title3"/>
+
+        <TextView
+                android:id="@+id/all_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                tools:text="2019-01-25 19:00:00"
+                android:layout_marginLeft="8dp"
+                android:textColor="#000"
+                android:text="@{talk.allTime}"
+                app:layout_constraintLeft_toRightOf="@+id/title4"
+                app:layout_constraintBottom_toBottomOf="@id/title4"/>
+
+        <TextView
+                android:id="@+id/unit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                tools:text="分钟"
+                android:layout_marginLeft="8dp"
+                android:textColor="#000"
+                android:text="分钟"
+                app:layout_constraintLeft_toRightOf="@+id/all_time"
+                app:layout_constraintBottom_toBottomOf="@id/title4"/>
+
 
 
     </android.support.constraint.ConstraintLayout>

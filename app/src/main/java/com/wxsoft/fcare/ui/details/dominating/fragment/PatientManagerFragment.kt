@@ -16,7 +16,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_patient_manager.*
 import javax.inject.Inject
@@ -44,7 +44,7 @@ class PatientManagerFragment : DaggerFragment() {
             lifecycleOwner = this@PatientManagerFragment
             viewModel=this@PatientManagerFragment.viewModel
             image.setOnClickListener {
-                var intent = Intent(activity, ProfileActivity::class.java).apply {
+                val intent = Intent(activity, ProfileActivity::class.java).apply {
                     putExtra(ProfileActivity.TASK_ID, viewModel?.taskId)
                 }
                 activity?.startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)

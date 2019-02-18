@@ -4,14 +4,13 @@ import android.arch.lifecycle.Observer
 import android.content.DialogInterface
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.os.Handler
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityAssistantExaminationBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.assistant.troponin.TroponinFragment
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -43,12 +42,12 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
         binding.viewModel = viewModel
         viewModel.patientId = patientId
 
-        var typeAdapter = AssistantTypeAdapter(this,viewModel)
-        viewModel.lisItems.observe(this, Observer { it -> typeAdapter.items = it ?: emptyList() })
+        val typeAdapter = AssistantTypeAdapter(this,viewModel)
+        viewModel.lisItems.observe(this, Observer { typeAdapter.items = it ?: emptyList() })
         binding.typesList.adapter = typeAdapter
 
-        var containerAdapter = AssistantContainerAdapter(this,viewModel)
-        viewModel.lisRecords.observe(this, Observer { it -> containerAdapter.items = it ?: emptyList() })
+        val containerAdapter = AssistantContainerAdapter(this,viewModel)
+        viewModel.lisRecords.observe(this, Observer { containerAdapter.items = it ?: emptyList() })
         binding.containerList.adapter = containerAdapter
 
         viewModel.clickEdit.observe(this, Observer {
@@ -65,8 +64,8 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
     }
 
 
-    fun toJGDB(id:String){
-        var dialog= TroponinFragment()
+    private fun toJGDB(id:String){
+        val dialog= TroponinFragment()
         dialog.patientId=viewModel.patientId
         dialog.recordId = id
         dialog.show(supportFragmentManager, TroponinFragment.TAG)

@@ -11,8 +11,8 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityRatingSubjectBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.utils.lazyFast
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_rating_subject_title.*
 
 import javax.inject.Inject
@@ -53,7 +53,7 @@ class RatingSubjectActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        var binding = DataBindingUtil.setContentView<ActivityRatingSubjectBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityRatingSubjectBinding>(
             this,
             R.layout.activity_rating_subject
         ).apply{
@@ -82,8 +82,8 @@ class RatingSubjectActivity : BaseActivity() {
 
             if(it=="保存成功") {
                 Intent().let { intent ->
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    setResult(RESULT_OK, intent)
+                    finish()
                 }
             }
         })

@@ -14,7 +14,7 @@ import com.wxsoft.fcare.databinding.FragmentPatientsBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_patients.*
 import javax.inject.Inject
@@ -25,6 +25,10 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
     }
 
     override fun onQueryTextChange(p0: String?): Boolean {
+        if(p0.isNullOrEmpty()){
+            viewModel.showPatients("")
+            return true
+        }
         return false
     }
 
@@ -60,7 +64,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             lifecycleOwner = this@PatientsFragment
 
         }
-        viewModel.patients.observe(this, Observer { it->
+        viewModel.patients.observe(this, Observer {
             adapter.submitList(it)
         })
         viewModel.detailAction.observe(this, EventObserver{
@@ -81,6 +85,11 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     }
 
+    override fun onStop() {
+        search.clearFocus()
+        super.onStop()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
@@ -92,5 +101,10 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
                 }
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        search.clearFocus()
     }
 }

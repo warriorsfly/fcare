@@ -17,9 +17,8 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.databinding.ActivityCatheterBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.catheter.CatheterViewModel
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_catheter.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
@@ -32,15 +31,15 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         when(v?.id) {
             R.id.thromboly_place -> {
 
-                val list=viewModel.docs.map { it.trueName }?.toTypedArray()
+                val list= viewModel.docs.map { it.trueName }.toTypedArray()
 
                 val selectedItems= viewModel.docs.map { user ->
 
                     viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
                 }.toBooleanArray()
 
-                val dialog = AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems
-                ) { _, which, isChecked ->
+                AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems)
+                { _, which, isChecked ->
                     if(selectedIndex.contains(which) && !isChecked){
                         selectedIndex.remove(which)
 
@@ -49,11 +48,11 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                     }
 
                     viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.id
+                        viewModel.docs[it].id
                     }
 
                     viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
-                        viewModel.docs.get(it)?.trueName
+                        viewModel.docs[it].trueName
                     }
                 }.show()
 
@@ -63,12 +62,12 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
 
                 (v as? Button)?.let {
                     selectedId = it.id
-                    val currentTime = it.text.toString()?.let { text ->
-                        return@let if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+                    val currentTime = it.text.toString().let { text ->
+                        if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
                     }
 
                     dialog = createDialog(currentTime)
-                    dialog?.show(supportFragmentManager, "all");
+                    dialog?.show(supportFragmentManager, "all")
                 }
             }
         }
@@ -78,10 +77,10 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
 
         dialog?.onDestroy()
         dialog=null
-        (findViewById<Button>(selectedId))?.text=DateTimeUtils.formatter.format(millseconds)
+        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
-    private var selectedId=0;
+    private var selectedId=0
 
     private lateinit var patientId:String
     companion object {
@@ -126,8 +125,8 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                 is Resource.Success -> {
                     Intent().let { intent ->
 
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        setResult(RESULT_OK, intent)
+                        finish()
                     }
                 }
             }

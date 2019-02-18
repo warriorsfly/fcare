@@ -1,7 +1,7 @@
 package com.wxsoft.fcare.ui.main.fragment.task
 
 import android.arch.lifecycle.LifecycleOwner
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
+import android.support.v7.recyclerview.extensions.ListAdapter
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -9,33 +9,22 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
-import com.wxsoft.fcare.utils.DateTimeUtils.Companion.formatter
+import com.wxsoft.fcare.core.utils.DateTimeUtils.Companion.formatter
 import java.text.ParseException
 
 
 class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: TaskViewModel) :
-    RecyclerView.Adapter<TaskAdapter.ItemViewHolder>() {
+    ListAdapter<Task,TaskAdapter.ItemViewHolder>(DiffCallback) {
 
-    private val differ = AsyncListDiffer<Task>(this, DiffCallback)
-
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
-    var tasks: List<Task> = emptyList()
-        set(value) {
-            field = value
-            differ.submitList(value)
-        }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            val item = differ.currentList[position]
-            val patients = differ.currentList[position].patients
+            val item = getItem(position)
+            val patients = getItem(position).patients
             val names = patients.joinToString(separator = " ", transform = { it.name })
             if (patients.isNotEmpty()) {
-                differ.currentList[position].taskPosition = patients[0].attackPosition
+                getItem(position).taskPosition = patients[0].attackPosition
             }
             if ((item.startAt != null) && (item.arriveHosAt != null)) {
                 allTime.text = getTimeDifference(item.startAt!!, item.arriveHosAt!!)
@@ -94,28 +83,21 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
         var timeString = ""
 
         try {
-            var parse = formatter.parse(starTime);
-            var parse1 = formatter.parse(endTime);
+            val parse = formatter.parse(starTime)
+            val parse1 = formatter.parse(endTime)
 
-            var diff = parse1.time - parse.time;
-
-            var day = diff / (24 * 60 * 60 * 1000);
-            var hour = (diff / (60 * 60 * 1000) - day * 24);
-            var min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-            var s = (diff / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);
-            var ms = (diff - day * 24 * 60 * 60 * 1000 - hour * 60 * 60 * 1000
-                    - min * 60 * 1000 - s * 1000);
+            val diff = parse1.time - parse.time
             // System.out.println(day + "天" + hour + "小时" + min + "分" + s +
-            // "秒");
-            var hour1 = diff / (60 * 60 * 1000);
+            // "秒")
+            val hour1 = diff / (60 * 60 * 1000)
 
-            var min1 = ((diff / (60 * 1000)) - hour1 * 60);
-            timeString = hour1.toString() + "小时" + min1 + "分";
+            val min1 = ((diff / (60 * 1000)) - hour1 * 60)
+            timeString = hour1.toString() + "小时" + min1 + "分"
 
         }catch (e: ParseException){
             e.printStackTrace()
         }
-        return timeString;
+        return timeString
 
     }
 

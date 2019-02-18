@@ -2,7 +2,6 @@ package com.wxsoft.fcare.ui.details.diagnose
 
 import android.app.AlertDialog
 import android.arch.lifecycle.Observer
-import android.content.DialogInterface
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -12,9 +11,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityDiagnoseBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
-import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -49,22 +46,22 @@ class DiagnoseActivity : BaseActivity() {
 
         back.setOnClickListener { onBackPressed() }
 
-        var typeAdapter = DiagnoseTypeAdapter(this,viewModel)
-        viewModel.typeItems.observe(this, Observer { it -> typeAdapter.items = it ?: emptyList() })
+        val typeAdapter = DiagnoseTypeAdapter(this,viewModel)
+        viewModel.typeItems.observe(this, Observer { typeAdapter.items = it ?: emptyList() })
         binding.diagnoseTypeList.adapter = typeAdapter
 
-        var diagnoseAdapter = DiagnoseAdapter(this,viewModel)
-        viewModel.thoracalgiaItems.observe(this, Observer { it -> diagnoseAdapter.items = it ?: emptyList() })
+        val diagnoseAdapter = DiagnoseAdapter(this,viewModel)
+        viewModel.thoracalgiaItems.observe(this, Observer { diagnoseAdapter.items = it ?: emptyList() })
         binding.diagnoseList.adapter = diagnoseAdapter
 
-        var sondiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
+        val sondiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
         sondiagnoseAdapter.section = 3
-        viewModel.sonItems.observe(this, Observer { it -> sondiagnoseAdapter.items = it ?: emptyList() })
+        viewModel.sonItems.observe(this, Observer { sondiagnoseAdapter.items = it ?: emptyList() })
         binding.diagnoseOtherList.adapter = sondiagnoseAdapter
 
-        var illnessdiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
+        val illnessdiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
         illnessdiagnoseAdapter.section = 4
-        viewModel.illnessItems.observe(this, Observer { it -> illnessdiagnoseAdapter.items = it ?: emptyList() })
+        viewModel.illnessItems.observe(this, Observer { illnessdiagnoseAdapter.items = it ?: emptyList() })
         binding.illnessList.adapter = illnessdiagnoseAdapter
 
         viewModel.startConduitRoom.observe(this, Observer {
@@ -81,8 +78,8 @@ class DiagnoseActivity : BaseActivity() {
 
         viewModel.backToLast.observe(this, Observer {
             Intent().let { intent->
-                setResult(RESULT_OK, intent);
-                finish();
+                setResult(RESULT_OK, intent)
+                finish()
             }
         })
 

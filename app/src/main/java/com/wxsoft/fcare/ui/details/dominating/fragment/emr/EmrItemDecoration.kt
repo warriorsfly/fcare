@@ -1,7 +1,7 @@
 /*
  * Copyright 2018 Google LLC
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -30,11 +30,11 @@ import android.text.TextPaint
 import android.view.View
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EmrItem
-import com.wxsoft.fcare.utils.withTranslation
+import com.wxsoft.fcare.core.utils.withTranslation
 
 /**
  * A [RecyclerView.ItemDecoration] which draws sticky headers marking the days in a given list of
- * [Block]s. It also inserts gaps between days.
+ * [EmrItem]s. It also inserts gaps between days.
  */
 class EmrItemDecoration(
         context: Context,
@@ -104,12 +104,12 @@ class EmrItemDecoration(
             val viewTop = view.top + view.translationY.toInt()
             val position = parent.getChildAdapterPosition(view)
             drawableSlots[position]?.let { layout ->
-                var rect =  Rect(0, 0, 0, 0);
+                val rect =  Rect(0, 0, 0, 0)
 
-                rect.top = view.top-paddingTop;
-                rect.bottom = view.bottom+paddingTop;
-                rect.left = width-layout.first.intrinsicWidth;
-                rect.right = width;
+                rect.top = view.top-paddingTop
+                rect.bottom = view.bottom+paddingTop
+                rect.left = width-layout.first.intrinsicWidth
+                rect.right = width
                 layout.first.bounds=rect
                 layout.first.draw(c)
 

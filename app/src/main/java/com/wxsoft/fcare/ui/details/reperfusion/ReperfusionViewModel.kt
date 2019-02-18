@@ -10,10 +10,9 @@ import com.wxsoft.fcare.core.data.remote.PharmacyApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.core.result.succeeded
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class ReperfusionViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
@@ -22,8 +21,7 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "CABG"
+    override var title = "CABG"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -68,13 +66,13 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
             }
     }
 
-    fun saveCABG(){
+    private fun saveCABG(){
         cabg.value?.patientId = patientId
         pharmacyApi.saveCABG(cabg.value!!).toResource()
             .subscribe {
                when(it){
                    is Resource.Success ->{
-                       messageAction.value= Event(it.data.msg?:"")
+                       messageAction.value= Event(it.data.msg)
                        initbackToLast.value = true
                    }
                    is Resource.Error->{

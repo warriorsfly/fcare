@@ -2,19 +2,15 @@ package com.wxsoft.fcare.ui.patient
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AppCompatActivity;
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityPatientEmrBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
-import com.wxsoft.fcare.ui.main.MainActivity
-import com.wxsoft.fcare.utils.inTransaction
-import com.wxsoft.fcare.utils.lazyFast
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.inTransaction
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 
-import kotlinx.android.synthetic.main.activity_patient_emr.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 

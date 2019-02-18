@@ -9,9 +9,7 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.utils.map
-import java.io.IOException
-import java.util.concurrent.Executor
+import com.wxsoft.fcare.core.utils.map
 
 class PatientSource constructor(
     private val api:PatientApi,

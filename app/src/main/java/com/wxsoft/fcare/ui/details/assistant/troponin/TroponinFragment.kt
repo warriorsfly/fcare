@@ -4,7 +4,6 @@ package com.wxsoft.fcare.ui.details.assistant.troponin
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -17,9 +16,8 @@ import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentTroponinBinding
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.activityViewModelProvider
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.widget.WxDimDialogFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -50,12 +48,12 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {
             selectedId=it.id
-            val currentTime=it.text.toString()?.let {text->
-                return@let if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            val currentTime= it.text.toString().let { text->
+                if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
             }
 
             dialog = createDialog(currentTime)
-            dialog?.show(childFragmentManager, "all");
+            dialog?.show(childFragmentManager, "all")
         }
     }
 
@@ -139,7 +137,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
 //
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        val activity = getActivity()
+        val activity = activity
         if (activity is DialogInterface.OnDismissListener) {
             (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
         }

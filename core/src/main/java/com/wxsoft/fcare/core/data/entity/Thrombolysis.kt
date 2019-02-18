@@ -83,7 +83,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     var hasDirect:Boolean=true
         set(value) {
             field=value
-            if (value)direct="1" else direct="2"
+            direct = if (value) "1" else "2"
             notifyPropertyChanged(BR.hasDirect)
         }
 
@@ -233,6 +233,20 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.patientId)
         }
 
+    @Bindable
+    var d2N:Int?=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.d2N)
+        }
+
+    @Bindable
+    var fmC2N:Int?=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.fmC2N)
+        }
+
     /**
      *  知情同意书id
      */
@@ -249,8 +263,8 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             field=value
             throm_Drug_Name = ""
             value.map {
-                if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
-                if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+                throm_Drug_Name = if (throm_Drug_Name.isEmpty()) it.drugName else throm_Drug_Name+"、"+it.drugName
+                throm_Drug_Dose = if (throm_Drug_Dose.isEmpty()) it.dose.toString() else throm_Drug_Dose+"、"+it.dose.toString()
             }
             notifyPropertyChanged(BR.drugRecords)
         }
@@ -266,17 +280,17 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 
 
     fun setUpChecked(){
-        hasDirect = direct.equals("1")
+        hasDirect = direct == "1"
         if (!drugRecords.isNullOrEmpty()){
             drugRecords.map {
-                if (throm_Drug_Name.isNullOrEmpty()) throm_Drug_Name =it.drugName else throm_Drug_Name = throm_Drug_Name+"、"+it.drugName
-                if (throm_Drug_Dose.isNullOrEmpty()) throm_Drug_Dose = it.dose.toString() else throm_Drug_Dose = throm_Drug_Dose+"、"+it.dose.toString()
+                throm_Drug_Name = if (throm_Drug_Name.isEmpty()) it.drugName else throm_Drug_Name+"、"+it.drugName
+                throm_Drug_Dose = if (throm_Drug_Dose.isEmpty()) it.dose.toString() else throm_Drug_Dose+"、"+it.dose.toString()
             }
         }
     }
 
     fun setPlaceCheck(comefrom:String){
-        if (comefrom.equals("1")) {
+        if (comefrom == "1") {
             throm_Treatment_Place = "16-2"
             thromTreatmentPlaceName = "救护车"
         }else{

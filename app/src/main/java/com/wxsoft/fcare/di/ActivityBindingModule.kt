@@ -17,7 +17,7 @@ import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
-import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
+import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresModule
@@ -120,7 +120,7 @@ abstract class ActivityBindingModule {
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [InformedConsentModule::class])
-    internal abstract fun addInformedConsentActivity(): AddInformedConsentActivity
+    internal abstract fun addInformedActivity(): AddInformedActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [InformedConsentModule::class])

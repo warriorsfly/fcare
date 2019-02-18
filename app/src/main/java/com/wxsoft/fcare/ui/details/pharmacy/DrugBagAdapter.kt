@@ -32,7 +32,7 @@ class DrugBagAdapter constructor(private val lifecycleOwner: LifecycleOwner, val
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
             if (root.drug_bag_item_rv.adapter == null){
-                var adapter = DrugBagItemAdapter(this@DrugBagAdapter.lifecycleOwner,viewModel)
+                val adapter = DrugBagItemAdapter(this@DrugBagAdapter.lifecycleOwner,viewModel)
                 adapter.items = differ.currentList[position].drugPackageDetails
                 root.drug_bag_item_rv.adapter = adapter
             }

@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.ui.rating
 
 import android.arch.lifecycle.Observer
-import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
@@ -13,8 +12,8 @@ import com.wxsoft.fcare.databinding.ActivityRatingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.EventAction
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
-import com.wxsoft.fcare.utils.lazyFast
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.lang.ref.WeakReference
@@ -39,7 +38,7 @@ class RatingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        var binding = DataBindingUtil.setContentView<ActivityRatingBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityRatingBinding>(
             this,
             R.layout.activity_rating
         ).apply{
@@ -72,8 +71,8 @@ class RatingActivity : BaseActivity() {
                 EmrFragment.ARG_NEW_ITEM_CODE -> {
 
                     Intent().let { intent->
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        setResult(RESULT_OK, intent)
+                        finish()
                     }
                 }
             }
@@ -83,11 +82,11 @@ class RatingActivity : BaseActivity() {
 
     class EventActions constructor(private val context: WeakReference<FragmentActivity>, private val patientId:String):
         EventAction<Rating> {
-        override fun onOpen(rating: Rating) {
-            var intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
+        override fun onOpen(t: Rating) {
+            val intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
                 putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
-                putExtra(RatingSubjectActivity.RATING_ID, rating.id)
-                putExtra(RatingSubjectActivity.RATING_NAME, rating.name)
+                putExtra(RatingSubjectActivity.RATING_ID, t.id)
+                putExtra(RatingSubjectActivity.RATING_NAME, t.name)
             }
             context.get()?.startActivityForResult(intent,EmrFragment.ARG_NEW_ITEM_CODE)
         }

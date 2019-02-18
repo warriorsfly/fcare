@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentUserProfileBinding
 import com.wxsoft.fcare.ui.login.LoginActivity
-import com.wxsoft.fcare.utils.activityViewModelProvider
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 

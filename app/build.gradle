@@ -84,7 +84,9 @@ dependencies {
 //    implementation "com.squareup.picasso:picasso:$picasso_version"
 
     //glide
-    implementation "com.github.bumptech.glide:annotations:$glide_version"
+    implementation ("com.github.bumptech.glide:annotations:$glide_version"){
+        exclude group: "com.android.support:support-annotations"
+    }
     implementation("com.github.bumptech.glide:glide:$glide_version") {
         exclude group: "com.android.support"
     }
@@ -108,4 +110,9 @@ dependencies {
     implementation 'android.arch.paging:runtime:1.0.1'
 
     implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
+//    coroutines协程，比较下rxjava2和协程对内存泄漏的影响
+//    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
+
+    implementation 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
+    implementation 'com.kailashdabhi:om-recorder:1.1.5'
 }

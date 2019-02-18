@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -25,8 +25,7 @@ class PatientEmrViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-    override var title: String=""
-        get() = "基本信息"
+    override var title = "基本信息"
     override val clickableTitle: String
         get() = "保存"
 
@@ -38,7 +37,7 @@ class PatientEmrViewModel @Inject constructor(
         }
     val patient:LiveData<Patient>
 
-    val bitmaps= mutableListOf<String>()
+    private val bitmaps= mutableListOf<String>()
 
     override val clickable:LiveData<Boolean>
 
@@ -46,7 +45,7 @@ class PatientEmrViewModel @Inject constructor(
         value=true
     }
     private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
-    val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
+    private val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
 
     init {
 
@@ -60,13 +59,13 @@ class PatientEmrViewModel @Inject constructor(
 
     private fun loadPatient(){
 
-        if(patientId.isNullOrEmpty()){
+        if(patientId.isEmpty()){
             loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
                 this.result= Patient("")
             })
         }else {
-            patientApi.getOne(patientId).toResource().subscribe { it ->
-                loadPatientResult.value = it
+            patientApi.getOne(patientId).toResource().subscribe {item->
+                loadPatientResult.value = item
             }
         }
     }
@@ -142,12 +141,12 @@ class PatientEmrViewModel @Inject constructor(
                     return@let true
                 }else{
                     when{
-                        it.name.isNullOrEmpty()->{
+                        it.name.isEmpty()->{
                             messageAction.value= Event("姓名不能为空")
                             return@let false
                         }
 
-                        it.idcard.isNullOrEmpty()->{
+                        it.idcard.isEmpty()->{
                             messageAction.value= Event("身份证不能为空")
                             return@let false
                         }

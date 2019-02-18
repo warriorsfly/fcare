@@ -21,11 +21,11 @@ import com.wxsoft.fcare.core.data.entity.Pharmacy
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityThrombolysisBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
-import com.wxsoft.fcare.utils.DateTimeUtils
-import com.wxsoft.fcare.utils.viewModelProvider
+import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -50,16 +50,16 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {
             selectedId=it.id
-            val currentTime=it.text.toString()?.let {text->
-                return@let if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            val currentTime= it.text.toString().let { txt->
+                if(txt.isEmpty()) 0L else DateTimeUtils.formatter.parse(txt).time
             }
 
             dialog = createDialog(currentTime)
-            dialog?.show(supportFragmentManager, "all");
+            dialog?.show(supportFragmentManager, "all")
         }
     }
 
-    private var selectedId=0;
+    private var selectedId=0
 
     private lateinit var patientId:String
     private lateinit var id:String
@@ -79,7 +79,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
     lateinit var binding: ActivityThrombolysisBinding
 
-    lateinit var placeDialog: Dialog
+    private lateinit var placeDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,8 +132,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 "ModifyRadiographyTime" -> showDatePicker(findViewById(R.id.end_thromboly_radiography_time))
                 "saveSuccess" -> {
                     Intent().let { intent->
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        setResult(RESULT_OK, intent)
+                        finish()
                     }
                 }
             }
@@ -141,35 +141,35 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
     }
 
-    fun selectPlace(){
+    private fun selectPlace(){
         val adapter = ThromPlaceAdapter(this,viewModel)
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_thrombolysis_places, null)
-        placeDialog.setContentView(view);
-        viewModel.thromPlaces.observe(this, Observer { it -> adapter.items = it ?: emptyList() })
+        placeDialog.setContentView(view)
+        viewModel.thromPlaces.observe(this, Observer { adapter.items = it ?: emptyList() })
         view.findViewById<RecyclerView>(R.id.place_list).adapter = adapter
-        var  attributes = placeDialog.getWindow().getAttributes();
-        attributes.width = WindowManager.LayoutParams.MATCH_PARENT;
-        attributes.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        attributes.gravity = Gravity.BOTTOM;
-        attributes.windowAnimations = R.style.picture_alert_dialog;
-        placeDialog.getWindow().setAttributes(attributes);
-        placeDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        placeDialog.show();
+        val attributes = placeDialog.window?.attributes
+        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
+        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT
+        attributes?.gravity = Gravity.BOTTOM
+        attributes?.windowAnimations = R.style.picture_alert_dialog
+        placeDialog.window?.attributes = attributes
+        placeDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        placeDialog.show()
     }
 
-    fun  toInformedConsent(){
-        var intent = Intent(this@ThrombolysisActivity, AddInformedConsentActivity::class.java).apply {
-            putExtra(AddInformedConsentActivity.PATIENT_ID,patientId)
-            putExtra(AddInformedConsentActivity.TITLE_NAME,viewModel.informed.value?.name)
-            putExtra(AddInformedConsentActivity.TITLE_CONTENT,viewModel.informed.value?.content)
-            putExtra(AddInformedConsentActivity.INFORMED_ID,viewModel.informed.value?.id)
-            putExtra(AddInformedConsentActivity.COME_FROM,"THROMBOLYSIS")
+    private fun  toInformedConsent(){
+        val intent = Intent(this@ThrombolysisActivity, AddInformedActivity::class.java).apply {
+            putExtra(AddInformedActivity.PATIENT_ID,patientId)
+            putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
+            putExtra(AddInformedActivity.TITLE_CONTENT,viewModel.informed.value?.content)
+            putExtra(AddInformedActivity.INFORMED_ID,viewModel.informed.value?.id)
+            putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
         }
         startActivityForResult(intent, ThrombolysisActivity.INFORMED_CONSENT)
     }
 
-    fun toSeeInformedConsent(){
-        var intent = Intent(this@ThrombolysisActivity, InformedConsentDetailsActivity::class.java).apply {
+    private fun toSeeInformedConsent(){
+        val intent = Intent(this@ThrombolysisActivity, InformedConsentDetailsActivity::class.java).apply {
             putExtra(InformedConsentDetailsActivity.PATIENT_ID,patientId)
             putExtra(InformedConsentDetailsActivity.TALK_ID,viewModel.thrombolysis.value?.informedConsentId)
             putExtra(InformedConsentDetailsActivity.TALK_NAME,viewModel.informed.value?.name)
@@ -178,8 +178,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         startActivity(intent)
     }
 
-    fun toDrugs(){
-        var intent = Intent(this@ThrombolysisActivity, PharmacyActivity::class.java).apply {
+    private fun toDrugs(){
+        val intent = Intent(this@ThrombolysisActivity, PharmacyActivity::class.java).apply {
             putExtra(PharmacyActivity.PATIENT_ID,patientId)
             putExtra(PharmacyActivity.COME_FROM,"THROMBOLYSIS")
         }
@@ -197,7 +197,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
                 }
                 ThrombolysisActivity.DRUG ->{//用药
-                    var pharmacy = data?.getSerializableExtra("drugRecords") as Pharmacy
+                    val pharmacy = data?.getSerializableExtra("drugRecords") as Pharmacy
                     viewModel.thrombolysis.value?.drugRecords = emptyList()
                     viewModel.thrombolysis.value?.drugRecords = pharmacy.drugRecordDetails
                 }

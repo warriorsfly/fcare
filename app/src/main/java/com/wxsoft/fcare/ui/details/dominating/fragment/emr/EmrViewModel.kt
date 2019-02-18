@@ -14,7 +14,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
@@ -41,7 +41,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     var patientId=""
         set(value) {
            field=value
-            loadEms(field)
+            loadEms()
         }
 
     /**
@@ -51,7 +51,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     val emrItemLoaded: LiveData<Event<Pair<Int,String>>>
         get() = _loadEmrItemAction
 
-    private fun loadEms(id:String) {
+    private fun loadEms() {
 
 
        val dis= emrApi.getEmrs(patientId,account.id,preHos).zipWith(emrApi.getBaseInfo(patientId))
@@ -63,7 +63,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { it ->
+            .subscribe {it->
 
                 loadEmrResult.value = it?.first
 
@@ -74,8 +74,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             ?.result = check?.result ?: ElectroCardiogram()
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
-                        index?.let { index ->
-                            _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
+                        index?.let { ind ->
+                            _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.心电图))
                         }
                     },{
                         messageAction.value= Event(it.message?:"")
@@ -117,8 +117,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                         ?.result = it?.result ?: ElectroCardiogram()
                     val index =
                         loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
-                    index?.let { index ->
-                        _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
+                    index?.let { ind ->
+                        _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.心电图))
                     }
 
                 }, { throwable ->
@@ -144,7 +144,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             it.code==ActionRes.ActionType.心电图
         }?.result as? ElectroCardiogram )?.apply {
             savable=false
-            if(patientId.isNullOrEmpty()) {
+            if(patientId.isEmpty()) {
                 patientId = this@EmrViewModel.patientId
             }
         }
@@ -163,14 +163,14 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             check ?: return@subscribe
                              loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.心电图 }
                                 ?.let { emr ->
-                                    emr.result = check?.result
+                                    emr.result = check.result
                                     emr.done = true
-                                    emr.completedAt = check?.result?.time
+                                    emr.completedAt = check.result?.time
                                 }
                             val index =
                                 loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.心电图 }
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.心电图))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.心电图))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -201,8 +201,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.诊断))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.诊断))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -219,16 +219,16 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 check?.result ?: return@subscribe
                  loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }?.let {
                         item->
-                    item.result=check?.result
+                    item.result= check.result
                     if(!item.done){
                         item.done=true
-                        item.completedAt=check?.result?.createdDate
+                        item.completedAt= check.result?.createdDate
                     }
                 }
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.PhysicalExamination }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.PhysicalExamination))
+                index?.let { ind ->
+                    _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.PhysicalExamination))
                 }
             }, {
                 messageAction.value = Event(it.message ?: "")
@@ -246,13 +246,13 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     item.result=history.result
                     if(!item.done){
                         item.done=true
-                        item.completedAt=history?.result?.createdDate
+                        item.completedAt= history.result?.createdDate
                     }
                 }
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.IllnessHistory }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.IllnessHistory))
+                index?.let { ind ->
+                    _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.IllnessHistory))
                 }
             }, {
                 messageAction.value = Event(it.message ?: "")
@@ -274,8 +274,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.出院诊断))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.出院诊断))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -298,8 +298,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.CT_OPERATION))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.CT_OPERATION))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -322,8 +322,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.Catheter))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.Catheter))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -347,8 +347,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.生命体征))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.生命体征))
                             }
                         },
                             {
@@ -374,8 +374,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
 
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.GRACE))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.GRACE))
                             }
                         },
                             {
@@ -401,8 +401,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.给药 }
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.给药))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.给药))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -418,15 +418,15 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                  loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
                     item->
                     item.result=measure.result
-                    if(!item.done){
+                    if(!(item.done || !measure.result!!.measureDtos.isNotEmpty())){
                         item.done=true
-                        item.completedAt=measure?.result?.createDate
+                        item.completedAt= measure.result?.createDate
                     }
                 }
                 val index =
                     loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }
-                index?.let { index ->
-                    _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.DispostionMeasures))
+                index?.let { ind ->
+                    _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.DispostionMeasures))
                 }
             },{
                 messageAction.value= Event(it.message?:"")
@@ -441,6 +441,11 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     emrApi.getTalks(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ talks ->
                             if (talks.result.isNullOrEmpty()) return@subscribe
+                            talks.result?.map {
+                                it.apply {
+                                    judgeTime()
+                                }
+                            }
                             emr.result = talks.result
                             if (!emr.done) {
                                 emr.done = true
@@ -448,8 +453,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.知情同意书))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.知情同意书))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -476,8 +481,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.溶栓处置 }
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.溶栓处置))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.溶栓处置))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -491,7 +496,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.CABG }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getCABG(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getCABG(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ cabg ->
                             cabg?.result ?: return@subscribe
                             emr.result = cabg.result
@@ -501,8 +506,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionRes.ActionType.CABG }
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.CABG))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.CABG))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -561,8 +566,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.患者转归))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.患者转归))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")
@@ -586,8 +591,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
-                            index?.let { index ->
-                                _loadEmrItemAction.value = Event(Pair(index, ActionRes.ActionType.患者信息录入))
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.患者信息录入))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")

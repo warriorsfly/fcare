@@ -44,7 +44,7 @@ data class LisCr (val id:String) : BaseObservable() {
     var ctniValueStr: String = ""
         set(value) {
             field = value
-            if (!value.isNullOrEmpty()) ctniValue = value.toFloat()
+            if (!value.isEmpty()) ctniValue = value.toFloat()
             notifyPropertyChanged(BR.ctniValueStr)
         }
 
@@ -107,7 +107,7 @@ data class LisCr (val id:String) : BaseObservable() {
     var ctntValueStr: String = ""
         set(value) {
             field = value
-            if (!value.isNullOrEmpty()) ctntValue = value.toFloat()
+            if (!value.isEmpty()) ctntValue = value.toFloat()
             notifyPropertyChanged(BR.ctntValueStr)
         }
 
@@ -169,7 +169,7 @@ data class LisCr (val id:String) : BaseObservable() {
     var crValueStr: String = ""
         set(value) {
             field = value
-            if (!value.isNullOrEmpty()) crValue = value.toFloat()
+            if (!value.isEmpty()) crValue = value.toFloat()
             notifyPropertyChanged(BR.crValueStr)
         }
     /**
@@ -207,33 +207,30 @@ data class LisCr (val id:String) : BaseObservable() {
 
 
     fun setUpChecked(){
-        if (!crUnit.isNullOrEmpty()){
+        if (!crUnit.isEmpty()){
             when(crUnit){
                 "1"-> selectCrUnit = 0
                 "0"-> selectCrUnit = 1
-                null-> selectCrUnit = 1
             }
         }
-        if (!ctntStatus.isNullOrEmpty()){
+        if (!ctntStatus.isEmpty()){
             when(ctntStatus){
-                null->selectCtntStatus = 0
                 "阴性"->selectCtntStatus = 1
                 "阳性"->selectCtntStatus = 2
             }
         }
-        if (!ctniStatus.isNullOrEmpty()){
+        if (!ctniStatus.isEmpty()){
             when(ctniStatus){
-                null->selectCtniStatus = 0
                 "阴性"->selectCtniStatus = 1
                 "阳性"->selectCtniStatus = 2
             }
         }
-        if (!ctniUnit.isNullOrEmpty()) selectCtniUnit = ctniUnit.toInt()-1
-        if (!ctntUnit.isNullOrEmpty()) selectCtntUnit = ctntUnit.toInt()-1
+        if (!ctniUnit.isEmpty()) selectCtniUnit = ctniUnit.toInt()-1
+        if (!ctntUnit.isEmpty()) selectCtntUnit = ctntUnit.toInt()-1
 
-        if (ctniValue!=null) ctniValueStr = ctniValue.toString()
-        if (ctntValue!=null) ctntValueStr = ctntValue.toString()
-        if (crValue != null) crValueStr = crValue.toString()
+        ctniValueStr = ctniValue.toString()
+        ctntValueStr = ctntValue.toString()
+        crValueStr = crValue.toString()
     }
 
 }

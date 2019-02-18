@@ -17,10 +17,10 @@ class PatientsAdapter constructor(private val owner: LifecycleOwner, val viewMod
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            val p=getItem(position)
-            patient=p
+            val p= getItem(position)
+            patient =p
             p?.let {
-                pat->
+                    pat->
                 root.setOnClickListener { viewModel.onOpen(pat.id) }
             }
 

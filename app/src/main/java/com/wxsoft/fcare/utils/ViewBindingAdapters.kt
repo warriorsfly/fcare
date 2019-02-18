@@ -23,13 +23,11 @@ import android.support.v4.view.ViewPager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.Subject
-import com.wxsoft.fcare.core.di.GlideApp
-import kotlin.math.roundToInt
+import com.wxsoft.fcare.di.GlideApp
 
 @BindingAdapter("taskSelectUser")
 fun taskSelectUser(view: View, visible: Boolean) {
@@ -89,10 +87,12 @@ fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
 fun diagnosisCode(textView: TextView, diagnosisCode: String) {
     when(diagnosisCode){
         "215-1"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
-        "215-2"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        "215-2"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
         "215-3"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
         "215-4"->textView.setBackgroundResource(R.drawable.ic_diagnosis4)
         "215-5"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
+        //不在上述代码中则清空textView的背景
+        else->textView.setBackgroundResource(0)
     }
 }
 

@@ -2,8 +2,6 @@ package com.wxsoft.fcare.ui.details.assistant
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
-import android.databinding.Observable
-import android.databinding.ObservableField
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.lis.LisItem
@@ -14,7 +12,7 @@ import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.utils.map
+import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISApi,
@@ -23,8 +21,7 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "辅助检查"
+    override var title = "辅助检查"
 
     override val clickableTitle: String
         get() = ""
@@ -69,7 +66,7 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
     }
 
 
-    fun getLisItems(){
+    private fun getLisItems(){
         lisApi.getLisItems().toResource()
             .subscribe {
                 loadLisItemsResult.value = it
