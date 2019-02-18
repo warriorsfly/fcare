@@ -1,10 +1,7 @@
 package com.wxsoft.fcare.ui.details.informedconsent.addinformed
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
+import android.animation.*
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -56,7 +53,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
     private val STATE_RECORD_PLAY = 3           // 正在播放录音
     private val STATE_RECORD_PAUSE = 4          // 暂停录音
 
-    private val MAX_RECORD_TIME = 180000
+    private val MAX_RECORD_TIME = 1800000
 
     private var recorder : CustomRecorder? = null
     private val mediaPlayer by lazy { MediaPlayer() }
@@ -324,7 +321,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
                 with(ObjectAnimator.ofFloat(imageView, View.SCALE_Y, startScale, 1f))
             }
             duration = mShortAnimationDuration.toLong()
-            interpolator = DecelerateInterpolator()
+            interpolator = DecelerateInterpolator() as TimeInterpolator?
             addListener(object : AnimatorListenerAdapter() {
 
                 override fun onAnimationEnd(animation: Animator) {
@@ -483,10 +480,11 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
                 override fun onSuccess(p0: File?) {
                     viewModel.voicePath = p0!!.absolutePath
 //                    onRecordFinishListener?.invoke(p0!!)
-//                    dismiss()
+                    dismiss()
                 }
                 override fun onFailure(p0: Exception?) {
                     toast("录音组件异常")
+                    dismiss()
                 }
             }).convert()
     }
@@ -557,7 +555,12 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
         Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
     }
 
-
+    fun dismiss() {
+        // 如果reocrder再daialog关闭前已经停止，则调用stopRecording会抛出IllegalStateException
+        try {
+            recorder?.stopRecording()
+        }catch (e: IllegalStateException){}
+    }
 }
 
 

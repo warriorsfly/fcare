@@ -12,7 +12,6 @@ import com.wxsoft.fcare.core.data.entity.Talk
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityInformedConsentBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
