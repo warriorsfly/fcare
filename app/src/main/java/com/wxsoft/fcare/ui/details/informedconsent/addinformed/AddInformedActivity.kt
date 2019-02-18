@@ -46,7 +46,17 @@ import java.util.*
 import javax.inject.Inject
 import android.arch.lifecycle.Observer
 
-class AddInformedActivity : BaseActivity() , View.OnClickListener {
+class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallback {
+    override fun onSuccess(p0: File?) {
+        viewModel.voicePath = p0!!.absolutePath
+//                    onRecordFinishListener?.invoke(p0!!)
+        dismiss()
+
+    }
+    override fun onFailure(p0: Exception?) {
+        toast("录音组件异常")
+        dismiss()
+    }
 
     private val STATE_RECORD_INIT = 1           // 初始状态
     private val STATE_RECORD_RECORDING = 2      // 正在录音
@@ -485,17 +495,8 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener {
         //将wav转化为mp3
         AndroidAudioConverter.with(this).setFile(recorder!!.recordFile)
             .setFormat(cafe.adriel.androidaudioconverter.model.AudioFormat.MP3)
-            .setCallback(object : IConvertCallback {
-                override fun onSuccess(p0: File?) {
-                    viewModel.voicePath = p0!!.absolutePath
-//                    onRecordFinishListener?.invoke(p0!!)
-                    dismiss()
-                }
-                override fun onFailure(p0: Exception?) {
-                    toast("录音组件异常")
-                    dismiss()
-                }
-            }).convert()
+            .setCallback(this).convert()
+
     }
 
     /**
