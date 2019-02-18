@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.core.di
+package com.wxsoft.fcare.di
 
 import android.content.Context
 import com.bumptech.glide.GlideBuilder

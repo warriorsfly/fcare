@@ -25,7 +25,7 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.di.GlideApp
+import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -56,7 +56,7 @@ class MedicalHistoryActivity : BaseActivity() {
     private var mShortAnimationDuration: Int = 0
     private lateinit var adapter: PictureAdapter
 
-    private val photoAction: EventAction? =EventAction()
+    private var photoAction: EventAction? =EventAction()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

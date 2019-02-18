@@ -16,7 +16,7 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.di.GlideApp
+import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityInformedConsentDetailsBinding
 import com.wxsoft.fcare.ui.BaseActivity
