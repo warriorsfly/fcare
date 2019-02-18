@@ -451,13 +451,13 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
             binding.voiceTime.isCountDown = false
             binding.voiceTime.start()
             startRecordTimer()
-            changeState(STATE_RECORD_RECORDING)
+
 
         }else{
             recorder!!.resumeRecording()
         }
 
-
+        changeState(STATE_RECORD_RECORDING)
     }
 
     private fun deleteRecording(){
