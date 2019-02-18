@@ -496,7 +496,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.CABG }
             ?.let { emr ->
                 disposable.add(
-                    emrApi.getCABG(patientId).subscribeOn(Schedulers.single())
+                    emrApi.getCABG(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ cabg ->
                             cabg?.result ?: return@subscribe
                             emr.result = cabg.result
