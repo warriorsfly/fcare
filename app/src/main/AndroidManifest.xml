@@ -78,9 +78,6 @@
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
-                android:name=".ui.details.informedconsent.addinformed.AddInformedConsentActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
                 android:name=".ui.details.informedconsent.InformedConsentActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
