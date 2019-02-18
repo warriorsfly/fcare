@@ -1,11 +1,11 @@
 package com.wxsoft.fcare.ui.details.assistant
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
@@ -14,7 +14,7 @@ import com.wxsoft.fcare.core.data.entity.lis.LisRecordItem
 import com.wxsoft.fcare.databinding.ItemAssistantSubDetailsBinding
 import com.wxsoft.fcare.databinding.ItemAssistantSubtitleBinding
 
-class AssistantDetailsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssistantExaminationViewModel): RecyclerView.Adapter< AssistantDetailsAdapter.ItemViewHolder>() {
+class AssistantDetailsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssistantExaminationViewModel): androidx.recyclerview.widget.RecyclerView.Adapter< AssistantDetailsAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<LisRecordItem>(this, DiffCallback)
     var items: List<LisRecordItem> = emptyList()
@@ -75,7 +75,7 @@ class AssistantDetailsAdapter constructor(private val lifecycleOwner: LifecycleO
     }
 
 
-    class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         var binding: ViewDataBinding
             private set
 

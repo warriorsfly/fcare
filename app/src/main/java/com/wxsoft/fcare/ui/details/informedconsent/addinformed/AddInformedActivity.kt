@@ -5,17 +5,17 @@ import android.animation.*
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.media.*
 import android.net.Uri
 import android.os.*
-import android.support.annotation.RequiresApi
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -44,7 +44,7 @@ import java.io.*
 import java.lang.Exception
 import java.util.*
 import javax.inject.Inject
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 
 class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallback {
     override fun onSuccess(p0: File?) {

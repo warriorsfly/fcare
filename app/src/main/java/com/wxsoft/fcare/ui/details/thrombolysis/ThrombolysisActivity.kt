@@ -3,11 +3,11 @@ package com.wxsoft.fcare.ui.details.thrombolysis
 
 import android.app.Activity
 import android.app.Dialog
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -146,7 +146,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         val view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_thrombolysis_places, null)
         placeDialog.setContentView(view)
         viewModel.thromPlaces.observe(this, Observer { adapter.items = it ?: emptyList() })
-        view.findViewById<RecyclerView>(R.id.place_list).adapter = adapter
+        view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.place_list).adapter = adapter
         val attributes = placeDialog.window?.attributes
         attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
         attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT

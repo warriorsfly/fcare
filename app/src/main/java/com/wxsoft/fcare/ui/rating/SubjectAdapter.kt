@@ -1,11 +1,11 @@
 package com.wxsoft.fcare.ui.rating
 
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.ViewDataBinding
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
@@ -17,7 +17,7 @@ import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
 
 
 class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
-    RecyclerView.Adapter<SubjectAdapter.ItemViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<SubjectAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
@@ -102,7 +102,7 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
         }
     }
 
-    sealed class ItemViewHolder(bind: ViewDataBinding) : RecyclerView.ViewHolder(bind.root) {
+    sealed class ItemViewHolder(bind: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(bind.root) {
 
         class RatingViewHolder(
             val binding: ItemRatingSubjectBinding

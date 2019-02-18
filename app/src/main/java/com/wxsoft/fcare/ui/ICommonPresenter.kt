@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.ui
 
-import android.arch.lifecycle.LiveData
+import androidx.lifecycle.LiveData
 
 interface ICommonPresenter{
     var title:String

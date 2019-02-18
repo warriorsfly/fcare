@@ -1,9 +1,9 @@
 package com.wxsoft.fcare.ui.details.checkbody
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_check_body_nomal.view.*
 import kotlinx.android.synthetic.main.item_check_body_other.view.*
 
 class CheckBodyAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: CheckBodyViewModel) :
-    RecyclerView.Adapter<CheckBodyAdapter.ItemViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<CheckBodyAdapter.ItemViewHolder>() {
 
     private var titleArray:Array<String> = arrayOf("查体","皮肤", "左瞳孔", "左瞳孔对光反应","右瞳孔", "右瞳孔对光反应","其他描述")
 
@@ -85,7 +85,7 @@ class CheckBodyAdapter constructor(private val lifecycleOwner: LifecycleOwner, v
 
 
 
-    class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         var binding: ViewDataBinding
             private set
 

@@ -1,9 +1,9 @@
 package com.wxsoft.fcare.core.domain.source
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.paging.PageKeyedDataSource
-import android.arch.paging.PagedList
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.paging.PageKeyedDataSource
+import androidx.paging.PagedList
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.remote.PatientApi

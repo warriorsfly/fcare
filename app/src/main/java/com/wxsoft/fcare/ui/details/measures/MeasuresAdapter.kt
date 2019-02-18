@@ -1,9 +1,9 @@
 package com.wxsoft.fcare.ui.details.measures
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R
@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_measures_remark.view.*
 
 
 class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MeasuresViewModel) :
-    RecyclerView.Adapter<MeasuresAdapter.ItemViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<MeasuresAdapter.ItemViewHolder>() {
 
     private var titleArray:Array<String> = arrayOf("治疗措施","救治结果", "出诊结果","绕行")
 
@@ -83,7 +83,7 @@ class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
 
 
 
-    class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         var binding: ViewDataBinding
             private set
 

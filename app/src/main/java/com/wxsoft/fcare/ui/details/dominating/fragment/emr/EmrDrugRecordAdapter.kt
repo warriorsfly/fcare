@@ -1,9 +1,9 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
-import android.arch.lifecycle.LifecycleOwner
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
@@ -44,7 +44,7 @@ class EmrDrugRecordAdapter (private val owner: LifecycleOwner,private val  actio
         }
     }
 
-    class ItemViewHolder(binding: ItemEmrDrugRecordBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: ItemEmrDrugRecordBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         var binding: ItemEmrDrugRecordBinding
             private set
 

@@ -1,7 +1,7 @@
 package com.wxsoft.fcare.core.data.entity
 
-import android.databinding.BaseObservable
-import android.databinding.Bindable
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 
 data class VitalSign(val id:String=""): BaseObservable() {

@@ -1,5 +1,5 @@
 package com.wxsoft.fcare.ui.details.ct
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ViewModelKey
 import dagger.Binds
 import dagger.Module

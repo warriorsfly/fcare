@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.ui.patient
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory

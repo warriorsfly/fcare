@@ -1,8 +1,8 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment.emr
 
-import android.arch.lifecycle.LifecycleOwner
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.R

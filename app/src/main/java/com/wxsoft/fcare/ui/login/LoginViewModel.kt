@@ -1,8 +1,8 @@
 package com.wxsoft.fcare.ui.login
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Account
 import com.wxsoft.fcare.core.data.entity.LoginInfo

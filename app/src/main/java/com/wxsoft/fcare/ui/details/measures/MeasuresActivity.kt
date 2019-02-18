@@ -2,9 +2,9 @@ package com.wxsoft.fcare.ui.details.measures
 
 
 import android.app.AlertDialog
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Toast
 import com.wxsoft.fcare.R

@@ -1,8 +1,8 @@
 package com.wxsoft.fcare.core.data.entity
 
-import android.arch.persistence.room.Ignore
-import android.databinding.BaseObservable
-import android.databinding.Bindable
+import androidx.room.Ignore
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 

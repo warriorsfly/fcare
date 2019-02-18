@@ -1,20 +1,20 @@
 package com.wxsoft.fcare.core.utils
 
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 import android.content.Context
 import android.graphics.Canvas
 import android.os.Bundle
 import android.os.Parcel
-import android.support.annotation.AttrRes
-import android.support.annotation.ColorInt
-import android.support.annotation.ColorRes
-import android.support.annotation.LayoutRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentActivity
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v4.content.ContextCompat
+import androidx.annotation.AttrRes
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
+import androidx.annotation.LayoutRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.core.content.ContextCompat
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +62,7 @@ fun ViewGroup.inflate(@LayoutRes layout: Int, attachToRoot: Boolean = false): Vi
  *
  * `supportFragmentManager.inTransaction { add(...) }`
  */
-inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) {
+inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> androidx.fragment.app.FragmentTransaction) {
     beginTransaction().func().commit()
 }
 
@@ -74,7 +74,7 @@ inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> Fragmen
  * val myViewModel = viewModelProvider(myViewModelFactory)
  * ```
  */
-inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvider(
+inline fun <reified VM : ViewModel> androidx.fragment.app.FragmentActivity.viewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
     ViewModelProviders.of(this, provider).get(VM::class.java)
@@ -85,7 +85,7 @@ inline fun <reified VM : ViewModel> FragmentActivity.viewModelProvider(
  * val myViewModel = viewModelProvider(myViewModelFactory)
  * ```
  */
-inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
+inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.viewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
         ViewModelProviders.of(this, provider).get(VM::class.java)
@@ -94,16 +94,16 @@ inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
 /**
  * Like [Fragment.viewModelProvider] for Fragments that want a [ViewModel] scoped to the Activity.
  */
-inline fun <reified VM : ViewModel> Fragment.activityViewModelProvider(
+inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.activityViewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
-        ViewModelProviders.of(activity, provider).get(VM::class.java)
+        ViewModelProviders.of(activity!!, provider).get(VM::class.java)
 
 /**
  * Like [Fragment.viewModelProvider] for Fragments that want a [ViewModel] scoped to the parent
  * Fragment.
  */
-inline fun <reified VM : ViewModel> Fragment.parentViewModelProvider(
+inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.parentViewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
         ViewModelProviders.of(parentFragment!!, provider).get(VM::class.java)

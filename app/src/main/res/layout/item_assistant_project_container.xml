@@ -6,12 +6,12 @@
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.lis.LisRecord"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.details.assistant.AssistantExaminationViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model2"
                 android:background="@color/white"
                 android:layout_marginTop="10dp"
@@ -21,7 +21,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/model1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/model2_1"
                     android:background="@color/white"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -56,9 +56,9 @@
                         android:layout_height="wrap_content"/>
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/model2_2"
                     android:background="@color/white"
                     android:paddingTop="5dp"
@@ -93,7 +93,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                     android:id="@+id/assistant_time_edit"
@@ -107,9 +107,9 @@
                     android:layout_width="25dp"
                     android:layout_height="25dp"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model3"
                 android:background="@color/white"
                 android:layout_marginTop="10dp"
@@ -120,16 +120,16 @@
                 android:paddingBottom="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/details_list"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <View
                 android:background="#EDEDED"
@@ -141,5 +141,5 @@
 
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

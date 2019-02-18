@@ -16,7 +16,7 @@
 
 package com.wxsoft.fcare.core.result
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 
 /**
  * Used as a wrapper for liveDiagnosis that is exposed via a LiveData that represents an event.

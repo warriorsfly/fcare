@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.core.di
 
-import android.arch.persistence.room.Room
+import androidx.room.Room
 import android.content.Context
 import com.wxsoft.fcare.core.data.local.AppDatabase
 import com.wxsoft.fcare.core.data.local.dao.PatientDao

@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.ui.rating
 
 
-import android.arch.lifecycle.LifecycleOwner
-import android.support.v7.recyclerview.extensions.ListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.rating.Rating
@@ -28,7 +28,7 @@ class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): Lis
     }
 
 
-    class ItemViewHolder(bind: ItemRatingBinding) : RecyclerView.ViewHolder(bind.root) {
+    class ItemViewHolder(bind: ItemRatingBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(bind.root) {
 
         var binding: ItemRatingBinding
             private set

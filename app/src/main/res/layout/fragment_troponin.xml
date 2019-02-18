@@ -4,7 +4,7 @@
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.assistant.troponin.TroponinViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:elevation="@dimen/fragment_elevation"
             android:background="@drawable/bg_dialog_fragment"
@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -33,7 +33,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:text="辅助检查" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:id="@+id/edit_part"
                     android:layout_marginTop="6dp"
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/base_info_title">
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/troponin_constrain"
@@ -55,7 +55,7 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             android:text="肌钙蛋白" />
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -87,9 +87,9 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/draw_blood_time_title"
                                 app:layout_constraintTop_toTopOf="parent"/>
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
@@ -119,10 +119,10 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toEndOf="@+id/draw_blood_report_time_title"
                                 app:layout_constraintTop_toTopOf="parent"/>
-                    </android.support.constraint.ConstraintLayout>
-                </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/cTnI_constrain"
@@ -154,7 +154,7 @@
                               app:layout_constraintTop_toTopOf="parent"
                               tools:text="" />
 
-                    <android.support.v7.widget.AppCompatSpinner
+                    <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/cTnI_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -165,7 +165,7 @@
                             app:layout_constraintStart_toEndOf="@+id/cTnI_num_et"
                             android:gravity="right"/>
 
-                    <android.support.v7.widget.AppCompatSpinner
+                    <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/cTnI_character"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -177,9 +177,9 @@
                             app:layout_constraintStart_toEndOf="@+id/cTnI_unit"
                             android:gravity="right"/>
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/cTnT_constrain"
@@ -211,7 +211,7 @@
                               app:layout_constraintTop_toTopOf="parent"
                               tools:text="" />
 
-                    <android.support.v7.widget.AppCompatSpinner
+                    <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/cTnT_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -222,7 +222,7 @@
                             app:layout_constraintStart_toEndOf="@+id/cTnT_num_et"
                             android:gravity="right"/>
 
-                    <android.support.v7.widget.AppCompatSpinner
+                    <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/cTnT_character"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -233,9 +233,9 @@
                             app:layout_constraintStart_toEndOf="@+id/cTnT_unit"
                             android:gravity="right"/>
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/cr_constrain"
@@ -267,7 +267,7 @@
                               app:layout_constraintTop_toTopOf="parent"
                               tools:text="" />
 
-                    <android.support.v7.widget.AppCompatSpinner
+                    <androidx.appcompat.widget.AppCompatSpinner
                             android:id="@+id/cr_unit"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -277,14 +277,14 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toEndOf="@+id/cr_num_et"
                             android:gravity="right"/>
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <android.support.design.button.MaterialButton
+            <com.google.android.material.button.MaterialButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp"
@@ -299,7 +299,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_part"
                     android:text="提    交"/>
-        </android.support.constraint.ConstraintLayout>
-    </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

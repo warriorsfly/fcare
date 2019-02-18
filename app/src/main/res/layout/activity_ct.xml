@@ -4,7 +4,7 @@
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.ct.CTViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -14,7 +14,7 @@
         <include layout="@layout/layout_common_title"
              android:id="@+id/title"
              app:presenter="@{viewModel}"/>
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:id="@+id/baseScroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -23,13 +23,13 @@
             app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintBottom_toBottomOf="parent">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/model3"
                     android:background="@color/white"
                     android:layout_marginTop="10dp"
@@ -38,7 +38,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3_2"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -93,9 +93,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3_3"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -150,9 +150,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3_4"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -207,9 +207,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/model3_5"
                             android:background="@color/white"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -263,9 +263,9 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/model3_6"
                             android:background="@color/white"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -319,9 +319,9 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/model3_7"
                             android:background="@color/white"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -375,15 +375,15 @@
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

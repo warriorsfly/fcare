@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.ui.details.dominating
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MediatorLiveData
-import android.arch.lifecycle.MutableLiveData
-import android.databinding.ObservableInt
-import android.databinding.ObservableLong
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.databinding.ObservableInt
+import androidx.databinding.ObservableLong
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task

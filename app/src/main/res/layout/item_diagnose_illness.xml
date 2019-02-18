@@ -6,7 +6,7 @@
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.Dictionary"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.details.diagnose.DiagnoseViewModel"/>
     </data>
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
             android:id="@+id/illness_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
             android:onClick="@{() ->listener.selectDiagnoseSon(item)}"
             android:elevation="2dp"
             app:cardCornerRadius="6dp">
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:layout_width="105dp"
                 android:layout_height="80dp"
@@ -56,6 +56,6 @@
                     android:layout_marginTop="10dp"
                     android:layout_width="17dp"
                     android:layout_height="17dp"/>
-        </android.support.constraint.ConstraintLayout>
-    </android.support.design.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

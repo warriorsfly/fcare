@@ -1,9 +1,9 @@
 package com.wxsoft.fcare.ui.details.medicalhistory
 
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.BR
@@ -13,7 +13,7 @@ import com.wxsoft.fcare.databinding.ItemMedicalHistoryVoiceBinding
 import kotlinx.android.synthetic.main.item_medical_history_other.view.*
 
 class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
-    RecyclerView.Adapter<MedicalHistoryAdapter.ItemViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<MedicalHistoryAdapter.ItemViewHolder>() {
 
     private var titleArray:Array<String> = arrayOf("", "既往病史", "病历提供者")
 
@@ -81,7 +81,7 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
     }
 
 
-    class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         var binding: ViewDataBinding
             private set
 

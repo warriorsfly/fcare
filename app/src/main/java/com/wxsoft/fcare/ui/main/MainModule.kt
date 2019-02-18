@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.ui.main
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.FragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment

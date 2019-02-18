@@ -16,9 +16,9 @@
 
 package com.wxsoft.fcare.utils
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 
-fun RecyclerView.clearDecorations() {
+fun androidx.recyclerview.widget.RecyclerView.clearDecorations() {
     if (itemDecorationCount > 0) {
         for (i in itemDecorationCount - 1 downTo 0) {
             removeItemDecorationAt(i)

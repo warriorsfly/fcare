@@ -2,11 +2,11 @@ package com.wxsoft.fcare.ui.details.dominating
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -114,10 +114,10 @@ class DoMinaActivity : BaseActivity() {
 
 }
 
-class TaskStateAdapter(fm: FragmentManager) :
+class TaskStateAdapter(fm: androidx.fragment.app.FragmentManager) :
     FragmentPagerAdapter(fm) {
 
-    private val statusFragments:List<Fragment> by lazyFast {
+    private val statusFragments:List<androidx.fragment.app.Fragment> by lazyFast {
         (0..4).map {
             when (it) {
                 DoMinaActivity.START_POSITION ->ProcessStartFragment()
@@ -131,7 +131,7 @@ class TaskStateAdapter(fm: FragmentManager) :
         }
     }
 
-    override fun getItem(position: Int): Fragment {
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
 
         return statusFragments[position]
     }

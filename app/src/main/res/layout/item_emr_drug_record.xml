@@ -7,7 +7,7 @@
         <variable name="record" type="com.wxsoft.fcare.core.data.entity.drug.DrugRecord"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="4dp">
@@ -43,5 +43,5 @@
                 android:layout_marginRight="10dp"
                 android:layout_height="wrap_content"
         />
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,7 +1,7 @@
 package com.wxsoft.fcare.core.domain.source
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.paging.DataSource
+import androidx.lifecycle.MutableLiveData
+import androidx.paging.DataSource
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.remote.PatientApi
 

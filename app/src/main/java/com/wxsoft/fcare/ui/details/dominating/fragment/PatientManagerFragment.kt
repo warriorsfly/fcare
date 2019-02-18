@@ -1,11 +1,11 @@
 package com.wxsoft.fcare.ui.details.dominating.fragment
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,10 +69,10 @@ class PatientManagerFragment : DaggerFragment() {
     }
 
 
-    class EmrAdapter(fm: FragmentManager,patients:Array<Patient>) :
+    class EmrAdapter(fm: androidx.fragment.app.FragmentManager, patients:Array<Patient>) :
         FragmentPagerAdapter(fm) {
 
-        private var fragments:MutableList<Fragment> = patients.map { EmrFragment.newInstance(it.id) }.toMutableList()
+        private var fragments:MutableList<androidx.fragment.app.Fragment> = patients.map { EmrFragment.newInstance(it.id) }.toMutableList()
         private var titles:MutableList<String> = patients.map { it.name }.toMutableList()
 
         fun add(patient:Patient){
@@ -82,7 +82,7 @@ class PatientManagerFragment : DaggerFragment() {
         }
 
 
-        override fun getItem(position: Int): Fragment {
+        override fun getItem(position: Int): androidx.fragment.app.Fragment {
 
             return fragments[position]
         }

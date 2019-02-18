@@ -16,10 +16,10 @@
 
 package com.wxsoft.fcare.utils
 
-import android.databinding.BindingAdapter
-import android.databinding.InverseMethod
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseMethod
 import android.net.Uri
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -79,7 +79,7 @@ fun goneUnless(view: View, visible: Boolean) {
 }
 
 @BindingAdapter("pageMargin")
-fun pageMargin(viewPager: ViewPager, pageMargin: Float) {
+fun pageMargin(viewPager: androidx.viewpager.widget.ViewPager, pageMargin: Float) {
     viewPager.pageMargin = pageMargin.toInt()
 }
 

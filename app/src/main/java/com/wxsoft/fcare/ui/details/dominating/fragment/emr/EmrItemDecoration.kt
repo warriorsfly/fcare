@@ -21,9 +21,9 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.drawable.Drawable
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.RecyclerView.State
+import androidx.core.content.res.ResourcesCompat
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.State
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
@@ -39,7 +39,7 @@ import com.wxsoft.fcare.core.utils.withTranslation
 class EmrItemDecoration(
         context: Context,
         items:List<EmrItem>
-) : RecyclerView.ItemDecoration() {
+) : androidx.recyclerview.widget.RecyclerView.ItemDecoration() {
 
     private val drawableUndo: Drawable = context.resources.getDrawable(R.drawable.ic_emr_decoration_undo,context.theme)
     private val drawableDone: Drawable = context.resources.getDrawable(R.drawable.bg_vertical_line,context.theme)
@@ -78,7 +78,7 @@ class EmrItemDecoration(
     /**
      *  Add gaps between days, split over the last and first block of a day.
      */
-    override fun getItemOffsets(outRect: Rect, view: View, parent: RecyclerView, state: State) {
+    override fun getItemOffsets(outRect: Rect, view: View, parent: androidx.recyclerview.widget.RecyclerView, state: State) {
         val position = parent.getChildAdapterPosition(view)
         if (position <= 0) return
 
@@ -96,7 +96,7 @@ class EmrItemDecoration(
 
     }
 
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: State) {
+    override fun onDrawOver(c: Canvas, parent: androidx.recyclerview.widget.RecyclerView, state: State) {
         if (drawableSlots.isEmpty() || parent.childCount==0) return
         var prevHeaderTop = Int.MAX_VALUE
         for (i in parent.childCount - 1 downTo 0) {

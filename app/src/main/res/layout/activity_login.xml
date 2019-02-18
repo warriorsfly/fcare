@@ -5,7 +5,7 @@
                 name="viewModel"
                 type="com.wxsoft.fcare.ui.login.LoginViewModel"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_marginBottom="8dp"
                 app:goneUnless="@{viewModel.isLoading}"/>
 
-        <android.support.design.widget.CoordinatorLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
             <ImageView android:layout_width="55dp"
@@ -51,7 +51,7 @@
                android:src="@mipmap/icon"
                android:elevation="5dp"
                android:layout_gravity="center_horizontal"/>
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="363dp"
@@ -71,10 +71,10 @@
                         android:textColor="@color/white"
                         style="@style/Widget.FCare.LoginButton"
                         android:text="@string/action_sign_in"/>
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/email_login_form"
                     android:layout_width="325dp"
                     app:goneUnless="@{!(viewModel.isLoading || viewModel.logined) }"
@@ -123,10 +123,10 @@
                           android:singleLine="true"/>
 
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        </android.support.design.widget.CoordinatorLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 
         <TextView android:layout_width="wrap_content"
@@ -138,5 +138,5 @@
                   android:textSize="10sp"
                   android:textColor="#7F7F7F"
                   android:text="版权所有 © 合肥五线信息科技有限公司"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

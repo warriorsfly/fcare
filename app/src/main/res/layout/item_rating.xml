@@ -6,7 +6,7 @@
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.rating.Rating"/>
         <variable name="visiable" type="Boolean"/>
     </data>
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:padding="10dp"
             android:background="?attr/selectableItemBackground"
@@ -46,6 +46,6 @@
                 android:layout_width="0dp"
                 android:textSize="18sp"
                 android:layout_height="wrap_content"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

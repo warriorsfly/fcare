@@ -1,9 +1,9 @@
 package com.wxsoft.fcare.ui.details.catheter
 
 import android.app.AlertDialog
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.View
 import android.widget.Button

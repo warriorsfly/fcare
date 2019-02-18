@@ -3,7 +3,7 @@ package com.wxsoft.fcare.ui.main.fragment.task
 
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -4,14 +4,14 @@
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel"/>
     </data>
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             style="@style/Widget.AppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:background="@color/white"
                 android:layout_width="match_parent"
@@ -273,6 +273,6 @@
                         android:gravity="center"
                         android:id="@+id/returnarrival"
                         app:layout_constraintBottom_toBottomOf="parent"/>
-        </android.support.constraint.ConstraintLayout>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 </layout>

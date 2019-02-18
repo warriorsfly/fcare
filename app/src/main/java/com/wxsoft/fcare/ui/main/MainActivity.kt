@@ -1,14 +1,14 @@
 package com.wxsoft.fcare.ui.main
 
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.nfc.NfcAdapter
 import android.nfc.Tag
 import android.os.Bundle
-import android.support.design.widget.BottomNavigationView
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMainBinding
@@ -106,14 +106,14 @@ class MainActivity : BaseActivity() {
 }
 
 
-class MainAdapter(fm: FragmentManager) :
+class MainAdapter(fm: androidx.fragment.app.FragmentManager) :
     FragmentPagerAdapter(fm) {
 
-    private val fragments:List<Fragment> by lazyFast {
+    private val fragments:List<androidx.fragment.app.Fragment> by lazyFast {
         listOf(TaskFragment(), PatientsFragment(),UserProfileFragment())
     }
 
-    override fun getItem(position: Int): Fragment {
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
 
         return fragments[position]
     }

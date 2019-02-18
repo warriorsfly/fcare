@@ -1,12 +1,12 @@
 package com.wxsoft.fcare.ui.common
 
 import android.annotation.SuppressLint
-import android.arch.lifecycle.LifecycleOwner
-import android.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
+import androidx.databinding.ViewDataBinding
 import android.net.Uri
-import android.support.v7.recyclerview.extensions.AsyncListDiffer
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.luck.picture.lib.entity.LocalMedia
@@ -17,7 +17,7 @@ import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
 class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val max:Int=0) :
-    RecyclerView.Adapter<ItemViewHolder>() {
+    androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
 
 
     private var action: PhotoEventAction?=null
@@ -152,7 +152,7 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
 object ForNewItem
 
 
-sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+sealed class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
 
     class ImageViewHolder(
         val binding: ItemImageBinding

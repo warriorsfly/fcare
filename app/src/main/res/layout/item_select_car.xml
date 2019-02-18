@@ -7,7 +7,7 @@
         <variable name="listener" type="com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarViewModel"/>
     </data>
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 taskSelectCar="@{car.status.equals(`203-1`)}"
                 android:layout_width="162dp"
@@ -55,5 +55,5 @@
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

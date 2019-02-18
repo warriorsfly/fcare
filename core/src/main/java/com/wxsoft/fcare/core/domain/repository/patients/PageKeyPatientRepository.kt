@@ -1,7 +1,7 @@
 package com.wxsoft.fcare.core.domain.repository.patients
 
-import android.arch.paging.LivePagedListBuilder
-import android.support.annotation.MainThread
+import androidx.paging.LivePagedListBuilder
+import androidx.annotation.MainThread
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.domain.repository.Listing

@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.ui.rating
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.FragmentActivity
+import androidx.fragment.app.FragmentActivity
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -80,7 +80,7 @@ class RatingActivity : BaseActivity() {
     }
 
 
-    class EventActions constructor(private val context: WeakReference<FragmentActivity>, private val patientId:String):
+    class EventActions constructor(private val context: WeakReference<androidx.fragment.app.FragmentActivity>, private val patientId:String):
         EventAction<Rating> {
         override fun onOpen(t: Rating) {
             val intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {

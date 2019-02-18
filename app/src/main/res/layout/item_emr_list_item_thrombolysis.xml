@@ -5,7 +5,7 @@
         <variable name="thrombolysis" type="com.wxsoft.fcare.core.data.entity.Thrombolysis"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -13,12 +13,12 @@
             android:layout_height="wrap_content"
             android:background="#F8F8F9">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/container"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model1"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -75,10 +75,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -86,7 +86,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/model3_1"
                             android:background="@color/white"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -168,9 +168,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/model3_2"
                             android:background="@color/white"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -214,9 +214,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/model3_3"
                             android:background="@color/white"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -260,9 +260,9 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <android.support.constraint.ConstraintLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/model3_4"
                             android:background="@color/white"
                             app:layout_constraintLeft_toLeftOf="parent"
@@ -306,13 +306,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1dp"/>
 
-                    </android.support.constraint.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model4"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -398,9 +398,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <android.support.constraint.ConstraintLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model5"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -453,11 +453,11 @@
                             android:layout_height="wrap_content"/>
 
 
-                </android.support.constraint.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
                 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

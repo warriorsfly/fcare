@@ -17,10 +17,10 @@
 package com.wxsoft.fcare.core.utils
 
 import android.content.res.Resources
-import android.databinding.ObservableBoolean
-import android.databinding.ViewDataBinding
+import androidx.databinding.ObservableBoolean
+import androidx.databinding.ViewDataBinding
 import android.net.wifi.WifiConfiguration
-import android.support.annotation.DimenRes
+import androidx.annotation.DimenRes
 import android.text.StaticLayout
 import android.util.TypedValue
 import android.view.View

@@ -18,8 +18,8 @@ package com.wxsoft.fcare.widget
 
 import android.app.Dialog
 import android.os.Bundle
-import android.support.design.widget.BottomSheetDialog
-import android.support.design.widget.BottomSheetDialogFragment
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wxsoft.fcare.R
 
 open class CustomBottomSheetDialogFragment : BottomSheetDialogFragment() {

@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.data.dictionary
 
-import android.support.annotation.StringDef
+import androidx.annotation.StringDef
 import com.wxsoft.fcare.R
 
 

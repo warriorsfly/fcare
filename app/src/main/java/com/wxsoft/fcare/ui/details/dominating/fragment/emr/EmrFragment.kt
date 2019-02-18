@@ -7,17 +7,17 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
 import android.app.AlertDialog
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
-import android.support.v4.app.ActivityCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.content.FileProvider
-import android.support.v7.widget.RecyclerView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -124,11 +124,11 @@ class EmrFragment : DaggerFragment() {
 
     @Inject
     @field:Named("emrViewPool")
-    lateinit var emrViewPool: RecyclerView.RecycledViewPool
+    lateinit var emrViewPool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 
     @Inject
     @field:Named("emrItemViewPool")
-    lateinit var emrItemViewPool: RecyclerView.RecycledViewPool
+    lateinit var emrItemViewPool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 
     private lateinit var viewModel: EmrViewModel
 

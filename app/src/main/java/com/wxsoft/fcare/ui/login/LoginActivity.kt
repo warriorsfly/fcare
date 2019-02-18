@@ -1,11 +1,11 @@
 package com.wxsoft.fcare.ui.login
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView

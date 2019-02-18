@@ -5,14 +5,14 @@
         <variable name="viewModel" type="com.wxsoft.fcare.ui.outcome.OutComeViewModel"/>
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         app:goneUnless="@{viewModel.data.outcomeCode.equals(`11-4`)}"
         android:layout_height="match_parent">
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model1"
                 android:background="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -67,7 +67,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
                 android:id="@+id/to_somewhere_title"
                 android:text="死亡原因"
@@ -104,6 +104,6 @@
                     android:checked="@={!viewModel.data.deathCauseBy}"
                     android:text="非心源性"/>
         </RadioGroup>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -8,7 +8,7 @@
         <variable name="subject" type="com.wxsoft.fcare.core.data.entity.rating.Subject"/>
     </data>
 
-    <android.support.design.card.MaterialCardView
+    <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
@@ -17,7 +17,7 @@
             app:cardCornerRadius="4dp"
             android:shadowRadius="2"
             android:layout_height="wrap_content">
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:padding="10dp"
                 app:subject="@{subject}"
@@ -41,7 +41,7 @@
                     android:layout_width="0dp"
                     android:textSize="16sp"
                     android:layout_height="wrap_content"/>
-        </android.support.constraint.ConstraintLayout>
-    </android.support.design.card.MaterialCardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

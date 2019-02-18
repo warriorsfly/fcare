@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.ui.main.fragment.patients
 
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.paging.PagedListAdapter
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
+import androidx.lifecycle.LifecycleOwner
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.Patient
@@ -36,7 +36,7 @@ class PatientsAdapter constructor(private val owner: LifecycleOwner, val viewMod
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding:LayoutItemPatientBinding ) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding:LayoutItemPatientBinding ) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
         var binding: LayoutItemPatientBinding
             private set
 

@@ -6,14 +6,14 @@
     </data>
 
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         app:goneUnless="@{viewModel.data.outcomeCode.equals(`11-3`)}"
         android:layout_height="match_parent">
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model1"
                 android:background="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -68,7 +68,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
             android:id="@+id/hospital_title"
@@ -106,6 +106,6 @@
                   app:layout_constraintTop_toBottomOf="@id/hospital"
                   app:layout_constraintRight_toRightOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

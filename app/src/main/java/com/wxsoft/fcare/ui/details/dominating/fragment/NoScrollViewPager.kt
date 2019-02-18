@@ -2,11 +2,11 @@ package com.wxsoft.fcare.ui.details.dominating.fragment
 
 
 import android.content.Context
-import android.support.v4.view.ViewPager
+import androidx.viewpager.widget.ViewPager
 import android.util.AttributeSet
 import android.view.MotionEvent
 
-class NoScrollViewPager : ViewPager {
+class NoScrollViewPager : androidx.viewpager.widget.ViewPager {
     private var isScroll: Boolean = false
 
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)

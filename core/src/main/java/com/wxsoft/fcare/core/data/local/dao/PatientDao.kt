@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.core.data.local.dao
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import com.wxsoft.fcare.core.data.entity.Patient
 import io.reactivex.Flowable
 

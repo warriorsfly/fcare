@@ -4,7 +4,7 @@
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.rating.RatingSubjectViewModel"/>
     </data>
-    <android.support.design.widget.AppBarLayout
+    <com.google.android.material.appbar.AppBarLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
@@ -13,7 +13,7 @@
             android:layout_height="135dp"
     tools:context=".ui.rating.RatingSubjectActivity">
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
                 android:background="@drawable/bg_rating_subject"
                 android:layout_width="match_parent"
@@ -84,6 +84,6 @@
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"/>-->
 
-        </android.support.constraint.ConstraintLayout>
-    </android.support.design.widget.AppBarLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 </layout>
