@@ -68,13 +68,16 @@ class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOw
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        when(section){
+        return when(section){
             3->{val binding: ViewDataBinding = ItemDiagnoseSonListBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
-                return ItemViewHolder(binding)}
+                ItemViewHolder(binding)
+            }
             4->{val binding: ViewDataBinding = ItemDiagnoseIllnessBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
-                return ItemViewHolder(binding)}
+                ItemViewHolder(binding)
+            }
             else ->{val binding: ViewDataBinding = ItemDiagnoseSonListBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
-                return ItemViewHolder(binding)}
+                ItemViewHolder(binding)
+            }
         }
     }
 

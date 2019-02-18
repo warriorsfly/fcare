@@ -26,7 +26,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
                                                       override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
-    override var title: String=""
+    override var title: String = ""
         get() = titleName
     override val clickableTitle: String
         get() = "保存"
@@ -34,21 +34,15 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     /**
      * 病人id
      */
-    var saveAble=true
+    private var saveAble=true
 
     val backToLast:LiveData<Boolean>
     private val initbackToLast = MediatorLiveData<Boolean>()
 
 
     var titleName: String = ""
-        set(value) {
-            field = value
-        }
 
     var voicePath: String = ""
-        set(value) {
-            field = value
-        }
 
     var patientsId: String = ""
         set(value) {
@@ -91,7 +85,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     private val initTalk = MediatorLiveData<Resource<Response<Talk>>>()
 
     val talkResultId:LiveData<String>
-    val saveTalkResult =MediatorLiveData<Resource<Response<String>>>()
+    private val saveTalkResult =MediatorLiveData<Resource<Response<String>>>()
 
     init {
         talkResultId = saveTalkResult.map { (it as? Resource.Success)?.data?.result?: ""}

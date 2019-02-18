@@ -34,9 +34,9 @@ class AssistantContainerAdapter constructor(private val lifecycleOwner: Lifecycl
 
         holder.binding.apply {
             if (position!= differ.currentList.size){
-                var record = differ.currentList[position]
+                val record = differ.currentList[position]
                 setVariable(BR.item, record)
-                var adapter = AssistantDetailsAdapter(this@AssistantContainerAdapter.lifecycleOwner, viewModel)
+                val adapter = AssistantDetailsAdapter(this@AssistantContainerAdapter.lifecycleOwner, viewModel)
                 adapter.items = record.lisRecordDetails
                 root.details_list.adapter = adapter
             }
@@ -48,17 +48,15 @@ class AssistantContainerAdapter constructor(private val lifecycleOwner: Lifecycl
 
 
     override fun getItemViewType(position: Int): Int {
-        var type: Int = 0
-        when (position) {
+
+        return when (position) {
             differ.currentList.size -> {
-                type = R.layout.item_assistant_add_or_none
+                R.layout.item_assistant_add_or_none
             }
             else -> {
-                type = R.layout.item_assistant_project_container
+                R.layout.item_assistant_project_container
             }
         }
-
-        return type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

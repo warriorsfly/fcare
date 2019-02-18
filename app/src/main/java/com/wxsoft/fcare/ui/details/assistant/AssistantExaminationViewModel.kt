@@ -21,8 +21,7 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "辅助检查"
+    override var title = "辅助检查"
 
     override val clickableTitle: String
         get() = ""
@@ -67,7 +66,7 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
     }
 
 
-    fun getLisItems(){
+    private fun getLisItems(){
         lisApi.getLisItems().toResource()
             .subscribe {
                 loadLisItemsResult.value = it

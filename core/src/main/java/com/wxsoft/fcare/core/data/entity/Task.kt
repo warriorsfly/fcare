@@ -100,11 +100,7 @@ data class Task (val id:String): BaseObservable(){
 
     @Transient
     @get:Bindable
-    var process:Int= 0
-        get() {
-            return if(status==5)8 else 2*status-1
-        }
-
+    var process= if(status==5)8 else 2*status-1
 
 //    @Transient
 //    @get:Bindable

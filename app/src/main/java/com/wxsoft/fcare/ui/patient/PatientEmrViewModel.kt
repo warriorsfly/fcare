@@ -25,8 +25,7 @@ class PatientEmrViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-    override var title: String=""
-        get() = "基本信息"
+    override var title = "基本信息"
     override val clickableTitle: String
         get() = "保存"
 
@@ -38,7 +37,7 @@ class PatientEmrViewModel @Inject constructor(
         }
     val patient:LiveData<Patient>
 
-    val bitmaps= mutableListOf<String>()
+    private val bitmaps= mutableListOf<String>()
 
     override val clickable:LiveData<Boolean>
 
@@ -46,7 +45,7 @@ class PatientEmrViewModel @Inject constructor(
         value=true
     }
     private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
-    val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
+    private val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
 
     init {
 
@@ -65,8 +64,8 @@ class PatientEmrViewModel @Inject constructor(
                 this.result= Patient("")
             })
         }else {
-            patientApi.getOne(patientId).toResource().subscribe { it ->
-                loadPatientResult.value = it
+            patientApi.getOne(patientId).toResource().subscribe {item->
+                loadPatientResult.value = item
             }
         }
     }

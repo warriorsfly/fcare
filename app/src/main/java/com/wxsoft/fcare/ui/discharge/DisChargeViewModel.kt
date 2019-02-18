@@ -29,8 +29,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "诊断"
+    override var title= "诊断"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -96,9 +95,9 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
                 }}.zipWith(api.getOtDiagnosis(patientId))
                     .subscribeOn(Schedulers.io())
                     .doOnSuccess { zip ->
-                        zip.first.firstOrNull { it -> it.itemCode == zip.second.result?.diagnosisCode }?.checked = true
+                        zip.first.firstOrNull { it.itemCode == zip.second.result?.diagnosisCode }?.checked = true
                     }.observeOn(AndroidSchedulers.mainThread())
-                    .subscribe { it ->
+                    .subscribe {
                         loadDesResult.value=it.first
                         loadDiagnosisResult.value=it.second
                     })

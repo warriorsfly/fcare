@@ -63,7 +63,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { it ->
+            .subscribe {it->
 
                 loadEmrResult.value = it?.first
 
@@ -418,7 +418,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                  loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.DispostionMeasures }?.let {
                     item->
                     item.result=measure.result
-                    if(!item.done&&measure.result!!.measureDtos.size>0){
+                    if(!(item.done || !measure.result!!.measureDtos.isNotEmpty())){
                         item.done=true
                         item.completedAt= measure.result?.createDate
                     }

@@ -22,8 +22,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "用药"
+    override var title = "用药"
     override val clickableTitle: String
         get() = ""
     override val clickable: LiveData<Boolean>
@@ -83,7 +82,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
 
     }
 
-    fun getAllDrugs(){
+    private fun getAllDrugs(){
         pharmacyApi.getAllDrugs().toResource()
             .subscribe {
                 loadDrugsResult.value = it
@@ -91,7 +90,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             }
     }
 
-    fun getAllDrugPackages(){
+    private fun getAllDrugPackages(){
         pharmacyApi.getAllDrugPackages().toResource()
             .subscribe {
                 loaddrugPackagesResult.value = it
@@ -99,7 +98,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             }
     }
 
-    fun savePharmacy(){
+    private fun savePharmacy(){
         pharmacyApi.save(pharmacy.value?.drugRecordDetails!!).toResource()
             .subscribe {
                 initDrugRecords.value = it
@@ -138,8 +137,8 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
         refresh()
     }
 
-    fun refresh(){
-        var dsg = ArrayList<Drug>()
+    private fun refresh(){
+        val dsg = ArrayList<Drug>()
         drugPackages.value?.filter { it.checked }
             ?.map {
                 dsg.addAll(
@@ -158,13 +157,13 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
         loadSelectedDrugsResult.value = dsg
     }
 
-    fun checkedPharmacy(){
+    private fun checkedPharmacy(){
         pharmacy.value?.drugRecordDetails?.map {
-            var bagId = it.drugPackageId
-            var druId = it.drugId
-            var dose = it.dose
-            drugPackages.value?.filter { it.id.equals(bagId) }?.map { it.checked = true }
-            drugs.value?.filter {it.id.equals(druId) }?.map {
+            val bagId = it.drugPackageId
+            val druId = it.drugId
+            val dose = it.dose
+            drugPackages.value?.filter { it.id == bagId }?.map { it.checked = true }
+            drugs.value?.filter { it.id == druId }?.map {
                 it.checked = true
                 it.dose = dose
                 it.doseNum = dose.toString()
@@ -174,7 +173,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
     }
 
     fun submit(){
-        var asg = ArrayList<DrugRecord>()
+        val asg = ArrayList<DrugRecord>()
         drugPackages.value?.filter { it.checked }
             ?.map {
                 asg.addAll(
@@ -201,7 +200,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             it.patientId = patientId
         }
 
-        if (comeFrom.equals("THROMBOLYSIS")){
+        if (comeFrom == "THROMBOLYSIS"){
             initbackToLast.value = true
             return
         }

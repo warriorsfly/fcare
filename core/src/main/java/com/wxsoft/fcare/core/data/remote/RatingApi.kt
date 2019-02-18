@@ -11,7 +11,7 @@ interface RatingApi {
 
     /***
      * 评分表列表
-     * @param code
+     * @param patientId
      */
     @GET("Rating/GetRatings/{patientId}")
     fun getRatings(@Path("patientId")patientId:String): Single<Response<List<Rating>>>

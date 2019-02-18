@@ -24,14 +24,14 @@ data class Subject(val id:String,
     }
 
     fun check(option: Option){
-        if(selectedIndex==-1){
-            selectedIndex= options.indexOf(option)
+        selectedIndex = if(selectedIndex==-1){
+            options.indexOf(option)
         }else{
             if(options.indexOf(option)==selectedIndex) {
-                selectedIndex = -1
+                -1
 
             }else{
-                selectedIndex= options.indexOf(option)
+                options.indexOf(option)
             }
         }
     }

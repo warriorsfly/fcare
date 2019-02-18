@@ -4,7 +4,6 @@ import android.databinding.BaseObservable
 import android.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
-import java.sql.Date
 
 data class Car(var id:String,
                var name:String,

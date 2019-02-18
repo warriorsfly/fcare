@@ -38,7 +38,7 @@ class RatingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        var binding = DataBindingUtil.setContentView<ActivityRatingBinding>(
+        val binding = DataBindingUtil.setContentView<ActivityRatingBinding>(
             this,
             R.layout.activity_rating
         ).apply{
@@ -71,8 +71,8 @@ class RatingActivity : BaseActivity() {
                 EmrFragment.ARG_NEW_ITEM_CODE -> {
 
                     Intent().let { intent->
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        setResult(RESULT_OK, intent)
+                        finish()
                     }
                 }
             }
@@ -83,7 +83,7 @@ class RatingActivity : BaseActivity() {
     class EventActions constructor(private val context: WeakReference<FragmentActivity>, private val patientId:String):
         EventAction<Rating> {
         override fun onOpen(t: Rating) {
-            var intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
+            val intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
                 putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
                 putExtra(RatingSubjectActivity.RATING_ID, t.id)
                 putExtra(RatingSubjectActivity.RATING_NAME, t.name)

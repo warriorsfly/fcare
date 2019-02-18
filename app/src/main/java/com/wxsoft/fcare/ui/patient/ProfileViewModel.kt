@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.patient
 
+import android.annotation.SuppressLint
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -27,8 +28,7 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
 
     var preHos=true
-    override var title: String=""
-        get() = if(preHos)"基本信息" else "病人信息"
+    override var title = if(preHos)"基本信息" else "病人信息"
     override val clickableTitle: String
         get() = if(preHos)"保存" else ""
 
@@ -64,6 +64,7 @@ class ProfileViewModel @Inject constructor(
 
     }
 
+    @SuppressLint("CheckResult")
     private fun loadPatient(){
 
         if(patientId.isEmpty()){
@@ -71,8 +72,8 @@ class ProfileViewModel @Inject constructor(
                 this.result= Patient("")
             })
         }else {
-            patientApi.getOne(patientId).toResource().subscribe { it ->
-                loadPatientResult.value = it
+            patientApi.getOne(patientId).toResource().subscribe { inf ->
+                loadPatientResult.value = inf
             }
         }
     }

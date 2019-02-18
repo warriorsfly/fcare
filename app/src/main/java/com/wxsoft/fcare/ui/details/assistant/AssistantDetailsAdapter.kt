@@ -41,16 +41,14 @@ class AssistantDetailsAdapter constructor(private val lifecycleOwner: LifecycleO
     }
 
     override fun getItemViewType(position: Int): Int {
-        var type: Int = 0
-        when (position) {
+        return when (position) {
             0 -> {
-                type = R.layout.item_assistant_subtitle
+                R.layout.item_assistant_subtitle
             }
             else ->{
-                type = R.layout.item_assistant_sub_details
+                R.layout.item_assistant_sub_details
             }
         }
-        return type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

@@ -21,12 +21,12 @@ class CheckBodyItemAdapter constructor(private val lifecycleOwner: LifecycleOwne
         set(value) {
             field = value
             when(value){
-                0->{viewModel.coordinationItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                1->{viewModel.skinItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                2->{viewModel.leftPupilsItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                3->{viewModel.leftResponseLightItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                4->{viewModel.rightPupilsItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
-                5->{viewModel.rightResponseLightItems.observe(lifecycleOwner, Observer {it -> items = it ?: emptyList()})}
+                0->{viewModel.coordinationItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                1->{viewModel.skinItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                2->{viewModel.leftPupilsItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                3->{viewModel.leftResponseLightItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                4->{viewModel.rightPupilsItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
+                5->{viewModel.rightResponseLightItems.observe(lifecycleOwner, Observer { items = it ?: emptyList()})}
             }
         }
 

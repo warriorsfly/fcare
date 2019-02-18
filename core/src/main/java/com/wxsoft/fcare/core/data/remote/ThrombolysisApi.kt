@@ -3,7 +3,6 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Thrombolysis
-import com.wxsoft.fcare.core.result.Resource
 import io.reactivex.Maybe
 import retrofit2.http.Body
 import retrofit2.http.GET

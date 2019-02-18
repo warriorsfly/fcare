@@ -19,8 +19,7 @@ class RatingViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-    override var title: String=""
-        get() = "评分"
+    override var title = "评分"
     override val clickableTitle: String
         get() = ""
 
@@ -50,8 +49,8 @@ class RatingViewModel @Inject constructor(
         disposable.add(ratingApi.getRatings(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-                it->
-                loadRatingResult.value=it.result
+                ratings->
+                loadRatingResult.value=ratings.result
             })
     }
 

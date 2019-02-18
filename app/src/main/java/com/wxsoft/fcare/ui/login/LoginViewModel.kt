@@ -24,7 +24,7 @@ class LoginViewModel @Inject constructor(
     private val disposable= CompositeDisposable()
     var name: String = ""
     var password: String = ""
-    var registrationId: String = ""
+    private var registrationId: String = ""
     /**
      *获取病人信息
      */
@@ -62,7 +62,7 @@ class LoginViewModel @Inject constructor(
         isLoading = loadAccountResult.map { it == Resource.Loading }
     }
 
-    fun attemptLogin() {
+    private fun attemptLogin() {
 
         name = sharedPreferenceStorage.loginedName ?: ""
         password = sharedPreferenceStorage.loginedPassword ?: ""

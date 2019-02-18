@@ -25,8 +25,7 @@ class DispatchCarViewModel @Inject constructor(
     override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "发车"
+    override var title= "发车"
     override val clickableTitle: String
         get() = "立即发车"
     override val clickable:LiveData<Boolean>
@@ -42,7 +41,7 @@ class DispatchCarViewModel @Inject constructor(
     val nurses: LiveData<List<User>>
     val drivers: LiveData<List<User>>
     val cars: LiveData<List<Car>>
-    var selectedCar:Car
+    private var selectedCar:Car
     override val account: Account
 
     var taskId: LiveData<String>
@@ -128,8 +127,8 @@ class DispatchCarViewModel @Inject constructor(
 
     }
     fun selectCar(car:Car){
-        if (car.status.equals("203-1")){
-            if (!car.id.equals(selectedCar.id)){
+        if (car.status == "203-1"){
+            if (car.id != selectedCar.id){
                 selectedCar.selectStatus = !selectedCar.selectStatus
                 car.selectStatus = !car.selectStatus
                 selectedCar = car
@@ -149,8 +148,8 @@ class DispatchCarViewModel @Inject constructor(
         driver.status = !driver.status
     }
 
-    fun submitBtnClick(){
-        var staffs:ArrayList<TaskStaff> = ArrayList()
+    private fun submitBtnClick(){
+        val staffs:ArrayList<TaskStaff> = ArrayList()
         val dstaff=doctors.value?.filter { it.status }
             ?.map { TaskStaff("","",it.id,it.trueName,"3")}?: emptyList()
         val nstaff=nurses.value?.filter { it.status }

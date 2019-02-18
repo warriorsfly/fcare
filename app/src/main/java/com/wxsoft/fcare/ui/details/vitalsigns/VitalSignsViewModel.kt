@@ -23,8 +23,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                                               override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "生命体征信息"
+    override var title = "生命体征信息"
     override val clickableTitle: String
         get() = "保存"
     override val clickable:LiveData<Boolean>
@@ -88,7 +87,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
             v.heart_Rate == 0
         ) return
         if (selectedConsciousnessPosition.get() == -1) return
-        v.consciousness_Type = consciousItems.get(selectedConsciousnessPosition.get()).itemCode
+        v.consciousness_Type = consciousItems[selectedConsciousnessPosition.get()].itemCode
         disposable.add((if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
             .subscribe({
                 initbackToLast.value = true

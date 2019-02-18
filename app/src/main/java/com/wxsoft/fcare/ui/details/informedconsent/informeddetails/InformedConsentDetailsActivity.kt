@@ -16,7 +16,7 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.di.GlideApp
+import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityInformedConsentDetailsBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -54,12 +54,10 @@ class InformedConsentDetailsActivity : BaseActivity() {
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
 
-    private val photoAction: EventAction by lazy {
-        EventAction()
-    }
-    private val voiceAction: VocieAction by lazy {
-        VocieAction()
-    }
+    private var photoAction:EventAction? = EventAction()
+
+    private var voiceAction:VocieAction? =VocieAction()
+
 
     private val mediaPlayer by lazy { MediaPlayer() }
 
@@ -86,8 +84,8 @@ class InformedConsentDetailsActivity : BaseActivity() {
 
 
         adapter = InformedDetailsAdapter(this)
-        adapter.setActionListener(photoAction)
-        adapter.setVoiceActionListener(voiceAction)
+        adapter.setActionListener(photoAction!!)
+        adapter.setVoiceActionListener(voiceAction!!)
         binding.attachments.adapter = adapter
 //
         viewModel.talk.observe(this, Observer {
@@ -98,11 +96,16 @@ class InformedConsentDetailsActivity : BaseActivity() {
             }
         })
 
+    }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        photoAction=null
+        voiceAction=null
     }
 
 
-    inner class EventAction() : PhotoEventAction {
+    inner class EventAction : PhotoEventAction {
         override fun localSelected() {
 
         }
@@ -111,7 +114,7 @@ class InformedConsentDetailsActivity : BaseActivity() {
         }
     }
 
-    inner class VocieAction() : PlayVoiceEventAction {
+    inner class VocieAction : PlayVoiceEventAction {
         override fun play(imageView:ImageView,url: String) {
 //            mediaPlayer.setDataSource(url)
 //            mediaPlayer.prepare()

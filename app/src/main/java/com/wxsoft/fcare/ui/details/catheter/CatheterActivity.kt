@@ -67,7 +67,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                     }
 
                     dialog = createDialog(currentTime)
-                    dialog?.show(supportFragmentManager, "all");
+                    dialog?.show(supportFragmentManager, "all")
                 }
             }
         }
@@ -80,7 +80,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
-    private var selectedId=0;
+    private var selectedId=0
 
     private lateinit var patientId:String
     companion object {
@@ -125,8 +125,8 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                 is Resource.Success -> {
                     Intent().let { intent ->
 
-                        setResult(RESULT_OK, intent);
-                        finish();
+                        setResult(RESULT_OK, intent)
+                        finish()
                     }
                 }
             }

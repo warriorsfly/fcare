@@ -28,8 +28,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "诊断"
+    override var title="诊断"
     override val clickableTitle: String
         get() = "确定"
     override val clickable: LiveData<Boolean>
@@ -133,7 +132,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             })
     }
 
-    fun loadOtherXT(){
+    private fun loadOtherXT(){
         disposable.add(dictEnumApi.loadConsciousness().toResource()
             .subscribe{
                 loadOtherXTItemsResult.value = it
@@ -172,7 +171,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             })
     }
 
-    fun saveDiagnose(){
+    private fun saveDiagnose(){
         disposable.add(diagnoseApi.save(diagnosis.value!!).toResource()
             .subscribe{
                 loadDiagnosisResult.value = it
@@ -185,10 +184,10 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         if (diagnosis.value?.diagnosisCode1.isNullOrEmpty()&&typeItems.value!=null){
             selected(typeItems.value!!.first())
         }
-        typeItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode1) }?.map { selected(it) }
-        thoracalgiaItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode2) }?.map { checkDianose(it) }
-        sonItems.value?.filter { it.id.equals(diagnosis.value?.diagnosisCode3) }?.map { it.checked=true }
-        illnessItems.value?.filter { it.id.equals(diagnosis.value?.criticalLevel) }?.map { it.checked=true }
+        typeItems.value?.filter { it.id == diagnosis.value?.diagnosisCode1 }?.map { selected(it) }
+        thoracalgiaItems.value?.filter { it.id == diagnosis.value?.diagnosisCode2 }?.map { checkDianose(it) }
+        sonItems.value?.filter { it.id == diagnosis.value?.diagnosisCode3 }?.map { it.checked=true }
+        illnessItems.value?.filter { it.id == diagnosis.value?.criticalLevel }?.map { it.checked=true }
     }
 
     override fun click(){
@@ -219,7 +218,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         thoracalgiaItems.value?.filter { it.checked }?.map { checkDianose(it)}
     }
 
-    fun checkDianose(item:Dictionary){
+    private fun checkDianose(item:Dictionary){
         thoracalgiaItems.value?.filter { it.checked }
             ?.map { it.checked = false }
         item.checked = true

@@ -48,12 +48,12 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {
             selectedId=it.id
-            val currentTime=it.text.toString()?.let {text->
+            val currentTime= it.text.toString().let { text->
                 if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
             }
 
             dialog = createDialog(currentTime)
-            dialog?.show(childFragmentManager, "all");
+            dialog?.show(childFragmentManager, "all")
         }
     }
 
@@ -137,7 +137,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
 //
     override fun onDismiss(dialog: DialogInterface?) {
         super.onDismiss(dialog)
-        val activity = getActivity()
+        val activity = activity
         if (activity is DialogInterface.OnDismissListener) {
             (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
         }

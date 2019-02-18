@@ -30,10 +30,10 @@ class GetPictureDialogFragment : BottomSheetDialogFragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         val parent = parentFragment
-        if (parent != null) {
-            mListener = parent as Listener
+        mListener = if (parent != null) {
+            parent as Listener
         } else {
-            mListener = context as Listener
+            context as Listener
         }
     }
 

@@ -64,8 +64,8 @@ class MeasuresActivity : BaseActivity()  {
 
         viewModel.resultString.observe(this, Observer {
             Intent().let { intent->
-                setResult(RESULT_OK, intent);
-                finish();
+                setResult(RESULT_OK, intent)
+                finish()
             }
         })
 
@@ -73,15 +73,15 @@ class MeasuresActivity : BaseActivity()  {
 
 
 
-    fun showDialog(item: Dictionary){
+    private fun showDialog(item: Dictionary){
 
         AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
             .setMessage("确定"+item.itemName+"吗？")
             .setPositiveButton("是") { _, _ ->
                 item.checked = true
-                if (item.id.equals("212-5")){//用药
+                if (item.id == "212-5"){//用药
                     toPharmacy()
-                }else if(item.id.equals("212-6")){//溶栓
+                }else if(item.id == "212-6"){//溶栓
                     toThrombolysis()
                 }
             }
@@ -106,14 +106,14 @@ class MeasuresActivity : BaseActivity()  {
 //            .show()
     }
 
-    fun toPharmacy(){//用药界面
-        var intent = Intent(this, PharmacyActivity::class.java)
+    private fun toPharmacy(){//用药界面
+        val intent = Intent(this, PharmacyActivity::class.java)
         intent.putExtra(PharmacyActivity.PATIENT_ID,patientId)
         startActivity(intent)
     }
 
-    fun toThrombolysis(){//溶栓
-        var intent = Intent(this, ThrombolysisActivity::class.java)
+    private fun toThrombolysis(){//溶栓
+        val intent = Intent(this, ThrombolysisActivity::class.java)
         intent.putExtra(ThrombolysisActivity.PATIENT_ID,patientId)
         startActivity(intent)
     }

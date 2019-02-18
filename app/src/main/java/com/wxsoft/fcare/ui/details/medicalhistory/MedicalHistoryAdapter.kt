@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.item_medical_history_other.view.*
 class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
     RecyclerView.Adapter<MedicalHistoryAdapter.ItemViewHolder>() {
 
-    var titleArray:Array<String> = arrayOf("", "既往病史", "病历提供者")
+    private var titleArray:Array<String> = arrayOf("", "既往病史", "病历提供者")
 
     override fun getItemCount(): Int {
         return 3
@@ -29,9 +29,9 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
 
             }else{//既往病史、病历提供者
                 if (root.medical_other_items_rv.adapter == null){
-                    var adapter = MedicalHistoryItemAdapter(owner,viewModel)
+                    val adapter = MedicalHistoryItemAdapter(owner,viewModel)
                     adapter.section = position
-                    root.medical_other_title_name.setText(titleArray.get(position))
+                    root.medical_other_title_name.text = titleArray[position]
                     root.medical_other_items_rv.adapter = adapter
                 }
             }
@@ -42,7 +42,7 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
     }
 
     override fun getItemViewType(position: Int): Int {
-        var type: Int = 0
+        var type = 0
         when (position) {
             0 -> {
                 type = R.layout.item_medical_history_voice

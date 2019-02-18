@@ -104,7 +104,7 @@ class ShareShotUtils constructor(
     private fun drawBitmap(): Bitmap {
 
         val xPos = padding + 0f
-        var yPos = padding + 0f
+        val yPos = padding + 0f
 
         val bitmap = Bitmap.createBitmap(
             widthTitle + widthContent + padding * 4,

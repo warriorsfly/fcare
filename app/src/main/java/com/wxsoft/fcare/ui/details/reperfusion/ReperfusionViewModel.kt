@@ -21,8 +21,7 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title: String=""
-        get() = "CABG"
+    override var title = "CABG"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -67,7 +66,7 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
             }
     }
 
-    fun saveCABG(){
+    private fun saveCABG(){
         cabg.value?.patientId = patientId
         pharmacyApi.saveCABG(cabg.value!!).toResource()
             .subscribe {

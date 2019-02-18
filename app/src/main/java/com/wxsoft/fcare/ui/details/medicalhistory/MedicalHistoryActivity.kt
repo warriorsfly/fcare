@@ -25,7 +25,7 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.di.GlideApp
+import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -50,15 +50,13 @@ class MedicalHistoryActivity : BaseActivity() {
 
     lateinit var binding: ActivityMedicalHistoryBinding
 
-    lateinit var medicalAdapter: MedicalHistoryAdapter
+    private lateinit var medicalAdapter: MedicalHistoryAdapter
 
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
     private lateinit var adapter: PictureAdapter
 
-    private val photoAction: EventAction by lazy {
-        EventAction()
-    }
+    private var photoAction: EventAction? =EventAction()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,7 +77,7 @@ class MedicalHistoryActivity : BaseActivity() {
         viewModel.loadMedicalHistory()
 
         adapter= PictureAdapter(this,10)
-        adapter.setActionListener(photoAction)
+        adapter.setActionListener(photoAction!!)
         adapter.locals= emptyList()
         medical_photo_items_rv.adapter=adapter
 
@@ -89,8 +87,8 @@ class MedicalHistoryActivity : BaseActivity() {
 
         viewModel.backToLast.observe(this, Observer {
             Intent().let { intent->
-                setResult(RESULT_OK, intent);
-                finish();
+                setResult(RESULT_OK, intent)
+                finish()
             }
         })
         viewModel.medicalHistory.observe(this, Observer {
@@ -125,7 +123,7 @@ class MedicalHistoryActivity : BaseActivity() {
         }
     }
 
-    inner class EventAction() : PhotoEventAction {
+    inner class EventAction : PhotoEventAction {
         override fun localSelected() {
             checkPhotoTaking()
         }
@@ -138,6 +136,10 @@ class MedicalHistoryActivity : BaseActivity() {
     }
 
 
+    override fun onDestroy() {
+        super.onDestroy()
+        photoAction=null
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {

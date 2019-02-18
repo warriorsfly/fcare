@@ -1,14 +1,11 @@
 package com.wxsoft.fcare.ui.details.measures
 
 import android.arch.lifecycle.LifecycleOwner
-import android.content.Context
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
-import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wxsoft.fcare.BR
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemMeasuresNomalBinding
 import com.wxsoft.fcare.databinding.ItemMeasuresRemarkBinding
@@ -19,7 +16,7 @@ import kotlinx.android.synthetic.main.item_measures_remark.view.*
 class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MeasuresViewModel) :
     RecyclerView.Adapter<MeasuresAdapter.ItemViewHolder>() {
 
-    var titleArray:Array<String> = arrayOf("治疗措施","救治结果", "出诊结果","绕行")
+    private var titleArray:Array<String> = arrayOf("治疗措施","救治结果", "出诊结果","绕行")
 
     override fun getItemCount(): Int {
         return 4
@@ -30,13 +27,13 @@ class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
             lifecycleOwner = this@MeasuresAdapter.lifecycleOwner
                 if (position != 3){
                     if (root.measures_items_rv.adapter == null){
-                        var adapter = MeasuresItemAdapter(this@MeasuresAdapter.lifecycleOwner,viewModel)
+                        val adapter = MeasuresItemAdapter(this@MeasuresAdapter.lifecycleOwner,viewModel)
                         adapter.section = position
-                        root.measures_title_name.setText(titleArray.get(position))
+                        root.measures_title_name.text = titleArray[position]
                         root.measures_items_rv.adapter = adapter
                     }
                 }else{
-                    var adapter = MeasuresItemAdapter(this@MeasuresAdapter.lifecycleOwner,viewModel)
+                    val adapter = MeasuresItemAdapter(this@MeasuresAdapter.lifecycleOwner,viewModel)
                     adapter.section = position
                     root.measures_detour_department_rv.adapter = adapter
                 }
@@ -49,7 +46,7 @@ class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, va
 
 
     override fun getItemViewType(position: Int): Int {
-        var type:Int = 0
+        var type = 0
         when(position){
             0->{type = R.layout.item_measures_nomal}
             1->{type = R.layout.item_measures_nomal}
