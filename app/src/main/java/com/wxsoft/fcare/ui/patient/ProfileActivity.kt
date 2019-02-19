@@ -137,6 +137,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
             adapter.remotes=it.attachments.map { attachment -> attachment.httpUrl }
         })
 
+
         viewModel.savePatientResult.observe(this, Observer {
 
             when(it){

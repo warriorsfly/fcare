@@ -106,7 +106,7 @@ dependencies {
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
     // Optional, if you use support library fragments:
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
-    implementation 'androidx.paging:paging-runtime:2.0.0'
+    implementation 'androidx.paging:paging-runtime:2.1.0'
 
     implementation 'com.jzxiang.pickerview:TimePickerDialog:1.0.1'
 //    coroutines协程，比较下rxjava2和协程对内存泄漏的影响

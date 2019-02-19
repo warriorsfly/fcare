@@ -1,9 +1,12 @@
 package com.wxsoft.fcare.ui.patient
 
 import android.annotation.SuppressLint
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -14,6 +17,7 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
+import kotlinx.android.synthetic.main.activity_patient_profile.view.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -62,6 +66,12 @@ class ProfileViewModel @Inject constructor(
         }
 
 
+    }
+
+    fun changeCode(isChecked:Boolean,dCode:String){
+        if(isChecked) {
+            patient.value?.diagnosisCode=dCode
+        }
     }
 
     @SuppressLint("CheckResult")
@@ -152,7 +162,12 @@ class ProfileViewModel @Inject constructor(
             return patient.value?.let {
 
                 if(it.unKnown){
-                    return@let true
+                    if(it.diagnosisCode.isEmpty()){
+                        messageAction.value= Event("大病分类需要选择")
+                        return@let false
+                    }else {
+                        return@let true
+                    }
                 }else{
                     when{
                         it.name.isEmpty()->{
@@ -170,6 +185,10 @@ class ProfileViewModel @Inject constructor(
                             return@let false
                         }
 
+                        it.diagnosisCode.isEmpty() ->{
+                            messageAction.value= Event("大病分类需要选择")
+                            return@let false
+                        }
                         else->
                             return@let true
                     }
