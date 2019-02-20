@@ -254,6 +254,12 @@ class EmrFragment : DaggerFragment() {
                         }
                     context.get()?.startActivityForResult(intent, RATING)
                 }
+                ActionRes.ActionType.主诉及症状 ->{
+                    val intent = Intent(context.get()?.activity, ComplaintsActivity::class.java).apply {
+                        putExtra(ComplaintsActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, COMPLAINTS)
+                }
 
             }
         }

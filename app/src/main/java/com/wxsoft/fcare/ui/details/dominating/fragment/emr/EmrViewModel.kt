@@ -319,7 +319,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 disposable.add(
                     emrApi.getComplaints(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ complaints ->
-                            if (complaints.result == null) return@subscribe
+                            if (complaints.result.isNullOrEmpty()) return@subscribe
                             emr.result = complaints.result
                             if (complaints.result!!.size<=0)return@subscribe
                             if (!emr.done) {

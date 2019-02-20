@@ -20,17 +20,17 @@ data class Complain(val id:String
         }
 
     @Bindable
-    var ccId: String = ""
+    var ccCode: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.ccId)
+            notifyPropertyChanged(BR.ccCode)
         }
 
     @Bindable
-    var ccName: String = ""
+    var ccCode_Name: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.ccName)
+            notifyPropertyChanged(BR.ccCode_Name)
         }
 
     @Bindable

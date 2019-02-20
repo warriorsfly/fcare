@@ -126,13 +126,33 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 item = differ.currentList[position]
 
                 if(druglist.adapter==null){
-                    druglist.adapter = EmrDrugRecordAdapter(owner,action)
+                    druglist.adapter = EmrLineLayoutAdapter(owner,action)
                 }
                 action?.let {
                     newOne.setOnClickListener {
                         action?.onNew(differ.currentList[position].code!!) }
                 }
-                (druglist.adapter as? EmrDrugRecordAdapter)?.submitList((differ.currentList[position].result as? List<DrugRecord>)?: emptyList())
+                (druglist.adapter as? EmrLineLayoutAdapter)?.apply {
+                    items = (differ.currentList[position].result as? List<DrugRecord>)?: emptyList()
+                }
+                visiable= position<differ.currentList.size-1
+                lifecycleOwner = owner
+                executePendingBindings()
+            }
+
+            is ItemViewHolder.ComplaintHolder -> holder.binding.apply {
+                item = differ.currentList[position]
+
+                if(complaintlist.adapter==null){
+                    complaintlist.adapter = EmrLineLayoutAdapter(owner,action)
+                }
+                action?.let {
+                    newOne.setOnClickListener {
+                        action?.onNew(differ.currentList[position].code!!) }
+                }
+                (complaintlist.adapter as? EmrLineLayoutAdapter)?.apply {
+                    items = (differ.currentList[position].result as? List<Complain>)?: emptyList()
+                }
 
                 visiable= position<differ.currentList.size-1
                 lifecycleOwner = owner
@@ -325,6 +345,11 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     druglist.setRecycledViewPool(pool)
                 }
             )
+            R.layout.item_emr_complaint -> ItemViewHolder.ComplaintHolder(
+                ItemEmrComplaintBinding.inflate(inflater,parent,false).apply {
+                    complaintlist.setRecycledViewPool(pool)
+                }
+            )
 
             R.layout.item_emr_ct->ItemViewHolder.PacsViewHolder(
                 ItemEmrCtBinding.inflate(inflater,parent,false)
@@ -381,7 +406,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         R.layout.item_emr_drug
                     }
                     ActionRes.ActionType.主诉及症状->{
-                        R.layout.item_emr_simple_string
+                        R.layout.item_emr_complaint
                     }
 
                     else->R.layout.item_emr_none
@@ -585,6 +610,10 @@ sealed class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.wi
     //转归
     class OTViewHolder(
         val binding: ItemEmrOutcomeBinding
+    ): ItemViewHolder(binding)
+    //主诉及症状
+    class ComplaintHolder(
+        val binding:ItemEmrComplaintBinding
     ): ItemViewHolder(binding)
 
 }

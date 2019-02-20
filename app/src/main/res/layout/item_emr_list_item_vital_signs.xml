@@ -2,6 +2,7 @@
 <layout >
     <data>
         <import type="com.wxsoft.fcare.utils.Converter"/>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
         <variable name="vital" type="com.wxsoft.fcare.core.data.entity.VitalSign"/>
     </data>
 
@@ -149,10 +150,8 @@
                         android:textSize="13sp"
                         android:text="血压"
                         android:layout_marginTop="13dp"
-                        android:layout_marginBottom="17dp"
                         android:textColor="#9399A4"
                         app:layout_constraintLeft_toLeftOf="@id/title1"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/title3"/>
 
                 <TextView
@@ -200,8 +199,75 @@
                         app:layout_constraintLeft_toRightOf="@+id/item_mid_42"
                         android:text="mmHg" />
 
+                <TextView
+                        android:id="@+id/title5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="血氧饱和度"
+                        android:layout_marginTop="13dp"
+                        android:textColor="#9399A4"
+                        app:layout_constraintLeft_toLeftOf="@id/title1"
+                        app:layout_constraintTop_toBottomOf="@id/title4"/>
 
+                <TextView
+                        android:id="@+id/spo2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        tools:text="34"
+                        android:layout_marginLeft="80dp"
+                        android:textColor="#000"
+                        android:text="@{Converter.intToString(vital.spO2)}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/title5"/>
 
+                <TextView
+                        android:id="@+id/item_end5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#000"
+                        app:layout_constraintBottom_toBottomOf="@+id/title5"
+                        app:layout_constraintLeft_toRightOf="@+id/spo2"
+                        android:text="%" />
+
+                <TextView
+                        android:id="@+id/title6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:text="体温"
+                        android:layout_marginTop="13dp"
+                        android:layout_marginBottom="17dp"
+                        android:textColor="#9399A4"
+                        app:layout_constraintLeft_toLeftOf="@id/title1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/title5"/>
+
+                <TextView
+                        android:id="@+id/temperature"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        tools:text="34"
+                        android:layout_marginLeft="80dp"
+                        android:textColor="#000"
+                        android:text="@{FloatConverter.floatToString(vital.body_Temperature)}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/title6"/>
+
+                <TextView
+                        android:id="@+id/item_end6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13sp"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="#000"
+                        app:layout_constraintBottom_toBottomOf="@+id/title6"
+                        app:layout_constraintLeft_toRightOf="@+id/temperature"
+                        android:text="°C" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

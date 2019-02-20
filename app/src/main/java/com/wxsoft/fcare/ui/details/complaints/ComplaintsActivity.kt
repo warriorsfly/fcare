@@ -55,6 +55,7 @@ class ComplaintsActivity : BaseActivity() {
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
+        viewModel.complaints.observe(this, Observer {  })
 
         viewModel.saveResult.observe(this, Observer {
             when(it){

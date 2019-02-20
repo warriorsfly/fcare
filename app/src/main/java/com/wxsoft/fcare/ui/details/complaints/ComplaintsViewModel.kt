@@ -89,8 +89,8 @@ class ComplaintsViewModel @Inject constructor(private val api: PACSApi,
     fun save(){
         val items = complaintsItems.value?.filter { it.checked }?.map { Complain("").apply {
             this.patientId = this@ComplaintsViewModel.patientId
-            ccId = it.id
-            ccName = it.itemName
+            ccCode = it.id
+            ccCode_Name = it.itemName
             createdDate = DateTimeUtils.getCurrentTime()
         }}?: emptyList()
         api.saveCC(items).toResource()
@@ -125,7 +125,7 @@ class ComplaintsViewModel @Inject constructor(private val api: PACSApi,
     }
 
     fun haveData(){
-        val ids = complaints.value?.map { it.ccId }?: emptyList()
+        val ids = complaints.value?.map {it.ccCode}?: emptyList()
         complaintsItems.value?.filter { ids.contains(it.id) }?.map { it.checked = true }
     }
 

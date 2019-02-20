@@ -30,7 +30,6 @@ data class VitalSign(val id:String=""): BaseObservable() {
     @Bindable
     var body_Temperature: Float = 0f
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.body_Temperature)
         }
@@ -47,7 +46,12 @@ data class VitalSign(val id:String=""): BaseObservable() {
             field = value
             notifyPropertyChanged(BR.dbp)
         }
-
+    @Bindable
+    var spO2: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.spO2)
+        }
     @Bindable
     var sbp: String = ""
         set(value) {
@@ -104,7 +108,7 @@ data class VitalSign(val id:String=""): BaseObservable() {
         }
 
     override fun toString(): String {
-        return  "$consciousness_Type,呼吸$respiration_Rate,脉搏$pulse_Rate,心率$heart_Rate,Killip等级$killip_Level"
+        return  "$consciousness_Type,呼吸$respiration_Rate,脉搏$pulse_Rate,心率$heart_Rate"
 
     }
 
