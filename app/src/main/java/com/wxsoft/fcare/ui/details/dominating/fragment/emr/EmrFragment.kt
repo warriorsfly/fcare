@@ -265,7 +265,7 @@ class EmrFragment : DaggerFragment() {
                     val intent = Intent(context.get()?.activity, ProfileActivity::class.java).apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
-                    context.get()?.startActivityForResult(intent, BASE_INFO)
+                    context.get()?.activity?.startActivityForResult(intent, BASE_INFO)
                 }
 
                 ActionRes.ActionType.GRACE->{
@@ -566,11 +566,10 @@ class EmrFragment : DaggerFragment() {
                     viewModel.refreshOt()
                 }
 
-                EmrFragment.BASE_INFO ->{
-                    viewModel.refreshBaseInfo()
-
-                    activity?.setResult(RESULT_OK)
-                }
+//                EmrFragment.BASE_INFO ->{
+//                    viewModel.refreshBaseInfo()
+//
+//                }
             }
         }
 

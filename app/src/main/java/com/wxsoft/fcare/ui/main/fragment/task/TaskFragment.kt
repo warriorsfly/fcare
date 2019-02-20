@@ -118,7 +118,7 @@ class TaskFragment : DaggerFragment() {
     private fun toDetail(id: String) {
         val intent = Intent(activity!!, DoMinaActivity::class.java)
         intent.putExtra(DoMinaActivity.TASK_ID, id)
-        startActivity(intent)
+        startActivityForResult(intent,NEW_TAK_REQUEST_CODE)
     }
 
 }

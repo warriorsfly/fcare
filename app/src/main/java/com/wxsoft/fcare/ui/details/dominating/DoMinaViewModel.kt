@@ -146,7 +146,8 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             _pageAction.value = Event(status-1)
         } else {
 
-            _atAction.value = Event(status)
+             if(task.value?.status==status-1)
+                 _atAction.value = Event(status)
         }
     }
 

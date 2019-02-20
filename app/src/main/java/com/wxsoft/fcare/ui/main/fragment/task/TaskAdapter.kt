@@ -75,7 +75,7 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
 
         override fun areContentsTheSame(oldItem: Task, newItem: Task): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id  && oldItem.patients == newItem.patients
         }
     }
 

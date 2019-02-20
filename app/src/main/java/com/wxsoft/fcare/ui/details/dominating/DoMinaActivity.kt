@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.dominating
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
@@ -17,6 +18,7 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
@@ -104,9 +106,10 @@ class DoMinaActivity : BaseActivity() {
 
         if(resultCode==RESULT_OK) {
             when (requestCode) {
-                NEW_PATIENT_REQUEST -> {
+                NEW_PATIENT_REQUEST, BASE_INFO -> {
 //                    data?.getStringExtra(NEW_PATIENT_ID)
                     viewModel.loadTask()
+                    setResult(RESULT_OK)
                 }
             }
         }

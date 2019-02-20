@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.patient
 
+import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import com.wxsoft.fcare.R
@@ -10,6 +11,7 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel
 
 import kotlinx.android.synthetic.main.layout_common_title.*
@@ -42,6 +44,19 @@ class PatientEmrActivity : BaseActivity() {
 
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if(resultCode==RESULT_OK) {
+            when (requestCode) {
+                BASE_INFO -> {
+                    emrViewModel.refreshBaseInfo()
+                    setResult(RESULT_OK)
+                }
+            }
+        }
     }
 
 }
