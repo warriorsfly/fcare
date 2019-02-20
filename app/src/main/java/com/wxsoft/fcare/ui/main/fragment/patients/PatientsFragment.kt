@@ -80,7 +80,8 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
         Intent(activity!!, PatientEmrActivity::class.java).let {
             it.putExtra(ProfileActivity.PATIENT_ID,id)
-            startActivity(it)
+
+            startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }
 
     }

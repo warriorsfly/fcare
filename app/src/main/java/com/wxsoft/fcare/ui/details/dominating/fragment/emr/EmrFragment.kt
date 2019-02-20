@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import android.content.Intent
@@ -567,6 +568,8 @@ class EmrFragment : DaggerFragment() {
 
                 EmrFragment.BASE_INFO ->{
                     viewModel.refreshBaseInfo()
+
+                    activity?.setResult(RESULT_OK)
                 }
             }
         }
