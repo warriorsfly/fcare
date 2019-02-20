@@ -132,12 +132,12 @@ object LongConverter{
 
 object FloatConverter{
     @InverseMethod("stringToFloat")
-    @JvmStatic fun floatToString(value: Float):String  {
-        return if(value==0f) ""  else value.toString()
+    @JvmStatic fun floatToString(value: Float?):String  {
+        return if(value==null) ""  else value.toString()
 
     }
 
-    @JvmStatic fun stringToFloat(value:String): Float {
-        return if(value.isEmpty()) 0f else value.toFloat()
+    @JvmStatic fun stringToFloat(value:String): Float? {
+        return if(value.isEmpty()) null else value.toFloat()
     }
 }
