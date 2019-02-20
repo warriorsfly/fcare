@@ -31,137 +31,26 @@ class PatientEmrViewModel @Inject constructor(
 
     var taskId=""
     var patientId=""
-        set(value) {
-            field=value
-            loadPatient()
-        }
-    val patient:LiveData<Patient>
 
     private val bitmaps= mutableListOf<String>()
 
     override val clickable:LiveData<Boolean>
 
     private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
+        value=false
     }
-    private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
-    private val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
 
     init {
 
         clickable=clickResult.map { it }
-        patient=loadPatientResult.map {
-            (it as? Resource.Success)?.data?.result?:Patient("")
-        }
+
 
 
     }
 
-    private fun loadPatient(){
 
-        if(patientId.isEmpty()){
-            loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
-                this.result= Patient("")
-            })
-        }else {
-            patientApi.getOne(patientId).toResource().subscribe {item->
-                loadPatientResult.value = item
-            }
-        }
-    }
 
-    fun patientIsUnkown(){
-        patient.value?.let {
-            it.unKnown=!it.unKnown
-        }
-    }
+    override fun click(){}
 
-    override fun click(){
-        if(patientSavable) {
-            val files = bitmaps.map {
-                val file = File(it)
-                return@map MultipartBody.Part.createFormData(
-                    "images",
-                    it.split("/").last(),
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                )
-            }
-            if (files.isNullOrEmpty()){
-                patientApi.save(patient.value!!.apply {
-                    createdBy = account.id
-                    hospitalId = account.hospitalId
-                    taskId=this@PatientEmrViewModel.taskId
-                }).toResource().subscribe {
 
-                    when (it) {
-                        is Resource.Success -> {
-                            clickResult.value = true
-                            savePatientResult.value = it
-                            messageAction.value = Event("保存成功")
-                        }
-                        is Resource.Error -> {
-                            clickResult.value = true
-                            messageAction.value = Event(it.throwable.message ?: "")
-                        }
-                        else -> {
-                            clickResult.value = false
-                        }
-                    }
-                }
-            }else{
-                    patientApi.save(patient.value!!.apply {
-                        createdBy = account.id
-                        hospitalId = account.hospitalId
-                        taskId=this@PatientEmrViewModel.taskId
-                    }, files).toResource().subscribe {
-                        when (it) {
-                            is Resource.Success -> {
-                                clickResult.value = true
-                                savePatientResult.value = it
-                                messageAction.value = Event("保存成功")
-                            }
-                            is Resource.Error -> {
-                                clickResult.value = true
-                                messageAction.value = Event(it.throwable.message ?: "")
-                            }
-                            else -> {
-                                clickResult.value = false
-                            }
-                        }
-                    }
-                }
-        }
-    }
-
-    private val patientSavable:Boolean
-        get(){
-            return patient.value?.let {
-
-                if(it.unKnown){
-                    return@let true
-                }else{
-                    when{
-                        it.name.isEmpty()->{
-                            messageAction.value= Event("姓名不能为空")
-                            return@let false
-                        }
-
-                        it.idcard.isEmpty()->{
-                            messageAction.value= Event("身份证不能为空")
-                            return@let false
-                        }
-
-                        it.age==0->{
-                            messageAction.value= Event("年龄不能为空")
-                            return@let false
-                        }
-
-                        else->
-                            return@let true
-                    }
-                }
-
-            }?:false
-
-    }
 }

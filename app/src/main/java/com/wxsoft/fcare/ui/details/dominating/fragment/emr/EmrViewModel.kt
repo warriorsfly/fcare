@@ -33,9 +33,13 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     val bitmaps= mutableListOf<String>()
     val emrs:LiveData<List<EmrItem>>
     private val loadEmrResult=MediatorLiveData<Response<List<EmrItem>>>()
+
+    val patient:LiveData<Patient>
+    private val loadPatientResult=MediatorLiveData<Response<Patient>>()
     var preHos=true
     init {
 
+        patient=loadPatientResult.map { it.result?: Patient(id = "") }
         emrs=loadEmrResult.map { it.result?: emptyList()}
     }
     var patientId=""
@@ -66,7 +70,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
             .subscribe {it->
 
                 loadEmrResult.value = it?.first
-
+                loadPatientResult.value=it?.second
                 disposable.add(emrApi.getEcgs(patientId).subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         //                        check?.result?: return@subscribe
@@ -584,6 +588,8 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     emrApi.getBaseInfo(patientId).subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ records ->
                             records.result ?: return@subscribe
+
+                            loadPatientResult.value=records
                             emr.result = records.result
                             if (!emr.done) {
                                 emr.done = true

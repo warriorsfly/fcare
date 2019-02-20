@@ -10,7 +10,7 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 
 @Entity(tableName = "patients")
-data class Patient(@PrimaryKey val id:String):BaseObservable(){
+data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
 
     var taskId: String?=null
 

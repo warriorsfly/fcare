@@ -36,6 +36,7 @@ import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -76,7 +77,7 @@ class EmrFragment : DaggerFragment() {
 
         private const val ARG_PATIENT = "arg.patient"
         private const val ARG_PREHOS = "arg.prehos"
-        const val ARG_NEW_ITEM = "arg.new_item"
+        const val ARG_TASK_EMR = "arg.task_emr"
         const val ARG_NEW_ITEM_CODE = 20
         const val MEDICAL_HISTORY_CODE = 21
         const val VITAL_SIGNS = 22
@@ -99,11 +100,12 @@ class EmrFragment : DaggerFragment() {
         const val COMPLAINTS = 39
 
         @JvmStatic
-        fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
+        fun newInstance( patientId:String,preHos:Boolean=true,taskEmr:Boolean=true): EmrFragment {
 
             val args = Bundle().apply {
                 putString(ARG_PATIENT,patientId)
                 putBoolean(ARG_PREHOS,preHos)
+                putBoolean(ARG_TASK_EMR,taskEmr)
             }
             return EmrFragment().apply { arguments = args }
 
@@ -123,10 +125,10 @@ class EmrFragment : DaggerFragment() {
     lateinit var factory: ViewModelFactory
 
     lateinit var binding: FragmentEmrBinding
-
-    @Inject
-    @field:Named("emrViewPool")
-    lateinit var emrViewPool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool
+//
+//    @Inject
+//    @field:Named("emrViewPool")
+//    lateinit var emrViewPool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 
     @Inject
     @field:Named("emrItemViewPool")
@@ -139,19 +141,12 @@ class EmrFragment : DaggerFragment() {
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
 
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        viewModel = viewModelProvider(factory)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = viewModelProvider(factory)
+
+        viewModel =if(taskEmr) viewModelProvider(factory) else activityViewModelProvider(factory)
         binding= FragmentEmrBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = this@EmrFragment
         }
@@ -417,6 +412,11 @@ class EmrFragment : DaggerFragment() {
     private val preHos: Boolean by lazyFast {
         val args = arguments ?: throw IllegalStateException("Missing arguments!")
         args.getBoolean(ARG_PREHOS,true)
+    }
+
+    private val taskEmr: Boolean by lazyFast {
+        val args = arguments ?: throw IllegalStateException("Missing arguments!")
+        args.getBoolean(ARG_TASK_EMR,true)
     }
 
 

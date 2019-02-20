@@ -10,6 +10,7 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel
 
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
@@ -20,21 +21,22 @@ class PatientEmrActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var viewModel:ProfileViewModel
+    lateinit var viewModel:PatientEmrViewModel
+    lateinit var emrViewModel: EmrViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        viewModel.patientId=patientId
-        viewModel.preHos=false
+        emrViewModel=viewModelProvider(factory)
         DataBindingUtil.setContentView<ActivityPatientEmrBinding>(this,R.layout.activity_patient_emr).apply {
             viewModel=this@PatientEmrActivity.viewModel
+            emrViewModel=this@PatientEmrActivity.emrViewModel
             lifecycleOwner = this@PatientEmrActivity
         }
 
         back.setOnClickListener { onBackPressed() }
         supportFragmentManager.inTransaction {
-            replace(R.id.fragment_container, EmrFragment.newInstance(patientId,false))
+            replace(R.id.fragment_container, EmrFragment.newInstance(patientId,false,false))
         }
     }
 

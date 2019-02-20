@@ -14,4 +14,9 @@ internal abstract class ProfileModule {
     @ViewModelKey(ProfileViewModel::class)
     abstract fun bindProfileViewModel(viewModel: ProfileViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(PatientEmrViewModel::class)
+    abstract fun bindPatientEmrViewModel(viewModel: PatientEmrViewModel): ViewModel
+
 }

@@ -2,7 +2,8 @@
 <layout>
     <data>
         <import type="com.wxsoft.fcare.utils.Converter"/>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.patient.ProfileViewModel"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.patient.PatientEmrViewModel"/>
+        <variable name="emrViewModel" type="com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel"/>
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,7 +34,7 @@
             android:textSize="16sp"
             tools:text="张三丰"
             android:textStyle="bold"
-            android:text="@{viewModel.patient.name}"
+            android:text="@{emrViewModel.patient.name}"
             android:id="@+id/patient_name"
             android:textColor="@color/white"
             android:layout_marginLeft="15dp"
@@ -47,7 +48,7 @@
                 android:textSize="13sp"
                 tools:text="18326069632"
                 android:textStyle="italic"
-                android:text="@{viewModel.patient.phone}"
+                android:text="@{emrViewModel.patient.phone}"
                 android:textColor="@color/white"
                 android:layout_marginLeft="10dp"
                 app:layout_constraintLeft_toRightOf="@id/patient_name"
@@ -58,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
                 tools:text="男"
-                android:text="@{viewModel.patient.gender==1?`男`:`女`}"
+                android:text="@{emrViewModel.patient.gender==1?`男`:`女`}"
                 android:id="@+id/gender"
                 android:textColor="@color/white"
                 android:layout_marginTop="16dp"
@@ -81,7 +82,7 @@
                 android:textSize="11sp"
                 tools:text="24"
                 android:layout_marginLeft="5dp"
-                android:text="@{Converter.intToString(viewModel.patient.age)+`岁`}"
+                android:text="@{Converter.intToString(emrViewModel.patient.age)+`岁`}"
                 android:id="@+id/age"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@id/gender"
@@ -102,7 +103,7 @@
                 android:textSize="11sp"
                 tools:text="合肥市"
                 android:layout_marginLeft="5dp"
-                android:text="@{viewModel.patient.attackPosition}"
+                android:text="@{emrViewModel.patient.attackPosition}"
                 android:id="@+id/attack_address"
                 android:textColor="@color/white"
                 android:layout_marginTop="16dp"
@@ -114,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
                 tools:text="卒中"
-                android:text="@{viewModel.patient.diagnosisName}"
+                android:text="@{emrViewModel.patient.diagnosisName}"
                 android:layout_marginRight="15dp"
                 android:textColor="@color/white"
                 android:layout_marginTop="16dp"
