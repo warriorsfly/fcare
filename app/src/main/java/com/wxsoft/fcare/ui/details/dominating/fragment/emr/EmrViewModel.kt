@@ -90,6 +90,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshVitals()
                 refreshRating()
                 refreshMeasure()
+                refreshComplaints()
                 refreshDiagnose()
                 refreshChekBody()
                 refreshThrombosis()
@@ -304,6 +305,31 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                                 loadEmrResult.value?.result?.indexOf(emr)
                             index?.let { ind ->
                                 _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.CT_OPERATION))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
+    fun refreshComplaints() {
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.主诉及症状 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getComplaints(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ complaints ->
+                            if (complaints.result == null) return@subscribe
+                            emr.result = complaints.result
+                            if (complaints.result!!.size<=0)return@subscribe
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = complaints.result?.last()?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.主诉及症状))
                             }
                         }, {
                             messageAction.value = Event(it.message ?: "")

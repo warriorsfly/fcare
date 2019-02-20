@@ -71,7 +71,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="13sp"
-                        android:text="@{diagnose.diagnosisCode1Name+`   `+diagnose.diagnosisCode2Name}"
+                        android:text="@{diagnose.diagnosisCode2Name}"
                         tools:text="胸痛"
                         android:layout_marginLeft="80dp"
                         android:textColor="#000"

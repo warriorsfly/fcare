@@ -380,6 +380,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     ActionRes.ActionType.给药->{
                         R.layout.item_emr_drug
                     }
+                    ActionRes.ActionType.主诉及症状->{
+                        R.layout.item_emr_simple_string
+                    }
 
                     else->R.layout.item_emr_none
                 }
