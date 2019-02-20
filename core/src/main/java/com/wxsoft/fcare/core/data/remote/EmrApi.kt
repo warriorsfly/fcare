@@ -84,6 +84,10 @@ interface EmrApi{
     @GET("Drug/GetDrugRecordByPatientId/{patientId}")
     fun getDrugRecord(@Path("patientId")patientId:String):Maybe<Response<List<DrugRecord>>>
 
+    //获取主诉
+    @GET("CC/GetCCsByPatientId/{patientId}")
+    fun getComplaints(@Path("patientId")patientId:String):Maybe<Response<List<Complain>>>
+
     /**
      * 出院诊断
      */

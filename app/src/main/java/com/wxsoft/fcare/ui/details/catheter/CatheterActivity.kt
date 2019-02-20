@@ -120,7 +120,7 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.commitResult .observe(this, Observer {
+        viewModel.commitResult.observe(this, Observer {
             when(it) {
                 is Resource.Success -> {
                     Intent().let { intent ->

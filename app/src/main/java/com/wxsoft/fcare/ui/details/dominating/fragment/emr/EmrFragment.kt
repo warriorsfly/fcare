@@ -555,6 +555,9 @@ class EmrFragment : DaggerFragment() {
                 EmrFragment.CT_OPERATION -> {
                     viewModel.refreshCT()
                 }
+                EmrFragment.COMPLAINTS -> {
+                    viewModel.refreshComplaints()
+                }
                 EmrFragment.Catheter -> {
                     viewModel.refreshInv()
                 }

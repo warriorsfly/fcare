@@ -49,8 +49,8 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.complaints.ComplaintsActivity">
-        </activity>
+        <activity android:name=".ui.details.complaints.ComplaintsActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.informedconsent.addinformed.AddInformedActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
