@@ -4,7 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 
-class Dictionary(val id:String, val itemName:String, val itemCode:String): BaseObservable() {
+class Dictionary(val id:String, val itemName:String): BaseObservable() {
 
 
     /**

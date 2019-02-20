@@ -178,8 +178,8 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         diagnosis.value?.location = 1
         diagnosis.value?.doctorId = account.id
         diagnosis.value?.doctorName = account.trueName
-//        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.itemCode }
-//        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.itemCode }
+//        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.id }
+//        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.id }
         illnessItems.value?.filter { it.checked }?.map { diagnosis.value?.criticalLevel = it.id }
         saveDiagnose()
     }

@@ -87,7 +87,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
             v.heart_Rate == 0
         ) return
         if (selectedConsciousnessPosition.get() == -1) return
-        v.consciousness_Type = consciousItems[selectedConsciousnessPosition.get()].itemCode
+        v.consciousness_Type = consciousItems[selectedConsciousnessPosition.get()].id
         disposable.add((if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
             .subscribe({
                 initbackToLast.value = true

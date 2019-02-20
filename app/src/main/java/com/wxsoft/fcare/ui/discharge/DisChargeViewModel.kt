@@ -95,7 +95,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
                 }}.zipWith(api.getOtDiagnosis(patientId))
                     .subscribeOn(Schedulers.io())
                     .doOnSuccess { zip ->
-                        zip.first.firstOrNull { it.itemCode == zip.second.result?.diagnosisCode }?.checked = true
+                        zip.first.firstOrNull { it.id == zip.second.result?.diagnosisCode }?.checked = true
                     }.observeOn(AndroidSchedulers.mainThread())
                     .subscribe {
                         loadDesResult.value=it.first
@@ -154,7 +154,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
         }else {
             dictionary.checked = true
 
-            data.value?.diagnosisCode= dictionary.itemCode
+            data.value?.diagnosisCode= dictionary.id
             data.value?.diagnosisName=dictionary.itemName
         }
     }

@@ -100,7 +100,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
                     coordinationItems.value?.first()?.checked = true
                 }else{
                     coordinationItems.value?.filter {item-> item.checked }?.map {item-> item.checked = false }
-                    coordinationItems.value?.filter {item-> item.itemCode == checkBody.value?.coordination }?.map {item->item.checked = true }
+                    coordinationItems.value?.filter {item-> item.id == checkBody.value?.coordination }?.map { item->item.checked = true }
                 }
             }
     }
@@ -113,7 +113,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
                     skinItems.value?.first()?.checked = true
                 }else{
                     skinItems.value?.filter { it.checked }?.map { it.checked = false }
-                    skinItems.value?.filter { it.itemCode == checkBody.value?.skin }?.map {it.checked = true }
+                    skinItems.value?.filter { it.id == checkBody.value?.skin }?.map {it.checked = true }
                 }
             }
     }
@@ -126,7 +126,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
                     leftPupilsItems.value?.first()?.checked = true
                 }else{
                     leftPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
-                    leftPupilsItems.value?.filter { it.itemCode == checkBody.value?.leftPupils }?.map {it.checked = true }
+                    leftPupilsItems.value?.filter { it.id == checkBody.value?.leftPupils }?.map {it.checked = true }
                 }
             }
     }
@@ -138,7 +138,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
                     rightPupilsItems.value?.first()?.checked = true
                 }else{
                     rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
-                    rightPupilsItems.value?.filter { it.itemCode == checkBody.value?.rightPupils }?.map {it.checked = true }
+                    rightPupilsItems.value?.filter { it.id == checkBody.value?.rightPupils }?.map {it.checked = true }
                 }
             }
     }
@@ -151,7 +151,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
                     leftResponseLightItems.value?.first()?.checked = true
                 }else{
                     leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-                    leftResponseLightItems.value?.filter { it.itemCode == checkBody.value?.leftResponseLight }?.map {it.checked = true }
+                    leftResponseLightItems.value?.filter { it.id == checkBody.value?.leftResponseLight }?.map {it.checked = true }
                 }
             }
     }
@@ -163,7 +163,7 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
                     rightResponseLightItems.value?.first()?.checked = true
                 }else{
                     rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-                    rightResponseLightItems.value?.filter { it.itemCode == checkBody.value?.rightResponseLight }?.map {it.checked = true }
+                    rightResponseLightItems.value?.filter { it.id == checkBody.value?.rightResponseLight }?.map {it.checked = true }
                 }
             }
     }
@@ -198,12 +198,12 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
             leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
             rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
             rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-            coordinationItems.value?.filter { it.itemCode == checkBody.value?.coordination }?.map {it.checked = true }
-            skinItems.value?.filter { it.itemCode == checkBody.value?.skin }?.map {it.checked = true }
-            leftPupilsItems.value?.filter { it.itemCode == this.checkBody.value?.leftPupils }?.map {it.checked = true }
-            leftResponseLightItems.value?.filter { it.itemCode == checkBody.value?.leftResponseLight }?.map {it.checked = true }
-            rightPupilsItems.value?.filter { it.itemCode == checkBody.value?.rightPupils }?.map {it.checked = true }
-            rightResponseLightItems.value?.filter { it.itemCode == checkBody.value?.rightResponseLight }?.map {it.checked = true }
+            coordinationItems.value?.filter { it.id == checkBody.value?.coordination }?.map {it.checked = true }
+            skinItems.value?.filter { it.id == checkBody.value?.skin }?.map {it.checked = true }
+            leftPupilsItems.value?.filter { it.id == this.checkBody.value?.leftPupils }?.map {it.checked = true }
+            leftResponseLightItems.value?.filter { it.id == checkBody.value?.leftResponseLight }?.map {it.checked = true }
+            rightPupilsItems.value?.filter { it.id == checkBody.value?.rightPupils }?.map {it.checked = true }
+            rightResponseLightItems.value?.filter { it.id == checkBody.value?.rightResponseLight }?.map {it.checked = true }
         }
 
     }
@@ -222,22 +222,22 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
 
     fun submit(){
         coordinationItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.coordination = it.itemCode }
+            ?.map { checkBody.value?.coordination = it.id }
 
         skinItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.skin = it.itemCode }
+            ?.map { checkBody.value?.skin = it.id }
 
         leftPupilsItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.leftPupils = it.itemCode }
+            ?.map { checkBody.value?.leftPupils = it.id }
 
         leftResponseLightItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.leftResponseLight = it.itemCode }
+            ?.map { checkBody.value?.leftResponseLight = it.id }
 
         rightPupilsItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.rightPupils = it.itemCode }
+            ?.map { checkBody.value?.rightPupils = it.id }
 
         rightResponseLightItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.rightResponseLight = it.itemCode }
+            ?.map { checkBody.value?.rightResponseLight = it.id }
 
         checkBody.value?.patientId = patientId
 
