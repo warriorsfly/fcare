@@ -89,7 +89,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         startConduitRoom = initStartConduitRoom.map { it }
         startCT = initStartCT.map { it }
         showSonList = initShowSonList.map { it }
-        diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis("") }
+        diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis(createrId = account.id,createrName = account.trueName) }
 
         clickable = clickResult.map { it }
         thoracalgiaItems = secItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
@@ -174,10 +174,13 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     }
 
     override fun click(){
-        diagnosis.value?.patientId = patientId
-        diagnosis.value?.location = 1
-        diagnosis.value?.doctorId = account.id
-        diagnosis.value?.doctorName = account.trueName
+        diagnosis.value?.apply {
+            patientId=this@DiagnoseViewModel.patientId
+            location=1
+            doctorId=account.id
+            doctorName=account.trueName
+        }
+
 //        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.id }
 //        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.id }
         illnessItems.value?.filter { it.checked }?.map { diagnosis.value?.criticalLevel = it.id }

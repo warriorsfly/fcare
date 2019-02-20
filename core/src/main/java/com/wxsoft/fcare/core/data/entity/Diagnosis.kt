@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 
-data class Diagnosis (val id:String): BaseObservable(){
+data class Diagnosis (val id:String="",val createrId:String,val createrName:String): BaseObservable(){
 
     /// <summary>
     /// 病人id
@@ -119,5 +119,6 @@ data class Diagnosis (val id:String): BaseObservable(){
             field=value
             notifyPropertyChanged(BR.createdDate)
         }
+
 
 }
