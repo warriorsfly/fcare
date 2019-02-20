@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import io.reactivex.Maybe
 import retrofit2.http.GET
+import retrofit2.http.Path
 
 interface DictEnumApi {
 
@@ -102,5 +103,10 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/219")
     fun loadAssistantTypes(): Maybe<List<Dictionary>>
 
+    /**
+     * 二级诊断病种 （根据病人id自动获取对应大病下的二级病种）
+     */
+    @GET("EnumDic/enumItems/4/{patientId}")
+    fun loadSecondTypes(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
 }

@@ -43,6 +43,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         set(value) {
             if (value == "") return
             field = value
+            loadThoracalgias()
         }
 
     var id: String = ""
@@ -71,9 +72,6 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     private val loadthoracalgiaItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
     private val loadApoplexyResultItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
-    val typeItems: LiveData<List<Dictionary>>
-    private val loadTypeItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-
     val sonItems: LiveData<List<Dictionary>>
     private val loadsonItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
     private val loadnotACSItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -93,14 +91,10 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         showSonList = initShowSonList.map { it }
         diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis("") }
 
-
         clickable = clickResult.map { it }
-        typeItems = loadTypeItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         thoracalgiaItems = secItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         sonItems = loadsonItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         illnessItems = loadIllnessItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        loadDiagnoseType()
-        loadThoracalgias()
         loadNotACS()
         loadOtherXT()
         loadIllness()
@@ -108,18 +102,11 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         loadApoplexyResultItems()
     }
 
-    private fun loadDiagnoseType(){
-        disposable.add(dictEnumApi.loadDiagnoseTypeResultItems().toResource()
-            .subscribe{
-                loadTypeItemsResult.value = it
-                havedata()
-            })
-    }
 
     private fun loadThoracalgias(){
-        disposable.add(dictEnumApi.loadDict4Diagnosis().toResource()
+        disposable.add(dictEnumApi.loadSecondTypes(patientId).toResource()
             .subscribe{
-                loadthoracalgiaItemsResult.value = it
+                secItemsResult.value = it
                 havedata()
             })
     }
@@ -181,10 +168,6 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
 
     private fun havedata(){
-        if (diagnosis.value?.diagnosisCode1.isNullOrEmpty()&&typeItems.value!=null){
-            selected(typeItems.value!!.first())
-        }
-        typeItems.value?.filter { it.id == diagnosis.value?.diagnosisCode1 }?.map { selected(it) }
         thoracalgiaItems.value?.filter { it.id == diagnosis.value?.diagnosisCode2 }?.map { checkDianose(it) }
         sonItems.value?.filter { it.id == diagnosis.value?.diagnosisCode3 }?.map { it.checked=true }
         illnessItems.value?.filter { it.id == diagnosis.value?.criticalLevel }?.map { it.checked=true }
@@ -195,28 +178,12 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         diagnosis.value?.location = 1
         diagnosis.value?.doctorId = account.id
         diagnosis.value?.doctorName = account.trueName
-        typeItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode1 = it.id }
 //        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.itemCode }
 //        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.itemCode }
         illnessItems.value?.filter { it.checked }?.map { diagnosis.value?.criticalLevel = it.id }
         saveDiagnose()
     }
 
-    fun selected(item:Dictionary){
-        typeItems.value?.filter { it.checked }
-            ?.map { it.checked = false }
-        item.checked = true
-        initShowSonList.value = false
-        when(item.itemCode){
-            "1"->{secItemsResult.value = loadthoracalgiaItemsResult.value}
-            "2"->{secItemsResult.value = loadApoplexyResultItemsResult.value }
-            "3"->{}
-            "4"->{}
-            "5"->{}
-            "6"->{}
-        }
-        thoracalgiaItems.value?.filter { it.checked }?.map { checkDianose(it)}
-    }
 
     private fun checkDianose(item:Dictionary){
         thoracalgiaItems.value?.filter { it.checked }

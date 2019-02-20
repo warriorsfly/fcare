@@ -46,10 +46,6 @@ class DiagnoseActivity : BaseActivity() {
 
         back.setOnClickListener { onBackPressed() }
 
-        val typeAdapter = DiagnoseTypeAdapter(this,viewModel)
-        viewModel.typeItems.observe(this, Observer { typeAdapter.items = it ?: emptyList() })
-        binding.diagnoseTypeList.adapter = typeAdapter
-
         val diagnoseAdapter = DiagnoseAdapter(this,viewModel)
         viewModel.thoracalgiaItems.observe(this, Observer { diagnoseAdapter.items = it ?: emptyList() })
         binding.diagnoseList.adapter = diagnoseAdapter

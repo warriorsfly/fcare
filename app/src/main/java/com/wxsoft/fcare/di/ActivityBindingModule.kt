@@ -7,6 +7,9 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
+import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
+import com.wxsoft.fcare.ui.details.complaints.ComplaintsModule
+import com.wxsoft.fcare.ui.details.complaints.ComplaintsViewModel
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.ct.CTModule
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
@@ -161,6 +164,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ReperfusionModule::class])
     internal abstract fun reperfusionActivity(): ReperfusionActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ComplaintsModule::class])
+    internal abstract fun complaintsActivity(): ComplaintsActivity
 
 
 

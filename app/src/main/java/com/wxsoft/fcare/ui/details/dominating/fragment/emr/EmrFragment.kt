@@ -62,6 +62,7 @@ import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
@@ -95,6 +96,7 @@ class EmrFragment : DaggerFragment() {
         const val RATING = 36
         const val CABG = 37
         const val BASE_INFO = 38
+        const val COMPLAINTS = 39
 
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true): EmrFragment {
@@ -372,15 +374,18 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.患者转归 ->{
                     val intent = Intent(context.get()?.activity, OutComeActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
-
                     }
                     context.get()?.startActivityForResult(intent, OUTCOME)
                 }
-
+                ActionRes.ActionType.主诉及症状 ->{
+                    val intent = Intent(context.get()?.activity, ComplaintsActivity::class.java).apply {
+                        putExtra(ComplaintsActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, COMPLAINTS)
+                }
                 ActionRes.ActionType.CT_OPERATION ->{
                     val intent = Intent(context.get()?.activity, CTActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
-
                     }
                     context.get()?.startActivityForResult(intent, CT_OPERATION)
                 }
