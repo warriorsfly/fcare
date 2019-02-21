@@ -28,7 +28,7 @@ data class VitalSign(val id:String=""): BaseObservable() {
             notifyPropertyChanged(BR.pulse_Rate)
         }
     @Bindable
-    var body_Temperature: Float = 0f
+    var body_Temperature: Float? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.body_Temperature)
