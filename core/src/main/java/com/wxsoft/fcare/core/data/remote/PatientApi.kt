@@ -2,6 +2,7 @@ package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.Page
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.Quality
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -33,5 +34,8 @@ interface PatientApi{
     @Multipart
     @POST("Patient/SavePatientInfo")
     fun save(@Part("patient")patient: Patient):Observable<Response<String>>
+
+    @GET("QualityControl/GetQualityIndexByPatientId/{patientId}")
+    fun getQualityIndexByPatientId(@Path("patientId")patientId:String):Maybe<Response<Quality>>
 
 }

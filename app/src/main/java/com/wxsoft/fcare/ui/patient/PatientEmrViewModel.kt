@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.Quality
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.PatientApi
@@ -30,7 +31,12 @@ class PatientEmrViewModel @Inject constructor(
         get() = "保存"
 
     var taskId=""
-    var patientId=""
+    var patientId: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+            getQuality()
+        }
 
     private val bitmaps= mutableListOf<String>()
 
@@ -40,17 +46,27 @@ class PatientEmrViewModel @Inject constructor(
         value=false
     }
 
+    val quality: LiveData<Quality>
+    private val loadQualityResult = MediatorLiveData<Resource<Response<Quality>>>()
+
+
     init {
-
         clickable=clickResult.map { it }
-
-
+        quality = loadQualityResult.map { (it as? Resource.Success)?.data?.result?: Quality("") }
 
     }
 
 
 
     override fun click(){}
+
+    fun getQuality(){
+        patientApi.getQualityIndexByPatientId(patientId).toResource()
+            .subscribe {
+                loadQualityResult.value = it
+                quality.value?.judgeData()
+            }
+    }
 
 
 }
