@@ -36,9 +36,6 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-
-        dialog?.onDestroy()
-        dialog=null
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
             R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time = DateTimeUtils.formatter.format(millseconds)
@@ -204,12 +201,6 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        dialog?.onDestroy()
-        dialog=null
     }
 
     private fun createDialog(time:Long): TimePickerDialog {

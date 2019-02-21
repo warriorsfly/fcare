@@ -43,8 +43,6 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
 
-        dialog?.onDestroy()
-        dialog=null
         (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
