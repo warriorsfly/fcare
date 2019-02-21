@@ -42,19 +42,20 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
     }
 
     override fun getItemViewType(position: Int): Int {
-        var type = 0
-        when (position) {
+
+        return when (position) {
             0 -> {
-                type = R.layout.item_medical_history_voice
+                 R.layout.item_medical_history_voice
             }
             1 -> {
-                type = R.layout.item_medical_history_other
+                R.layout.item_medical_history_other
             }
             2 -> {
-                type = R.layout.item_medical_history_other
+                R.layout.item_medical_history_other
             }
+
+            else -> throw IllegalStateException("error position!")
         }
-        return type
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

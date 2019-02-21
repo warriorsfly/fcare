@@ -59,7 +59,10 @@ class MainActivity : BaseActivity() {
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .apply {
 //                viewModel=this@MainActivity.viewModel
-                navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+                navigation.apply {
+                    setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+                    itemIconTintList=null
+                }
                 if (savedInstanceState == null) {
                     navigation.selectedItemId = R.id.nav_home
                 }
