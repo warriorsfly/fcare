@@ -1,36 +1,44 @@
 package com.wxsoft.fcare.ui.details.informedconsent.addinformed
 
 import android.Manifest
-import android.animation.*
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import android.animation.AnimatorSet
+import android.animation.ObjectAnimator
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.databinding.DataBindingUtil
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
-import android.media.*
+import android.media.AudioFormat
+import android.media.MediaPlayer
+import android.media.MediaRecorder
 import android.net.Uri
-import android.os.*
-import androidx.annotation.RequiresApi
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
+import android.os.Build
+import android.os.Bundle
+import android.os.CountDownTimer
+import android.os.SystemClock
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import cafe.adriel.androidaudioconverter.AndroidAudioConverter
 import cafe.adriel.androidaudioconverter.callback.IConvertCallback
-import cafe.adriel.androidaudioconverter.callback.ILoadCallback
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAddInformedBinding
+import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
@@ -40,11 +48,9 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import omrecorder.AudioRecordConfig
 import omrecorder.PullTransport
 import omrecorder.PullableSource
-import java.io.*
-import java.lang.Exception
+import java.io.File
 import java.util.*
 import javax.inject.Inject
-import androidx.lifecycle.Observer
 
 class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallback {
     override fun onSuccess(p0: File?) {
@@ -114,7 +120,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
                 lifecycleOwner = this@AddInformedActivity
             }
 
-        initConvertor()
+//        initConvertor()
 
         patientId=intent.getStringExtra(AddInformedActivity.PATIENT_ID)?:""
         titleName=intent.getStringExtra(AddInformedActivity.TITLE_NAME)?:""
@@ -418,15 +424,6 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
 
     }
 
-//**************************************************************************************************
-    private fun initConvertor() {
-        AndroidAudioConverter.load(this, object : ILoadCallback {
-            override fun onSuccess() {}
-            override fun onFailure(p0: Exception?) {
-                toast("录音组件初始化异常")
-            }
-        })
-    }
 
     private fun pauseRecording() {
         changeState(STATE_RECORD_PAUSE)

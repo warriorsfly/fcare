@@ -206,6 +206,12 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        dialog?.onDestroy()
+        dialog=null
+    }
+
     private fun createDialog(time:Long): TimePickerDialog {
 
         return TimePickerDialog.Builder()
