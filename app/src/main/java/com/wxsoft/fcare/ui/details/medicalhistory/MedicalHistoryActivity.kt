@@ -74,8 +74,6 @@ class MedicalHistoryActivity : BaseActivity() {
         medicalAdapter = MedicalHistoryAdapter(this,viewModel)
         binding.medicalHistoryList.adapter = medicalAdapter
 
-        viewModel.loadMedicalHistory()
-
         adapter= PictureAdapter(this,10)
         adapter.setActionListener(photoAction!!)
         adapter.locals= emptyList()

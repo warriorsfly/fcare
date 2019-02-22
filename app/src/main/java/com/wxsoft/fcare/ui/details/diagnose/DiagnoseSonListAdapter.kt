@@ -15,7 +15,7 @@ import com.wxsoft.fcare.databinding.ItemDiagnoseSonListBinding
 import kotlinx.android.synthetic.main.item_diagnose_illness.view.*
 
 class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DiagnoseViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<DiagnoseSonListAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<DiagnoseSonListAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
 

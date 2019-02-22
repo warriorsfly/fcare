@@ -13,7 +13,7 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.databinding.ItemCheckOnlyNameBinding
 
 class CheckBodyItemAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: CheckBodyViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<CheckBodyItemAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<CheckBodyItemAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
 

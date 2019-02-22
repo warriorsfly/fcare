@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.lis.LisItem
 import com.wxsoft.fcare.databinding.ItemAssistantTypeBinding
 
 class AssistantTypeAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssistantExaminationViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<AssistantTypeAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<AssistantTypeAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<LisItem>(this, DiffCallback)
 

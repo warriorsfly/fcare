@@ -22,7 +22,7 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 
 class EmrAdapter constructor(private val owner: LifecycleOwner,
                              private val pool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
+    RecyclerView.Adapter<ItemViewHolder>() {
 
     val pictureAdapter=PictureAdapter(owner,2)
     private var action: EmrEventAction?=null
@@ -520,7 +520,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
     }
 }
 
-sealed class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
     //无结果
     class NoneViewHolder(

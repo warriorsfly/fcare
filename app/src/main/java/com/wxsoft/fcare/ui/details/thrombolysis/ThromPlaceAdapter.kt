@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.databinding.ItemThrombolysisPlacesDialogBinding
 
 class ThromPlaceAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: ThrombolysisViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ThromPlaceAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<ThromPlaceAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
 

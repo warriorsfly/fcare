@@ -62,7 +62,7 @@ class GetPictureDialogFragment : BottomSheetDialogFragment() {
     }
 
     class ItemAdapter internal constructor() :
-        androidx.recyclerview.widget.RecyclerView.Adapter<ViewHolder>() {
+        RecyclerView.Adapter<ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             return ViewHolder(LayoutInflater.from(parent.context), parent)

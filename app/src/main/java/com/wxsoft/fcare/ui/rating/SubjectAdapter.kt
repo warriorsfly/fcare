@@ -17,7 +17,7 @@ import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
 
 
 class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
-    androidx.recyclerview.widget.RecyclerView.Adapter<SubjectAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<SubjectAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 

@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Complain
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
@@ -15,7 +16,7 @@ import com.wxsoft.fcare.databinding.ItemEmrDrugRecordBinding
 import com.wxsoft.fcare.ui.EmrEventAction
 
 class EmrLineLayoutAdapter constructor(private val lifecycleOwner: LifecycleOwner,private val  action: EmrEventAction?) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<EmrLineLayoutAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<EmrLineLayoutAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Any>(this, EmrLineLayoutAdapter.DiffCallback)
 

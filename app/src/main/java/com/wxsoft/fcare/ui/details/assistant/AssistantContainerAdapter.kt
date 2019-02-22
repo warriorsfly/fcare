@@ -16,7 +16,7 @@ import com.wxsoft.fcare.databinding.ItemAssistantProjectContainerBinding
 import kotlinx.android.synthetic.main.item_assistant_project_container.view.*
 
 class AssistantContainerAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssistantExaminationViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<AssistantContainerAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<AssistantContainerAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<LisRecord>(this, DiffCallback)
 

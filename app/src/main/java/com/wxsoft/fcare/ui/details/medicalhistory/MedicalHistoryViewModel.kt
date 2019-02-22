@@ -6,16 +6,19 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.MedicalHistory
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.previoushistory.History1
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
-import com.wxsoft.fcare.core.data.remote.FileApi
 import com.wxsoft.fcare.core.data.remote.MedicalHistoryApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.core.utils.map
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.zipWith
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -24,7 +27,7 @@ import javax.inject.Inject
 
 class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                                   private val medicalHistoryApi: MedicalHistoryApi,
-                                                  private val fileApi: FileApi,
+//                                                  private val fileApi: FileApi,
                                                   override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                   override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
@@ -46,6 +49,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         set(value) {
             if (value == "") return
             field = value
+            loadData()
         }
 
     private var saveAble=true
@@ -58,134 +62,146 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
 
 
     val medicalHistory:LiveData<MedicalHistory>
-    private val loadMedicalHistoryResult = MediatorLiveData<Resource<Response<MedicalHistory>>>()
+    private val loadMedicalHistoryResult = MediatorLiveData<Response<MedicalHistory>>()
 
     val historyPhoto:LiveData<String>
     private val loadPhoto = MediatorLiveData<String>()
 
     val providerItems: LiveData<List<Dictionary>>
-    private val loadProviderItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+    private val loadProviderItemsResult = MediatorLiveData<List<Dictionary>>()
 
     val historyItems: LiveData<List<Dictionary>>
-    private val loadHistoryItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+    private val loadHistoryItemsResult = MediatorLiveData<List<Dictionary>>()
 
     init {
 
         backToLast = initbackToLast.map { it }
         clickable = clickResult.map { it }
         historyPhoto = loadPhoto.map { it }
-        providerItems = loadProviderItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        historyItems = loadHistoryItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
+        providerItems = loadProviderItemsResult.map { it }
+        historyItems = loadHistoryItemsResult.map { it }
 
-        medicalHistory = loadMedicalHistoryResult.map { (it as? Resource.Success)?.data?.result?: MedicalHistory("") }
+        medicalHistory = loadMedicalHistoryResult.map { it.result?: MedicalHistory("") }
 
-        loadProviderItems()
-        loadHistoryItems()
     }
 
-    private fun loadProviderItems() {
-        dicEnumApi.loadMedicalHistoryProviderItems().toResource()
-            .subscribe{
-                loadProviderItemsResult.value = it
-                if (medicalHistory.value?.id.isNullOrEmpty()){
-                    providerItems.value?.first()?.checked = true
+
+    private fun loadData(){
+        dicEnumApi.loadMedicalHistoryItems(patientId)
+            .zipWith(dicEnumApi.loadMedicalHistoryProviderItems())
+            .zipWith(medicalHistoryApi.loadMedicalHistory(patientId))
+            .subscribeOn(Schedulers.computation())
+            .doOnSuccess { zip ->
+
+                if(zip.second.result?.id.isNullOrEmpty()){
+                    zip.first.second.firstOrNull()?.checked=true
                 }else{
-                    providerItems.value?.filter { it.checked }?.map {it.checked = false }
-                    providerItems.value?.filter { it.id == medicalHistory.value?.provide }?.map {it.checked = true }
+
+                    zip.first.second.filter { it.id == zip.second.result?.provide }?.map {it.checked = true }
+
+                    zip.first.first?.filter {  item-> zip.second.result?.pastHistorys?.any { it.phCode==item.id }?:false }?.map {it.checked = true }
+                }
+            }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe {
+
+                loadProviderItemsResult.value = it.first.second
+                loadHistoryItemsResult.value=it.first.first
+                loadMedicalHistoryResult.value=it.second
+            }
+    }
+//    private fun loadProviderItems() {
+//        dicEnumApi.loadMedicalHistoryProviderItems().toResource()
+//            .subscribe{
+//                if (medicalHistory.value?.id.isNullOrEmpty()){
+//                    providerItems.value?.first()?.checked = true
+//                }else{
+//                    providerItems.value?.filter { it.checked }?.map {it.checked = false }
+//                    providerItems.value?.filter { it.id == medicalHistory.value?.provide }?.map {it.checked = true }
+//                }
+//
+//            }
+//    }
+//
+//    private fun loadHistoryItems() {
+//        dicEnumApi.loadMedicalHistoryItems(patientId).toResource()
+//            .subscribe{
+//                loadHistoryItemsResult.value = it
+//                historyItems.value?.filter { it.id == medicalHistory.value?.ph }?.map {it.checked = true }
+//
+//            }
+//    }
+//
+//    private fun loadMedicalHistory(){
+//        medicalHistoryApi.loadMedicalHistory(patientId).toResource()
+//            .subscribe{
+//                loadMedicalHistoryResult.value = it
+//                haveData()
+//            }
+//    }
+
+    private fun saveMedicalHistory() {
+
+        medicalHistory.value?.also {history->
+
+            history.pastHistorys=historyItems.value?.filter { it.checked }?.map { History1(it.id,history.id) }?: emptyList()
+            if (saveAble) {
+                saveAble = false
+                val files = bitmaps.map {
+                    val file = File(it)
+                    return@map MultipartBody.Part.createFormData(
+                        "images",
+                        it.split("/").last(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    )
                 }
 
-            }
-    }
 
-    private fun loadHistoryItems() {
-        dicEnumApi.loadMedicalHistoryItems().toResource()
-            .subscribe{
-                loadHistoryItemsResult.value = it
-                historyItems.value?.filter { it.id == medicalHistory.value?.ph }?.map {it.checked = true }
+                if (files.isNullOrEmpty()) {
+                    medicalHistoryApi.save(history).toResource().subscribe {
 
-            }
-    }
-
-    fun loadMedicalHistory(){
-        medicalHistoryApi.loadMedicalHistory(patientId).toResource()
-            .subscribe{
-                loadMedicalHistoryResult.value = it
-                haveData()
-            }
-    }
-
-    private fun saveMedicalHistory(){
-        if (saveAble){
-            saveAble = false
-            val files = bitmaps.map {
-                val file = File(it)
-                return@map MultipartBody.Part.createFormData(
-                    "images",
-                    it.split("/").last(),
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
-                )
-            }
-            if (files.isNullOrEmpty()){
-                medicalHistoryApi.save(medicalHistory.value!!).toResource().subscribe {
-
-                    when (it) {
-                        is Resource.Success -> {
-                            clickResult.value = true
-                            messageAction.value = Event("保存成功")
-                            initbackToLast.value = true
-                            saveAble = true
-                        }
-                        is Resource.Error -> {
-                            clickResult.value = true
-                            messageAction.value = Event(it.throwable.message ?: "")
-                        }
-                        else -> {
-                            clickResult.value = false
+                        when (it) {
+                            is Resource.Success -> {
+                                clickResult.value = true
+                                messageAction.value = Event("保存成功")
+                                initbackToLast.value = true
+                                saveAble = true
+                            }
+                            is Resource.Error -> {
+                                clickResult.value = true
+                                messageAction.value = Event(it.throwable.message ?: "")
+                            }
+                            else -> {
+                                clickResult.value = false
+                            }
                         }
                     }
-                }
-            }else{
-                medicalHistoryApi.save(medicalHistory.value!!, files).toResource().subscribe {
-                    when (it) {
-                        is Resource.Success -> {
-                            clickResult.value = true
-                            messageAction.value = Event("保存成功")
-                            initbackToLast.value = true
-                            saveAble = true
-                        }
-                        is Resource.Error -> {
-                            clickResult.value = true
-                            messageAction.value = Event(it.throwable.message ?: "")
-                        }
-                        else -> {
-                            clickResult.value = false
+                } else {
+                    medicalHistoryApi.save(history, files).toResource().subscribe {
+                        when (it) {
+                            is Resource.Success -> {
+                                clickResult.value = true
+                                messageAction.value = Event("保存成功")
+                                initbackToLast.value = true
+                                saveAble = true
+                            }
+                            is Resource.Error -> {
+                                clickResult.value = true
+                                messageAction.value = Event(it.throwable.message ?: "")
+                            }
+                            else -> {
+                                clickResult.value = false
+                            }
                         }
                     }
                 }
             }
         }
-
-
     }
-
-
-    private fun haveData(){
-        if (medicalHistory.value?.id.isNullOrEmpty()){
-            providerItems.value?.first()?.checked = true
-        }else{
-            providerItems.value?.filter { it.checked }?.map {it.checked = false }
-            providerItems.value?.filter { it.id == medicalHistory.value?.provide }?.map {it.checked = true }
-            historyItems.value?.filter { it.id == medicalHistory.value?.ph }?.map {it.checked = true }
-        }
-
-    }
-
-
 
     fun clickSelect(item:Dictionary){
         when(item.section){
-            1->{ historyItems.value?.filter { it.checked }?.map {it.checked = false } }
-            2->{ providerItems.value?.filter { it.checked }?.map {it.checked = false } }
+            3->{ providerItems.value?.filter { it.checked }?.map {it.checked = false } }
         }
         item.checked = !item.checked
     }

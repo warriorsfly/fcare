@@ -15,7 +15,7 @@ import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.PlayVoiceEventAction
 
 class InformedDetailsAdapter constructor(private val lifecycleOwner: LifecycleOwner) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
+    RecyclerView.Adapter<ItemViewHolder>() {
 
 
     private var action: PhotoEventAction?=null

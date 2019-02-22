@@ -55,8 +55,9 @@ interface DictEnumApi {
     /**
      * 疾病史
      */
-    @GET("EnumDic/enumItems/211")
-    fun loadMedicalHistoryItems(): Maybe<List<Dictionary>>
+    @GET("EnumDic/enumItems/211/{patientId}")
+    fun loadMedicalHistoryItems(@Path("patientId")id:String): Maybe<List<Dictionary>>
+//    fun loadMedicalHistoryItems(): Maybe<List<Dictionary>>
 
     /**
      * 现场治疗措施

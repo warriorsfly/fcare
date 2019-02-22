@@ -17,7 +17,7 @@ import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
 class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val max:Int=0) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<ItemViewHolder>() {
+    RecyclerView.Adapter<ItemViewHolder>() {
 
 
     private var action: PhotoEventAction?=null

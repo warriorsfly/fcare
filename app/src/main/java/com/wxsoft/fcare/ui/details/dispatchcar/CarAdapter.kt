@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.Car
 import com.wxsoft.fcare.databinding.ItemSelectCarBinding
 
 
-class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DispatchCarViewModel): androidx.recyclerview.widget.RecyclerView.Adapter< CarAdapter.ItemViewHolder>() {
+class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DispatchCarViewModel): RecyclerView.Adapter< CarAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Car>(this, CarAdapter.DiffCallback)
 

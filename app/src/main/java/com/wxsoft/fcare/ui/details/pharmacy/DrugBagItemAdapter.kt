@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.drug.DrugPackageItem
 import com.wxsoft.fcare.databinding.ItemPharmacyDrugBagItemBinding
 
 class DrugBagItemAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: PharmacyViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<DrugBagItemAdapter.ItemViewHolder>(){
+    RecyclerView.Adapter<DrugBagItemAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<DrugPackageItem>(this, DiffCallback)
 

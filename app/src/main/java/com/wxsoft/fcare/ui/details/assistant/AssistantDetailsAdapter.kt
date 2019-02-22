@@ -14,7 +14,7 @@ import com.wxsoft.fcare.core.data.entity.lis.LisRecordItem
 import com.wxsoft.fcare.databinding.ItemAssistantSubDetailsBinding
 import com.wxsoft.fcare.databinding.ItemAssistantSubtitleBinding
 
-class AssistantDetailsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssistantExaminationViewModel): androidx.recyclerview.widget.RecyclerView.Adapter< AssistantDetailsAdapter.ItemViewHolder>() {
+class AssistantDetailsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: AssistantExaminationViewModel): RecyclerView.Adapter< AssistantDetailsAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<LisRecordItem>(this, DiffCallback)
     var items: List<LisRecordItem> = emptyList()

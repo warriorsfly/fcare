@@ -13,7 +13,7 @@ import com.wxsoft.fcare.databinding.ItemSelectDoctorBinding
 import com.wxsoft.fcare.databinding.ItemSelectDriverBinding
 import com.wxsoft.fcare.databinding.ItemSelectNurseBinding
 
-class UsersAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DispatchCarViewModel): androidx.recyclerview.widget.RecyclerView.Adapter< UsersAdapter.ItemViewHolder>() {
+class UsersAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DispatchCarViewModel): RecyclerView.Adapter< UsersAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<User>(this, UsersAdapter.DiffCallback)
     var type: String = ""

@@ -10,6 +10,8 @@ interface MedicalHistoryApi {
 
     @GET("MedicalHistory/GetById/{patientId}")
     fun loadMedicalHistory(@Path("patientId")patientId:String): Maybe<Response<MedicalHistory>>
+  @GET("MedicalHistory/GetCommonlyUsedDrugs/{patientId}")
+    fun loadDrugHistory(@Path("patientId")patientId:String): Maybe<Response<MedicalHistory>>
 
     @Multipart
     @POST("MedicalHistory/Save")

@@ -3,7 +3,6 @@ package com.wxsoft.fcare.ui.details.complaints
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
@@ -44,7 +43,7 @@ class ComplaintsActivity : BaseActivity() {
         binding.viewModel = viewModel
 
         adapter = ComplaintsAdapter(this,viewModel)
-//        adapter.items =
+//        adapter.history1s =
         binding.complaintsList.adapter = adapter
         viewModel.complaintsItems.observe(this, Observer {
             adapter.items = it

@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.Talk
 import com.wxsoft.fcare.databinding.ItemInformedConsentBinding
 
 class InformedConsentAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: InformedConsentViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<InformedConsentAdapter.ItemViewHolder>(){
+    RecyclerView.Adapter<InformedConsentAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<Talk>(this, DiffCallback)
 

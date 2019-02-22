@@ -4,6 +4,8 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.data.entity.previoushistory.History1
+import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 
 data class MedicalHistory(val id:String): BaseObservable() {
@@ -71,6 +73,10 @@ data class MedicalHistory(val id:String): BaseObservable() {
             field=value
             notifyPropertyChanged(BR.createdDate)
         }
+
+
+    var drugHistorys:List<History2> = emptyList()
+    var pastHistorys:List<History1> = emptyList()
 
 
 }

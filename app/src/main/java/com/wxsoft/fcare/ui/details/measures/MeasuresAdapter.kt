@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_measures_remark.view.*
 
 
 class MeasuresAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MeasuresViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<MeasuresAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<MeasuresAdapter.ItemViewHolder>() {
 
     private var titleArray:Array<String> = arrayOf("治疗措施","救治结果", "出诊结果","绕行")
 

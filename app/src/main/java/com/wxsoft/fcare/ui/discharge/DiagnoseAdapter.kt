@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.databinding.ItemDiagnoseBinding
 
 class DiagnoseAdapter constructor(private val lifecycleOwner: LifecycleOwner,private val viewModel:DisChargeViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<DiagnoseAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<DiagnoseAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
 

@@ -13,12 +13,12 @@ import com.wxsoft.fcare.databinding.ItemMedicalHistoryVoiceBinding
 import kotlinx.android.synthetic.main.item_medical_history_other.view.*
 
 class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<MedicalHistoryAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<MedicalHistoryAdapter.ItemViewHolder>() {
 
-    private var titleArray:Array<String> = arrayOf("", "既往病史", "病历提供者")
+    private var titleArray:Array<String> = arrayOf("", "既往病史","近期药史", "病历提供者")
 
     override fun getItemCount(): Int {
-        return 3
+        return 4
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -51,6 +51,9 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
                 R.layout.item_medical_history_other
             }
             2 -> {
+                R.layout.item_medical_history_other
+            }
+            3 -> {
                 R.layout.item_medical_history_other
             }
 

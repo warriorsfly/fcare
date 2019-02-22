@@ -14,7 +14,7 @@ import com.wxsoft.fcare.databinding.ItemMeasuresOnlyNameBinding
 
 
 class MeasuresItemAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: MeasuresViewModel) :
-    androidx.recyclerview.widget.RecyclerView.Adapter<MeasuresItemAdapter.ItemViewHolder>() {
+    RecyclerView.Adapter<MeasuresItemAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
 
