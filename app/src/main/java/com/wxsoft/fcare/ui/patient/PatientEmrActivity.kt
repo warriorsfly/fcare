@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.patient
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityPatientEmrBinding
@@ -35,7 +36,8 @@ class PatientEmrActivity : BaseActivity() {
             emrViewModel=this@PatientEmrActivity.emrViewModel
             lifecycleOwner = this@PatientEmrActivity
         }
-
+        viewModel.patientId = patientId
+        viewModel.quality.observe(this, Observer {  })
         back.setOnClickListener { onBackPressed() }
         supportFragmentManager.inTransaction {
             replace(R.id.fragment_container, EmrFragment.newInstance(patientId,false,false))
