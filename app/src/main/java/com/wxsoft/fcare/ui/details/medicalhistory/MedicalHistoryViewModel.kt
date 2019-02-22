@@ -6,7 +6,9 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.MedicalHistory
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
 import com.wxsoft.fcare.core.data.entity.previoushistory.History1
+import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.MedicalHistoryApi
@@ -64,6 +66,9 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     val medicalHistory:LiveData<MedicalHistory>
     private val loadMedicalHistoryResult = MediatorLiveData<Response<MedicalHistory>>()
 
+    val drugHistory:LiveData<List<DrugHistory>>
+    private val loadDrugHistoryResult = MediatorLiveData<Response<List<DrugHistory>>>()
+
     val historyPhoto:LiveData<String>
     private val loadPhoto = MediatorLiveData<String>()
 
@@ -82,15 +87,16 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         historyItems = loadHistoryItemsResult.map { it }
 
         medicalHistory = loadMedicalHistoryResult.map { it.result?: MedicalHistory("") }
+        drugHistory = loadDrugHistoryResult.map { it.result?: emptyList() }
 
     }
 
 
     private fun loadData(){
-        dicEnumApi.loadMedicalHistoryItems(patientId)
+        disposable.add(dicEnumApi.loadMedicalHistoryItems(patientId)
             .zipWith(dicEnumApi.loadMedicalHistoryProviderItems())
             .zipWith(medicalHistoryApi.loadMedicalHistory(patientId))
-            .subscribeOn(Schedulers.computation())
+            .subscribeOn(Schedulers.io())
             .doOnSuccess { zip ->
 
                 if(zip.second.result?.id.isNullOrEmpty()){
@@ -108,43 +114,33 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                 loadProviderItemsResult.value = it.first.second
                 loadHistoryItemsResult.value=it.first.first
                 loadMedicalHistoryResult.value=it.second
-            }
+
+                disposable.add(medicalHistoryApi.loadDrugHistory(patientId)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe {drugs->
+
+                        if(!it.second.result?.drugHistorys.isNullOrEmpty()) {
+                            val histories = it.second.result!!.drugHistorys
+                            drugs.result?.forEach { drug ->
+                                histories.firstOrNull { his -> his.drugId == drug.id }?.let { history2 ->
+                                    drug.dose = history2.dose
+                                }
+                            }
+                        }
+                        loadDrugHistoryResult.value=drugs
+
+                    })
+
+            })
     }
-//    private fun loadProviderItems() {
-//        dicEnumApi.loadMedicalHistoryProviderItems().toResource()
-//            .subscribe{
-//                if (medicalHistory.value?.id.isNullOrEmpty()){
-//                    providerItems.value?.first()?.checked = true
-//                }else{
-//                    providerItems.value?.filter { it.checked }?.map {it.checked = false }
-//                    providerItems.value?.filter { it.id == medicalHistory.value?.provide }?.map {it.checked = true }
-//                }
-//
-//            }
-//    }
-//
-//    private fun loadHistoryItems() {
-//        dicEnumApi.loadMedicalHistoryItems(patientId).toResource()
-//            .subscribe{
-//                loadHistoryItemsResult.value = it
-//                historyItems.value?.filter { it.id == medicalHistory.value?.ph }?.map {it.checked = true }
-//
-//            }
-//    }
-//
-//    private fun loadMedicalHistory(){
-//        medicalHistoryApi.loadMedicalHistory(patientId).toResource()
-//            .subscribe{
-//                loadMedicalHistoryResult.value = it
-//                haveData()
-//            }
-//    }
 
     private fun saveMedicalHistory() {
 
         medicalHistory.value?.also {history->
 
             history.pastHistorys=historyItems.value?.filter { it.checked }?.map { History1(it.id,history.id) }?: emptyList()
+            history.drugHistorys=drugHistory.value?.filter { it.dose > 0 }?.map { History2(it.id,it.name,it.dose,history.id) }?: emptyList()
             if (saveAble) {
                 saveAble = false
                 val files = bitmaps.map {

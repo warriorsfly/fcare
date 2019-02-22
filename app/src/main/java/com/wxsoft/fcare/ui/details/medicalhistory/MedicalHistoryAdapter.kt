@@ -6,6 +6,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.wxsoft.fcare.BR
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemMedicalHistoryOtherBinding
@@ -27,6 +29,17 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
             if (position == 0){//主诉、现病史
                 setVariable(BR.listener,viewModel)
 
+            }else if(position==2){
+
+                if (root.medical_other_items_rv.adapter == null){
+                    root.medical_other_items_rv.layoutManager=LinearLayoutManager(root.context)
+                    val adapter = DrugHistoryItemAdapter(owner,viewModel)
+                    viewModel.drugHistory.observe(owner, Observer {
+                        adapter.submitList(it)
+                    })
+                    root.medical_other_title_name.text = titleArray[position]
+                    root.medical_other_items_rv.adapter = adapter
+                }
             }else{//既往病史、病历提供者
                 if (root.medical_other_items_rv.adapter == null){
                     val adapter = MedicalHistoryItemAdapter(owner,viewModel)
