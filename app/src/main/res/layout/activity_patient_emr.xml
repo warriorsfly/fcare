@@ -5,10 +5,17 @@
         <variable name="viewModel" type="com.wxsoft.fcare.ui.patient.PatientEmrViewModel"/>
         <variable name="emrViewModel" type="com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel"/>
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/coordinator_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.patient.PatientEmrActivity">
@@ -111,17 +118,29 @@
                 app:layout_constraintTop_toBottomOf="@id/patient_name"/>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:id="@+id/dialogise_type"
+            tools:text="卒中"
+            android:text="@{emrViewModel.patient.diagnosisName}"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"/>
+
+        <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="11sp"
-                android:id="@+id/dialogise_type"
-                tools:text="卒中"
-                android:text="@{emrViewModel.patient.diagnosisName}"
+                android:id="@+id/show"
+                android:text="时间线"
                 android:layout_marginRight="15dp"
                 android:textColor="@color/white"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintRight_toRightOf="parent"/>
+                app:layout_constraintRight_toLeftOf="@id/dialogise_type"/>
 
 
         <TextView
@@ -298,8 +317,24 @@
         app:strokeWidth="2dp"
         android:id="@+id/fragment_container"
         app:layout_constraintTop_toBottomOf="@id/profile"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent">
+
+    </com.google.android.material.card.MaterialCardView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <fragment
+                android:id="@+id/filter_sheet"
+                android:name="com.wxsoft.fcare.ui.patient.TimeLineFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                app:behavior_hideable="true"
+                app:behavior_skipCollapsed="true"
+                tools:layout="@layout/fragment_time_line" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>

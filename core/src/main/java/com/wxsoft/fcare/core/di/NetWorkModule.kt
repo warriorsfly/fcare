@@ -185,4 +185,9 @@ class NetWorkModule {
         return retrofit.create(LISApi::class.java)
     }
 
+    @Provides
+    fun provideQualityControlApi(retrofit: Retrofit):QualityControlApi{
+        return retrofit.create(QualityControlApi::class.java)
+    }
+
 }
