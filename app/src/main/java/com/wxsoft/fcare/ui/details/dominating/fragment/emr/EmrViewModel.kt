@@ -91,6 +91,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 refreshRating()
                 refreshMeasure()
                 refreshComplaints()
+                refreshStrategy()
                 refreshDiagnose()
                 refreshChekBody()
                 refreshThrombosis()
@@ -337,6 +338,31 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 )
             }
     }
+
+    fun refreshStrategy() {
+        loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.治疗策略 }
+            ?.let { emr ->
+                disposable.add(
+                    emrApi.getStrategy(patientId).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread()).subscribe({ strategy ->
+                            if (strategy.result==null) return@subscribe
+                            emr.result = strategy.result
+                            if (!emr.done) {
+                                emr.done = true
+                                emr.completedAt = strategy.result?.createdDate
+                            }
+                            val index =
+                                loadEmrResult.value?.result?.indexOf(emr)
+                            index?.let { ind ->
+                                _loadEmrItemAction.value = Event(Pair(ind, ActionRes.ActionType.治疗策略))
+                            }
+                        }, {
+                            messageAction.value = Event(it.message ?: "")
+                        })
+                )
+            }
+    }
+
 
     fun refreshInv() {
         loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionRes.ActionType.Catheter }

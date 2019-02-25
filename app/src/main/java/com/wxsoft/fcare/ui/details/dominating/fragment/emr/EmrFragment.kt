@@ -65,6 +65,7 @@ import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
+import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
@@ -99,6 +100,7 @@ class EmrFragment : DaggerFragment() {
         const val CABG = 37
         const val BASE_INFO = 38
         const val COMPLAINTS = 39
+        const val STRATEGY = 40
 
         @JvmStatic
         fun newInstance( patientId:String,preHos:Boolean=true,taskEmr:Boolean=true): EmrFragment {
@@ -406,6 +408,12 @@ class EmrFragment : DaggerFragment() {
                     }
                     context.get()?.startActivityForResult(intent, CABG)
                 }
+                ActionRes.ActionType.治疗策略 ->{
+                    val intent = Intent(context.get()?.activity, StrategyActivity::class.java).apply {
+                        putExtra(StrategyActivity.PATIENT_ID, patientId)
+                    }
+                    context.get()?.startActivityForResult(intent, STRATEGY)
+                }
             }
         }
 
@@ -556,6 +564,10 @@ class EmrFragment : DaggerFragment() {
 
                 EmrFragment.OTDIAGNOSE -> {
                     viewModel.refreshOtDiagnosis()
+                }
+
+                EmrFragment.STRATEGY -> {
+                    viewModel.refreshStrategy()
                 }
 
                 EmrFragment.CT_OPERATION -> {
