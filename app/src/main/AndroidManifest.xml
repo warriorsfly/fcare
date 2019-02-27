@@ -54,6 +54,11 @@
         <activity
                 android:name=".ui.details.complaints.ComplaintsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.details.strategy.StrategyActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.complaints.ComplaintsActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.informedconsent.addinformed.AddInformedActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

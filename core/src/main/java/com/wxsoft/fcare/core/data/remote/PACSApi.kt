@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.Complain
 import com.wxsoft.fcare.core.data.entity.Pacs
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.Strategy
 import io.reactivex.Maybe
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -17,6 +18,9 @@ interface PACSApi {
     @POST("PACS/Save")
     fun savePAC(@Body pacs : Pacs): Maybe<Response<String>>
 
+    @GET("PACS/NoticeStartCT/{patientId}/{currUserId}")
+    fun notice(@Path("patientId")id:String,@Path("currUserId")accountId:String):Maybe<Response<String>>
+
     /*
      *保存主诉
      */
@@ -26,9 +30,13 @@ interface PACSApi {
     @GET("CC/GetCCsByPatientId/{patientId}")
     fun getCCs(@Path("patientId")patientId:String): Maybe<Response<List<Complain>>>
 
-    @GET("PACS/NoticeStartCT/{patientId}/{currUserId}")
-    fun notice(@Path("patientId")id:String,@Path("currUserId")accountId:String):Maybe<Response<String>>
+    /*
+     *获取治疗策略
+     */
+    @GET("TreatStrategy/GetById/{patientId}")
+    fun getStrategy(@Path("patientId")patientId:String): Maybe<Response<Strategy>>
 
-
+    @POST("TreatStrategy/Save")
+    fun saveStrategy(@Body ccs : Strategy): Maybe<Response<String>>
 
 }

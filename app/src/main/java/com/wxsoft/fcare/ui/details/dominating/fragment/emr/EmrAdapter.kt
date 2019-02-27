@@ -386,6 +386,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             is Pacs->R.layout.item_emr_ct
             is Intervention->R.layout.item_emr_opration_d
             is CABG->R.layout.item_emr_cabg
+            is Strategy->R.layout.item_emr_simple_string
             is OutCome->R.layout.item_emr_outcome
             is List<*> ->{
                 when(item.code){
@@ -462,6 +463,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is DrugRecord && result2 is DrugRecord ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
+                result1 is Strategy && result2 is Strategy ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
                 result1 is List<*> && result2 is List<*> ->
                     oldItem.code == newItem.code && result1.size  == result2.size
                 else -> oldItem.code == newItem.code
@@ -507,6 +511,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is DrugRecord && result2 is DrugRecord ->
+                    result1.id == result2.id && oldItem.code == newItem.code
+
+                result1 is Strategy && result2 is Strategy ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is List<*> && result2 is List<*> ->

@@ -5,6 +5,8 @@ import android.content.DialogInterface
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.lis.LisRecord
+import com.wxsoft.fcare.core.data.entity.lis.LisRecordItem
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityAssistantExaminationBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -47,7 +49,9 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
         binding.typesList.adapter = typeAdapter
 
         val containerAdapter = AssistantContainerAdapter(this,viewModel)
-        viewModel.lisRecords.observe(this, Observer { containerAdapter.items = it ?: emptyList() })
+        viewModel.lisRecords.observe(this, Observer {
+            if (it.isNullOrEmpty()&&!viewModel.selectedType.value.equals("3")) containerAdapter.items = viewModel.getDataModel() else containerAdapter.items = it
+        })
         binding.containerList.adapter = containerAdapter
 
         viewModel.clickEdit.observe(this, Observer {
@@ -75,5 +79,7 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
     override fun onDismiss(dialog: DialogInterface?) {
         viewModel.getLisRecords(viewModel.selectedType.value!!)
     }
+
+
 
 }

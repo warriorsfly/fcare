@@ -116,4 +116,10 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/221/{patientId}")
     fun loadComplaints(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
+    /**
+     * 治疗策略
+     */
+    @GET("EnumDic/enumItems/14/{patientId}")
+    fun loadStrategys(@Path("patientId")id:String): Maybe<List<Dictionary>>
+
 }

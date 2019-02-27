@@ -196,7 +196,7 @@ data class Quality (val id:String): BaseObservable(){
     }
 
     fun trueData(num:Int?):String{
-        if (num==null) return "" else return num.toString()
+        if (num==null) return "--" else return num.toString()
     }
 
 
