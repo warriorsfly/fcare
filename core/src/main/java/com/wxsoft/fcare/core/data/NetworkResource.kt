@@ -12,14 +12,14 @@ inline fun <reified T:Any> Maybe<T>.toResource( )
     this.map<Resource<T>> { Resource.Success(it) }
         .onErrorReturn { Resource.Error(it) }
         .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())!!
+        .observeOn(AndroidSchedulers.mainThread())
 
 inline fun <reified T:Any> Single<T>.toResource( )
         =
     this.map<Resource<T>> { Resource.Success(it) }
         .onErrorReturn { Resource.Error(it) }
         .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())!!
+        .observeOn(AndroidSchedulers.mainThread())
 
 inline fun <reified T:Any> Observable<T>.toResource( )
         =

@@ -21,7 +21,7 @@ class PatientSource constructor(
 
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
 
-        if(params.key==null) return
+//        if(params.key==null) return
         api.getPagedPatients(name,params.key,params.requestedLoadSize)
             .toResource()
             .subscribe {

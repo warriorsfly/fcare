@@ -5,7 +5,6 @@ import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Toast
-import com.squareup.leakcanary.LeakCanary
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -95,8 +94,5 @@ class RatingSubjectActivity : BaseActivity() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        LeakCanary.installedRefWatcher().watch(this)
-    }
+
 }

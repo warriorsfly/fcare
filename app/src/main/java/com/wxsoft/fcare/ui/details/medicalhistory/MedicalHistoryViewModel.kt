@@ -103,9 +103,10 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                     zip.first.second.firstOrNull()?.checked=true
                 }else{
 
-                    zip.first.second.filter { it.id == zip.second.result?.provide }?.map {it.checked = true }
+                    zip.first.second.filter { it.id == zip.second.result?.provide }.map {it.checked = true }
 
-                    zip.first.first?.filter {  item-> zip.second.result?.pastHistorys?.any { it.phCode==item.id }?:false }?.map {it.checked = true }
+                    zip.first.first.filter { item-> zip.second.result?.pastHistorys?.any { it.phCode==item.id }?:false }
+                        .map {it.checked = true }
                 }
             }
             .observeOn(AndroidSchedulers.mainThread())

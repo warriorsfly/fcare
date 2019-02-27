@@ -52,7 +52,6 @@ class EmrLineLayoutAdapter constructor(private val lifecycleOwner: LifecycleOwne
             is DrugRecord-> R.layout.item_emr_drug_record
             is Complain->R.layout.item_emr_complaint_record
             else->R.layout.item_emr_complaint_record
-//            else -> throw IllegalStateException("Unknown view type at position $position")
         }
     }
 
@@ -102,5 +101,4 @@ class EmrLineLayoutAdapter constructor(private val lifecycleOwner: LifecycleOwne
 
         }
     }
-
 }

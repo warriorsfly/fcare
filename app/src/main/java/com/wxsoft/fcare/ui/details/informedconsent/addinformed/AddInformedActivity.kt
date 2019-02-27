@@ -531,14 +531,14 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
     }
 
     private fun startPlayRecordTimer(){
-        var countDownTime = recordTime.toFloat()
+        recordTime.toFloat()
         recordPlayTimer = object : CountDownTimer(recordTime,100){
             init {
 //                progress_view.maxProgress = countDownTime
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                val timeLeft = millisUntilFinished / 1000
+//                millisUntilFinished / 1000
 //                tv_time.text = "${timeLeft/60}:${formatSecondLongToString(timeLeft % 60)}"
 //                progress_view.currentProgress = countDownTime - millisUntilFinished
             }
