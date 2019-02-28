@@ -9,7 +9,6 @@ import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsModule
-import com.wxsoft.fcare.ui.details.complaints.ComplaintsViewModel
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.ct.CTModule
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
@@ -52,6 +51,8 @@ import com.wxsoft.fcare.ui.patient.ProfileModule
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingModule
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
+import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
+import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -175,5 +176,8 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [StrategyModule::class])
     internal abstract fun strategyActivity(): StrategyActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [WorkSpaceModule::class])
+    internal abstract fun workingActivity(): WorkingActivity
 
 }

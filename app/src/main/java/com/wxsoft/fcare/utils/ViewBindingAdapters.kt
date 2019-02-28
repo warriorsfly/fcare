@@ -16,6 +16,7 @@
 
 package com.wxsoft.fcare.utils
 
+import android.graphics.Color
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseMethod
 import android.net.Uri
@@ -47,6 +48,11 @@ fun taskSelectCarTextColor(view: TextView, visible: Boolean) {
 fun taskAt(view: TextView, visible: Boolean) {
     view.setBackgroundResource(if (visible) R.drawable.bg_task_process_normal else R.drawable.bg_task_process_pressed)
     view.setTextColor(if (visible) view.context.resources.getColor(R.color.task_done) else view.context.resources.getColor(R.color.task_undo))
+}
+
+@BindingAdapter("overflowAt")
+fun overflowAt(view: TextView, visible: Boolean) {
+    view.setTextColor(if (visible) Color.parseColor("#FE5F55") else Color.WHITE)
 }
 
 /**
@@ -112,6 +118,17 @@ object Converter{
     @InverseMethod("stringToInt")
     @JvmStatic fun intToString(value: Int): String {
         return if(value==0)"" else value.toString()
+    }
+
+    @JvmStatic fun stringToInt(value:String): Int {
+        return if(value.isEmpty()) 0 else value.toInt()
+    }
+}
+
+object QualityScoreConverter{
+    @InverseMethod("stringToInt")
+    @JvmStatic fun intToString(value: Int): String {
+        return if(value==0)"-" else value.toString()
     }
 
     @JvmStatic fun stringToInt(value:String): Int {

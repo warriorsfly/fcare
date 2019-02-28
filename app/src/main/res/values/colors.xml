@@ -13,6 +13,7 @@
     <color name="scrim">#33000000</color>
     <color name="highlight_light">#33ffffff</color> <!-- 20% white -->
     <color name="white">#FFFFFF</color>
+    <color name="dark_background">#3C394A</color>
     <color name="edit_text_title">#FF000000</color>
     <color name="dark_gray">#ff808080</color>
 

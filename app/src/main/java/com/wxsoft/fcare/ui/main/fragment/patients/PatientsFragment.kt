@@ -15,6 +15,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
+import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_patients.*
 import javax.inject.Inject
@@ -78,7 +79,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     private fun toDetail(id:String) {
 
-        Intent(activity!!, PatientEmrActivity::class.java).let {
+        Intent(activity!!, WorkingActivity::class.java).let {
             it.putExtra(ProfileActivity.PATIENT_ID,id)
 
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)

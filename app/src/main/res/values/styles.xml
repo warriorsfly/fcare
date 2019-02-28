@@ -18,6 +18,15 @@
         <item name="android:windowBackground">@color/white</item>
     </style>
 
+    <style name="AppTheme.NoActionBar.Dark">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+        <item name="android:statusBarColor">@color/dark_background</item>
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:screenOrientation">portrait</item>
+    </style>
+
     <style name="AppTheme.RatingSubject">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
@@ -110,5 +119,12 @@
         <item name="android:orientation">vertical</item>
     </style>
 
+    <style name="Widget.AppBar.Dark" parent="@style/Widget.Design.AppBarLayout">
+        <item name="popupTheme">@style/AppTheme.AppBarOverlay</item>
+        <item name="android:background">@color/dark_background</item>
+        <item name="android:elevation">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:orientation">vertical</item>
+    </style>
 
 </resources>
