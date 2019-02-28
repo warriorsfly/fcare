@@ -108,6 +108,14 @@ fun setImageUrl(imageView: ImageView, url: Uri?) {
     GlideApp.with(imageView).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
 }
 
+@BindingAdapter(value = ["opItem"], requireAll = false)
+fun setOpItem(imageView: ImageView, ico:Int) {
+
+    GlideApp.with(imageView.context).load(ico)
+        .fitCenter().circleCrop().into(imageView)
+}
+
+
 @BindingAdapter(value = ["imageUrl"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: String?) {
 

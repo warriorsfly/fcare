@@ -1,12 +1,9 @@
 package com.wxsoft.fcare.ui.workspace
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.GridLayoutManager
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.TimeQuality
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -26,34 +23,26 @@ class WorkingActivity : BaseActivity() {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
 
-    private lateinit var adapter: QualityAdapter
     private lateinit var viewModel: WorkingViewModel
     @Inject
     lateinit var factory: ViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        adapter= QualityAdapter(this@WorkingActivity).apply {
-            submitList(listOf(
-                TimeQuality("NOT",128,true),
-                TimeQuality("DNT",40),
-                TimeQuality("COT",89),
-                TimeQuality("DRT",0),
-                TimeQuality("DOT",0)
-            ))
-        }
 
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
-
+                quality.adapter=QualityAdapter(this@WorkingActivity)
+                operationView.adapter=OperationAdapter(this@WorkingActivity)
                 viewModel=this@WorkingActivity.viewModel.apply { patientId=this@WorkingActivity.patientId }
-
-                quality.adapter=this@WorkingActivity.adapter
-
                 lifecycleOwner=this@WorkingActivity
-//                viewModel?.qualities?.observe(this@WorkingActivity, Observer {
-//                    adapter.submitList(it)
-//                })
+                viewModel?.qualities?.observe(this@WorkingActivity, Observer {
+                    (quality.adapter as? QualityAdapter)?.submitList(it)
+                })
+
+                viewModel?.operations?.observe(this@WorkingActivity, Observer {
+                    (operationView.adapter as? OperationAdapter)?.submitList(it)
+                })
             }
 
 

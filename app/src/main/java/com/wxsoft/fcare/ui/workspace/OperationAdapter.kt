@@ -1,19 +1,17 @@
 package com.wxsoft.fcare.ui.workspace
 
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import com.wxsoft.fcare.core.data.entity.NewTimeLine
-import com.wxsoft.fcare.core.data.entity.TimeQuality
-import com.wxsoft.fcare.databinding.ItemTimeQualityBinding
-import com.wxsoft.fcare.databinding.ItemTimelineNoneBinding
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import com.wxsoft.fcare.core.data.entity.WorkOperation
+import com.wxsoft.fcare.databinding.ItemWorkSpaceOperationBinding
 
 
 class OperationAdapter constructor(private val owner:LifecycleOwner) :
-    ListAdapter<TimeQuality, OperationAdapter.ItemViewHolder>(DiffCallback) {
+    ListAdapter<WorkOperation, OperationAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
@@ -26,14 +24,14 @@ class OperationAdapter constructor(private val owner:LifecycleOwner) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding = ItemTimeQualityBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
+        val binding = ItemWorkSpaceOperationBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
             lifecycleOwner=owner
         }
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding: ItemTimeQualityBinding) : RecyclerView.ViewHolder(binding.root) {
-        var binding: ItemTimeQualityBinding
+    class ItemViewHolder(binding: ItemWorkSpaceOperationBinding) : RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemWorkSpaceOperationBinding
             private set
 
         init {
@@ -42,15 +40,16 @@ class OperationAdapter constructor(private val owner:LifecycleOwner) :
     }
 
 
-    object DiffCallback : DiffUtil.ItemCallback<TimeQuality>() {
-        override fun areItemsTheSame(oldItem: TimeQuality, newItem: TimeQuality): Boolean {
+    object DiffCallback : DiffUtil.ItemCallback<WorkOperation>() {
+        override fun areItemsTheSame(oldItem: WorkOperation, newItem: WorkOperation): Boolean {
 
-            return oldItem.title == newItem.title
+            return oldItem.actionCode == newItem.actionCode
         }
 
-        override fun areContentsTheSame(oldItem: TimeQuality, newItem: TimeQuality): Boolean {
+        override fun areContentsTheSame(oldItem: WorkOperation, newItem: WorkOperation): Boolean {
 
-            return oldItem.title == newItem.title  && oldItem.score == newItem.score
+            return oldItem.hasExcuted == newItem.hasExcuted  && oldItem.excutedTime == newItem.excutedTime
+                    && oldItem.ico==newItem.ico && oldItem.tint==newItem.tint
         }
     }
 }

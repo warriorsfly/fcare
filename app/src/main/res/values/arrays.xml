@@ -98,4 +98,39 @@
         <!--评估结果-->
         <item>@color/tint_work_space_rating_result</item>
     </array>
+
+    <array name="key_work_space_operations">
+        <!--初步诊断-->
+        <item>zd</item>
+        <!--心电图-->
+        <item>xdt</item>
+        <!--体征-->
+        <item>smtz</item>
+        <!--主诉-->
+        <item>cc</item>
+        <!--检查检验-->
+        <item>fzjc</item>
+        <!--ct/mri-->
+        <item>ct</item>
+        <!--通知-->
+        <item>xxtz</item>
+        <!--疾病史-->
+        <item>illness_history</item>
+        <!--量表评估-->
+        <item>gracepf</item>
+        <!--治疗方案-->
+        <item>zlfa</item>
+        <!--知情谈话-->
+        <item>informed_consent_statement</item>
+        <!--用药-->
+        <item>hzgy</item>
+        <!--溶栓时间轴-->
+        <item>rscz</item>
+        <!--介入手术-->
+        <item>pci</item>
+        <!--并发症-->
+        <item>complications</item>
+        <!--评估结果-->
+        <item>rating_result</item>
+    </array>
 </resources>

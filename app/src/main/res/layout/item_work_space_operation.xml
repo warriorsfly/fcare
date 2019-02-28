@@ -4,18 +4,33 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="com.wxsoft.fcare.utils.QualityScoreConverter"/>
-        <variable name="item" type="com.wxsoft.fcare.core.data.entity.TimeQuality"/>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.WorkOperation"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:orientation="vertical"
         android:gravity="center"
+        android:layout_margin="6dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+    >
+
+        <ImageView
+            app:layout_constraintBottom_toBottomOf="@id/op_part"
+            app:layout_constraintRight_toRightOf="@id/op_part"
+            android:id="@+id/done"
+            app:goneUnless="@{item.hasExcuted}"
+            android:scaleType="centerCrop"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginBottom="60dp"
+            android:elevation="1dp"
+            android:src="@drawable/ic_work_space_operation_done"/>
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
-
+                android:id="@+id/op_part"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -24,16 +39,20 @@
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-        <ImageView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            android:id="@+id/ico"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@drawable/bg_operation"
-            tools:backgroundTint="@color/tint_work_space_checking"/>
-
+            <ImageView
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/ico"
+                    android:layout_width="48dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_height="48dp"
+                    app:opItem="@{item.ico}"
+                    android:src="@drawable/ic_work_space_rating_result"
+                    tools:src="@drawable/ic_work_space_rating_result"
+                    android:backgroundTint="@{item.tint}"
+                    android:background="@drawable/bg_operation"
+                    tools:backgroundTint="@color/tint_work_space_checking"/>
         <TextView
             app:layout_constraintTop_toBottomOf="@id/ico"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -42,10 +61,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
+            android:textColor="@color/white"
             android:layout_marginTop="2dp"
             android:padding="2dp"
             tools:text="评分"
-            app:overflowAt="@{item.overflow}"/>
+            android:text="@{item.name}"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
