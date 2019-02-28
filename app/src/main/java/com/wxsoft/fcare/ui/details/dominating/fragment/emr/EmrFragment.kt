@@ -65,6 +65,7 @@ import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
+import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_emr.*
@@ -318,9 +319,9 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, MEASURES)
                 }
                 ActionRes.ActionType.给药 ->{
-                    val intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
-                        putExtra(PharmacyActivity.PATIENT_ID, patientId)
-                        putExtra(PharmacyActivity.DRUG_RECORD_ID, id)
+                    val intent = Intent(context.get()?.activity, DrugRecordsActivity::class.java).apply {
+                        putExtra(DrugRecordsActivity.PATIENT_ID, patientId)
+//                        putExtra(PharmacyActivity.DRUG_RECORD_ID, id)
                     }
                     context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }
