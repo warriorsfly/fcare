@@ -28,6 +28,6 @@
         <attr name="android:fontFamily"/>
         <attr name="userCaseTextSize" format="dimension"/>
         <attr name="timeTextSize" format="dimension"/>
-    </declare-styleable>
+    </declare-styleable>'
 
 </resources>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="diagnosis_types">
+        <item>胸痛</item>
+        <item>卒中</item>
+        <item>创伤</item>
+        <item>危重孕产妇</item>
+        <item>危重新生儿</item>
+    </array>
+
+    <array name="troponin_character">
+        <item>未选择</item>
+        <item>阴性</item>
+        <item>阳性</item>
+    </array>
+
+    <array name="cr_unit">
+        <item>umol/L</item>
+        <item>无单位</item>
+    </array>
+
+    <array name="killip_leavel">
+        <item>==请选择==</item>
+        <item>I级(no CHF)</item>
+        <item>II级(rales and/or JVD)</item>
+        <item>III级(pulmonary edema)</item>
+        <item>IV级(cardiogenic shock)</item>
+    </array>
+    <!--操作台操作图标-->
+    <array name="ic_work_space_operations">
+        <!--初步诊断-->
+        <item>@drawable/ic_work_space_diagnosis</item>
+        <!--心电图-->
+        <item>@drawable/ic_work_space_etc</item>
+        <!--体征-->
+        <item>@drawable/ic_work_space_signs</item>
+        <!--主诉-->
+        <item>@drawable/ic_work_space_complaints</item>
+        <!--检查检验-->
+        <item>@drawable/ic_work_space_checking</item>
+        <!--ct/mri-->
+        <item>@drawable/ic_work_space_ct_mri</item>
+        <!--通知-->
+        <item>@drawable/ic_work_space_notification</item>
+        <!--疾病史-->
+        <item>@drawable/ic_work_space_disease_history</item>
+        <!--量表评估-->
+        <item>@drawable/ic_work_space_rating</item>
+        <!--治疗方案-->
+        <item>@drawable/ic_work_space_therapeutic_solution</item>
+        <!--知情谈话-->
+        <item>@drawable/ic_work_space_inform</item>
+        <!--用药-->
+        <item>@drawable/ic_work_space_medication</item>
+        <!--溶栓时间轴-->
+        <item>@drawable/ic_work_space_thrombolytic_timeline</item>
+        <!--介入手术-->
+        <item>@drawable/ic_work_space_pci</item>
+        <!--并发症-->
+        <item>@drawable/ic_work_space_complications</item>
+        <!--评估结果-->
+        <item>@drawable/ic_work_space_rating_result</item>
+    </array>
+
+    <!--操作台操作背景色-->
+    <array name="color_work_space_operations">
+        <!--初步诊断-->
+        <item>@color/tint_work_space_diagnosis</item>
+        <!--心电图-->
+        <item>@color/tint_work_space_etc</item>
+        <!--体征-->
+        <item>@color/tint_work_space_signs</item>
+        <!--主诉-->
+        <item>@color/tint_work_space_complaints</item>
+        <!--检查检验-->
+        <item>@color/tint_work_space_checking</item>
+        <!--ct/mri-->
+        <item>@color/tint_work_space_ct_mri</item>
+        <!--通知-->
+        <item>@color/tint_work_space_notification</item>
+        <!--疾病史-->
+        <item>@color/tint_work_space_disease_history</item>
+        <!--量表评估-->
+        <item>@color/tint_work_space_rating</item>
+        <!--治疗方案-->
+        <item>@color/tint_work_space_therapeutic_solution</item>
+        <!--知情谈话-->
+        <item>@color/tint_work_space_inform</item>
+        <!--用药-->
+        <item>@color/tint_work_space_medication</item>
+        <!--溶栓时间轴-->
+        <item>@color/tint_work_space_thrombolytic_timeline</item>
+        <!--介入手术-->
+        <item>@color/tint_work_space_pci</item>
+        <!--并发症-->
+        <item>@color/tint_work_space_complications</item>
+        <!--评估结果-->
+        <item>@color/tint_work_space_rating_result</item>
+    </array>
+</resources>

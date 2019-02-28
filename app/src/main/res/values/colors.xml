@@ -33,4 +33,37 @@
     <color name="emergency">#FC7E00</color>
     <color name="lowemergency">#FDAD1F</color>
     <color name="lightemergency">#FFDA6F</color>
+
+    <!--初步诊断-->
+    <color name="tint_work_space_diagnosis">#657ED9</color>
+    <!--心电图-->
+    <color name="tint_work_space_etc">#796EF4</color>
+    <!--体征-->
+    <color name="tint_work_space_signs">#0FCEC6</color>
+    <!--主诉-->
+    <color name="tint_work_space_complaints">#FAB131</color>
+    <!--检查检验-->
+    <color name="tint_work_space_checking">#63B0F8</color>
+    <!--ct/mri-->
+    <color name="tint_work_space_ct_mri">#796EF4</color>
+    <!--通知-->
+    <color name="tint_work_space_notification">#FFB432</color>
+    <!--疾病史-->
+    <color name="tint_work_space_disease_history">#FF8182</color>
+    <!--量表评估-->
+    <color name="tint_work_space_rating">#30C890</color>
+    <!--治疗方案-->
+    <color name="tint_work_space_therapeutic_solution">#FE5F55</color>
+    <!--知情谈话-->
+    <color name="tint_work_space_inform">#63B0F8</color>
+    <!--用药-->
+    <color name="tint_work_space_medication">#796EF4</color>
+    <!--溶栓时间轴-->
+    <color name="tint_work_space_thrombolytic_timeline">#0FCEC6</color>
+    <!--介入手术-->
+    <color name="tint_work_space_pci">#796EF4</color>
+    <!--并发症-->
+    <color name="tint_work_space_complications">#30C890</color>
+    <!--评估结果-->
+    <color name="tint_work_space_rating_result">#FF885D</color>
 </resources>
