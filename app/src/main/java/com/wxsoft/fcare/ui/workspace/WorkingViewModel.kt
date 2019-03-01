@@ -87,7 +87,6 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             }))
     }
 
-
     private fun loadOperations(id:String,userId:String){
         disposable.add(qualityControlApi.getOperations(id,userId)
             .subscribeOn(Schedulers.io())
@@ -101,12 +100,10 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                             ico=icons[index]
                         }
                     }
-
                 }
                 loadOperationResult.value=it
             },{
                 messageAction.value= Event(it.message?:"未知错误")
             }))
     }
-
 }
