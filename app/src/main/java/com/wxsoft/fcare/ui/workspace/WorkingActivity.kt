@@ -27,12 +27,12 @@ class WorkingActivity : BaseActivity() {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
 
-    private val density:Float by lazy {
-        DisplayMetrics().apply {
-            window.windowManager.defaultDisplay.getMetrics(this)
-        }.density
-
-    }
+//    private val density:Float by lazy {
+//        DisplayMetrics().apply {
+//            window.windowManager.defaultDisplay.getMetrics(this)
+//        }.density
+//
+//    }
 
     private lateinit var viewModel: WorkingViewModel
     @Inject
