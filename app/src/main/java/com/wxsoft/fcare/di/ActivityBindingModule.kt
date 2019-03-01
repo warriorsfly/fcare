@@ -31,6 +31,8 @@ import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarModule
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsModule
+import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
+import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsModule
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionModule
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
@@ -192,6 +194,8 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [DrugCarModule::class])
     internal abstract fun drugCarActivity(): DrugCarActivity
 
-
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SelectDrugsModule::class])
+    internal abstract fun selectDrugsActivity(): SelectDrugsActivity
 
 }

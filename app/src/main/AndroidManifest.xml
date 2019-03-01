@@ -49,8 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.pharmacy.drugcar.DrugCarActivity"
+        <activity android:name=".ui.details.pharmacy.selectdrugs.SelectDrugsActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.pharmacy.drugcar.DrugCarActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.pharmacy.drugrecords.DrugRecordsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

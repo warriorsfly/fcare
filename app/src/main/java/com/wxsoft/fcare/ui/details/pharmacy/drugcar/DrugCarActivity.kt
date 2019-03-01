@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.pharmacy.drugcar
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -9,7 +10,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDrugCarBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
+import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -19,6 +20,7 @@ class DrugCarActivity : BaseActivity() , View.OnClickListener {
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val AddDrugs = 1
     }
 
     private lateinit var viewModel: DrugCarViewModel
@@ -34,7 +36,7 @@ class DrugCarActivity : BaseActivity() , View.OnClickListener {
             .apply {
                 lifecycleOwner = this@DrugCarActivity
             }
-        patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(DrugCarActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
@@ -61,8 +63,8 @@ class DrugCarActivity : BaseActivity() , View.OnClickListener {
         when(v?.id){
             R.id.select_drugbags -> clickSelectDrugBags()
             R.id.select_drugs -> clickSelectDrugs()
-            R.id.submit_container -> clickSelectDrugs()
-            R.id.submit_all_drugs -> clickSelectDrugs()
+            R.id.submit_container -> clicSubmit()
+            R.id.submit_all_drugs -> clicSubmit()
         }
     }
 
@@ -71,7 +73,10 @@ class DrugCarActivity : BaseActivity() , View.OnClickListener {
     }
 
     fun clickSelectDrugs(){//药品列表选择药品
-
+        val intent = Intent(this, SelectDrugsActivity::class.java).apply {
+            putExtra(SelectDrugsActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent,AddDrugs)
     }
 
     fun clicSubmit(){//提交

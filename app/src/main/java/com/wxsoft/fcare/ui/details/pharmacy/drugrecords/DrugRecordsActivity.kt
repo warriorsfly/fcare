@@ -39,7 +39,7 @@ class DrugRecordsActivity : BaseActivity() {
             .apply {
                 lifecycleOwner = this@DrugRecordsActivity
             }
-        patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(DrugRecordsActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 

@@ -185,7 +185,6 @@
                             android:paddingRight="30dp"
                             android:textSize="17sp"
                             android:textColor="#63B0F8"
-                            android:onClick="@{viewModel.clicSubmit()}"
                             android:text="提交药物清单"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
