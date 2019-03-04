@@ -26,6 +26,28 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+        <ImageView
+                android:id="@+id/bg_drug"
+                goneUnless="@{viewModel.drugrecords.size==0}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:src="@drawable/bg_ic_drug"
+                android:layout_width="150dp"
+                android:layout_height="90dp"/>
+
+        <TextView
+                goneUnless="@{viewModel.drugrecords.size==0}"
+                app:layout_constraintTop_toBottomOf="@+id/bg_drug"
+                app:layout_constraintLeft_toLeftOf="@+id/bg_drug"
+                app:layout_constraintRight_toRightOf="@+id/bg_drug"
+                android:textSize="17dp"
+                android:textColor="#C1C1C1"
+                android:text="没有用过任何药物"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

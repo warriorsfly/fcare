@@ -30,7 +30,7 @@ class DrugRecordsAdapter constructor(private val lifecycleOwner: LifecycleOwner,
 
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.listener, viewModel)
+            setVariable(BR.viewModel, viewModel)
             lifecycleOwner = this@DrugRecordsAdapter.lifecycleOwner
             executePendingBindings()
         }

@@ -49,9 +49,9 @@ class PharmacyActivity : BaseActivity() {
         viewModel.getDrugRecord()
 
         back.setOnClickListener { onBackPressed() }
-        val bagAdapter = DrugBagAdapter(this,viewModel)
-        viewModel.drugPackages.observe(this, Observer { bagAdapter.items = it ?: emptyList() })
-        binding.drugbagList.adapter = bagAdapter
+//        val bagAdapter = DrugBagAdapter(this,viewModel)
+//        viewModel.drugPackages.observe(this, Observer { bagAdapter.items = it ?: emptyList() })
+//        binding.drugbagList.adapter = bagAdapter
 
         val drugsAdapter = DrugsAdapter(this,viewModel)
         viewModel.drugs.observe(this, Observer { drugsAdapter.items = it ?: emptyList() })

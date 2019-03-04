@@ -24,6 +24,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/title">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                        goneUnless="@{!viewModel.isEditing}"
                         android:id="@+id/select_bar"
                         android:layout_width="0dp"
                         android:layout_height="60dp"
@@ -115,11 +116,25 @@
                         app:layout_constraintBottom_toTopOf="@+id/submit_container"
                         app:layout_constraintTop_toBottomOf="@+id/select_bar">
 
-                    <TextView
-                            android:id="@+id/select_count"
+                    <ImageView
+                            goneUnless="@{!(!viewModel.isEditing||viewModel.selectedDrugs.size==0)}"
+                            android:onClick="@{()->viewModel.selectAllDrug()}"
+                            android:id="@+id/check_ic"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:text="已选择药物（3）"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@{viewModel.selectAll?@drawable/bg_ic_checked_drug:@drawable/bg_ic_drug_unchecked}"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"/>
+
+                    <TextView
+                            goneUnless="@{viewModel.selectedDrugs.size>0}"
+                            android:id="@+id/select_count"
+                            app:layout_constraintLeft_toRightOf="@+id/check_ic"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:text="@{viewModel.selectNum}"
                             android:textSize="12dp"
                             android:textColor="#525252"
                             android:layout_marginLeft="23dp"
@@ -129,8 +144,9 @@
 
                     <View android:layout_width="match_parent"
                           android:layout_height="0.5dp"
+                          goneUnless="@{viewModel.selectedDrugs.size>0}"
                           android:id="@+id/line1"
-                          android:background="@color/black_overlay"
+                          android:background="@color/line_gray"
                           android:layout_marginTop="18dp"
                           app:layout_constraintLeft_toLeftOf="parent"
                           app:layout_constraintTop_toBottomOf="@+id/select_count"/>
@@ -138,16 +154,40 @@
                     <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:id="@+id/have_selected_dug"
+                            android:id="@+id/have_selected_dug_list"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line1"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
+                    <ImageView
+                            android:id="@+id/bg_drug"
+                            goneUnless="@{viewModel.selectedDrugs.size==0}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:src="@drawable/bg_ic_drug"
+                            android:layout_width="150dp"
+                            android:layout_height="90dp"/>
+
+                    <TextView
+                            goneUnless="@{viewModel.selectedDrugs.size==0}"
+                            app:layout_constraintTop_toBottomOf="@+id/bg_drug"
+                            app:layout_constraintLeft_toLeftOf="@+id/bg_drug"
+                            app:layout_constraintRight_toRightOf="@+id/bg_drug"
+                            android:textSize="17dp"
+                            android:textColor="#C1C1C1"
+                            android:text="没有选择任何药物"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                        goneUnless="@{viewModel.selectedDrugs.size>0}"
                         android:id="@+id/submit_container"
                         android:layout_marginTop="15dp"
                         android:padding="5dp"
@@ -167,8 +207,7 @@
 
                     <ImageView
                             android:id="@+id/ic_submit"
-
-                            android:src="@drawable/bg_ic_submit_drugs"
+                            android:src="@{viewModel.isEditing?@drawable/ic_delete:@drawable/bg_ic_submit_drugs}"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="@+id/submit_all_drugs"
@@ -184,8 +223,8 @@
                             android:paddingLeft="30dp"
                             android:paddingRight="30dp"
                             android:textSize="17sp"
-                            android:textColor="#63B0F8"
-                            android:text="提交药物清单"
+                            android:textColor="@{viewModel.isEditing?@color/tint_work_space_therapeutic_solution:@color/tint_work_space_checking}"
+                            android:text="@{viewModel.submitTitle}"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"

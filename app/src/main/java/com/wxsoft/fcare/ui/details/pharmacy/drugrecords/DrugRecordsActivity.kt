@@ -10,9 +10,8 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDrugRecordsBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
-import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarActivity
+import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -49,11 +48,15 @@ class DrugRecordsActivity : BaseActivity() {
         binding.drugRecordsList.adapter = drugRecordsAdapter
 
 
+        viewModel.drugrecords.observe(this, Observer {
+            drugRecordsAdapter.items = it
+        })
+
         viewModel.clikSomething.observe(this, Observer {
             when(it){
                 "add"->{//新增
                     val intent = Intent(this, DrugCarActivity::class.java).apply {
-                        putExtra(InformedConsentDetailsActivity.PATIENT_ID, patientId)
+                        putExtra(SelectDrugsActivity.PATIENT_ID, patientId)
                     }
                     startActivityForResult(intent,AddDrug)
                 }
@@ -67,7 +70,7 @@ class DrugRecordsActivity : BaseActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when (requestCode) {
                 AddDrug->{
-
+                    viewModel.refreshList()
                 }
             }
         }

@@ -6,13 +6,12 @@
     <data>
         <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.DrugRecord"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_container"
             android:orientation="vertical"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,15 +33,30 @@
                     tool:text="阿司匹林"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"/>
+            />
+
+            <TextView
+                    android:id="@+id/usege"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="12sp"
+                    android:textColor="#999999"
+                    android:text="@{`用量：` + Converter.intToString(item.dose) + item.doseUnit}"
+                    tool:text="用量：200mg"
+                    app:layout_constraintLeft_toRightOf="@+id/drug_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/drug_name"/>
+
+
             <ImageView
                     android:id="@+id/ic_human"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
                     android:src="@drawable/bg_ic_human"
                     android:layout_marginTop="5dp"
                     app:layout_constraintLeft_toLeftOf="@+id/drug_name"
-                    app:layout_constraintTop_toBottomOf="@+id/drug_name"/>
+                    app:layout_constraintTop_toBottomOf="@+id/usege"/>
             <TextView
                     android:id="@+id/patient_name"
                     android:layout_width="wrap_content"
@@ -51,16 +65,17 @@
                     android:layout_marginTop="3dp"
                     android:layout_marginLeft="3dp"
                     android:textSize="12sp"
-                    android:textColor="#525252"
+                    android:textColor="#999999"
+                    android:text="@{item.createrName}"
                     tool:text="李有为"
                     app:layout_constraintLeft_toRightOf="@+id/ic_human"
-                    app:layout_constraintTop_toBottomOf="@+id/drug_name"
+                    app:layout_constraintTop_toBottomOf="@+id/usege"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
                     android:id="@+id/ic_time"
-                    android:layout_width="15dp"
-                    android:layout_height="15dp"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
                     android:layout_marginLeft="20dp"
                     android:src="@drawable/bg_ic_time_record"
                     app:layout_constraintLeft_toRightOf="@+id/patient_name"
@@ -74,17 +89,18 @@
                     android:layout_marginLeft="3dp"
                     android:layout_marginTop="3dp"
                     android:textSize="12sp"
-                    android:textColor="#525252"
+                    android:textColor="#999999"
+                    android:text="@{item.createdDate}"
                     tool:text="11:09"
                     app:layout_constraintLeft_toRightOf="@+id/ic_time"
-                    app:layout_constraintTop_toBottomOf="@+id/drug_name"
+                    app:layout_constraintTop_toBottomOf="@+id/usege"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View android:layout_width="match_parent"
               android:layout_height="0.5dp"
-              android:background="@color/black_overlay"
+              android:background="@color/line_gray"
               app:layout_constraintLeft_toLeftOf="parent"
               app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
