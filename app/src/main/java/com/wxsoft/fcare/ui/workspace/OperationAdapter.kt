@@ -16,8 +16,9 @@ class OperationAdapter constructor(private val owner:LifecycleOwner,private val 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            item=getItem(position)
-
+            getItem(position).let {
+                item=it
+            }
             executePendingBindings()
         }
     }
@@ -27,15 +28,19 @@ class OperationAdapter constructor(private val owner:LifecycleOwner,private val 
         val binding = ItemWorkSpaceOperationBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
             lifecycleOwner=owner
         }
-        return ItemViewHolder(binding)
+        return ItemViewHolder(binding,itemClickListener)
     }
 
-    class ItemViewHolder(binding: ItemWorkSpaceOperationBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: ItemWorkSpaceOperationBinding, itemClickListener: (WorkOperation) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         var binding: ItemWorkSpaceOperationBinding
             private set
 
         init {
-            this.binding = binding
+            this.binding = binding.apply {
+                root.setOnClickListener{
+                    item?.let(itemClickListener)
+                }
+            }
         }
     }
 

@@ -57,6 +57,9 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         qualities=loadTimeQualityResult.map {it.result?: emptyList()}
     }
 
+    /**
+     * 操作列表
+     */
     val operations:LiveData<List<WorkOperation>>
     private val loadOperationResult=MediatorLiveData<Response<List<WorkOperation>>>()
 

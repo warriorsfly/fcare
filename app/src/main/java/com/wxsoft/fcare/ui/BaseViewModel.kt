@@ -17,14 +17,14 @@ abstract class BaseViewModel constructor(protected open val sharedPreferenceStor
     protected open val account: Account by lazy {  gon.fromJson(sharedPreferenceStorage.userInfo!!,Account::class.java)}
 
     /**
-     * 结果信息
+     * 需要传递出去的toast消息
      */
     protected val messageAction = MutableLiveData<Event<String>>()
     val mesAction: LiveData<Event<String>>
         get() = messageAction
 
     override fun onCleared() {
-        super.onCleared()
         disposable.clear()
+        super.onCleared()
     }
 }
