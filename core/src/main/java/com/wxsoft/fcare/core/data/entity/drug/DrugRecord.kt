@@ -14,25 +14,6 @@ data class DrugRecord (val id:String) : BaseObservable() , Serializable {
             field = value
             notifyPropertyChanged(BR.patientId)
         }
-    @Bindable
-    var drugRecordId: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.drugRecordId)
-        }
-    @Bindable
-    var businessId: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.businessId)
-        }
-
-    @Bindable
-    var drugPackageId: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.drugPackageId)
-        }
 
     @Bindable
     var drugId: String = ""
@@ -54,11 +35,49 @@ data class DrugRecord (val id:String) : BaseObservable() , Serializable {
             field = value
             notifyPropertyChanged(BR.dose)
         }
+
+    @Bindable
+    var doseUnit: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.doseUnit)
+        }
+
+    @Bindable
+    var drugRecordId: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.drugRecordId)
+        }
+    @Bindable
+    var businessId: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.businessId)
+        }
+
+    @Bindable
+    var drugPackageId: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.drugPackageId)
+        }
+
+
+
+
     @Bindable
     var createdDate: String = DateTimeUtils.getCurrentTime()
         set(value) {
             field = value
             notifyPropertyChanged(BR.createdDate)
+        }
+
+    @Bindable
+    var createrName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.createrName)
         }
 
 

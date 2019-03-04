@@ -105,8 +105,6 @@ class TaskFragment : DaggerFragment() {
 
     private fun toDispatchCar() {
 
-
-
         startTask()
     }
 

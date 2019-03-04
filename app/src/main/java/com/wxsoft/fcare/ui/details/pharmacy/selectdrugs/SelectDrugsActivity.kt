@@ -1,7 +1,9 @@
 package com.wxsoft.fcare.ui.details.pharmacy.selectdrugs
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -24,6 +26,10 @@ class SelectDrugsActivity : BaseActivity() {
 
     lateinit var binding: ActivitySelectDrugsBinding
 
+    private lateinit var typeAdapter: DrugTypesListAdapter
+    private lateinit var drugAdapter: DrugsListAdapter
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
@@ -36,5 +42,29 @@ class SelectDrugsActivity : BaseActivity() {
         binding.viewModel = viewModel
 
         back.setOnClickListener { onBackPressed() }
+        typeAdapter = DrugTypesListAdapter(this,viewModel)
+        binding.drugTypesList.adapter = typeAdapter
+
+        drugAdapter = DrugsListAdapter(this,viewModel)
+        binding.drugsList.adapter = drugAdapter
+
+        viewModel.drugs.observe(this, Observer {
+            typeAdapter.items = it
+        })
+
+        viewModel.selectTypeDrugs.observe(this, Observer {
+            drugAdapter.items = it
+        })
+
+        viewModel.sumit.observe(this, Observer {
+            Intent().let { intent->
+                val bundle = Bundle()
+                bundle.putSerializable("selectedDrugs",viewModel.selectedDrugs)
+                intent.putExtras(bundle)
+                setResult(RESULT_OK, intent)
+                finish()
+            }
+        })
+
     }
 }

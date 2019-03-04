@@ -16,6 +16,12 @@
     <color name="dark_background">#3C394A</color>
     <color name="edit_text_title">#FF000000</color>
     <color name="dark_gray">#ff808080</color>
+    <color name="drug_bg_gray">#F3F3F3</color>
+    <color name="line_gray">#E7E4F2</color>
+    <color name="small_text_gray">#999999</color>
+
+
+
 
     <color name="black_overlay">#66000000</color>
     <color name="black_checked_nomal">#131D35</color>

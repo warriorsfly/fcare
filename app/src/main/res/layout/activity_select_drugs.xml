@@ -60,7 +60,6 @@
                         android:onClick="@{() -> viewModel.click()}"
                         android:id="@+id/submit"
                         android:background="?attr/selectableItemBackground"
-                        android:clickable="@{viewModel.clickable}"
                         android:layout_marginRight="15dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -80,8 +79,9 @@
                 android:layout_height="0dp">
 
             <androidx.recyclerview.widget.RecyclerView
-                    android:layout_width="100dp"
+                    android:layout_width="130dp"
                     android:layout_height="0dp"
+                    android:background="@color/drug_bg_gray"
                     android:id="@+id/drug_types_list"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -92,6 +92,7 @@
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:background="@color/white"
                     android:id="@+id/drugs_list"
                     app:layout_constraintLeft_toRightOf="@+id/drug_types_list"
                     app:layout_constraintTop_toTopOf="parent"

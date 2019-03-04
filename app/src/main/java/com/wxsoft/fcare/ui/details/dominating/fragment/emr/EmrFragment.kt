@@ -321,7 +321,6 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.给药 ->{
                     val intent = Intent(context.get()?.activity, DrugRecordsActivity::class.java).apply {
                         putExtra(DrugRecordsActivity.PATIENT_ID, patientId)
-//                        putExtra(PharmacyActivity.DRUG_RECORD_ID, id)
                     }
                     context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }

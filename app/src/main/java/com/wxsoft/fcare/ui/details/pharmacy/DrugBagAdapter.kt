@@ -10,9 +10,10 @@ import android.view.ViewGroup
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.drug.DrugPackage
 import com.wxsoft.fcare.databinding.ItemPharmacyDrugBagBinding
+import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarViewModel
 import kotlinx.android.synthetic.main.item_pharmacy_drug_bag.view.*
 
-class DrugBagAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: PharmacyViewModel) :
+class DrugBagAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DrugCarViewModel) :
     RecyclerView.Adapter<DrugBagAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<DrugPackage>(this, DiffCallback)

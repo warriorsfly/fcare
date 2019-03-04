@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.ui.workspace
 
 import android.os.Bundle
-import android.util.DisplayMetrics
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior

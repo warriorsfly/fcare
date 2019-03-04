@@ -1,23 +1,22 @@
-package com.wxsoft.fcare.ui.details.pharmacy
+package com.wxsoft.fcare.ui.details.pharmacy.selectdrugs
 
-import androidx.lifecycle.LifecycleOwner
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import com.wxsoft.fcare.core.BR
-import com.wxsoft.fcare.core.data.entity.drug.DrugPackageItem
-import com.wxsoft.fcare.databinding.ItemPharmacyDrugBagItemBinding
-import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarViewModel
+import com.wxsoft.fcare.core.data.entity.drug.DrugTypeitem
+import com.wxsoft.fcare.databinding.ItemDrugTypeListItemBinding
 
-class DrugBagItemAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DrugCarViewModel) :
-    RecyclerView.Adapter<DrugBagItemAdapter.ItemViewHolder>(){
+class DrugTypesListAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: SelectDrugsViewModel) :
+    RecyclerView.Adapter<DrugTypesListAdapter.ItemViewHolder>() {
 
-    private val differ = AsyncListDiffer<DrugPackageItem>(this, DiffCallback)
+    private val differ = AsyncListDiffer<DrugTypeitem>(this, DiffCallback)
 
-    var items: List<DrugPackageItem> = emptyList()
+    var items: List<DrugTypeitem> = emptyList()
         set(value) {
             field = value
             differ.submitList(value)
@@ -31,8 +30,8 @@ class DrugBagItemAdapter constructor(private val lifecycleOwner: LifecycleOwner,
 
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.listener, viewModel)
-            lifecycleOwner = this@DrugBagItemAdapter.lifecycleOwner
+            setVariable(BR.viewModel, viewModel)
+            lifecycleOwner = this@DrugTypesListAdapter.lifecycleOwner
             executePendingBindings()
 
         }
@@ -41,7 +40,7 @@ class DrugBagItemAdapter constructor(private val lifecycleOwner: LifecycleOwner,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
         val binding: ViewDataBinding =
-            ItemPharmacyDrugBagItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemDrugTypeListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 
@@ -54,16 +53,18 @@ class DrugBagItemAdapter constructor(private val lifecycleOwner: LifecycleOwner,
     }
 
 
-    object DiffCallback : DiffUtil.ItemCallback<DrugPackageItem>() {
-        override fun areItemsTheSame(oldItem: DrugPackageItem, newItem: DrugPackageItem): Boolean {
+    object DiffCallback : DiffUtil.ItemCallback<DrugTypeitem>() {
+        override fun areItemsTheSame(oldItem: DrugTypeitem, newItem: DrugTypeitem): Boolean {
 
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: DrugPackageItem, newItem: DrugPackageItem): Boolean {
+        override fun areContentsTheSame(oldItem: DrugTypeitem, newItem: DrugTypeitem): Boolean {
 
             return oldItem.id == newItem.id
         }
     }
+
+
 
 }
