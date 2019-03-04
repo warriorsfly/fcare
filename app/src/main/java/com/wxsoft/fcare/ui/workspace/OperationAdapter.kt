@@ -10,7 +10,7 @@ import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.databinding.ItemWorkSpaceOperationBinding
 
 
-class OperationAdapter constructor(private val owner:LifecycleOwner) :
+class OperationAdapter constructor(private val owner:LifecycleOwner,private val itemClickListener: (WorkOperation) -> Unit) :
     ListAdapter<WorkOperation, OperationAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

@@ -43,19 +43,23 @@ class TimeLineViewModel @Inject constructor(
         disposable.add(api.getTimeLines(pId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe( {
-                if(!it.result.isNullOrEmpty()) {
-                    val date = it.result?.firstOrNull{newTimeLine ->  !newTimeLine.excutedAt.isNullOrEmpty()}?.excutedAt?.substring(0, 10)
-                    val starter = NewTimeLine(starter = true, excutedAt = date, eventName = "")
-                    val newList = mutableListOf<NewTimeLine>()
-                    newList.add(starter)
-                    it.result?.forEach{it.excutedAt=it.excutedAt?.substring(11,16)}
-                    newList.addAll(it.result!!)
-                    it.result=newList
-                    loadTimeLineResult.value = it
-                }
-            },{
-            messageAction.value= Event(it.message?:"")
-        }))
+            .subscribe(::showList,::showError))
+    }
+
+    private fun showList(timeLines:Response<List<NewTimeLine>>) {
+        if(!timeLines.result.isNullOrEmpty()) {
+            val date = timeLines.result?.firstOrNull{ newTimeLine ->  !newTimeLine.excutedAt.isNullOrEmpty()}?.excutedAt?.substring(0, 10)
+            val starter = NewTimeLine(starter = true, excutedAt = date, eventName = "")
+            val newList = mutableListOf<NewTimeLine>()
+            newList.add(starter)
+            timeLines.result?.forEach{it.excutedAt=it.excutedAt?.substring(11,16)}
+            newList.addAll(timeLines.result!!)
+            timeLines.result=newList
+            loadTimeLineResult.value = timeLines
+        }
+    }
+
+    private fun showError(throwable: Throwable){
+        messageAction.value= Event(throwable.message?:"")
     }
 }

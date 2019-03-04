@@ -31,12 +31,12 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon){
 
     var patientId:String=""
-    set(value) {
-        field=value
-        loadPatient(field)
-        loadQualities(field)
-        loadOperations(field,account.id)
-    }
+        set(value) {
+            field=value
+            loadPatient(field)
+            loadQualities(field)
+            loadOperations(field,account.id)
+        }
     /**
      * 病人信息
      */
@@ -69,41 +69,51 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         disposable.add(patientApi.getOne(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                loadPatientResult.value=it
-            },{
-            messageAction.value= Event(it.message?:"未知错误")
-        }))
+            .subscribe (::doPatient,::error))
     }
 
     private fun loadQualities(id:String){
         disposable.add(qualityControlApi.getQualities(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                loadTimeQualityResult.value=it
-            },{
-                messageAction.value= Event(it.message?:"未知错误")
-            }))
+            .subscribe (::doQualities,::error))
     }
 
     private fun loadOperations(id:String,userId:String){
         disposable.add(qualityControlApi.getOperations(id,userId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                it.result?.forEach { operation->
-                    operation.apply {
-                        val index=keys.indexOf(actionCode)
-                        if(index>=0){
-                            tint=tints[index]
-                            ico=icons[index]
-                        }
-                    }
-                }
-                loadOperationResult.value=it
-            },{
-                messageAction.value= Event(it.message?:"未知错误")
-            }))
+            .subscribe (::doOperations,::error))
     }
+
+    private fun doPatient(response:Response<Patient>){
+        loadPatientResult.value=response
+    }
+    private fun doQualities(it: Response<List<TimeQuality>>){
+        loadTimeQualityResult.value=it
+    }
+    private fun doOperations(response:Response<List<WorkOperation>>){
+        response.result?.forEach { operation->
+            operation.apply {
+                val index=keys.indexOf(actionCode)
+                if(index>=0){
+                    tint=tints[index]
+                    ico=icons[index]
+                }
+            }
+        }
+        loadOperationResult.value=response
+    }
+
+    private fun error(throwable: Throwable){
+        messageAction.value= Event(throwable.message?:"未知错误")
+    }
+
+    /**
+     * 点击事件
+     */
+    fun operationClick(operation: WorkOperation){
+
+    }
+
 }

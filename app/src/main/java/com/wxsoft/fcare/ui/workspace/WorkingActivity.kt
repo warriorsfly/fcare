@@ -43,7 +43,9 @@ class WorkingActivity : BaseActivity() {
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
                 quality.adapter=QualityAdapter(this@WorkingActivity)
-                operationView.adapter=OperationAdapter(this@WorkingActivity)
+                operationView.adapter=OperationAdapter(this@WorkingActivity){
+//                    viewModel?.operationClick(it)
+                }
                 operationView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, _ ->
 
                     bottomSheetBehavior.peekHeight=root.height-bottom//-77*density.toInt()
@@ -61,10 +63,10 @@ class WorkingActivity : BaseActivity() {
                         submitList(it)
                     }
 
-//                    bottomSheetBehavior.peekHeight=((root.height-operationView.bottom-patientInfo.bottom)/density).toInt()-77
                 })
             }
 
 
     }
+
 }

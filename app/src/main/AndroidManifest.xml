@@ -59,7 +59,9 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.workspace.WorkingActivity"
-                android:theme="@style/AppTheme.NoActionBar.Dark"/>
+                android:theme="@style/AppTheme.NoActionBar.Dark"
+                android:noHistory="true"
+        />
         <activity
                 android:name=".ui.details.complaints.ComplaintsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

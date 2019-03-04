@@ -58,6 +58,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
 
     }
 
+
     override fun onOpen(t: String) {
         _navigateToOperationAction.value = Event(t)
     }
