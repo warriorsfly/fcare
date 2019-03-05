@@ -23,6 +23,7 @@ class RatingSubjectViewModel @Inject constructor(
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     var patientId=""
+    var scenceType=""
 
     var ratingId=""
         set(value) {
@@ -124,6 +125,7 @@ class RatingSubjectViewModel @Inject constructor(
             val ratingRecord = RatingRecord(
                 id = recordId,
                 patientId = patientId,
+                sceneType = scenceType,
                 ratingId = rating.value!!.id,
                 ratingName = rating.value!!.name,
                 score = rating.value!!.score,

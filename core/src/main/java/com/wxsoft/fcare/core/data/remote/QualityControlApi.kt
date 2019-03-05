@@ -15,7 +15,7 @@ import retrofit2.http.Path
 
 interface QualityControlApi {
 
-    @GET("QualityControl/GetTimeLineByPatientId/{patientId}")
+    @GET("QualityControl/GetTimeLineByPatientId/{patientId}/215-2")
     fun getTimeLines(@Path("patientId")id:String): Maybe<Response<List<NewTimeLine>>>
 
     @GET("QualityControl/GetTimeQualityByPatientId/{patientId}")

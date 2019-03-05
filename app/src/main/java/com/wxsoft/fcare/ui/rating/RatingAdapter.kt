@@ -12,7 +12,7 @@ import com.wxsoft.fcare.databinding.ItemRatingBinding
 import com.wxsoft.fcare.ui.EventAction
 
 
-class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): ListAdapter<Rating,RatingAdapter.ItemViewHolder>(DiffCallback) {
+class RatingAdapter constructor(private val owner: LifecycleOwner): ListAdapter<Rating,RatingAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,12 +23,14 @@ class RatingAdapter constructor(private val lifecycleOwner: LifecycleOwner): Lis
         holder.binding.apply {
             item=getItem(position)
             root.setOnClickListener { action?.onOpen(getItem(position)) }
-            lifecycleOwner = this@RatingAdapter.lifecycleOwner
+            lifecycleOwner =owner
+
+            executePendingBindings()
         }
     }
 
 
-    class ItemViewHolder(bind: ItemRatingBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(bind.root) {
+    class ItemViewHolder(bind: ItemRatingBinding) : RecyclerView.ViewHolder(bind.root) {
 
         var binding: ItemRatingBinding
             private set

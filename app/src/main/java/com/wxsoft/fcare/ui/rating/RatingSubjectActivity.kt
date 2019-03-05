@@ -20,6 +20,7 @@ class RatingSubjectActivity : BaseActivity() {
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val SCENCE_TYPE = "SCENCE_TYPE"
         const val RATING_ID = "RATING_ID"
         const val RATING_NAME = "RATING_NAME"
         const val RECORD_ID = "RECORD_ID"
@@ -39,6 +40,10 @@ class RatingSubjectActivity : BaseActivity() {
 
     private val ratingId: String by lazyFast {
         intent?.getStringExtra(RATING_ID)?:""
+    }
+
+    private val scenceType: String by lazyFast {
+        intent?.getStringExtra(SCENCE_TYPE)?:""
     }
 
     private val ratingName: String by lazyFast {
@@ -64,6 +69,7 @@ class RatingSubjectActivity : BaseActivity() {
 
         page_title.text=ratingName
         viewModel.patientId=patientId
+        viewModel.scenceType=scenceType
 
         adapter=SubjectAdapter(this)
 

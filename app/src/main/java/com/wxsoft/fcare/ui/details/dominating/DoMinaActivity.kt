@@ -57,7 +57,7 @@ class DoMinaActivity : BaseActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        back.setOnClickListener { onBackPressed() }
+
         taskId=intent.getStringExtra(TASK_ID)?:""
 
         viewModel.taskId=taskId
@@ -89,7 +89,7 @@ class DoMinaActivity : BaseActivity() {
             viewPager.setCurrentItem(it,true)
         })
         viewPager.adapter = TaskStateAdapter(supportFragmentManager)
-
+        back.setOnClickListener { onBackPressed() }
         add_patient.setOnClickListener {
             val intent = Intent(this, ProfileActivity::class.java).apply {
                 putExtra(ProfileActivity.TASK_ID, taskId)

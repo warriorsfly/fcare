@@ -19,7 +19,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 /**
- * 考虑到本程序的服务端特殊性（非restful  api），不显示状态的查询不使用result.Resource类进行结果封装
+ * 考虑到本程序的服务端特殊性（非restful api），不显示状态的查询不使用result.Resource类进行结果封装
  */
 class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
