@@ -42,6 +42,8 @@ import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsModule
+import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
+import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordModule
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeModule
 import com.wxsoft.fcare.ui.login.LoginActivity
@@ -198,5 +200,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [SelectDrugsModule::class])
     internal abstract fun selectDrugsActivity(): SelectDrugsActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [VitalSignsRecordModule::class])
+    internal abstract fun vitalSignsRecordActivity(): VitalSignsRecordActivity
 
 }

@@ -31,7 +31,7 @@
                     android:textSize="15sp"
                     android:textAlignment="center"
                     android:textColor="@{item.checked?@color/tint_work_space_checking:@color/edit_text_title}"
-                    android:text="@{item.drugTypeName}"
+                    android:text="@{item.typeName}"
                     tool:text="阿司匹林"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"

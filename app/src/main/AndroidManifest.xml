@@ -49,8 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.pharmacy.selectdrugs.SelectDrugsActivity"
+        <activity android:name=".ui.details.vitalsigns.records.VitalSignsRecordActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.pharmacy.selectdrugs.SelectDrugsActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.pharmacy.drugcar.DrugCarActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
@@ -59,9 +62,7 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.workspace.WorkingActivity"
-                android:theme="@style/AppTheme.NoActionBar.Dark"
-                android:noHistory="true"
-        />
+                android:theme="@style/AppTheme.NoActionBar.Dark"/>
         <activity
                 android:name=".ui.details.complaints.ComplaintsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
