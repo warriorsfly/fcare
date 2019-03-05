@@ -8,11 +8,17 @@
             xmlns:app="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"
             android:id="@+id/container"
-            android:padding="10dp"
             android:background="?attr/selectableItemBackground"
             android:layout_width="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_height="wrap_content">
+
+        <View
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="#E7E4F2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
 
         <TextView
                 app:layout_constraintEnd_toEndOf="parent"
@@ -20,6 +26,7 @@
                 android:layout_marginStart="21.5dp"
                 android:id="@+id/content"
                 tools:text="GRACE评分"
+                android:layout_marginTop="11dp"
                 android:text="@{item.ratingName}"
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_width="0dp"
@@ -37,6 +44,7 @@
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:layout_marginTop="4dp"
+                android:layout_marginBottom="11dp"
                 android:drawableLeft="@drawable/ic_doctor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="wrap_content"
@@ -47,7 +55,8 @@
                 android:id="@+id/time"
                 android:layout_marginStart="53dp"
                 tools:text="09:10"
-                android:text="增加"
+                android:layout_marginBottom="11dp"
+                android:text="@{item.createdDate.substring(11,16)}"
                 android:drawablePadding="4dp"
                 android:textColor="#999999"
                 android:textSize="12sp"
@@ -63,10 +72,10 @@
                 app:layout_constraintTop_toTopOf="@id/content"
                 app:layout_constraintRight_toRightOf="parent"
                 android:id="@+id/score"
-                android:layout_marginRight="32dp"
+                android:layout_marginRight="16dp"
                 tools:text="09:10"
                 android:text="@{item.modifiedDate.substring(11,16)}"
-                android:drawablePadding="19dp"
+                android:drawablePadding="10dp"
                 android:textColor="#999999"
                 android:textSize="28sp"
                 android:layout_marginTop="4dp"

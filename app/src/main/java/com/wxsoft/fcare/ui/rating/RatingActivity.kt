@@ -66,9 +66,7 @@ class RatingActivity : BaseActivity() {
             adapter.submitList(it)
         })
         back.setOnClickListener{onBackPressed()}
-        list.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL).apply {
-            setDrawable(resources.getDrawable(R.drawable.divider_scencerating,theme))
-        })
+
     }
 
     private fun newItem(scence:String) {

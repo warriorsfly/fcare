@@ -8,16 +8,19 @@ import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.ScencelyRatingResult
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.RatingApi
+import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Named
 
 
 class RatingViewModel @Inject constructor(
     private val ratingApi: RatingApi,
+    @Named("ratingTint")
+    private val tints:IntArray,
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
@@ -70,7 +73,11 @@ class RatingViewModel @Inject constructor(
 
     private fun doScenceLoadRating(response: Response<List<ScencelyRatingResult>>){
 
-        loadRatingResult.value=response.result
+        loadRatingResult.value=response.result?.apply {
+            forEachIndexed { index, result ->
+                result.tint = tints[(index + 1) % tints.size]
+            }
+        }
     }
 
     private fun loadRating(){

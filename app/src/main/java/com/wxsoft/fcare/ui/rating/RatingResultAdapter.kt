@@ -21,7 +21,10 @@ class RatingResultAdapter constructor(private val owner: LifecycleOwner,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ItemViewHolder(
-            ItemRatingScenceBinding.inflate(inflater, parent, false).apply { lifecycleOwner=owner },pool,newItem)
+            ItemRatingScenceBinding.inflate(inflater, parent, false).apply {
+                lifecycleOwner=owner
+
+            },pool,newItem)
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -47,6 +50,7 @@ class RatingResultAdapter constructor(private val owner: LifecycleOwner,
         init {
             binding = bind.apply {
                 list.setRecycledViewPool(pool)
+
                 add.setOnClickListener {
                     item?.typeId?.let { newItemClick(it) }
                 }

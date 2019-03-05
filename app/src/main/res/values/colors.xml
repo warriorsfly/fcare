@@ -72,4 +72,9 @@
     <color name="tint_work_space_complications">#30C890</color>
     <!--评估结果-->
     <color name="tint_work_space_rating_result">#FF885D</color>
+    <color name="tint_rating_title_1">#FAB131</color>
+    <color name="tint_rating_title_2">#63B0F8</color>
+    <color name="tint_rating_title_3">#796EF4</color>
+    <color name="tint_rating_title_4">#30C890</color>
+    <color name="tint_rating_title_5">#0FCEC6</color>
 </resources>
