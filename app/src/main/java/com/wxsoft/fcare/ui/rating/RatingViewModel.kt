@@ -37,6 +37,12 @@ class RatingViewModel @Inject constructor(
         loadRating()
     }
 
+    fun refresh(){
+        if(patientId.isNotEmpty()){
+            loadScenceRating()
+        }
+    }
+
     override val clickable:LiveData<Boolean>
 
     private val clickResult  = MediatorLiveData<Boolean>().apply {

@@ -7,14 +7,12 @@
             android:layout_height="wrap_content" xmlns:app="http://schemas.android.com/apk/res-auto"
             android:orientation="vertical">
 
-        <TextView
+        <Button
+            style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="取消"
-            android:layout_marginTop="13.5dp"
-            android:layout_marginBottom="13.5dp"
-            android:layout_marginLeft="18.5dp"
-            android:layout_marginRight="18.5dp"
+            android:id="@+id/canncel"
             android:textColor="#63B0F8"
             android:textSize="18sp"
         />

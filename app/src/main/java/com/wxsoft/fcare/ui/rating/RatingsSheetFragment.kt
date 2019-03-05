@@ -59,6 +59,7 @@ class RatingsSheetFragment constructor( private val itemClick: (Rating) -> Unit)
         })
         return FragmentRatingsSheetBinding.inflate(inflater,container,false).apply {
             list.adapter=this@RatingsSheetFragment.adapter
+            canncel.setOnClickListener { this@RatingsSheetFragment.dismiss() }
             lifecycleOwner=this@RatingsSheetFragment
         }.root
     }

@@ -4,20 +4,32 @@
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.rating.Rating"/>
     </data>
 
-    <TextView
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="@dimen/list_item_spacing_half"
-        android:paddingLeft="@dimen/list_item_spacing"
-        android:paddingRight="@dimen/list_item_spacing"
-        android:paddingTop="@dimen/list_item_spacing_half"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:background="?attr/selectableItemBackground"
-        tools:text="Hello"
-        android:text="@{item.name}"
-        android:drawableRight="@drawable/ic_right_arrow"/>
+        android:orientation="vertical">
+
+        <View
+            android:background="#E7E4F2"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"/>
+        <TextView
+
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/list_item_spacing_half"
+            android:paddingLeft="@dimen/list_item_spacing"
+            android:paddingRight="@dimen/list_item_spacing"
+            android:paddingTop="@dimen/list_item_spacing_half"
+            android:textSize="17sp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:background="?attr/selectableItemBackground"
+            tools:text="Hello"
+            android:text="@{item.name}"
+            android:drawableRight="@drawable/ic_right_arrow"/>
+    </LinearLayout>
 
 </layout>
