@@ -133,7 +133,6 @@ class RatingSubjectViewModel @Inject constructor(
             )
             ratingRecord.records = rating.value?.subjects?.filter { it.selectedIndex ?: -1 >= 0 }?.map {
                 SubjectRecord(
-                    patientId = patientId,
                     recordId = "",
                     subjectId = it.id,
                     selection = it.options[it.selectedIndex ?: -1].id,
