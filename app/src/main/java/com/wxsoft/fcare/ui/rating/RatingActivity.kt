@@ -78,10 +78,10 @@ class RatingActivity : BaseActivity() {
     private fun showDetail(result:RatingResult){
 
         val intent = Intent(this, RatingSubjectActivity::class.java).apply {
-            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
-            putExtra(RatingSubjectActivity.SCENCE_TYPE, viewModel.scenceId)
+//            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
+//            putExtra(RatingSubjectActivity.SCENCE_TYPE, viewModel.scenceId)
             putExtra(RatingSubjectActivity.RATING_NAME, result.ratingName)
-            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
+//            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
             putExtra(RatingSubjectActivity.RECORD_ID, result.id)
         }
         startActivityForResult(intent, EmrFragment.ARG_NEW_ITEM_CODE)
