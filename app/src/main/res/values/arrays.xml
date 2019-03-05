@@ -111,7 +111,7 @@
         <!--检查检验-->
         <item>fzjc</item>
         <!--ct/mri-->
-        <item>ct</item>
+        <item>ctscz</item>
         <!--通知-->
         <item>xxtz</item>
         <!--疾病史-->
@@ -119,7 +119,7 @@
         <!--量表评估-->
         <item>gracepf</item>
         <!--治疗方案-->
-        <item>zlfa</item>
+        <item>zlcl</item>
         <!--知情谈话-->
         <item>informed_consent_statement</item>
         <!--用药-->

@@ -45,6 +45,11 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
             if (value == "") return
             field = value
         }
+    var sceneTypeId: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
     private val _errorToOperationAction = MutableLiveData<Event<String>>()
 
     val vital: LiveData<VitalSign>
@@ -79,6 +84,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     private fun saveVitalSign() {
 
         val v = vital.value!!
+        v.sceneType = sceneTypeId
         if (v.id.isEmpty())
             v.patientId = patientId
         if (

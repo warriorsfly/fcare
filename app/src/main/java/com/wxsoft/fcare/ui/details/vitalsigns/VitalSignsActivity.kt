@@ -16,10 +16,12 @@ class VitalSignsActivity : BaseActivity() {
 
     private lateinit var patientId:String
     private lateinit var id:String
+    private lateinit var typeId:String
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val ID = "ID"
+        const val TYPE_ID = "TYPE_ID"
     }
 
     private lateinit var viewModel: VitalSignsViewModel
@@ -40,6 +42,7 @@ class VitalSignsActivity : BaseActivity() {
 
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         id=intent.getStringExtra(ID)?:""
+        typeId=intent.getStringExtra(TYPE_ID)?:""
 
         binding.viewModel = viewModel
 
@@ -47,6 +50,7 @@ class VitalSignsActivity : BaseActivity() {
             viewModel.id = id
         }else {
             viewModel.patientId = patientId
+            viewModel.sceneTypeId = typeId
         }
         viewModel.loadVitalSign()
 

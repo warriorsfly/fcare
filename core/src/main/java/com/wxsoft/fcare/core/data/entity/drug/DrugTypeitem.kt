@@ -7,24 +7,24 @@ import com.wxsoft.fcare.core.BR
 data class DrugTypeitem(val id:String): BaseObservable() {
 
     @Bindable
-    var drugTypeId: String = ""
+    var typeId: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.drugTypeId)
+            notifyPropertyChanged(BR.typeId)
         }
 
     @Bindable
-    var drugTypeName: String = ""
+    var typeName: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.drugTypeName)
+            notifyPropertyChanged(BR.typeName)
         }
 
     @Bindable
-    var drugItems: List<Drug> = emptyList()
+    var items: List<Drug> = emptyList()
         set(value) {
             field = value
-            notifyPropertyChanged(BR.drugItems)
+            notifyPropertyChanged(BR.items)
         }
 
     @Bindable

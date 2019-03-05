@@ -472,7 +472,7 @@
                           android:imeOptions="actionNext"
                           android:inputType="number|numberDecimal"
                           android:digits="1234567890."
-                          android:text="@={FloatConverter.floatToString(viewModel.vital.body_Temperature)}"
+                          android:text="@={viewModel.vital.bodyTemperatureStr}"
                           tools:text="67"
                           />
                 <TextView

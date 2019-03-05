@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.entity
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
+import java.util.regex.Pattern
 
 data class VitalSign(val id:String=""): BaseObservable() {
 
@@ -12,6 +13,13 @@ data class VitalSign(val id:String=""): BaseObservable() {
 
             field = value
             notifyPropertyChanged(BR.consciousness_Type)
+        }
+
+    @Bindable
+    var sceneType: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.sceneType)
         }
     @Bindable
     var respiration_Rate: Int = 0
@@ -34,9 +42,15 @@ data class VitalSign(val id:String=""): BaseObservable() {
             notifyPropertyChanged(BR.body_Temperature)
         }
     @Bindable
+    var bodyTemperatureStr: String = ""
+        set(value) {
+            field = value
+            if (!value.isNullOrEmpty()&&isDoubleOrFloat(value)) body_Temperature = value.toFloatOrNull()
+            notifyPropertyChanged(BR.bodyTemperatureStr)
+        }
+    @Bindable
     var heart_Rate: Int = 0
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.heart_Rate)
         }
@@ -120,5 +134,10 @@ data class VitalSign(val id:String=""): BaseObservable() {
             "3"-> killip_Unit_int = 3
             "4"-> killip_Unit_int = 4
         }
+        if (body_Temperature != null) bodyTemperatureStr = body_Temperature.toString()
+    }
+    fun isDoubleOrFloat(str : String):Boolean {
+        val pattern = Pattern.compile("^[-\\+]?[.\\d]*$");
+        return pattern.matcher(str).matches();
     }
 }

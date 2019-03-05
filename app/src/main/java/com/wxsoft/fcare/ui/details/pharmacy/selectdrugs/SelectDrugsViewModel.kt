@@ -61,6 +61,7 @@ class SelectDrugsViewModel @Inject constructor(private val pharmacyApi: Pharmacy
         pharmacyApi.loadDrugs(patientId).toResource()
             .subscribe {
                 initDrugs.value = it
+                drugs.value?.first()?.checked = true
             }
     }
 
@@ -72,7 +73,7 @@ class SelectDrugsViewModel @Inject constructor(private val pharmacyApi: Pharmacy
     fun clickDrugType(item:DrugTypeitem){
         drugs.value?.filter { it.checked }?.map { it.checked = false }
         item.checked = !item.checked
-        initSelectTypeDrugs.value = item.drugItems
+        initSelectTypeDrugs.value = item.items
     }
 
     fun selectDrug(item:Drug){
