@@ -45,7 +45,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
         listAdapter = VitalRecordListAdapter(this,viewModel)
         binding.vitalRecordsList.adapter = listAdapter
 
-        viewModel.vitals.observe(this, Observer { listAdapter.items = it ?: emptyList() })
+        viewModel.vitals.observe(this, Observer { listAdapter.items = it })
 
 
         viewModel.addvital.observe(this, Observer { toAddVital(it) })

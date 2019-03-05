@@ -12,7 +12,7 @@ import com.wxsoft.fcare.core.data.entity.VitalSignRecord
 import com.wxsoft.fcare.databinding.ItemVitalSignsRecordListItemBinding
 import kotlinx.android.synthetic.main.item_vital_signs_record_list_item.view.*
 
-class VitalRecordListAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: VitalSignsRecordViewModel) :
+class VitalRecordListAdapter constructor(private val owner: LifecycleOwner, val viewModel: VitalSignsRecordViewModel) :
     RecyclerView.Adapter<VitalRecordListAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<VitalSignRecord>(this, DiffCallback)
@@ -30,27 +30,28 @@ class VitalRecordListAdapter constructor(private val lifecycleOwner: LifecycleOw
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.viewModel, viewModel)
-            if (root.vital_records_details_list.adapter == null){
-                var adapter = VitalSignsDetailItemAdapter(this@VitalRecordListAdapter.lifecycleOwner,viewModel)
-                adapter.items = differ.currentList[position].items
-                root.vital_records_details_list.adapter = adapter
+            item=differ.currentList[position]
+            viewModel=this@VitalRecordListAdapter.viewModel
+            vitalRecordsDetailsList
+            if(vitalRecordsDetailsList.adapter==null){
+                vitalRecordsDetailsList.adapter=VitalSignsDetailItemAdapter(owner).apply {
+                    items = differ.currentList[position].items
+                }
             }
-            lifecycleOwner = this@VitalRecordListAdapter.lifecycleOwner
+            lifecycleOwner = owner
             executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding: ViewDataBinding =
+        val binding: ItemVitalSignsRecordListItemBinding =
             ItemVitalSignsRecordListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        var binding: ViewDataBinding
+    class ItemViewHolder(binding: ItemVitalSignsRecordListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemVitalSignsRecordListItemBinding
             private set
         init {
             this.binding = binding
@@ -61,12 +62,12 @@ class VitalRecordListAdapter constructor(private val lifecycleOwner: LifecycleOw
     object DiffCallback : DiffUtil.ItemCallback<VitalSignRecord>() {
         override fun areItemsTheSame(oldItem: VitalSignRecord, newItem: VitalSignRecord): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.typeId == newItem.typeId
         }
 
         override fun areContentsTheSame(oldItem: VitalSignRecord, newItem: VitalSignRecord): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.items == newItem.items
         }
     }
 

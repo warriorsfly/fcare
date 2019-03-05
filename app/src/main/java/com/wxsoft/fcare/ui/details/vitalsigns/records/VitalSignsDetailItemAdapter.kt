@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.VitalSign
-import com.wxsoft.fcare.databinding.ItemVitalSignsRecordListItemBinding
+import com.wxsoft.fcare.databinding.ItemVitalRecordDetailsItemBinding
 
-class VitalSignsDetailItemAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: VitalSignsRecordViewModel) :
+class VitalSignsDetailItemAdapter constructor(private val owner: LifecycleOwner) :
     RecyclerView.Adapter<VitalSignsDetailItemAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<VitalSign>(this, DiffCallback)
@@ -29,22 +29,23 @@ class VitalSignsDetailItemAdapter constructor(private val lifecycleOwner: Lifecy
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.viewModel, viewModel)
-            lifecycleOwner = this@VitalSignsDetailItemAdapter.lifecycleOwner
+            item=differ.currentList[position]
             executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding: ViewDataBinding =
-            ItemVitalSignsRecordListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemVitalRecordDetailsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+//                .apply {
+//                    lifecycleOwner=owner
+//                }
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        var binding: ViewDataBinding
+    class ItemViewHolder(binding: ItemVitalRecordDetailsItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemVitalRecordDetailsItemBinding
             private set
         init {
             this.binding = binding

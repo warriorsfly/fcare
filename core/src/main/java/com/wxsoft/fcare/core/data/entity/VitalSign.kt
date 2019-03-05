@@ -2,6 +2,7 @@ package com.wxsoft.fcare.core.data.entity
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 import java.util.regex.Pattern
 
@@ -13,6 +14,13 @@ data class VitalSign(val id:String=""): BaseObservable() {
 
             field = value
             notifyPropertyChanged(BR.consciousness_Type)
+        }
+    @Bindable
+    @SerializedName("consciousness_Type_Name")
+    var consciousnesTypeName: String?= null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.consciousnesTypeName)
         }
 
     @Bindable
@@ -42,6 +50,7 @@ data class VitalSign(val id:String=""): BaseObservable() {
             notifyPropertyChanged(BR.body_Temperature)
         }
     @Bindable
+    @Transient
     var bodyTemperatureStr: String = ""
         set(value) {
             field = value
@@ -65,6 +74,12 @@ data class VitalSign(val id:String=""): BaseObservable() {
         set(value) {
             field = value
             notifyPropertyChanged(BR.spO2)
+        }
+    @Bindable
+    var weight: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.weight)
         }
     @Bindable
     var sbp: String = ""

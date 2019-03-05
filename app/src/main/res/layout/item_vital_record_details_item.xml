@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.VitalSign"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/consciousness_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="意识"
+                tools:text="意识"
+                android:textColor="@color/small_text_gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/blood_pressure_title"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/consciousness_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                tools:text="浅昏迷"
+                android:textColor="@color/small_title_text_gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/blood_pressure_content"
+                app:layout_constraintTop_toBottomOf="@+id/consciousness_title"/>
+
+
+
+        <TextView
+                android:id="@+id/blood_pressure_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="@{item.dbp +`/`+ item.sbp}"
+                tools:text="血压(mmHg)"
+                android:textColor="@color/small_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/consciousness_title"
+                app:layout_constraintRight_toLeftOf="@+id/heart_rate_title"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/blood_pressure_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text=""
+                tools:text="100/140"
+                android:textColor="@color/small_title_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/consciousness_content"
+                app:layout_constraintRight_toLeftOf="@+id/heart_rate_content"
+                app:layout_constraintBottom_toBottomOf="@+id/consciousness_content"/>
+
+
+        <TextView
+                android:id="@+id/heart_rate_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="@{item.heart_Rate}"
+                tools:text="心率(次/分)"
+                android:textColor="@color/small_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/blood_pressure_title"
+                app:layout_constraintRight_toLeftOf="@+id/breathe_title"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/heart_rate_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="@{Converter.intToString(item.heart_Rate)}"
+                tools:text="58"
+                android:textColor="@color/small_title_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/blood_pressure_content"
+                app:layout_constraintRight_toLeftOf="@+id/breathe_content"
+                app:layout_constraintBottom_toBottomOf="@+id/consciousness_content"/>
+
+
+        <TextView
+                android:id="@+id/breathe_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:text="呼吸(次/分)"
+                tools:text="呼吸(次/分)"
+                android:textColor="@color/small_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/heart_rate_title"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+                android:id="@+id/breathe_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="10dp"
+                android:textAlignment="center"
+                android:text="@{Converter.intToString(item.respiration_Rate)}"
+                tools:text="46"
+                android:textColor="@color/small_title_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/heart_rate_title"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/consciousness_content"/>
+
+
+        <TextView
+                android:id="@+id/blood_oxygen_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="血氧饱和度%"
+                tools:text="血氧饱和度%"
+                android:textColor="@color/small_text_gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/consciousness_title"
+                app:layout_constraintTop_toBottomOf="@+id/consciousness_content"/>
+
+        <TextView
+                android:id="@+id/blood_oxygen_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="@{Converter.intToString(item.spO2)}"
+                tools:text="12"
+                android:textColor="@color/small_title_text_gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@+id/consciousness_content"
+                app:layout_constraintTop_toBottomOf="@+id/blood_oxygen_title"/>
+
+        <TextView
+                android:id="@+id/animal_heat_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="体温℃"
+                tools:text="体温℃"
+                android:textColor="@color/small_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/blood_oxygen_title"
+                app:layout_constraintRight_toRightOf="@+id/blood_pressure_title"
+                app:layout_constraintTop_toBottomOf="@+id/blood_pressure_content"/>
+
+        <TextView
+                android:id="@+id/animal_heat_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="@{item.bodyTemperatureStr}"
+                tools:text="36.8"
+                android:textColor="@color/small_title_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/blood_oxygen_content"
+                app:layout_constraintRight_toRightOf="@+id/blood_pressure_content"
+                app:layout_constraintTop_toBottomOf="@+id/animal_heat_title"/>
+
+        <TextView
+                android:id="@+id/weight_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="体重kg"
+                tools:text="体重kg"
+                android:textColor="@color/small_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/animal_heat_title"
+                app:layout_constraintRight_toRightOf="@+id/heart_rate_title"
+                app:layout_constraintTop_toBottomOf="@+id/heart_rate_content"/>
+
+        <TextView
+                android:id="@+id/weight_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:layout_marginTop="10dp"
+                android:textAlignment="center"
+                android:text="@{item.weight}"
+                tools:text="67"
+                android:textColor="@color/small_title_text_gray"
+                app:layout_constraintLeft_toRightOf="@+id/animal_heat_title"
+                app:layout_constraintRight_toRightOf="@+id/heart_rate_title"
+                app:layout_constraintTop_toBottomOf="@+id/weight_title"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
