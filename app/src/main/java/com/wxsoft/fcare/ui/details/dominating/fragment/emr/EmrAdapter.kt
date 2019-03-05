@@ -21,7 +21,7 @@ import com.wxsoft.fcare.ui.EmrEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 
 class EmrAdapter constructor(private val owner: LifecycleOwner,
-                             private val pool: androidx.recyclerview.widget.RecyclerView.RecycledViewPool) :
+                             private val pool:RecyclerView.RecycledViewPool) :
     RecyclerView.Adapter<ItemViewHolder>() {
 
     val pictureAdapter=PictureAdapter(owner,2)

@@ -3,7 +3,7 @@ package com.wxsoft.fcare.ui.details.dominating
 import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
-import com.wxsoft.fcare.ui.EmrViewPoolModule
+import com.wxsoft.fcare.ui.ViewPoolModule
 import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel
@@ -46,6 +46,6 @@ internal abstract class DoMinaModule {
     abstract fun contributePatientManagerFragment(): PatientManagerFragment
 
     @ChildFragmentScoped
-    @ContributesAndroidInjector(modules = [EmrViewPoolModule::class])
+    @ContributesAndroidInjector(modules = [ViewPoolModule::class])
     abstract fun contributeEmrFragment(): EmrFragment
 }

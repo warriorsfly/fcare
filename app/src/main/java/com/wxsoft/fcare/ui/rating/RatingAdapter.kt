@@ -8,31 +8,36 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.rating.Rating
+import com.wxsoft.fcare.core.data.entity.rating.RatingResult
 import com.wxsoft.fcare.databinding.ItemRatingBinding
+import com.wxsoft.fcare.databinding.ItemRatingResultBinding
 import com.wxsoft.fcare.ui.EventAction
 
 
-class RatingAdapter constructor(private val owner: LifecycleOwner): ListAdapter<Rating,RatingAdapter.ItemViewHolder>(DiffCallback) {
+class RatingAdapter constructor(private val owner: LifecycleOwner,
+                                private val showDetail:(RatingResult)->Unit): ListAdapter<RatingResult,RatingAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ItemViewHolder(ItemRatingBinding.inflate(inflater,parent,false))
+        return ItemViewHolder(ItemRatingResultBinding.inflate(inflater,parent,false).apply {
+
+            root.setOnClickListener {
+                item?.let { showDetail(it) }
+            }
+            lifecycleOwner =owner
+        })
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
             item=getItem(position)
-            root.setOnClickListener { action?.onOpen(getItem(position)) }
-            lifecycleOwner =owner
-
             executePendingBindings()
         }
     }
 
+    class ItemViewHolder(bind: ItemRatingResultBinding) : RecyclerView.ViewHolder(bind.root) {
 
-    class ItemViewHolder(bind: ItemRatingBinding) : RecyclerView.ViewHolder(bind.root) {
-
-        var binding: ItemRatingBinding
+        var binding: ItemRatingResultBinding
             private set
 
         init {
@@ -41,18 +46,13 @@ class RatingAdapter constructor(private val owner: LifecycleOwner): ListAdapter<
 
     }
 
-    private var action: EventAction<Rating>?=null
-
-    fun setActionListener(actions: EventAction<Rating>){
-        this.action=actions
-    }
-    object DiffCallback : DiffUtil.ItemCallback<Rating>() {
-        override fun areItemsTheSame(oldItem: Rating, newItem: Rating): Boolean {
+    object DiffCallback : DiffUtil.ItemCallback<RatingResult>() {
+        override fun areItemsTheSame(oldItem: RatingResult, newItem: RatingResult): Boolean {
             return oldItem.id==newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Rating, newItem: Rating): Boolean {
-            return oldItem.id==newItem.id
+        override fun areContentsTheSame(oldItem: RatingResult, newItem: RatingResult): Boolean {
+            return oldItem.score==newItem.score
         }
     }
 }

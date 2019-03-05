@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.RatingResult
@@ -17,6 +18,7 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import kotlinx.android.synthetic.main.activity_rating.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
+import javax.inject.Named
 
 
 class RatingActivity : BaseActivity() {
@@ -38,10 +40,16 @@ class RatingActivity : BaseActivity() {
         intent?.getStringExtra(PATIENT_ID)?:""
     }
 
+
+    @Inject
+    @field:Named("ratingResultViewPool")
+    lateinit var emrItemViewPool: RecyclerView.RecycledViewPool
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        adapter=RatingResultAdapter(this,::newItem,::showDetail)
+        adapter=RatingResultAdapter(this,emrItemViewPool,::newItem,::showDetail)
         DataBindingUtil.setContentView<ActivityRatingBinding>(
             this,
             R.layout.activity_rating
@@ -55,7 +63,7 @@ class RatingActivity : BaseActivity() {
         viewModel.patientId=patientId
 
         viewModel.scenceRatings.observe(this, Observer {
-            adapter.items=it
+            adapter.submitList(it)
         })
         back.setOnClickListener{onBackPressed()}
         list.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL).apply {

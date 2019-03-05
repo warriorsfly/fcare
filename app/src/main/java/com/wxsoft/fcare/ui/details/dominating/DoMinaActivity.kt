@@ -1,24 +1,22 @@
 package com.wxsoft.fcare.ui.details.dominating
 
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.widget.Toast
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.*
-import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.core.utils.lazyFast
-import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
+import com.wxsoft.fcare.ui.patient.ProfileActivity
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
@@ -117,7 +115,7 @@ class DoMinaActivity : BaseActivity() {
 
 }
 
-class TaskStateAdapter(fm: androidx.fragment.app.FragmentManager) :
+class TaskStateAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     private val statusFragments:List<androidx.fragment.app.Fragment> by lazyFast {

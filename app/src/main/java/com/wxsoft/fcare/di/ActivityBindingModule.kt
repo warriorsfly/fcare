@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
+import com.wxsoft.fcare.ui.ViewPoolModule
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
@@ -115,7 +116,7 @@ abstract class ActivityBindingModule {
     internal abstract fun pharmacyActivity(): PharmacyActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [RatingModule::class])
+    @ContributesAndroidInjector(modules = [RatingModule::class,ViewPoolModule::class])
     internal abstract fun ratingActivity(): RatingActivity
 
     @ActivityScoped
