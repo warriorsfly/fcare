@@ -135,6 +135,13 @@ data class VitalSign(val id:String=""): BaseObservable() {
             field = value
             notifyPropertyChanged(BR.createdDate)
         }
+    @Bindable
+    var createrName: String = "0001-01-01 00:00:00"
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.createrName)
+        }
+
 
     override fun toString(): String {
         return  "$consciousness_Type,呼吸$respiration_Rate,脉搏$pulse_Rate,心率$heart_Rate"

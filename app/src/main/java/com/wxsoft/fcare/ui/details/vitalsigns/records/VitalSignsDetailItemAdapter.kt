@@ -11,7 +11,7 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.databinding.ItemVitalRecordDetailsItemBinding
 
-class VitalSignsDetailItemAdapter constructor(private val owner: LifecycleOwner) :
+class VitalSignsDetailItemAdapter constructor(private val owner: LifecycleOwner, val viewModel: VitalSignsRecordViewModel) :
     RecyclerView.Adapter<VitalSignsDetailItemAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<VitalSign>(this, DiffCallback)
@@ -30,6 +30,7 @@ class VitalSignsDetailItemAdapter constructor(private val owner: LifecycleOwner)
 
         holder.binding.apply {
             item=differ.currentList[position]
+            viewModel = this@VitalSignsDetailItemAdapter.viewModel
             executePendingBindings()
         }
     }
@@ -38,9 +39,9 @@ class VitalSignsDetailItemAdapter constructor(private val owner: LifecycleOwner)
 
         val binding =
             ItemVitalRecordDetailsItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//                .apply {
-//                    lifecycleOwner=owner
-//                }
+                .apply {
+                    lifecycleOwner=owner
+                }
         return ItemViewHolder(binding)
     }
 

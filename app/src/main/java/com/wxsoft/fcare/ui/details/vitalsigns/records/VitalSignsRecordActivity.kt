@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.vitalsigns.records
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
@@ -47,9 +48,9 @@ class VitalSignsRecordActivity :  BaseActivity() {
 
         viewModel.vitals.observe(this, Observer { listAdapter.items = it })
 
-
         viewModel.addvital.observe(this, Observer { toAddVital(it) })
 
+        viewModel.modifyvital.observe(this, Observer { toModifyVital(it) })
 
     }
 
@@ -61,5 +62,24 @@ class VitalSignsRecordActivity :  BaseActivity() {
             putExtra(VitalSignsActivity.TYPE_ID, typeId)
         }
         startActivityForResult(intent,ADD_VITAL )
+    }
+    fun toModifyVital(id:String){
+        val intent = Intent(this, VitalSignsActivity::class.java).apply {
+            putExtra(VitalSignsActivity.PATIENT_ID, patientId)
+            putExtra(VitalSignsActivity.ID, id)
+        }
+        startActivityForResult(intent,ADD_VITAL )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK) {
+            when(requestCode){
+                ADD_VITAL ->{//
+                   viewModel.getVitalRecords()
+                }
+
+            }
+        }
     }
 }

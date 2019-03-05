@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.core.data.entity.VitalSignRecord
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -47,10 +48,14 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
     val addvital:LiveData<String>
     private val initAddvital = MediatorLiveData<String>()
 
+    val modifyvital:LiveData<String>
+    private val initModifyvital = MediatorLiveData<String>()
+
     init {
         clickable=clickResult.map { it }
         vitals = initVitals.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         addvital = initAddvital.map { it }
+        modifyvital = initModifyvital.map { it }
     }
 
     override fun click(){
@@ -81,6 +86,10 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
 //                "223-4" ->{}//治疗
 //                "223-5" ->{}//转归
 //           }
+    }
+
+    fun clickVital(item:VitalSign){
+        initModifyvital.value = item.id
     }
 
 }
