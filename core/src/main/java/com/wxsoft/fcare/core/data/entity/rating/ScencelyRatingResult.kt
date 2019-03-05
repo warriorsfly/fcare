@@ -5,4 +5,6 @@ package com.wxsoft.fcare.core.data.entity.rating
  */
 data class ScencelyRatingResult(val typeId:String,
                                 val typeName:String,
-                                val items:List<RatingResult>)
+                                val items:List<RatingResult>,
+                                @Transient
+                                var tint:Int=0)

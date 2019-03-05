@@ -1,17 +1,14 @@
 package com.wxsoft.fcare.ui.rating
 
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wxsoft.fcare.core.data.entity.rating.Rating
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.data.entity.rating.RatingResult
-import com.wxsoft.fcare.databinding.ItemRatingBinding
 import com.wxsoft.fcare.databinding.ItemRatingResultBinding
-import com.wxsoft.fcare.ui.EventAction
 
 
 class RatingAdapter constructor(private val owner: LifecycleOwner,

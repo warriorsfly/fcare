@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
-import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.FragmentRatingsSheetBinding
 import com.wxsoft.fcare.databinding.ItemRatingSheetBinding
 import dagger.android.AndroidInjector
@@ -60,6 +59,7 @@ class RatingsSheetFragment constructor( private val itemClick: (Rating) -> Unit)
         })
         return FragmentRatingsSheetBinding.inflate(inflater,container,false).apply {
             list.adapter=this@RatingsSheetFragment.adapter
+            canncel.setOnClickListener { this@RatingsSheetFragment.dismiss() }
             lifecycleOwner=this@RatingsSheetFragment
         }.root
     }

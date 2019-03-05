@@ -66,9 +66,7 @@ class RatingActivity : BaseActivity() {
             adapter.submitList(it)
         })
         back.setOnClickListener{onBackPressed()}
-        list.addItemDecoration(DividerItemDecoration(this,DividerItemDecoration.VERTICAL).apply {
-            setDrawable(resources.getDrawable(R.drawable.divider_scencerating,theme))
-        })
+
     }
 
     private fun newItem(scence:String) {
@@ -77,9 +75,19 @@ class RatingActivity : BaseActivity() {
 
     }
 
-    private fun showDetail(result:RatingResult){}
-    private fun newRating(rating:Rating){
+    private fun showDetail(result:RatingResult){
 
+        val intent = Intent(this, RatingSubjectActivity::class.java).apply {
+//            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
+//            putExtra(RatingSubjectActivity.SCENCE_TYPE, viewModel.scenceId)
+            putExtra(RatingSubjectActivity.RATING_NAME, result.ratingName)
+//            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
+            putExtra(RatingSubjectActivity.RECORD_ID, result.id)
+        }
+        startActivityForResult(intent, EmrFragment.ARG_NEW_ITEM_CODE)
+    }
+    private fun newRating(rating:Rating){
+        ratingFragment.dismiss()
         val intent = Intent(this, RatingSubjectActivity::class.java).apply {
             putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
             putExtra(RatingSubjectActivity.SCENCE_TYPE, viewModel.scenceId)
@@ -96,27 +104,9 @@ class RatingActivity : BaseActivity() {
             when (requestCode) {
                 EmrFragment.ARG_NEW_ITEM_CODE -> {
 
-                    Intent().let { intent->
-                        setResult(RESULT_OK, intent)
-                        finish()
-                    }
+                    viewModel.refresh()
                 }
             }
         }
     }
-
-//
-//    class EventActions constructor(private val context: WeakReference<androidx.fragment.app.FragmentActivity>, private val patientId:String):
-//        EventAction<Rating> {
-//        override fun onOpen(t: Rating) {
-//            val intent = Intent(context.get(), RatingSubjectActivity::class.java).apply {
-//                putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
-//                putExtra(RatingSubjectActivity.RATING_ID, t.id)
-//                putExtra(RatingSubjectActivity.RATING_NAME, t.name)
-//            }
-//            context.get()?.startActivityForResult(intent,EmrFragment.ARG_NEW_ITEM_CODE)
-//        }
-//
-//    }
-
 }

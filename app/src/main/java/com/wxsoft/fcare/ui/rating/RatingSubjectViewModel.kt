@@ -124,6 +124,7 @@ class RatingSubjectViewModel @Inject constructor(
             //前面对rating.value进行判空
             val ratingRecord = RatingRecord(
                 id = recordId,
+                createrId = account.id,
                 patientId = patientId,
                 sceneType = scenceType,
                 ratingId = rating.value!!.id,

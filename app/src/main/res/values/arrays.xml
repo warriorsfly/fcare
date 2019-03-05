@@ -99,6 +99,21 @@
         <item>@color/tint_work_space_rating_result</item>
     </array>
 
+
+    <!--评分title颜色-->
+    <array name="color_ratings">
+        <!--初步诊断-->
+        <item>@color/tint_rating_title_1</item>
+        <!--心电图-->
+        <item>@color/tint_rating_title_2</item>
+        <!--体征-->
+        <item>@color/tint_rating_title_3</item>
+        <!--主诉-->
+        <item>@color/tint_rating_title_4</item>
+        <!--检查检验-->
+        <item>@color/tint_rating_title_5</item>
+    </array>
+
     <array name="key_work_space_operations">
         <!--初步诊断-->
         <item>zd</item>

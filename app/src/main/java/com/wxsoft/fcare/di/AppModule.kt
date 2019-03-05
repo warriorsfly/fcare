@@ -61,6 +61,12 @@ class AppModule {
     @Named("WorkOperationTint")
     fun providesTintWorkOperations(context: Context): IntArray =
         context.resources.getIntArray(R.array.color_work_space_operations)
+
+    @Singleton
+    @Provides
+    @Named("ratingTint")
+    fun providesTintRating(context: Context): IntArray =
+        context.resources.getIntArray(R.array.color_ratings)
     @Singleton
     @Provides
     @Named("WorkOperationKey")
