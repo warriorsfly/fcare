@@ -63,6 +63,10 @@
         <activity
                 android:name=".ui.workspace.WorkingActivity"
                 android:theme="@style/AppTheme.NoActionBar.Dark"/>
+
+        <activity
+                android:name=".ui.workspace.TimePointActivity"
+                android:theme="@style/AppTheme.NoActionBar.Dark"/>
         <activity
                 android:name=".ui.details.complaints.ComplaintsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

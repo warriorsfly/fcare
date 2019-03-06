@@ -43,7 +43,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:textColor="#131D35"
-                    android:id="@+id/submit"
+                    android:id="@+id/time_line"
                     android:src="@drawable/ic_clock"
                     android:layout_marginRight="16dp"
                     android:layout_width="18dp"

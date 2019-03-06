@@ -60,6 +60,7 @@ import com.wxsoft.fcare.ui.patient.ProfileModule
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingModule
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
+import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import dagger.Module
@@ -204,5 +205,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [VitalSignsRecordModule::class])
     internal abstract fun vitalSignsRecordActivity(): VitalSignsRecordActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [WorkSpaceModule::class])
+    internal abstract fun timePointActivity(): TimePointActivity
 
 }

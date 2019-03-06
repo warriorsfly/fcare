@@ -1,8 +1,8 @@
 package com.wxsoft.fcare.core.data.entity
 
-data class TimeRecord (
+data class TimePoint (
     val id:String,
-    val excutedAt:String,
+    var excutedAt:String?,
     val eventName:String,
     /**
      * 字段对应的实体表字段名,需要在时间点编辑接口中回传
@@ -25,4 +25,12 @@ data class TimeRecord (
      * 描述
      */
     val eventContent:String
-)
+){
+    fun getExcuteTime():String{
+        return excutedAt?.substring(11,16)?:"--:--"
+    }
+
+    fun getExcuteDate():String{
+        return excutedAt?.substring(0,10)?:"--:--"
+    }
+}

@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.NewTimeLine
-import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.TimeQuality
-import com.wxsoft.fcare.core.data.entity.WorkOperation
+import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.lis.LisItem
 import com.wxsoft.fcare.core.data.entity.lis.LisRecord
@@ -15,8 +12,15 @@ import retrofit2.http.Path
 
 interface QualityControlApi {
 
-    @GET("QualityControl/GetTimeLineByPatientId/{patientId}/215-2")
+    @GET("QualityControl/GetTimeLineByPatientId/{patientId}")
     fun getTimeLines(@Path("patientId")id:String): Maybe<Response<List<NewTimeLine>>>
+
+    @GET("QualityControl/GetTimeLineByPatientId/{patientId}")
+    fun getTimePoints(@Path("patientId")id:String): Maybe<Response<List<TimePoint>>>
+
+    @POST("QualityControl/SaveTimePoint/")
+    fun saveTimePoints(@Body point: TimePoint): Maybe<Response<String>>
+
 
     @GET("QualityControl/GetTimeQualityByPatientId/{patientId}")
     fun getQualities(@Path("patientId")id:String): Maybe<Response<List<TimeQuality>>>
