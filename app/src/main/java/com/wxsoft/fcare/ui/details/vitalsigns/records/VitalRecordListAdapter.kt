@@ -2,15 +2,12 @@ package com.wxsoft.fcare.ui.details.vitalsigns.records
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.VitalSignRecord
 import com.wxsoft.fcare.databinding.ItemVitalSignsRecordListItemBinding
-import kotlinx.android.synthetic.main.item_vital_signs_record_list_item.view.*
 
 class VitalRecordListAdapter constructor(private val owner: LifecycleOwner, val viewModel: VitalSignsRecordViewModel) :
     RecyclerView.Adapter<VitalRecordListAdapter.ItemViewHolder>(){

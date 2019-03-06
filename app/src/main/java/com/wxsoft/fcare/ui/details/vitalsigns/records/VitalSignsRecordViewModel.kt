@@ -72,19 +72,6 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
         disposable.add(vitalSignApi.getVitalRecordlist(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doScenceLoadVitalRecord))
-
-//        vitalSignApi.getVitalRecordlist(patientId).toResource()
-//            .subscribe{
-//                when (it) {
-//                    is Resource.Success -> {
-//                        initVitals.value = it
-//                        messageAction.value = Event("保存成功")
-//                    }
-//                    is Resource.Error -> {
-//                        messageAction.value = Event( "网络接口出错")
-//                    }
-//                }
-//            }
     }
 
     private fun doScenceLoadVitalRecord(response: Response<List<VitalSignRecord>>){

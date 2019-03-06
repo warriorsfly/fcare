@@ -119,6 +119,12 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
             field=value
             notifyPropertyChanged(BR.createdDate)
         }
+    @Bindable
+        var sceneType:String= DateTimeUtils.getCurrentTime()
+            set(value) {
+                field=value
+                notifyPropertyChanged(BR.sceneType)
+            }
 
 
 }

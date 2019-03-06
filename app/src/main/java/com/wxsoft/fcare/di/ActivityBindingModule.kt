@@ -14,6 +14,8 @@ import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.ct.CTModule
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseModule
+import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
+import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordModule
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
@@ -209,5 +211,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [WorkSpaceModule::class])
     internal abstract fun timePointActivity(): TimePointActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DiagnoseRecordModule::class])
+    internal abstract fun diagnoseRecordActivity(): DiagnoseRecordActivity
 
 }

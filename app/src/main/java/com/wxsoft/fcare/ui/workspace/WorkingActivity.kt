@@ -20,6 +20,7 @@ import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -163,8 +164,8 @@ class WorkingActivity : BaseActivity() {
                 startActivity(intent)
             }
             ActionRes.ActionType.诊断 ->{//多条 需要记录界面
-                val intent = Intent(this@WorkingActivity, DiagnoseActivity::class.java).apply {
-                    putExtra(DiagnoseActivity.PATIENT_ID, patientId)
+                val intent = Intent(this@WorkingActivity, DiagnoseRecordActivity::class.java).apply {
+                    putExtra(DiagnoseRecordActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DIAGNOSE)
             }
