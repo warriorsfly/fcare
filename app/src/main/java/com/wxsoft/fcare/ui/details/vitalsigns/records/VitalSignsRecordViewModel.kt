@@ -15,9 +15,14 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
+import javax.inject.Named
 
 class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: VitalSignApi,
+                                                    @Named("ratingTint")
+                                                    private val tints:IntArray,
                                                     override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
@@ -43,17 +48,17 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
 
 
     val vitals:LiveData<List<VitalSignRecord>>
-    private val initVitals = MediatorLiveData<Resource<Response<List<VitalSignRecord>>>>()
+    private val initVitals = MediatorLiveData<List<VitalSignRecord>>()
 
     val addvital:LiveData<String>
     private val initAddvital = MediatorLiveData<String>()
 
-    val modifyvital:LiveData<String>
-    private val initModifyvital = MediatorLiveData<String>()
+    val modifyvital:LiveData<VitalSign>
+    private val initModifyvital = MediatorLiveData<VitalSign>()
 
     init {
         clickable=clickResult.map { it }
-        vitals = initVitals.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
+        vitals = initVitals.map {  it ?: emptyList() }
         addvital = initAddvital.map { it }
         modifyvital = initModifyvital.map { it }
     }
@@ -63,18 +68,32 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
     }
 
     fun getVitalRecords(){
-        vitalSignApi.getVitalRecordlist(patientId).toResource()
-            .subscribe{
-                when (it) {
-                    is Resource.Success -> {
-                        initVitals.value = it
-                        messageAction.value = Event("保存成功")
-                    }
-                    is Resource.Error -> {
-                        messageAction.value = Event( "网络接口出错")
-                    }
-                }
+
+        disposable.add(vitalSignApi.getVitalRecordlist(patientId).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::doScenceLoadVitalRecord))
+
+//        vitalSignApi.getVitalRecordlist(patientId).toResource()
+//            .subscribe{
+//                when (it) {
+//                    is Resource.Success -> {
+//                        initVitals.value = it
+//                        messageAction.value = Event("保存成功")
+//                    }
+//                    is Resource.Error -> {
+//                        messageAction.value = Event( "网络接口出错")
+//                    }
+//                }
+//            }
+    }
+
+    private fun doScenceLoadVitalRecord(response: Response<List<VitalSignRecord>>){
+
+        initVitals.value=response.result?.apply {
+            forEachIndexed { index, result ->
+                result.tint = tints[(index + 1) % tints.size]
             }
+        }
     }
 
     fun add(item:VitalSignRecord){
@@ -89,7 +108,7 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
     }
 
     fun clickVital(item:VitalSign){
-        initModifyvital.value = item.id
+        initModifyvital.value = item
     }
 
 }

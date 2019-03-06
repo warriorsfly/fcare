@@ -32,7 +32,6 @@ class VitalRecordListAdapter constructor(private val owner: LifecycleOwner, val 
         holder.binding.apply {
             item=differ.currentList[position]
             viewModel=this@VitalRecordListAdapter.viewModel
-            vitalRecordsDetailsList
             if(vitalRecordsDetailsList.adapter==null){
                 vitalRecordsDetailsList.adapter=VitalSignsDetailItemAdapter(owner,this@VitalRecordListAdapter.viewModel).apply {
                     items = differ.currentList[position].items

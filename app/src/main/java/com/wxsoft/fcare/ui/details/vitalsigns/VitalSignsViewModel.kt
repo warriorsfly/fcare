@@ -145,7 +145,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                             loadVitalResult.value = Resource.Success(vi.data.result?: VitalSign())
                             vital.value?.setUpChecked()
                             selectedConsciousnessPosition.set(
-                                consciousnessItems.value?.indexOf(vi.data.result?.consciousness_Type) ?: -1
+                                consciousnessItems.value?.indexOf(vi.data.result?.consciousnesTypeName) ?: -1
                             )
 
                         }

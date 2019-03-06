@@ -8,9 +8,13 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.TimeQuality
 import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.InterventionApi
+import com.wxsoft.fcare.core.data.remote.PACSApi
 import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.remote.QualityControlApi
+import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -19,6 +23,8 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
+                                           private val pacsApi: PACSApi,
+                                           private val interventionApi: InterventionApi,
                                            private val qualityControlApi: QualityControlApi,
                                            @Named("WorkOperationIcon")
                                            private val icons:Array<Int>,
@@ -117,6 +123,41 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
      */
     fun operationClick(operation: WorkOperation){
 
+    }
+
+
+    fun commitNoticePacs(){ //通知启动CT室
+        disposable.add(
+            pacsApi.notice(patientId,account.id).toResource()
+                .subscribe {
+
+                    when(it){
+                        is Resource.Success->{
+                            messageAction.value= Event("通知成功")
+                        }
+                        is Resource.Error->{
+                            messageAction.value=Event(it.throwable.message?:"")
+                        }
+                    }
+                }
+        )
+    }
+
+    fun commitNoticeInv(){//通知启动导管室
+        disposable.add(
+            interventionApi.notice(patientId,account.id).toResource()
+                .subscribe {
+
+                    when(it){
+                        is Resource.Success->{
+                            messageAction.value= Event("通知成功")
+                        }
+                        is Resource.Error->{
+                            messageAction.value=Event(it.throwable.message?:"")
+                        }
+                    }
+                }
+        )
     }
 
 }
