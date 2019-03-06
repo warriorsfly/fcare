@@ -20,9 +20,9 @@ import android.graphics.Color
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseMethod
 import android.net.Uri
-import androidx.viewpager.widget.ViewPager
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
@@ -105,7 +105,7 @@ fun diagnosisCode(textView: TextView, diagnosisCode: String) {
 @BindingAdapter(value = ["imageUri"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: Uri?) {
 
-    GlideApp.with(imageView).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
+    GlideApp.with(imageView.context).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
 }
 
 @BindingAdapter(value = ["opItem"], requireAll = false)
@@ -119,7 +119,43 @@ fun setOpItem(imageView: ImageView, ico:Int) {
 @BindingAdapter(value = ["imageUrl"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: String?) {
 
-    GlideApp.with(imageView).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
+    GlideApp.with(imageView.context).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
+}
+
+@BindingAdapter(value = ["eventStatus"], requireAll = false)
+fun setEventStatus(imageView: ImageView, status: String?) {
+
+    when(status) {
+
+        "fail" -> {
+            imageView.let {
+                it.setImageResource(R.drawable.ic_time_point_warning)
+                it.setPadding(0, 6, 0, 6)
+            }
+        }
+        "success" -> {
+            imageView.let {
+                it.setImageResource(R.drawable.ic_work_space_operation_done)
+                it.setPadding(0, 6, 0, 6)
+            }
+        }
+        else -> {
+            imageView.let {
+                it.setImageResource(R.drawable.ic_black)
+                it.setPadding(0, 0, 0, 0)
+            }
+        }
+    }
+}
+
+@BindingAdapter(value = ["eventMemoStatus"], requireAll = false)
+fun setEventStatus(textView: TextView, status: String?) {
+    if(status==null){
+        textView.layoutParams.height=0
+
+    }else{
+        textView.layoutParams.height=LinearLayout.LayoutParams.WRAP_CONTENT
+    }
 }
 
 object Converter{

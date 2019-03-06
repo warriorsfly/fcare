@@ -97,6 +97,14 @@ class WorkingActivity : BaseActivity() {
                     }
 
                 })
+
+                timeLine.setOnClickListener {
+                    val intent = Intent(this@WorkingActivity, TimePointActivity::class.java)
+                        .apply {
+                            putExtra(TimePointActivity.PATIENT_ID, patientId)
+                        }
+                    startActivityForResult(intent, TimePointActivity.BASE_INFO)
+                }
             }
 
 

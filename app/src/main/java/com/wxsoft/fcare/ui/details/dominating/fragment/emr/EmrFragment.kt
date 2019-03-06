@@ -78,7 +78,7 @@ class EmrFragment : DaggerFragment() {
 
     companion object {
 
-        private const val ARG_PATIENT = "arg.patient"
+        private const val ARG_PATIENT = "arg.liveData"
         private const val ARG_PREHOS = "arg.prehos"
         const val ARG_TASK_EMR = "arg.task_emr"
         const val ARG_NEW_ITEM_CODE = 20

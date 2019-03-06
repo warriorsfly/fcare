@@ -14,6 +14,11 @@ internal abstract class WorkSpaceModule {
     @ViewModelKey(WorkingViewModel::class)
     abstract fun bindWorkingViewModel(viewModel: WorkingViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(TimePointViewModel::class)
+    abstract fun bindTimePointViewModel(viewModel: TimePointViewModel): ViewModel
+
 
     @ChildFragmentScoped
     @ContributesAndroidInjector
