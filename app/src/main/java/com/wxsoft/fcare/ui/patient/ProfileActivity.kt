@@ -58,7 +58,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
         (v as? Button)?.let {
             selectedId = it.id
             val currentTime = it.text.toString().let { text ->
-                if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+                if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse("$text:00").time
             }
 
             dialog = createDialog(currentTime)

@@ -1,5 +1,7 @@
 package com.wxsoft.fcare.ui.workspace
 
+import androidx.databinding.ObservableField
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -15,10 +17,13 @@ import com.wxsoft.fcare.core.data.remote.QualityControlApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -43,6 +48,8 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             loadQualities(field)
             loadOperations(field,account.id)
         }
+    val courseSeconds=ObservableInt()
+    val course=ObservableField<String>()
     /**
      * 病人信息
      */
@@ -97,6 +104,16 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
 
     private fun doPatient(response:Response<Patient>){
         loadPatientResult.value=response
+
+        response.result?.attackTime?.let {
+            courseSeconds.set(((System.currentTimeMillis() - DateTimeUtils.formatter.parse(it).time) / 60000).toInt())
+
+            disposable.add(
+                Observable.interval(1, TimeUnit.MINUTES)
+                    .subscribe {
+                        courseSeconds.set(courseSeconds.get().plus(1))
+                    })
+        }
     }
     private fun doQualities(it: Response<List<TimeQuality>>){
         loadTimeQualityResult.value=it
@@ -117,14 +134,6 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     private fun error(throwable: Throwable){
         messageAction.value= Event(throwable.message?:"未知错误")
     }
-
-    /**
-     * 点击事件
-     */
-    fun operationClick(operation: WorkOperation){
-
-    }
-
 
     fun commitNoticePacs(){ //通知启动CT室
         disposable.add(

@@ -85,6 +85,23 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#FE5F55"
+                        tools:text="3分钟"
+                        android:text="@{viewModel.course+`分钟`}"
+                        android:id="@+id/time"
+                        android:background="@color/dark_background"
+                        android:paddingTop="3.5dp"
+                        android:paddingBottom="3.5dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:layout_marginTop="11dp"
+                        android:layout_marginEnd="12.5dp"
+                        app:layout_constraintRight_toLeftOf="@id/type"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
                 <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/quality"
                         android:background="#454257"

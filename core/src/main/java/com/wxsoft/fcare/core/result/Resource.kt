@@ -1,9 +1,15 @@
 package com.wxsoft.fcare.core.result
 
+import com.wxsoft.fcare.core.data.entity.Response
+
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>
  */
+
+@Deprecated(message = "接口并非restful的，使用这个不是很合适",
+    level = DeprecationLevel.WARNING,
+    replaceWith =ReplaceWith(expression = "com.wxsoft.fcare.core.data.entity.Response"))
 sealed class Resource<out R> {
 
     data class Success<out T>(val data: T) : Resource<T>()
