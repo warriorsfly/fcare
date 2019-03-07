@@ -53,7 +53,7 @@
                     android:id="@+id/ic_human"
                     android:layout_width="12dp"
                     android:layout_height="12dp"
-                    android:src="@drawable/bg_ic_human"
+                    android:src="@drawable/ic_human"
                     android:layout_marginTop="5dp"
                     app:layout_constraintLeft_toLeftOf="@+id/drug_name"
                     app:layout_constraintTop_toBottomOf="@+id/usege"/>
@@ -77,7 +77,7 @@
                     android:layout_width="13dp"
                     android:layout_height="13dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/bg_ic_time_record"
+                    android:src="@drawable/ic_time_record"
                     app:layout_constraintLeft_toRightOf="@+id/patient_name"
                     app:layout_constraintTop_toTopOf="@+id/ic_human"/>
 

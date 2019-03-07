@@ -54,7 +54,16 @@ class AppModule {
             R.drawable.ic_work_space_thrombolytic_timeline,
             R.drawable.ic_work_space_pci,
             R.drawable.ic_work_space_complications,
-            R.drawable.ic_work_space_rating_result)
+            R.drawable.ic_work_space_rating_result,
+            R.drawable.ic_work_space_checkbody,
+            R.drawable.ic_work_space_measures,
+            R.drawable.ic_work_space_notification,
+            R.drawable.ic_work_space_notification,
+            R.drawable.ic_work_space_catheter,
+            R.drawable.ic_work_space_cabg,
+            R.drawable.ic_work_space_leavehospital,
+            R.drawable.ic_work_space_lapse
+        )
 
     @Singleton
     @Provides
