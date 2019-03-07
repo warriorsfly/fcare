@@ -45,7 +45,7 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
     }
 
     private fun saveTimePoint(point: TimePoint){
-        disposable.add(qualityControlApi.saveTimePoints(point)
+        disposable.add(qualityControlApi.saveTimePoints(TimePointChange(patientId,point.excutedAt,point.tableName,point.fieldName))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::saveTimePoints,::error))
@@ -62,6 +62,7 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
                     excutedAt = currentPoint?.excutedAt
                     currentPoint = null
                 }
+
                 saveTimepointsResult.value=indexOf(firstOne)
             }
 

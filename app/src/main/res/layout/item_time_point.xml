@@ -2,6 +2,7 @@
 <layout>
     <data>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.TimePoint"/>
+        <variable name="beforeEnd" type="Boolean"/>
     </data>
 
    <androidx.constraintlayout.widget.ConstraintLayout
@@ -39,6 +40,7 @@
                android:layout_width="0.5dp"
                android:id="@+id/bottom_line"
                android:background="#525252"
+               app:goneUnless="@{beforeEnd}"
                app:layout_constraintLeft_toLeftOf="@id/icon"
                app:layout_constraintRight_toRightOf="@id/icon"
                app:layout_constraintBottom_toBottomOf="parent"

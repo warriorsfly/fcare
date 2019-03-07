@@ -11,6 +11,7 @@ import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.TimePoint
+import com.wxsoft.fcare.core.data.entity.TimePointHead
 import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -88,7 +89,12 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
         })
 
         viewModel.indexData.observe(this, Observer {
+            if(it==0){
+                (adapter.differ.currentList[0] as? TimePointHead)?.excutedAt=adapter.points[0] .excutedAt?.substring(0,10)
+                adapter.notifyItemChanged(it)
+            }
             adapter.notifyItemChanged(it+1)
+//            adapter.points=adapter.points
         })
 
         viewModel.mesAction.observe(this, EventObserver{

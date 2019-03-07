@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.TimePoint
+import com.wxsoft.fcare.core.data.entity.TimePointHead
 import com.wxsoft.fcare.databinding.ItemTimePointBinding
 import com.wxsoft.fcare.databinding.ItemTimePointHeadBinding
 
@@ -16,7 +17,7 @@ import com.wxsoft.fcare.databinding.ItemTimePointHeadBinding
 class TimePointAdapter constructor(private val owner:LifecycleOwner,private val itemClick:(TimePoint)->Unit) :
     RecyclerView.Adapter<TimePointAdapter.ItemViewHolder>() {
 
-    private val differ = AsyncListDiffer<Any>(this, DiffCallback)
+    val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
     override fun getItemCount(): Int {
         return differ.currentList.size
@@ -26,7 +27,7 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
         set(value) {
             field = value
             val merged = mutableListOf<Any>()
-            merged += field.firstOrNull { it.excutedAt?.isNotEmpty() ?: false }?.excutedAt ?.substring(0,10)?: ""
+            merged += TimePointHead(field.firstOrNull { it.excutedAt?.isNotEmpty() ?: false }?.excutedAt ?.substring(0,10))
             merged.addAll(field)
             differ.submitList(merged)
         }
@@ -37,12 +38,13 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
             is ItemViewHolder.TimePointViewHolder->{
                 holder.binding.apply {
                     item = differ.currentList[position] as TimePoint
+                    beforeEnd=differ.currentList.size!=position+1
                     executePendingBindings()
                 }
             }
             is ItemViewHolder.DateViewHolder->{
                 holder.binding.apply {
-                    item = differ.currentList[position] as String
+                    item = differ.currentList[position] as TimePointHead
                     executePendingBindings()
                 }
             }
@@ -82,7 +84,7 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
 
     override fun getItemViewType(position: Int): Int {
         return when (differ.currentList[position]) {
-            is String -> R.layout.item_time_point_head
+            is TimePointHead -> R.layout.item_time_point_head
             is TimePoint -> R.layout.item_time_point
             else -> throw IllegalArgumentException("unkown type at postion[$position]")
         }
@@ -103,20 +105,20 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
 
             return when{
-                oldItem is String && newItem is String->true
+                oldItem is TimePointHead && newItem is TimePointHead->oldItem.excutedAt==newItem.excutedAt
                 oldItem is TimePoint && newItem is TimePoint -> oldItem.id==newItem.id
-                else-> throw IllegalArgumentException("unkown type]")
+                else-> throw IllegalArgumentException("unKnown type]")
             }
         }
 
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
 
             return when{
-                oldItem is String && newItem is String->
-                    oldItem==newItem
+                oldItem is TimePointHead && newItem is TimePointHead->
+                    oldItem.excutedAt==newItem.excutedAt
                 oldItem is TimePoint && newItem is TimePoint ->
                     oldItem.eventName == newItem.eventName  && oldItem.excutedAt == newItem.excutedAt
-                else-> throw IllegalArgumentException("unkown type]")
+                else-> throw IllegalArgumentException("unKnown type]")
             }
         }
     }

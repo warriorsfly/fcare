@@ -34,3 +34,5 @@ data class TimePoint (
         return excutedAt?.substring(0,10)?:"--:--"
     }
 }
+
+data class TimePointHead (var excutedAt:String?)
