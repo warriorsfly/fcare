@@ -264,7 +264,7 @@
                     android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/bg_ic_human"
+                    android:src="@drawable/ic_human"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -288,7 +288,7 @@
                     android:layout_width="13dp"
                     android:layout_height="13dp"
                     android:layout_marginLeft="20dp"
-                    android:src="@drawable/bg_ic_time_record"
+                    android:src="@drawable/ic_time_record"
                     app:layout_constraintLeft_toRightOf="@+id/patient_name"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>

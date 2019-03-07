@@ -82,7 +82,7 @@
 
                     <ImageView
                             android:id="@+id/ic_select_drugbag"
-                            android:src="@drawable/bg_ic_select_drug_bags"
+                            android:src="@drawable/ic_select_drug_bags"
                             app:layout_constraintLeft_toLeftOf="@+id/select_drugbags"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +94,7 @@
 
                     <ImageView
                             android:id="@+id/ic_select_drugs"
-                            android:src="@drawable/bg_ic_add_drugs"
+                            android:src="@drawable/ic_add_drugs"
                             app:layout_constraintLeft_toLeftOf="@+id/select_drugs"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -168,7 +168,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
-                            android:src="@drawable/bg_ic_drug"
+                            android:src="@drawable/ic_drug"
                             android:layout_width="150dp"
                             android:layout_height="90dp"/>
 

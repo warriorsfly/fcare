@@ -97,6 +97,22 @@
         <item>@color/tint_work_space_complications</item>
         <!--评估结果-->
         <item>@color/tint_work_space_rating_result</item>
+        <!--查体-->
+        <item>@color/tint_work_space_checkbody</item>
+        <!--措施-->
+        <item>@color/tint_work_space_measures</item>
+        <!--通知启动导管室-->
+        <item>@color/tint_work_space_notification</item>
+        <!--通知启动CT室-->
+        <item>@color/tint_work_space_notification</item>
+        <!--导管室操作-->
+        <item>@color/tint_work_space_catheter</item>
+        <!--cabg-->
+        <item>@color/tint_work_space_cabg</item>
+        <!--出院诊断-->
+        <item>@color/tint_work_space_leavehospital</item>
+        <!--患者转归-->
+        <item>@color/tint_work_space_lapse</item>
     </array>
 
 
@@ -147,5 +163,21 @@
         <item>complications</item>
         <!--评估结果-->
         <item>rating_result</item>
+        <!--查体-->
+        <item>physical_examination</item>
+        <!--措施-->
+        <item>disposition_measures</item>
+        <!--通知启动导管室-->
+        <item>tzqddgs</item>
+        <!--通知启动CT室-->
+        <item>tzqdcts</item>
+        <!--导管室操作-->
+        <item>dgscz</item>
+        <!--CABG-->
+        <item>cabg</item>
+        <!--出院诊断-->
+        <item>cyzd</item>
+        <!--患者转归-->
+        <item>hzzg</item>
     </array>
 </resources>
