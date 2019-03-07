@@ -50,8 +50,8 @@ class VitalSignsActivity : BaseActivity() {
             viewModel.id = id
         }else {
             viewModel.patientId = patientId
-            viewModel.sceneTypeId = typeId
         }
+        viewModel.sceneTypeId = typeId
         viewModel.loadVitalSign()
 
         viewModel.backToLast.observe(this, Observer {

@@ -3,8 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="item" type="com.wxsoft.fcare.core.data.entity.VitalSignRecord"/>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordViewModel"/>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.DiagnoseRecord"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordViewModel"/>
     </data>
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -51,6 +51,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="13dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
                     android:src="@drawable/bg_ic_add_drugs"
                     android:layout_width="15dp"
                     android:layout_height="15dp"/>
@@ -69,18 +70,10 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-            <View
-                    android:background="@color/line_gray"
-                    android:layout_marginTop="3dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/type_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"/>
-
             <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/vital_records_details_list"
+                    android:id="@+id/diagnose_records_details_list"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"

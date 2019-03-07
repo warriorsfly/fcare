@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityVitalSignsRecordBinding
@@ -63,10 +64,11 @@ class VitalSignsRecordActivity :  BaseActivity() {
         }
         startActivityForResult(intent,ADD_VITAL )
     }
-    fun toModifyVital(id:String){
+    fun toModifyVital(item: VitalSign){
         val intent = Intent(this, VitalSignsActivity::class.java).apply {
             putExtra(VitalSignsActivity.PATIENT_ID, patientId)
-            putExtra(VitalSignsActivity.ID, id)
+            putExtra(VitalSignsActivity.TYPE_ID, item.sceneType)
+            putExtra(VitalSignsActivity.ID, item.id)
         }
         startActivityForResult(intent,ADD_VITAL )
     }

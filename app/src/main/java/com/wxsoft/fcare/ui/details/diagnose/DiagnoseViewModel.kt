@@ -51,6 +51,11 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             if (value == "") return
             field = value
         }
+    var sceneTypeId: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
 
     val backToLast:LiveData<Boolean>
     private val initbackToLast = MediatorLiveData<Boolean>()
@@ -179,6 +184,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             location=1
             doctorId=account.id
             doctorName=account.trueName
+            sceneType = sceneTypeId
         }
 
 //        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.id }
