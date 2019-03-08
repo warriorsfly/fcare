@@ -3,12 +3,14 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="item" type="com.wxsoft.fcare.core.data.entity.rating.Subject"/>
+        <variable name="subject" type="com.wxsoft.fcare.core.data.entity.rating.Subject"/>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.rating.Option"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:padding="10dp"
+            android:onClick="@{()->subject.check(item)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -34,6 +36,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginStart="12dp"
                 android:id="@+id/checked"
+                android:backgroundTint="@{item.checked? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                android:elevation="@{item.checked? 3:0}"
+                android:background="@drawable/bg_time_point_whit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="12dp"
                 android:textSize="18sp"

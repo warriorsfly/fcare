@@ -91,4 +91,6 @@
     <color name="tint_rating_title_3">#796EF4</color>
     <color name="tint_rating_title_4">#30C890</color>
     <color name="tint_rating_title_5">#0FCEC6</color>
+    <color name="tint_rating_option_unselected">#E7E4F2</color>
+    <color name="tint_rating_option_selected">#63B0F8</color>
 </resources>

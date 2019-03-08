@@ -73,7 +73,7 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
                 val presenter = differ.currentList[position] as Option
                 holder.binding.apply {
                     item=presenter
-                    rating=this@SubjectAdapter.rating
+//                    rating=this@SubjectAdapter.rating
                     subject=subjects.first { it.options.contains(presenter) }
                     lifecycleOwner = this@SubjectAdapter.lifecycleOwner
                     executePendingBindings()
@@ -95,8 +95,8 @@ class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
 
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
             return when{
-                oldItem is Subject && newItem is Subject-> oldItem.id == newItem.id
-                oldItem is Option && newItem is Option-> oldItem.id == newItem.id
+                oldItem is Subject && newItem is Subject-> oldItem.options == newItem.options
+                oldItem is Option && newItem is Option-> oldItem.checked == newItem.checked
                 else-> false
             }
         }
