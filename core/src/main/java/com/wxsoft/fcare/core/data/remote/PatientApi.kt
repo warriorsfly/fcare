@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.Page
-import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.core.data.entity.Quality
-import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.*
 import io.reactivex.Maybe
 import io.reactivex.Observable
 import io.reactivex.Single
@@ -37,5 +34,8 @@ interface PatientApi{
 
     @GET("QualityControl/GetQualityIndexByPatientId/{patientId}")
     fun getQualityIndexByPatientId(@Path("patientId")patientId:String):Maybe<Response<Quality>>
+
+    @POST("Patient/GetPaged")
+    fun getPatients(@Body item: PatientsCondition):Maybe<Page<Patient>>
 
 }
