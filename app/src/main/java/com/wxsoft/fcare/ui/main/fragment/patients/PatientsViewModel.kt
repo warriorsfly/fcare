@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.core.result.Event
@@ -30,7 +31,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     private val patientName = MediatorLiveData<String>()
 
     private val patientResult = patientName.map{
-        repository.getPatients(it, 10)
+        repository.getPatients(PatientsCondition("","2019-03-01 01:30:00","2019-03-08 12:30:00","",1,10))
     }
 
     val patients = patientResult.switchMap {

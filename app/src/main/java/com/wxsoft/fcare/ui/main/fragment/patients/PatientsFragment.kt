@@ -1,20 +1,19 @@
 package com.wxsoft.fcare.ui.main.fragment.patients
 
 import android.app.Activity
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.widget.SearchView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentPatientsBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_patients.*
@@ -57,7 +56,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
             list.adapter=adapter
             viewModel=this@PatientsFragment.viewModel
 
-            search.setOnQueryTextListener(this@PatientsFragment)
+//            search.setOnQueryTextListener(this@PatientsFragment)
             floatingActionButton.setOnClickListener {
                 val intent = Intent(activity!!, ProfileActivity::class.java)
                 startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
@@ -87,26 +86,24 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener{
 
     }
 
-    override fun onStop() {
-        search.clearFocus()
-        super.onStop()
-    }
+//    override fun onStop() {
+//        search.clearFocus()
+//        super.onStop()
+//    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
-
                 BaseActivity.NEW_PATIENT_REQUEST -> {
-
-                    viewModel.showPatients(search.query.toString())
+//                    viewModel.showPatients(search.query.toString())
                 }
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        search.clearFocus()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        search.clearFocus()
+//    }
 }

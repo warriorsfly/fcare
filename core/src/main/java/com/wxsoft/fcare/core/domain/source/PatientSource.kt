@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
@@ -13,7 +14,7 @@ import com.wxsoft.fcare.core.utils.map
 
 class PatientSource constructor(
     private val api:PatientApi,
-    private val name:String
+    private val requestitem: PatientsCondition
 ) : PageKeyedDataSource<Int, Patient>() {
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
         //ignore
@@ -22,7 +23,7 @@ class PatientSource constructor(
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
 
 //        if(params.key==null) return
-        api.getPagedPatients(name,params.key,params.requestedLoadSize)
+        api.getPatients(requestitem)
             .toResource()
             .subscribe {
                 when(it){
@@ -36,7 +37,7 @@ class PatientSource constructor(
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Patient>) {
 
-        api.getPagedPatients(name,1,params.requestedLoadSize)
+        api.getPatients(requestitem)
             .toResource()
             .subscribe {
                 when(it){
