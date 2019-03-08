@@ -24,8 +24,7 @@ data class Rating(val id:String="",
         }
 
     fun changeScore(){
-        score = subjects.filter { (it.selectedIndex?:-1)>=0 }
-            .sumBy{ it.options[it.selectedIndex!!].score }
+        score = subjects.sumBy{ it.options.sumBy { op->op.score } }
     }
 
 }

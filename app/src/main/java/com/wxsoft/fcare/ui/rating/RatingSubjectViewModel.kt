@@ -3,9 +3,9 @@ package com.wxsoft.fcare.ui.rating
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
-import com.wxsoft.fcare.core.data.entity.rating.SubjectRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.RatingApi
 import com.wxsoft.fcare.core.result.Event
@@ -47,7 +47,6 @@ class RatingSubjectViewModel @Inject constructor(
     init {
 
         rating=loadRatingResult.map { it ?: Rating() }
-//        loadRating()
     }
 
     private fun loadRecord(){
@@ -55,15 +54,7 @@ class RatingSubjectViewModel @Inject constructor(
         disposable.add(ratingApi.getOneRecord(recordId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                loadRecordResult.value=it.result
-
-                ratingId=it.result?.ratingId?:""
-            },
-                {
-                    messageAction.value= Event(it.message?:"")
-                }
-            ))
+            .subscribe (::doRecord,::error))
 
     }
 
@@ -71,46 +62,13 @@ class RatingSubjectViewModel @Inject constructor(
             disposable.add(ratingApi.getOne(ratingId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe ({
-                loadRatingResult.value=it.result?.apply {
-
-                    loadRecordResult.value ?: return@apply
-                    subjects.forEach {
-                        subject->
-                        subject.selectedIndex=subject.options.indexOfFirst {
-                            option->
-                            option.id==loadRecordResult.value?.records?.firstOrNull { subjectRecord ->
-                                subjectRecord.subjectId == subject.id
-                            }?.selection
-
-                        }
-                    }
-                }
-            },
-                {
-                    messageAction.value= Event(it.message?:"")
-                }
-            ))
+            .subscribe (::doSubjects,::error))
 
     }
-
-//    private fun loadRating(){
-//        ratingApi.getOne(ratingId)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe ({
-//                loadRatingResult.value=it.result
-//            },
-//                {
-//                    messageAction.value= Event(it.message?:"")
-//                }
-//            )
-//    }
-
     private fun checkSavable():Boolean{
 
         if (rating.value==null) return false
-        val errorOne=rating.value?.subjects?.firstOrNull { it.options.size>1 && (it.selectedIndex?:-1)==-1 }
+        val errorOne=rating.value?.subjects?.firstOrNull { it.options.size>1 && it.options.none { it.checked } }
 
         errorOne?.let {
             messageAction.value=Event(it.name+"未选择")
@@ -119,35 +77,59 @@ class RatingSubjectViewModel @Inject constructor(
         return true
     }
 
-    fun saveRecord(){
-        if(checkSavable()) {
-            //前面对rating.value进行判空
-            val ratingRecord = RatingRecord(
-                id = recordId,
-                createrId = account.id,
-                patientId = patientId,
-                sceneType = scenceType,
-                ratingId = rating.value!!.id,
-                ratingName = rating.value!!.name,
-                score = rating.value!!.score,
-                createdDate = loadRecordResult.value?.createdDate
-            )
-            ratingRecord.records = rating.value?.subjects?.filter { it.selectedIndex ?: -1 >= 0 }?.map {
-                SubjectRecord(
-                    recordId = "",
-                    subjectId = it.id,
-                    selection = it.options[it.selectedIndex ?: -1].id,
-                    score = it.options[it.selectedIndex ?: -1].score
-                )
-            }!!
+    private fun doSubjects(response: Response<Rating>) {
 
-            disposable.add(ratingApi.saveRatingResult(ratingRecord)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ messageAction.value = Event("保存成功") },
-                    { messageAction.value = Event(it.message ?: "") })
-            )
+        loadRecordResult.value?.records?.forEach {
+
+            val selectedOptions = it.selection.split(",")
+            response.result?.subjects?.first { sub -> sub.id == it.subjectId }?.options?.forEach { op ->
+                if (selectedOptions.contains(op.id)) {
+                    op.checked = true
+                }
+            }
         }
+
+        loadRatingResult.value = response.result
+    }
+
+    private fun doRecord(response: Response<RatingRecord>){
+        loadRecordResult.value=response.result
+
+        ratingId=response.result?.ratingId?:""
+    }
+    private fun error(throwable: Throwable){
+        messageAction.value= Event(throwable.message?:"")
+    }
+
+    fun saveRecord(){
+//        if(checkSavable()) {
+//            //前面对rating.value进行判空
+//            val ratingRecord = RatingRecord(
+//                id = recordId,
+//                createrId = account.id,
+//                patientId = patientId,
+//                sceneType = scenceType,
+//                ratingId = rating.value!!.id,
+//                ratingName = rating.value!!.name,
+//                score = rating.value!!.score,
+//                createdDate = loadRecordResult.value?.createdDate
+//            )
+//            ratingRecord.records = rating.value?.subjects?.filter { it.selectedIndex ?: -1 >= 0 }?.map {
+//                SubjectRecord(
+//                    recordId = "",
+//                    subjectId = it.id,
+//                    selection = it.options[it.selectedIndex ?: -1].id,
+//                    score = it.options[it.selectedIndex ?: -1].score
+//                )
+//            }!!
+//
+//            disposable.add(ratingApi.saveRatingResult(ratingRecord)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe({ messageAction.value = Event("保存成功") },
+//                    { messageAction.value = Event(it.message ?: "") })
+//            )
+//        }
     }
 
 }
