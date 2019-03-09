@@ -226,7 +226,27 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
             field = value
             notifyPropertyChanged(BR.status)
         }
+    @get:Bindable
+    var currentScene: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.currentScene)
+        }
+    @SerializedName("currentScene_Name")
+    @get:Bindable
+    var currentSceneName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.currentSceneName)
+        }
 
+
+    @get:Bindable
+    var comingWay: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.comingWay)
+        }
     @get:Bindable
     var createdBy: String=""
         set(value) {

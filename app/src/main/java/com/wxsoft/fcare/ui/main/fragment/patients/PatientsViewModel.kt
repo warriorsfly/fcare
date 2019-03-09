@@ -4,17 +4,26 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.DictEnumApi
+import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.core.result.Event
-import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.EventActions
+import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.core.utils.switchMap
+import com.wxsoft.fcare.ui.BaseViewModel
+import com.wxsoft.fcare.ui.EventActions
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
 
+
 class PatientsViewModel @Inject constructor(private val repository: IPatientRepository,
+                                            private val dicEnumApi: DictEnumApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
                                             override val gon: Gson
 ):  BaseViewModel(sharedPreferenceStorage,gon),EventActions {
@@ -23,15 +32,35 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     val detailAction: LiveData<Event<String>>
         get() = _detailAction
     override fun onOpen(t: String) {
-
         _detailAction.value=Event(t)
     }
 
+    val clickTop:LiveData<String>
+    private val clickTopResult = MediatorLiveData<String>()
+
+    val clickCusDate:LiveData<String>
+    private val clickCusDateResult = MediatorLiveData<String>()
+
+
+    val checkCondition:LiveData<PatientsCondition>
+    private val checkConditionResult = MediatorLiveData<PatientsCondition>()
+
+    val typeItems: LiveData<List<Dictionary>>
+    private val loadtypeItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+
+    init {
+        clickTop = clickTopResult.map { it }
+        checkCondition = checkConditionResult.map { it?:PatientsCondition(1,10) }
+        clickCusDate = clickCusDateResult.map { it }
+        checkConditionResult.value = null
+        typeItems = loadtypeItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
+        getMeasuresItems()
+    }
 
     private val patientName = MediatorLiveData<String>()
 
     private val patientResult = patientName.map{
-        repository.getPatients(PatientsCondition("","2019-03-01 01:30:00","2019-03-08 12:30:00","",1,10))
+        repository.getPatients(checkCondition.value?:PatientsCondition(1,10))
     }
 
     val patients = patientResult.switchMap {
@@ -50,5 +79,129 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     fun onSwipeRefresh(): Boolean {
         showPatients(patientName.value?:"")
         return true
+    }
+
+    fun selectDate(){
+        clickTopResult.value = "DATE"
+    }
+
+    fun selectType(){
+        clickTopResult.value = "TYPE"
+    }
+
+    fun search(){
+        clickTopResult.value = "SEARCH"
+    }
+    //拉取所有大病种类
+    private fun getMeasuresItems(){
+        dicEnumApi.loadDiagnoseTypeResultItems().toResource()
+            .subscribe {
+                items->
+                loadtypeItemsResult.value = items
+            }
+    }
+
+    fun selectIllessType(item:Dictionary){
+        typeItems.value?.filter { it.checked }?.map { it.checked = false }
+        item.checked = true
+        checkCondition.value?.diagnoseType = item.id
+        checkCondition.value?.diagnoseTypeStr = item.itemName
+        patientName.value = ""
+        clickCusDateResult.value = "选择类型确定"
+    }
+
+    fun clickQuckDate(item:String){
+        checkCondition.value?.checkedCusDate = true
+        checkCondition.value?.startDate = ""
+        checkCondition.value?.endDate = ""
+        when(item){
+            "本日" ->{
+                checkCondition.value?.checkedCusDateStr = "本日"
+                checkCondition.value?.startDate = getTimesmorning()
+                checkCondition.value?.endDate = DateTimeUtils.getCurrentTime()
+            }
+            "本周" ->{
+                checkCondition.value?.checkedCusDateStr = "本周"
+                checkCondition.value?.startDate = getTimesWeekmorning()
+                checkCondition.value?.endDate = DateTimeUtils.getCurrentTime()
+            }
+            "本月" ->{
+                checkCondition.value?.checkedCusDateStr = "本月"
+                checkCondition.value?.startDate = getTimesMonthmorning()
+                checkCondition.value?.endDate = DateTimeUtils.getCurrentTime()
+            }
+            "本季度" ->{
+                checkCondition.value?.checkedCusDateStr = "本季度"
+                checkCondition.value?.startDate = getCurrentQuarterStartTime().toString()
+                checkCondition.value?.endDate = DateTimeUtils.getCurrentTime()
+            }
+            "本年" ->{
+                checkCondition.value?.checkedCusDateStr = "本年"
+                checkCondition.value?.startDate = getCurrentYearStartTime()
+                checkCondition.value?.endDate = DateTimeUtils.getCurrentTime()
+            }
+        }
+    }
+
+    fun clickCusDate(item:String){
+        checkCondition.value?.checkedCusDate = false
+        checkCondition.value?.checkedCusDateStr = "自定义时间"
+        clickCusDateResult.value = item
+    }
+
+    fun sureDate(){
+        patientName.value = ""
+        clickCusDateResult.value = "选择时间确定"
+    }
+
+    // 获得当天0点时间
+    fun getTimesmorning(): String {
+        val cal = Calendar.getInstance()
+        cal.set(Calendar.HOUR_OF_DAY, 0)
+        cal.set(Calendar.SECOND, 0)
+        cal.set(Calendar.MINUTE, 0)
+        cal.set(Calendar.MILLISECOND, 0)
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime())
+    }
+    // 获得本周一0点时间
+    fun getTimesWeekmorning(): String {
+        val cal = Calendar.getInstance()
+        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0)
+        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
+    }
+
+    // 获得本月第一天0点时间
+    fun getTimesMonthmorning(): String {
+        val cal = Calendar.getInstance()
+        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0)
+        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH))
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
+    }
+    fun getCurrentQuarterStartTime(): String? {
+        val c = Calendar.getInstance()
+        val currentMonth = c.get(Calendar.MONTH) + 1
+        val longSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val shortSdf = SimpleDateFormat("yyyy-MM-dd")
+        var now: Date? = null
+        try {
+            if (currentMonth >= 1 && currentMonth <= 3)
+                c.set(Calendar.MONTH, 0)
+            else if (currentMonth >= 4 && currentMonth <= 6)
+                c.set(Calendar.MONTH, 3)
+            else if (currentMonth >= 7 && currentMonth <= 9)
+                c.set(Calendar.MONTH, 4)
+            else if (currentMonth >= 10 && currentMonth <= 12)
+                c.set(Calendar.MONTH, 9)
+            c.set(Calendar.DATE, 1)
+            now = longSdf.parse(shortSdf.format(c.time) + " 00:00:00")
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now)
+    }
+    fun getCurrentYearStartTime(): String {
+        val cal = Calendar.getInstance();
+        return ""+cal.get(Calendar.YEAR) + "-01-01 00:00:00"
     }
 }

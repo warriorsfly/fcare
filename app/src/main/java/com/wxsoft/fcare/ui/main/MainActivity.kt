@@ -100,7 +100,7 @@ class MainActivity : BaseActivity() {
         if (NfcAdapter.ACTION_TAG_DISCOVERED == intent!!.action) {
 
             val tagFromIntent = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
-            val cardId = NfcUtils.toHexString(tagFromIntent.id)
+//            val cardId = NfcUtils.toHexString(tagFromIntent.id)
 
 //            viewModel.loadByRfid(cardId)
         }
