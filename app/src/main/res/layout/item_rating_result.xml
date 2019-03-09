@@ -74,6 +74,7 @@
                 android:id="@+id/score"
                 android:layout_marginRight="16dp"
                 tools:text="86"
+                app:ratingGradeColor="@{item.resultGrade.foreColor}"
                 android:text="@{String.valueOf(item.score)}"
                 android:drawablePadding="10dp"
                 android:textColor="#525252"

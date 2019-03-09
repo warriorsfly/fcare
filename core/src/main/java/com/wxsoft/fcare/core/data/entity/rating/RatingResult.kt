@@ -1,7 +1,5 @@
 package com.wxsoft.fcare.core.data.entity.rating
 
-import com.google.gson.annotations.SerializedName
-
 /**
  * 评分
  */
@@ -16,4 +14,5 @@ data class RatingResult(val id:String,
                         val createdDate:String?,
                         val createrName:String?,
                         val modifiedDate:String?,
-                        val modifierName:String?)
+                        val modifierName:String?,
+                        val resultGrade:Grade?)

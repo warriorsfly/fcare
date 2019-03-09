@@ -19,7 +19,7 @@ import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
 
 class OptionAdapter constructor(private val owner: LifecycleOwner,
                                 private val rating:Rating?,
-                                private val subject: Subject):
+                                var subject: Subject?=null):
     ListAdapter<Option,OptionAdapter.ItemViewHolder>(DiffCallback) {
 
 

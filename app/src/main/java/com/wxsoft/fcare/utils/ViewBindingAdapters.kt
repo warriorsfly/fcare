@@ -157,6 +157,16 @@ fun setEventStatus(textView: TextView, status: String?) {
     }
 }
 
+@BindingAdapter(value = ["ratingGradeColor"], requireAll = false)
+fun setRatingGradeColor(textView: TextView, color: String?) {
+    if(color==null){
+        textView.setTextColor(Color.BLACK)
+
+    }else{
+        textView.setTextColor(Color.parseColor(color))
+    }
+}
+
 object Converter{
     @InverseMethod("stringToInt")
     @JvmStatic fun intToString(value: Int): String {

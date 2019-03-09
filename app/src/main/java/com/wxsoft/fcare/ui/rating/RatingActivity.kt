@@ -2,6 +2,8 @@ package com.wxsoft.fcare.ui.rating
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,6 +19,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import kotlinx.android.synthetic.main.activity_rating.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -63,8 +66,9 @@ class RatingActivity : BaseActivity() {
         viewModel.scenceRatings.observe(this, Observer {
             adapter.submitList(it)
         })
-        back.setOnClickListener{onBackPressed()}
 
+
+        setSupportActionBar(toolbar)
     }
 
     private fun newItem(scence:String) {
@@ -106,5 +110,19 @@ class RatingActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        when(item?.itemId){
+            android.R.id.home->onBackPressed()
+        }
+
+        return true
     }
 }

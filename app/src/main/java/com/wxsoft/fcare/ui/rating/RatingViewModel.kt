@@ -23,10 +23,7 @@ class RatingViewModel @Inject constructor(
     private val tints:IntArray,
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-    override var title = "评分"
-    override val clickableTitle: String
-        get() = ""
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
 
     var scenceId:String=""
@@ -43,12 +40,6 @@ class RatingViewModel @Inject constructor(
         }
     }
 
-    override val clickable:LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=false
-    }
-
     /**
      * 场景化数据
      */
@@ -56,8 +47,6 @@ class RatingViewModel @Inject constructor(
     private val loadRatingResult =MediatorLiveData<List<ScencelyRatingResult>>()
 
     init {
-
-        clickable=clickResult.map { it }
         scenceRatings=loadRatingResult.map { it ?: emptyList() }
     }
 
@@ -95,9 +84,5 @@ class RatingViewModel @Inject constructor(
     private fun doLoadRating(response: Response<List<Rating>>){
 
         loadResult.value=response.result
-    }
-
-    override fun click(){
-
     }
 }

@@ -10,7 +10,9 @@ import com.wxsoft.fcare.core.BR
  */
 data class Rating(val id:String="",
                   val name:String="",
-                  val memo:String=""
+                  val memo:String="",
+                  val resultGrades:List<Grade> = emptyList()
+
                   ):BaseObservable(){
 
 
@@ -23,13 +25,22 @@ data class Rating(val id:String="",
             notifyPropertyChanged(BR.score)
         }
 
+    @get:Bindable
+    @Transient
+    var grade: Grade?=null
+    set(value) {
+        field=value
+        notifyPropertyChanged(BR.grade)
+    }
     fun refreshScore(subject: Subject,option: Option){
         subject.check(option)
-        score = subjects.sumBy{ it.options.filter { option ->  option.checked }.sumBy { op->op.score } }
+        refreshScore()
     }
 
     fun refreshScore(){
         score = subjects.sumBy{ it.options.filter { option ->  option.checked }.sumBy { op->op.score } }
+
+        grade=resultGrades.firstOrNull { it.scoreStart<score && it.scoreEnd>= score }
     }
 
 }

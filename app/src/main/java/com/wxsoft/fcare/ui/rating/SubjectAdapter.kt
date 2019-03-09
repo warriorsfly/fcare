@@ -31,12 +31,15 @@ class SubjectAdapter constructor(private val owner: LifecycleOwner,
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            val subject=getItem(position)
-            item=subject
+            val sub=getItem(position)
+            item=sub
             if(optionList.adapter==null){
-                optionList.adapter=OptionAdapter(owner,rat,subject)
+                optionList.adapter=OptionAdapter(owner,rat)
             }
-            (optionList.adapter as OptionAdapter).submitList(subject.options)
+            (optionList.adapter as? OptionAdapter)?.apply {
+                subject=sub
+                submitList(sub.options)
+            }
             executePendingBindings()
         }
 

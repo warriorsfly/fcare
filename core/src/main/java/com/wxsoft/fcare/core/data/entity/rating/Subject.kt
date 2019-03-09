@@ -22,7 +22,7 @@ data class Subject(val id:String,
                 option.checked = !option.checked
             }else {
                 if (!option.checked) {
-                    options.firstOrNull { it.checked }?.checked = false
+                    options.firstOrNull { it.checked }?.checked=false
                     option.checked = !option.checked
                 }
             }

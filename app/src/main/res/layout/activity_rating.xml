@@ -12,10 +12,9 @@
             tools:context=".ui.rating.RatingActivity">
         <include layout="@layout/layout_new_title"
                  android:id="@+id/title"
-                 app:title="评分"
                  android:layout_width="match_parent"
-                 android:layout_height="wrap_content"/>
-
+                 android:layout_height="wrap_content"
+                 app:title="@{`评分`}"/>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
