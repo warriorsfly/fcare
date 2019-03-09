@@ -125,7 +125,7 @@ abstract class ActivityBindingModule {
     internal abstract fun ratingActivity(): RatingActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [RatingModule::class])
+    @ContributesAndroidInjector(modules = [RatingModule::class,ViewPoolModule::class])
     internal abstract fun ratingSubjectActivity(): RatingSubjectActivity
 
     @ActivityScoped

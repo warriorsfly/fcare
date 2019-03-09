@@ -63,15 +63,14 @@ fun doneAt(view: TextView, doneAt:String?) {
     view.text=doneAt?.substring(11,16)
 }
 
-@BindingAdapter("subject","option","selectedIndex","rating")
-fun selectedOptionAt(view: View, subject:Subject,option:Option,selectedIndex:Int?,rating: Rating?) {
-    if(selectedIndex==null || selectedIndex==-1){
-        view.setBackgroundResource(R.color.white)
-    }else{
-        view.setBackgroundResource(if(subject.options[selectedIndex]==option) R.color.rating_red else R.color.white)
-    }
-    rating?.changeScore()
-}
+//@BindingAdapter("android:onClick","rating","subject","option")
+//fun selectOption(view: View,rating: Rating?, subject:Subject?,option:Option?) {
+//
+//    option?.let {
+//        subject?.check(it)
+//        rating?.refreshScore()
+//    }
+//}
 
 
 @BindingAdapter("invisibleUnless")

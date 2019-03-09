@@ -16,7 +16,7 @@
         <View
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:background="#E7E4F2"
+            android:background="@color/line_gray"
             android:layout_width="match_parent"
             android:layout_height="0.5dp"/>
 

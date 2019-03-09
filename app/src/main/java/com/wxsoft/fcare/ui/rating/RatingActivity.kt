@@ -40,11 +40,9 @@ class RatingActivity : BaseActivity() {
         intent?.getStringExtra(PATIENT_ID)?:""
     }
 
-
     @Inject
     @field:Named("ratingResultViewPool")
     lateinit var emrItemViewPool: RecyclerView.RecycledViewPool
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,7 +76,7 @@ class RatingActivity : BaseActivity() {
     private fun showDetail(result:RatingResult){
 
         val intent = Intent(this, RatingSubjectActivity::class.java).apply {
-//            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
+            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
 //            putExtra(RatingSubjectActivity.SCENCE_TYPE, viewModel.scenceId)
             putExtra(RatingSubjectActivity.RATING_NAME, result.ratingName)
 //            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)

@@ -23,8 +23,13 @@ data class Rating(val id:String="",
             notifyPropertyChanged(BR.score)
         }
 
-    fun changeScore(){
-        score = subjects.sumBy{ it.options.sumBy { op->op.score } }
+    fun refreshScore(subject: Subject,option: Option){
+        subject.check(option)
+        score = subjects.sumBy{ it.options.filter { option ->  option.checked }.sumBy { op->op.score } }
+    }
+
+    fun refreshScore(){
+        score = subjects.sumBy{ it.options.filter { option ->  option.checked }.sumBy { op->op.score } }
     }
 
 }

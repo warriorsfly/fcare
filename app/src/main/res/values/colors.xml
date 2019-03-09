@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#ffeb523c</color>
+    <color name="colorPrimary">#63B0F8</color>
     <color name="colorPrimaryDark">#ffeb523c</color>
     <color name="colorAccent">#ffeb523c</color>
     <!--<color name="colorPrimary">#FFFFFF</color>-->
@@ -93,4 +93,6 @@
     <color name="tint_rating_title_5">#0FCEC6</color>
     <color name="tint_rating_option_unselected">#E7E4F2</color>
     <color name="tint_rating_option_selected">#63B0F8</color>
+    <color name="tint_rating_option_text_unselected">#999999</color>
+    <color name="tint_rating_option_text_selected">@color/white</color>
 </resources>

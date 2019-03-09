@@ -32,10 +32,9 @@ class RatingResultAdapter constructor(private val owner: LifecycleOwner,
             val result=getItem(position)
             item=result
             if(list.adapter==null){
-                list.adapter=RatingAdapter(owner,showDetail).apply {
-                    submitList(result.items)
-                }
+                list.adapter=RatingAdapter(owner,showDetail)
             }
+            (list.adapter as?RatingAdapter)?. submitList(result.items)
             executePendingBindings()
         }
     }
@@ -59,12 +58,12 @@ class RatingResultAdapter constructor(private val owner: LifecycleOwner,
     }
     object DiffCallback : DiffUtil.ItemCallback<ScencelyRatingResult>() {
         override fun areItemsTheSame(oldItem: ScencelyRatingResult, newItem: ScencelyRatingResult): Boolean {
-            return oldItem.typeId==newItem.typeId
+            return oldItem.typeId==newItem.typeId && oldItem.items.size==newItem.items.size
         }
 
         override fun areContentsTheSame(oldItem: ScencelyRatingResult, newItem: ScencelyRatingResult): Boolean {
 
-            return oldItem.items==newItem.items
+            return oldItem.items==newItem.items && oldItem.items.size==newItem.items.size
 
         }
     }

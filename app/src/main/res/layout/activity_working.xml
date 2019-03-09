@@ -13,6 +13,8 @@
         tools:context=".ui.workspace.WorkingActivity"
         android:fitsSystemWindows="true">
 
+        <!--<include layout="@layout/layout_new_title"-->
+
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/appbar"
                 app:layout_constraintTop_toTopOf="parent"

@@ -100,7 +100,6 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
 
-        back.setOnClickListener { onBackPressed() }
     }
 
     private fun doTimeSelect(point:TimePoint){

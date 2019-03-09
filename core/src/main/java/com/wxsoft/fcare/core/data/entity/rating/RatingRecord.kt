@@ -16,7 +16,7 @@ data class RatingRecord(val id:String="",
                          */
                         @SerializedName("resultLevel")val level:Int=0,
                         var createdDate:String?=null,
-                        val score:Int=0){
+                        var score:Int=0){
 
     @SerializedName("answerRecordDetails")var records:List<SubjectRecord> = emptyList()
 }

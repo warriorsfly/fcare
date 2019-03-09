@@ -1,117 +1,58 @@
 package com.wxsoft.fcare.ui.rating
 
-
-import androidx.lifecycle.LifecycleOwner
-import androidx.databinding.ViewDataBinding
-import androidx.recyclerview.widget.AsyncListDiffer
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.rating.Option
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.Subject
 import com.wxsoft.fcare.databinding.ItemRatingSubjectBinding
-import com.wxsoft.fcare.databinding.ItemRatingSubjectItemBinding
 
 
-class SubjectAdapter constructor(private val lifecycleOwner: LifecycleOwner):
-    RecyclerView.Adapter<SubjectAdapter.ItemViewHolder>() {
+class SubjectAdapter constructor(private val owner: LifecycleOwner,
+                                 private val pool: RecyclerView.RecycledViewPool,
+                                 private var rat:Rating?=null):
+    ListAdapter<Subject,SubjectAdapter.ItemViewHolder>(DiffCallback) {
 
-    private val differ = AsyncListDiffer<Any>(this, DiffCallback)
-
-    var rating: Rating?=null
-    var subjects: List<Subject> = emptyList()
-        set(value) {
-            field = value
-            val merged = mutableListOf<Any>()
-            field.forEach {
-                merged+=it
-                merged.addAll(it.options)
-            }
-
-
-            differ.submitList(merged)
-        }
-
-    override fun getItemViewType(position: Int): Int {
-        return when(differ.currentList[position]){
-            is Subject-> R.layout.item_rating_subject
-            is Option-> R.layout.item_rating_subject_item
-            else -> throw IllegalStateException("Unknown view type at position $position")
-        }
+    fun setRat(rating:Rating){
+        rat=rating
     }
-    override fun getItemCount(): Int {
-        return differ.currentList.size
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return when(viewType){
-            R.layout.item_rating_subject -> ItemViewHolder.RatingViewHolder(
-                ItemRatingSubjectBinding.inflate(inflater, parent, false)
-            )
-            R.layout.item_rating_subject_item -> ItemViewHolder.OptionItemViewHolder(
-                ItemRatingSubjectItemBinding.inflate(inflater, parent, false)
-            )
-            else -> throw IllegalStateException("Unknown viewType $viewType")
-        }
+        return ItemViewHolder(
+            ItemRatingSubjectBinding.inflate(inflater, parent, false).apply {
+                optionList.setRecycledViewPool(pool)
+                lifecycleOwner=owner
+            }
+        )
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        when(holder) {
-            is ItemViewHolder.RatingViewHolder -> {
-                val presenter = differ.currentList[position] as Subject
-                holder.binding.apply {
-                    item=presenter
-                    lifecycleOwner = this@SubjectAdapter.lifecycleOwner
-                    executePendingBindings()
-                }
+        holder.binding.apply {
+            val subject=getItem(position)
+            item=subject
+            if(optionList.adapter==null){
+                optionList.adapter=OptionAdapter(owner,rat,subject)
             }
-            is ItemViewHolder.OptionItemViewHolder -> {
-                val presenter = differ.currentList[position] as Option
-                holder.binding.apply {
-                    item=presenter
-//                    rating=this@SubjectAdapter.rating
-                    subject=subjects.first { it.options.contains(presenter) }
-                    lifecycleOwner = this@SubjectAdapter.lifecycleOwner
-                    executePendingBindings()
-                }
+            (optionList.adapter as OptionAdapter).submitList(subject.options)
+            executePendingBindings()
+        }
 
+    }
 
-            }
+    object DiffCallback : DiffUtil.ItemCallback<Subject>() {
+        override fun areItemsTheSame(oldItem: Subject, newItem: Subject): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Subject, newItem: Subject): Boolean {
+            return oldItem.options == newItem.options
         }
     }
 
-    object DiffCallback : DiffUtil.ItemCallback<Any>() {
-        override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when{
-                oldItem is Subject && newItem is Subject-> oldItem.id == newItem.id
-                oldItem is Option && newItem is Option-> oldItem.id == newItem.id
-                else-> false
-            }
-        }
-
-        override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when{
-                oldItem is Subject && newItem is Subject-> oldItem.options == newItem.options
-                oldItem is Option && newItem is Option-> oldItem.checked == newItem.checked
-                else-> false
-            }
-        }
-    }
-
-    sealed class ItemViewHolder(bind: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(bind.root) {
-
-        class RatingViewHolder(
-            val binding: ItemRatingSubjectBinding
-        ) : ItemViewHolder(binding)
-
-        class OptionItemViewHolder(
-            val binding: ItemRatingSubjectItemBinding
-        ) : ItemViewHolder(binding)
-    }
+    class ItemViewHolder(val binding: ItemRatingSubjectBinding) : RecyclerView.ViewHolder(binding.root)
 }
 
 

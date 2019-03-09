@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.entity.rating
 
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
-import com.wxsoft.fcare.core.BR
 
 /**
  * 评分题
@@ -13,7 +10,7 @@ data class Subject(val id:String,
                    val name:String,
                    @SerializedName("sortNum")
                    val index:Int,
-                   val subjectType:String):BaseObservable(){
+                   val subjectType:String){
     @SerializedName("subjectOptions")
     var options:List<Option> =  emptyList()
 

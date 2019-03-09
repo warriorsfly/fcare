@@ -12,7 +12,8 @@ import com.wxsoft.fcare.databinding.ItemRatingResultBinding
 
 
 class RatingAdapter constructor(private val owner: LifecycleOwner,
-                                private val showDetail:(RatingResult)->Unit): ListAdapter<RatingResult,RatingAdapter.ItemViewHolder>(DiffCallback) {
+                                private val showDetail:(RatingResult)->Unit):
+    ListAdapter<RatingResult,RatingAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
