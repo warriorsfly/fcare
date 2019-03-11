@@ -32,7 +32,7 @@ import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 
-class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener, OnDateSetListener{
+class PatientsFragment : DaggerFragment() , OnDateSetListener{
 
     private var dialog: TimePickerDialog?=null
 
@@ -47,17 +47,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener, OnDa
 
     private var selectedId=0
 
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        return viewModel.showPatients(if(p0.isNullOrEmpty())"" else p0)
-    }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
-        if(p0.isNullOrEmpty()){
-            viewModel.showPatients("")
-            return true
-        }
-        return false
-    }
 
     private lateinit var viewModel: PatientsViewModel
 
