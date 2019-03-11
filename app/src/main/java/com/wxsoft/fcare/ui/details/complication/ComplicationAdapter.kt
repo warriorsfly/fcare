@@ -1,17 +1,19 @@
-package com.wxsoft.fcare.ui.main.fragment.patients
+package com.wxsoft.fcare.ui.details.complication
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Dictionary
-import com.wxsoft.fcare.databinding.ItemPatientsSelectTypeBinding
+import com.wxsoft.fcare.databinding.ItemComplicationListItemBinding
 
-class PatientSelectTypeAdapter constructor(private val owner: LifecycleOwner, val viewModel: PatientsViewModel) :
-    RecyclerView.Adapter<PatientSelectTypeAdapter.ItemViewHolder>(){
+
+class ComplicationAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: ComplicationViewModel) :
+    RecyclerView.Adapter<ComplicationAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
 
@@ -29,28 +31,27 @@ class PatientSelectTypeAdapter constructor(private val owner: LifecycleOwner, va
 
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.viewModel, this@PatientSelectTypeAdapter.viewModel)
-            lifecycleOwner=owner
+            setVariable(BR.listener,viewModel)
+            lifecycleOwner = this@ComplicationAdapter.lifecycleOwner
             executePendingBindings()
+
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding =
-            ItemPatientsSelectTypeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding: ItemComplicationListItemBinding =
+            ItemComplicationListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding: ItemPatientsSelectTypeBinding) : RecyclerView.ViewHolder(binding.root) {
-        var binding: ItemPatientsSelectTypeBinding
+    class ItemViewHolder(binding:ItemComplicationListItemBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemComplicationListItemBinding
             private set
         init {
             this.binding = binding
         }
     }
-
-
 
 
     object DiffCallback : DiffUtil.ItemCallback<Dictionary>() {
@@ -64,5 +65,6 @@ class PatientSelectTypeAdapter constructor(private val owner: LifecycleOwner, va
             return oldItem.id == newItem.id
         }
     }
+
 
 }

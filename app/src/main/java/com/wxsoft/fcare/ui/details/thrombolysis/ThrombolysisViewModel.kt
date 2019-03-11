@@ -157,6 +157,11 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
 
+    //并发症
+    fun toComplication(){
+        loadClickLine.value = "complication"
+    }
+
 
     //溶栓场所列表点击选择
     fun clickPlaces(item:Dictionary){

@@ -10,6 +10,8 @@ import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsModule
+import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
+import com.wxsoft.fcare.ui.details.complication.ComplicationModule
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.ct.CTModule
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
@@ -28,6 +30,8 @@ import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresModule
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
+import com.wxsoft.fcare.ui.details.notification.NotificationActivity
+import com.wxsoft.fcare.ui.details.notification.NotificationModule
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
 import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarActivity
@@ -52,6 +56,8 @@ import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
+import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsActivity
+import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsModule
 import com.wxsoft.fcare.ui.message.MessageActivity
 import com.wxsoft.fcare.ui.message.MessageModule
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
@@ -215,5 +221,18 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DiagnoseRecordModule::class])
     internal abstract fun diagnoseRecordActivity(): DiagnoseRecordActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SearchPatientsModule::class])
+    internal abstract fun searchPatientsActivity(): SearchPatientsActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ComplicationModule::class])
+    internal abstract fun complicationActivity(): ComplicationActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [NotificationModule::class])
+    internal abstract fun notificationActivity(): NotificationActivity
+
 
 }

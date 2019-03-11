@@ -25,6 +25,7 @@ import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConse
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
@@ -69,6 +70,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         const val COME_FROM = "COME_FROM"
         const val INFORMED_CONSENT = 20
         const val DRUG = 30
+        const val COMPLICATION = 40
     }
     private lateinit var viewModel: ThrombolysisViewModel
     @Inject
@@ -85,10 +87,10 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
             .apply {
                 lifecycleOwner = this@ThrombolysisActivity
             }
-        patientId=intent.getStringExtra(ThrombolysisActivity.PATIENT_ID)?:""
-        id=intent.getStringExtra(ThrombolysisActivity.ID)?:""
-        thrombolysisId=intent.getStringExtra(ThrombolysisActivity.THROMBOLYSIS_ID)?:""
-        comeFrom=intent.getStringExtra(ThrombolysisActivity.COME_FROM)?:""
+        patientId=intent.getStringExtra(PATIENT_ID)?:""
+        id=intent.getStringExtra(ID)?:""
+        thrombolysisId=intent.getStringExtra(THROMBOLYSIS_ID)?:""
+        comeFrom=intent.getStringExtra(COME_FROM)?:""
 
         viewModel.comefrom = comeFrom
         viewModel.patientId = patientId
@@ -116,6 +118,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                     }
                 }
                 "drugs" -> toDrugs()
+                "complication" -> toComplication()
             }
         })
 
@@ -181,6 +184,13 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
             putExtra(PharmacyActivity.COME_FROM,"THROMBOLYSIS")
         }
         startActivityForResult(intent, ThrombolysisActivity.DRUG)
+    }
+
+    private fun toComplication(){
+        val intent = Intent(this@ThrombolysisActivity, ComplicationActivity::class.java).apply {
+            putExtra(ComplicationActivity.PATIENT_ID,patientId)
+        }
+        startActivityForResult(intent, ThrombolysisActivity.COMPLICATION)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
