@@ -96,7 +96,9 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     init {
         task=loadTaskResult.map {
 
-            val theTask=it.result?: Task("")
+            val theTask=it.result?.apply {
+                status=status
+            }?: Task("")
             startTimeStamp = if(theTask.startAt==null) null else DateTimeUtils.formatter.parse(theTask.startAt)?.time
             arriveTimeStamp = if(theTask.arriveAt==null) null else DateTimeUtils.formatter.parse(theTask.arriveAt)?.time
             firstMetTimeStamp = if(theTask.firstMet==null) null else DateTimeUtils.formatter.parse(theTask.firstMet)?.time

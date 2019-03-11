@@ -20,10 +20,12 @@ import android.graphics.Color
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseMethod
 import android.net.Uri
+import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Option
 import com.wxsoft.fcare.core.data.entity.rating.Rating
@@ -47,7 +49,17 @@ fun taskSelectCarTextColor(view: TextView, visible: Boolean) {
 @BindingAdapter("taskAt")
 fun taskAt(view: TextView, visible: Boolean) {
     view.setBackgroundResource(if (visible) R.drawable.bg_task_process_normal else R.drawable.bg_task_process_pressed)
-    view.setTextColor(if (visible) view.context.resources.getColor(R.color.task_done) else view.context.resources.getColor(R.color.task_undo))
+    view.elevation=if (visible) 0.5f else 6f
+}
+
+@RequiresApi(Build.VERSION_CODES.M)
+@BindingAdapter("taskedAt")
+fun taskedAt(view: TextView, visible: Boolean) {
+    view.setTextColor(
+        if (visible)
+            view.context.resources.getColor( R.color.colorPrimary,view.context.theme)
+        else
+            view.context.resources.getColor( R.color.tint_rating_option_text_unselected,view.context.theme))
 }
 
 @BindingAdapter("overflowAt")

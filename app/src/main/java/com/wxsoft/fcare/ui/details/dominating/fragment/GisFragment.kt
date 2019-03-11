@@ -6,23 +6,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.databinding.FragmentProcessArriveBinding
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
+import com.wxsoft.fcare.databinding.FragmentTaskGisBinding
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class ProcessArriveFragment : DaggerFragment() {
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance():ProcessArriveFragment{
-
-            return ProcessArriveFragment()
-
-        }
-    }
+class GisFragment : DaggerFragment() {
 
     private lateinit var viewModel: DoMinaViewModel
 
@@ -30,7 +20,7 @@ class ProcessArriveFragment : DaggerFragment() {
     lateinit var factory: ViewModelFactory
 
 
-    lateinit var binding: FragmentProcessArriveBinding
+    lateinit var binding: FragmentTaskGisBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +33,11 @@ class ProcessArriveFragment : DaggerFragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding=FragmentProcessArriveBinding.inflate(inflater,container, false).apply {
-            lifecycleOwner = this@ProcessArriveFragment
-            viewModel=this@ProcessArriveFragment.viewModel
+        binding=FragmentTaskGisBinding.inflate(inflater,container, false).apply {
+            lifecycleOwner = this@GisFragment
+            viewModel=this@GisFragment.viewModel
         }
 
         return binding.root
     }
-
 }

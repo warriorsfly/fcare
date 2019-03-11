@@ -137,10 +137,8 @@
 
     </style>
     <style name="ActionBarTitle.Dark" parent="android:Widget.TextView">
-
         <!-- Customizes the color of the action bar title-->
         <item name="android:textColor">#FFF</item>
-
         <!-- Customizes the size of the action bar title-->
         <item name="android:textSize">18sp</item>
 

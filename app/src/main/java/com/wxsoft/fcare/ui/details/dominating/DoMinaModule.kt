@@ -27,19 +27,11 @@ internal abstract class DoMinaModule {
 
     @ChildFragmentScoped
     @ContributesAndroidInjector
-    abstract fun contributeProcessStartFragment(): ProcessStartFragment
+    abstract fun contributeProcessStartFragment(): ProcessFragment
 
     @ChildFragmentScoped
     @ContributesAndroidInjector
-    abstract fun contributeProcessArriveFragment(): ProcessArriveFragment
-
-    @ChildFragmentScoped
-    @ContributesAndroidInjector
-    abstract fun contributeProcessReturningFragment(): ProcessReturningFragment
-
-    @ChildFragmentScoped
-    @ContributesAndroidInjector
-    abstract fun contributeProcessArriveHosFragment(): ProcessArriveHosFragment
+    abstract fun contributeProcessReturningFragment(): GisFragment
 
     @ChildFragmentScoped
     @ContributesAndroidInjector

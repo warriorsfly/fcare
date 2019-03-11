@@ -138,7 +138,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener, OnDa
                         if (text!!.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
                     }
                     dialog = createDialog(currentTime)
-                    dialog?.show(fragmentManager, "all")
+                    dialog?.show(childFragmentManager, "all")
 
                 }
                 "结束时间" ->{
@@ -147,7 +147,7 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener, OnDa
                         if (text!!.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
                     }
                     dialog = createDialog(currentTime)
-                    dialog?.show(fragmentManager, "all")
+                    dialog?.show(childFragmentManager, "all")
                 }
                 "选择时间确定" ->{
                     popwindow.dismiss()

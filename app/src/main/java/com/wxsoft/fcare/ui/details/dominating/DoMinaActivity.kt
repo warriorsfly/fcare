@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.wxsoft.fcare.R
@@ -16,7 +17,6 @@ import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
-import com.wxsoft.fcare.ui.patient.ProfileActivity
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
@@ -31,12 +31,10 @@ class DoMinaActivity : BaseActivity() {
 
     companion object {
         const val TASK_ID = "TASK_ID"
-        const val STATE_COUNT = 5
+        const val STATE_COUNT = 3
         const val START_POSITION = 0
-        const val ARRIVE_POSITION = 1
-        const val PATIENT_INFO_POSITION = 2
-        const val RETUNING_POSITION = 3
-        const val ARRIVE_HOS_POSITION = 4
+        const val PATIENTS_POSITION = 1
+        const val GIS_POSITION = 2
 
     }
 
@@ -53,9 +51,6 @@ class DoMinaActivity : BaseActivity() {
             lifecycleOwner = this@DoMinaActivity
 
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-
         taskId=intent.getStringExtra(TASK_ID)?:""
 
         viewModel.taskId=taskId
@@ -83,18 +78,14 @@ class DoMinaActivity : BaseActivity() {
             dialog.show()
         })
 
-        viewModel.pageAction.observe(this,EventObserver{
-            viewPager.setCurrentItem(it,true)
-        })
         viewPager.adapter = TaskStateAdapter(supportFragmentManager)
-        back.setOnClickListener { onBackPressed() }
-        add_patient.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java).apply {
-                putExtra(ProfileActivity.TASK_ID, taskId)
-                putExtra(ProfileActivity.PATIENT_ID, "")
-            }
-            startActivityForResult(intent,NEW_PATIENT_REQUEST)
-        }
+//        add_patient.setOnClickListener {
+//            val intent = Intent(this, ProfileActivity::class.java).apply {
+//                putExtra(ProfileActivity.TASK_ID, taskId)
+//                putExtra(ProfileActivity.PATIENT_ID, "")
+//            }
+//            startActivityForResult(intent,NEW_PATIENT_REQUEST)
+//        }
     }
 
 
@@ -118,14 +109,12 @@ class DoMinaActivity : BaseActivity() {
 class TaskStateAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
-    private val statusFragments:List<androidx.fragment.app.Fragment> by lazyFast {
-        (0..4).map {
+    private val statusFragments:List<Fragment> by lazyFast {
+        (0..2).map {
             when (it) {
-                DoMinaActivity.START_POSITION ->ProcessStartFragment()
-                DoMinaActivity.ARRIVE_POSITION ->ProcessArriveFragment()
-                DoMinaActivity.PATIENT_INFO_POSITION -> PatientManagerFragment()
-                DoMinaActivity.RETUNING_POSITION ->ProcessReturningFragment()
-                DoMinaActivity.ARRIVE_HOS_POSITION ->ProcessArriveHosFragment()
+                DoMinaActivity.START_POSITION ->ProcessFragment()
+                DoMinaActivity.PATIENTS_POSITION -> PatientManagerFragment()
+                DoMinaActivity.GIS_POSITION ->GisFragment()
 
                 else -> throw IllegalStateException("Unknown index $it")
             }
@@ -135,6 +124,16 @@ class TaskStateAdapter(fm: FragmentManager) :
     override fun getItem(position: Int): androidx.fragment.app.Fragment {
 
         return statusFragments[position]
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return when (position) {
+            DoMinaActivity.START_POSITION ->"任务进度"
+            DoMinaActivity.PATIENTS_POSITION -> "病人信息"
+            DoMinaActivity.GIS_POSITION ->"轨迹"
+
+            else -> throw IllegalStateException("Unknown index $position")
+        }
     }
 
     override fun getCount(): Int {

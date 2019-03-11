@@ -9,7 +9,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_scroll_up_fragment"
-            android:backgroundTint="#F3F3F3"
+            android:backgroundTint="@color/drug_bg_gray"
             tools:context=".ui.details.pharmacy.drugcar.DrugCarActivity">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:background="@color/white"

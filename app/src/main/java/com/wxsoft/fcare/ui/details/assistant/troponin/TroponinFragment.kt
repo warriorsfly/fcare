@@ -77,7 +77,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
         return fragmentInjector
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
         AndroidSupportInjection.inject(this)
     }
@@ -134,14 +134,14 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
             .setWheelItemTextSize(12)
             .build()
     }
-//
-    override fun onDismiss(dialog: DialogInterface?) {
-        super.onDismiss(dialog)
-        val activity = activity
-        if (activity is DialogInterface.OnDismissListener) {
-            (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
-        }
-    }
+////
+//    override fun onDismiss(dialog: DialogInterface?) {
+//        super.onDismiss(dialog)
+//        val activity = activity
+//        if (activity is DialogInterface.OnDismissListener) {
+//            (activity as DialogInterface.OnDismissListener).onDismiss(dialog)
+//        }
+//    }
 
 
 

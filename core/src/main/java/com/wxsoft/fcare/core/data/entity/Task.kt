@@ -18,12 +18,6 @@ data class Task (val id:String): BaseObservable(){
 
     @get:Bindable
     var startAt: String? = ""
-//        get() {
-//            if (field == null)
-//                return field
-//
-//            return field?.substring(11,16)
-//        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.startAt)
@@ -39,12 +33,6 @@ data class Task (val id:String): BaseObservable(){
 
     @get:Bindable
     var firstMet: String? = ""
-//        get() {
-//            if (field == null)
-//                return field
-//
-//            return field?.substring(11,16)
-//        }
         set(value) {
             field = value
             notifyPropertyChanged(BR.firstMet)
@@ -52,12 +40,6 @@ data class Task (val id:String): BaseObservable(){
 
     @get:Bindable
     var returnAt: String? = ""
-//        get() {
-//            if (field == null)
-//                return field
-//
-//            return field?.substring(11,16)
-//        }
         set(value) {
 
             field = value
@@ -65,13 +47,6 @@ data class Task (val id:String): BaseObservable(){
         }
     @get:Bindable
     var arriveHosAt: String? = ""
-//        get() {
-//            if (field == null)
-//                return field
-//
-//            return field?.substring(11,16)
-//        }
-
         set(value) {
             field = value
 
@@ -102,32 +77,4 @@ data class Task (val id:String): BaseObservable(){
     @get:Bindable
     var process= if(status==5)8 else 2*status-1
 
-//    @Transient
-//    @get:Bindable
-//    var arrivalTime:Int?= null
-//        get() {
-//            return getLastMinutes(startTimeStamp,arriveTimeStamp)?.toInt()
-//        }
-//
-//    @Transient
-//    @get:Bindable
-//    var editTime:Long?= null
-//        get() {
-//            return getLastMinutes(arriveTimeStamp,firstMetTimeStamp)
-//        }
-//
-//    @Transient
-//    @get:Bindable
-//    var returningTime:Long?= null
-//        get() {
-//            return getLastMinutes(firstMetTimeStamp,returningTimeStamp)
-//        }
-//
-//    @Transient
-//    @get:Bindable
-//    var arriveHosTime:Long?= null
-//        get() {
-//            return getLastMinutes(returningTimeStamp,arriveHosTimeStamp)
-//        }
 }
-//TODO:delete useless propeties
