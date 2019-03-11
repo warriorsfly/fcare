@@ -105,6 +105,12 @@ interface DictEnumApi {
     fun loadAssistantTypes(): Maybe<List<Dictionary>>
 
     /**
+     * 并发症
+     */
+    @GET("EnumDic/enumItems/224")
+    fun loadComplication(): Maybe<List<Dictionary>>
+
+    /**
      * 二级诊断病种 （根据病人id自动获取对应大病下的二级病种）
      */
     @GET("EnumDic/enumItems/4/{patientId}")

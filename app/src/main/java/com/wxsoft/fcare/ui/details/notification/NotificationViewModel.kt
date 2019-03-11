@@ -4,15 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 
-class NotificationViewModel : ViewModel(),ICommonPresenter {
-    override var title ="" //To change initializer of created properties use File | Settings | File Templates.
-    override val clickableTitle: String
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
-    override val clickable: LiveData<Boolean>
-        get() = TODO("not implemented") //To change initializer of created properties use File | Settings | File Templates.
+class NotificationViewModel : ViewModel() {
 
-    override fun click() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-    // TODO: Implement the ViewModel
 }
