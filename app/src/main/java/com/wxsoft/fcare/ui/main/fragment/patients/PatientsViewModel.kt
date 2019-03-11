@@ -53,7 +53,13 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         checkCondition = checkConditionResult.map { it?:PatientsCondition(1,10) }
         clickCusDate = clickCusDateResult.map { it }
         checkConditionResult.value = null
-        typeItems = loadtypeItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
+        typeItems = loadtypeItemsResult.map { (
+                (it as? Resource.Success)?.data?.apply {
+                    var arr = ArrayList<Dictionary>()
+                    arr.add(Dictionary("","全部类型").apply { checked = true })
+                    arr.addAll(it.data)
+                    return@map arr
+                })?: emptyList() }
         getMeasuresItems()
     }
 
@@ -165,10 +171,21 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     }
     // 获得本周一0点时间
     fun getTimesWeekmorning(): String {
-        val cal = Calendar.getInstance()
-        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0)
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
+        val cal = Calendar.getInstance();
+        cal.setTime(Date());
+        // 获得当前日期是一个星期的第几天
+        val dayWeek = cal.get(Calendar.DAY_OF_WEEK);
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        // 获得当前日期是一个星期的第几天
+        val day = cal.get(Calendar.DAY_OF_WEEK);
+        // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day)
+        val str = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
+        return str.substring(0,11) + "00:00:00"
     }
 
     // 获得本月第一天0点时间

@@ -49,8 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.diagnose.record.DiagnoseRecordActivity"
+        <activity android:name=".ui.main.fragment.patients.searchpatients.SearchPatientsActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.diagnose.record.DiagnoseRecordActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.vitalsigns.records.VitalSignsRecordActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

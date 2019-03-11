@@ -52,6 +52,8 @@ import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
 import com.wxsoft.fcare.ui.main.MainModule
+import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsActivity
+import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsModule
 import com.wxsoft.fcare.ui.message.MessageActivity
 import com.wxsoft.fcare.ui.message.MessageModule
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
@@ -215,5 +217,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DiagnoseRecordModule::class])
     internal abstract fun diagnoseRecordActivity(): DiagnoseRecordActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SearchPatientsModule::class])
+    internal abstract fun searchPatientsActivity(): SearchPatientsActivity
+
 
 }

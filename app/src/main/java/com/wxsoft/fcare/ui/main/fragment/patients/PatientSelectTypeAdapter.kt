@@ -29,7 +29,7 @@ class PatientSelectTypeAdapter constructor(private val owner: LifecycleOwner, va
 
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.viewModel, viewModel)
+            setVariable(BR.viewModel, this@PatientSelectTypeAdapter.viewModel)
             lifecycleOwner=owner
             executePendingBindings()
         }

@@ -25,6 +25,7 @@ import com.wxsoft.fcare.databinding.FragmentPatientsBinding
 import com.wxsoft.fcare.databinding.LayoutPatientSelectDateBinding
 import com.wxsoft.fcare.databinding.LayoutPatientSelectTypeBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import dagger.android.support.DaggerFragment
@@ -170,7 +171,6 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener, OnDa
 
         Intent(activity!!, WorkingActivity::class.java).let {
             it.putExtra(ProfileActivity.PATIENT_ID,id)
-
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }
 
@@ -209,7 +209,9 @@ class PatientsFragment : DaggerFragment() , SearchView.OnQueryTextListener, OnDa
 
 
     fun toSearchPatient(){
-
+        Intent(activity!!, SearchPatientsActivity::class.java).let {
+            startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
+        }
     }
 
     private fun createDialog(time:Long): TimePickerDialog {
