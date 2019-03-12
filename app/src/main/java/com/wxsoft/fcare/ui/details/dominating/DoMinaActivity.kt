@@ -77,7 +77,7 @@ class DoMinaActivity : BaseActivity() {
 
             dialog.show()
         })
-
+        setSupportActionBar(toolbar)
         viewPager.adapter = TaskStateAdapter(supportFragmentManager)
 //        add_patient.setOnClickListener {
 //            val intent = Intent(this, ProfileActivity::class.java).apply {

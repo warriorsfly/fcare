@@ -116,13 +116,4 @@ class RatingActivity : BaseActivity() {
         menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        when(item?.itemId){
-            android.R.id.home->onBackPressed()
-        }
-
-        return true
-    }
 }

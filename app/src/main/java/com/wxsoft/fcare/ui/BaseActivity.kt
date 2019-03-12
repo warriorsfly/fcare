@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui
 
+import android.view.MenuItem
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -42,5 +43,16 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
             .forResult(PictureConfig.CHOOSE_REQUEST)//结果回调onActivityResult code
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return when(item?.itemId){
+            android.R.id.home->{
+                onBackPressed()
+                return true
+            }
+
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 
 }
