@@ -101,7 +101,7 @@ fun pageMargin(viewPager: androidx.viewpager.widget.ViewPager, pageMargin: Float
 }
 
 @BindingAdapter("diagnosisCode")
-fun diagnosisCode(textView: TextView, diagnosisCode: String) {
+fun diagnosisCode(textView: TextView, diagnosisCode: String?) {
     when(diagnosisCode){
         "215-1"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
         "215-2"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
