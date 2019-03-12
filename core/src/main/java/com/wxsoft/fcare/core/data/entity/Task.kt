@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.core.data.entity
 
-import androidx.room.Ignore
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
@@ -56,7 +55,7 @@ data class Task (val id:String): BaseObservable(){
     var carId: String? = ""
     var canceled: String? = ""
     var taskStaffs: Array<TaskStaff> = emptyArray()
-    @Ignore
+
     var patients: Array<Patient> = emptyArray()
     @SerializedName("isCanceled")var hasCanceled: Boolean = false
 
@@ -69,12 +68,19 @@ data class Task (val id:String): BaseObservable(){
     @SerializedName("taskStatu")var status=0
         set(value) {
             field = value
+            process=if(field==5)8 else 2*field-1
             notifyPropertyChanged(BR.status)
-            notifyPropertyChanged(BR.process)
         }
 
     @Transient
+    var spends = mutableListOf<TaskSpend>()
+
+    @Transient
     @get:Bindable
-    var process= if(status==5)8 else 2*status-1
+    var process= 0
+    set(value) {
+        field=value
+        notifyPropertyChanged(BR.process)
+    }
 
 }

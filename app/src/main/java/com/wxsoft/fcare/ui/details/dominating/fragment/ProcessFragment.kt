@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
@@ -34,10 +35,14 @@ class ProcessFragment : DaggerFragment() {
     ): View? {
 
         binding=FragmentTaskProcessBinding.inflate(inflater,container, false).apply {
+            list.adapter=ProcessAdapter(this@ProcessFragment)
             lifecycleOwner = this@ProcessFragment
             viewModel=this@ProcessFragment.viewModel
         }
 
+        viewModel.spends.observe(this, Observer {
+            ( binding.list.adapter as? ProcessAdapter)?.submitList(it)
+        })
         return binding.root
     }
 

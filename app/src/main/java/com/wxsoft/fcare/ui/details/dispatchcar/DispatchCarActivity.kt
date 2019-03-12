@@ -38,9 +38,6 @@ class DispatchCarActivity : BaseActivity() {
             }
         binding.viewModel = viewModel
 
-//        viewModel.mesAction.observe(this, EventObserver{ t->
-//            toDetail(t)
-//        })
         carAdapter = CarAdapter(this,viewModel)
         viewModel.cars.observe(this, Observer { carAdapter.cars = it ?: emptyList() })
         binding.carList.adapter = carAdapter
@@ -73,7 +70,6 @@ class DispatchCarActivity : BaseActivity() {
                     finish()
                 }
             }
-
         })
         viewModel.haveSelectCar.observe(this, Observer {
             Toast.makeText(this@DispatchCarActivity, "请先选择车辆", Toast.LENGTH_SHORT).show()
@@ -81,8 +77,6 @@ class DispatchCarActivity : BaseActivity() {
         })
 
     }
-
-
 
     private fun toDetail(id:String) {
         val intent = Intent(this, DoMinaActivity::class.java).apply {

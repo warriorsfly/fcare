@@ -55,21 +55,19 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
         loadTimepointsResult.value=response
     }
 
-    private fun saveTimePoints(response:Response<String>){
-        if(response.success) {
-            liveData.value?.apply {
-                val firstOne=first { it.id == currentPoint?.id }?.apply {
-                    excutedAt = currentPoint?.excutedAt
-                    currentPoint = null
-                }
-
-                saveTimepointsResult.value=indexOf(firstOne)
+    private fun saveTimePoints(response:Response<String>) = if(response.success) {
+        liveData.value?.apply {
+            val firstOne=first { it.id == currentPoint?.id }?.apply {
+                excutedAt = currentPoint?.excutedAt
+                currentPoint = null
             }
 
-            messageAction.value = Event(if (response.success) "保存成功" else response.msg)
-        }else{
-            messageAction.value = Event(response.msg)
+            saveTimepointsResult.value=indexOf(firstOne)
         }
+
+        messageAction.value = Event(if (response.success) "保存成功" else response.msg)
+    }else{
+        messageAction.value = Event(response.msg)
     }
 
     private fun error(throwable: Throwable){
