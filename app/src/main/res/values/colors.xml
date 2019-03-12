@@ -41,6 +41,7 @@
     <color name="emergency">#FC7E00</color>
     <color name="lowemergency">#FDAD1F</color>
     <color name="lightemergency">#FFDA6F</color>
+    <color name="sex_wuman">#EE4E5B</color>
 
     <!--初步诊断-->
     <color name="tint_work_space_diagnosis">#657ED9</color>

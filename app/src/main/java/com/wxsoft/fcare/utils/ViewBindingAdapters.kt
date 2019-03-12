@@ -16,6 +16,7 @@
 
 package com.wxsoft.fcare.utils
 
+import android.annotation.SuppressLint
 import android.graphics.Color
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseMethod
@@ -108,6 +109,35 @@ fun diagnosisCode(textView: TextView, diagnosisCode: String?) {
         "215-3"->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
         "215-4"->textView.setBackgroundResource(R.drawable.ic_diagnosis4)
         "215-5"->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
+        //不在上述代码中则清空textView的背景
+        else->textView.setBackgroundResource(0)
+    }
+}
+
+@SuppressLint("ResourceAsColor")
+@BindingAdapter("patientStatus")
+fun patientStatus(textView: TextView, patientStatus: String?) {
+    when(patientStatus){
+        "223-1"->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_1)//院前
+            textView.setTextColor(Color.parseColor("#796EF4"))
+        }
+        "223-2"->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_2)//初诊
+            textView.setTextColor(Color.parseColor("#FAB131"))
+        }
+        "223-3"->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_3)//治疗前检查
+            textView.setTextColor(Color.parseColor("#FF885D"))
+        }
+        "223-4"->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_4)//治疗
+            textView.setTextColor(Color.parseColor("#63B0F8"))
+        }
+        "223-5"->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_5)//转归
+            textView.setTextColor(Color.parseColor("#0FCEC6"))
+        }
         //不在上述代码中则清空textView的背景
         else->textView.setBackgroundResource(0)
     }

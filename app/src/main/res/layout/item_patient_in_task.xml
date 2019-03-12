@@ -38,42 +38,42 @@
 				app:layout_constraintTop_toTopOf="parent" />
 
 			<androidx.constraintlayout.widget.ConstraintLayout
-				android:id="@+id/sex_age_container"
-				android:background="@{patient.gender==1?@drawable/bg_conor_green:@drawable/bg_conor_blue}"
-				app:layout_constraintTop_toTopOf="@+id/patient_name"
-				app:layout_constraintLeft_toRightOf="@+id/patient_name"
-				app:layout_constraintBottom_toBottomOf="@+id/patient_name"
-				android:layout_marginLeft="@dimen/activity_horizontal_margin"
-				android:padding="1dp"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content">
+					android:id="@+id/sex_age_container"
+					android:background="@{patient.gender==1?@drawable/bg_conor_green:@drawable/bg_conor_blue}"
+					app:layout_constraintTop_toTopOf="@+id/patient_name"
+					app:layout_constraintLeft_toRightOf="@+id/patient_name"
+					app:layout_constraintBottom_toBottomOf="@+id/patient_name"
+					android:layout_marginLeft="@dimen/activity_horizontal_margin"
+					android:padding="1dp"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content">
 
-			<ImageView
-				android:layout_width="12dp"
-				android:layout_height="wrap_content"
-				android:background="@{patient.gender==1?@color/tint_work_space_lapse:@color/tint_work_space_rating}"
-				android:id="@+id/gender"
-				android:textSize="12dp"
-				android:src="@{patient.gender==1 ?@drawable/ic_man:@drawable/ic_woman}"
-				app:layout_constraintLeft_toLeftOf="parent"
-				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintBottom_toBottomOf="parent"/>
+				<ImageView
+						android:layout_width="12dp"
+						android:layout_height="wrap_content"
+						android:background="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"
+						android:id="@+id/gender"
+						android:textSize="12dp"
+						android:src="@{patient.gender==1 ?@drawable/ic_man:@drawable/ic_woman}"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintBottom_toBottomOf="parent"/>
 
-			<TextView
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:background="@color/white"
-				android:id="@+id/age"
-				android:textSize="12dp"
-				android:paddingLeft="2dp"
-				tools:text="24"
-				android:textColor="@{patient.gender==1?@color/tint_work_space_lapse:@color/tint_work_space_rating}"
-				android:layout_marginLeft="4dp"
-				android:text="@{ String.valueOf(patient.age)+`岁`}"
-				app:layout_constraintLeft_toRightOf="@id/gender"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toTopOf="parent"/>
+				<TextView
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:background="@color/white"
+						android:id="@+id/age"
+						android:textSize="12dp"
+						android:paddingLeft="2dp"
+						tools:text="24"
+						android:textColor="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"
+						android:layout_marginLeft="4dp"
+						android:text="@{ String.valueOf(patient.age)+`岁`}"
+						app:layout_constraintLeft_toRightOf="@id/gender"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 

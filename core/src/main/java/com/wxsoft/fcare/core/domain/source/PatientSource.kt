@@ -23,20 +23,20 @@ class PatientSource constructor(
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
 
 //        if(params.key==null) return
+        requestitem.pageIndex = params.key
         api.getPatients(requestitem)
             .toResource()
             .subscribe {
                 when(it){
                     is Resource.Success->{
-
-                        callback.onResult(it.data.items,if(it.data.hasNextPage)requestitem.pageIndex++ else null)
+                        callback.onResult(it.data.items,if(it.data.hasNextPage)params.key+1 else null)
                     }
                 }
             }
     }
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Patient>) {
-
+        requestitem.pageIndex = 1
         api.getPatients(requestitem)
             .toResource()
             .subscribe {
