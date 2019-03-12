@@ -29,7 +29,7 @@ class PatientSource constructor(
                 when(it){
                     is Resource.Success->{
 
-                        callback.onResult(it.data.items,if(it.data.hasNextPage)params.key+1 else null)
+                        callback.onResult(it.data.items,if(it.data.hasNextPage)requestitem.pageIndex++ else null)
                     }
                 }
             }

@@ -190,4 +190,9 @@ class NetWorkModule {
         return retrofit.create(QualityControlApi::class.java)
     }
 
+    @Provides
+    fun provideNotificationApi(retrofit: Retrofit):NotificationApi{
+        return retrofit.create(NotificationApi::class.java)
+    }
+
 }

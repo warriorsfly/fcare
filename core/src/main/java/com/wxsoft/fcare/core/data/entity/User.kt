@@ -27,6 +27,7 @@ data class User(
     var createrId: String ,
     var createrName: String ,
     var modifierId: String ,
+    var checked:Boolean,
     var modifierName: String): BaseObservable() {
 
     @Transient

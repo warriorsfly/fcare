@@ -11,7 +11,6 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
-import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDrugCarBinding
 import com.wxsoft.fcare.ui.BaseActivity

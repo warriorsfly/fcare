@@ -1,9 +1,76 @@
 package com.wxsoft.fcare.ui.details.notification
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.NotiUserItem
+import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.User
+import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.NotificationApi
+import com.wxsoft.fcare.core.data.remote.VitalSignApi
+import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import javax.inject.Inject
+import javax.inject.Named
 
-class NotificationViewModel : ViewModel() {
+class NotificationViewModel @Inject constructor(private val notificationApi: NotificationApi,
+                                                override val sharedPreferenceStorage: SharedPreferenceStorage,
+                                                override val gon: Gson
+) : BaseViewModel(sharedPreferenceStorage,gon) {
+
+
+    /**
+     * 病人id
+     */
+    var patientId: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+            getUserItems()
+        }
+    var selectedUsers = ArrayList<User>()
+
+    val userItems:LiveData<List<NotiUserItem>>
+    private val loadUserItemsResult=MediatorLiveData<Response<List<NotiUserItem>>>()
+
+    val checkedUsers:LiveData<List<User>>
+    private val loadCheckedUsersResult=MediatorLiveData<List<User>>()
+
+    init {
+        userItems = loadUserItemsResult.map { it.result?: emptyList() }
+        checkedUsers = loadCheckedUsersResult.map { it }
+    }
+
+
+    fun getUserItems(){
+        disposable.add(notificationApi.getNotifyUsers(patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadUserItems,::error))
+    }
+
+    private fun loadUserItems(response: Response<List<NotiUserItem>>){
+        loadUserItemsResult.value = response
+    }
+
+    private fun error(throwable: Throwable){
+        messageAction.value= Event(throwable.message?:"未知错误")
+    }
+
+    fun selectedUser(user:User){
+        if (user.checked){
+            selectedUsers.add(user)
+            loadCheckedUsersResult.value = selectedUsers
+        }else{
+            selectedUsers.remove(user)
+            loadCheckedUsersResult.value = selectedUsers
+        }
+    }
 
 }

@@ -189,6 +189,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     private fun toComplication(){
         val intent = Intent(this@ThrombolysisActivity, ComplicationActivity::class.java).apply {
             putExtra(ComplicationActivity.PATIENT_ID,patientId)
+            putExtra(ComplicationActivity.SEN_TYPE,"223-4")//治疗中场景
         }
         startActivityForResult(intent, ThrombolysisActivity.COMPLICATION)
     }

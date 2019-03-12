@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
+import com.wxsoft.fcare.core.data.entity.Complication
 import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Thrombolysis
@@ -18,5 +19,11 @@ interface ThrombolysisApi {
 
     @POST("Throm/Save")
     fun save(@Body thrombolysis: Thrombolysis):Maybe<Response<String>>
+
+    @POST("Complication/Save")
+    fun saveComplication(@Body complication: List<Complication>):Maybe<Response<String>>
+
+    @GET("Complication/GetByPatientId/{patientId}/{sceneType}")
+    fun getComplication(@Path("patientId")id:String,@Path("sceneType")sceneType:String): Maybe<Response<List<Complication>>>
 
 }

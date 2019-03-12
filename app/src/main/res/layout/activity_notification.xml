@@ -12,15 +12,191 @@
             android:background="#F8F8F9"
             tools:context=".ui.details.notification.NotificationActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
+        <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/appbar"
+                style="@style/Widget.AppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp">
+
+                <TextView
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textSize="16sp"
+                        android:textColor="#131D35"
+                        android:text="      "
+                        android:id="@+id/back"
+                        android:layout_marginLeft="16dp"
+                        android:drawableLeft="@drawable/ic_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@+id/back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginLeft="10dp"
+                        android:textColor="#131D35"
+                        android:textSize="18sp"
+                        android:text="通知"
+                        tools:text="通知"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        goneUnless="@{viewModel.checkedUsers.size()>0}"
+                        android:textColor="#131D35"
+                        android:textSize="15sp"
+                        android:id="@+id/submit"
+                        android:text="@{`发送(` + viewModel.checkedUsers.size() +`)` }"
+                        android:background="?attr/selectableItemBackground"
+                        android:layout_marginRight="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/baseScroll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:id="@+id/check_list"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/appbar"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:padding="5dp"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/title_1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#525252"
+                            android:textSize="16sp"
+                            android:text="通知类型"
+                            tools:text="通知类型"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    <Button
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:id="@+id/start"
+                            android:textSize="16sp"
+                            android:textColor="#999999"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
+                            app:layout_constraintLeft_toRightOf="@+id/title_1"
+                            android:text="通知导管室启动"
+                            tools:text="通知导管室启动"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe3_2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                        android:background="#EDEDED"
+                        app:layout_constraintBottom_toBottomOf="@+id/container1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container2"
+                        android:background="@color/white"
+                        app:layout_constraintTop_toBottomOf="@+id/container1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/title_2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:layout_marginLeft="10dp"
+                            android:textColor="#525252"
+                            android:textSize="16sp"
+                            android:text="选择接受通知的人员"
+                            tools:text="选择接受通知的人员"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/checked_list"
+                            app:spanCount="4"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/title_2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container3"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/container2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/doctors_list"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

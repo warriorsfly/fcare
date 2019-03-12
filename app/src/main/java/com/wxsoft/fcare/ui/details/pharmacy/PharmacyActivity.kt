@@ -10,7 +10,6 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityPharmacyBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
-import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 
@@ -48,7 +47,6 @@ class PharmacyActivity : BaseActivity() {
 
         viewModel.getDrugRecord()
 
-        back.setOnClickListener { onBackPressed() }
 //        val bagAdapter = DrugBagAdapter(this,viewModel)
 //        viewModel.drugPackages.observe(this, Observer { bagAdapter.items = it ?: emptyList() })
 //        binding.drugbagList.adapter = bagAdapter

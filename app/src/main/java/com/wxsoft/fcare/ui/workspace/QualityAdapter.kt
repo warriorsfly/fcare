@@ -1,15 +1,13 @@
 package com.wxsoft.fcare.ui.workspace
 
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import com.wxsoft.fcare.core.data.entity.NewTimeLine
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.data.entity.TimeQuality
 import com.wxsoft.fcare.databinding.ItemTimeQualityBinding
-import com.wxsoft.fcare.databinding.ItemTimelineNoneBinding
 
 
 class QualityAdapter constructor(private val owner:LifecycleOwner) :

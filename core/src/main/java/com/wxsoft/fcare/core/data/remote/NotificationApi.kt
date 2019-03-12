@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.Department
+import com.wxsoft.fcare.core.data.entity.NotiUserItem
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import retrofit2.http.Body
@@ -18,4 +19,8 @@ interface NotificationApi {
 
     @GET("Notice/AnswerNotice/{patientId}/{userId}")
     fun answer(@Path("userId")userId:String,@Path("patientId")id:String):Maybe<Response<String?>>
+
+    @GET("Notice/GetWaitNoticeUserGroups/{patientId}")
+    fun getNotifyUsers(@Path("patientId")patientId:String):Maybe<Response<List<NotiUserItem>>>
+
 }

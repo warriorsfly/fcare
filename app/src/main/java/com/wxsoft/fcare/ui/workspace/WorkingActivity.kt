@@ -25,6 +25,7 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
+import com.wxsoft.fcare.ui.details.notification.NotificationActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
@@ -63,6 +64,7 @@ class WorkingActivity : BaseActivity() {
         const val BASE_INFO = 38
         const val COMPLAINTS = 39
         const val STRATEGY = 40
+        const val NOTIFICATION = 41
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
@@ -128,10 +130,15 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, DRUGRECORD)
             }
             ActionRes.ActionType.生命体征 -> {
-                val intent = Intent(this@WorkingActivity, VitalSignsRecordActivity::class.java).apply {
-                    putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
+//                val intent = Intent(this@WorkingActivity, VitalSignsRecordActivity::class.java).apply {
+//                    putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
+//                }
+//                startActivityForResult(intent, VITAL_SIGNS)
+
+                val intent = Intent(this@WorkingActivity, NotificationActivity::class.java).apply {
+                    putExtra(NotificationActivity.PATIENT_ID, patientId)
                 }
-                startActivityForResult(intent, VITAL_SIGNS)
+                startActivityForResult(intent, NOTIFICATION)
             }
             ActionRes.ActionType.患者信息录入->{
                 val intent = Intent(this@WorkingActivity, ProfileActivity::class.java).apply {
@@ -186,13 +193,6 @@ class WorkingActivity : BaseActivity() {
                     putExtra(InformedConsentActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, INFORMEDCONSENT)
-            }
-            ActionRes.ActionType.通知启动CT室 ->{
-                showDialog("通知启动CT室","CT室")
-            }
-
-            ActionRes.ActionType.通知启动导管室 ->{
-                showDialog("通知启动导管室","导管室")
             }
             ActionRes.ActionType.溶栓处置 ->{
                 val intent = Intent(this@WorkingActivity, ThrombolysisActivity::class.java).apply {
