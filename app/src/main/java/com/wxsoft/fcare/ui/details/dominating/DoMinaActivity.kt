@@ -8,9 +8,14 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
+import com.jzxiang.pickerview.TimePickerDialog
+import com.jzxiang.pickerview.data.Type
+import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
@@ -18,10 +23,20 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.activity_do_mina.*
+import kotlinx.android.synthetic.main.fragment_task_process.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
 
-class DoMinaActivity : BaseActivity() {
+class DoMinaActivity : BaseActivity(), OnDateSetListener {
+    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+
+        viewModel.changing(changingStatus,DateTimeUtils.formatter.format(millseconds),millseconds)
+        dialog
+    }
+
+    private var dialog: TimePickerDialog?=null
+
+    private var changingStatus=0
 
     @Inject lateinit var factory: ViewModelFactory
 
@@ -79,13 +94,21 @@ class DoMinaActivity : BaseActivity() {
         })
         setSupportActionBar(toolbar)
         viewPager.adapter = TaskStateAdapter(supportFragmentManager)
-//        add_patient.setOnClickListener {
-//            val intent = Intent(this, ProfileActivity::class.java).apply {
-//                putExtra(ProfileActivity.TASK_ID, taskId)
-//                putExtra(ProfileActivity.PATIENT_ID, "")
-//            }
-//            startActivityForResult(intent,NEW_PATIENT_REQUEST)
-//        }
+
+        viewModel.changeTimeAction.observe(this, EventObserver {
+            changingStatus=it
+            val time =when(changingStatus){
+                1->viewModel.startTimeStamp
+                2->viewModel.arriveTimeStamp
+                3->viewModel.firstMetTimeStamp
+                4->viewModel.returningTimeStamp
+                5->viewModel.arriveHosTimeStamp
+                else->0
+            }?:0
+
+            dialog=createDialog(time)
+            dialog?.show(supportFragmentManager,"all")
+        })
     }
 
 
@@ -102,6 +125,25 @@ class DoMinaActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private fun createDialog(time:Long): TimePickerDialog {
+
+        return TimePickerDialog.Builder()
+            .setCallBack(this)
+            .setCancelStringId("取消")
+            .setSureStringId("确定")
+            .setTitleStringId("选择时间")
+            .setYearText("")
+            .setMonthText("")
+            .setDayText("")
+            .setHourText("")
+            .setMinuteText("")
+            .setCyclic(false)
+            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
+            .setType(Type.ALL)
+            .setWheelItemTextSize(12)
+            .build()
     }
 
 }

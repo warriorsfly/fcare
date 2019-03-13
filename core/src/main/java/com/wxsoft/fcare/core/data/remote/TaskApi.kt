@@ -44,7 +44,6 @@ interface TaskApi {
     @GET("Task/arrive-hos/{id}")
     fun arriveHos(@Path("id")taskId:String): Maybe<Response<String>>
 
-
-
-
+    @GET("Task/UpdateTaskTime/{id}/{status}/{time}")
+    fun change(@Path("id")taskId:String,@Path("status")status:Int,@Path("time")time:String): Maybe<Response<String>>
 }

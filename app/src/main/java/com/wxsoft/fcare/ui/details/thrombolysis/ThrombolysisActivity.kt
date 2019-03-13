@@ -35,7 +35,6 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
     private var dialog: TimePickerDialog?=null
 
-
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){

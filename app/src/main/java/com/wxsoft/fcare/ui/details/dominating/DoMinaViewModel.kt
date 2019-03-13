@@ -2,7 +2,6 @@ package com.wxsoft.fcare.ui.details.dominating
 
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
-import androidx.databinding.ObservableLong
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -18,10 +17,10 @@ import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-import kotlin.math.min
 
 /**
  * 考虑到本程序的服务端特殊性（非restful api），不显示状态的查询不使用result.Resource类进行结果封装
@@ -30,6 +29,10 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
                                           override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
+
+
+
+    private var timedispose: Disposable?=null
 
     val minute= ObservableField<String>()
     val second=ObservableField<String>()
@@ -55,34 +58,50 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
      * 时间处理
      */
 
-    private var startTimeStamp:Long?=null
+     var startTimeStamp:Long?=null
 
-    private var arriveTimeStamp:Long?=null
-    set(value) {
-        field=value
-        field?.let {
-            task.value?.spends?.let { map ->
-                val item = map.firstOrNull { item -> item.task == "到达现场" }
-                if (item == null) {
-                    map += TaskSpend("到达现场").apply {
-                        spends=(it - startTimeStamp!!) / 1000
-                    }
-                } else {
-                    item.spends = (it - startTimeStamp!!) / 1000
-                }
-            }
-        }
-    }
+//        set(value) {
+//            field = value
+//            field?.let {
+//                task.value?.spends?.let { map ->
+//                    val item = map.firstOrNull { item -> item.task == "发车至到达现场" }
+//                    if (item == null) {
+//                        map += TaskSpend("发车至到达现场").apply {
+//                            spends = (it - startTimeStamp!!) / 1000
+//                        }
+//                    } else {
+//                        item.spends = (it - startTimeStamp!!) / 1000
+//                    }
+//                }
+//            }
+//        }
 
-    private var firstMetTimeStamp:Long?=null
+     var arriveTimeStamp:Long?=null
+         set(value) {
+             field = value
+             field?.let {
+                 task.value?.spends?.let { map ->
+                     val item = map.firstOrNull { item -> item.task == "发车至到达现场" }
+                     if (item == null) {
+                         map += TaskSpend("发车至到达现场").apply {
+                             spends = (it - startTimeStamp!!) / 1000
+                         }
+                     } else {
+                         item.spends = (it - startTimeStamp!!) / 1000
+                     }
+                 }
+             }
+         }
+
+     var firstMetTimeStamp:Long?=null
         set(value) {
             field=value
 
             field?.let {
                 task.value?.spends?.let { map ->
-                    val item = map.firstOrNull { item -> item.task == "首次医疗接触" }
+                    val item = map.firstOrNull { item -> item.task == "到达现场至首次医疗接触" }
                     if (item == null) {
-                        map += TaskSpend("首次医疗接触").apply {
+                        map += TaskSpend("到达现场至首次医疗接触").apply {
                             spends=(it - startTimeStamp!!) / 1000
                         }
                     } else {
@@ -92,15 +111,15 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             }
         }
 
-    private var returningTimeStamp:Long?=null
+     var returningTimeStamp:Long?=null
         set(value) {
             field=value
 
             field?.let {
                 task.value?.spends?.let { map ->
-                    val item = map.firstOrNull { item -> item.task == "返回医院" }
+                    val item = map.firstOrNull { item -> item.task == "首次接触至返回医院" }
                     if (item == null) {
-                        map += TaskSpend("返回医院").apply {
+                        map += TaskSpend("首次接触至返回医院").apply {
                             spends=(it - startTimeStamp!!) / 1000
                         }
                     } else {
@@ -109,15 +128,15 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 }
             }
         }
-    private var arriveHosTimeStamp:Long?=null
+     var arriveHosTimeStamp:Long?=null
         set(value) {
             field=value
 
             field?.let {
                 task.value?.spends?.let { map ->
-                    val item = map.firstOrNull { item -> item.task == "到达医院大门" }
+                    val item = map.firstOrNull { item -> item.task == "返回至到达医院大门" }
                     if (item == null) {
-                        map += TaskSpend("到达医院大门").apply {
+                        map += TaskSpend("返回至到达医院大门").apply {
                             spends=(it - startTimeStamp!!) / 1000
                         }
                     } else {
@@ -152,14 +171,18 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 startTimeStamp = time
 
                 fireAt=(System.currentTimeMillis()-time)/1000
-                disposable.add(
-                    Observable.interval(1, TimeUnit.SECONDS)
-                        .subscribe {
-                            fireAt++
-                            minute.set((fireAt/60).toString())
-                            second.set((fireAt%60).toString())
-                        }
-                )
+                minute.set((fireAt/60).toString())
+                second.set((fireAt%60).toString())
+
+               if( task.value?.status?:0<5) {
+                   timedispose = Observable.interval(1, TimeUnit.SECONDS)
+                       .subscribe {
+                           fireAt++
+                           minute.set((fireAt / 60).toString())
+                           second.set((fireAt % 60).toString())
+                       }
+                   timedispose?.let { dis -> disposable.add(dis) }
+               }
             }
         }
 
@@ -186,6 +209,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 arriveHosTimeStamp = time
             }
         }
+
         getText()
         loadSpendResult.value=task.value?.spends
     }
@@ -196,6 +220,10 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     private val _atAction = MutableLiveData<Event<Int>>()
     val atAction: LiveData<Event<Int>>
         get() = _atAction
+
+    private val _changeTimeAction = MutableLiveData<Event<Int>>()
+    val changeTimeAction: LiveData<Event<Int>>
+        get() = _changeTimeAction
 
     /**
      * 拉取任务
@@ -226,6 +254,11 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             if(task.value?.status==status-1)
                 _atAction.value = Event(status)
         }
+    }
+
+    fun changeTime(status:Int){
+        if(task.value?.status?:0>=status)
+        _changeTimeAction.value = Event(status)
     }
 
     /**
@@ -367,6 +400,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 arriveHosTimeStamp = DateTimeUtils.formatter.parse(resp.result)?.time
                                 messageAction.value = Event(it.carId + "返回医院大门")
                                 loadSpendResult.value=it.spends
+                                timedispose?.dispose()
                             } else {
                                 messageAction.value = Event(resp.msg)
                             }
@@ -376,6 +410,37 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
         }
     }
 
+    fun changing(status:Int,newTime:String,newTimeStamp:Long){
+        disposable.add(taskApi.change(taskId,status,newTime)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                when(status){
+                    1->{
+                        task.value?.startAt=newTime
+                        startTimeStamp=newTimeStamp
+                    }
+                    2->{
+                        task.value?.arriveAt=newTime
+                        arriveTimeStamp=newTimeStamp
+                    }
+                    3->{
+                        task.value?.firstMet=newTime
+                        firstMetTimeStamp=newTimeStamp
+                    }
+                    4->{
+                        task.value?.returnAt=newTime
+                        returningTimeStamp=newTimeStamp
+                    }
+                    5->{
+                        task.value?.arriveHosAt=newTime
+                        arriveHosTimeStamp=newTimeStamp
+                    }
+                }
+            }
+        ,{error->messageAction.value= Event(error.message?:"")}))
+    }
+
     private fun getText(){
         task.value?.status?.let {
             bText.set(when(it){
@@ -383,7 +448,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 2->"首次接触"
                 3->"返回医院"
                 4->"到达医院大门"
-                else->throw IllegalArgumentException("error status $it")
+                else->""//throw IllegalArgumentException("error status $it")
             })
         }
     }

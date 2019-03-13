@@ -21,7 +21,6 @@ class NotificationActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var binding: ActivityNotificationBinding
     lateinit var checkedAdapter: NotificationCheckedAdapter
     lateinit var userAdapter: NotiGroupAdapter
 
@@ -29,12 +28,12 @@ class NotificationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        binding = DataBindingUtil.setContentView<ActivityNotificationBinding>(this, R.layout.activity_notification)
+        checkedAdapter = NotificationCheckedAdapter(this,viewModel)
+        DataBindingUtil.setContentView<ActivityNotificationBinding>(this, R.layout.activity_notification)
             .apply {
                 viewModel = this@NotificationActivity.viewModel
-                checkedAdapter = NotificationCheckedAdapter(this@NotificationActivity,this@NotificationActivity.viewModel)
                 checkedList.adapter = checkedAdapter
-                userAdapter = NotiGroupAdapter(this@NotificationActivity,this@NotificationActivity.viewModel)
+                userAdapter = NotiGroupAdapter(this@NotificationActivity, this@NotificationActivity.viewModel)
                 doctorsList.adapter = userAdapter
                 back.setOnClickListener { onBackPressed() }
                 lifecycleOwner = this@NotificationActivity
