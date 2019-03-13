@@ -4,27 +4,27 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
-import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.remote.PatientApi
+import com.wxsoft.fcare.core.data.entity.Task
+import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 
-class PatientSource constructor(
-    private val api:PatientApi,
+class TaskSource constructor(
+    private val api: TaskApi,
     private val requestitem: PatientsCondition
-) : PageKeyedDataSource<Int, Patient>() {
-    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
+) : PageKeyedDataSource<Int, Task>() {
+    override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Task>) {
         //ignore
     }
 
-    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
+    override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Task>) {
 
 //        if(params.key==null) return
         requestitem.pageIndex = params.key
-        api.getPatients(requestitem)
+        api.getTasks(requestitem)
             .toResource()
             .subscribe {
                 when(it){
@@ -35,9 +35,9 @@ class PatientSource constructor(
             }
     }
 
-    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Patient>) {
+    override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Task>) {
         requestitem.pageIndex = 1
-        api.getPatients(requestitem)
+        api.getTasks(requestitem)
             .toResource()
             .subscribe {
                 when(it){
@@ -50,12 +50,13 @@ class PatientSource constructor(
 
     val networkState : LiveData<Boolean>
 
-    private val loadPatientResult= MediatorLiveData<Resource<Response<PagedList<Patient>>>>()
+    private val loadPatientResult= MediatorLiveData<Resource<Response<PagedList<Task>>>>()
 
     init {
         networkState=loadPatientResult.map {
-            it==Resource.Loading
+            it== Resource.Loading
         }
     }
+
 
 }

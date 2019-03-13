@@ -151,6 +151,7 @@
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             android:layout_marginLeft="10dp"
+                            android:layout_marginTop="10dp"
                             android:textColor="#525252"
                             android:textSize="16sp"
                             android:text="选择接受通知的人员"
@@ -162,6 +163,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_margin="10dp"
                             android:id="@+id/checked_list"
                             app:spanCount="4"
                             app:layout_constraintLeft_toLeftOf="parent"

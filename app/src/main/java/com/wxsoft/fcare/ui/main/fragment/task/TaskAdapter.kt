@@ -1,15 +1,13 @@
 package com.wxsoft.fcare.ui.main.fragment.task
 
-import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wxsoft.fcare.R
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import com.wxsoft.fcare.core.data.entity.Task
-import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
 import com.wxsoft.fcare.core.utils.DateTimeUtils.Companion.formatter
+import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
 import java.text.ParseException
 
 
@@ -20,28 +18,7 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            val item = getItem(position)
-            val patients = getItem(position).patients
-            val names = patients.joinToString(separator = " ", transform = { it.name })
-            if (patients.isNotEmpty()) {
-                getItem(position).taskPosition = patients[0].attackPosition
-            }
-            if ((item.startAt != null) && (item.arriveHosAt != null)) {
-                allTime.text = getTimeDifference(item.startAt!!, item.arriveHosAt!!)
-            }
-            statusImage.setImageResource(
-                when (val status=item.status) {
-
-                    1 -> R.drawable.ic_task_status_start
-                    2 -> R.drawable.ic_task_status_arrived
-                    3 -> R.drawable.ic_task_status_tuch_patient
-                    4 -> R.drawable.ic_task_status_back
-                    5 -> R.drawable.ic_task_status_end
-                    else -> throw IllegalStateException("Unknown status $status")
-                }
-            )
-            parientName.text = names
-            task = item
+            task = getItem(position)
             listener = viewModel
             lifecycleOwner = owner
             executePendingBindings()

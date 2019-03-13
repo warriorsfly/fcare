@@ -121,8 +121,8 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         checkCondition.value?.startDate = ""
         checkCondition.value?.endDate = ""
         when(item){
-            "本日" ->{
-                checkCondition.value?.checkedCusDateStr = "本日"
+            "今天" ->{
+                checkCondition.value?.checkedCusDateStr = "今天"
                 checkCondition.value?.startDate = getTimesmorning()
                 checkCondition.value?.endDate = DateTimeUtils.getCurrentTime()
             }

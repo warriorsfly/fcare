@@ -12,167 +12,257 @@
             android:layout_marginRight="22dp"
             android:layout_marginTop="7.5dp"
             android:layout_marginBottom="7.5dp"
+            android:onClick="@{() -> listener.onOpen(task.id)}"
             android:elevation="2dp"
             app:cardElevation="4dp"
             app:cardCornerRadius="6dp">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
-                android:background="?attr/selectableItemBackground"
-                android:layout_width="match_parent"
-                android:paddingLeft="12dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:onClick="@{() -> listener.onOpen(task.id)}"
-                android:layout_height="wrap_content">
 
+                android:clickable="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <TextView
                     android:id="@+id/task_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="目的地："
-                    android:textColor="#131D35"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="19sp"
+                    android:text="皖A UB134"
+                    android:textColor="#525252"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
-            <TextView
-                    android:id="@+id/task_det"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:text="@{task.taskPosition}"
-                    android:textColor="#131D35"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title1"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                    android:id="@+id/task_destination"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="15sp"
-                    android:textColor="#131D35"
-                    android:text="@{task.taskPosition}"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title1"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title1"/>
-
-
-
-            <TextView
-                    android:id="@+id/task_title2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    android:text="发车时间："
-                    app:layout_constraintLeft_toLeftOf="@id/task_title1"
-                    app:layout_constraintTop_toBottomOf="@id/task_title1"/>
-
-            <TextView
-                    android:id="@+id/task_dispatch_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    app:doneAt="@{task.startAt}"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title2"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title2"/>
-
-            <TextView
-                    android:id="@+id/task_title3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:layout_marginLeft="@dimen/spacing_normal"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    android:text="到达医院："
-                    app:layout_constraintLeft_toRightOf="@id/task_dispatch_time"
-                    app:layout_constraintTop_toBottomOf="@id/task_title1"/>
-
-            <TextView
-                    android:id="@+id/arrive_hospital_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    app:doneAt="@{task.arriveHosAt}"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title3"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title3"/>
-
-            <TextView
-                    android:id="@+id/task_title4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    android:text="总计时长："
-                    app:layout_constraintLeft_toLeftOf="@id/task_title2"
-                    app:layout_constraintTop_toBottomOf="@id/task_title2"/>
-
-            <TextView
-                    android:id="@+id/all_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title4"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title4"/>
-
-            <TextView
-                    android:id="@+id/task_title5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    android:text="车辆信息："
-                    app:layout_constraintLeft_toLeftOf="@id/task_title4"
-                    app:layout_constraintTop_toBottomOf="@id/task_title4"/>
-
-            <TextView
-                    android:id="@+id/car_card"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:background="#F0F2F4"
-                    android:textColor="#7D8AA3"
-                    android:text="@{task.carId}"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title5"
-                    app:layout_constraintBottom_toBottomOf="@id/task_title5"/>
-
-            <TextView
-                    android:id="@+id/task_title6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/spacing_normal"
-                    android:textSize="13sp"
-                    android:textColor="#7D8AA3"
-                    android:text="病人姓名："
-                    app:layout_constraintLeft_toLeftOf="@id/task_title5"
-                    app:layout_constraintTop_toBottomOf="@id/task_title5"/>
-
-            <TextView
-                    android:id="@+id/parient_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    tools:text="张三"
-                    android:textColor="#7D8AA3"
-                    app:layout_constraintLeft_toRightOf="@+id/task_title6"
-                    app:layout_constraintTop_toTopOf="@+id/task_title6"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/model_1"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="9dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/task_title1"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <ImageView
-                    android:id="@+id/status_image"
-                    android:layout_width="62dp"
-                    android:layout_height="62dp"
-                    android:layout_marginRight="5dp"
-                    android:src="@drawable/ic_markact"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@+id/task_title5"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/arrive_time"
+                        tools:text="11:11"
+                        app:doneAt="@{task.startAt}"
+                        app:taskedAt="@{task.status>0}"
+                        android:id="@+id/start_time"
+                        android:gravity="center"
+                        android:layout_marginBottom="5dp"
+                        app:layout_constraintBottom_toTopOf="@id/seekBar"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/start_time"
+                        app:layout_constraintRight_toLeftOf="@id/met_time"
+                        tools:text="11:18"
+                        app:doneAt="@{task.arriveAt}"
+                        app:taskedAt="@{task.status>1}"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/arrive_time"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toTopOf="@id/seekBar"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/arrive_time"
+                        app:layout_constraintRight_toLeftOf="@id/returning_time"
+                        tools:text="11:32"
+                        app:doneAt="@{task.firstMet}"
+                        app:taskedAt="@{task.status>2}"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/met_time"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toTopOf="@id/seekBar"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/met_time"
+                        app:layout_constraintRight_toLeftOf="@id/returnarrival_time"
+                        tools:text="11:41"
+                        android:gravity="center"
+                        app:taskedAt="@{task.status>3}"
+                        app:doneAt="@{task.returnAt}"
+                        android:id="@+id/returning_time"
+                        app:layout_constraintBottom_toTopOf="@id/seekBar"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/returning_time"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:gravity="center"
+                        app:taskedAt="@{task.status>4}"
+                        app:doneAt="@{task.arriveHosAt}"
+                        android:layout_marginBottom="5dp"
+                        android:id="@+id/returnarrival_time"
+                        app:layout_constraintBottom_toTopOf="@id/seekBar"/>
+
+
+                <TextView
+                        android:text=" "
+                        android:elevation="0.5dp"
+                        android:gravity="center"
+                        android:textSize="9sp"
+                        app:taskAt="@{task.status>0}"
+                        app:layout_constraintTop_toTopOf="@id/seekBar"
+                        app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                        app:layout_constraintLeft_toLeftOf="@id/start"
+                        app:layout_constraintRight_toRightOf="@id/start"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"/>
+
+                <TextView
+                        android:text=" "
+                        android:elevation="0.5dp"
+                        android:gravity="center"
+                        android:textSize="9sp"
+                        android:clickable="true"
+                        app:taskAt="@{task.status>1}"
+                        app:layout_constraintTop_toTopOf="@id/seekBar"
+                        app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                        app:layout_constraintLeft_toLeftOf="@id/arrive"
+                        app:layout_constraintRight_toRightOf="@id/arrive"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"/>
+
+                <TextView
+                        android:text=" "
+                        android:elevation="0.5dp"
+                        android:gravity="center"
+                        android:textSize="9sp"
+                        android:clickable="true"
+                        app:taskAt="@{task.status>2}"
+                        app:layout_constraintTop_toTopOf="@id/seekBar"
+                        app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                        app:layout_constraintLeft_toLeftOf="@id/met"
+                        app:layout_constraintRight_toRightOf="@id/met"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"/>
+
+                <TextView
+                        android:text=" "
+                        android:elevation="0.5dp"
+                        android:gravity="center"
+                        android:textSize="9sp"
+                        app:taskAt="@{task.status>3}"
+                        app:layout_constraintTop_toTopOf="@id/seekBar"
+                        app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                        app:layout_constraintLeft_toLeftOf="@id/returning"
+                        app:layout_constraintRight_toRightOf="@id/returning"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"/>
+
+                <TextView
+                        android:text=" "
+                        android:elevation="0.5dp"
+                        android:gravity="center"
+                        android:textSize="9sp"
+                        app:taskAt="@{task.status>4}"
+                        app:layout_constraintTop_toTopOf="@id/seekBar"
+                        app:layout_constraintBottom_toBottomOf="@id/seekBar"
+                        app:layout_constraintLeft_toLeftOf="@id/returnarrival"
+                        app:layout_constraintRight_toRightOf="@id/returnarrival"
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"/>
+
+                <SeekBar
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        app:layout_constraintBottom_toTopOf="@+id/start"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:max="8"
+                        android:thumb="@drawable/ic_process_car_thumb"
+                        android:progress="@{task.process}"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:contextClickable="false"
+                        android:id="@+id/seekBar"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="5dp"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toLeftOf="@id/arrive"
+                        android:text="发车"
+                        app:taskedAt="@{task.status>0}"
+                        android:id="@+id/start"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                <TextView
+                        android:layout_width="0dp"
+                        android:textSize="12sp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/start"
+                        app:layout_constraintRight_toLeftOf="@id/met"
+                        android:text="到达"
+                        app:taskedAt="@{task.status>1}"
+                        android:id="@+id/arrive"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:textSize="12sp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/arrive"
+                        app:layout_constraintRight_toLeftOf="@id/returning"
+                        android:text="首次接触"
+                        android:id="@+id/met"
+                        android:gravity="center"
+                        app:taskedAt="@{task.status>2}"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/met"
+                        app:layout_constraintRight_toLeftOf="@id/returnarrival"
+                        android:text="返回"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:id="@+id/returning"
+                        app:taskedAt="@{task.status>3}"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintLeft_toRightOf="@id/returning"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:text="到达大门"
+                        android:textSize="12sp"
+                        android:gravity="center"
+                        android:id="@+id/returnarrival"
+                        app:taskedAt="@{task.status>4}"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
