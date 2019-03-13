@@ -1,10 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:app="http://schemas.android.com/apk/res-auto"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:context="com.wxsoft.fcare.ui.home.EmrActivity">
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  tools:context="com.wxsoft.fcare.ui.details.dominating.DoMinaActivity">
     <item
-            android:id="@+id/cancel_task"
-            android:orderInCategory="100"
-            android:title="取消任务"
-            app:showAsAction="always"/>
+        android:id="@+id/cancel_task"
+        android:orderInCategory="100"
+        android:title="取消任务"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/show_doctor"
+        android:orderInCategory="100"
+        android:title="随车人员"
+        app:showAsAction="never"/>
 </menu>

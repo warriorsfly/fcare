@@ -16,6 +16,8 @@ import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DispatchCarViewModel @Inject constructor(
@@ -34,6 +36,13 @@ class DispatchCarViewModel @Inject constructor(
         value=true
     }
 
+    var taskId=""
+    set(value) {
+        field=value
+        if(field.isNotEmpty()){
+            loadTask(field)
+        }
+    }
     val task: LiveData<Task>
     private val initTask= MediatorLiveData<Task>()
 
@@ -44,7 +53,7 @@ class DispatchCarViewModel @Inject constructor(
     private var selectedCar:Car
     override val account: Account
 
-    var taskId: LiveData<String>
+    var taskSavedId: LiveData<String>
     private val initTaskId= MediatorLiveData<Resource<Response<String>>>()
 
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
@@ -71,7 +80,7 @@ class DispatchCarViewModel @Inject constructor(
         doctors = loadDoctorsResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         nurses = loadNursesResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         drivers = loadDriversResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
-        taskId = initTaskId.map { (it as? Resource.Success)?.data?.result ?: "" }
+        taskSavedId = initTaskId.map { (it as? Resource.Success)?.data?.result ?: "" }
         getCars()
         getDoctors()
         getNurses()
@@ -87,6 +96,20 @@ class DispatchCarViewModel @Inject constructor(
                 initTaskId.value = it
             }
         )
+    }
+
+    private fun loadTask(id:String){
+//
+//        disposable.add(taskApi.task(id)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                initTask.value=it.result
+//                doctors.value?.forEach { u->u.checked=it.result?. }
+//            },{
+//
+//            })
+//        )
     }
 
     private fun getCars(){

@@ -348,7 +348,7 @@ class EmrFragment : DaggerFragment() {
                 ActionRes.ActionType.溶栓处置 ->{
                     val intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
-//                        putExtra(ThrombolysisActivity.TASK_ID, taskId)
+//                        putExtra(ThrombolysisActivity.TASK_ID, taskSavedId)
                         putExtra(ThrombolysisActivity.ID, id)
                         putExtra(ThrombolysisActivity.COME_FROM, "1")
                     }

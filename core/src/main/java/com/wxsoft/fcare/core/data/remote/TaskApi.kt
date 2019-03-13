@@ -41,11 +41,14 @@ interface TaskApi {
     
     @GET("Task/arrive-hos/{id}")
     fun arriveHos(@Path("id")taskId:String): Maybe<Response<String>>
+    @GET("Task/CancelTask/{id}/{user}/{reason}")
+    fun cancel(@Path("id")taskId:String,@Path("user")user:String,@Path("reason")reason:String): Maybe<Response<String>>
 
     @POST("Task/GetPaged")
     fun getTasks(@Body item: PatientsCondition):Maybe<Page<Task>>
 
-
+    @GET("EnumDic/enumItems/226/{patientId}")
+    fun getDicts(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
     @GET("Task/UpdateTaskTime/{id}/{status}/{time}")
     fun change(@Path("id")taskId:String,@Path("status")status:Int,@Path("time")time:String): Maybe<Response<String>>

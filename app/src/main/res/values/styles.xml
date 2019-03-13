@@ -26,6 +26,7 @@
         <item name="android:windowBackground">@color/dark_background</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="actionMenuTextColor">@color/white</item>
+        <item name="android:textColorSecondary">@color/white</item>
     </style>
 
     <style name="AppTheme.RatingSubject">

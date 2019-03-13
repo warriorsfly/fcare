@@ -35,6 +35,10 @@ internal abstract class DoMinaModule {
 
     @ChildFragmentScoped
     @ContributesAndroidInjector
+    abstract fun contributeTaskSheetFragment(): TaskSheetFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
     abstract fun contributePatientManagerFragment(): PatientManagerFragment
 
     @ChildFragmentScoped

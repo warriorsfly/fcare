@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.data.entity.TaskSpend
@@ -46,14 +47,17 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 field=value
                 if(field.isNotEmpty()){
                     loadTask()
+                    loadDict()
                 }
             }
         }
 
     val spends:LiveData<List<TaskSpend>>
+    val dicts:LiveData<List<Dictionary>>
     private val loadTaskResult=MediatorLiveData<Response<Task>>()
     private val loadSpendResult=MediatorLiveData<List<TaskSpend>>()
-
+    private val loadDictResult=MediatorLiveData<List<Dictionary>>()
+    val cancelResult=MediatorLiveData<Boolean>()
     /**
      * 时间处理
      */
@@ -153,6 +157,8 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             it
         }
 
+        dicts=loadDictResult.map { it }
+
         task=loadTaskResult.map {
 
             it.result?.apply {
@@ -237,6 +243,18 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                     loadTaskResult.value = it
                     refresh()
                     selectIndex.set(it.result?.status?:0)
+                },
+                { messageAction.value = Event(it.message ?: "") }
+            ))
+    }
+
+    fun loadDict() {
+        disposable.add(taskApi.getDicts("")
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    loadDictResult.value = it
                 },
                 { messageAction.value = Event(it.message ?: "") }
             ))
@@ -439,6 +457,15 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 }
             }
         ,{error->messageAction.value= Event(error.message?:"")}))
+    }
+
+    fun cancel(reason:String){
+        disposable.add(taskApi.cancel(taskId,account.id,reason)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                cancelResult.value=it.success
+            },{error->messageAction.value= Event(error.message?:"")}))
     }
 
     private fun getText(){

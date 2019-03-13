@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.dominating
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +11,12 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -21,10 +24,13 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.GisFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.TaskSheetFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
+import com.wxsoft.fcare.ui.patient.ProfileActivity
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
@@ -34,6 +40,10 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
         viewModel.changing(changingStatus,DateTimeUtils.formatter.format(millseconds),millseconds)
         dialog
+    }
+
+    private val dictFragment by lazy{
+        TaskSheetFragment(::cancel)
     }
 
     private var dialog: TimePickerDialog?=null
@@ -111,6 +121,14 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
             dialog=createDialog(time)
             dialog?.show(supportFragmentManager,"all")
         })
+
+        viewModel.cancelResult.observe(this, Observer {
+            if(it) {
+                dictFragment.dismiss()
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+        })
     }
 
 
@@ -157,11 +175,26 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
         return when(item?.itemId){
             R.id.cancel_task->{
+                dictFragment.show(supportFragmentManager,TaskSheetFragment.TAG)
+                true
+            }
+
+            R.id.show_doctor-> {
+                val intent = Intent(this, DispatchCarActivity::class.java).apply {
+                    putExtra(ProfileActivity.TASK_ID, taskId)
+                }
+                startActivity(intent)
                 true
             }
             else->super.onOptionsItemSelected(item)
         }
     }
+
+    private fun cancel(dict:Dictionary){
+
+        viewModel.cancel(dict.id)
+    }
+
 
 }
 

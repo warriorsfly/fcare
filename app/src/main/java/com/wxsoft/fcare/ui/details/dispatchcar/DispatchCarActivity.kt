@@ -7,10 +7,12 @@ import android.os.Bundle
 import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.databinding.ActivityDispatchCarBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.patient.ProfileActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -32,6 +34,7 @@ class DispatchCarActivity : BaseActivity() {
 
 
         viewModel = viewModelProvider(factory)
+        viewModel.taskId=taskId
         binding = DataBindingUtil.setContentView<ActivityDispatchCarBinding>(this, R.layout.activity_dispatch_car)
             .apply {
                 lifecycleOwner = this@DispatchCarActivity
@@ -61,7 +64,7 @@ class DispatchCarActivity : BaseActivity() {
 
         viewModel.task.observe(this, Observer {  })
 
-        viewModel.taskId.observe(this, Observer {
+        viewModel.taskSavedId.observe(this, Observer {
             if (it != null){
 
                 Intent().let { intent ->
@@ -85,5 +88,10 @@ class DispatchCarActivity : BaseActivity() {
         startActivity(intent)
     }
 
+
+    private val taskId: String by lazyFast {
+        intent ?.getStringExtra(ProfileActivity.TASK_ID)?:""
+
+    }
 
 }
