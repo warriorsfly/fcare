@@ -20,7 +20,7 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
         holder.binding.apply {
             task = getItem(position)
             listener = viewModel
-            lifecycleOwner = owner
+
             executePendingBindings()
 
         }
@@ -31,6 +31,10 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
         val binding = LayoutItemAssignmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            .apply {
+                seekBar.isEnabled=false// { _, _ -> false }
+                lifecycleOwner = owner
+            }
         return ItemViewHolder(binding)
     }
 
