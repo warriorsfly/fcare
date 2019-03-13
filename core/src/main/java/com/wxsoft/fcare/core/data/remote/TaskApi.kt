@@ -2,9 +2,7 @@ package com.wxsoft.fcare.core.data.remote
 
 
 
-import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.Task
-import com.wxsoft.fcare.core.data.entity.User
+import com.wxsoft.fcare.core.data.entity.*
 import io.reactivex.Maybe
 import io.reactivex.Single
 import retrofit2.http.Body
@@ -44,6 +42,8 @@ interface TaskApi {
     @GET("Task/arrive-hos/{id}")
     fun arriveHos(@Path("id")taskId:String): Maybe<Response<String>>
 
+    @POST("Task/GetPaged")
+    fun getTasks(@Body item: PatientsCondition):Maybe<Page<Task>>
 
 
 

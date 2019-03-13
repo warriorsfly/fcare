@@ -10,12 +10,6 @@ data class PatientsCondition (
 ): BaseObservable(){
 
     @Bindable
-    var keyword:String=""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.keyword)
-        }
-    @Bindable
     var startDate:String=""
         set(value) {
             field = value
@@ -51,7 +45,7 @@ data class PatientsCondition (
 
     @Transient
     @Bindable
-    var checkedCusDateStr:String="今日"
+    var checkedCusDateStr:String="今天"
         set(value) {
             field = value
             notifyPropertyChanged(BR.checkedCusDateStr)

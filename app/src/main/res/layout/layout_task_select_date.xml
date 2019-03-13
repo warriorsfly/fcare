@@ -2,7 +2,7 @@
 <layout>
     <data>
         <!--<import type="com.wxsoft.fcare.utils.Converter"/>-->
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.main.fragment.patients.PatientsViewModel"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.main.fragment.task.TaskViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
-            >
+    >
 
         <View
                 android:id="@+id/line1"
@@ -290,5 +290,5 @@
                 android:layout_height="wrap_content"/>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

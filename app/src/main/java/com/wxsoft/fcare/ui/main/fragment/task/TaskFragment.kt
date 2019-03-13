@@ -4,24 +4,50 @@ package com.wxsoft.fcare.ui.main.fragment.task
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupWindow
+import androidx.core.widget.PopupWindowCompat
 import androidx.lifecycle.Observer
+import com.jzxiang.pickerview.TimePickerDialog
+import com.jzxiang.pickerview.data.Type
+import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
+import com.wxsoft.fcare.databinding.LayoutTaskSelectDateBinding
+import com.wxsoft.fcare.databinding.LayoutTaskSelectTypeBinding
+import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
+import com.wxsoft.fcare.ui.main.fragment.patients.PatientSelectTypeAdapter
+import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsActivity
 import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
 
 
-class TaskFragment : DaggerFragment() {
+class TaskFragment : DaggerFragment() , OnDateSetListener {
+
+    private var dialog: TimePickerDialog?=null
+
+
+    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+
+        when(selectedId){
+            100 -> viewModel.checkCondition.value?.startDate = DateTimeUtils.formatter.format(millseconds)
+            200 -> viewModel.checkCondition.value?.endDate = DateTimeUtils.formatter.format(millseconds)
+        }
+    }
+
+    private var selectedId=0
 
     companion object {
         const val NEW_TAK_REQUEST_CODE=14
@@ -29,10 +55,18 @@ class TaskFragment : DaggerFragment() {
 
     private lateinit var viewModel: TaskViewModel
 
+    private lateinit var popwindow: PopupWindow
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
+    lateinit var binding: FragmentAssignmentBinding
+
     lateinit var adapter: TaskAdapter
+
+    lateinit var selectDatebinding: LayoutTaskSelectDateBinding
+    lateinit var selectTypebinding: LayoutTaskSelectTypeBinding
+    lateinit var selectTypeAdapter: TaskSelectTypeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +80,7 @@ class TaskFragment : DaggerFragment() {
     ): View? {
 
 
-        val binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
+         binding = FragmentAssignmentBinding.inflate(inflater, container, false).apply {
 
             floatingActionButton.setOnClickListener {
                 toDispatchCar()
@@ -61,6 +95,24 @@ class TaskFragment : DaggerFragment() {
 
             lifecycleOwner = this@TaskFragment
         }
+
+        selectDatebinding = LayoutTaskSelectDateBinding.inflate(inflater, container, false).apply {
+            viewModel=this@TaskFragment.viewModel
+            lifecycleOwner = this@TaskFragment
+        }
+        selectTypebinding = LayoutTaskSelectTypeBinding.inflate(inflater, container, false).apply {
+            viewModel=this@TaskFragment.viewModel
+            lifecycleOwner = this@TaskFragment
+        }
+
+        popwindow = PopupWindow().apply {
+            setHeight(ViewGroup.LayoutParams.MATCH_PARENT-60)
+            setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
+            setOutsideTouchable(true)
+            setFocusable(true)
+            setBackgroundDrawable(ColorDrawable(Color.GRAY))
+        }
+
         viewModel.tasks.observe(this, Observer {
 
             adapter.submitList(it ?: emptyList())
@@ -69,6 +121,50 @@ class TaskFragment : DaggerFragment() {
         viewModel.navigateToOperationAction.observe(this, EventObserver {
             toDetail(it)
         })
+
+
+        viewModel.clickTop.observe(this, Observer {
+            when(it){
+                "DATE" -> selectDate()
+                "TYPE" -> selectType()
+                "SEARCH" -> toSearchPatient()
+            }
+        })
+
+        viewModel.clickCusDate.observe(this, Observer {
+            when(it){
+                "开始时间" ->{
+                    selectedId = 100
+                    val currentTime = viewModel.checkCondition.value?.startDate.let { text ->
+                        if (text!!.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+                    }
+                    dialog = createDialog(currentTime)
+                    dialog?.show(childFragmentManager, "all")
+
+                }
+                "结束时间" ->{
+                    selectedId = 200
+                    val currentTime = viewModel.checkCondition.value?.endDate.let { text ->
+                        if (text!!.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+                    }
+                    dialog = createDialog(currentTime)
+                    dialog?.show(childFragmentManager, "all")
+                }
+                "选择时间确定" ->{
+                    popwindow.dismiss()
+                }
+                "选择类型确定" ->{
+                    popwindow.dismiss()
+                }
+            }
+        })
+        selectTypeAdapter = TaskSelectTypeAdapter(this@TaskFragment,viewModel)
+        selectTypebinding.typeList.adapter = selectTypeAdapter
+        viewModel.typeItems.observe(this, Observer {
+            selectTypeAdapter.items = it
+        })
+
+
         return binding.root
     }
 
@@ -116,6 +212,42 @@ class TaskFragment : DaggerFragment() {
         val intent = Intent(activity!!, DoMinaActivity::class.java)
         intent.putExtra(DoMinaActivity.TASK_ID, id)
         startActivityForResult(intent,NEW_TAK_REQUEST_CODE)
+    }
+
+
+    private fun selectDate(){
+        popwindow.setContentView(selectDatebinding.root)
+        PopupWindowCompat.showAsDropDown(popwindow, binding.searchPlaceholder, 0, 0, Gravity.START)
+    }
+    private fun selectType(){
+        popwindow.setContentView(selectTypebinding.root)
+        PopupWindowCompat.showAsDropDown(popwindow, binding.searchPlaceholder, 0, 0, Gravity.START)
+    }
+
+
+    fun toSearchPatient(){
+        Intent(activity!!, SearchPatientsActivity::class.java).let {
+            startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
+        }
+    }
+
+    private fun createDialog(time:Long): TimePickerDialog {
+
+        return TimePickerDialog.Builder()
+            .setCallBack(this)
+            .setCancelStringId("取消")
+            .setSureStringId("确定")
+            .setTitleStringId("选择时间")
+            .setYearText("")
+            .setMonthText("")
+            .setDayText("")
+            .setHourText("")
+            .setMinuteText("")
+            .setCyclic(false)
+            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
+            .setType(Type.ALL)
+            .setWheelItemTextSize(16)
+            .build()
     }
 
 }

@@ -7,6 +7,8 @@ import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.core.domain.repository.patients.PageKeyPatientRepository
+import com.wxsoft.fcare.core.domain.repository.tasks.ITaskRepository
+import com.wxsoft.fcare.core.domain.repository.tasks.PageKeyTaskRepository
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -163,6 +165,10 @@ class NetWorkModule {
     @Provides
     fun providePatientRepository(patientApi: PatientApi):IPatientRepository{
         return PageKeyPatientRepository(patientApi)
+    }
+    @Provides
+    fun provideTaskRepository(taskApi: TaskApi): ITaskRepository {
+        return PageKeyTaskRepository(taskApi)
     }
 
     @Provides
