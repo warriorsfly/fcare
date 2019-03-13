@@ -62,4 +62,20 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
     override fun onOpen(t: String) {
         _navigateToOperationAction.value = Event(t)
     }
+
+    fun selectDate(){
+//        clickTopResult.value = "DATE"
+    }
+
+    fun selectType(){
+//        clickTopResult.value = "TYPE"
+    }
+
+    fun search(){
+//        clickTopResult.value = "SEARCH"
+    }
+
+
+
+
 }

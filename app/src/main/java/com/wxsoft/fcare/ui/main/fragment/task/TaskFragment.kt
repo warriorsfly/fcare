@@ -3,21 +3,20 @@ package com.wxsoft.fcare.ui.main.fragment.task
 
 import android.app.Activity.RESULT_OK
 import android.app.DatePickerDialog
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
-import com.wxsoft.fcare.core.utils.DateTimeUtils
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_assignment.*
 import java.util.*
 import javax.inject.Inject
 
@@ -52,9 +51,9 @@ class TaskFragment : DaggerFragment() {
             floatingActionButton.setOnClickListener {
                 toDispatchCar()
             }
-            selectTaskDate.setOnClickListener {
-                selectTime()
-            }
+//            selectTaskDate.setOnClickListener {
+//                selectTime()
+//            }
             viewModel = this@TaskFragment.viewModel
 
 //            this@TaskFragment.adapter= TaskAdapter(this@TaskFragment, this@TaskFragment.viewModel)
@@ -86,7 +85,7 @@ class TaskFragment : DaggerFragment() {
                 viewModel.taskDate = year.toString() + "-" +
                         DateTimeUtils.frontCompWithZore(monthOfYear + 1, 2) + "-" +
                         DateTimeUtils.frontCompWithZore(dayOfMonth, 2)
-                select_task_date.text = viewModel.taskDate
+//                select_task_date.text = viewModel.taskDate
                 viewModel.onSwipeRefresh()
             }, mYear, mMonth, mDay)
 

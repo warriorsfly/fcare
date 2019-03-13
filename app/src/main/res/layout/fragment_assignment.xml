@@ -16,40 +16,133 @@
                 android:layout_height="match_parent"
                 tools:context=".ui.home.HomeActivity">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/task_topbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="44dp"
+
+            <com.google.android.material.card.MaterialCardView
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent">
-                <!--<TextView-->
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="4dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/search_placeholder"
+                    app:strokeColor="@color/light_gray"
+                    android:elevation="2dp"
+                    app:cardElevation="4dp"
+            >
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/patients_top_bar"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/select_date"
+                            android:onClick="@{()->viewModel.selectDate()}"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:gravity="left"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/small_title_text_gray"
+                            tools:text="今天"
+                            android:drawableRight="@drawable/ic_drop_down_arow"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:drawablePadding="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/select_type"
+                            android:onClick="@{()->viewModel.selectType()}"
+                            app:layout_constraintLeft_toRightOf="@+id/select_date"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/serch_tv"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="center"
+                            android:textSize="16sp"
+                            android:textColor="@color/small_title_text_gray"
+                            tools:text="全部类型"
+                            android:drawableRight="@drawable/ic_drop_down_arow"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginTop="10dp"
+                            android:drawablePadding="3dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/serch_tv"
+                            android:onClick="@{()->viewModel.search()}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:gravity="right"
+                            android:textSize="16sp"
+                            android:textColor="@color/tint_work_space_checking"
+                            tools:text="查询"
+                            android:text="查询"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <!--<androidx.appcompat.widget.SearchView-->
+                <!--android:id="@+id/search"-->
+                <!--android:layout_width="match_parent"-->
+                <!--app:queryHint="请输入患者姓名"-->
+                <!--app:queryBackground="@null"-->
+                <!--app:iconifiedByDefault="false"-->
+                <!--android:layout_height="wrap_content"/>-->
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                    <!--android:id="@+id/task_topbar"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="44dp"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent">-->
+                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:text="急救任务"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:textSize="22sp"&ndash;&gt;-->
+                        <!--&lt;!&ndash;android:id="@+id/title"&ndash;&gt;-->
+                        <!--&lt;!&ndash;app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
+                        <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;app:layout_constraintBaseline_toBaselineOf="@id/title"&ndash;&gt;-->
+                <!--<Button-->
+                        <!--android:id="@+id/select_task_date"-->
                         <!--android:layout_width="wrap_content"-->
                         <!--android:layout_height="wrap_content"-->
-                        <!--android:text="急救任务"-->
-                        <!--android:layout_margin="10dp"-->
-                        <!--android:textSize="22sp"-->
-                        <!--android:id="@+id/title"-->
+                        <!--android:layout_marginTop="10dp"-->
+                        <!--style="@style/Widget.MaterialComponents.Button.TextButton"-->
+                        <!--android:layout_marginRight="10dp"-->
+                        <!--android:layout_marginBottom="10dp"-->
+                        <!--android:text="@{viewModel.taskDate}"-->
+                        <!--tools:text="2019-01-01"-->
+                        <!--android:textSize="19sp"-->
+                        <!--app:layout_constraintTop_toTopOf="parent"-->
                         <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                        <!--app:layout_constraintTop_toTopOf="parent"/>-->
-                <!--app:layout_constraintBaseline_toBaselineOf="@id/title"-->
-                <Button
-                        android:id="@+id/select_task_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        style="@style/Widget.MaterialComponents.Button.TextButton"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:text="@{viewModel.taskDate}"
-                        tools:text="2019-01-01"
-                        android:textSize="19sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        />
+                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                        <!--app:layout_constraintRight_toRightOf="parent"-->
+                        <!--/>-->
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:layout_width="wrap_content"
@@ -59,7 +152,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/task_topbar">
+                    app:layout_constraintTop_toBottomOf="@+id/search_placeholder">
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
