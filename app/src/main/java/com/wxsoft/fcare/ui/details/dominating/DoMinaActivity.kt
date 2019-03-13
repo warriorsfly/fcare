@@ -3,12 +3,13 @@ package com.wxsoft.fcare.ui.details.dominating
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
-import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
@@ -20,10 +21,11 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.*
+import com.wxsoft.fcare.ui.details.dominating.fragment.GisFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.activity_do_mina.*
-import kotlinx.android.synthetic.main.fragment_task_process.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject
 
@@ -144,6 +146,21 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
             .setType(Type.ALL)
             .setWheelItemTextSize(12)
             .build()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_task_info,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return when(item?.itemId){
+            R.id.cancel_task->{
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 
 }
