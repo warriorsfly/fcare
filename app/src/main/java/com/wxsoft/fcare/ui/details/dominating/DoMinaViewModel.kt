@@ -383,6 +383,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 2->"首次接触"
                 3->"返回医院"
                 4->"到达医院大门"
+                5->""
                 else->throw IllegalArgumentException("error status $it")
             })
         }
