@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.databinding.ItemDiagnoseIllnessBinding
@@ -40,9 +39,7 @@ class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOw
                 when(differ.currentList[position].id){
                     "216-1" -> {
                         root.illness_icon.setText("I")
-                        root.illness_name.setTextColor(if(differ.currentList[position].checked)
-                            Color.WHITE
-                        else Color.parseColor("#FE5F55"))
+                        root.illness_name.setTextColor(Color.parseColor("#FE5F55"))
                     }
                     "216-2" -> {
                         root.illness_icon.setText("II")

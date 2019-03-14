@@ -5,8 +5,9 @@ import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
+import java.io.Serializable
 
-data class Diagnosis (val id:String="",val createrId:String,val createrName:String): BaseObservable(){
+data class Diagnosis (val id:String="",val createrId:String,val createrName:String): BaseObservable(), Serializable {
 
     /// <summary>
     /// 病人id
@@ -64,7 +65,13 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
             notifyPropertyChanged(BR.diagnosisCode3)
         }
 
-
+    @Bindable
+    @Transient
+    var diagnosisCode3Name: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.diagnosisCode3Name)
+        }
     /// <summary>
     /// 危重级别
     /// </summary>
@@ -120,7 +127,7 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
             notifyPropertyChanged(BR.createdDate)
         }
     @Bindable
-        var sceneType:String= DateTimeUtils.getCurrentTime()
+        var sceneType:String= ""
             set(value) {
                 field=value
                 notifyPropertyChanged(BR.sceneType)

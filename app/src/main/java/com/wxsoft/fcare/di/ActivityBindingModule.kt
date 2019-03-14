@@ -18,6 +18,8 @@ import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseModule
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordModule
+import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseModule
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
@@ -240,5 +242,8 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [SearchTaskModule::class])
     internal abstract fun searchTaskActivity(): SearchTaskActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SelectDiagnoseModule::class])
+    internal abstract fun selectDiagnoseActivity(): SelectDiagnoseActivity
 
 }
