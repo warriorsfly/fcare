@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:text="取消"
             android:id="@+id/canncel"
-            android:textColor="#63B0F8"
+            android:textColor="@color/colorPrimary"
             android:textSize="18sp"
         />
         <androidx.recyclerview.widget.RecyclerView

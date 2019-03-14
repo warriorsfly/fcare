@@ -132,7 +132,7 @@ fun patientStatus(textView: TextView, patientStatus: String?) {
         }
         "223-4"->{
             textView.setBackgroundResource(R.drawable.bg_conor_status_4)//治疗
-            textView.setTextColor(Color.parseColor("#63B0F8"))
+            textView.setTextColor(textView.context.resources.getColor(R.color.colorPrimary))
         }
         "223-5"->{
             textView.setBackgroundResource(R.drawable.bg_conor_status_5)//转归
