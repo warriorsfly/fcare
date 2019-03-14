@@ -108,6 +108,12 @@ class WorkingActivity : BaseActivity() {
                         }
                     startActivityForResult(intent, TimePointActivity.BASE_INFO)
                 }
+                notification.setOnClickListener {
+                    val intent = Intent(this@WorkingActivity, NotificationActivity::class.java).apply {
+                        putExtra(NotificationActivity.PATIENT_ID, patientId)
+                    }
+                    startActivityForResult(intent, NOTIFICATION)
+                }
             }
 
 
@@ -130,15 +136,10 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, DRUGRECORD)
             }
             ActionRes.ActionType.生命体征 -> {
-//                val intent = Intent(this@WorkingActivity, VitalSignsRecordActivity::class.java).apply {
-//                    putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
-//                }
-//                startActivityForResult(intent, VITAL_SIGNS)
-
-                val intent = Intent(this@WorkingActivity, NotificationActivity::class.java).apply {
-                    putExtra(NotificationActivity.PATIENT_ID, patientId)
+                val intent = Intent(this@WorkingActivity, VitalSignsRecordActivity::class.java).apply {
+                    putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
                 }
-                startActivityForResult(intent, NOTIFICATION)
+                startActivityForResult(intent, VITAL_SIGNS)
             }
             ActionRes.ActionType.患者信息录入->{
                 val intent = Intent(this@WorkingActivity, ProfileActivity::class.java).apply {

@@ -16,11 +16,11 @@ import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.domain.repository.tasks.ITaskRepository
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.EventActions
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.core.utils.switchMap
+import com.wxsoft.fcare.ui.BaseViewModel
+import com.wxsoft.fcare.ui.EventActions
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -55,9 +55,12 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
     val typeItems: LiveData<List<Dictionary>>
     private val loadtypeItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
+    val searchTasks: LiveData<List<Task>>
+    private val loadSearchTasksResult = MediatorLiveData<Resource<Response<List<Task>>>>()
 
     init {
-        load()
+//        load()
+        searchTasks = loadSearchTasksResult.map { (it as? Resource.Success)?.data?.result?: emptyList() }
         clickTop = clickTopResult.map { it }
         clickCusDate = clickCusDateResult.map { it }
         checkCondition = checkConditionResult.map { it?:PatientsCondition(1,10) }
@@ -77,6 +80,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
                 })?: emptyList() }
         getMeasuresItems()
     }
+
 
     private val patientName = MediatorLiveData<String>()
 
@@ -102,21 +106,31 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
         return true
     }
 
+
+
+    fun searchTasks(name: String): Boolean{
+        taskApi.searchTasks(name).toResource()
+            .subscribe {
+                loadSearchTasksResult.value = it
+            }
+
+        return true
+    }
 //    fun onSwipeRefresh() {
 //        load()
 //    }
 
-    private fun load() {
-
-        disposable.add(taskApi.tasks(taskDate).toResource()
-            .subscribe {
-                loadTasksResult.value = it
-                if (it is Resource.Error) {
-                    _errorToOperationAction.value = Event(it.throwable.message ?: "错误")
-                }
-            })
-
-    }
+//    private fun load() {
+//
+//        disposable.add(taskApi.tasks(taskDate).toResource()
+//            .subscribe {
+//                loadTasksResult.value = it
+//                if (it is Resource.Error) {
+//                    _errorToOperationAction.value = Event(it.throwable.message ?: "错误")
+//                }
+//            })
+//
+//    }
 
 
 

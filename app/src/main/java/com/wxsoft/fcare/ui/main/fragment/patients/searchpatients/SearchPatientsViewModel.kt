@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage

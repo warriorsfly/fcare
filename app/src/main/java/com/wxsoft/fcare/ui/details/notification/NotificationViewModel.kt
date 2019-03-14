@@ -44,7 +44,7 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
 
     init {
         userItems = loadUserItemsResult.map { it.result?: emptyList() }
-        checkedUsers = loadCheckedUsersResult.map { it }
+        checkedUsers = loadCheckedUsersResult.map { it?: emptyList() }
     }
 
 

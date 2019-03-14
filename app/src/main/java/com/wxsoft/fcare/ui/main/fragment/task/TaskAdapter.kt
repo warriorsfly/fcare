@@ -2,25 +2,41 @@ package com.wxsoft.fcare.ui.main.fragment.task
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.wxsoft.fcare.core.data.entity.Task
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.DateTimeUtils.Companion.formatter
 import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
 import java.text.ParseException
 
 
 class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: TaskViewModel) :
-    ListAdapter<Task,TaskAdapter.ItemViewHolder>(DiffCallback) {
+    ListAdapter<Task,TaskAdapter.ItemViewHolder>(DiffCallback){
+
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            task = getItem(position)
+            var item = getItem(position)
+            task = item
             listener = viewModel
-
+            if (item.startAt!=null&&item.arriveHosAt!=null){
+                var startTime = DateTimeUtils.formatter.parse(item.startAt)?.time!!
+                var endTime = DateTimeUtils.formatter.parse(item.arriveHosAt)?.time!!
+                var fireAt=(endTime - startTime)/1000
+                var minute = (fireAt/60).toString()
+                var second = (fireAt%60).toString()
+                allTime.setText(minute +"分钟"+second+"秒")
+            }
+            if (patientsList.adapter == null) {
+                val adapter = TaskPatientsItemAdapter(owner,viewModel)
+                adapter.submitList(item.patients)
+                patientsList.adapter = adapter
+            }
             executePendingBindings()
 
         }
@@ -32,7 +48,6 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
 
         val binding = LayoutItemAssignmentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
             .apply {
-                seekBar.isEnabled=false// { _, _ -> false }
                 lifecycleOwner = owner
             }
         return ItemViewHolder(binding)

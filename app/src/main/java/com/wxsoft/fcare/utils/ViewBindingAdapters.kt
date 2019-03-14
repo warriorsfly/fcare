@@ -143,6 +143,31 @@ fun patientStatus(textView: TextView, patientStatus: String?) {
     }
 }
 
+@SuppressLint("ResourceAsColor")
+@BindingAdapter("taskStatus")
+fun taskStatus(textView: TextView, taskOverallStatu: Int?) {
+    when(taskOverallStatu){
+        1->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_4)//进行中
+            textView.setText("进行中")
+            textView.setTextColor(Color.parseColor("#63B0F8"))
+        }
+        2->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_5)//已完成
+            textView.setText("已完成")
+            textView.setTextColor(Color.parseColor("#30C890"))
+        }
+        3->{
+            textView.setBackgroundResource(R.drawable.bg_conor_status_3)//已取消
+            textView.setText("已取消")
+            textView.setTextColor(Color.parseColor("#FF8182"))
+        }
+        //不在上述代码中则清空textView的背景
+        else->textView.setBackgroundResource(0)
+    }
+}
+
+
 @BindingAdapter(value = ["imageUri"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: Uri?) {
 
