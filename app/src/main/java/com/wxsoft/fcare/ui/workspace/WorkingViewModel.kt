@@ -106,8 +106,9 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         loadPatientResult.value=response
 
         response.result?.attackTime?.let {
-            courseSeconds.set(((System.currentTimeMillis() - DateTimeUtils.formatter.parse(it).time) / 60000).toInt())
+            courseSeconds.set((System.currentTimeMillis()/60000 - DateTimeUtils.formatter.parse(it).time / 60000).toInt())
 
+            course.set(courseSeconds.get().toString())
             disposable.add(
                 Observable.interval(1, TimeUnit.MINUTES)
                     .subscribe {

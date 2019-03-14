@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Complain
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
-import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.ItemEmrComplaintRecordBinding
 import com.wxsoft.fcare.databinding.ItemEmrDrugRecordBinding
 import com.wxsoft.fcare.ui.EmrEventAction
+import com.wxsoft.fcare.utils.ActionType
 
 class EmrLineLayoutAdapter constructor(private val lifecycleOwner: LifecycleOwner,private val  action: EmrEventAction?) :
     RecyclerView.Adapter<EmrLineLayoutAdapter.ItemViewHolder>() {
@@ -34,12 +34,12 @@ class EmrLineLayoutAdapter constructor(private val lifecycleOwner: LifecycleOwne
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         when (holder) {
             is ItemViewHolder.DrugRecordViewHolder ->holder.binding.apply {
-                root.setOnClickListener { action?.onOpen(ActionRes.ActionType.给药, (differ.currentList[position]as DrugRecord).id) }
+                root.setOnClickListener { action?.onOpen(ActionType.给药, (differ.currentList[position]as DrugRecord).id) }
                 record=differ.currentList[position] as DrugRecord
                 executePendingBindings()
             }
             is ItemViewHolder.ComplaintViewHolder ->holder.binding.apply {
-                root.setOnClickListener { action?.onOpen(ActionRes.ActionType.主诉及症状, (differ.currentList[position]as Complain).id) }
+                root.setOnClickListener { action?.onOpen(ActionType.主诉及症状, (differ.currentList[position]as Complain).id) }
                 record=differ.currentList[position] as Complain
                 executePendingBindings()
             }

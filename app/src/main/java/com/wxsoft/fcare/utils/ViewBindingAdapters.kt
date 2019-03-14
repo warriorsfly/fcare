@@ -65,7 +65,7 @@ fun taskedAt(view: TextView, visible: Boolean) {
 
 @BindingAdapter("overflowAt")
 fun overflowAt(view: TextView, visible: Boolean) {
-    view.setTextColor(if (visible) Color.parseColor("#FE5F55") else Color.WHITE)
+    view.setTextColor(if (visible) Color.parseColor("#FE5F55") else Color.parseColor("#525252"))
 }
 
 /**
@@ -252,7 +252,7 @@ object QualityScoreConverter{
     }
 
     @JvmStatic fun stringToInt(value:String): Int {
-        return if(value.isEmpty()) 0 else value.toInt()
+        return if(value=="-") 0 else value.toInt()
     }
 }
 

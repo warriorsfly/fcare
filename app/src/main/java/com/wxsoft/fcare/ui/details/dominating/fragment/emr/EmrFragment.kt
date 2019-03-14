@@ -38,7 +38,6 @@ import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
-import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.CommitEventAction
@@ -67,6 +66,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
+import com.wxsoft.fcare.utils.ActionType
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_emr.*
 import java.io.File
@@ -178,7 +178,7 @@ class EmrFragment : DaggerFragment() {
             if(it.first<0)return@EventObserver
             adapter.notifyItemChanged(it.first)
             when(it.second){
-                ActionRes.ActionType.心电图->{
+                ActionType.心电图->{
                     viewModel.bitmaps.clear()
                     adapter.pictureAdapter.locals= emptyList()
                 }
@@ -209,55 +209,55 @@ class EmrFragment : DaggerFragment() {
     inner class EventAction constructor(private val context: WeakReference<EmrFragment>,private val patientId:String):EmrEventAction{
         override fun onNew(type: String) {
             when(type) {
-                ActionRes.ActionType.生命体征 -> {
+                ActionType.生命体征 -> {
                     val intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {
                         putExtra(VitalSignsActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, VITAL_SIGNS)
                 }
 
-                ActionRes.ActionType.诊断 ->{
+                ActionType.诊断 ->{
                     val intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, DIAGNOSE)
                 }
-                ActionRes.ActionType.知情同意书 ->{
+                ActionType.知情同意书 ->{
                     val intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
                         putExtra(InformedConsentActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, INFORMEDCONSENT)
                 }
 
-                ActionRes.ActionType.溶栓处置 ->{
+                ActionType.溶栓处置 ->{
                     val intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
                         putExtra(ThrombolysisActivity.COME_FROM, "1")
                     }
                     context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
-                ActionRes.ActionType.给药 ->{
+                ActionType.给药 ->{
                     val intent = Intent(context.get()?.activity, PharmacyActivity::class.java).apply {
                         putExtra(PharmacyActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }
 
-                ActionRes.ActionType.Catheter ->{
+                ActionType.Catheter ->{
                     val intent = Intent(context.get()?.activity,CatheterActivity ::class.java).apply {
                         putExtra(PharmacyActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, Catheter)
                 }
 
-                ActionRes.ActionType.GRACE->{
+                ActionType.GRACE->{
                     val intent = Intent(context.get()?.activity, RatingActivity::class.java)
                         .apply {
                             putExtra(ProfileActivity.PATIENT_ID, patientId)
                         }
                     context.get()?.startActivityForResult(intent, RATING)
                 }
-                ActionRes.ActionType.主诉及症状 ->{
+                ActionType.主诉及症状 ->{
                     val intent = Intent(context.get()?.activity, ComplaintsActivity::class.java).apply {
                         putExtra(ComplaintsActivity.PATIENT_ID, patientId)
                     }
@@ -270,14 +270,14 @@ class EmrFragment : DaggerFragment() {
 
         override fun onOpen(type: String, id: String) {
             when(type){
-                ActionRes.ActionType.患者信息录入->{
+                ActionType.患者信息录入->{
                     val intent = Intent(context.get()?.activity, ProfileActivity::class.java).apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.activity?.startActivityForResult(intent, BASE_INFO)
                 }
 
-                ActionRes.ActionType.GRACE->{
+                ActionType.GRACE->{
                     if(id.isEmpty()){
                         val intent = Intent(context.get()?.activity, RatingActivity::class.java)
                             .apply {
@@ -293,38 +293,38 @@ class EmrFragment : DaggerFragment() {
                         context.get()?.startActivityForResult(intent, RATING)
                     }
                 }
-                ActionRes.ActionType.生命体征->{
+                ActionType.生命体征->{
                     val intent = Intent(context.get()?.activity, VitalSignsActivity::class.java).apply {
                         putExtra(VitalSignsActivity.PATIENT_ID, patientId)
                         putExtra(VitalSignsActivity.ID, id)
                     }
                     context.get()?.startActivityForResult(intent, VITAL_SIGNS)
                 }
-                ActionRes.ActionType.PhysicalExamination->{
+                ActionType.PhysicalExamination->{
                     val intent = Intent(context.get()?.activity, CheckBodyActivity::class.java).apply {
                         putExtra(CheckBodyActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, CHECK_BODY)
                 }
-                ActionRes.ActionType.IllnessHistory->{
+                ActionType.IllnessHistory->{
                     val intent = Intent(context.get()?.activity, MedicalHistoryActivity::class.java).apply {
                         putExtra(MedicalHistoryActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, MEDICAL_HISTORY_CODE)
                 }
-                ActionRes.ActionType.DispostionMeasures->{
+                ActionType.DispostionMeasures->{
                     val intent = Intent(context.get()?.activity, MeasuresActivity::class.java).apply {
                         putExtra(MeasuresActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, MEASURES)
                 }
-                ActionRes.ActionType.给药 ->{
+                ActionType.给药 ->{
                     val intent = Intent(context.get()?.activity, DrugRecordsActivity::class.java).apply {
                         putExtra(DrugRecordsActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, DRUGRECORD)
                 }
-                ActionRes.ActionType.知情同意书 ->{
+                ActionType.知情同意书 ->{
                     if (id.isEmpty()){
                         val intent = Intent(context.get()?.activity, InformedConsentActivity::class.java).apply {
                             putExtra(InformedConsentActivity.PATIENT_ID, patientId)
@@ -338,14 +338,14 @@ class EmrFragment : DaggerFragment() {
                         context.get()?.startActivity(intent)
                     }
                 }
-                ActionRes.ActionType.诊断 ->{
+                ActionType.诊断 ->{
                     val intent = Intent(context.get()?.activity, DiagnoseActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                         putExtra(DiagnoseActivity.ID, id)
                     }
                     context.get()?.startActivityForResult(intent, DIAGNOSE)
                 }
-                ActionRes.ActionType.溶栓处置 ->{
+                ActionType.溶栓处置 ->{
                     val intent = Intent(context.get()?.activity, ThrombolysisActivity::class.java).apply {
                         putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
 //                        putExtra(ThrombolysisActivity.TASK_ID, taskSavedId)
@@ -355,60 +355,60 @@ class EmrFragment : DaggerFragment() {
                     context.get()?.startActivityForResult(intent, THROMBOLYSIS)
                 }
 
-                ActionRes.ActionType.Catheter ->{
+                ActionType.Catheter ->{
                     val intent = Intent(context.get()?.activity, CatheterActivity::class.java).apply {
                         putExtra(DiagnoseActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, Catheter)
                 }
 
-                ActionRes.ActionType.出院诊断 ->{
+                ActionType.出院诊断 ->{
                     val intent = Intent(context.get()?.activity, DisChargeActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, OTDIAGNOSE)
                 }
 
-                ActionRes.ActionType.辅助检查 ->{
+                ActionType.辅助检查 ->{
                     val intent = Intent(context.get()?.activity, AssistantExaminationActivity::class.java).apply {
                         putExtra(AssistantExaminationActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivity(intent)
                 }
-                ActionRes.ActionType.患者转归 ->{
+                ActionType.患者转归 ->{
                     val intent = Intent(context.get()?.activity, OutComeActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, OUTCOME)
                 }
-                ActionRes.ActionType.主诉及症状 ->{
+                ActionType.主诉及症状 ->{
                     val intent = Intent(context.get()?.activity, ComplaintsActivity::class.java).apply {
                         putExtra(ComplaintsActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, COMPLAINTS)
                 }
-                ActionRes.ActionType.CT_OPERATION ->{
+                ActionType.CT_OPERATION ->{
                     val intent = Intent(context.get()?.activity, CTActivity::class.java).apply {
                         putExtra(CTActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, CT_OPERATION)
                 }
 
-                ActionRes.ActionType.通知启动CT室 ->{
+                ActionType.通知启动CT室 ->{
                     showDialog("通知启动CT室","CT室")
                 }
 
-                ActionRes.ActionType.通知启动导管室 ->{
+                ActionType.通知启动导管室 ->{
                     showDialog("通知启动导管室","导管室")
                 }
 
-                ActionRes.ActionType.CABG ->{
+                ActionType.CABG ->{
                     val intent = Intent(context.get()?.activity, ReperfusionActivity::class.java).apply {
                         putExtra(ReperfusionActivity.PATIENT_ID, patientId)
                     }
                     context.get()?.startActivityForResult(intent, CABG)
                 }
-                ActionRes.ActionType.治疗策略 ->{
+                ActionType.治疗策略 ->{
                     val intent = Intent(context.get()?.activity, StrategyActivity::class.java).apply {
                         putExtra(StrategyActivity.PATIENT_ID, patientId)
                     }
@@ -528,7 +528,7 @@ class EmrFragment : DaggerFragment() {
                         ))
                     }?: emptyList()
                     (viewModel.emrs.value?.first {
-                            emr->emr.code==ActionRes.ActionType.心电图
+                            emr->emr.code==ActionType.心电图
                     }?.result as? ElectroCardiogram)?.savable=adapter.pictureAdapter.locals.isNotEmpty()
                 }
 

@@ -8,11 +8,10 @@ import com.wxsoft.fcare.core.BR
 /**
  * 病人emr
  */
-data class EmrItem(val id:String):BaseObservable() {
-
-        @SerializedName("actionCode")
-        var code: String? = null
-        var name: String? = null
+data class EmrItem(val id:String,
+                   @SerializedName("actionCode")
+                   val code: String,
+                   val name: String):BaseObservable() {
         @get:Bindable
         @SerializedName("excutedTime")
         var completedAt: String? = null

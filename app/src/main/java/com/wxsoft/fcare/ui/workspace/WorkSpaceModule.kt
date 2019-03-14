@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.workspace
 import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
+import com.wxsoft.fcare.ui.emr.EmrViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,6 +19,11 @@ internal abstract class WorkSpaceModule {
     @IntoMap
     @ViewModelKey(TimePointViewModel::class)
     abstract fun bindTimePointViewModel(viewModel: TimePointViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(EmrViewModel::class)
+    abstract fun bindEmrViewModel(viewModel: EmrViewModel): ViewModel
 
 
     @ChildFragmentScoped

@@ -17,7 +17,6 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.ActivityTimePointBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
@@ -25,6 +24,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -100,6 +100,7 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
 
+        setSupportActionBar(toolbar)
     }
 
     private fun doTimeSelect(point:TimePoint){
@@ -115,20 +116,20 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
 
     private fun doOperation(operation:WorkOperation){
         when(operation.actionCode){
-            ActionRes.ActionType.GRACE->{
+            ActionType.GRACE->{
                 val intent = Intent(this, RatingActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
                 startActivityForResult(intent, EmrFragment.RATING)
             }
-            ActionRes.ActionType.给药 ->{
+            ActionType.给药 ->{
                 val intent = Intent(this@TimePointActivity, DrugRecordsActivity::class.java).apply {
                     putExtra(DrugRecordsActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DRUGRECORD)
             }
-            ActionRes.ActionType.生命体征 -> {
+            ActionType.生命体征 -> {
                 val intent = Intent(this@TimePointActivity, VitalSignsRecordActivity::class.java).apply {
                     putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
                 }

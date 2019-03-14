@@ -11,10 +11,10 @@ import com.wxsoft.fcare.core.data.entity.Talk
 import com.wxsoft.fcare.core.data.entity.Thrombolysis
 import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.core.data.entity.rating.Rating
-import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.溶栓处置
-import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.生命体征
-import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.知情同意书
-import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.诊断
+import com.wxsoft.fcare.utils.ActionType.Companion.溶栓处置
+import com.wxsoft.fcare.utils.ActionType.Companion.生命体征
+import com.wxsoft.fcare.utils.ActionType.Companion.知情同意书
+import com.wxsoft.fcare.utils.ActionType.Companion.诊断
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.EmrEventAction
 

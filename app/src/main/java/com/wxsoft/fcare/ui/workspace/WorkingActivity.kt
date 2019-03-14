@@ -11,7 +11,6 @@ import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.ActivityWorkingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
@@ -32,9 +31,11 @@ import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
+import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.activity_working.*
 import javax.inject.Inject
 
@@ -67,17 +68,21 @@ class WorkingActivity : BaseActivity() {
         const val NOTIFICATION = 41
     }
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+//    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
 
     private lateinit var viewModel: WorkingViewModel
+    private lateinit var emrViewModel: EmrViewModel
     @Inject
     lateinit var factory: ViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
+        emrViewModel=viewModelProvider(factory)
+        emrViewModel.patientId=patientId
+        emrViewModel.preHos=false
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
                 quality.adapter=QualityAdapter(this@WorkingActivity)
@@ -85,9 +90,9 @@ class WorkingActivity : BaseActivity() {
 
                 operationView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, _ ->
 
-                    bottomSheetBehavior.peekHeight=root.height-bottom
+//                    bottomSheetBehavior.peekHeight=root.height-bottom
                 }
-                bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
+//                bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
                 viewModel=this@WorkingActivity.viewModel.apply { patientId=this@WorkingActivity.patientId }
                 lifecycleOwner=this@WorkingActivity
                 viewModel?.qualities?.observe(this@WorkingActivity, Observer {
@@ -117,116 +122,117 @@ class WorkingActivity : BaseActivity() {
             }
 
 
+        back.setOnClickListener { onBackPressed() }
     }
 
 
     private fun doOperation(operation:WorkOperation){
         when(operation.actionCode){
-            ActionRes.ActionType.GRACE->{
+            ActionType.GRACE->{
                 val intent = Intent(this, RatingActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
                 startActivityForResult(intent, RATING)
             }
-            ActionRes.ActionType.给药 ->{
+            ActionType.给药 ->{
                 val intent = Intent(this@WorkingActivity, DrugRecordsActivity::class.java).apply {
                     putExtra(DrugRecordsActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DRUGRECORD)
             }
-            ActionRes.ActionType.生命体征 -> {
+            ActionType.生命体征 -> {
                 val intent = Intent(this@WorkingActivity, VitalSignsRecordActivity::class.java).apply {
                     putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, VITAL_SIGNS)
             }
-            ActionRes.ActionType.患者信息录入->{
+            ActionType.患者信息录入->{
                 val intent = Intent(this@WorkingActivity, ProfileActivity::class.java).apply {
                     putExtra(ProfileActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, BASE_INFO)
             }
-            ActionRes.ActionType.主诉及症状 ->{
+            ActionType.主诉及症状 ->{
                 val intent = Intent(this@WorkingActivity, ComplaintsActivity::class.java).apply {
                     putExtra(ComplaintsActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, COMPLAINTS)
             }
-            ActionRes.ActionType.PhysicalExamination->{
+            ActionType.PhysicalExamination->{
                 val intent = Intent(this@WorkingActivity, CheckBodyActivity::class.java).apply {
                     putExtra(CheckBodyActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, CHECK_BODY)
             }
-            ActionRes.ActionType.IllnessHistory->{
+            ActionType.IllnessHistory->{
                 val intent = Intent(this@WorkingActivity, MedicalHistoryActivity::class.java).apply {
                     putExtra(MedicalHistoryActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, MEDICAL_HISTORY_CODE)
             }
-            ActionRes.ActionType.辅助检查 ->{
+            ActionType.辅助检查 ->{
                 val intent = Intent(this@WorkingActivity, AssistantExaminationActivity::class.java).apply {
                     putExtra(AssistantExaminationActivity.PATIENT_ID, patientId)
                 }
                 startActivity(intent)
             }
-            ActionRes.ActionType.诊断 ->{//多条 需要记录界面
+            ActionType.诊断 ->{//多条 需要记录界面
                 val intent = Intent(this@WorkingActivity, DiagnoseRecordActivity::class.java).apply {
                     putExtra(DiagnoseRecordActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DIAGNOSE)
             }
-            ActionRes.ActionType.治疗策略 ->{
+            ActionType.治疗策略 ->{
                 val intent = Intent(this@WorkingActivity, StrategyActivity::class.java).apply {
                     putExtra(StrategyActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, STRATEGY)
             }
-            ActionRes.ActionType.DispostionMeasures->{
+            ActionType.DispostionMeasures->{
                 val intent = Intent(this@WorkingActivity, MeasuresActivity::class.java).apply {
                     putExtra(MeasuresActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, MEASURES)
             }
-            ActionRes.ActionType.知情同意书 ->{
+            ActionType.知情同意书 ->{
                 val intent = Intent(this@WorkingActivity, InformedConsentActivity::class.java).apply {
                     putExtra(InformedConsentActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, INFORMEDCONSENT)
             }
-            ActionRes.ActionType.溶栓处置 ->{
+            ActionType.溶栓处置 ->{
                 val intent = Intent(this@WorkingActivity, ThrombolysisActivity::class.java).apply {
                     putExtra(ThrombolysisActivity.PATIENT_ID, patientId)
                     putExtra(ThrombolysisActivity.COME_FROM, "1")
                 }
                 startActivityForResult(intent, THROMBOLYSIS)
             }
-            ActionRes.ActionType.Catheter ->{
+            ActionType.Catheter ->{
                 val intent = Intent(this@WorkingActivity, CatheterActivity ::class.java).apply {
                     putExtra(CatheterActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, Catheter)
             }
-            ActionRes.ActionType.CT_OPERATION ->{
+            ActionType.CT_OPERATION ->{
                 val intent = Intent(this@WorkingActivity, CTActivity::class.java).apply {
                     putExtra(CTActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, CT_OPERATION)
             }
-            ActionRes.ActionType.CABG ->{
+            ActionType.CABG ->{
                 val intent = Intent(this@WorkingActivity, ReperfusionActivity::class.java).apply {
                     putExtra(ReperfusionActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, CABG)
             }
-            ActionRes.ActionType.出院诊断 ->{
+            ActionType.出院诊断 ->{
                 val intent = Intent(this@WorkingActivity, DisChargeActivity::class.java).apply {
                     putExtra(CTActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, OTDIAGNOSE)
             }
-            ActionRes.ActionType.患者转归 ->{
+            ActionType.患者转归 ->{
                 val intent = Intent(this@WorkingActivity, OutComeActivity::class.java).apply {
                     putExtra(OutComeActivity.PATIENT_ID, patientId)
                 }

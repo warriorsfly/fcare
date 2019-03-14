@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
-import com.wxsoft.fcare.data.dictionary.ActionRes.ActionType.Companion.GRACE
+import com.wxsoft.fcare.utils.ActionType.Companion.GRACE
 import com.wxsoft.fcare.databinding.ItemEmrRatingRecordBinding
 import com.wxsoft.fcare.ui.EmrEventAction
 

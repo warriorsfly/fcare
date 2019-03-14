@@ -14,11 +14,11 @@ import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
-import com.wxsoft.fcare.data.dictionary.ActionRes
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.CommitEventAction
 import com.wxsoft.fcare.ui.EmrEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
+import com.wxsoft.fcare.utils.ActionType
 
 class EmrAdapter constructor(private val owner: LifecycleOwner,
                              private val pool:RecyclerView.RecycledViewPool) :
@@ -252,7 +252,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 item = emr
                 visiable= position<differ.currentList.size-1
                 when(emr.code){
-                    ActionRes.ActionType.生命体征->{
+                    ActionType.生命体征->{
                         if(list.adapter==null){
                             list.adapter = EmrItemAdapter<VitalSign>(owner,action)
                         }
@@ -263,7 +263,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         (list.adapter as? EmrItemAdapter<VitalSign>)?.submitList((emr.result as? List<VitalSign>)?: emptyList<VitalSign>())
                     }
 
-                    ActionRes.ActionType.诊断->{
+                    ActionType.诊断->{
                         if(list.adapter==null){
                             list.adapter = EmrItemAdapter<Diagnosis>(owner,action)
                         }
@@ -273,7 +273,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         }
                         (list.adapter as? EmrItemAdapter<Diagnosis>)?.submitList((emr.result as? List<Diagnosis>)?: emptyList<Diagnosis>())
                     }
-                    ActionRes.ActionType.知情同意书->{
+                    ActionType.知情同意书->{
                         if(list.adapter==null){
                             list.adapter = EmrItemAdapter<Talk>(owner,action)
                         }
@@ -284,7 +284,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                         (list.adapter as? EmrItemAdapter<Talk>)?.submitList((emr.result as? List<Talk>)?: emptyList<Talk>())
                     }
 
-                    ActionRes.ActionType.溶栓处置->{
+                    ActionType.溶栓处置->{
                         if(list.adapter==null){
                             list.adapter = EmrItemAdapter<Thrombolysis>(owner,action)
                         }
@@ -390,23 +390,23 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
             is OutCome->R.layout.item_emr_outcome
             is List<*> ->{
                 when(item.code){
-                    ActionRes.ActionType.GRACE->{
+                    ActionType.GRACE->{
                         R.layout.item_emr_rating
                     }
-                    ActionRes.ActionType.生命体征,
-                    ActionRes.ActionType.诊断->{
+                    ActionType.生命体征,
+                    ActionType.诊断->{
                         R.layout.item_emr_item_list
                     }
-                    ActionRes.ActionType.知情同意书->{
+                    ActionType.知情同意书->{
                         R.layout.item_emr_item_list
                     }
-                    ActionRes.ActionType.溶栓处置->{
+                    ActionType.溶栓处置->{
                         R.layout.item_emr_item_list
                     }
-                    ActionRes.ActionType.给药->{
+                    ActionType.给药->{
                         R.layout.item_emr_drug
                     }
-                    ActionRes.ActionType.主诉及症状->{
+                    ActionType.主诉及症状->{
                         R.layout.item_emr_complaint
                     }
 
