@@ -49,8 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.main.fragment.task.searchtask.SearchTaskActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.details.diagnose.select.SelectDiagnoseActivity">
+        </activity>
+        <activity
+                android:name=".ui.main.fragment.task.searchtask.SearchTaskActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.notification.NotificationActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
