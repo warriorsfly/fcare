@@ -45,7 +45,8 @@ class NotificationActivity : BaseActivity() {
             userAdapter.items = it
         })
 
-        viewModel.checkedUsers.observe(this, Observer { checkedAdapter.submitList(it)})
+        viewModel.checkedUsers.observe(this, Observer {
+            checkedAdapter.submitList(it)})
 
     }
 }

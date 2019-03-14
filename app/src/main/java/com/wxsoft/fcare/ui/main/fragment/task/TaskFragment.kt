@@ -27,8 +27,7 @@ import com.wxsoft.fcare.databinding.LayoutTaskSelectTypeBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
-import com.wxsoft.fcare.ui.main.fragment.patients.PatientSelectTypeAdapter
-import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsActivity
+import com.wxsoft.fcare.ui.main.fragment.task.searchtask.SearchTaskActivity
 import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
@@ -72,6 +71,7 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
         super.onCreate(savedInstanceState)
         viewModel = activityViewModelProvider(viewModelFactory)
         adapter= TaskAdapter(this, viewModel)
+        viewModel.showPatients("")
     }
 
     override fun onCreateView(
@@ -226,7 +226,7 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
 
 
     fun toSearchPatient(){
-        Intent(activity!!, SearchPatientsActivity::class.java).let {
+        Intent(activity!!, SearchTaskActivity::class.java).let {
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }
     }

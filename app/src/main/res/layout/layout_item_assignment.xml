@@ -2,14 +2,15 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="task" type="com.wxsoft.fcare.core.data.entity.Task"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.EventActions"/>
     </data>
     <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="22dp"
-            android:layout_marginRight="22dp"
+            android:layout_marginLeft="13dp"
+            android:layout_marginRight="13dp"
             android:layout_marginTop="7.5dp"
             android:layout_marginBottom="7.5dp"
             android:onClick="@{() -> listener.onOpen(task.id)}"
@@ -27,14 +28,44 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="15dp"
                     android:textSize="19sp"
-                    android:text="皖A UB134"
+                    android:text="@{task.carId}"
                     android:textColor="#525252"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
+            <TextView
+                    android:id="@+id/task_status_name"
+                    android:layout_width="52dp"
+                    android:layout_height="22.5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:gravity="center"
+                    android:textSize="12sp"
+                    taskStatus="@{task.taskOverallStatu}"
+                    tools:text="进行中"
+                    android:textColor="#999999"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                    android:id="@+id/task_patientsnum"
+                    android:layout_width="26dp"
+                    android:layout_height="22.5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="16dp"
+                    android:drawableLeft="@drawable/ic_task_patient"
+                    android:gravity="center"
+                    android:textSize="16sp"
+                    android:text="@{task.patients.size()>0?Converter.intToString(task.patients.size()):`0`}"
+                    tools:text="2"
+                    android:textColor="#999999"
+                    app:layout_constraintRight_toLeftOf="@+id/task_status_name"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/model_1"
-                    android:layout_marginLeft="14dp"
+                    goneUnless="@{task.taskOverallStatu.equals(1)}"
                     android:layout_marginTop="9dp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/task_title1"
@@ -47,6 +78,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        android:textSize="14sp"
                         app:layout_constraintRight_toLeftOf="@id/arrive_time"
                         tools:text="11:11"
                         app:doneAt="@{task.startAt}"
@@ -58,6 +90,7 @@
                 <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintLeft_toRightOf="@id/start_time"
                         app:layout_constraintRight_toLeftOf="@id/met_time"
@@ -72,6 +105,7 @@
                 <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintLeft_toRightOf="@id/arrive_time"
                         app:layout_constraintRight_toLeftOf="@id/returning_time"
@@ -86,6 +120,7 @@
                 <TextView
                         android:layout_width="0dp"
                         android:layout_marginBottom="5dp"
+                        android:textSize="14sp"
                         android:layout_height="wrap_content"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintLeft_toRightOf="@id/met_time"
@@ -100,6 +135,7 @@
                 <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:textSize="14sp"
                         app:layout_constraintHorizontal_weight="1"
                         app:layout_constraintLeft_toRightOf="@id/returning_time"
                         app:layout_constraintRight_toRightOf="parent"
@@ -178,18 +214,23 @@
                         android:layout_width="12dp"
                         android:layout_height="12dp"/>
 
-                <SeekBar
+                <ProgressBar
+                        style="@android:style/Widget.ProgressBar.Horizontal"
                         android:layout_width="0dp"
-                        android:layout_height="30dp"
+                        android:layout_height="2dp"
                         app:layout_constraintBottom_toTopOf="@+id/start"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:max="8"
-                        android:thumb="@drawable/ic_process_car_thumb"
-                        android:progress="@{task.process}"
+                        android:max="4"
+                        android:thumb="@null"
                         android:id="@+id/seekBar"
-                        android:layout_marginStart="24dp"
-                        android:layout_marginEnd="24dp"
+                        android:focusable="false"
+                        android:clickable="false"
+                        android:contextClickable="false"
+                        android:progressDrawable="@drawable/progressbar_layer_list"
+                        android:progress="@{task.status-1}"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
                         android:layout_marginBottom="5dp"/>
                 <TextView
                         android:layout_width="0dp"
@@ -257,7 +298,89 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/model_2"
+                    goneUnless="@{task.taskOverallStatu.equals(1)}"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/model_1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
+                <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/patients_list"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/model_3"
+                goneUnless="@{!task.taskOverallStatu.equals(1)}"
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/model_2"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    goneUnless="@{task.taskOverallStatu.equals(2)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="总任务耗时"
+                    android:textSize="16sp"
+                    android:textColor="#C1C1C1"
+                    android:gravity="center"
+                    android:id="@+id/title_99"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    goneUnless="@{task.taskOverallStatu.equals(2)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toRightOf="@+id/title_99"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:textSize="16sp"
+                    android:textColor="#525252"
+                    android:gravity="center"
+                    android:id="@+id/all_time"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            <TextView
+                    goneUnless="@{task.taskOverallStatu.equals(3)}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginBottom="20dp"
+                    android:text="地址不正确或者呼救电话无法联系"
+                    android:textSize="16sp"
+                    android:textColor="#C1C1C1"
+                    android:gravity="center"
+                    android:id="@+id/title_00"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

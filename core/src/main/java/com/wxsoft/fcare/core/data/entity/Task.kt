@@ -48,7 +48,6 @@ data class Task (val id:String): BaseObservable(){
     var arriveHosAt: String? = ""
         set(value) {
             field = value
-
             notifyPropertyChanged(BR.arriveHosAt)
         }
     @get:Bindable
@@ -56,13 +55,14 @@ data class Task (val id:String): BaseObservable(){
     var canceled: String? = ""
     var taskStaffs: Array<TaskStaff> = emptyArray()
 
-    var patients: Array<Patient> = emptyArray()
+    var patients: List<Patient> = emptyList()
     @SerializedName("isCanceled")var hasCanceled: Boolean = false
 
     var createdBy: String? = ""
     var createdDate: String? = "0001-01-01 00:00:00"
     var modifiedBy: String? = ""
     var modifiedDate: String? = ""
+    var taskOverallStatu: Int? = 1
 
     @get:Bindable
     @SerializedName("taskStatu")var status=0

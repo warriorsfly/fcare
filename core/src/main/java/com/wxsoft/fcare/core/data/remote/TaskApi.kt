@@ -38,6 +38,9 @@ interface TaskApi {
 
     @GET("Task/return/{id}")
     fun returning(@Path("id")taskId:String): Maybe<Response<String>>
+
+    @GET("Task/GetByKeyword/{keyword}")
+    fun searchTasks(@Path("keyword")keyword:String): Maybe<Response<List<Task>>>
     
     @GET("Task/arrive-hos/{id}")
     fun arriveHos(@Path("id")taskId:String): Maybe<Response<String>>
