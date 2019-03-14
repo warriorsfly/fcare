@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:padding="2dp"
-            android:textColor="#E7E4F2"
+            android:textColor="#999999"
             tools:text="NOT"
             android:text="@{item.title}"/>
 
@@ -33,6 +33,6 @@
             tools:text="90"
             android:text="@{ QualityScoreConverter.intToString(item.score)}"
             app:overflowAt="@{item.overflow}"
-            android:textColor="@color/white"/>
+            android:textColor="#525252"/>
         </LinearLayout>
 </layout>

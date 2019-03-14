@@ -24,6 +24,7 @@ class DiagnoseActivity : BaseActivity() {
         const val PATIENT_ID = "PATIENT_ID"
         const val ID = "ID"
         const val TYPE_ID = "TYPE_ID"
+        const val SELECT_DIAGNOSE_TYPE = 10
     }
 
     private lateinit var viewModel: DiagnoseViewModel
@@ -38,6 +39,9 @@ class DiagnoseActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityDiagnoseBinding>(this, R.layout.activity_diagnose)
             .apply {
+                model2.setOnClickListener {
+                    toSelectSonDiagnose()
+                }
                 lifecycleOwner = this@DiagnoseActivity
             }
         patientId=intent.getStringExtra(PATIENT_ID)?:""
@@ -50,14 +54,17 @@ class DiagnoseActivity : BaseActivity() {
 
         back.setOnClickListener { onBackPressed() }
 
-        val diagnoseAdapter = DiagnoseAdapter(this,viewModel)
-        viewModel.thoracalgiaItems.observe(this, Observer { diagnoseAdapter.items = it ?: emptyList() })
-        binding.diagnoseList.adapter = diagnoseAdapter
+//        val diagnoseAdapter = DiagnoseAdapter(this,viewModel)
+//        viewModel.thoracalgiaItems.observe(this, Observer { diagnoseAdapter.items = it ?: emptyList() })
+//        binding.diagnoseList.adapter = diagnoseAdapter
+//
+//        val sondiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
+//        sondiagnoseAdapter.section = 3
+//        viewModel.sonItems.observe(this, Observer { sondiagnoseAdapter.items = it ?: emptyList() })
+//        binding.diagnoseOtherList.adapter = sondiagnoseAdapter
 
-        val sondiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
-        sondiagnoseAdapter.section = 3
-        viewModel.sonItems.observe(this, Observer { sondiagnoseAdapter.items = it ?: emptyList() })
-        binding.diagnoseOtherList.adapter = sondiagnoseAdapter
+
+
 
         val illnessdiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
         illnessdiagnoseAdapter.section = 4
@@ -90,7 +97,10 @@ class DiagnoseActivity : BaseActivity() {
     }
 
 
-
+    fun toSelectSonDiagnose(){
+        val intent = Intent(this, DiagnoseActivity::class.java)
+        startActivityForResult(intent,SELECT_DIAGNOSE_TYPE )
+    }
 
     private fun startConduitRoom(){
         AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)

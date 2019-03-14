@@ -34,9 +34,10 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
             }
             if (patientsList.adapter == null) {
                 val adapter = TaskPatientsItemAdapter(owner,viewModel)
-                adapter.submitList(item.patients)
                 patientsList.adapter = adapter
             }
+
+            (patientsList.adapter as? TaskPatientsItemAdapter)?.submitList(item.patients)
             executePendingBindings()
 
         }

@@ -8,54 +8,63 @@
     </data>
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/illness_container"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="38dp"
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:layout_marginTop="3dp"
             android:layout_marginBottom="3dp"
             android:onClick="@{() ->listener.selectDiagnoseSon(item)}"
             android:elevation="2dp"
-            app:cardCornerRadius="6dp">
+            app:cardCornerRadius="8dp">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
-                android:layout_width="105dp"
-                android:layout_height="80dp"
+                android:background="@{item.checked?@color/bg_light_yellow:@color/drug_bg_gray}"
+                android:layout_width="match_parent"
+                android:layout_height="38dp"
                 android:layout_gravity="center">
-            <ImageView
+            <TextView
                     android:id="@+id/illness_icon"
+                    android:background="@drawable/bg_conor_white"
+                    android:gravity="center"
+                    android:textSize="14sp"
+                    android:textColor="@color/small_text_gray"
+                    tools:text="III"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginLeft="37.5dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginLeft="13.5dp"
+                    android:layout_marginTop="7dp"
+                    android:layout_marginBottom="7dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"/>
             <TextView
                     android:id="@+id/illness_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:gravity="center"
                     android:text="@{item.itemName}"
-                    android:textColor="@color/white"
                     tools:text="张三"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/illness_icon"/>
+                    app:layout_constraintLeft_toRightOf="@+id/illness_icon"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
             <ImageView
                     android:id="@+id/select_white_icon"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     goneUnless="@{item.checked}"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_marginBottom="7.5dp"
                     android:src="@drawable/ic_item_icon_illness_selectwhite"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"/>
+                    android:layout_marginTop="7.5dp"
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

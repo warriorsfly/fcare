@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.diagnose
 
+import android.graphics.Color
 import androidx.lifecycle.LifecycleOwner
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -36,26 +37,28 @@ class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOw
         holder.binding.apply {
             differ.currentList[position].section = section
             if (section == 4){
-                when(differ.currentList[position].itemName){
-                    "急危" -> {
-                        root.illness_container.setBackgroundResource(R.color.seriousnessest)
-                        root.illness_icon.setImageResource(R.drawable.ic_item_icon_illness_level_one)
+                when(differ.currentList[position].id){
+                    "216-1" -> {
+                        root.illness_icon.setText("I")
+                        root.illness_name.setTextColor(if(differ.currentList[position].checked)
+                            Color.WHITE
+                        else Color.parseColor("#FE5F55"))
                     }
-                    "急重" -> {
-                        root.illness_container.setBackgroundResource(R.color.seriousness)
-                        root.illness_icon.setImageResource(R.drawable.ic_item_icon_illness_level_two)
+                    "216-2" -> {
+                        root.illness_icon.setText("II")
+                        root.illness_name.setTextColor(Color.parseColor("#FCA542"))
                     }
-                    "急症" -> {
-                        root.illness_container.setBackgroundResource(R.color.emergency)
-                        root.illness_icon.setImageResource(R.drawable.ic_item_icon_illness_level_three)
+                    "216-3" -> {
+                        root.illness_icon.setText("III")
+                        root.illness_name.setTextColor(Color.parseColor("#FFDA6F"))
                     }
-                    "亚急症" -> {
-                        root.illness_container.setBackgroundResource(R.color.lowemergency)
-                        root.illness_icon.setImageResource(R.drawable.ic_item_icon_illness_level_four)
+                    "216-4" -> {
+                        root.illness_icon.setText("IV")
+                        root.illness_name.setTextColor(Color.parseColor("#30C890"))
                     }
-                    "非急症" -> {
-                        root.illness_container.setBackgroundResource(R.color.lightemergency)
-                        root.illness_icon.setImageResource(R.drawable.ic_item_icon_illness_level_five)
+                    "216-5" -> {
+                        root.illness_icon.setText("IV")
+                        root.illness_name.setTextColor(Color.parseColor("#30C890"))
                     }
                 }
             }
@@ -98,7 +101,7 @@ class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOw
 
         override fun areContentsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.checked == newItem.checked
         }
     }
 

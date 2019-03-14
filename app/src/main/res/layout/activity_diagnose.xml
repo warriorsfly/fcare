@@ -19,7 +19,6 @@
                 android:id="@+id/baseScroll"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:padding="8dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"
@@ -33,37 +32,61 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model2"
                         android:layout_marginTop="10dp"
+                        android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:id="@+id/diagnose_list"
-                            app:spanCount="3"
+                    <TextView
+                            android:id="@+id/title1_1"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            goneUnless="@{viewModel.showSonList}"
-                            android:id="@+id/diagnose_other_list"
-                            app:spanCount="3"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/diagnose_list"
                             app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="17.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="17.5dp"
+                            android:text="诊断类型"
+                            android:textSize="16sp"
+                            android:textColor="#525252"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:hint="选择诊断类型"
+                            android:id="@+id/start"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="#999999"
+                            android:minWidth="90dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
+                            tools:text="脑梗死-分水岭脑梗死"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe3_2"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+                            app:layout_constraintBottom_toBottomOf="@id/title1_1"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+                    <View
+                            android:background="#EDEDED"
+                            android:layout_marginBottom="1dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3"
-                        android:layout_marginTop="10dp"
+                        android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/model2"
                         android:layout_width="match_parent"
@@ -72,18 +95,20 @@
                             android:id="@+id/title3"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:layout_marginLeft="10dp"
-                            android:text="病情"
-                            android:textSize="18sp"
-                            android:textStyle="bold"
-                            android:textColor="#131D35"
+                            android:layout_marginLeft="15dp"
+                            android:text="病情级别"
+                            android:textSize="16sp"
+                            android:textColor="#525252"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="17.5dp"
+                            android:layout_marginBottom="10dp"
                             android:id="@+id/illness_list"
-                            app:spanCount="3"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/title3"
                             app:layout_constraintBottom_toBottomOf="parent"
