@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:textColor="@color/white"
+            android:textColor="@color/small_title_text_gray"
             android:layout_marginTop="2dp"
             android:padding="2dp"
             tools:text="评分"
