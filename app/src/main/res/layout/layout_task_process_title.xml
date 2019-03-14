@@ -201,6 +201,7 @@
                             android:progress="@{viewModel.task.process}"
                             android:focusable="false"
                             android:clickable="false"
+                            android:theme="@style/SeekBar.Dark"
                             android:contextClickable="false"
                             android:id="@+id/seekBar"
                             android:layout_marginStart="24dp"

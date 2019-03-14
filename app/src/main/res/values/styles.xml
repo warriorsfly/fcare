@@ -29,6 +29,10 @@
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
+    <style name="SeekBar.Dark" parent="Widget.AppCompat.SeekBar">
+        <item name="android:textColorSecondary">@color/line_gray</item>
+    </style>
+
     <style name="AppTheme.RatingSubject">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

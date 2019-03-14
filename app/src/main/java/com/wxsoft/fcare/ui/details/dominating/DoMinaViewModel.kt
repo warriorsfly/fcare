@@ -63,22 +63,39 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
      */
 
      var startTimeStamp:Long?=null
+        set(value) {
+            field = value
+            field?.let {
+                val stat=task.value?.status?:1
+                if(stat>1 && arriveTimeStamp!=null) {
+                    task.value?.spends?.let { map ->
+                        val item = map.firstOrNull { item -> item.task == "发车至到达现场" }
+                        if (item == null) {
+                            map += TaskSpend("发车至到达现场").apply {
+                                spends = (arriveTimeStamp!! - it) / 1000
+                            }
+                        } else {
+                            item.spends = (arriveTimeStamp!! - it) / 1000
+                        }
+                    }
 
-//        set(value) {
-//            field = value
-//            field?.let {
-//                task.value?.spends?.let { map ->
-//                    val item = map.firstOrNull { item -> item.task == "发车至到达现场" }
-//                    if (item == null) {
-//                        map += TaskSpend("发车至到达现场").apply {
-//                            spends = (it - startTimeStamp!!) / 1000
-//                        }
-//                    } else {
-//                        item.spends = (it - startTimeStamp!!) / 1000
-//                    }
-//                }
-//            }
-//        }
+                    fireAt=(System.currentTimeMillis()-it)/1000
+                    minute.set((fireAt/60).toString())
+                    second.set((fireAt%60).toString())
+
+                    if(stat<5){
+                        timedispose?.dispose()
+                        timedispose = Observable.interval(1, TimeUnit.SECONDS)
+                            .subscribe {
+                                fireAt++
+                                minute.set((fireAt / 60).toString())
+                                second.set((fireAt % 60).toString())
+                            }
+                        timedispose?.let { dis -> disposable.add(dis) }
+                    }
+                }
+            }
+        }
 
      var arriveTimeStamp:Long?=null
          set(value) {
@@ -93,6 +110,17 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                      } else {
                          item.spends = (it - startTimeStamp!!) / 1000
                      }
+
+                     if(firstMetTimeStamp!=null) {
+                         val item1 = map.firstOrNull { item -> item.task == "到达现场至首次医疗接触" }
+                         if (item1 == null) {
+                             map += TaskSpend("到达现场至首次医疗接触").apply {
+                                 spends = (firstMetTimeStamp!! - it) / 1000
+                             }
+                         } else {
+                             item1.spends = (firstMetTimeStamp!! - it) / 1000
+                         }
+                     }
                  }
              }
          }
@@ -106,10 +134,21 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                     val item = map.firstOrNull { item -> item.task == "到达现场至首次医疗接触" }
                     if (item == null) {
                         map += TaskSpend("到达现场至首次医疗接触").apply {
-                            spends=(it - startTimeStamp!!) / 1000
+                            spends=(it - arriveTimeStamp!!) / 1000
                         }
                     } else {
                         item.spends = (it - arriveTimeStamp!!) / 1000
+                    }
+
+                    if(returningTimeStamp!=null) {
+                        val item1 = map.firstOrNull { item -> item.task == "首次接触至返回医院" }
+                        if (item1 == null) {
+                            map += TaskSpend("首次接触至返回医院").apply {
+                                spends = (returningTimeStamp!! - it) / 1000
+                            }
+                        } else {
+                            item1.spends = (returningTimeStamp!! - it) / 1000
+                        }
                     }
                 }
             }
@@ -124,10 +163,21 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                     val item = map.firstOrNull { item -> item.task == "首次接触至返回医院" }
                     if (item == null) {
                         map += TaskSpend("首次接触至返回医院").apply {
-                            spends=(it - startTimeStamp!!) / 1000
+                            spends=(it - firstMetTimeStamp!!) / 1000
                         }
                     } else {
                         item.spends = (it - firstMetTimeStamp!!) / 1000
+                    }
+
+                    if(arriveHosTimeStamp!=null) {
+                        val item1 = map.firstOrNull { item -> item.task == "返回至到达医院大门" }
+                        if (item1 == null) {
+                            map += TaskSpend("返回至到达医院大门").apply {
+                                spends = (arriveHosTimeStamp!! - it) / 1000
+                            }
+                        } else {
+                            item1.spends = (arriveHosTimeStamp!! - it) / 1000
+                        }
                     }
                 }
             }
@@ -141,11 +191,15 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                     val item = map.firstOrNull { item -> item.task == "返回至到达医院大门" }
                     if (item == null) {
                         map += TaskSpend("返回至到达医院大门").apply {
-                            spends=(it - startTimeStamp!!) / 1000
+                            spends=(it - returningTimeStamp!!) / 1000
                         }
                     } else {
                         item.spends = (it - returningTimeStamp!!) / 1000
                     }
+                    timedispose?.dispose()
+                    fireAt=(it-startTimeStamp!!)/1000
+                    minute.set((fireAt/60).toString())
+                    second.set((fireAt%60).toString())
                 }
             }
 
@@ -455,6 +509,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                         arriveHosTimeStamp=newTimeStamp
                     }
                 }
+                loadSpendResult.value=task.value?.spends
             }
         ,{error->messageAction.value= Event(error.message?:"")}))
     }
