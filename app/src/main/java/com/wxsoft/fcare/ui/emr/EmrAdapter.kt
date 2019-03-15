@@ -3,7 +3,6 @@ package com.wxsoft.fcare.ui.emr
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
-import android.widget.TabHost
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
