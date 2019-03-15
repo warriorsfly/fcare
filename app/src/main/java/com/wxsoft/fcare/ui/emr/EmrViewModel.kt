@@ -62,30 +62,28 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
     /**
      * 获取的详情放入emr列表
      */
-    private fun setResultAtIndex(index:Int,result:Any){
-        emrs.value?.get(index)?.result=result
-        _loadDetailAction.value= Event(index)
+    private fun setResultAtIndex(pair: Pair<Int,Any>){
+        emrs.value?.get(pair.first)?.result=(pair.second as? Response<*>)?.result
+        _loadDetailAction.value= Event(pair.first)
     }
     /**
      * 获取emr列表
      */
     private fun loadEmrs() {
-        api.getEmrs(patientId, account.id, preHos)
+       disposable.add( api.getEmrs(patientId, account.id, preHos)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::loadEmrDetails, ::error)
+            .subscribe(::loadEmrDetails, ::error))
     }
 
     /**
      * 获取emr详细信息
-     * @param index emr在列表中的序号
-     * @param code emr类型
+     * @param pair ,first emr在列表中的序号,second emr类型
      */
-    private fun loadDetail(index: Int, code: String) {
-        when (code) {
-            ActionType.患者信息录入 -> {
-                loadBaseInfo(index)
-            }
+    private fun loadDetail(pair:Pair<Int,String>) {
+        when (pair.second) {
+            ActionType.患者信息录入 ->  loadBaseInfo(pair.first)
+            ActionType.生命体征-> loadVitals(pair.first)
         }
     }
 
@@ -99,9 +97,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             val source1 = Observable.range(0, size)
             val source2 = toObservable().map { it.code }
 
-            source1.zipWith(source2).subscribe {
-                loadDetail(it.first,it.second)
-            }
+            disposable.add(source1.zipWith(source2).subscribe (::loadDetail,::error))
 
         }
     }
@@ -110,10 +106,25 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      * 获取病人详细信息
      */
     private fun loadBaseInfo(index:Int){
-        api.getBaseInfo(patientId)
+        disposable.add(api.getBaseInfo(patientId)
+            .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({setResultAtIndex(index,it)},::error)
+            .subscribe({
+                setResultAtIndex(it)},::error))
+    }
+
+
+    /**
+     * 获取病人生命体征
+     */
+    private fun loadVitals(index:Int){
+        disposable.add(api.getVitals(patientId)
+            .map { Pair(index,it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                setResultAtIndex(it)},::error))
     }
 
 

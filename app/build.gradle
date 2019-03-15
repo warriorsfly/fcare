@@ -8,7 +8,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
     dataBinding { enabled = true }
-    compileSdkVersion 28
+    compileSdkVersion 'android-Q'
     defaultConfig {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
