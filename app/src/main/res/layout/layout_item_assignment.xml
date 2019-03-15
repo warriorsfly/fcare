@@ -29,7 +29,7 @@
                     android:layout_marginLeft="15dp"
                     android:textSize="19sp"
                     android:text="@{task.carId}"
-                    android:textColor="#525252"
+                    android:textColor="@color/small_title_text_gray"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
 
@@ -358,7 +358,7 @@
                     android:layout_marginLeft="8dp"
                     android:layout_marginBottom="20dp"
                     android:textSize="16sp"
-                    android:textColor="#525252"
+                    android:textColor="@color/small_title_text_gray"
                     android:gravity="center"
                     android:id="@+id/all_time"
                     app:layout_constraintBottom_toBottomOf="parent"/>

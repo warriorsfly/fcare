@@ -78,7 +78,7 @@
                 tools:text="86"
                 android:text="@{item.criticalLevelName}"
                 android:drawablePadding="10dp"
-                android:textColor="#525252"
+                android:textColor="@color/small_title_text_gray"
                 android:textSize="20sp"
                 android:layout_marginTop="4dp"
                 android:drawableRight="@drawable/ic_right_arrow"

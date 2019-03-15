@@ -47,7 +47,7 @@
                             android:layout_marginBottom="17.5dp"
                             android:text="诊断类型"
                             android:textSize="16sp"
-                            android:textColor="#525252"
+                            android:textColor="@color/small_title_text_gray"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
@@ -98,7 +98,7 @@
                             android:layout_marginLeft="15dp"
                             android:text="病情级别"
                             android:textSize="16sp"
-                            android:textColor="#525252"
+                            android:textColor="@color/small_title_text_gray"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
                     <androidx.recyclerview.widget.RecyclerView

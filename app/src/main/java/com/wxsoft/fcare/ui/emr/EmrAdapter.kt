@@ -1,18 +1,22 @@
 package com.wxsoft.fcare.ui.emr
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TabHost
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.tabs.TabLayout
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.Record
+import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.databinding.ItemNewEmrPatientInfoBinding
+import com.wxsoft.fcare.databinding.ItemNewEmrVitalListBinding
 import com.wxsoft.fcare.utils.ActionType
 
 
@@ -26,14 +30,21 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
             R.layout.item_new_emr_patient_info->{
                 ItemViewHolder.BaseInfoViewHolder(
-                    ItemNewEmrPatientInfoBinding.inflate(inflater,parent,false).apply {
-
-                        lifecycleOwner=owner
-
-                    },itemClick)
+                    ItemNewEmrPatientInfoBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
             }
 
-            else->throw IllegalStateException("unkown viewtype $viewType")
+            R.layout.item_new_emr_vital_list->{
+                ItemViewHolder.VitalListViewHolder(
+                    ItemNewEmrVitalListBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            else->{
+                ItemViewHolder.BaseInfoViewHolder(
+                    ItemNewEmrPatientInfoBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
         }
     }
 
@@ -51,17 +62,29 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                     }
                 }
             }
+
+            is ItemViewHolder.VitalListViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    if(tabLayout.tabCount==0){
+                        ( emr.result as? List<Record<VitalSign>>)?.forEach {
+                            tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
+                        }
+                    }
+                }
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return  R.layout.item_new_emr_patient_info
+//        return  R.layout.item_new_emr_patient_info
 
-//        when(getItem(position).code){
-//            ActionType.患者信息录入-> R.layout.item_new_emr_patient_info
-//            else->0
-////            else->throw IllegalStateException("unkown viewtype at $position")
-//        }
+        return when(getItem(position).code){
+            ActionType.患者信息录入-> R.layout.item_new_emr_patient_info
+            ActionType.生命体征-> R.layout.item_new_emr_vital_list
+            else->0
+//            else->throw IllegalStateException("unkown viewtype at $position")
+        }
     }
 
     sealed class ItemViewHolder(open val binding: ViewDataBinding,open val click:(String)->Unit) :
@@ -84,6 +107,38 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 }
             }
         }
+
+        class VitalListViewHolder(
+            override val binding: ItemNewEmrVitalListBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click),TabLayout.OnTabSelectedListener{
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                binding.apply {
+                    (item?.result  as List<Record<VitalSign>>)?.apply {
+                        vital= this[tab?.position?:0].items.firstOrNull()
+                        executePendingBindings()
+                    }
+                }
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.let {
+                                click(it.code)
+                            }
+                        }
+
+                    tabLayout.addOnTabSelectedListener(this@VitalListViewHolder)
+                }
+            }
+        }
     }
 
     object DiffCallback : DiffUtil.ItemCallback<EmrItem>() {
@@ -92,9 +147,19 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
         }
 
         override fun areContentsTheSame(oldItem: EmrItem, newItem: EmrItem): Boolean {
-            val result1 = oldItem.result
-            val result2 = newItem.result
-            return result1 == result2
+            val oldResult = oldItem.result
+            val newResult = newItem.result
+            if(oldResult==null && newResult==null)return true
+            return when{
+                oldResult is List<*> && newResult is List<*>-> {
+                    oldResult==newResult
+                }
+
+                oldResult is Patient && newResult is Patient->{
+                    oldResult.name==newResult.name
+                }
+                else->false
+            }
         }
     }
 }

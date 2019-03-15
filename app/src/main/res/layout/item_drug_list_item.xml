@@ -27,7 +27,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:textColor="#525252"
+                    android:textColor="@color/small_title_text_gray"
                     android:layout_marginLeft="25dp"
                     android:text="@{item.name}"
                     tool:text="阿司匹林"

@@ -1,40 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout>
     <data>
-        <import type="com.wxsoft.fcare.utils.QualityScoreConverter"/>
-        <variable name="item" type="com.wxsoft.fcare.core.data.entity.TimeQuality"/>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.EmrItem"/>
+        <variable name="vital" type="com.wxsoft.fcare.core.data.entity.VitalSign"/>
     </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/container"
-        android:orientation="vertical"
-        android:gravity="center"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-
-            android:layout_marginTop="18dp"
-            app:layout_constraintLeft_toLeftOf="@id/v1"
+        <include
+            layout="@layout/item_emr_common_head"
+            android:id="@+id/head"
+            app:item="@{item}"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintRight_toRightOf="@id/v1"
-            android:id="@+id/t1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:padding="2dp"
-            android:gravity="center"
-            android:textColor="#999999"
-            android:drawableLeft="@drawable/ic_emr_vital_1"
-            android:text="意识"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <TextView
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/head"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.tabs.TabLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/tabLayout"
+                app:tabMode="scrollable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:layout_marginTop="18dp"
+                app:layout_constraintLeft_toLeftOf="@id/v1"
+                app:layout_constraintTop_toBottomOf="@id/tabLayout"
+                app:layout_constraintRight_toRightOf="@id/v1"
+                android:id="@+id/t1"
+                app:goneUnless="@{vital!=null}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_1"
+                android:text="意识"/>
+
+            <TextView
                 app:layout_constraintLeft_toLeftOf="@id/l1"
                 app:layout_constraintTop_toTopOf="@id/t1"
                 app:layout_constraintRight_toRightOf="@id/l1"
                 android:id="@+id/t2"
+                app:goneUnless="@{vital!=null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -44,7 +66,7 @@
                 android:drawableLeft="@drawable/ic_emr_vital_2"
                 android:text="血压"/>
 
-        <TextView
+            <TextView
                 app:layout_constraintLeft_toLeftOf="@id/l2"
                 app:layout_constraintTop_toTopOf="@id/t1"
                 app:layout_constraintRight_toRightOf="@id/l2"
@@ -52,17 +74,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
+                app:goneUnless="@{vital!=null}"
                 android:padding="2dp"
                 android:gravity="center"
                 android:textColor="#999999"
                 android:drawableLeft="@drawable/ic_emr_vital_3"
                 android:text="心率"/>
 
-        <TextView
+            <TextView
                 app:layout_constraintLeft_toLeftOf="@id/l3"
                 app:layout_constraintTop_toTopOf="@id/t1"
                 app:layout_constraintRight_toRightOf="@id/l3"
                 android:id="@+id/t4"
+                app:goneUnless="@{vital!=null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -73,81 +97,89 @@
                 android:text="呼吸"/>
 
 
-        <!--android:text="@{ QualityScoreConverter.intToString(item.score)}"-->
-        <TextView
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/t1"
-            app:layout_constraintRight_toLeftOf="@id/l1"
-            android:id="@+id/v1"
-            android:gravity="center"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:padding="2dp"
-            tools:text="浅昏迷"
-            android:textStyle="bold"
-            android:textColor="@color/black"/>
-
-        <LinearLayout
-            android:id="@+id/l1"
-            android:gravity="center"
-            app:layout_constraintLeft_toRightOf="@id/v1"
-            app:layout_constraintTop_toTopOf="@id/v1"
-            app:layout_constraintRight_toLeftOf="@id/l2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            <!--android:text="@{ QualityScoreConverter.intToString(vital.score)}"-->
             <TextView
-                android:id="@+id/v2"
-                android:layout_width="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/t1"
+                app:layout_constraintRight_toLeftOf="@id/l1"
+                android:id="@+id/v1"
+                android:gravity="center"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:padding="2dp"
-                tools:text="100/140"
+                tools:text="浅昏迷"
+                app:goneUnless="@{vital!=null}"
+                android:text="@{vital.consciousnesTypeName}"
                 android:textStyle="bold"
-                android:textColor="@color/black"/>
+                android:textColor="@color/small_title_text_gray"/>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/l1"
+                android:gravity="center"
+                app:goneUnless="@{vital!=null}"
+                app:layout_constraintLeft_toRightOf="@id/v1"
+                app:layout_constraintTop_toTopOf="@id/v1"
+                app:layout_constraintRight_toLeftOf="@id/l2"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:text="mmHg"
-                android:textStyle="bold"
-                android:textColor="@color/black"/>
-        </LinearLayout>
+                android:orientation="vertical">
 
-        <LinearLayout
+                <TextView
+                    android:id="@+id/v2"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:padding="2dp"
+                    tools:text="100/140"
+                    android:text="@{String.valueOf(vital.dbp) +`/`+ String.valueOf(vital.sbp)}"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="mmHg"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+            </LinearLayout>
+
+            <LinearLayout
                 android:id="@+id/l2"
                 android:gravity="bottom|center_horizontal"
                 app:layout_constraintLeft_toRightOf="@id/l1"
                 app:layout_constraintRight_toLeftOf="@id/l3"
                 app:layout_constraintTop_toTopOf="@id/v1"
                 android:layout_width="0dp"
+                app:goneUnless="@{vital!=null}"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <TextView
+                <TextView
                     android:id="@+id/v3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     tools:text="58"
+                    android:text="@{String.valueOf(vital.heart_Rate)}"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/small_title_text_gray"/>
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:layout_marginBottom="1dp"
                     android:text="次/分"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
-        </LinearLayout>
+                    android:textColor="@color/small_title_text_gray"/>
+            </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
                 android:id="@+id/l3"
+                app:goneUnless="@{vital!=null}"
                 android:gravity="bottom|center_horizontal"
                 app:layout_constraintLeft_toRightOf="@id/l2"
                 app:layout_constraintTop_toTopOf="@id/v1"
@@ -156,34 +188,35 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <TextView
+                <TextView
                     android:id="@+id/v4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     tools:text="58"
+                    android:text="@{String.valueOf(vital.respiration_Rate)}"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/small_title_text_gray"/>
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:layout_marginBottom="1dp"
                     android:text="次/分"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
-        </LinearLayout>
+                    android:textColor="@color/small_title_text_gray"/>
+            </LinearLayout>
 
 
-        <TextView
-
+            <TextView
                 android:layout_marginTop="18dp"
                 app:layout_constraintLeft_toLeftOf="@id/v1"
                 app:layout_constraintTop_toBottomOf="@id/l1"
                 app:layout_constraintBottom_toTopOf="@id/l20"
                 app:layout_constraintRight_toRightOf="@id/v1"
                 android:id="@+id/t5"
+                app:goneUnless="@{vital!=null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -193,12 +226,12 @@
                 android:drawableLeft="@drawable/ic_emr_vital_5"
                 android:text="血氧饱和度"/>
 
-
-        <TextView
+            <TextView
                 app:layout_constraintLeft_toLeftOf="@id/l1"
                 app:layout_constraintTop_toTopOf="@+id/t5"
                 app:layout_constraintRight_toRightOf="@id/l1"
                 android:id="@+id/t6"
+                app:goneUnless="@{vital!=null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -208,11 +241,12 @@
                 android:drawableLeft="@drawable/ic_emr_vital_6"
                 android:text="体温"/>
 
-        <TextView
+            <TextView
                 app:layout_constraintLeft_toLeftOf="@id/l2"
                 app:layout_constraintTop_toTopOf="@+id/t5"
                 app:layout_constraintRight_toRightOf="@id/l2"
                 android:id="@+id/t7"
+                app:goneUnless="@{vital!=null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -222,11 +256,12 @@
                 android:drawableLeft="@drawable/ic_emr_vital_7"
                 android:text="体重"/>
 
-        <TextView
+            <TextView
                 app:layout_constraintLeft_toLeftOf="@id/l3"
                 app:layout_constraintTop_toTopOf="@+id/t5"
                 app:layout_constraintRight_toRightOf="@id/l3"
                 android:id="@+id/t8"
+                app:goneUnless="@{vital!=null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
@@ -237,8 +272,9 @@
                 android:text="脉搏"/>
 
 
-        <LinearLayout
+            <LinearLayout
                 android:id="@+id/l20"
+                app:goneUnless="@{vital!=null}"
                 android:layout_marginBottom="18dp"
                 android:gravity="bottom|center_horizontal"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -248,27 +284,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <TextView
+                <TextView
                     android:id="@+id/v5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:padding="2dp"
                     tools:text="12"
+                    android:text="@{String.valueOf(vital.spO2)}"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/small_title_text_gray"/>
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:text="%"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
-        </LinearLayout>
+                    android:textColor="@color/small_title_text_gray"/>
+            </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
                 android:id="@+id/l21"
+                app:goneUnless="@{vital!=null}"
                 android:gravity="bottom|center_horizontal"
                 app:layout_constraintLeft_toRightOf="@id/v1"
                 app:layout_constraintBottom_toBottomOf="@id/l20"
@@ -277,27 +315,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <TextView
+                <TextView
                     android:id="@+id/v6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     android:padding="2dp"
                     tools:text="36.5"
+                    android:text="@{String.valueOf(vital.body_Temperature)}"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/small_title_text_gray"/>
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:text="℃"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
-        </LinearLayout>
+                    android:textColor="@color/small_title_text_gray"/>
+            </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
                 android:id="@+id/l22"
+                app:goneUnless="@{vital!=null}"
                 android:gravity="bottom|center_horizontal"
                 app:layout_constraintLeft_toRightOf="@id/l1"
                 app:layout_constraintRight_toLeftOf="@id/l3"
@@ -306,27 +346,29 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <TextView
+                <TextView
                     android:id="@+id/v7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     tools:text="58"
+                    android:text="@{String.valueOf(vital.weight)}"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/small_title_text_gray"/>
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:layout_marginBottom="1dp"
                     android:text="kg"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
-        </LinearLayout>
+                    android:textColor="@color/small_title_text_gray"/>
+            </LinearLayout>
 
-        <LinearLayout
+            <LinearLayout
                 android:id="@+id/l23"
+                app:goneUnless="@{vital!=null}"
                 android:gravity="bottom|center_horizontal"
                 app:layout_constraintLeft_toRightOf="@id/l2"
                 app:layout_constraintBottom_toBottomOf="@id/l20"
@@ -335,23 +377,25 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-            <TextView
+                <TextView
                     android:id="@+id/v8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="18sp"
                     tools:text="58"
+                    android:text="@{String.valueOf(vital.pulse_Rate)}"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
+                    android:textColor="@color/small_title_text_gray"/>
 
-            <TextView
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:layout_marginBottom="1dp"
                     android:text="次/分"
                     android:textStyle="bold"
-                    android:textColor="@color/black"/>
-        </LinearLayout>
+                    android:textColor="@color/small_title_text_gray"/>
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

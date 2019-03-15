@@ -36,7 +36,7 @@
                 android:id="@+id/content"
                 tools:text="AbCd"
                 android:textStyle="bold"
-                android:textColor="#525252"
+                android:textColor="@color/small_title_text_gray"
                 android:text="@{item.typeName}"
                 app:layout_constraintStart_toEndOf="@id/title"
                 android:layout_width="wrap_content"

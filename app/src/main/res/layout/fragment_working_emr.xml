@@ -10,7 +10,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_scroll_up_fragment"
-            android:backgroundTint="@color/drug_bg_gray"
             tools:context=".ui.workspace.WorkingEmrFragment">
 
         <androidx.recyclerview.widget.RecyclerView

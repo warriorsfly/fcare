@@ -4,5 +4,4 @@ data class VitalSignRecord (var typeId:String,
                             var typeName:String,
                             var items:List<VitalSign>,
                             @Transient
-                            var tint:Int=0
-                            )
+                            var tint:Int=0)
