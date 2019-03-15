@@ -46,6 +46,10 @@ class WorkingEmrFragment : DaggerFragment() {
             adapter.submitList(it)
         })
 
+        viewModel.emrItemLoaded.observe(this,EventObserver{
+            adapter.notifyItemChanged(it)
+        })
+
         viewModel.emrItemLoaded.observe(this, EventObserver {
             adapter.notifyItemChanged(it)
         })

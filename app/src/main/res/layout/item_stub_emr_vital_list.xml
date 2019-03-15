@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.VitalSign"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:id="@+id/tab"
+                app:tabMode="scrollable"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <TextView
+
+            android:layout_marginTop="18dp"
+            app:layout_constraintLeft_toLeftOf="@id/v1"
+            app:layout_constraintTop_toBottomOf="@id/tab"
+            app:layout_constraintRight_toRightOf="@id/v1"
+            android:id="@+id/t1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:padding="2dp"
+            android:gravity="center"
+            android:textColor="#999999"
+            android:drawableLeft="@drawable/ic_emr_vital_1"
+            android:text="意识"/>
+
+        <TextView
+                app:layout_constraintLeft_toLeftOf="@id/l1"
+                app:layout_constraintTop_toTopOf="@id/t1"
+                app:layout_constraintRight_toRightOf="@id/l1"
+                android:id="@+id/t2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_2"
+                android:text="血压"/>
+
+        <TextView
+                app:layout_constraintLeft_toLeftOf="@id/l2"
+                app:layout_constraintTop_toTopOf="@id/t1"
+                app:layout_constraintRight_toRightOf="@id/l2"
+                android:id="@+id/t3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_3"
+                android:text="心率"/>
+
+        <TextView
+                app:layout_constraintLeft_toLeftOf="@id/l3"
+                app:layout_constraintTop_toTopOf="@id/t1"
+                app:layout_constraintRight_toRightOf="@id/l3"
+                android:id="@+id/t4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_4"
+                android:text="呼吸"/>
+
+
+        <!--android:text="@{ QualityScoreConverter.intToString(item.score)}"-->
+        <TextView
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/t1"
+            app:layout_constraintRight_toLeftOf="@id/l1"
+            android:id="@+id/v1"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:padding="2dp"
+            tools:text="浅昏迷"
+            android:text="@{item.consciousnesTypeName}"
+            android:textStyle="bold"
+            android:textColor="@color/small_title_text_gray"/>
+
+        <LinearLayout
+            android:id="@+id/l1"
+            android:gravity="center"
+            app:layout_constraintLeft_toRightOf="@id/v1"
+            app:layout_constraintTop_toTopOf="@id/v1"
+            app:layout_constraintRight_toLeftOf="@id/l2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/v2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:padding="2dp"
+                tools:text="100/140"
+
+                android:text="@{String.valueOf(item.dbp) +`/`+ String.valueOf(item.sbp)}"
+                android:textStyle="bold"
+                android:textColor="@color/small_title_text_gray"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:text="mmHg"
+                android:textStyle="bold"
+                android:textColor="@color/small_title_text_gray"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/l2"
+                android:gravity="bottom|center_horizontal"
+                app:layout_constraintLeft_toRightOf="@id/l1"
+                app:layout_constraintRight_toLeftOf="@id/l3"
+                app:layout_constraintTop_toTopOf="@id/v1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/v3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    tools:text="58"
+                    android:text="@{String.valueOf(item.heart_Rate)}"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:layout_marginBottom="1dp"
+                    android:text="次/分"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/l3"
+                android:gravity="bottom|center_horizontal"
+                app:layout_constraintLeft_toRightOf="@id/l2"
+                app:layout_constraintTop_toTopOf="@id/v1"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/v4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    tools:text="58"
+                    android:text="@{String.valueOf(item.respiration_Rate)}"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:layout_marginBottom="1dp"
+                    android:text="次/分"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+        </LinearLayout>
+
+
+        <TextView
+
+                android:layout_marginTop="18dp"
+                app:layout_constraintLeft_toLeftOf="@id/v1"
+                app:layout_constraintTop_toBottomOf="@id/l1"
+                app:layout_constraintBottom_toTopOf="@id/l20"
+                app:layout_constraintRight_toRightOf="@id/v1"
+                android:id="@+id/t5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_5"
+                android:text="血氧饱和度"/>
+
+
+        <TextView
+                app:layout_constraintLeft_toLeftOf="@id/l1"
+                app:layout_constraintTop_toTopOf="@+id/t5"
+                app:layout_constraintRight_toRightOf="@id/l1"
+                android:id="@+id/t6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_6"
+                android:text="体温"/>
+
+        <TextView
+                app:layout_constraintLeft_toLeftOf="@id/l2"
+                app:layout_constraintTop_toTopOf="@+id/t5"
+                app:layout_constraintRight_toRightOf="@id/l2"
+                android:id="@+id/t7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_7"
+                android:text="体重"/>
+
+        <TextView
+                app:layout_constraintLeft_toLeftOf="@id/l3"
+                app:layout_constraintTop_toTopOf="@+id/t5"
+                app:layout_constraintRight_toRightOf="@id/l3"
+                android:id="@+id/t8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:drawableLeft="@drawable/ic_emr_vital_8"
+                android:text="脉搏"/>
+
+
+        <LinearLayout
+                android:id="@+id/l20"
+                android:layout_marginBottom="18dp"
+                android:gravity="bottom|center_horizontal"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/l21"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/v5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:padding="2dp"
+                    tools:text="12"
+                    android:text="@{String.valueOf(item.spO2)}"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="%"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/l21"
+                android:gravity="bottom|center_horizontal"
+                app:layout_constraintLeft_toRightOf="@id/v1"
+                app:layout_constraintBottom_toBottomOf="@id/l20"
+                app:layout_constraintRight_toLeftOf="@id/l2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/v6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:padding="2dp"
+                    tools:text="36.5"
+                    android:text="@{String.valueOf(item.body_Temperature)}"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="℃"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/l22"
+                android:gravity="bottom|center_horizontal"
+                app:layout_constraintLeft_toRightOf="@id/l1"
+                app:layout_constraintRight_toLeftOf="@id/l3"
+                app:layout_constraintBottom_toBottomOf="@id/l20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/v7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    tools:text="58"
+                    android:text="@{String.valueOf(item.weight)}"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:layout_marginBottom="1dp"
+                    android:text="kg"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:id="@+id/l23"
+                android:gravity="bottom|center_horizontal"
+                app:layout_constraintLeft_toRightOf="@id/l2"
+                app:layout_constraintBottom_toBottomOf="@id/l20"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:id="@+id/v8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    tools:text="58"
+                    android:text="@{String.valueOf(item.pulse_Rate)}"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:layout_marginBottom="1dp"
+                    android:text="次/分"
+                    android:textStyle="bold"
+                    android:textColor="@color/small_title_text_gray"/>
+        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

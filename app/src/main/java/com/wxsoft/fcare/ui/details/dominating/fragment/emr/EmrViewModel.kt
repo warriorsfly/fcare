@@ -398,7 +398,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             emr.result = vitals.result
                             if (!emr.done) {
                                 emr.done = true
-                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+//                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
                             }
 
                             val index =

@@ -68,7 +68,7 @@ class WorkingActivity : BaseActivity() {
         const val NOTIFICATION = 41
     }
 
-//    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
@@ -90,9 +90,9 @@ class WorkingActivity : BaseActivity() {
 
                 operationView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, _ ->
 
-//                    bottomSheetBehavior.peekHeight=root.height-bottom
+                    bottomSheetBehavior.peekHeight=root.height-bottom
                 }
-//                bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
+                bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
                 viewModel=this@WorkingActivity.viewModel.apply { patientId=this@WorkingActivity.patientId }
                 lifecycleOwner=this@WorkingActivity
                 viewModel?.qualities?.observe(this@WorkingActivity, Observer {

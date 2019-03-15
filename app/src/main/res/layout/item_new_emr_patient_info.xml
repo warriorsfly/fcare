@@ -13,6 +13,7 @@
         <include
             layout="@layout/item_emr_common_head"
             android:id="@+id/head"
+            app:item="@{item}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
