@@ -6,6 +6,7 @@ package com.wxsoft.fcare.core.data.entity.rating
 data class RatingResult(val id:String,
                         val patientId:String,
                         val ratingId:String,
+
                         val ratingName:String,
                         val score:Int,
                         val resultLevel:Int,

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.EmrItem"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+    android:background="@drawable/bg_wave_line">
+        <include
+            layout="@layout/item_emr_common_head"
+            android:id="@+id/head"
+            app:item="@{item}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.tabs.TabLayout
+            app:layout_constraintTop_toBottomOf="@id/head"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/tabLayout"
+            app:tabMode="scrollable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            app:layout_constraintTop_toBottomOf="@id/tabLayout"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:spanCount="4"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            android:id="@+id/list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

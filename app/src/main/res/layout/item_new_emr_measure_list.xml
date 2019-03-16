@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.EmrItem"/>
+        <variable name="measure" type="com.wxsoft.fcare.core.data.entity.Measure"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            layout="@layout/item_emr_common_head"
+            android:id="@+id/head"
+            app:item="@{item}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/container"
+            android:orientation="vertical"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@+id/head"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="18dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/t1"
+                android:layout_marginLeft="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="治疗措施"/>
+
+            <TextView
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/t1"
+                    android:id="@+id/t2"
+                    android:layout_marginLeft="18dp"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:text="救治结果"/>
+
+            <TextView
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/t2"
+                    android:id="@+id/t3"
+                    android:layout_marginLeft="18dp"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:text="出诊结果"/>
+
+            <TextView
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/t3"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="18dp"
+                    android:id="@+id/t4"
+                    android:layout_marginLeft="18dp"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:text="绕行"/>
+
+            <TextView
+                    android:layout_marginTop="18dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="106dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/t1"
+                    android:id="@+id/v1"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:text="@{measure.toString()}"/>
+
+            <TextView
+                    android:layout_marginTop="18dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="106dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/t2"
+                    android:id="@+id/v2"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:text="@{measure.preCureResultCode}"/>
+
+            <TextView
+                    android:layout_marginTop="18dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="106dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/t3"
+                    android:id="@+id/v3"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:text="@{measure.preVisitResultCode}"/>
+
+            <TextView
+                    android:layout_marginTop="18dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginLeft="106dp"
+                    app:layout_constraintBaseline_toBaselineOf="@id/t4"
+                    android:id="@+id/v4"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:padding="2dp"
+                    android:gravity="center"
+                    android:textColor="#999999"
+                    android:text="@{measure.preDirectDepartId}"/>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -3,45 +3,65 @@ package com.wxsoft.fcare.ui.rating
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.data.entity.rating.RatingResult
+import com.wxsoft.fcare.databinding.ItemNewEmrRatingItemBinding
+import com.wxsoft.fcare.databinding.ItemNewEmrRatingListBinding
 import com.wxsoft.fcare.databinding.ItemRatingResultBinding
 
 
 class RatingAdapter constructor(private val owner: LifecycleOwner,
-                                private val showDetail:(RatingResult)->Unit):
+                                private val showDetail:(RatingResult)->Unit,
+                                private val scencely:Boolean = true):
     ListAdapter<RatingResult,RatingAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return ItemViewHolder(ItemRatingResultBinding.inflate(inflater,parent,false).apply {
 
-            root.setOnClickListener {
-                item?.let { showDetail(it) }
-            }
-            lifecycleOwner =owner
-        })
+        if(scencely){
+            return RatingAdapter.ItemViewHolder.ScencelyViewHolder(ItemRatingResultBinding.inflate(inflater, parent, false).apply {
+
+                root.setOnClickListener {
+                    item?.let { showDetail(it) }
+                }
+                lifecycleOwner = owner
+            })
+        }else {
+            return RatingAdapter.ItemViewHolder.EmrViewHolder(ItemNewEmrRatingItemBinding.inflate(inflater, parent, false).apply {
+                lifecycleOwner = owner
+            })
+        }
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.binding.apply {
-            item=getItem(position)
-            executePendingBindings()
+
+        when(holder){
+            is RatingAdapter.ItemViewHolder.ScencelyViewHolder->{
+                holder.binding.apply {
+                    item=getItem(position)
+                    executePendingBindings()
+                }
+            }
+
+            is RatingAdapter.ItemViewHolder.EmrViewHolder->{
+                holder.binding.apply {
+                    item=getItem(position)
+                    executePendingBindings()
+                }
+            }
         }
+
     }
 
-    class ItemViewHolder(bind: ItemRatingResultBinding) : RecyclerView.ViewHolder(bind.root) {
+    sealed class ItemViewHolder(open val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        var binding: ItemRatingResultBinding
-            private set
 
-        init {
-            this.binding = bind
-        }
-
+        class ScencelyViewHolder(override val binding: ItemRatingResultBinding) : ItemViewHolder(binding)
+        class EmrViewHolder(override val binding: ItemNewEmrRatingItemBinding) : ItemViewHolder(binding)
     }
 
     object DiffCallback : DiffUtil.ItemCallback<RatingResult>() {

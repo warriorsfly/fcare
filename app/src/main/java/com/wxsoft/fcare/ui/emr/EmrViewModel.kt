@@ -84,6 +84,8 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
         when (pair.second) {
             ActionType.患者信息录入 ->  loadBaseInfo(pair.first)
             ActionType.生命体征-> loadVitals(pair.first)
+            ActionType.GRACE-> loadRating(pair.first)
+            ActionType.DispostionMeasures-> loadMeasure(pair.first)
         }
     }
 
@@ -114,12 +116,35 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
                 setResultAtIndex(it)},::error))
     }
 
-
     /**
      * 获取病人生命体征
      */
     private fun loadVitals(index:Int){
         disposable.add(api.getVitals(patientId)
+            .map { Pair(index,it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                setResultAtIndex(it)},::error))
+    }
+
+    /**
+     * 获取病人生命体征
+     */
+    private fun loadRating(index:Int){
+        disposable.add(api.getScencelyRatings(patientId)
+            .map { Pair(index,it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                setResultAtIndex(it)},::error))
+    }
+
+    /**
+     * 获取病人生命体征
+     */
+    private fun loadMeasure(index:Int){
+        disposable.add(api.loadMeasure(patientId)
             .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

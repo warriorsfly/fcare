@@ -5,6 +5,7 @@ import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
+import com.wxsoft.fcare.core.data.entity.rating.ScencelyRatingResult
 import io.reactivex.Maybe
 import io.reactivex.Single
 import okhttp3.MultipartBody
@@ -64,6 +65,12 @@ interface EmrApi{
     @GET("Rating/GetAnswerRecords/{patientId}")
     fun getRecords(@Path("patientId")id:String): Single<Response<List<RatingRecord>>>
 
+    /***
+     * 评分表列表
+     * @param patientId
+     */
+    @GET("Rating/GetSceneWithAnswerRecords/{patientId}")
+    fun getScencelyRatings(@Path("patientId")patientId:String): Single<Response<List<ScencelyRatingResult>>>
     /**
      * 获取诊断列表
      */

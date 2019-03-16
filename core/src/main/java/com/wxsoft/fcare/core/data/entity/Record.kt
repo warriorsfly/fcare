@@ -1,7 +1,7 @@
 package com.wxsoft.fcare.core.data.entity
 
-data class Record<T>(var typeId:String,
-                     var typeName:String,
-                     var items:List<T>,
+open class Record<T>(val typeId:String="",
+                     val typeName:String="",
+                     val items:List<T> = emptyList(),
                      @Transient
-                     var tint:Int=0)
+                     open var tint:Int=0)

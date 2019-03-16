@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.core.data.entity
 
-data class TimeQuality (
+open class TimeQuality (
     /**
      * 质控项名称
      */

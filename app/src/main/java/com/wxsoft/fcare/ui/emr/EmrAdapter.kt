@@ -14,8 +14,9 @@ import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Record
 import com.wxsoft.fcare.core.data.entity.VitalSign
-import com.wxsoft.fcare.databinding.ItemNewEmrPatientInfoBinding
-import com.wxsoft.fcare.databinding.ItemNewEmrVitalListBinding
+import com.wxsoft.fcare.core.data.entity.rating.RatingResult
+import com.wxsoft.fcare.databinding.*
+import com.wxsoft.fcare.ui.rating.RatingAdapter
 import com.wxsoft.fcare.utils.ActionType
 
 
@@ -36,6 +37,18 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             R.layout.item_new_emr_vital_list->{
                 ItemViewHolder.VitalListViewHolder(
                     ItemNewEmrVitalListBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            R.layout.item_new_emr_rating_list->{
+                ItemViewHolder.RatingListViewHolder(
+                    ItemNewEmrRatingListBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick,owner)
+            }
+
+            R.layout.item_new_emr_measure_list->{
+                ItemViewHolder.MeasureViewHolder(
+                    ItemNewEmrMeasureListBinding.inflate(inflater,parent,false)
                         .apply {lifecycleOwner=owner},itemClick)
             }
 
@@ -72,6 +85,17 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                     }
                 }
             }
+
+            is ItemViewHolder.RatingListViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    if(tabLayout.tabCount==0){
+                        ( emr.result as? List<Record<RatingResult>>)?.forEach {
+                            tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -81,8 +105,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
         return when(getItem(position).code){
             ActionType.患者信息录入-> R.layout.item_new_emr_patient_info
             ActionType.生命体征-> R.layout.item_new_emr_vital_list
+            ActionType.GRACE-> R.layout.item_new_emr_rating_list
+            ActionType.DispostionMeasures-> R.layout.item_new_emr_measure_list
             else->0
-//            else->throw IllegalStateException("unkown viewtype at $position")
         }
     }
 
@@ -93,6 +118,22 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
         class BaseInfoViewHolder(
             override val binding: ItemNewEmrPatientInfoBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.let {
+                                click(it.code)
+                            }
+                        }
+                }
+            }
+        }
+
+        class MeasureViewHolder(
+            override val binding: ItemNewEmrMeasureListBinding,
             override val click:(String)->Unit
         ) : ItemViewHolder(binding,click){
             init {
@@ -135,6 +176,40 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         }
 
                     tabLayout.addOnTabSelectedListener(this@VitalListViewHolder)
+                }
+            }
+        }
+
+        class RatingListViewHolder(
+            override val binding: ItemNewEmrRatingListBinding,
+            override val click:(String)->Unit,
+            private val owner: LifecycleOwner
+        ) : ItemViewHolder(binding,click),TabLayout.OnTabSelectedListener{
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                binding.apply {
+                    (item?.result  as List<Record<RatingResult>>)?.apply {
+                        (list.adapter as? RatingAdapter)?.submitList(this[tab?.position?:0].items)
+                        executePendingBindings()
+                    }
+                }
+
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.let {
+                                click(it.code)
+                            }
+                        }
+
+                    list.adapter=RatingAdapter(owner,scencely = false,showDetail = {})
+                    tabLayout.addOnTabSelectedListener(this@RatingListViewHolder)
                 }
             }
         }
