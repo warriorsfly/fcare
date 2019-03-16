@@ -69,7 +69,7 @@ class DiagnoseActivity : BaseActivity() {
 
 
 
-
+        viewModel.getDiagnose()
 
 
         viewModel.backToLast.observe(this, Observer {

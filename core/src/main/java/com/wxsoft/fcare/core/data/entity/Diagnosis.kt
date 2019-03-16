@@ -49,7 +49,7 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
 
     @Bindable
     @SerializedName("diagnosisCode2_Name")
-    var diagnosisCode2Name: String = ""
+    var diagnosisCode2Name: String = " "
         set(value) {
             field = value
             notifyPropertyChanged(BR.diagnosisCode2Name)

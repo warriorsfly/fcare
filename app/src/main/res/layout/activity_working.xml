@@ -48,9 +48,8 @@
                             android:textColor="@color/white"
                             tools:text="返回"
                             android:text="@{viewModel.patient.name}"
-                            android:id="@+id/back"
+                            android:id="@+id/back_away"
                             android:layout_marginLeft="16dp"
-                            android:drawableLeft="@drawable/ic_back"
                             android:drawableTint="@color/white"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>

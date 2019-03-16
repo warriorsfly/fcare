@@ -107,7 +107,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         startCT = initStartCT.map { it }
         showSonList = initShowSonList.map { it }
         diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis(createrId = account.id,createrName = account.trueName) }
-
+        loadDiagnosisResult.value = null
         clickable = clickResult.map { it }
         thoracalgiaItems = secItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         sonItems = loadsonItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
@@ -192,16 +192,16 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
     override fun click(){
         if (activityType.equals("SelectDiagnose")){
-            diagnosis.value?.apply {
+            initbackToLast.value = "haveSelected"
+        }else{
+            submitDiagnosis.value?.apply {
                 patientId=this@DiagnoseViewModel.patientId
                 location=1
                 doctorId=account.id
                 doctorName=account.trueName
-                sceneType = sceneTypeId
-                initbackToLast.value = "haveSelected"
             }
-        }else{
             illnessItems.value?.filter { it.checked }?.map { submitDiagnosis.value?.criticalLevel = it.id }
+            submitDiagnosis.value?.sceneType = sceneTypeId
             saveDiagnose(submitDiagnosis.value!!)
         }
 
@@ -245,6 +245,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             }
             else ->{
                 initShowSonList.value = false
+                loadsonItemsResult.value = null
                 diagnosis.value?.diagnosisCode3 = ""
             }
         }

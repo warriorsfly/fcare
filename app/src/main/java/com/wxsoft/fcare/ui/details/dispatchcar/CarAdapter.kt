@@ -23,7 +23,7 @@ class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vie
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-        val binding: ViewDataBinding = ItemSelectCarBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
+        val binding: ItemSelectCarBinding = ItemSelectCarBinding.inflate(LayoutInflater.from(parent.context),parent,  false)
         return CarAdapter.ItemViewHolder(binding)
     }
 
@@ -33,17 +33,16 @@ class CarAdapter constructor(private val lifecycleOwner: LifecycleOwner, val vie
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.binding.apply {
-            setVariable(BR.car,differ.currentList[position])
-            setVariable(BR.listener,viewModel)
+            car = differ.currentList[position]
+            listener = viewModel
             lifecycleOwner = this@CarAdapter.lifecycleOwner
             executePendingBindings()
-
         }
     }
 
 
-    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        var binding: ViewDataBinding
+    class ItemViewHolder(binding: ItemSelectCarBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemSelectCarBinding
             private set
 
         init {
