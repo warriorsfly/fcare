@@ -2,7 +2,6 @@ package com.wxsoft.fcare.ui.details.complication
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
@@ -30,8 +29,8 @@ class ComplicationAdapter constructor(private val lifecycleOwner: LifecycleOwner
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.listener,viewModel)
+            item = differ.currentList[position]
+            listener = viewModel
             lifecycleOwner = this@ComplicationAdapter.lifecycleOwner
             executePendingBindings()
 

@@ -37,12 +37,13 @@
                 android:layout_height="wrap_content"/>
 
         <TextView
-                app:layout_constraintLeft_toLeftOf="@id/content"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/content"
                 android:id="@+id/patient"
                 tools:text="王丽"
                 android:drawablePadding="4dp"
                 android:text="@{item.doctorName}"
+                android:layout_marginLeft="21.5dp"
                 android:textColor="#999999"
                 android:textSize="12sp"
                 android:layout_marginTop="4dp"
@@ -52,16 +53,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <TextView
-                app:layout_constraintLeft_toLeftOf="@id/content"
+                app:layout_constraintLeft_toRightOf="@+id/patient"
                 app:layout_constraintTop_toBottomOf="@id/content"
                 android:id="@+id/time"
-                android:layout_marginStart="53dp"
                 tools:text="09:10"
                 android:layout_marginBottom="11dp"
                 android:text="@{item.createdDate.substring(11,16)}"
                 android:drawablePadding="4dp"
                 android:textColor="#999999"
                 android:textSize="12sp"
+                android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
                 android:drawableLeft="@drawable/ic_time_record"
                 app:layout_constraintBottom_toBottomOf="parent"

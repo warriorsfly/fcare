@@ -106,6 +106,13 @@ class WorkingActivity : BaseActivity() {
 
                 })
 
+                backAway.setOnClickListener {
+                    val intent = Intent(this@WorkingActivity, ProfileActivity::class.java).apply {
+                        putExtra(ProfileActivity.PATIENT_ID, patientId)
+                    }
+                    startActivityForResult(intent, BASE_INFO)
+                }
+
                 timeLine.setOnClickListener {
                     val intent = Intent(this@WorkingActivity, TimePointActivity::class.java)
                         .apply {
@@ -122,7 +129,7 @@ class WorkingActivity : BaseActivity() {
             }
 
 
-        back.setOnClickListener { onBackPressed() }
+//        back.setOnClickListener { onBackPressed() }
     }
 
 

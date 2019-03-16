@@ -27,13 +27,15 @@ class VitalRecordListAdapter constructor(private val owner: LifecycleOwner, val 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            item=differ.currentList[position]
+            val tt = differ.currentList[position]
+            item= tt
             viewModel=this@VitalRecordListAdapter.viewModel
-            if(vitalRecordsDetailsList.adapter==null){
-                vitalRecordsDetailsList.adapter=VitalSignsDetailItemAdapter(owner,this@VitalRecordListAdapter.viewModel).apply {
-                    items = differ.currentList[position].items
-                }
+            if (vitalRecordsDetailsList.adapter == null) {
+                val adapter = VitalSignsDetailItemAdapter(owner,this@VitalRecordListAdapter.viewModel)
+                vitalRecordsDetailsList.adapter = adapter
             }
+            (vitalRecordsDetailsList.adapter as? VitalSignsDetailItemAdapter)?.items = tt.items
+
             lifecycleOwner = owner
             executePendingBindings()
         }

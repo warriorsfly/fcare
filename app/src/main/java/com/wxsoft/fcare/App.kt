@@ -19,10 +19,10 @@ class App : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-
-        if (!LeakCanary.isInAnalyzerProcess(this)) {
-            LeakCanary.install(this)
-        }
+//
+//        if (!LeakCanary.isInAnalyzerProcess(this)) {
+//            LeakCanary.install(this)
+//        }
 //        SDKInitializer.initialize(this)
 //        SDKInitializer.setCoordType(CoordType.BD09LL);
 

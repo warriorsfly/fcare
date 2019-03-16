@@ -16,8 +16,7 @@ import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
-class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
-                                             private val checkBodyApi:CheckBodyApi,
+class CheckBodyViewModel @Inject constructor(private val checkBodyApi:CheckBodyApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
                                              override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,ICommonPresenter {
     override fun click() {
@@ -53,129 +52,22 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
     val checkBody:LiveData<CheckBody>
     private val loadCheckBodyResult = MediatorLiveData<Resource<Response<CheckBody>>>()
 
-    val coordinationItems: LiveData<List<Dictionary>>
-    private val loadCoordinationItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+    val selectItem:LiveData<String>
+    private val loadselectItem = MediatorLiveData<String>()
 
-    val skinItems: LiveData<List<Dictionary>>
-    private val loadSkinItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-
-    val leftPupilsItems: LiveData<List<Dictionary>>
-    private val loadLeftPupilsItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-
-    val leftResponseLightItems: LiveData<List<Dictionary>>
-    private val loadLeftResponseLightItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-
-    val rightPupilsItems: LiveData<List<Dictionary>>
-    private val loadRightPupilsItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-
-    val rightResponseLightItems: LiveData<List<Dictionary>>
-    private val loadRightResponseLightItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
     init {
         checkBody = loadCheckBodyResult.map { (it as? Resource.Success)?.data?.result ?: CheckBody("")  }
-        coordinationItems = loadCoordinationItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        skinItems = loadSkinItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        leftPupilsItems = loadLeftPupilsItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        leftResponseLightItems = loadLeftResponseLightItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        rightPupilsItems = loadRightPupilsItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        rightResponseLightItems = loadRightResponseLightItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
+        selectItem = loadselectItem.map { it }
 
-    }
-
-    fun loadItems(){
-        loadCoordinationItems()
-        loadSkinItems()
-        leftPupilsItems()
-        rightPupilsItems()
-        loadLeftResponseLightItems()
-        loadRightResponseLightItems()
-    }
-
-
-    private fun loadCoordinationItems() {
-        dicEnumApi.loadCoordinationItems().toResource()
-            .subscribe{
-                loadCoordinationItemsResult.value = it
-                if (checkBody.value?.id.isNullOrEmpty()){
-                    coordinationItems.value?.first()?.checked = true
-                }else{
-                    coordinationItems.value?.filter {item-> item.checked }?.map {item-> item.checked = false }
-                    coordinationItems.value?.filter {item-> item.id == checkBody.value?.coordination }?.map { item->item.checked = true }
-                }
-            }
-    }
-
-    private fun loadSkinItems() {
-        dicEnumApi.loadSkinItems().toResource()
-            .subscribe{
-                loadSkinItemsResult.value = it
-                if (checkBody.value?.id.isNullOrEmpty()){
-                    skinItems.value?.first()?.checked = true
-                }else{
-                    skinItems.value?.filter { it.checked }?.map { it.checked = false }
-                    skinItems.value?.filter { it.id == checkBody.value?.skin }?.map {it.checked = true }
-                }
-            }
-    }
-
-    private fun leftPupilsItems() {
-        dicEnumApi.loadPupilsItems().toResource()
-            .subscribe{
-                loadLeftPupilsItemsResult.value = it
-                if (checkBody.value?.id.isNullOrEmpty()){
-                    leftPupilsItems.value?.first()?.checked = true
-                }else{
-                    leftPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
-                    leftPupilsItems.value?.filter { it.id == checkBody.value?.leftPupils }?.map {it.checked = true }
-                }
-            }
-    }
-    private fun rightPupilsItems() {
-        dicEnumApi.loadPupilsItems().toResource()
-            .subscribe{
-                loadRightPupilsItemsResult.value = it
-                if (checkBody.value?.id.isNullOrEmpty()){
-                    rightPupilsItems.value?.first()?.checked = true
-                }else{
-                    rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
-                    rightPupilsItems.value?.filter { it.id == checkBody.value?.rightPupils }?.map {it.checked = true }
-                }
-            }
-    }
-
-    private fun loadLeftResponseLightItems() {
-        dicEnumApi.loadResponseLightItems().toResource()
-            .subscribe{
-                loadLeftResponseLightItemsResult.value = it
-                if (checkBody.value?.id.isNullOrEmpty()){
-                    leftResponseLightItems.value?.first()?.checked = true
-                }else{
-                    leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-                    leftResponseLightItems.value?.filter { it.id == checkBody.value?.leftResponseLight }?.map {it.checked = true }
-                }
-            }
-    }
-    private fun loadRightResponseLightItems() {
-        dicEnumApi.loadResponseLightItems().toResource()
-            .subscribe{
-                loadRightResponseLightItemsResult.value = it
-                if (checkBody.value?.id.isNullOrEmpty()){
-                    rightResponseLightItems.value?.first()?.checked = true
-                }else{
-                    rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-                    rightResponseLightItems.value?.filter { it.id == checkBody.value?.rightResponseLight }?.map {it.checked = true }
-                }
-            }
     }
 
     fun loadCheckBody(){
         checkBodyApi.loadCheckBody(patientId).toResource()
             .subscribe{
                 loadCheckBodyResult.value = it
-                haveData()
             }
     }
-
     private fun saveCheckBody(){
         checkBodyApi.save(checkBody.value!!).toResource()
             .subscribe {
@@ -183,67 +75,70 @@ class CheckBodyViewModel @Inject constructor(private val dicEnumApi: DictEnumApi
             }
     }
 
-    private fun haveData(){
-        if (checkBody.value?.id.isNullOrEmpty()){
-            coordinationItems.value?.first()?.checked = true
-            skinItems.value?.first()?.checked = true
-            leftPupilsItems.value?.first()?.checked = true
-            leftResponseLightItems.value?.first()?.checked = true
-            rightPupilsItems.value?.first()?.checked = true
-            rightResponseLightItems.value?.first()?.checked = true
-        }else{
-            coordinationItems.value?.filter { it.checked }?.map { it.checked = false }
-            skinItems.value?.filter { it.checked }?.map { it.checked = false }
-            leftPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
-            leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-            rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
-            rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-            coordinationItems.value?.filter { it.id == checkBody.value?.coordination }?.map {it.checked = true }
-            skinItems.value?.filter { it.id == checkBody.value?.skin }?.map {it.checked = true }
-            leftPupilsItems.value?.filter { it.id == this.checkBody.value?.leftPupils }?.map {it.checked = true }
-            leftResponseLightItems.value?.filter { it.id == checkBody.value?.leftResponseLight }?.map {it.checked = true }
-            rightPupilsItems.value?.filter { it.id == checkBody.value?.rightPupils }?.map {it.checked = true }
-            rightResponseLightItems.value?.filter { it.id == checkBody.value?.rightResponseLight }?.map {it.checked = true }
-        }
+//    private fun haveData(){
+//        if (checkBody.value?.id.isNullOrEmpty()){
+//            coordinationItems.value?.first()?.checked = true
+//            skinItems.value?.first()?.checked = true
+//            leftPupilsItems.value?.first()?.checked = true
+//            leftResponseLightItems.value?.first()?.checked = true
+//            rightPupilsItems.value?.first()?.checked = true
+//            rightResponseLightItems.value?.first()?.checked = true
+//        }else{
+//            coordinationItems.value?.filter { it.checked }?.map { it.checked = false }
+//            skinItems.value?.filter { it.checked }?.map { it.checked = false }
+//            leftPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
+//            leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
+//            rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
+//            rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
+//            coordinationItems.value?.filter { it.id == checkBody.value?.coordination }?.map {it.checked = true }
+//            skinItems.value?.filter { it.id == checkBody.value?.skin }?.map {it.checked = true }
+//            leftPupilsItems.value?.filter { it.id == this.checkBody.value?.leftPupils }?.map {it.checked = true }
+//            leftResponseLightItems.value?.filter { it.id == checkBody.value?.leftResponseLight }?.map {it.checked = true }
+//            rightPupilsItems.value?.filter { it.id == checkBody.value?.rightPupils }?.map {it.checked = true }
+//            rightResponseLightItems.value?.filter { it.id == checkBody.value?.rightResponseLight }?.map {it.checked = true }
+//        }
+//
+//    }
 
-    }
-
-    fun clickSelect(item:Dictionary){
-        when(item.section){
-            0->{ coordinationItems.value?.filter { it.checked }?.map {it.checked = false } }
-            1->{ skinItems.value?.filter { it.checked }?.map {it.checked = false } }
-            2->{ leftPupilsItems.value?.filter { it.checked }?.map {it.checked = false } }
-            3->{ leftResponseLightItems.value?.filter { it.checked }?.map {it.checked = false } }
-            4->{ rightPupilsItems.value?.filter { it.checked }?.map {it.checked = false } }
-            5->{ rightResponseLightItems.value?.filter { it.checked }?.map {it.checked = false } }
-        }
-        item.checked = !item.checked
-    }
+//    fun clickSelect(item:Dictionary){
+//        when(item.section){
+//            0->{ coordinationItems.value?.filter { it.checked }?.map {it.checked = false } }
+//            1->{ skinItems.value?.filter { it.checked }?.map {it.checked = false } }
+//            2->{ leftPupilsItems.value?.filter { it.checked }?.map {it.checked = false } }
+//            3->{ leftResponseLightItems.value?.filter { it.checked }?.map {it.checked = false } }
+//            4->{ rightPupilsItems.value?.filter { it.checked }?.map {it.checked = false } }
+//            5->{ rightResponseLightItems.value?.filter { it.checked }?.map {it.checked = false } }
+//        }
+//        item.checked = !item.checked
+//    }
 
     fun submit(){
-        coordinationItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.coordination = it.id }
 
-        skinItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.skin = it.id }
-
-        leftPupilsItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.leftPupils = it.id }
-
-        leftResponseLightItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.leftResponseLight = it.id }
-
-        rightPupilsItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.rightPupils = it.id }
-
-        rightResponseLightItems.value?.filter { it.checked }
-            ?.map { checkBody.value?.rightResponseLight = it.id }
+//
+//        skinItems.value?.filter { it.checked }
+//            ?.map { checkBody.value?.skin = it.id }
+//
+//        leftPupilsItems.value?.filter { it.checked }
+//            ?.map { checkBody.value?.leftPupils = it.id }
+//
+//        leftResponseLightItems.value?.filter { it.checked }
+//            ?.map { checkBody.value?.leftResponseLight = it.id }
+//
+//        rightPupilsItems.value?.filter { it.checked }
+//            ?.map { checkBody.value?.rightPupils = it.id }
+//
+//        rightResponseLightItems.value?.filter { it.checked }
+//            ?.map { checkBody.value?.rightResponseLight = it.id }
 
         checkBody.value?.patientId = patientId
 
         saveCheckBody()
     }
 
+
+    fun select(num:String){
+        loadselectItem.value = num
+    }
 
 
 }

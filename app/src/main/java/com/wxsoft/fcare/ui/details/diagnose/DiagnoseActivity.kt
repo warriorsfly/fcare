@@ -1,17 +1,19 @@
 package com.wxsoft.fcare.ui.details.diagnose
 
-import android.app.AlertDialog
-import androidx.lifecycle.Observer
+import android.app.Activity
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDiagnoseBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -51,17 +53,11 @@ class DiagnoseActivity : BaseActivity() {
         viewModel.id = id
         viewModel.sceneTypeId = typeId
         binding.viewModel = viewModel
+        viewModel.activityType = "Diagnose"
 
         back.setOnClickListener { onBackPressed() }
 
-//        val diagnoseAdapter = DiagnoseAdapter(this,viewModel)
-//        viewModel.thoracalgiaItems.observe(this, Observer { diagnoseAdapter.items = it ?: emptyList() })
-//        binding.diagnoseList.adapter = diagnoseAdapter
-//
-//        val sondiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
-//        sondiagnoseAdapter.section = 3
-//        viewModel.sonItems.observe(this, Observer { sondiagnoseAdapter.items = it ?: emptyList() })
-//        binding.diagnoseOtherList.adapter = sondiagnoseAdapter
+
 
 
 
@@ -71,58 +67,49 @@ class DiagnoseActivity : BaseActivity() {
         viewModel.illnessItems.observe(this, Observer { illnessdiagnoseAdapter.items = it ?: emptyList() })
         binding.illnessList.adapter = illnessdiagnoseAdapter
 
-        viewModel.startConduitRoom.observe(this, Observer {
-            startConduitRoom()
-        })
 
-        viewModel.startCT.observe(this, Observer {
-            startCT()
-        })
 
         viewModel.getDiagnose()
 
-        viewModel.diagnosis.observe(this, Observer {  })
 
         viewModel.backToLast.observe(this, Observer {
-            Intent().let { intent->
-                setResult(RESULT_OK, intent)
-                finish()
-            }
+           if (it.equals("back")){
+               Intent().let { intent->
+                   setResult(RESULT_OK, intent)
+                   finish()
+               }
+           }
         })
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
+
     }
 
 
     fun toSelectSonDiagnose(){
-        val intent = Intent(this, DiagnoseActivity::class.java)
+        val intent = Intent(this, SelectDiagnoseActivity::class.java).apply {
+            putExtra(SelectDiagnoseActivity.PATIENT_ID, patientId)
+        }
         startActivityForResult(intent,SELECT_DIAGNOSE_TYPE )
     }
 
-    private fun startConduitRoom(){
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
-            .setMessage("通知院内启动导管室？")
-            .setPositiveButton("确定") { _, _ ->
-                viewModel.commitNoticeInv()
-            }
-            .setNegativeButton("取消") { _, _ ->
 
-            }.show()
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK) {
+            when(requestCode){
+                SELECT_DIAGNOSE_TYPE ->{//用药
+                    val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
+                    viewModel.loadSubmitDiagnosis.value = diagnose
+                }
+
+            }
+        }
     }
 
-
-    private fun startCT(){
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
-            .setMessage("通知院内CT室？")
-            .setPositiveButton("确定") { _, _ ->
-                viewModel.commitNoticePacs()
-            }
-            .setNegativeButton("取消") { _, _ ->
-
-            }.show()
-    }
 
 }

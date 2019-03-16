@@ -15,6 +15,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -107,8 +108,8 @@ class MeasuresActivity : BaseActivity()  {
     }
 
     private fun toPharmacy(){//用药界面
-        val intent = Intent(this, PharmacyActivity::class.java)
-        intent.putExtra(PharmacyActivity.PATIENT_ID,patientId)
+        val intent = Intent(this, DrugRecordsActivity::class.java)
+        intent.putExtra(DrugRecordsActivity.PATIENT_ID,patientId)
         startActivity(intent)
     }
 

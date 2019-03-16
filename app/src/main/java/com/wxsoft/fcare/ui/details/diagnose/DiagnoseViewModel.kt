@@ -57,8 +57,15 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             field = value
         }
 
-    val backToLast:LiveData<Boolean>
-    private val initbackToLast = MediatorLiveData<Boolean>()
+    var activityType: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
+
+
+    val backToLast:LiveData<String>
+    private val initbackToLast = MediatorLiveData<String>()
 
     val showSonList:LiveData<Boolean>
     private val initShowSonList = MediatorLiveData<Boolean>()
@@ -71,6 +78,9 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
     val diagnosis: LiveData<Diagnosis>
     private val loadDiagnosisResult = MediatorLiveData<Resource<Response<Diagnosis>>>()
+
+    val submitDiagnosis: LiveData<Diagnosis>
+    val loadSubmitDiagnosis = MediatorLiveData<Diagnosis>()
 
     val thoracalgiaItems: LiveData<List<Dictionary>>
     private val secItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -91,11 +101,13 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
         backToLast = initbackToLast.map { it }
 
+        submitDiagnosis = loadSubmitDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
+
         startConduitRoom = initStartConduitRoom.map { it }
         startCT = initStartCT.map { it }
         showSonList = initShowSonList.map { it }
         diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis(createrId = account.id,createrName = account.trueName) }
-
+        loadDiagnosisResult.value = null
         clickable = clickResult.map { it }
         thoracalgiaItems = secItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         sonItems = loadsonItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
@@ -163,11 +175,11 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             })
     }
 
-    private fun saveDiagnose(){
-        disposable.add(diagnoseApi.save(diagnosis.value!!).toResource()
+    fun saveDiagnose(diagnose:Diagnosis){
+        disposable.add(diagnoseApi.save(diagnose).toResource()
             .subscribe{
                 loadDiagnosisResult.value = it
-                initbackToLast.value = true
+                initbackToLast.value = "back"
             })
     }
 
@@ -179,18 +191,25 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     }
 
     override fun click(){
-        diagnosis.value?.apply {
-            patientId=this@DiagnoseViewModel.patientId
-            location=1
-            doctorId=account.id
-            doctorName=account.trueName
-            sceneType = sceneTypeId
+        if (activityType.equals("SelectDiagnose")){
+            initbackToLast.value = "haveSelected"
+        }else{
+            submitDiagnosis.value?.apply {
+                patientId=this@DiagnoseViewModel.patientId
+                location=1
+                doctorId=account.id
+                doctorName=account.trueName
+            }
+            illnessItems.value?.filter { it.checked }?.map { submitDiagnosis.value?.criticalLevel = it.id }
+            submitDiagnosis.value?.sceneType = sceneTypeId
+            saveDiagnose(submitDiagnosis.value!!)
         }
+
 
 //        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.id }
 //        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.id }
-        illnessItems.value?.filter { it.checked }?.map { diagnosis.value?.criticalLevel = it.id }
-        saveDiagnose()
+
+
     }
 
 
@@ -200,6 +219,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         item.checked = true
 
         diagnosis.value?.diagnosisCode2 = item.id
+        diagnosis.value?.diagnosisCode2Name = item.itemName
     }
 
     fun selectDiagnose(item:Dictionary){
@@ -225,6 +245,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             }
             else ->{
                 initShowSonList.value = false
+                loadsonItemsResult.value = null
                 diagnosis.value?.diagnosisCode3 = ""
             }
         }
@@ -236,6 +257,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             3->{ sonItems.value?.filter { it.checked }?.map { it.checked = false }
                 item.checked = true
                 diagnosis.value?.diagnosisCode3 = item.id
+                diagnosis.value?.diagnosisCode3Name = item.itemName
             }
             4->{ illnessItems.value?.filter { it.checked }?.map { it.checked = false }
                 item.checked = true

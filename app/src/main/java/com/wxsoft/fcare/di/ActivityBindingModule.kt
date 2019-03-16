@@ -8,6 +8,8 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
+import com.wxsoft.fcare.ui.details.checkbody.select.SelectBodyItemsActivity
+import com.wxsoft.fcare.ui.details.checkbody.select.SelectBodyItemsModule
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsModule
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
@@ -18,6 +20,8 @@ import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseModule
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordModule
+import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseModule
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
@@ -111,6 +115,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [CheckBodyModule::class])
     internal abstract fun checkBodyActivity(): CheckBodyActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SelectBodyItemsModule::class])
+    internal abstract fun selectBodyItemsActivity(): SelectBodyItemsActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ProfileModule::class])
@@ -240,5 +248,8 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [SearchTaskModule::class])
     internal abstract fun searchTaskActivity(): SearchTaskActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SelectDiagnoseModule::class])
+    internal abstract fun selectDiagnoseActivity(): SelectDiagnoseActivity
 
 }

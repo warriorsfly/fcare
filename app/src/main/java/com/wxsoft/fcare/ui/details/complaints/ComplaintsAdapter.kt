@@ -29,8 +29,8 @@ class ComplaintsAdapter constructor(private val lifecycleOwner: LifecycleOwner, 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            setVariable(BR.item, differ.currentList[position])
-            setVariable(BR.listener, viewModel)
+            item  = differ.currentList[position]
+            listener = viewModel
             lifecycleOwner = this@ComplaintsAdapter.lifecycleOwner
             executePendingBindings()
 
@@ -39,13 +39,13 @@ class ComplaintsAdapter constructor(private val lifecycleOwner: LifecycleOwner, 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding: ViewDataBinding =
+        val binding: ItemComplaintsOnlyNameBinding =
             ItemComplaintsOnlyNameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        var binding: ViewDataBinding
+    class ItemViewHolder(binding: ItemComplaintsOnlyNameBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemComplaintsOnlyNameBinding
             private set
         init {
             this.binding = binding
