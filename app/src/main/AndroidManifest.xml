@@ -49,12 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.ecg.EcgActivity">
-        </activity>
+        <activity android:name=".ui.details.ecg.EcgActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.launch.LauncherActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
-                android:label="@string/title_activity_launcher"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

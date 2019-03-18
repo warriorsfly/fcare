@@ -43,6 +43,8 @@
     <color name="sex_wuman">#EE4E5B</color>
 
     <!--初步诊断-->
+    <color name="tint_work_space_info">#63B0F8</color>
+    <!--初步诊断-->
     <color name="tint_work_space_diagnosis">#657ED9</color>
     <!--心电图-->
     <color name="tint_work_space_etc">#796EF4</color>

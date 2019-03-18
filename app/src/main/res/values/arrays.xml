@@ -65,6 +65,8 @@
 
     <!--操作台操作背景色-->
     <array name="color_work_space_operations">
+       <!--基本信息-->
+        <item>@color/tint_work_space_info</item>
         <!--初步诊断-->
         <item>@color/tint_work_space_diagnosis</item>
         <!--心电图-->
@@ -131,6 +133,8 @@
     </array>
 
     <array name="key_work_space_operations">
+        <!--基本信息-->
+        <item>hzxxlr</item>
         <!--初步诊断-->
         <item>zd</item>
         <!--心电图-->

@@ -69,4 +69,6 @@
     <string name="title_activity_message">MessageActivity</string>
 
     <string name="title_activity_launcher">LauncherActivity</string>
+    <string name="ecg_memo_title"><font color="red">*</font>判图结果</string>
+    <string name="ecg_property_title"><font color="red">*</font>节律特性</string>
 </resources>

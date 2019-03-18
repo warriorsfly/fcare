@@ -26,6 +26,8 @@ import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
+import com.wxsoft.fcare.ui.details.ecg.EcgActivity
+import com.wxsoft.fcare.ui.details.ecg.EcgModule
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
@@ -97,6 +99,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [LaunchModule::class])
     internal abstract fun launcherActivity(): LauncherActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [EcgModule::class])
+    internal abstract fun ecgActivity(): EcgActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [LoginModule::class])

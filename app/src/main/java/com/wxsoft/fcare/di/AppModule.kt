@@ -39,6 +39,7 @@ class AppModule {
     @Named("WorkOperationIcon")
     fun providesIcoWorkOperations() =
         arrayOf(
+            R.drawable.ic_work_space_base_info,
             R.drawable.ic_work_space_diagnosis,
             R.drawable.ic_work_space_etc,
             R.drawable.ic_work_space_signs,
