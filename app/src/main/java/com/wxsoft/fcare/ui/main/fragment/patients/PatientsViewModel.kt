@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.AccountApi
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
@@ -17,6 +18,8 @@ import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.core.utils.switchMap
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.EventActions
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -24,6 +27,7 @@ import javax.inject.Inject
 
 class PatientsViewModel @Inject constructor(private val repository: IPatientRepository,
                                             private val dicEnumApi: DictEnumApi,
+                                            private val accountApi: AccountApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
                                             override val gon: Gson
 ):  BaseViewModel(sharedPreferenceStorage,gon),EventActions {
@@ -50,17 +54,28 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
 
     init {
         clickTop = clickTopResult.map { it }
-        checkCondition = checkConditionResult.map { it?:PatientsCondition(1,10) }
+        checkCondition = checkConditionResult.map { it ?: PatientsCondition(1, 10) }
         clickCusDate = clickCusDateResult.map { it }
         checkConditionResult.value = null
-        typeItems = loadtypeItemsResult.map { (
-                (it as? Resource.Success)?.data?.apply {
-                    var arr = ArrayList<Dictionary>()
-                    arr.add(Dictionary("","全部类型").apply { checked = true })
-                    arr.addAll(it.data)
-                    return@map arr
-                })?: emptyList() }
+        typeItems = loadtypeItemsResult.map {
+            (
+                    (it as? Resource.Success)?.data?.apply {
+                        var arr = ArrayList<Dictionary>()
+                        arr.add(Dictionary("", "全部类型").apply { checked = true })
+                        arr.addAll(it.data)
+                        return@map arr
+                    }) ?: emptyList()
+        }
         getMeasuresItems()
+        /**
+         * 在主页进行jpush相关
+         */
+        sharedPreferenceStorage.registrationId?.let {
+            accountApi.jpush(account.id, it)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe()
+        }
     }
 
     private val patientName = MediatorLiveData<String>()

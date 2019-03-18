@@ -132,10 +132,6 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         loadOperationResult.value=response
     }
 
-    private fun error(throwable: Throwable){
-        messageAction.value= Event(throwable.message?:"未知错误")
-    }
-
     fun commitNoticePacs(){ //通知启动CT室
         disposable.add(
             pacsApi.notice(patientId,account.id).toResource()

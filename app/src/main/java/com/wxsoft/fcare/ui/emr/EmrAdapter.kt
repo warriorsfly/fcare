@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.EmrItem
-import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.core.data.entity.Record
-import com.wxsoft.fcare.core.data.entity.VitalSign
+import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingResult
 import com.wxsoft.fcare.databinding.*
+import com.wxsoft.fcare.ui.details.medicalhistory.DrugHistoryItemAdapter
+import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsAdapter
 import com.wxsoft.fcare.ui.rating.RatingAdapter
 import com.wxsoft.fcare.utils.ActionType
 
@@ -52,6 +53,12 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         .apply {lifecycleOwner=owner},itemClick)
             }
 
+            R.layout.item_new_emr_drug_list->{
+                ItemViewHolder.DrugViewHolder(
+                    ItemNewEmrDrugListBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
             else->{
                 ItemViewHolder.BaseInfoViewHolder(
                     ItemNewEmrPatientInfoBinding.inflate(inflater,parent,false)
@@ -72,6 +79,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                             panel.viewStub?.inflate()
                         }
                     }
+                    executePendingBindings()
                 }
             }
 
@@ -83,6 +91,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                             tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
                         }
                     }
+                    executePendingBindings()
                 }
             }
 
@@ -94,6 +103,28 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                             tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
                         }
                     }
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.MeasureViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    measure=item?.result  as? Measure
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.DrugViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    if(list.adapter==null){
+                        list.adapter=DrugRecordsAdapter(owner,isEmr = true)
+                    }
+                    ( emr.result as? List<DrugRecord>)?.let {
+                        (list.adapter as DrugRecordsAdapter).items=it
+                    }
+                    executePendingBindings()
                 }
             }
         }
@@ -107,13 +138,13 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             ActionType.生命体征-> R.layout.item_new_emr_vital_list
             ActionType.GRACE-> R.layout.item_new_emr_rating_list
             ActionType.DispostionMeasures-> R.layout.item_new_emr_measure_list
+            ActionType.给药-> R.layout.item_new_emr_drug_list
             else->0
         }
     }
 
     sealed class ItemViewHolder(open val binding: ViewDataBinding,open val click:(String)->Unit) :
         RecyclerView.ViewHolder(binding.root) {
-
 
 
         class BaseInfoViewHolder(
@@ -134,6 +165,22 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
         class MeasureViewHolder(
             override val binding: ItemNewEmrMeasureListBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.let {
+                                click(it.code)
+                            }
+                        }
+                }
+            }
+        }
+
+        class DrugViewHolder(
+            override val binding: ItemNewEmrDrugListBinding,
             override val click:(String)->Unit
         ) : ItemViewHolder(binding,click){
             init {

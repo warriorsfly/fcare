@@ -52,12 +52,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             loadEmrs()
         }
 
-    /**
-     * 共用的错误处理
-     */
-    private fun error(throwable: Throwable) {
-        messageAction.value = Event(throwable.message ?: "错误")
-    }
+
 
     /**
      * 获取的详情放入emr列表
@@ -86,6 +81,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionType.生命体征-> loadVitals(pair.first)
             ActionType.GRACE-> loadRating(pair.first)
             ActionType.DispostionMeasures-> loadMeasure(pair.first)
+            ActionType.给药-> loadDrugList(pair.first)
         }
     }
 
@@ -141,10 +137,22 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
     }
 
     /**
-     * 获取病人生命体征
+     * 获取病人接收到的治疗措施
      */
     private fun loadMeasure(index:Int){
         disposable.add(api.loadMeasure(patientId)
+            .map { Pair(index,it) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                setResultAtIndex(it)},::error))
+    }
+
+    /**
+     * 获取病人接收到的治疗措施
+     */
+    private fun loadDrugList(index:Int){
+        disposable.add(api.getDrugRecord(patientId)
             .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

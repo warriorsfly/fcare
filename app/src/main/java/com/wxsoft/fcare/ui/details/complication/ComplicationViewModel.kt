@@ -121,10 +121,6 @@ class ComplicationViewModel @Inject constructor(private val api: DictEnumApi,
         items.value?.filter { checkedTypes.contains(it.id) }?.map { it.checked = true }
     }
 
-    private fun error(throwable: Throwable){
-        messageAction.value= Event(throwable.message?:"未知错误")
-    }
-
     override fun click() {
         save()
     }

@@ -75,7 +75,7 @@ class LoginViewModel @Inject constructor(
     fun login() {
         registrationId = sharedPreferenceStorage.registrationId ?: ""
         if (isNameValid(name) && isPasswordValid(password)) {
-            val loginInfo = LoginInfo(name, password, registrationId)
+            val loginInfo = LoginInfo(name, password)
             disposable.add(accountApi.login(loginInfo).toResource().subscribe {
                 loadAccountResult.value = it
             })

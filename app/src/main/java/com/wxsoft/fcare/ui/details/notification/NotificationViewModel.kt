@@ -59,10 +59,6 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
         loadUserItemsResult.value = response
     }
 
-    private fun error(throwable: Throwable){
-        messageAction.value= Event(throwable.message?:"未知错误")
-    }
-
     fun selectedUser(user:User){
         if (user.checked){
             selectedUsers.add(user)

@@ -1,5 +1,7 @@
 package com.wxsoft.fcare.ui.main
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.nfc.NfcAdapter
@@ -18,6 +20,8 @@ import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
 import com.wxsoft.fcare.core.utils.NfcUtils
 import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.service.JPushReceiver
+import com.wxsoft.fcare.ui.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -105,7 +109,6 @@ class MainActivity : BaseActivity() {
 //            viewModel.loadByRfid(cardId)
         }
     }
-
 }
 
 

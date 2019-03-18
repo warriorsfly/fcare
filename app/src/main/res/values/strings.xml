@@ -67,4 +67,6 @@
     <string name="title_activity_rating">RatingActivity</string>
     <string name="title_activity_patient_emr">PatientEmrActivity</string>
     <string name="title_activity_message">MessageActivity</string>
+
+    <string name="title_activity_launcher">LauncherActivity</string>
 </resources>

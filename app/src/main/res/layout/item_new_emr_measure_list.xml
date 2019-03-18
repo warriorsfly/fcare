@@ -23,6 +23,7 @@
             android:id="@+id/container"
             android:orientation="vertical"
             android:gravity="center"
+            app:goneUnless="@{item.result!=null}"
             app:layout_constraintTop_toBottomOf="@+id/head"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"

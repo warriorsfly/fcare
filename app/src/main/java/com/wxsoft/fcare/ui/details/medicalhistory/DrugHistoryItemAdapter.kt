@@ -10,7 +10,7 @@ import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
 import com.wxsoft.fcare.databinding.ItemDrugHistoryBinding
 
 
-class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
+class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner) :
     ListAdapter<DrugHistory,DrugHistoryItemAdapter.ItemViewHolder>(DiffCallback) {
 
 

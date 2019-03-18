@@ -5,11 +5,16 @@ import com.wxsoft.fcare.core.data.entity.LoginInfo
 import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 interface AccountApi {
 
 
     @POST("Security")
     fun login(@Body info: LoginInfo): Maybe<Response<Account>>
+
+    @GET("Security/AddOrUpdateJPushAccount/{userId}/{jpAccount}")
+    fun jpush(@Path("user")id:String,@Path("jpush")pushId:String): Maybe<Response<String>>
 }
