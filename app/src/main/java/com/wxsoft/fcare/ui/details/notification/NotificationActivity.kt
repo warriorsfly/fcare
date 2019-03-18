@@ -28,10 +28,10 @@ class NotificationActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        checkedAdapter = NotificationCheckedAdapter(this,viewModel)
         DataBindingUtil.setContentView<ActivityNotificationBinding>(this, R.layout.activity_notification)
             .apply {
                 viewModel = this@NotificationActivity.viewModel
+                checkedAdapter = NotificationCheckedAdapter(this@NotificationActivity,this@NotificationActivity.viewModel)
                 checkedList.adapter = checkedAdapter
                 userAdapter = NotiGroupAdapter(this@NotificationActivity, this@NotificationActivity.viewModel)
                 doctorsList.adapter = userAdapter

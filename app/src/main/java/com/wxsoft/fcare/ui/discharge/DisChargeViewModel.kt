@@ -13,11 +13,10 @@ import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.core.utils.map
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
@@ -29,7 +28,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
     ICommonPresenter {
 
-    override var title= "诊断"
+    override var title= "出院"
     override val clickableTitle: String
         get() = "保存"
     override val clickable: LiveData<Boolean>
@@ -62,47 +61,20 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
     }
 
     private fun loadDisChargeInfo(){
-
-
-        disposable.add(
-
-            patientApi.getOne(patientId).flatMapMaybe {
-                when (it.result?.diagnosisCode) {
-                    /**
-                     * 胸痛
-                     */
-                    "215-1" -> enumApi.loadDict4Diagnosis()
-                    /**
-                     * 卒中
-                     */
-                    "215-2" -> enumApi.loadApoplexyResultItems()
-                    //                /**
-//                 * 创伤
-//                 */
-//                "215-3"->enumApi.loadDict4Diagnosis()
-//                /**
-//                 * 孕产妇
-//                 */
-//                "215-4"->enumApi.loadDict4Diagnosis()
-//                /**
-//                 * 新生儿
-//                 */
-//                "215-5"->enumApi.loadDict4Diagnosis()
-                    /**
-                     * 其他类暂时不考虑
-                     */
-                    else -> throw IllegalStateException("Unknown diagnosis code $it")
-                }}.zipWith(api.getOtDiagnosis(patientId))
-                    .subscribeOn(Schedulers.io())
-                    .doOnSuccess { zip ->
-                        zip.first.firstOrNull { it.id == zip.second.result?.diagnosisCode }?.checked = true
-                    }.observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {
-                        loadDesResult.value=it.first
-                        loadDiagnosisResult.value=it.second
-                    })
+        disposable.add(api.getOtDiagnosis(patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadOtDiagnosis,::error))
     }
 
+    private fun loadOtDiagnosis(response:Response<DisChargeDiagnosis>){
+        loadDiagnosisResult.value=response
+        data.value?.haveLoaded()
+    }
+
+    private fun error(throwable: Throwable){
+        messageAction.value= Event(throwable.message?:"未知错误")
+    }
 
 
     override fun click() {
@@ -110,7 +82,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
 
         data.value?.let {
             when {
-                it.diagnosisCode.isEmpty()->{
+                it.diagnosis==null->{
                     messageAction.value= Event("诊断未选择")
                     return
                 }
@@ -145,18 +117,18 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
         }
     }
 
-    fun select(dictionary: Dictionary){
-        val dic=des.value?.firstOrNull { it.checked }
-        dic?.checked=false
-        if(dic==dictionary) {
-            data.value?.diagnosisCode=""
-            data.value?.diagnosisName=""
-        }else {
-            dictionary.checked = true
-
-            data.value?.diagnosisCode= dictionary.id
-            data.value?.diagnosisName=dictionary.itemName
-        }
-    }
+//    fun select(dictionary: Dictionary){
+//        val dic=des.value?.firstOrNull { it.checked }
+//        dic?.checked=false
+//        if(dic==dictionary) {
+//            data.value?.diagnosisCode=""
+//            data.value?.diagnosisName=""
+//        }else {
+//            dictionary.checked = true
+//
+//            data.value?.diagnosisCode= dictionary.id
+//            data.value?.diagnosisName=dictionary.itemName
+//        }
+//    }
 
 }

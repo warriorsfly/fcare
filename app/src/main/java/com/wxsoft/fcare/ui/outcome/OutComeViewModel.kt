@@ -125,4 +125,14 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
 
     }
 
+    fun selectString(code:String){
+        when(code){
+            "1-1" ->{data.value?.outDapt = !data.value?.outDapt!!}
+            "1-2" ->{data.value?.outAceiorarb = !data.value?.outAceiorarb!!}
+            "1-3" ->{data.value?.outStatins = !data.value?.outStatins!!}
+            "1-4" ->{data.value?.outRetardant = !data.value?.outRetardant!!}
+        }
+
+    }
+
 }

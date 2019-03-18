@@ -66,7 +66,7 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
         }
 
     @Bindable
-    @Transient
+    @SerializedName("diagnosisCode3_Name")
     var diagnosisCode3Name: String = ""
         set(value) {
             field = value

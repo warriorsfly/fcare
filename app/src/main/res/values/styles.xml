@@ -149,4 +149,9 @@
         <item name="android:textSize">18sp</item>
 
     </style>
+
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style1</item>
+    </style>
+
 </resources>

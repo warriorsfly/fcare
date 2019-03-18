@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.discharge
 
+import android.app.Activity
 import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
@@ -11,6 +12,7 @@ import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -18,6 +20,8 @@ import com.wxsoft.fcare.databinding.ActivityDischargeBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.activity_discharge.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
@@ -53,6 +57,7 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
         const val PATIENT_ID = "PATIENT_ID"
     }
     private lateinit var viewModel: DisChargeViewModel
+    private lateinit var binding: ActivityDischargeBinding
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -60,8 +65,10 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        DataBindingUtil.setContentView<ActivityDischargeBinding>(this, R.layout.activity_discharge)
+        binding = DataBindingUtil.setContentView<ActivityDischargeBinding>(this, R.layout.activity_discharge)
             .apply {
+                model0.setOnClickListener { toSelectDiagnose() }
+                diagnose.setOnClickListener { toSelectDiagnose() }
                 viewModel = this@DisChargeActivity. viewModel
                 lifecycleOwner = this@DisChargeActivity
             }
@@ -74,13 +81,13 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.des.observe(this, Observer {
-            if( diagnose_list.adapter==null){
-                diagnose_list.adapter=DiagnoseAdapter(this@DisChargeActivity,viewModel)
-            }
-
-            (diagnose_list.adapter as DiagnoseAdapter).items=it?: emptyList()
-        })
+//        viewModel.des.observe(this, Observer {
+//            if( diagnose_list.adapter==null){
+//                diagnose_list.adapter=DiagnoseAdapter(this@DisChargeActivity,viewModel)
+//            }
+//
+//            (diagnose_list.adapter as DiagnoseAdapter).items=it?: emptyList()
+//        })
 
         viewModel.commitResult .observe(this, Observer {
             when(it) {
@@ -114,5 +121,28 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
             .setType(Type.ALL)
             .setWheelItemTextSize(16)
             .build()
+    }
+
+    fun toSelectDiagnose(){
+        val intent = Intent(this@DisChargeActivity, SelectDiagnoseActivity::class.java).apply {
+            putExtra(SelectDiagnoseActivity.PATIENT_ID, patientId)
+            putExtra(SelectDiagnoseActivity.COME_FROM, "DisCharge")
+        }
+        startActivityForResult(intent, 100)
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK) {
+            when(requestCode){
+                100 ->{//选择诊断
+                    val diagnosis= data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
+                    binding.diagnose.setText(diagnosis.diagnosisCode2Name + " " + diagnosis.diagnosisCode3Name)
+                    viewModel.data.value?.diagnosis = diagnosis
+                }
+
+            }
+        }
     }
 }

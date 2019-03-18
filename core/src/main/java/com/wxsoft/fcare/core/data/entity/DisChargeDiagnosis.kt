@@ -18,18 +18,17 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
         }
 
     @Bindable
-    @SerializedName("cp_Diagnosis_Code")
-    var diagnosisCode: String = ""
+    var diagnosis: Diagnosis? = null
         set(value) {
             field = value
-            notifyPropertyChanged(BR.diagnosisCode)
+            notifyPropertyChanged(BR.diagnosis)
         }
 
     /// <summary>
     /// 诊断名称
     /// </summary>
+    @Transient
     @Bindable
-    @SerializedName("cp_Diagnosis_Name")
     var diagnosisName: String = ""
         set(value) {
             field = value
@@ -69,6 +68,14 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             field = value
             notifyPropertyChanged(BR.days)
         }
+    @Transient
+    @Bindable
+    var daysStr: String = ""
+        set(value) {
+            field = value
+            days = value.toFloatOrNull()
+            notifyPropertyChanged(BR.daysStr)
+        }
 
     /// <summary>
     /// 总费用
@@ -79,6 +86,14 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.cost)
+        }
+    @Transient
+    @Bindable
+    var costStr: String = ""
+        set(value) {
+            field = value
+            cost = value.toFloatOrNull()
+            notifyPropertyChanged(BR.costStr)
         }
 
     /// <summary>
@@ -101,4 +116,9 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
         }
     var createrId:String=""
     var createrName:String=""
+
+    fun haveLoaded(){
+        if (days != null) daysStr = days.toString()
+        if (cost != null) costStr = cost.toString()
+    }
 }

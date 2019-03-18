@@ -18,6 +18,7 @@ import com.wxsoft.fcare.databinding.ActivityOutcomeChestBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneAdapter
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest1.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest2.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest3.*

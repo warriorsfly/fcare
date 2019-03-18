@@ -49,8 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
+        <activity android:name=".ui.selecter.SelecterOfOneModelActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.diagnose.select.SelectDiagnoseActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

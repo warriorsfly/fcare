@@ -10,7 +10,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-
         app:goneUnless="@{viewModel.data.outcomeCode.equals(`11-1`)}"
         android:layout_height="match_parent">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -74,132 +73,183 @@
         <TextView
             android:text="治疗结果"
             android:id="@+id/title1"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/o"
-            app:layout_constraintBottom_toBottomOf="@id/h"
+            app:layout_constraintTop_toBottomOf="@+id/model1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
 
-        <RadioButton
+        <TextView
+
                 android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@id/model1"
-                app:layout_constraintLeft_toRightOf="@id/title1"
+                app:layout_constraintTop_toBottomOf="@id/title1"
+                app:layout_constraintLeft_toLeftOf="@+id/title1"
                 app:layout_constraintRight_toLeftOf="@id/d"
                 android:layout_width="0dp"
                 android:id="@+id/o"
-                android:checked="@{viewModel.data.resultCode.equals(`12-1`)}"
                 android:onClick="@{()->viewModel.data.setResultCode(0)}"
-                android:layout_marginLeft="20dp"
-                android:layout_height="wrap_content"
                 android:text="治愈"
+                android:layout_marginRight="10dp"
+                android:layout_height="38dp"
+                android:gravity="center"
+                taskSelectUser="@{viewModel.data.resultCode.equals(`12-1`)}"
+                android:drawableRight="@{viewModel.data.resultCode.equals(`12-1`)?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.resultCode.equals(`12-1`)?@color/white:@color/black_checked_nomal}"
         />
 
 
-        <RadioButton
-                app:layout_constraintTop_toBottomOf="@id/model1"
+        <TextView
+                app:layout_constraintTop_toBottomOf="@id/title1"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/o"
                 android:layout_width="0dp"
                 android:text="好转"
                 android:id="@+id/d"
                 android:layout_marginTop="10dp"
-                android:checked="@{viewModel.data.resultCode.equals(`12-2`)}"
                 android:onClick="@{()->viewModel.data.setResultCode(1)}"
-                android:layout_marginRight="20dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="38dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                taskSelectUser="@{viewModel.data.resultCode.equals(`12-2`)}"
+                android:drawableRight="@{viewModel.data.resultCode.equals(`12-2`)?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.resultCode.equals(`12-2`)?@color/white:@color/black_checked_nomal}"/>
 
 
 
-        <RadioButton
-
+        <TextView
                 app:layout_constraintTop_toBottomOf="@id/o"
-                app:layout_constraintLeft_toRightOf="@id/title1"
-                app:layout_constraintRight_toLeftOf="@id/d"
+                app:layout_constraintLeft_toLeftOf="@+id/o"
+                app:layout_constraintRight_toRightOf="@+id/o"
                 android:layout_width="0dp"
-                android:checked="@{viewModel.data.resultCode.equals(`12-3`)}"
                 android:onClick="@{()->viewModel.data.setResultCode(2)}"
                 android:text="脑死亡离院"
-                android:layout_marginLeft="20dp"
                 android:id="@+id/h"
-                android:layout_height="wrap_content"/>
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                taskSelectUser="@{viewModel.data.resultCode.equals(`12-3`)}"
+                android:drawableRight="@{viewModel.data.resultCode.equals(`12-3`)?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.resultCode.equals(`12-3`)?@color/white:@color/black_checked_nomal}"/>
 
 
 
-        <RadioButton
-                app:layout_constraintTop_toBottomOf="@id/o"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/o"
+        <TextView
+                app:layout_constraintTop_toBottomOf="@id/d"
+                app:layout_constraintRight_toRightOf="@id/d"
+                app:layout_constraintLeft_toLeftOf="@+id/d"
                 android:layout_width="0dp"
                 android:text="其他原因离院"
-                android:checked="@{viewModel.data.resultCode.equals(`12-4`)}"
                 android:onClick="@{()->viewModel.data.setResultCode(3)}"
-                android:layout_marginRight="20dp"
                 android:id="@+id/de"
-                android:layout_height="wrap_content"/>
+                android:layout_height="38dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                taskSelectUser="@{viewModel.data.resultCode.equals(`12-4`)}"
+                android:drawableRight="@{viewModel.data.resultCode.equals(`12-4`)?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.resultCode.equals(`12-4`)?@color/white:@color/black_checked_nomal}"/>
+
+        <View
+                android:id="@+id/line1"
+                android:background="@color/line_gray"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/de"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
 
         <TextView
                 android:text="出院带药"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
                 android:id="@+id/title2"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/de"
+                app:layout_constraintTop_toBottomOf="@id/line1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
 
-        <CheckBox
+        <TextView
                 app:layout_constraintTop_toBottomOf="@id/title2"
-                app:layout_constraintLeft_toRightOf="@id/title1"
-                app:layout_constraintRight_toLeftOf="@id/d"
+                app:layout_constraintLeft_toLeftOf="@+id/title2"
+                app:layout_constraintRight_toLeftOf="@id/d1"
                 android:layout_width="0dp"
                 android:id="@+id/o1"
-
                 android:layout_marginTop="10dp"
-                android:checked="@={viewModel.data.outDapt}"
-                android:layout_marginLeft="20dp"
-                android:layout_height="wrap_content"
+                android:layout_height="38dp"
                 android:text="DAPT"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.selectString(`1-1`)}"
+                taskSelectUser="@{viewModel.data.outDapt}"
+                android:drawableRight="@{viewModel.data.outDapt?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.outDapt?@color/white:@color/black_checked_nomal}"
         />
 
 
-        <CheckBox
+        <TextView
                 app:layout_constraintTop_toBottomOf="@id/title2"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@id/o1"
                 android:layout_width="0dp"
                 android:text="ACEI/ARB"
                 android:id="@+id/d1"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:checked="@{viewModel.data.outAceiorarb}"
                 android:layout_marginRight="20dp"
-                android:layout_height="wrap_content"/>
+                android:layout_height="38dp"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.selectString(`1-2`)}"
+                taskSelectUser="@{viewModel.data.outAceiorarb}"
+                android:drawableRight="@{viewModel.data.outAceiorarb?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.outAceiorarb?@color/white:@color/black_checked_nomal}"
+        />
 
 
 
-        <CheckBox
+        <TextView
                 app:layout_constraintTop_toBottomOf="@id/o1"
-                app:layout_constraintLeft_toRightOf="@id/title1"
-                app:layout_constraintRight_toLeftOf="@id/d"
+                app:layout_constraintLeft_toLeftOf="@+id/o1"
+                app:layout_constraintRight_toRightOf="@+id/o1"
                 android:layout_width="0dp"
-                android:checked="@{viewModel.data.outStatins}"
                 android:text="他汀"
-                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/h1"
-                android:layout_height="wrap_content"/>
+                android:layout_height="38dp"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.selectString(`1-3`)}"
+                taskSelectUser="@{viewModel.data.outStatins}"
+                android:drawableRight="@{viewModel.data.outStatins?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.outStatins?@color/white:@color/black_checked_nomal}"
+        />
 
 
 
-        <CheckBox
-                app:layout_constraintTop_toBottomOf="@id/o1"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/o1"
+        <TextView
+                app:layout_constraintTop_toBottomOf="@id/d1"
+                app:layout_constraintRight_toRightOf="@id/d1"
+                app:layout_constraintLeft_toLeftOf="@+id/d1"
                 android:layout_width="0dp"
                 android:text="β阻滞剂"
-                android:checked="@{viewModel.data.outRetardant}"
-                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/de1"
-                android:layout_height="wrap_content"/>
+                android:layout_height="38dp"
+                android:gravity="center"
+                android:onClick="@{()->viewModel.selectString(`1-4`)}"
+                taskSelectUser="@{viewModel.data.outRetardant}"
+                android:drawableRight="@{viewModel.data.outRetardant?@drawable/ic_checked_white_background:null}"
+                android:textColor="@{viewModel.data.outRetardant?@color/white:@color/black_checked_nomal}"
+        />
+
+        <View
+                android:id="@+id/line2"
+                android:background="@color/line_gray"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/de1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

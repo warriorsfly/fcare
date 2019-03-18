@@ -19,8 +19,10 @@ import javax.inject.Inject
 class SelectDiagnoseActivity : BaseActivity() {
 
     private lateinit var patientId:String
+    private lateinit var comefrom:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val COME_FROM = "COME_FROM"
     }
 
     private lateinit var viewModel: DiagnoseViewModel
@@ -41,6 +43,7 @@ class SelectDiagnoseActivity : BaseActivity() {
                 lifecycleOwner = this@SelectDiagnoseActivity
             }
         patientId=intent.getStringExtra(SelectDiagnoseActivity.PATIENT_ID)?:""
+        comefrom=intent.getStringExtra(SelectDiagnoseActivity.COME_FROM)?:""
         viewModel.patientId = patientId
         viewModel.activityType = "SelectDiagnose"
         back.setOnClickListener { onBackPressed() }
