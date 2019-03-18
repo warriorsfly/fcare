@@ -67,14 +67,15 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
                     }) ?: emptyList()
         }
         getMeasuresItems()
+
         /**
          * 在主页进行jpush相关
          */
         sharedPreferenceStorage.registrationId?.let {
-            accountApi.jpush(account.id, it)
+            disposable.add(accountApi.jpush(account.id, it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe()
+                .subscribe({},::error))
         }
     }
 
