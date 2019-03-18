@@ -15,7 +15,7 @@
                  android:id="@+id/title"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 app:title="@{viewModel.rating.name}"
+                 app:subTitle="@{viewModel.rating.name}"
         />
 
         <androidx.recyclerview.widget.RecyclerView

@@ -15,7 +15,7 @@
                  app:layout_constraintLeft_toLeftOf="parent"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 app:title="@{title}"/>
+                 app:subTitle="@{title}"/>
 
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
