@@ -108,7 +108,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <!--app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"-->
-            <!--app:refreshing="@{viewModel.isLoading}"-->
+            <!--app:refreshing="@{viewModel.success}"-->
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"

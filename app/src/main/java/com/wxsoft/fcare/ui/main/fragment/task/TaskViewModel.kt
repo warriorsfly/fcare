@@ -33,7 +33,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
                                         override val gon: Gson
 ):  BaseViewModel(sharedPreferenceStorage,gon), EventActions {
 
-//    val isLoading: LiveData<Boolean>
+//    val success: LiveData<Boolean>
 //    val tasks: LiveData<List<Task>>
     var taskDate: String = DateTimeUtils.getCurrentDate()
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
@@ -65,7 +65,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
         clickCusDate = clickCusDateResult.map { it }
         checkCondition = checkConditionResult.map { it?:PatientsCondition(1,10) }
         checkConditionResult.value = null
-//        isLoading = loadTasksResult.map { it == Resource.Loading }
+//        success = loadTasksResult.map { it == Resource.Loading }
 //        tasks = loadTasksResult.map {
 //
 //            (it as? Resource.Success)?.data?.result ?: emptyList()

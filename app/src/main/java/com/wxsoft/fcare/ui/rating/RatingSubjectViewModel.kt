@@ -105,9 +105,6 @@ class RatingSubjectViewModel @Inject constructor(
 
         ratingId=response.result?.ratingId?:""
     }
-    private fun error(throwable: Throwable){
-        messageAction.value= Event(throwable.message?:"")
-    }
 
     fun saveRecord(){
         if(checkSavable()) {

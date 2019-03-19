@@ -21,6 +21,7 @@ import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
+import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
@@ -135,6 +136,14 @@ class WorkingActivity : BaseActivity() {
 
     private fun doOperation(operation:WorkOperation){
         when(operation.actionCode){
+
+            ActionType.心电图 ->{
+                val intent = Intent(this, EcgActivity::class.java)
+                    .apply {
+                        putExtra(ProfileActivity.PATIENT_ID, patientId)
+                    }
+                startActivityForResult(intent, RATING)
+            }
             ActionType.GRACE->{
                 val intent = Intent(this, RatingActivity::class.java)
                     .apply {

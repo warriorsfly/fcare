@@ -7,11 +7,14 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.BR
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.databinding.ItemDrugRecordsItemsBinding
+import com.wxsoft.fcare.databinding.ItemNewEmrDrugItemBinding
 
-class DrugRecordsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: DrugRecordsViewModel) :
+class DrugRecordsAdapter constructor(private val owner: LifecycleOwner,
+                                     val viewModel: DrugRecordsViewModel?=null,
+                                     private val isEmr:Boolean=false) :
     RecyclerView.Adapter<DrugRecordsAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<DrugRecord>(this, DiffCallback)
@@ -31,24 +34,26 @@ class DrugRecordsAdapter constructor(private val lifecycleOwner: LifecycleOwner,
         holder.binding.apply {
             setVariable(BR.item, differ.currentList[position])
             setVariable(BR.viewModel, viewModel)
-            lifecycleOwner = this@DrugRecordsAdapter.lifecycleOwner
             executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding: ViewDataBinding =
-            ItemDrugRecordsItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ItemViewHolder(binding)
+
+        return if(!isEmr) ItemViewHolder.RecordViewHolder(ItemDrugRecordsItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            .apply {
+                lifecycleOwner=owner
+            }) else
+            ItemViewHolder.EmrViewHolder(ItemNewEmrDrugItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                .apply {
+                    lifecycleOwner=owner
+                })
     }
 
-    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        var binding: ViewDataBinding
-            private set
-        init {
-            this.binding = binding
-        }
+    sealed class ItemViewHolder(open val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+        class RecordViewHolder(override val  binding: ItemDrugRecordsItemsBinding):ItemViewHolder(binding)
+        class EmrViewHolder(override val  binding: ItemNewEmrDrugItemBinding):ItemViewHolder(binding)
     }
 
 

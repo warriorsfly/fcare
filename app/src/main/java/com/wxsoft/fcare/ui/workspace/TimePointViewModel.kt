@@ -70,10 +70,6 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
         messageAction.value = Event(response.msg)
     }
 
-    private fun error(throwable: Throwable){
-        messageAction.value= Event(throwable.message?:"未知错误")
-    }
-
     private var currentPoint:TimePoint?=null
 
     fun setCurrentPoint(point: TimePoint){

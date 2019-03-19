@@ -26,6 +26,8 @@ import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
+import com.wxsoft.fcare.ui.details.ecg.EcgActivity
+import com.wxsoft.fcare.ui.details.ecg.EcgModule
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
@@ -56,6 +58,8 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordModule
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeModule
+import com.wxsoft.fcare.ui.launch.LaunchModule
+import com.wxsoft.fcare.ui.launch.LauncherActivity
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.login.LoginModule
 import com.wxsoft.fcare.ui.main.MainActivity
@@ -93,6 +97,14 @@ import dagger.android.ContributesAndroidInjector
  */
 @Module
 abstract class ActivityBindingModule {
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [LaunchModule::class])
+    internal abstract fun launcherActivity(): LauncherActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [EcgModule::class])
+    internal abstract fun ecgActivity(): EcgActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [LoginModule::class])

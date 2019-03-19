@@ -24,8 +24,6 @@
     <color name="bg_light_yellow">#FAE631</color>
 
 
-
-
     <color name="black_overlay">#66000000</color>
     <color name="black_checked_nomal">#131D35</color>
     <color name="task_undo">#A5A9B3</color>
@@ -46,6 +44,8 @@
 
     <!--检查检验-->
     <color name="tint_work_space_patient_info">#63B0F8</color>
+    <!--初步诊断-->
+    <color name="tint_work_space_info">#63B0F8</color>
     <!--初步诊断-->
     <color name="tint_work_space_diagnosis">#657ED9</color>
     <!--心电图-->

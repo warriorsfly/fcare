@@ -33,7 +33,7 @@ class MedicalHistoryAdapter constructor(private val owner: LifecycleOwner, val v
 
                 if (root.medical_other_items_rv.adapter == null){
                     root.medical_other_items_rv.layoutManager=LinearLayoutManager(root.context)
-                    val adapter = DrugHistoryItemAdapter(owner,viewModel)
+                    val adapter = DrugHistoryItemAdapter(owner)
                     viewModel.drugHistory.observe(owner, Observer {
                         adapter.submitList(it)
                     })

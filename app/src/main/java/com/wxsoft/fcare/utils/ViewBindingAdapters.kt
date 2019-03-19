@@ -18,8 +18,6 @@ package com.wxsoft.fcare.utils
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import androidx.databinding.BindingAdapter
-import androidx.databinding.InverseMethod
 import android.net.Uri
 import android.os.Build
 import android.view.View
@@ -27,10 +25,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseMethod
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.rating.Option
-import com.wxsoft.fcare.core.data.entity.rating.Rating
-import com.wxsoft.fcare.core.data.entity.rating.Subject
 import com.wxsoft.fcare.di.GlideApp
 
 @BindingAdapter("taskSelectUser")
