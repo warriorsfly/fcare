@@ -62,7 +62,7 @@ fun ViewGroup.inflate(@LayoutRes layout: Int, attachToRoot: Boolean = false): Vi
  *
  * `supportFragmentManager.inTransaction { add(...) }`
  */
-inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fragment.app.FragmentTransaction.() -> androidx.fragment.app.FragmentTransaction) {
+inline fun FragmentManager.inTransaction(func:FragmentTransaction.() -> FragmentTransaction) {
     beginTransaction().func().commit()
 }
 
@@ -74,7 +74,7 @@ inline fun androidx.fragment.app.FragmentManager.inTransaction(func: androidx.fr
  * val myViewModel = viewModelProvider(myViewModelFactory)
  * ```
  */
-inline fun <reified VM : ViewModel> androidx.fragment.app.FragmentActivity.viewModelProvider(
+inline fun <reified VM : ViewModel>  FragmentActivity.viewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
     ViewModelProviders.of(this, provider).get(VM::class.java)
@@ -85,7 +85,7 @@ inline fun <reified VM : ViewModel> androidx.fragment.app.FragmentActivity.viewM
  * val myViewModel = viewModelProvider(myViewModelFactory)
  * ```
  */
-inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.viewModelProvider(
+inline fun <reified VM : ViewModel> Fragment.viewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
         ViewModelProviders.of(this, provider).get(VM::class.java)
@@ -94,7 +94,7 @@ inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.viewModelProv
 /**
  * Like [Fragment.viewModelProvider] for Fragments that want a [ViewModel] scoped to the Activity.
  */
-inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.activityViewModelProvider(
+inline fun <reified VM : ViewModel> Fragment.activityViewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
         ViewModelProviders.of(activity!!, provider).get(VM::class.java)
@@ -103,7 +103,7 @@ inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.activityViewM
  * Like [Fragment.viewModelProvider] for Fragments that want a [ViewModel] scoped to the parent
  * Fragment.
  */
-inline fun <reified VM : ViewModel> androidx.fragment.app.Fragment.parentViewModelProvider(
+inline fun <reified VM : ViewModel>Fragment.parentViewModelProvider(
         provider: ViewModelProvider.Factory
 ) =
         ViewModelProviders.of(parentFragment!!, provider).get(VM::class.java)

@@ -75,7 +75,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                     .observeOn(AndroidSchedulers.mainThread()).subscribe({ check ->
                         //                        check?.result?: return@subscribe
                          loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionType.心电图 }
-                            ?.result = check?.result ?: ElectroCardiogram()
+                            ?.result = check?.result ?: Ecg(createrId = account.id)
                         val index =
                             loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionType.心电图 }
                         index?.let { ind ->
@@ -110,7 +110,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
     fun diagnose(string:String) {
         val item = ( loadEmrResult.value?.result?.firstOrNull {
             it.code == ActionType.心电图
-        }?.result as? ElectroCardiogram)?.apply {
+        }?.result as? Ecg)?.apply {
             diagnoseResult = string
             doctorId = account.id
             doctorName = account.userName
@@ -120,7 +120,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                 .observeOn(AndroidSchedulers.mainThread()).subscribe({
 
                      loadEmrResult.value?.result?.firstOrNull { emr -> emr.code == ActionType.心电图 }
-                        ?.result = it?.result ?: ElectroCardiogram()
+                        ?.result = it?.result ?: Ecg(createrId = account.id)
                     val index =
                         loadEmrResult.value?.result?.indexOfFirst { emr -> emr.code == ActionType.心电图 }
                     index?.let { ind ->
@@ -148,7 +148,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
         }
         val item= ( loadEmrResult.value?.result?.firstOrNull {
             it.code==ActionType.心电图
-        }?.result as? ElectroCardiogram )?.apply {
+        }?.result as? Ecg )?.apply {
             savable=false
             if(patientId.isEmpty()) {
                 patientId = this@EmrViewModel.patientId

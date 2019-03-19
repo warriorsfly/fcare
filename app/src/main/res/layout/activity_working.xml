@@ -170,7 +170,7 @@
                                 android:scrollbarStyle="outsideOverlay"
                                 android:scrollbars="vertical"
                                 android:layout_width="match_parent"
-                                android:layout_height="0dp"
+                                android:layout_height="wrap_content"
                                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                                 app:spanCount="5"
                                 tools:listitem="@layout/item_time_quality"
@@ -186,12 +186,11 @@
         <androidx.recyclerview.widget.RecyclerView
                 app:layout_constraintTop_toBottomOf="@id/app_bar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxHeight="360dp"
+                android:layout_height="258dp"
                 android:id="@+id/operationView"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="4"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="4dp"
                 tools:listitem="@layout/item_work_space_operation"/>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout

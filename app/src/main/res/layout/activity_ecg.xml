@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.ecg.EcgViewModel"/>
+    </data>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.rating.RatingActivity">
@@ -27,158 +34,158 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:id="@+id/list"
             android:layout_marginTop="16dp"
             android:orientation="horizontal"
             android:background="@color/line_gray"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@id/titleh1"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <!--<ImageView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="0dp"-->
+                <!--android:id="@+id/pic1"-->
+                <!--android:src="@drawable/ecg_example"-->
+                <!--android:layout_marginTop="16dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:background="@color/line_gray"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/titleh1"-->
+                <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--app:layout_constraintBottom_toBottomOf="@id/wave_line"/>-->
+
+        <View
+            android:id="@+id/wave_line"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/wave_line"/>
-
-
-        <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:id="@+id/pic1"
-                android:src="@drawable/ecg_example"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:background="@color/line_gray"
-                app:layout_constraintTop_toBottomOf="@id/titleh1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/wave_line"/>
-
-        <View
-                android:id="@+id/wave_line"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/wave_title"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="16dp"
-                android:background="@color/line_gray"
-                android:layout_height="0.5dp"/>
-
-        <TextView
-                android:id="@+id/wave_title"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/egg_line"
-                android:layout_margin="16dp"
-                android:text="实时心电曲线"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                app:layout_constraintLeft_toRightOf="@id/wave_title"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/egg_line"
-                android:layout_margin="16dp"
-                android:hint="查看"
-                android:textColorHint="@color/colorPrimary"
-                android:gravity="right|center_vertical"
-                android:drawableRight="@drawable/ic_right_arrow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-        <View
-                android:id="@+id/egg_line"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/egg_title"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="16dp"
-                android:background="@color/line_gray"
-                android:layout_height="0.5dp"/>
-
-        <TextView
-                android:id="@+id/egg_title"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/fmc2egg_line"
-                android:layout_margin="16dp"
-                android:text="EGG时间"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                app:layout_constraintLeft_toRightOf="@id/egg_title"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/fmc2egg_line"
-                android:layout_margin="16dp"
-                android:hint="2019-03-17 13:24:00"
-                android:gravity="right|center_vertical"
-                android:drawableRight="@drawable/ic_right_arrow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-        <View
-                android:id="@+id/fmc2egg_line"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/fmc2egg_title"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="16dp"
-                android:background="@color/line_gray"
-                android:layout_height="0.5dp"/>
-
-        <TextView
-                android:id="@+id/fmc2egg_title"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/memo_property_line"
-                android:layout_margin="16dp"
-                android:text="FM2EGG时间"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                app:layout_constraintLeft_toRightOf="@id/fmc2egg_title"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/memo_property_line"
-                android:layout_margin="16dp"
-                android:hint="2分钟"
-                android:gravity="right|center_vertical"
-                android:drawableRight="@drawable/ic_right_arrow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-        <View
-                android:id="@+id/memo_property_line"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/memo_property_title"
-                android:layout_width="match_parent"
-                android:layout_marginBottom="16dp"
-                android:background="@color/line_gray"
-                android:layout_height="012dp"/>
-
-        <TextView
-                android:id="@+id/memo_property_title"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/memo_title_line"
-                android:layout_margin="16dp"
-                android:text="@string/ecg_property_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                app:layout_constraintLeft_toRightOf="@id/memo_property_title"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/memo_title_line"
-                android:layout_margin="16dp"
-                android:hint="请选择"
-                android:gravity="right|center_vertical"
-                android:drawableRight="@drawable/ic_right_arrow"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-        <View
-            android:id="@+id/memo_title_line"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/memo_title"
+            app:layout_constraintTop_toBottomOf="@id/list"
             android:layout_width="match_parent"
             android:layout_marginBottom="16dp"
             android:background="@color/line_gray"
             android:layout_height="0.5dp"/>
 
         <TextView
+            android:id="@+id/wave_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wave_line"
+            android:layout_margin="16dp"
+            android:text="实时心电曲线"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintLeft_toRightOf="@id/wave_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wave_line"
+            android:layout_margin="16dp"
+            android:hint="查看"
+            android:textColorHint="@color/colorPrimary"
+            android:gravity="right|center_vertical"
+            android:drawableRight="@drawable/ic_right_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/egg_line"
+            android:layout_marginTop="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/wave_title"
+            android:layout_width="match_parent"
+            android:background="@color/line_gray"
+            android:layout_height="0.5dp"/>
+
+        <TextView
+            android:id="@+id/egg_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/egg_line"
+            android:layout_margin="16dp"
+            android:text="EGG时间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintLeft_toRightOf="@id/egg_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/egg_line"
+            android:layout_margin="16dp"
+            android:text="@{FloatConverter.floatToString(viewModel.ecg.ecg)+`分钟`}"
+            android:hint="2019-03-17 13:24:00"
+            android:gravity="right|center_vertical"
+            android:drawableRight="@drawable/ic_right_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/fmc2egg_line"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/egg_title"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:background="@color/line_gray"
+            android:layout_height="0.5dp"/>
+
+        <TextView
+            android:id="@+id/fmc2egg_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"
+            android:layout_margin="16dp"
+            android:text="FM2EGG时间"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintLeft_toRightOf="@id/fmc2egg_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"
+            android:layout_margin="16dp"
+            android:hint="2分钟"
+            android:text="@{FloatConverter.floatToString(viewModel.ecg.fmC2ECG)+`分钟`}"
+            android:gravity="right|center_vertical"
+            android:drawableRight="@drawable/ic_right_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+        <View
+            android:id="@+id/memo_property_line"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fmc2egg_title"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:background="@color/line_gray"
+            android:layout_height="12dp"/>
+
+        <TextView
+            android:id="@+id/memo_property_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/memo_property_line"
+            android:layout_margin="16dp"
+            android:text="@string/ecg_property_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            app:layout_constraintLeft_toRightOf="@id/memo_property_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/memo_property_line"
+            android:layout_margin="16dp"
+            android:hint="请选择"
+            android:gravity="right|center_vertical"
+            android:drawableRight="@drawable/ic_right_arrow"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/memo_title_line"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/memo_property_title"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:background="@color/line_gray"
+            android:layout_height="0.5dp"/>
+
+        <TextView
             android:id="@+id/memo_title"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/memo"
+            app:layout_constraintTop_toBottomOf="@id/memo_title_line"
             android:layout_margin="16dp"
             android:text="@string/ecg_memo_title"
             android:layout_width="wrap_content"
@@ -187,6 +194,7 @@
         <EditText
             android:layout_margin="16dp"
             android:id="@+id/memo"
+            app:layout_constraintTop_toBottomOf="@id/memo_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -194,8 +202,17 @@
             android:hint="请填写判读结果"
             android:textColor="#525252"
             android:gravity="left"
+            android:text="@={viewModel.ecg.diagnoseResult}"
             android:background="@null"
-            android:layout_height="192dp"/>
+            android:layout_height="0dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/enlarged"
+        android:background="@color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

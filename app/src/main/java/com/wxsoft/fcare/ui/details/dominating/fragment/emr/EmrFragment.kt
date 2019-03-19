@@ -6,7 +6,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.app.Activity.RESULT_OK
 import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import android.content.Intent
@@ -18,7 +17,6 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +31,7 @@ import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.ElectroCardiogram
+import com.wxsoft.fcare.core.data.entity.Ecg
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -476,7 +474,7 @@ class EmrFragment : DaggerFragment() {
         override fun commit(any: Any,type:Int) {
 
             when(any){
-                is ElectroCardiogram->{
+                is Ecg->{
                     when(type){
                         0->viewModel.saveEcg()
                         1-> {
@@ -529,7 +527,7 @@ class EmrFragment : DaggerFragment() {
                     }?: emptyList()
                     (viewModel.emrs.value?.first {
                             emr->emr.code==ActionType.心电图
-                    }?.result as? ElectroCardiogram)?.savable=adapter.pictureAdapter.locals.isNotEmpty()
+                    }?.result as? Ecg)?.savable=adapter.pictureAdapter.locals.isNotEmpty()
                 }
 
                 EmrFragment.RATING -> {

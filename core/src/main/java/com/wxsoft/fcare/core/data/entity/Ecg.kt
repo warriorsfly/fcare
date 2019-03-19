@@ -5,7 +5,7 @@ import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
-data class ElectroCardiogram(val id:String=""):BaseObservable(){
+data class Ecg(val id:String="",val createrId:String):BaseObservable(){
     var patientId=""
 
     /**
@@ -52,7 +52,7 @@ data class ElectroCardiogram(val id:String=""):BaseObservable(){
     }
 
     @get:Bindable
-    var location = 1
+    var location = 2
     @get:Bindable
     var fmC2ECG = 0f
     @get:Bindable

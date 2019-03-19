@@ -16,15 +16,8 @@ import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
-class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val max:Int=0) :
-    RecyclerView.Adapter<PictureAdapter.ItemViewHolder>() {
-
-
-    private var action: PhotoEventAction?=null
-
-    fun setActionListener(actions: PhotoEventAction){
-        this.action=actions
-    }
+class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:Int=0,private var action: PhotoEventAction?=null) :
+    RecyclerView.Adapter<EcgAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
@@ -79,8 +72,6 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
 //                presenter.first.num
                 root.setOnClickListener{action?.localSelected()}
                 uri=presenter.second
-                lifecycleOwner = this@PictureAdapter.lifecycleOwner
-
                 executePendingBindings()
             }
 
@@ -88,12 +79,10 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
                 val presenter =differ.currentList[position] as String
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
                 url=presenter
-                lifecycleOwner = this@PictureAdapter.lifecycleOwner
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
                 image.setOnClickListener{action?.localSelected()}
-                lifecycleOwner = this@PictureAdapter.lifecycleOwner
                 executePendingBindings()
             }
         }
@@ -105,12 +94,21 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
         return when (viewType) {
             R.layout.item_image -> ItemViewHolder.ImageViewHolder(
                 ItemImageBinding.inflate(inflater, parent, false)
+                    .apply {
+                        lifecycleOwner = owner
+                    }
             )
             R.layout.item_image_remote -> ItemViewHolder.ImageRemoteViewHolder(
                 ItemImageRemoteBinding.inflate(inflater, parent, false)
+                    .apply {
+                        lifecycleOwner = owner
+                    }
             )
             R.layout.item_new_image -> ItemViewHolder.PlaceViewHolder(
                 ItemNewImageBinding.inflate(inflater, parent, false)
+                    .apply {
+                        lifecycleOwner = owner
+                    }
             )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
@@ -159,7 +157,7 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
 
         class ImageRemoteViewHolder(
             val binding: ItemImageRemoteBinding
-        ) : ItemViewHolder(binding)
+        ) :ItemViewHolder(binding)
 
         class PlaceViewHolder(
             val binding: ItemNewImageBinding

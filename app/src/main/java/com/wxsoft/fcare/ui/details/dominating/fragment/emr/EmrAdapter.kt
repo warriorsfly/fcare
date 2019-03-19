@@ -91,7 +91,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
 
                 item = differ.currentList[position]
 
-                val presenter = differ.currentList[position].result as ElectroCardiogram
+                val presenter = differ.currentList[position].result as Ecg
                 ecg = presenter
                 visiable= position<differ.currentList.size-1
                 action=commitAction
@@ -377,7 +377,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
         return when (item.result) {
             null->R.layout.item_emr_none
             is Patient -> R.layout.item_emr_profile
-            is ElectroCardiogram -> R.layout.item_emr_ecg
+            is Ecg -> R.layout.item_emr_ecg
             is MedicalHistory -> R.layout.item_emr_medical_history
             is Diagnosis->R.layout.item_emr_list_item_diagnose
             is CheckBody->R.layout.item_emr_simple_string
@@ -430,7 +430,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is CheckBody && result2 is CheckBody ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
-                result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
+                result1 is Ecg && result2 is Ecg ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is MedicalHistory && result2 is MedicalHistory ->
@@ -480,7 +480,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,
                 result1 is Patient && result2 is Patient ->
                     result1 == result2
 
-                result1 is ElectroCardiogram && result2 is ElectroCardiogram ->
+                result1 is Ecg && result2 is Ecg ->
                     result1.id == result2.id && oldItem.code == newItem.code
 
                 result1 is MedicalHistory && result2 is MedicalHistory ->

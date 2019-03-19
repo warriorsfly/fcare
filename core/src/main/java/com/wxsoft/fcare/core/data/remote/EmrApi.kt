@@ -46,14 +46,14 @@ interface EmrApi{
      * 心电图
      */
     @GET("ECG/GetElectroCardiogramByPatientId/{patientId}/{location}")
-    fun getEcgs(@Path("patientId")id:String,@Path("location")location:Int=1):Maybe<Response<ElectroCardiogram>>
+    fun getEcgs(@Path("patientId")id:String,@Path("location")location:Int=1):Maybe<Response<Ecg>>
 
     @Multipart
     @POST("ECG/SaveElectroCardiogram")
-    fun saveEcg(@Part("diogram")diogram: ElectroCardiogram, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
+    fun saveEcg(@Part("diogram")diogram: Ecg, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
 
     @POST("ECG/Diagnosed")
-    fun diagnose(@Body diogram: ElectroCardiogram):Maybe<Response<ElectroCardiogram>>
+    fun diagnose(@Body diogram: Ecg):Maybe<Response<Ecg>>
 
     //病史
     @GET("MedicalHistory/GetById/{patientId}")

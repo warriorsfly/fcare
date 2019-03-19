@@ -11,4 +11,8 @@ import dagger.multibindings.IntoMap
 @Module
 internal abstract class EcgModule {
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(EcgViewModel::class)
+    abstract fun bindEcgViewModel(viewModel: EcgViewModel): ViewModel
 }
