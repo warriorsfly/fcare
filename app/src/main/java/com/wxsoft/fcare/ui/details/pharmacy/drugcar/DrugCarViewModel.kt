@@ -165,7 +165,12 @@ class DrugCarViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
         if (drugPackage.checked){
             asg.addAll(
                 drugPackage.drugPackageDetails.map {
-                    it.drug
+                    item->
+                    item.drug.apply {
+                        dose = item.dose
+                        if (dose!=null) doseNum = dose.toString()
+                        doseUnit = item.doseUnit
+                    }
                 }
             )
         }else{
