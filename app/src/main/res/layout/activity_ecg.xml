@@ -11,7 +11,7 @@
              android:id="@+id/title"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-                 app:subTitle="@{`心电图`}"/>
+             app:subTitle="@{`心电图`}"/>
 
         <TextView
             app:layout_constraintTop_toBottomOf="@id/title"
@@ -36,6 +36,19 @@
             app:layout_constraintTop_toBottomOf="@id/titleh1"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/wave_line"/>
+
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/pic1"
+                android:src="@drawable/ecg_example"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                android:background="@color/line_gray"
+                app:layout_constraintTop_toBottomOf="@id/titleh1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/wave_line"/>
 
         <View
                 android:id="@+id/wave_line"
