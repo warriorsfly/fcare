@@ -78,6 +78,8 @@ import com.wxsoft.fcare.ui.patient.ProfileModule
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingModule
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModule
 import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
@@ -263,5 +265,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [SelectDiagnoseModule::class])
     internal abstract fun selectDiagnoseActivity(): SelectDiagnoseActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SelecterOfOneModule::class])
+    internal abstract fun selecterOfOneModelActivity(): SelecterOfOneModelActivity
 
 }

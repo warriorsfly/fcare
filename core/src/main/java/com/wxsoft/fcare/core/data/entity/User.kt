@@ -27,7 +27,6 @@ data class User(
     var createrId: String ,
     var createrName: String ,
     var modifierId: String ,
-    var checked:Boolean,
     var modifierName: String): BaseObservable() {
 
     @Transient
@@ -36,6 +35,14 @@ data class User(
         set(value) {
             field = value
             notifyPropertyChanged(BR.status)
+        }
+
+    @Bindable
+    @Transient
+    var checked:Boolean=false
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.checked)
         }
 
     override fun equals(other: Any?): Boolean {

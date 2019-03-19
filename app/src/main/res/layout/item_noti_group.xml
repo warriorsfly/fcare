@@ -33,6 +33,7 @@
 
             <CheckBox
                     android:id="@+id/check_ic"
+                    style="@style/CustomCheckboxTheme"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

@@ -29,8 +29,8 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
                     android:text="死亡时间"
-                    android:textSize="15sp"
-                    android:textColor="#131D35"
+                    android:textSize="16sp"
+                    android:textColor="#525252"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -70,40 +70,63 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TextView
                 android:id="@+id/to_somewhere_title"
-                android:text="死亡原因"
+                android:text="死亡原因(心源性/非心源性)"
+                android:textSize="16sp"
+                android:textColor="#525252"
                 android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="@id/to_somewhere"
-                app:layout_constraintBottom_toBottomOf="@id/to_somewhere"
+                app:layout_constraintTop_toBottomOf="@+id/model1"
                 android:layout_width="wrap_content"
                 android:layout_marginRight="10dp"
                 android:layout_height="wrap_content"/>
 
-        <RadioGroup
-                android:layout_marginTop="10dp"
-                android:id="@+id/to_somewhere"
-                app:layout_constraintLeft_toRightOf="@id/to_somewhere_title"
-                app:layout_constraintTop_toBottomOf="@id/model1"
+        <Switch
+                android:id="@+id/to_somewhere_sw"
+                app:layout_constraintTop_toTopOf="@+id/to_somewhere_title"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="0dp"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content" >
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/to_somewhered"
-                    android:checked="@={viewModel.data.deathCauseBy}"
-                    android:text="心源性"/>
+                app:layout_constraintBottom_toBottomOf="@+id/to_somewhere_title"
+                android:layout_marginRight="10dp"
+                android:textOn="心源性"
+                android:textOff="非心源性"
+                android:checked="@={viewModel.data.deathCauseBy}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:id="@+id/line2"
+                android:layout_marginTop="10dp"
+                android:background="@color/line_gray"
+                app:layout_constraintTop_toBottomOf="@+id/to_somewhere_title"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
 
 
-            <RadioButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/noneto_somewhered"
+        <!--<RadioGroup-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:id="@+id/to_somewhere"-->
+                <!--app:layout_constraintLeft_toRightOf="@id/to_somewhere_title"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/model1"-->
+                <!--app:layout_constraintRight_toRightOf="parent"-->
+                <!--android:layout_width="0dp"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:layout_height="wrap_content" >-->
+            <!--<RadioButton-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/to_somewhered"-->
+                    <!--android:checked="@={viewModel.data.deathCauseBy}"-->
+                    <!--android:text="心源性"/>-->
 
-                    android:checked="@={!viewModel.data.deathCauseBy}"
-                    android:text="非心源性"/>
-        </RadioGroup>
+
+            <!--<RadioButton-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:id="@+id/noneto_somewhered"-->
+
+                    <!--android:checked="@={!viewModel.data.deathCauseBy}"-->
+                    <!--android:text="非心源性"/>-->
+        <!--</RadioGroup>-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

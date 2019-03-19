@@ -47,6 +47,7 @@ class CheckBodyViewModel @Inject constructor(private val checkBodyApi:CheckBodyA
         set(value) {
             if (value == "") return
             field = value
+            loadCheckBody()
         }
 
     val checkBody:LiveData<CheckBody>

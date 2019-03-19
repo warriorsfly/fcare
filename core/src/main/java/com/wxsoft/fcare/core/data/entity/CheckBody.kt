@@ -2,6 +2,7 @@ package com.wxsoft.fcare.core.data.entity
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
 data class CheckBody (val id:String): BaseObservable(){
@@ -12,11 +13,25 @@ data class CheckBody (val id:String): BaseObservable(){
             field = value
             notifyPropertyChanged(BR.coordination)
         }
+    @SerializedName("coordination_Name")
+    @Bindable
+    var coordinationName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.coordinationName)
+        }
     @Bindable
     var skin: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.skin)
+        }
+    @SerializedName("skin_Name")
+    @Bindable
+    var skinName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.skinName)
         }
     @Bindable
     var leftPupils: String = ""
@@ -24,11 +39,25 @@ data class CheckBody (val id:String): BaseObservable(){
             field = value
             notifyPropertyChanged(BR.leftPupils)
         }
+    @SerializedName("leftPupils_Name")
+    @Bindable
+    var leftPupilsName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.leftPupilsName)
+        }
     @Bindable
     var leftResponseLight: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.leftResponseLight)
+        }
+    @SerializedName("leftResponseLight_Name")
+    @Bindable
+    var leftResponseLightName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.leftResponseLightName)
         }
     @Bindable
     var rightPupils: String = ""
@@ -36,11 +65,25 @@ data class CheckBody (val id:String): BaseObservable(){
             field = value
             notifyPropertyChanged(BR.rightPupils)
         }
+    @SerializedName("rightPupils_Name")
+    @Bindable
+    var rightPupilsName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.rightPupilsName)
+        }
     @Bindable
     var rightResponseLight: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.rightResponseLight)
+        }
+    @SerializedName("rightResponseLight_Name")
+    @Bindable
+    var rightResponseLightName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.rightResponseLightName)
         }
     @Bindable
     var patientId: String = ""

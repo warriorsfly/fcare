@@ -57,16 +57,31 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
 
     private fun loadUserItems(response: Response<List<NotiUserItem>>){
         loadUserItemsResult.value = response
+//        userItems.value?.map {
+//            item->
+//            item.users.map {
+//                selectedUsers.add(it)
+//            }
+//        }
+//        loadCheckedUsersResult.value = selectedUsers
     }
 
     fun selectedUser(user:User){
+        user.checked = !user.checked
         if (user.checked){
             selectedUsers.add(user)
-            loadCheckedUsersResult.value = selectedUsers
+            loadCheckedUsersResult.value = selectedUsers.toList()
         }else{
             selectedUsers.remove(user)
-            loadCheckedUsersResult.value = selectedUsers
+            loadCheckedUsersResult.value = selectedUsers.toList()
         }
+
     }
 
+
+    fun deleteItem(user:User){
+        user.checked = false
+        selectedUsers.remove(user)
+        loadCheckedUsersResult.value = selectedUsers.toList()
+    }
 }

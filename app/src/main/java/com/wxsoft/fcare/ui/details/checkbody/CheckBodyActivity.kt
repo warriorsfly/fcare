@@ -39,7 +39,6 @@ class CheckBodyActivity : BaseActivity()  {
         patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
-        viewModel.loadCheckBody()
         back.setOnClickListener { onBackPressed() }
 
 
