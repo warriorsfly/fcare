@@ -67,7 +67,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     private val loadMedicalHistoryResult = MediatorLiveData<Response<MedicalHistory>>()
 
     val drugHistory:LiveData<List<DrugHistory>>
-    private val loadDrugHistoryResult = MediatorLiveData<Response<List<DrugHistory>>>()
+    val loadDrugHistoryResult = MediatorLiveData<List<DrugHistory>>()
 
     val historyPhoto:LiveData<String>
     private val loadPhoto = MediatorLiveData<String>()
@@ -78,8 +78,11 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     val historyItems: LiveData<List<Dictionary>>
     private val loadHistoryItemsResult = MediatorLiveData<List<Dictionary>>()
 
-    init {
+    val monitorClick:LiveData<String>
+    private val loadmonitorClick = MediatorLiveData<String>()
 
+    init {
+        monitorClick = loadmonitorClick.map { it }
         backToLast = initbackToLast.map { it }
         clickable = clickResult.map { it }
         historyPhoto = loadPhoto.map { it }
@@ -87,7 +90,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         historyItems = loadHistoryItemsResult.map { it }
 
         medicalHistory = loadMedicalHistoryResult.map { it.result?: MedicalHistory("") }
-        drugHistory = loadDrugHistoryResult.map { it.result?: emptyList() }
+        drugHistory = loadDrugHistoryResult.map { it?: emptyList() }
 
     }
 
@@ -115,6 +118,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                 loadProviderItemsResult.value = it.first.second
                 loadHistoryItemsResult.value=it.first.first
                 loadMedicalHistoryResult.value=it.second
+                medicalHistory.value?.getPastHistorys()
 
                 disposable.add(medicalHistoryApi.loadDrugHistory(patientId)
                     .subscribeOn(Schedulers.io())
@@ -129,7 +133,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                                 }
                             }
                         }
-                        loadDrugHistoryResult.value=drugs
+                        loadDrugHistoryResult.value=drugs.result
 
                     })
 
@@ -139,9 +143,6 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     private fun saveMedicalHistory() {
 
         medicalHistory.value?.also {history->
-
-            history.pastHistorys=historyItems.value?.filter { it.checked }?.map { History1(it.id,history.id) }?: emptyList()
-            history.drugHistorys=drugHistory.value?.filter { it.dose > 0 }?.map { History2(it.id,it.name,it.dose,history.id) }?: emptyList()
             if (saveAble) {
                 saveAble = false
                 val files = bitmaps.map {
@@ -196,13 +197,6 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         }
     }
 
-    fun clickSelect(item:Dictionary){
-        when(item.section){
-            3->{ providerItems.value?.filter { it.checked }?.map {it.checked = false } }
-        }
-        item.checked = !item.checked
-    }
-
     fun submit(){
         providerItems.value?.filter { it.checked }
             ?.map { medicalHistory.value?.provide = it.id }
@@ -215,5 +209,31 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     override fun click(){
         submit()
     }
+
+
+    fun clickItems(line:String){
+        loadmonitorClick.value = line
+    }
+
+    fun subdelow(item: DrugHistory){
+        if (item.dose ==0){
+            item.dose = 0
+        }  else {
+            if (item.dose != 0) item.dose = (item.dose - 1) else item.dose = 0
+        }
+    }
+
+    fun add(item: DrugHistory){
+        if (item.dose == 0){
+            item.dose = 1
+        }  else {
+            if (item.dose != 0) item.dose = (item.dose + 1) else item.dose = 1
+        }
+    }
+
+    fun deleteDrug(item: DrugHistory){
+        loadDrugHistoryResult.value = drugHistory.value?.filter { it.id!= item.id }
+    }
+
 
 }

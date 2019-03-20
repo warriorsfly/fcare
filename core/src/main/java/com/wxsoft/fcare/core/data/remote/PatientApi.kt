@@ -41,4 +41,8 @@ interface PatientApi{
     @POST("Patient/GetPaged")
     fun getPatients(@Body item: PatientsCondition):Maybe<Page<Patient>>
 
+    //医生已读通知
+    @GET("Message/ReceiverHandleNotice/{msgId}/{currUserId}/{currUserName}/{patientName}")
+    fun areadyRead(@Path("msgId")msgId:String,@Path("currUserId")currUserId:String,@Path("currUserName")currUserName:String,@Path("patientName")patientName:String):Single<Response<String>>
+
 }

@@ -10,7 +10,7 @@ import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
 import com.wxsoft.fcare.databinding.ItemDrugHistoryBinding
 
 
-class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner) :
+class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
     ListAdapter<DrugHistory,DrugHistoryItemAdapter.ItemViewHolder>(DiffCallback) {
 
 
@@ -20,6 +20,7 @@ class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner) :
         holder.binding.apply {
             item=getItem(position)
             lifecycleOwner=owner
+            viewModel = this@DrugHistoryItemAdapter.viewModel
             executePendingBindings()
         }
 

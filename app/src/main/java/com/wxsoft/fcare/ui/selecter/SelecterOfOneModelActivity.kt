@@ -45,6 +45,8 @@ class SelecterOfOneModelActivity : BaseActivity() {
                 when(comFrom){
                     "Vital" -> firstList.adapter = adapter
                     "Notify" -> firstList.adapter = notiadapter
+                    "MedicalHistoryProvider" -> firstList.adapter = adapter
+                    "MedicalHistoryAnamnesis" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -52,18 +54,17 @@ class SelecterOfOneModelActivity : BaseActivity() {
 
 
         when(comFrom){
-            "Vital"->{
-                viewModel.des.observe(this, Observer {
-                    adapter.submitList(it?: emptyList())
-                })
-            }
             "Notify"->{
                 viewModel.notifyTypes.observe(this, Observer {
                     notiadapter.submitList(it?: emptyList())
                 })
             }
+            else ->{
+                viewModel.des.observe(this, Observer {
+                    adapter.submitList(it?: emptyList())
+                })
+            }
         }
-
 
 
     }
@@ -84,11 +85,12 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     when(viewModel.clickAlone){
                         true ->{
                             viewModel.des.value?.filter { it.checked }?.map {
-                                bundle.putSerializable("SelectConscious",it)
+                                bundle.putSerializable("SelectOne",it)
                             }
                         }
                         else ->{
-
+                            val arr = viewModel.des.value?.filter { it.checked }?.toTypedArray()
+                            bundle.putSerializable("SelectArray",arr)
                         }
                     }
                 }

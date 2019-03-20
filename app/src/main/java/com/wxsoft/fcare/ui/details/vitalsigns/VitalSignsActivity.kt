@@ -91,7 +91,7 @@ class VitalSignsActivity : BaseActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 SELECT_CONCIOUS ->{//
-                    val conscious= data?.getSerializableExtra("SelectConscious") as Dictionary
+                    val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
                     viewModel.vital.value?.consciousness_Type = conscious.id
                     viewModel.vital.value?.consciousnesTypeName = conscious.itemName
                 }

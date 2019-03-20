@@ -6,68 +6,118 @@
     <data>
         <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.DrugHistory"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/item_container"
             android:orientation="vertical"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container1"
                 android:background="#FFFFFF"
                 android:padding="10dp"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-
-
             <TextView
                     android:id="@+id/drug_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
-                    android:layout_marginBottom="2dp"
-                    android:textSize="15sp"
-                    android:textColor="#131D35"
+                    android:textSize="18sp"
+                    android:textColor="@color/small_title_text_gray"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="60dp"
                     android:text="@{item.name}"
                     tool:text="阿司匹林"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"/>
 
+            <ImageView
+                    android:onClick="@{()->viewModel.subdelow(item)}"
+                    android:id="@+id/ic_subtract"
+                    app:layout_constraintLeft_toLeftOf="@+id/drug_name"
+                    app:layout_constraintTop_toBottomOf="@+id/drug_name"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_subtract"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
 
             <EditText
-                    android:id="@+id/dose"
-                    app:layout_constraintLeft_toRightOf="@+id/drug_name"
-                    app:layout_constraintTop_toTopOf="@+id/drug_name"
-                    android:background="@drawable/bg_edittextview_black_border"
-                    android:hint="剂量"
-                    android:maxLength="4"
-                    android:text="@={Converter.intToString(item.dose)}"
+                    android:id="@+id/drug_num"
+                    android:selectAllOnFocus="true"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/bg_emr_tv_content"
                     android:textSize="14sp"
+                    android:layout_marginLeft="10dp"
                     android:textColor="#9399A4"
+                    android:text="@={Converter.intToString(item.dose)}"
                     android:gravity="center"
+                    android:maxLines="1"
+                    android:maxLength="4"
+                    android:imeOptions="actionNext"
                     android:inputType="number"
-                    android:layout_width="100dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_height="wrap_content"/>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/ic_subtract"
+                    app:layout_constraintTop_toBottomOf="@+id/drug_name"
+            />
+
+            <ImageView
+                    android:onClick="@{()->viewModel.add(item)}"
+                    android:id="@+id/ic_add"
+                    app:layout_constraintLeft_toRightOf="@+id/drug_num"
+                    app:layout_constraintTop_toBottomOf="@+id/drug_name"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/ic_drug_add"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
 
             <TextView
-                    android:id="@+id/unit"
-                    android:layout_marginLeft="5dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/dose"
-                    app:layout_constraintLeft_toRightOf="@+id/dose"
-                    android:text="mg"
+                    android:id="@+id/drug_unit"
+                    android:layout_width="80dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="2dp"
                     android:textSize="14sp"
-                    android:textColor="#9399A4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:textColor="#999999"
+                    android:layout_marginLeft="10dp"
+                    android:text="@{item.doseUnit}"
+                    tool:text="mg"
+                    app:layout_constraintLeft_toRightOf="@+id/ic_add"
+                    app:layout_constraintTop_toTopOf="@+id/drug_num"
+                    app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+            <ImageView
+                    android:id="@+id/check_ic"
+                    android:onClick="@{()->viewModel.deleteDrug(item)}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:src="@drawable/ic_delete"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"/>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <View android:layout_width="match_parent"
+              android:layout_height="0.5dp"
+              android:background="@color/line_gray"
+              app:layout_constraintLeft_toLeftOf="parent"
+              app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

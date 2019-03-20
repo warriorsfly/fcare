@@ -9,7 +9,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F8F8F9"
             tools:context=".ui.details.medicalhistory.MedicalHistoryActivity">
         <include layout="@layout/layout_common_title"
                  android:id="@+id/title"
@@ -28,10 +27,245 @@
                     android:padding="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/model1"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:onClick="@{()->viewModel.clickItems(`1`)}"
+                        android:id="@+id/item1"
                         app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent">
+                    <TextView
+                            android:id="@+id/content"
+                            android:textSize="15sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="病历提供者"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                            android:hint="请选择"
+                            android:id="@+id/provider"
+                            android:layout_marginRight="40dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="#C1C1C1"
+                            android:text="@{viewModel.medicalHistory.provideName}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            tools:text=""
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe3_2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/ic_right_arrow"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintTop_toBottomOf="@+id/item1"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/item2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item1">
+                    <TextView
+                            android:id="@+id/hpi_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="7.5dp"
+                            android:textSize="16sp"
+                            android:textColor="#525252"
+                            android:text="现病史"
+                            tools:text="现病史"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                    <EditText
+                            android:id="@+id/medical_hpi"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_marginTop="7.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:textColor="#131D35"
+                            android:background="@drawable/bg_edittextview_border"
+                            android:text="@={viewModel.medicalHistory.hpi}"
+                            android:hint="请填写患者现病史"
+                            app:layout_constraintTop_toBottomOf="@+id/hpi_name"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/voice_hpi"
+                            app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <ImageView
+                            android:id="@+id/voice_hpi"
+                            android:padding="6dp"
+                            android:background="@drawable/bg_conor_voice_blue"
+                            android:layout_width="31dp"
+                            android:layout_height="31dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_voice_blue"
+                            app:layout_constraintLeft_toRightOf="@+id/medical_hpi"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintTop_toBottomOf="@+id/item2"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/item3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item2">
+                    <TextView
+                            android:id="@+id/gm_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginTop="7.5dp"
+                            android:textSize="16sp"
+                            android:textColor="#525252"
+                            android:text="过敏史"
+                            tools:text="过敏史"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                    <EditText
+                            android:id="@+id/gm_ah"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textSize="16sp"
+                            android:layout_marginTop="7.5dp"
+                            android:layout_marginLeft="15dp"
+                            android:textColor="#131D35"
+                            android:background="@drawable/bg_edittextview_border"
+                            android:text="@={viewModel.medicalHistory.ah}"
+                            android:hint="请输入患者过敏史"
+                            app:layout_constraintTop_toBottomOf="@+id/gm_name"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/gm_voice"
+                            app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <ImageView
+                            android:id="@+id/gm_voice"
+                            android:padding="6dp"
+                            android:background="@drawable/bg_conor_voice_blue"
+                            android:layout_width="31dp"
+                            android:layout_height="31dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:src="@drawable/ic_voice_blue"
+                            app:layout_constraintLeft_toRightOf="@+id/gm_ah"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintTop_toBottomOf="@+id/item3"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp"
+                        android:id="@+id/item4"
+                        android:onClick="@{()->viewModel.clickItems(`2`)}"
+                        app:layout_constraintTop_toBottomOf="@+id/item3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent">
+                    <TextView
+                            android:id="@+id/title4"
+                            android:textSize="16sp"
+                            android:textColor="#525252"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="既往病史"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <TextView
+                            android:hint="请选择"
+                            android:id="@+id/previous_history"
+                            android:layout_marginRight="40dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="16sp"
+                            android:textColor="#C1C1C1"
+                            android:gravity="right"
+                            android:text="@{viewModel.medicalHistory.pastHistorysString}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toRightOf="@+id/title4"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            tools:text=""
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe4_2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="5dp"
+                            android:background="@drawable/ic_right_arrow"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintTop_toBottomOf="@+id/item4"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/item5"
+                        android:layout_marginTop="3dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item4"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
                     <TextView
@@ -40,16 +274,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:padding="10dp"
-                            android:textSize="15sp"
-                            android:textColor="#131D35"
-                            android:text="拍照记录病史"
-                            tools:text="拍照记录病史"
+                            android:textSize="16sp"
+                            android:textColor="#525252"
+                            android:text="病史附件"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                             android:background="#FFFFFF"
                             android:layout_marginBottom="10dp"
+                            android:layout_marginLeft="10dp"
                             android:id="@+id/medical_photo_items_rv"
                             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                             app:spanCount="4"
@@ -63,25 +297,56 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintTop_toBottomOf="@+id/item5"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/up_file"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintTop_toBottomOf="@id/model1"
-                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:id="@+id/item6"
+                        android:layout_marginTop="3dp"
                         app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/item5"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/white">
+                        android:layout_height="match_parent">
+                    <TextView
+                            android:id="@+id/title6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:textSize="16sp"
+                            android:textColor="#525252"
+                            android:text="用药史"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+                    <TextView
+                            android:id="@+id/title6_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:layout_marginRight="10dp"
+                            android:textSize="16sp"
+                            android:textColor="#63B0F8"
+                            android:drawableLeft="@drawable/ic_add_plus_blue"
+                            android:drawablePadding="3dp"
+                            android:text="添加"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+
 
                     <androidx.recyclerview.widget.RecyclerView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:id="@+id/medical_history_list"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/title6"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

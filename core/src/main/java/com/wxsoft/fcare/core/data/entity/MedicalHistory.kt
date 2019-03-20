@@ -23,6 +23,13 @@ data class MedicalHistory(val id:String): BaseObservable() {
             field=value
             notifyPropertyChanged(BR.provide)
         }
+    @Bindable
+    @SerializedName("provide_Name")
+    var provideName:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.provideName)
+        }
 
     @Bindable
     var cc:String=""
@@ -78,5 +85,21 @@ data class MedicalHistory(val id:String): BaseObservable() {
     var drugHistorys:List<History2> = emptyList()
     var pastHistorys:List<History1> = emptyList()
 
+    @Bindable
+    @Transient
+    var pastHistorysString:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.pastHistorysString)
+        }
 
+    fun getPastHistorys(){
+        var anamStr = ""
+        if (pastHistorys.size>1){
+            pastHistorys.map { anamStr = if(anamStr.isNullOrEmpty()) it.phCode_Name else anamStr +"、"+it.phCode_Name  }
+        }else{
+            pastHistorys.map { anamStr = it.phCode_Name }
+        }
+        pastHistorysString = anamStr
+    }
 }

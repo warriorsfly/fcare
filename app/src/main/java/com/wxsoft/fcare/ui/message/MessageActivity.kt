@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.message
 
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -38,10 +39,13 @@ class MessageActivity : BaseActivity()  {
         content=intent.getStringExtra(MessageActivity.CONTENT)?:""
         extra=intent.getStringExtra(MessageActivity.EXTRA)?:""
         viewModel.extra = extra
-
         binding.viewModel = viewModel
+        binding.title.setText(title)
 
-        back.setOnClickListener { onBackPressed() }
+        viewModel.message.observe(this, Observer {
+            onBackPressed()
+        })
+
     }
 
 }

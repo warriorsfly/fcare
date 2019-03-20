@@ -53,10 +53,6 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     private val _errorToOperationAction = MutableLiveData<Event<String>>()
 
     val vital: LiveData<VitalSign>
-    val consciousnessItems: LiveData<List<String>>
-    private lateinit var consciousItems: List<Dictionary>
-    val selectedConsciousnessPosition: ObservableInt = ObservableInt(0)
-
     private val loadVitalResult = MediatorLiveData<Resource<VitalSign>>()
     /**
     * 意识字典
@@ -76,11 +72,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
 
         clickable=clickResult.map { it }
         vital = loadVitalResult.map { (it as? Resource.Success)?.data ?: VitalSign("") }
-        consciousnessItems = loadConsciousnessResult.map {
-            val cos=(it as? Resource.Success)?.data?: emptyList()
-            consciousItems=cos
-            return@map consciousItems.map { item -> item.itemName }
-        }
+
     }
 
     private fun saveVitalSign() {
@@ -94,9 +86,6 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
 //            v.body_Temperature==0f||
             v.heart_Rate == 0
         ) return
-        if (selectedConsciousnessPosition.get() == -1) return
-        v.consciousness_Type = consciousItems[selectedConsciousnessPosition.get()].id
-        v.consciousnesTypeName = consciousItems[selectedConsciousnessPosition.get()].itemName
         v.createrName = account.trueName
         disposable.add((if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
             .subscribe({
@@ -121,9 +110,6 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                             } else {
                                 loadVitalResult.value = Resource.Success(l[0])
                                 vital.value?.setUpChecked()
-                                selectedConsciousnessPosition.set(
-                                    consciousnessItems.value?.indexOf(l[0].consciousness_Type) ?: -1
-                                )
                             }
 
                         }
@@ -146,9 +132,6 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                         is Resource.Success -> {
                             loadVitalResult.value = Resource.Success(vi.data.result?: VitalSign())
                             vital.value?.setUpChecked()
-                            selectedConsciousnessPosition.set(
-                                consciousnessItems.value?.indexOf(vi.data.result?.consciousnesTypeName) ?: -1
-                            )
 
                         }
                         is Resource.Loading -> {

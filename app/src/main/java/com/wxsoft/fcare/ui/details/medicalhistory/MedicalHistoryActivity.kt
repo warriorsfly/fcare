@@ -25,6 +25,11 @@ import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.drug.Drug
+import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
+import com.wxsoft.fcare.core.data.entity.previoushistory.History1
+import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
@@ -32,6 +37,8 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.activity_medical_history.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.File
@@ -42,6 +49,9 @@ class MedicalHistoryActivity : BaseActivity() {
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val SELECT_PROVIDER = 100
+        const val SELECT_ANAMNESIS = 200
+        const val AddDrugs = 300
     }
 
     private lateinit var viewModel: MedicalHistoryViewModel
@@ -49,8 +59,7 @@ class MedicalHistoryActivity : BaseActivity() {
     lateinit var factory: ViewModelFactory
 
     lateinit var binding: ActivityMedicalHistoryBinding
-
-    private lateinit var medicalAdapter: MedicalHistoryAdapter
+    
 
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
@@ -64,15 +73,13 @@ class MedicalHistoryActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityMedicalHistoryBinding>(this, R.layout.activity_medical_history)
             .apply {
+                title6_1.setOnClickListener { toSelectDrug() }
                 lifecycleOwner = this@MedicalHistoryActivity
             }
         patientId=intent.getStringExtra(MedicalHistoryActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
         back.setOnClickListener { onBackPressed() }
-
-        medicalAdapter = MedicalHistoryAdapter(this,viewModel)
-        binding.medicalHistoryList.adapter = medicalAdapter
 
         adapter= PictureAdapter(this,10)
         adapter.setActionListener(photoAction!!)
@@ -92,6 +99,21 @@ class MedicalHistoryActivity : BaseActivity() {
         viewModel.medicalHistory.observe(this, Observer {
             if (it != null) this@MedicalHistoryActivity.adapter.remotes = it.attachments.map { it.httpUrl }
         })
+
+        viewModel.monitorClick.observe(this, Observer {
+            when(it){
+                "1" -> toSelectProvider()
+                "2" -> toSelectAnamnesis()
+            }
+        })
+
+        val adapter = DrugHistoryItemAdapter(this@MedicalHistoryActivity,viewModel)
+        binding.medicalHistoryList.adapter = adapter
+        viewModel.drugHistory.observe(this@MedicalHistoryActivity, Observer {
+            adapter.submitList(it)
+        })
+
+
     }
 
 
@@ -156,6 +178,33 @@ class MedicalHistoryActivity : BaseActivity() {
                         ))
                     }?: emptyList()
 
+                }
+                SELECT_PROVIDER ->{
+                    val provider = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.medicalHistory.value?.provideName = provider.itemName
+                    viewModel.medicalHistory.value?.provide = provider.id
+                }
+                SELECT_ANAMNESIS ->{
+                    val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
+                    var anamStr = ""
+                    if (anamnesises.size>1){
+                        anamnesises.map { anamStr = if(anamStr.isNullOrEmpty()) it.itemName else anamStr +"、"+it.itemName  }
+                    }else{
+                        anamnesises.map { anamStr = it.itemName }
+                    }
+                    viewModel.medicalHistory.value?.pastHistorysString = anamStr
+                    viewModel.medicalHistory.value?.pastHistorys = anamnesises?.map { History1(it.id,it.itemName,viewModel.medicalHistory.value!!.id) }
+                }
+                AddDrugs ->{
+                    var arr =  viewModel.drugHistory.value?.map { it }?: emptyList()
+                    val drugs = data?.getSerializableExtra("selectedDrugs") as ArrayList<Drug>
+                    val dlist = drugs.map { DrugHistory(it.id).apply {
+                        name = it.name
+                        dose = it.dose
+                        doseUnit = it.doseUnit
+                    } }as ArrayList<DrugHistory>
+                    dlist.addAll(arr.filter { !dlist.contains(it) })
+                    viewModel.loadDrugHistoryResult.value = dlist
                 }
             }
         }
@@ -293,6 +342,29 @@ class MedicalHistoryActivity : BaseActivity() {
     }
 
 
+
+    fun toSelectProvider(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "MedicalHistoryProvider")
+        }
+        startActivityForResult(intent,SELECT_PROVIDER)
+    }
+
+    fun toSelectAnamnesis(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "MedicalHistoryAnamnesis")
+        }
+        startActivityForResult(intent,SELECT_ANAMNESIS)
+    }
+
+    fun toSelectDrug(){
+        val intent = Intent(this, SelectDrugsActivity::class.java).apply {
+            putExtra(SelectDrugsActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent, AddDrugs)
+    }
 
 
 }

@@ -38,6 +38,14 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadVital()
                     clickAlone = true
                 }
+                "MedicalHistoryProvider" -> {
+                    loadMedicalHistoryProvider()
+                    clickAlone = true
+                }
+                "MedicalHistoryAnamnesis" -> {
+                    loadMedicalHistoryAnamnesis()
+                    clickAlone = false
+                }
                 "Notify" ->{
                     loadNotifyTypes()
                     clickAlone = true
@@ -64,6 +72,18 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))
     }
+    private fun loadMedicalHistoryProvider(){
+        disposable.add(enumApi.loadMedicalHistoryProviderItems()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadMedicalHistoryAnamnesis(){
+        disposable.add(enumApi.loadMedicalHistoryItems(patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
 
     private fun loadNotifyTypes(){
         disposable.add(enumApi.loadNotifyTypes()
@@ -83,6 +103,8 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
         if (clickAlone){
             des.value?.filter { it.checked }?.map { it.checked = false }
             item.checked = true
+        }else{
+            item.checked = !item.checked
         }
     }
     fun clickSelectNotify(item: NotifyType){

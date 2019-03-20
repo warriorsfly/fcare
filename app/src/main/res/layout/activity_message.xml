@@ -7,61 +7,202 @@
         <variable name="viewModel" type="com.wxsoft.fcare.ui.message.MessageViewModel"/>
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            tools:context=".ui.message.MessageActivity">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top_container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="#63B0F8"
+                android:layout_width="match_parent"
+                android:layout_height="320dp">
+
+            <TextView
+                    android:onClick="@{()->viewModel.closePage()}"
+                    android:id="@+id/close_tv"
+                    android:layout_marginBottom="50dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_marginTop="16sp"
+                    android:layout_marginLeft="27.5dp"
+                    android:text="关闭"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/title"
+                    android:layout_marginBottom="50dp"
+                    android:textSize="28sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    tools:text="通知启动导管室"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:id="@+id/phone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/title"
+                    android:src="@drawable/ic_phone"
+                    android:layout_marginBottom="30dp"
+                    android:layout_width="72.5dp"
+                    android:layout_height="132.5dp"/>
+
+            <ImageView
+                    android:id="@+id/bell"
+                    app:layout_constraintTop_toTopOf="@+id/phone"
+                    app:layout_constraintRight_toRightOf="@+id/phone"
+                    app:layout_constraintBottom_toBottomOf="@+id/phone"
+                    android:src="@drawable/ic_bell_left"
+                    android:layout_marginBottom="28dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginRight="34dp"
+                    android:layout_width="76dp"
+                    android:layout_height="76dp"/>
+            <ImageView
+                    android:id="@+id/sound_wave"
+                    app:layout_constraintTop_toTopOf="@+id/phone"
+                    app:layout_constraintRight_toLeftOf="@+id/phone"
+                    android:src="@drawable/ic_sound_wave"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_width="18.5dp"
+                    android:layout_height="18.5dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content_container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_container"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+            <TextView
+                    android:id="@+id/patient_name"
+                    android:layout_marginLeft="23.5dp"
+                    android:layout_marginTop="24.5dp"
+                    tools:text="韩雪"
+                    android:text="@{viewModel.patient.name}"
+                    android:textColor="#525252"
+                    android:textSize="19sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#F8F8F8">
-                <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                             xmlns:tools="http://schemas.android.com/tools"
-                             android:layout_width="match_parent"
-                             android:layout_height="match_parent"
-                             tools:context=".ui.details.dominating.fragment.ProcessFragment">
+                    android:id="@+id/sex_age_container"
+                    android:background="@{viewModel.patient.gender==1?@drawable/bg_conor_green:@drawable/bg_conor_blue}"
+                    app:layout_constraintTop_toTopOf="@+id/patient_name"
+                    app:layout_constraintLeft_toRightOf="@+id/patient_name"
+                    app:layout_constraintBottom_toBottomOf="@+id/patient_name"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:padding="1dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <ImageView
-                            android:id="@+id/image"
-                            android:layout_width="200dp"
-                            android:layout_height="168dp"
-                            android:text="@string/hello_blank_fragment"
-                            android:src="@drawable/ic_message_pci"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="100dp"/>
+                <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="wrap_content"
+                        android:background="@{viewModel.patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"
+                        android:id="@+id/gender"
+                        android:textSize="12dp"
+                        android:src="@{viewModel.patient.gender==1 ?@drawable/ic_man:@drawable/ic_woman}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
 
-                    <TextView
-                            android:id="@+id/goTo"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="22sp"
-                            android:textColor="#FE5F55"
-                            tools:text="请即刻启动导管室"
-                            android:drawablePadding="14dp"
-                            android:drawableLeft="@drawable/ic_warning_light"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="284dp"
-                            android:text="@{viewModel.message}"/>
-
-                    <Button
+                <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:onClick="@{()->viewModel.reject()}"
-                        android:text="拒绝"
-                        android:layout_marginLeft="80dp"
-                        android:layout_marginTop="500dp"
-                    />
+                        android:background="@color/white"
+                        android:id="@+id/age"
+                        android:textSize="12dp"
+                        android:paddingLeft="2dp"
+                        tools:text="24"
+                        android:textColor="@{viewModel.patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"
+                        android:layout_marginLeft="4dp"
+                        android:text="@{ String.valueOf(viewModel.patient.age)+`岁`}"
+                        app:layout_constraintLeft_toRightOf="@id/gender"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
-                    <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="启动"
-                            android:src="@drawable/ic_message_start"
-                            android:layout_gravity="right"
-                            android:layout_marginRight="80dp"
-                            android:layout_marginTop="500dp"
-                    />
-                </FrameLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
+
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    tools:text="卒中"
+                    android:text="@{viewModel.patient.diagnosisName}"
+                    android:id="@+id/type"
+                    android:background="@drawable/bg_conor_red"
+                    android:paddingTop="3.5dp"
+                    android:paddingBottom="3.5dp"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="12dp"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginEnd="30dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                    android:id="@+id/line"
+                    android:background="@color/line_gray"
+                    app:layout_constraintTop_toBottomOf="@+id/patient_name"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+            <TextView
+                    android:id="@+id/title1"
+                    app:layout_constraintTop_toBottomOf="@+id/line"
+                    app:layout_constraintLeft_toLeftOf="@+id/patient_name"
+                    android:text="诊断"
+                    android:textSize="16sp"
+                    android:layout_marginTop="12.5dp"
+                    android:textColor="@color/small_title_text_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/conent1"
+                    app:layout_constraintTop_toBottomOf="@+id/line"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="缺血性心肌病"
+                    android:textSize="16sp"
+                    android:layout_marginTop="12.5dp"
+                    android:layout_marginRight="30dp"
+                    android:textColor="@color/small_title_text_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <com.google.android.material.button.MaterialButton
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:onClick="@{()->viewModel.areadyRead()}"
+                    android:text="我已知晓"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="43.5dp"
+                    android:layout_width="230dp"
+                    android:layout_height="52.5dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
