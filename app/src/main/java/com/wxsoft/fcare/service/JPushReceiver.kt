@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import cn.jpush.android.api.JPushInterface
+import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.CustomMessage
 import com.wxsoft.fcare.ui.message.MessageActivity
 import org.json.JSONException
 import org.json.JSONObject
@@ -34,6 +36,8 @@ class JPushReceiver : BroadcastReceiver() {
 //                    val notifactionId = bundle!!.getInt(JPushInterface.EXTRA_NOTIFICATION_ID)
                     val message = bundle?.getString(JPushInterface.EXTRA_MESSAGE)
                     val title = bundle?.getString(JPushInterface.EXTRA_TITLE)
+                    val extra = bundle?.getString(JPushInterface.EXTRA_EXTRA)
+                    processMessage(context,title,message,extra)
                     processCustomMessage(context, title, message)
                 }
                 JPushInterface.ACTION_NOTIFICATION_RECEIVED -> {//Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知");
@@ -100,24 +104,23 @@ class JPushReceiver : BroadcastReceiver() {
 
                 context.sendBroadcast(timeLineRefresh)
             }
-            StartCT ->{
-
-                val alarmIntent = Intent(context, MessageActivity::class.java).apply {
-                    putExtra(MessageActivity.PATIENT_ID, message)
-                    putExtra(MessageActivity.NOTIFY_TYPE, "CT")
-                }
-                alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(alarmIntent)
-
-            }
         }
+    }
+
+    private fun  processMessage(context: Context, title: String?, message: String?, extra: String?){
+        val alarmIntent = Intent(context, MessageActivity::class.java).apply {
+            putExtra(MessageActivity.TITLE, title)
+            putExtra(MessageActivity.CONTENT, message)
+            putExtra(MessageActivity.EXTRA, extra)
+        }
+        alarmIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        context.startActivity(alarmIntent)
     }
 
     companion object {
 
         const val LineRefresh = "LineRefresh"
         const val RegistrationId = "RegistrationId"
-        const val StartCT = "StartCT"
         // 打印所有的 intent extra 数据
         @JvmStatic
         private fun printBundle(bundle: Bundle): String {

@@ -66,10 +66,12 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     val backToLast:LiveData<Boolean>
     private val initbackToLast = MediatorLiveData<Boolean>()
 
+    val clickConcious:LiveData<String>
+    private val initClickConcious = MediatorLiveData<String>()
 
 
     init {
-
+        clickConcious = initClickConcious.map { it }
         backToLast = initbackToLast.map { it }
 
         clickable=clickResult.map { it }
@@ -163,6 +165,10 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
 
     override fun click(){
         saveVitalSign()
+    }
+
+    fun selectConscious(){
+        initClickConcious.value = "Conscious"
     }
 
 }

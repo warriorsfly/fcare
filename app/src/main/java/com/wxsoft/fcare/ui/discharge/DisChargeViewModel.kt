@@ -72,6 +72,11 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
         data.value?.haveLoaded()
     }
 
+    override fun error(throwable: Throwable){
+        messageAction.value= Event(throwable.message?:"未知错误")
+    }
+
+
     override fun click() {
 
 

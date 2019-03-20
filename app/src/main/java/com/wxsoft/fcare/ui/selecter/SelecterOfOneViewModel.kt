@@ -4,10 +4,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.NotifyType
+import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumApi,
@@ -22,7 +26,6 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
         set(value) {
             if (value == "") return
             field = value
-            loadDisChargeInfo()
         }
 
 
@@ -30,25 +33,61 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
         set(value) {
             if (value == "") return
             field = value
+            when(value){
+                "Vital" -> {
+                    loadVital()
+                    clickAlone = true
+                }
+                "Notify" ->{
+                    loadNotifyTypes()
+                    clickAlone = true
+                }
+            }
         }
+
+    var clickAlone:Boolean = false
 
     val des: LiveData<List<Dictionary>>
     private val loadDesResult = MediatorLiveData<List<Dictionary>>()
 
+    val notifyTypes: LiveData<List<NotifyType>>
+    private val loadNotifyTypes = MediatorLiveData<List<NotifyType>>()
 
     init {
         des = loadDesResult.map { it ?: emptyList()  }
+        notifyTypes = loadNotifyTypes.map { it?: emptyList() }
     }
 
-    private fun loadDisChargeInfo(){
-
-
+    private fun loadVital(){
+        disposable.add(enumApi.loadConsciousness()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
     }
 
+    private fun loadNotifyTypes(){
+        disposable.add(enumApi.loadNotifyTypes()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getNotify,::error))
+    }
 
+    private fun getData(response: List<Dictionary>){
+        loadDesResult.value = response
+    }
 
+    private fun getNotify(response: Response<List<NotifyType>>){
+        loadNotifyTypes.value = response.result
+    }
     fun clickSelect(item: Dictionary){
-
+        if (clickAlone){
+            des.value?.filter { it.checked }?.map { it.checked = false }
+            item.checked = true
+        }
+    }
+    fun clickSelectNotify(item: NotifyType){
+        notifyTypes.value?.filter { it.checked }?.map { it.checked = false }
+        item.checked = true
     }
 
 }

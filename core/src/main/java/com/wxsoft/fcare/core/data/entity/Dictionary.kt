@@ -3,12 +3,13 @@ package com.wxsoft.fcare.core.data.entity
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
+import java.io.Serializable
 
 /**
  * modified by warriorsfly 2019-02-20
  * 依据api变动，移除itemcode属性，原itemcode->id
  */
-data class Dictionary(val id:String, val itemName:String): BaseObservable() {
+data class Dictionary(val id:String, val itemName:String): BaseObservable(), Serializable {
 
 
     /**

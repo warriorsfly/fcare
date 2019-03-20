@@ -17,7 +17,8 @@ class NotiGroupAdapter constructor(private val lifecycleOwner: LifecycleOwner, v
     var items: List<NotiUserItem> = emptyList()
         set(value) {
             field = value
-            differ.submitList(value)
+            var arr = value.filter { it.users.size>0 }
+            differ.submitList(arr)
         }
 
     override fun getItemCount(): Int {

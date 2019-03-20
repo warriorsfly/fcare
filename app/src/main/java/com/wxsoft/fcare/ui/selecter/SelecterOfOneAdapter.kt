@@ -11,8 +11,6 @@ import com.wxsoft.fcare.databinding.ItemSelecterOfOneBinding
 class SelecterOfOneAdapter constructor(private val owner: LifecycleOwner, val viewModel: SelecterOfOneViewModel) :
     ListAdapter<Dictionary, SelecterOfOneAdapter.ItemViewHolder>(DiffCallback){
 
-
-
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
@@ -22,8 +20,6 @@ class SelecterOfOneAdapter constructor(private val owner: LifecycleOwner, val vi
             executePendingBindings()
 
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {

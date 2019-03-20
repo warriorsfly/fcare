@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.NotifyType
+import com.wxsoft.fcare.core.data.entity.Response
 import io.reactivex.Maybe
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -127,5 +129,11 @@ interface DictEnumApi {
      */
     @GET("EnumDic/enumItems/14/{patientId}")
     fun loadStrategys(@Path("patientId")id:String): Maybe<List<Dictionary>>
+
+    /**
+     * 发送通知类型
+     */
+    @GET("Message/GetMessageTemplates")
+    fun loadNotifyTypes(): Maybe<Response<List<NotifyType>>>
 
 }
