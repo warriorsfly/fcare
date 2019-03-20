@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.rating
 
+import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
@@ -107,17 +108,30 @@ class RatingSubjectActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject,menu)
+        menuInflater.inflate(R.menu.menu_subject2,menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
-        when(item?.itemId){
-            R.id.submit->viewModel.saveRecord()
-            android.R.id.home->onBackPressed()
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.saveRecord()
+                true
+            }
+            R.id.delete->{
+
+                if(recordId.isNotEmpty()) {
+                    val dialog = AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
+                    dialog.setTitle("是否删除当前评分?")
+                        .setPositiveButton("确定") { _, _ -> viewModel.deleteRecord() }
+                        .setNegativeButton("取消") { _, _ -> }
+                        .create().show()
+                }
+                true
+            }
+            else->super.onOptionsItemSelected(item)
         }
 
-        return true
     }
 }

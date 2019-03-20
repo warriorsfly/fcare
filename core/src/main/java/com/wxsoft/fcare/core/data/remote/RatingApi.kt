@@ -46,4 +46,10 @@ interface RatingApi {
      */
     @GET("Rating/GetLastestAnswerRecordByPatientId/{patientId}")
     fun getRecords(@Path("patientId")id:String): Maybe<Response<List<RatingRecord>>>
+
+    /***
+     * 评分结果列表
+     */
+    @GET("Rating/DeleteAnswerRecord/{recordId}")
+    fun delete(@Path("recordId")id:String): Maybe<Response<String>>
 }

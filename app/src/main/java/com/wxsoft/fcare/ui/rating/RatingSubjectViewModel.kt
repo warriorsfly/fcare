@@ -106,6 +106,16 @@ class RatingSubjectViewModel @Inject constructor(
         ratingId=response.result?.ratingId?:""
     }
 
+    fun deleteRecord(){
+        if(recordId.isNotEmpty()){
+            disposable.add(ratingApi.delete(recordId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ messageAction.value = Event("删除成功") },
+                    ::error))
+        }
+    }
+
     fun saveRecord(){
         if(checkSavable()) {
             //前面对rating.value进行判空
@@ -132,7 +142,7 @@ class RatingSubjectViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ messageAction.value = Event("保存成功") },
-                    { messageAction.value = Event(it.message ?: "") })
+                    ::error)
             )
         }
     }
