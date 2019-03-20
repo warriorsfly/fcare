@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.NotiUserItem
+import com.wxsoft.fcare.core.data.entity.Notify
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.User
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -42,9 +43,18 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
     val checkedUsers:LiveData<List<User>>
     private val loadCheckedUsersResult=MediatorLiveData<List<User>>()
 
+    val notify:LiveData<Notify>
+    private val loadNotifyResult=MediatorLiveData<Notify>()
+
+    val backToLast:LiveData<Boolean>
+    private val initbackToLast = MediatorLiveData<Boolean>()
+
     init {
+        backToLast = initbackToLast.map { it }
         userItems = loadUserItemsResult.map { it.result?: emptyList() }
         checkedUsers = loadCheckedUsersResult.map { it?: emptyList() }
+        notify = loadNotifyResult.map { it ?: Notify(account.id,account.trueName,"","", emptyList()) }
+        loadNotifyResult.value = null
     }
 
 
@@ -57,13 +67,6 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
 
     private fun loadUserItems(response: Response<List<NotiUserItem>>){
         loadUserItemsResult.value = response
-//        userItems.value?.map {
-//            item->
-//            item.users.map {
-//                selectedUsers.add(it)
-//            }
-//        }
-//        loadCheckedUsersResult.value = selectedUsers
     }
 
     fun selectedUser(user:User){
@@ -84,4 +87,27 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
         selectedUsers.remove(user)
         loadCheckedUsersResult.value = selectedUsers.toList()
     }
+
+
+
+
+    fun toSubmit(){
+        val arr = ArrayList<String>()
+        checkedUsers.value?.map {
+            arr.add(it.id)
+        }
+        notify.value?.receiverUserIds = arr.toList()
+        notify.value?.patientId = patientId
+
+        disposable.add(notificationApi.submitNotify(notify.value!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::saveResult,::error))
+    }
+
+    private fun saveResult(response: Response<String>){
+        messageAction.value = Event(response.msg)
+        if (response.success) initbackToLast.value = true
+    }
+
 }

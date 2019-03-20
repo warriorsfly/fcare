@@ -31,7 +31,7 @@ abstract class BaseViewModel constructor(protected open val sharedPreferenceStor
     /**
      * 共用的错误处理
      */
-    protected fun error(throwable: Throwable) {
+    protected open fun error(throwable: Throwable) {
         messageAction.value = Event(throwable.message ?: "错误")
     }
 }

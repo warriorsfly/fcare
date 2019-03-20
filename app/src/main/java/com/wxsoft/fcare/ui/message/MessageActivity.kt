@@ -12,10 +12,13 @@ import javax.inject.Inject
 
 class MessageActivity : BaseActivity()  {
 
-    private lateinit var patientId:String
+    private lateinit var title:String
+    private lateinit var content:String
+    private lateinit var extra:String
     companion object {
-        const val PATIENT_ID = "PATIENT_ID"
-        const val NOTIFY_TYPE = "NOTIFY_TYPE"
+        const val TITLE = "TITLE"
+        const val CONTENT = "CONTENT"
+        const val EXTRA = "EXTRA"
     }
 
     private lateinit var viewModel: MessageViewModel
@@ -31,9 +34,11 @@ class MessageActivity : BaseActivity()  {
                 lifecycleOwner = this@MessageActivity
             }
         viewModel = viewModelProvider(factory)
-        patientId=intent.getStringExtra(MessageActivity.PATIENT_ID)?:""
-        viewModel.notifyType = intent.getStringExtra(MessageActivity.NOTIFY_TYPE)?:""
-        viewModel.patientId = patientId
+        title=intent.getStringExtra(MessageActivity.TITLE)?:""
+        content=intent.getStringExtra(MessageActivity.CONTENT)?:""
+        extra=intent.getStringExtra(MessageActivity.EXTRA)?:""
+        viewModel.extra = extra
+
         binding.viewModel = viewModel
 
         back.setOnClickListener { onBackPressed() }
