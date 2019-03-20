@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.rating
 
+import android.app.Activity
 import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import android.content.Intent
@@ -92,12 +93,12 @@ class RatingSubjectActivity : BaseActivity() {
         viewModel.mesAction.observe(this,EventObserver{
             toast.setText(it)
             toast.show()
+        })
 
-            if(it=="保存成功") {
-                Intent().let { intent ->
-                    setResult(RESULT_OK, intent)
-                    finish()
-                }
+        viewModel.savingResult.observe(this, Observer {
+            if(it){
+                setResult(Activity.RESULT_OK,intent)
+                finish()
             }
         })
         viewModel.patientId=patientId

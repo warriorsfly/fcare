@@ -43,11 +43,15 @@ class RatingSubjectViewModel @Inject constructor(
 
     val rating:LiveData<Rating>
     private val loadRatingResult =MediatorLiveData<Rating>()
+
+    val savingResult:LiveData<Boolean>
+    private val savingRatingResult =MediatorLiveData<Boolean>()
     private val loadRecordResult =MediatorLiveData<RatingRecord>()
 
     init {
 
         rating=loadRatingResult.map { it ?: Rating() }
+        savingResult=savingRatingResult.map { it }
     }
 
     private fun loadRecord(){
@@ -111,7 +115,10 @@ class RatingSubjectViewModel @Inject constructor(
             disposable.add(ratingApi.delete(recordId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ messageAction.value = Event("删除成功") },
+                .subscribe({
+                    messageAction.value = Event("删除成功")
+                    savingRatingResult.value=true
+                },
                     ::error))
         }
     }
@@ -141,7 +148,10 @@ class RatingSubjectViewModel @Inject constructor(
             disposable.add(ratingApi.saveRatingResult(ratingRecord)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ messageAction.value = Event("保存成功") },
+                .subscribe({
+                    messageAction.value = Event("保存成功")
+                    savingRatingResult.value=true
+                },
                     ::error)
             )
         }

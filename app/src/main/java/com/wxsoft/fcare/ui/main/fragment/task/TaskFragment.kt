@@ -106,10 +106,10 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
         }
 
         popwindow = PopupWindow().apply {
-            setHeight(ViewGroup.LayoutParams.MATCH_PARENT-60)
-            setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-            setOutsideTouchable(true)
-            setFocusable(true)
+            height = ViewGroup.LayoutParams.MATCH_PARENT-60
+            width = ViewGroup.LayoutParams.MATCH_PARENT
+            isOutsideTouchable = true
+            isFocusable = true
             setBackgroundDrawable(ColorDrawable(Color.GRAY))
         }
 

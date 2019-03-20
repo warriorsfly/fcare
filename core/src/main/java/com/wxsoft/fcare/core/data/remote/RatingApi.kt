@@ -50,6 +50,6 @@ interface RatingApi {
     /***
      * 评分结果列表
      */
-    @GET("Rating/DeleteAnswerRecord/{recordId}")
+    @DELETE("Rating/DeleteAnswerRecord/{recordId}")
     fun delete(@Path("recordId")id:String): Maybe<Response<String>>
 }
