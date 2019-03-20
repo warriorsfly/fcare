@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.entity
 
 data class Account( var id:String,
+                    val gender:Int=1,
                     var userName: String ,
                     var password: String ,
                     var trueName: String ,

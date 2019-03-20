@@ -27,8 +27,9 @@ class UserProfileFragment : DaggerFragment() {
         viewModel = activityViewModelProvider(factory)
         val binding = FragmentUserProfileBinding.inflate(inflater, container, false).apply {
 
+            viewModel=this@UserProfileFragment.viewModel
             logout.setOnClickListener {
-                viewModel.loginOut()
+                viewModel?.loginOut()
                 val intent = Intent(activity!!, LoginActivity::class.java).apply {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 }
