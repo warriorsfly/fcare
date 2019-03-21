@@ -11,26 +11,16 @@ import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
-import android.media.AudioFormat
-import android.media.MediaPlayer
-import android.media.MediaRecorder
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.os.SystemClock
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import cafe.adriel.androidaudioconverter.AndroidAudioConverter
-import cafe.adriel.androidaudioconverter.callback.IConvertCallback
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
@@ -45,44 +35,15 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 import kotlinx.android.synthetic.main.activity_add_informed.*
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
-import omrecorder.AudioRecordConfig
-import omrecorder.PullTransport
-import omrecorder.PullableSource
 import java.io.File
 import java.util.*
 import javax.inject.Inject
 
-class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallback {
-    override fun onSuccess(p0: File?) {
-        viewModel.voicePath = p0!!.absolutePath
-//                    onRecordFinishListener?.invoke(p0!!)
-        dismiss()
+class AddInformedActivity : BaseActivity() {
 
-    }
-    override fun onFailure(p0: Exception?) {
-        toast("录音组件异常")
-        dismiss()
-    }
 
-    private val STATE_RECORD_INIT = 1           // 初始状态
-    private val STATE_RECORD_RECORDING = 2      // 正在录音
-    private val STATE_RECORD_PLAY = 3           // 正在播放录音
-    private val STATE_RECORD_PAUSE = 4          // 暂停录音
 
-    private val MAX_RECORD_TIME = 1800000
-
-    private var recorder : CustomRecorder? = null
-    private val mediaPlayer by lazy { MediaPlayer() }
-    private var recordState = STATE_RECORD_INIT
-    private var recordTime = 0L  //录制时间，单位为ms
-
-    //录音计时器
-    private var recordTimer: CountDownTimer? = null
-
-    //录音播放计时器
-    private var recordPlayTimer: CountDownTimer? = null
-
-//*************************************************************************************
+    //*************************************************************************************
     private lateinit var patientId:String
     private lateinit var titleName:String
     private lateinit var informedConten:String
@@ -168,32 +129,20 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
         informed_attachments.adapter=adapter
 
 
-        viewModel.voiceStart.observe(this,Observer {
-            if (it == true){
-                checkAudioRecoder()
-
-            }else{
-                pauseRecording()
-                binding.voiceTime.stop()
-                viewModel.talk.value?.endTime = getCurrentTime()
-                viewModel.initShowVoiceTime.value = true
-                binding.timeVoice.text = binding.voiceTime.text
+        viewModel.clickStr.observe(this, Observer {
+            when(it){
+                "startVoice" ->{
+                    binding.voiceTime.setBase(SystemClock.elapsedRealtime())
+                    binding.voiceTime.start()
+                }
+                "endVoice" ->{
+                    binding.voiceTime.stop()
+                }
             }
         })
 
-
-
-
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.voice_record -> {
-                playRecoding()
-            }
-
-        }
-    }
 
     private fun checkPhotoTaking(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ||
@@ -222,7 +171,7 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
             AUDIO_RECRD_PERMISSION_REQUEST->{
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED){
-                    startRecording()
+
                 }
             }
         }
@@ -422,165 +371,6 @@ class AddInformedActivity : BaseActivity() , View.OnClickListener,IConvertCallba
     　　      */
         return String.format("%0" + formatLength + "d", sourceDate)
 
-    }
-
-
-    private fun pauseRecording() {
-        changeState(STATE_RECORD_PAUSE)
-        recordTimer?.cancel()
-        recorder!!.pauseRecording()
-
-        finishRecording()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.N)
-    private fun startRecording() {
-        if (recordTime >= MAX_RECORD_TIME){
-            toast("回答不能超过${MAX_RECORD_TIME / 1000}s")
-            return
-        }
-
-        if (recordState == STATE_RECORD_INIT) {
-            recorder = createRecorder()
-            recorder!!.startRecording()
-            viewModel.talk.value?.startTime = getCurrentTime()
-            binding.voiceTime.base = SystemClock.elapsedRealtime()
-            binding.voiceTime.isCountDown = false
-            binding.voiceTime.start()
-            startRecordTimer()
-
-
-        }else{
-            recorder!!.resumeRecording()
-        }
-
-        changeState(STATE_RECORD_RECORDING)
-    }
-
-    private fun deleteRecording(){
-
-        changeState(STATE_RECORD_INIT)
-        recordTime = 0
-        recorder!!.stopRecording()
-    }
-
-    private fun playRecoding(){
-        if (recordTime >= MAX_RECORD_TIME) {toast("录制时间到达上限"); return}
-
-        if (recordState == STATE_RECORD_PAUSE) {
-            mediaPlayer.setOnCompletionListener { playRecoding() }
-            mediaPlayer.reset()
-            mediaPlayer.setDataSource(this, Uri.fromFile(recorder!!.tempFile))
-            mediaPlayer.prepare()
-            mediaPlayer.start()
-            startPlayRecordTimer()
-            changeState(STATE_RECORD_PLAY)
-
-//            progress_view.maxProgress = 100f
-        }else{
-            recordPlayTimer?.cancel()
-//            progressAnim!!.cancel()
-//            progress_view.currentProgress = 0f
-            mediaPlayer.stop()
-            changeState(STATE_RECORD_PAUSE)
-        }
-    }
-
-    private fun finishRecording() {
-        recorder!!.stopRecording()
-
-        //将wav转化为mp3
-        AndroidAudioConverter.with(this).setFile(recorder!!.recordFile)
-            .setFormat(cafe.adriel.androidaudioconverter.model.AudioFormat.MP3)
-            .setCallback(this).convert()
-
-    }
-
-    /**
-     * 根据状态改变控件显示属性
-     */
-    private fun changeState(recordState: Int){
-        when(recordState){
-            STATE_RECORD_INIT -> {
-
-            }
-            STATE_RECORD_RECORDING -> {
-
-            }
-            STATE_RECORD_PAUSE -> {
-
-            }
-            STATE_RECORD_PLAY -> {
-
-            }
-        }
-        this.recordState = recordState
-    }
-
-    private fun startRecordTimer(){
-        recordTimer = object : CountDownTimer(MAX_RECORD_TIME - recordTime,100){
-            override fun onTick(millisUntilFinished: Long) {
-                recordTime += 100
-//                tv_time.text = "${recordTime / 60000}:${formatSecondLongToString((recordTime % 60000) / 1000)}"
-            }
-            override fun onFinish() {
-                pauseRecording()
-                toast("录制时间到达上限")
-            }
-        }.start()
-    }
-
-    private fun startPlayRecordTimer(){
-        recordTime.toFloat()
-        recordPlayTimer = object : CountDownTimer(recordTime,100){
-            init {
-//                progress_view.maxProgress = countDownTime
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-//                millisUntilFinished / 1000
-//                tv_time.text = "${timeLeft/60}:${formatSecondLongToString(timeLeft % 60)}"
-//                progress_view.currentProgress = countDownTime - millisUntilFinished
-            }
-            override fun onFinish() {}
-        }.start()
-    }
-
-    private fun createRecorder() = CustomRecorder(
-        PullTransport.Default(mic(),
-            PullTransport.OnAudioChunkPulledListener {}),file(),tempFile())
-
-    private fun mic() = PullableSource.Default(
-        AudioRecordConfig.Default(
-            MediaRecorder.AudioSource.MIC, AudioFormat.ENCODING_PCM_16BIT,
-            AudioFormat.CHANNEL_IN_MONO, 44100))
-
-    private fun file() = File(this.externalCacheDir, "record.wav")
-    private fun tempFile() = File(this.externalCacheDir, "temp.wav")
-
-    fun toast(msg: String){
-        Toast.makeText(this,msg,Toast.LENGTH_SHORT).show()
-    }
-
-    private fun dismiss() {
-        // 如果reocrder再daialog关闭前已经停止，则调用stopRecording会抛出IllegalStateException
-        try {
-            recorder?.stopRecording()
-        }catch (e: IllegalStateException){}
-    }
-
-    private fun checkAudioRecoder(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                AUDIO_RECRD_PERMISSION_REQUEST
-            )
-
-        }else{
-            startRecording()
-        }
     }
 }
 

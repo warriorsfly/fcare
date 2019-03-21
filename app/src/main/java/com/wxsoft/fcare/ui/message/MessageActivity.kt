@@ -41,10 +41,13 @@ class MessageActivity : BaseActivity()  {
         viewModel.extra = extra
         binding.viewModel = viewModel
         binding.title.setText(title)
+        binding.title1.setText(content)
 
         viewModel.message.observe(this, Observer {
             onBackPressed()
         })
+
+        viewModel.patient.observe(this, Observer {  })
 
     }
 

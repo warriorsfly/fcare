@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#F8F8F9"
+            android:background="#E7E4F2"
             tools:context=".ui.details.informedconsent.addinformed.AddInformedActivity">
         <include layout="@layout/layout_common_title"
                  android:id="@+id/title"
@@ -22,31 +22,199 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toTopOf="@+id/bottomContainer">
+                app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/container"
-                    android:padding="5dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model1"
+                        android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        android:padding="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="宣讲内容"
+                            android:layout_marginTop="16.5dp"
+                            android:textSize="16sp"
+                            android:id="@+id/inforemed_title"
+                            android:textColor="@color/edit_text_title"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
 
                     <TextView
                             android:id="@+id/informed_content"
                             android:textColor="#131D35"
-                            android:padding="5dp"
-                            android:textSize="13sp"
+                            android:padding="15dp"
+                            android:textSize="14sp"
+                            android:layout_marginTop="15dp"
+                            tools:text="知情同意书内容"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/inforemed_title"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
+
+                    <View
+                            android:id="@+id/line1"
+                            android:background="@color/line_gray"
+                            app:layout_constraintTop_toBottomOf="@+id/informed_content"
+                            android:layout_marginTop="3dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_1"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/line1"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_1"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="开始谈话时间"
+                                android:textSize="16sp"
+                                android:textColor="@color/small_title_text_gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <Button
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:hint="开始时间"
+                                android:id="@+id/start_informed_time"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="16sp"
+                                android:textColor="#C1C1C1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                tools:text="2019-01-18 13:23:15"
+                                android:minWidth="90dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_2"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_2"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="结束谈话时间"
+                                android:textSize="16sp"
+                                android:textColor="@color/small_title_text_gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <Button
+                                style="@style/Widget.MaterialComponents.Button.TextButton"
+                                android:hint="结束时间"
+                                android:id="@+id/end_informed_time"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="16sp"
+                                android:textColor="#C1C1C1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                tools:text="2019-01-18 13:23:15"
+                                android:minWidth="90dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_3"
+                            android:background="@color/white"
+                            android:layout_marginTop="3dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:hint="耗时"
+                                android:id="@+id/title3_3"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="谈话耗时"
+                                android:textSize="16sp"
+                                android:textColor="@color/small_title_text_gray"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/all_informed_time"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="16sp"
+                                android:textColor="#C1C1C1"
+                                android:gravity="right"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                tools:text="7分钟"
+                                android:minWidth="90dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -63,7 +231,7 @@
                             android:layout_width="wrap_content"
                             android:text="上传附件 "
                             android:layout_marginTop="16.5dp"
-                            android:textSize="15sp"
+                            android:textSize="16sp"
                             android:id="@+id/voice_title10"
                             android:textColor="@color/edit_text_title"
                             android:layout_marginLeft="10dp"
@@ -81,29 +249,77 @@
                             android:layout_width="0dp"
                             android:layout_marginRight="15dp"
                             android:layout_height="wrap_content"/>
+
+                    <View   android:background="@color/line_gray"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/informed_attachments"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/voice_record"
-                        android:layout_margin="10dp"
-                        android:background="@drawable/ic_voice_bg"
-                        goneUnless="@{viewModel.showVoiceTime}"
-                        android:padding="5dp"
-                        android:onClick="onClick"
+                        android:id="@+id/voice_container"
+                        android:layout_marginTop="10dp"
                         app:layout_constraintTop_toBottomOf="@id/up_file"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="150dp"
-                        android:layout_height="80dp">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white">
                     <TextView
-                            android:id="@+id/time_voice"
+                            app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            android:text="00:07:34"
                             android:layout_width="wrap_content"
+                            android:text="谈话录音"
+                            android:layout_marginTop="16.5dp"
+                            android:textSize="16sp"
+                            android:id="@+id/voice_title"
+                            android:textColor="@color/edit_text_title"
+                            android:layout_marginLeft="10dp"
                             android:layout_height="wrap_content"/>
 
+                    <androidx.recyclerview.widget.RecyclerView
+                            android:layout_marginTop="10dp"
+                            android:id="@+id/informed_voices"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/voice_title"
+                            app:layout_constraintLeft_toLeftOf="@id/voice_title"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="0dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_height="wrap_content"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/submit_container"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/voice_container"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white">
+
+                    <Button
+                            android:id="@+id/start_btn"
+                            android:background="#63B0F8"
+                            android:layout_margin="15dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:onClick="@{()->viewModel.showOrVoiceTime()}"
+                            android:text="开始谈话"
+                            android:textSize="18sp"
+                            android:textColor="@color/white"
+                            android:layout_width="0dp"
+                            android:layout_height="52.5dp"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -111,35 +327,130 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/bottomContainer"
-                android:background="#232323"
-                goneUnless="@{!viewModel.showVoiceTime}"
+                android:background="@color/white"
+                goneUnless="@{viewModel.showVoiceTime}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="284dp">
+
+            <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="启用录音"
+                    android:layout_marginTop="15dp"
+                    android:textSize="18sp"
+                    android:id="@+id/start_voice_title"
+                    android:textColor="@color/edit_text_title"
+                    android:layout_marginLeft="35.5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <Switch
+                    android:id="@+id/use_voice_orno"
+                    android:onClick="@{()->viewModel.changeVoice()}"
+                    android:layout_marginRight="15dp"
+                    app:layout_constraintTop_toTopOf="@+id/start_voice_title"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                    android:id="@+id/trumpet"
+                    android:src="@{viewModel.voiceStart?@drawable/ic_trumpet_start:@drawable/ic_trumpet_close}"
+                    android:layout_marginTop="33dp"
+                    app:layout_constraintTop_toBottomOf="@+id/start_voice_title"
+                    app:layout_constraintLeft_toLeftOf="@+id/start_voice_title"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"/>
+
+            <ProgressBar
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    app:layout_constraintLeft_toRightOf="@+id/trumpet"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/trumpet"
+                    app:layout_constraintBottom_toBottomOf="@+id/trumpet"
+                    android:max="8"
+                    android:thumb="@drawable/ic_trumpet_close"
+                    android:id="@+id/seekBar"
+                    android:clickable="true"
+                    android:progress="4"
+                    android:progressDrawable="@drawable/progressbar_layer_list"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginBottom="5dp"/>
+
+            <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/bottom_btn_container"
+                    android:text="谈话已经开始"
+                    android:textSize="18sp"
+                    android:id="@+id/title_11"
+                    android:textColor="@color/small_title_text_gray"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+
             <Chronometer
                     android:id="@+id/voice_time"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:padding="10dp"
-                    goneUnless="@{viewModel.voiceStart}"
-                    android:layout_width="match_parent"
+                    app:layout_constraintBottom_toBottomOf="@+id/title_11"
+                    app:layout_constraintLeft_toRightOf="@+id/title_11"
+                    android:layout_marginLeft="26dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:format="%s"
-                    android:textColor="@color/white"
-                    android:textSize="14sp" />
-            <ImageView
-                    android:id="@+id/bottom_voice_icon"
-                    android:src="@{viewModel.voiceStart?@drawable/ic_stop_voice:@drawable/ic_start_voice}"
-                    android:onClick="@{() -> viewModel.clickVoice()}"
-                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:textColor="@color/small_title_text_gray"
+                    android:textSize="36sp" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout 
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/voice_time"
+                    app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/bottom_btn_container"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:foregroundGravity="center"
+                    android:background="@drawable/bg_conor_voice_red"
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"/>
+                    android:layout_height="52.5dp">
+                <ImageView
+                        android:id="@+id/end_ic"
+                        android:layout_marginRight="100dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:src="@drawable/ic_end_over"
+                        android:layout_width="22dp"
+                        android:layout_height="23.5dp"/>
+
+                <TextView
+                        android:id="@+id/over_voice_btn"
+                        android:layout_margin="15dp"
+                        app:layout_constraintLeft_toRightOf="@+id/end_ic"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:onClick="@{()->viewModel.showOrVoiceTime()}"
+                        android:text="结束谈话"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

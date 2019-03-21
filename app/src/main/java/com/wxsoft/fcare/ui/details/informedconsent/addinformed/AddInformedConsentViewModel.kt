@@ -87,11 +87,17 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     val talkResultId:LiveData<String>
     private val saveTalkResult =MediatorLiveData<Resource<Response<String>>>()
 
+    val clickStr:LiveData<String>
+    private val clickStrResult =MediatorLiveData<String>()
+
     init {
+        clickStr = clickStrResult.map { it }
         talkResultId = saveTalkResult.map { (it as? Resource.Success)?.data?.result?: ""}
         backToLast = initbackToLast.map { it }
         voiceStart = initVoiceStart.map { it }
         showVoiceTime = initShowVoiceTime.map { it }
+        initShowVoiceTime.value = false
+        initVoiceStart.value = false
         clickable=clickResult.map { it }
         informedConsent = initInformedConsent.map { (it as? Resource.Success)?.data?: InformedConsent("") }
         talk = initTalk.map { (it as? Resource.Success)?.data?.result?: Talk("") }
@@ -171,7 +177,12 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     }
 
     fun showOrVoiceTime(){
-        initShowVoiceTime.value = true
+        initShowVoiceTime.value = !showVoiceTime.value!!
+        if (showVoiceTime.value!!) clickStrResult.value = "startVoice" else clickStrResult.value = "endVoice"
+    }
+
+    fun changeVoice(){
+        initVoiceStart.value = !voiceStart.value!!
     }
 
     fun clickVoice(){
