@@ -5,7 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
