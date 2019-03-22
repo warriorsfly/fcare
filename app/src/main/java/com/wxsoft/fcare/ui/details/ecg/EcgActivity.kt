@@ -27,6 +27,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityEcgBinding
@@ -34,14 +35,19 @@ import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.EcgAdapter
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
+import com.wxsoft.fcare.ui.details.ecg.fragment.EcgEditFragment
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import kotlinx.android.synthetic.main.activity_ecg.*
-import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 
 class EcgActivity : BaseActivity(),PhotoEventAction {
 
+
+    private val  fragment by lazy{
+        EcgEditFragment()
+    }
     companion object {
         const val PHOTO_COUNT=4
     }
@@ -75,6 +81,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
             this,
             R.layout.activity_ecg
         ).apply{
+            viewModel=this@EcgActivity.viewModel
             list.adapter=this@EcgActivity.adapter
             lifecycleOwner = this@EcgActivity
         }
@@ -83,6 +90,12 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
             adapter.remotes=it.attachments.map { it.httpUrl }
         })
         setSupportActionBar(toolbar)
+
+        start.setOnClickListener {
+            supportFragmentManager.inTransaction {
+                add(R.id.fragment_container, fragment)
+            }
+        }
     }
 
     private fun checkPhotoTaking(){

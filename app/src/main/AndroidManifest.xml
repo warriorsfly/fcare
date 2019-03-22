@@ -192,8 +192,11 @@
         </activity>
         <activity
                 android:name=".ui.outcome.OutComeActivity"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+                android:name=".ui.details.ecg.EcgActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.main.MainActivity"
                 android:theme="@style/AppTheme.NoActionBar"
@@ -208,12 +211,6 @@
         <activity
                 android:name=".ui.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN"/>-->
-
-                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
-            <!--</intent-filter>-->
-        <!--</activity>-->
         <activity
                 android:name=".wxapi.WXEntryActivity"
                 android:exported="true"

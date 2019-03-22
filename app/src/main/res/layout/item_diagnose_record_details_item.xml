@@ -64,7 +64,7 @@
                 android:textSize="12sp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="4dp"
-                android:drawableLeft="@drawable/ic_time_record"
+                android:drawableLeft="@drawable/ic_common_clock"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

@@ -105,7 +105,7 @@
 					android:id="@+id/ic_1"
 					android:layout_width="14dp"
 					android:layout_height="14dp"
-					android:src="@drawable/ic_time_record"
+					android:src="@drawable/ic_common_clock"
 					android:layout_marginTop="14dp"
 					app:layout_constraintLeft_toLeftOf="@id/patient_name"
 					app:layout_constraintTop_toBottomOf="@id/patient_name" />

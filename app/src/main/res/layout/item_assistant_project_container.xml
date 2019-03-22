@@ -18,7 +18,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/model1"
+                app:layout_constraintTop_toTopOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <androidx.constraintlayout.widget.ConstraintLayout

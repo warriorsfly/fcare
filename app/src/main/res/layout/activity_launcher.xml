@@ -13,14 +13,14 @@
         android:layout_height="543.4dp"
         android:layout_gravity="top"
         android:scaleType="centerCrop"
+        android:layout_weight="1"
         android:src="@drawable/bg_splash_big"/>
 
     <LinearLayout
             android:layout_gravity="bottom|center_horizontal"
             android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_height="147dp"
             android:orientation="vertical">
     <LinearLayout
         android:layout_gravity="bottom|center_horizontal"

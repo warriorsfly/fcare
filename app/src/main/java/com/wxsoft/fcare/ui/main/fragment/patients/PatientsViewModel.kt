@@ -177,7 +177,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     }
 
     // 获得当天0点时间
-    fun getTimesmorning(): String {
+    private fun getTimesmorning(): String {
         val cal = Calendar.getInstance()
         cal.set(Calendar.HOUR_OF_DAY, 0)
         cal.set(Calendar.SECOND, 0)
@@ -186,54 +186,49 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.getTime())
     }
     // 获得本周一0点时间
-    fun getTimesWeekmorning(): String {
+    private fun getTimesWeekmorning(): String {
         val cal = Calendar.getInstance();
-        cal.setTime(Date());
+        cal.time = Date();
         // 获得当前日期是一个星期的第几天
         val dayWeek = cal.get(Calendar.DAY_OF_WEEK);
         if (1 == dayWeek) {
             cal.add(Calendar.DAY_OF_MONTH, -1);
         }
         // 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
-        cal.setFirstDayOfWeek(Calendar.MONDAY);
+        cal.firstDayOfWeek = Calendar.MONDAY;
         // 获得当前日期是一个星期的第几天
         val day = cal.get(Calendar.DAY_OF_WEEK);
         // 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
-        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day)
-        val str = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
+        cal.add(Calendar.DATE, cal.firstDayOfWeek - day)
+        val str =DateTimeUtils.formatter.format(cal.time)
         return str.substring(0,11) + "00:00:00"
     }
 
     // 获得本月第一天0点时间
-    fun getTimesMonthmorning(): String {
-        val cal = Calendar.getInstance()
-        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0)
-        cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH))
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
-    }
-    fun getCurrentQuarterStartTime(): String? {
-        val c = Calendar.getInstance()
-        val currentMonth = c.get(Calendar.MONTH) + 1
-        val longSdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-        val shortSdf = SimpleDateFormat("yyyy-MM-dd")
-        var now: Date? = null
-        try {
-            if (currentMonth >= 1 && currentMonth <= 3)
-                c.set(Calendar.MONTH, 0)
-            else if (currentMonth >= 4 && currentMonth <= 6)
-                c.set(Calendar.MONTH, 3)
-            else if (currentMonth >= 7 && currentMonth <= 9)
-                c.set(Calendar.MONTH, 4)
-            else if (currentMonth >= 10 && currentMonth <= 12)
-                c.set(Calendar.MONTH, 9)
-            c.set(Calendar.DATE, 1)
-            now = longSdf.parse(shortSdf.format(c.time) + " 00:00:00")
-        } catch (e: Exception) {
-            e.printStackTrace()
+    private fun getTimesMonthmorning(): String {
+        val cal = Calendar.getInstance().apply {
+            set(get(Calendar.YEAR), get(Calendar.MONTH), getActualMinimum(Calendar.DAY_OF_MONTH), 0, 0, 0)
         }
-        return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now)
+
+        return DateTimeUtils.formatter.format(cal.time)
     }
-    fun getCurrentYearStartTime(): String {
+    private fun getCurrentQuarterStartTime(): String? {
+        val c = Calendar.getInstance().apply {
+            when ( get(Calendar.MONTH) + 1) {
+                in 1..3 -> set(Calendar.MONTH, 0)
+                in 4..6 -> set(Calendar.MONTH, 3)
+                in 7..9 -> set(Calendar.MONTH, 4)
+                in 10..12 -> set(Calendar.MONTH, 9)
+            }
+            set(Calendar.DATE,1)
+            set(Calendar.HOUR_OF_DAY,0)
+            set(Calendar.MINUTE,0)
+            set(Calendar.SECOND,0)
+        }
+
+        return DateTimeUtils.formatter.format(c.time)
+    }
+    private fun getCurrentYearStartTime(): String {
         val cal = Calendar.getInstance();
         return ""+cal.get(Calendar.YEAR) + "-01-01 00:00:00"
     }

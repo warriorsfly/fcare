@@ -13,13 +13,13 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
      */
     @SerializedName("ecgDiagnoseTime")
     @get:Bindable
-    var diagnosedAt="0001-01-01 00:00:00"
+    var diagnosedAt:String?=null
     /**
      * 心电图时间
      */
     @get:Bindable
     @SerializedName("ecgTime")
-    var time="0001-01-01 00:00:00"
+    var time:String?=null
     /**
      * 是否远程传输
      */
@@ -50,6 +50,17 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
         field=value
         notifyPropertyChanged(BR.savable)
     }
+    
+    @get:Bindable
+    @SerializedName("electroCardiogramDiagnoses")
+    var diagnoses:List<EcgDiagnose> = emptyList()
+    set(value){
+      field=value
+      diagnoseText=field.joinToString("\n",transform={ field.indexOf(it).toString()+"."+it.name})
+    }
+
+    @get:Bindable
+    var diagnoseText:String=""
 
     @get:Bindable
     var location = 2
