@@ -77,7 +77,7 @@ data class Talk (val id:String) : BaseObservable() {
         }
 
     @Bindable
-    var informedTime:String = DateTimeUtils.getCurrentTime()
+    var informedTime:String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.informedTime)
@@ -92,7 +92,7 @@ data class Talk (val id:String) : BaseObservable() {
 
     fun judgeTime(){
         if(startTime.isNullOrEmpty()|| endTime.isNullOrEmpty()) return
-        allTime = DateTimeUtils.getAAfromBBMinutes(startTime,endTime)
+        allTime = DateTimeUtils.getAAfromBBMinutes(startTime,endTime) + "分钟"
     }
 
 }

@@ -78,7 +78,7 @@ class InformedConsentActivity : BaseActivity()  {
         intent.putExtra(AddInformedActivity.TITLE_NAME,informed.name)
         intent.putExtra(AddInformedActivity.TITLE_CONTENT,informed.content)
         intent.putExtra(AddInformedActivity.INFORMED_ID,informed.id)
-        startActivity(intent)
+        startActivityForResult(intent,100 )
     }
 
     private fun toDetails(talk:Talk){//知情同意书详情页

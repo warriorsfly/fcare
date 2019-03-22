@@ -109,6 +109,6 @@ dependencies {
 //    coroutines协程，比较下rxjava2和协程对内存泄漏的影响
 //    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"
 
-    implementation 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
-    implementation 'com.kailashdabhi:om-recorder:1.1.5'
+//    implementation 'com.github.adrielcafe:AndroidAudioConverter:0.0.8'
+//    implementation 'com.kailashdabhi:om-recorder:1.1.5'
 }
