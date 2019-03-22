@@ -49,6 +49,7 @@ class AddInformedActivity : BaseActivity() {
     private lateinit var informedConten:String
     private lateinit var informedContenId:String
     private lateinit var comeFrom:String
+    private lateinit var talkId:String
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
@@ -56,6 +57,7 @@ class AddInformedActivity : BaseActivity() {
         const val TITLE_CONTENT = "TITLE_CONTENT"
         const val INFORMED_ID = "INFORMED_ID"
         const val COME_FROM= "COME_FROM"
+        const val TALK_ID= "TALK_ID"
     }
 
     private var mCurrentAnimator: Animator? = null
@@ -88,12 +90,14 @@ class AddInformedActivity : BaseActivity() {
         informedConten=intent.getStringExtra(AddInformedActivity.TITLE_CONTENT)?:""
         informedContenId=intent.getStringExtra(AddInformedActivity.INFORMED_ID)?:""
         comeFrom=intent.getStringExtra(AddInformedActivity.COME_FROM)?:""
+        talkId=intent.getStringExtra(AddInformedActivity.TALK_ID)?:""
 
 
         viewModel.informedContenId = informedContenId
         viewModel.informedname = titleName
         viewModel.titleName = titleName
         viewModel.patientsId = patientId
+        viewModel.talkId = talkId
         binding.viewModel = viewModel
 
         binding.informedContent.text = informedConten
@@ -134,9 +138,13 @@ class AddInformedActivity : BaseActivity() {
                 "startVoice" ->{
                     binding.voiceTime.setBase(SystemClock.elapsedRealtime())
                     binding.voiceTime.start()
+                    if (viewModel.talk.value?.startTime.isNullOrEmpty())
+                    viewModel.talk.value?.startTime = getCurrentTime()
                 }
                 "endVoice" ->{
                     binding.voiceTime.stop()
+                    viewModel.talk.value?.endTime = getCurrentTime()
+                    viewModel.talk.value?.judgeTime()
                 }
             }
         })

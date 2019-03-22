@@ -15,6 +15,8 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -48,6 +50,11 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         set(value) {
             if (value == "") return
             field = value
+        }
+    var talkId: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
             loadTalk()
         }
 
@@ -55,6 +62,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         set(value) {
             if (value == "") return
             field = value
+            getInformedConsentById(value)
         }
     var informedname: String = ""
         set(value) {
@@ -79,10 +87,10 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         value=true
     }
     val informedConsent:LiveData<InformedConsent>
-    private val initInformedConsent = MediatorLiveData<Resource<InformedConsent>>()
+    private val initInformedConsent = MediatorLiveData<Response<InformedConsent>>()
 
     val talk:LiveData<Talk>
-    private val initTalk = MediatorLiveData<Resource<Response<Talk>>>()
+    private val initTalk = MediatorLiveData<Response<Talk>>()
 
     val talkResultId:LiveData<String>
     private val saveTalkResult =MediatorLiveData<Resource<Response<String>>>()
@@ -99,14 +107,19 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         initShowVoiceTime.value = false
         initVoiceStart.value = false
         clickable=clickResult.map { it }
-        informedConsent = initInformedConsent.map { (it as? Resource.Success)?.data?: InformedConsent("") }
-        talk = initTalk.map { (it as? Resource.Success)?.data?.result?: Talk("") }
+        informedConsent = initInformedConsent.map { it.result?: InformedConsent("") }
+        talk = initTalk.map { it.result?: Talk("") }
     }
 
     private fun loadTalk(){
-        initTalk.value=Resource.Success(Response<Talk>(true).apply {
-            this.result= Talk("")
-        })
+        disposable.add(informedApi.getTalkById(talkId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getTheTalk,::error))
+    }
+
+    fun getTheTalk(response: Response<Talk>){
+        initTalk.value = response
     }
 
 
@@ -174,6 +187,17 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         }
 
 
+    }
+
+    fun getInformedConsentById(id:String){
+        disposable.add(informedApi.getInformedConsentById(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadInformedConsent,::error))
+    }
+
+    fun loadInformedConsent(response: Response<InformedConsent>){
+        initInformedConsent.value = response
     }
 
     fun showOrVoiceTime(){
