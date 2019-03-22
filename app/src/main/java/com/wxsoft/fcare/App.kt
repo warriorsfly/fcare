@@ -1,17 +1,13 @@
 package com.wxsoft.fcare
 
 import android.app.Notification
-import cafe.adriel.androidaudioconverter.AndroidAudioConverter
-import cafe.adriel.androidaudioconverter.callback.ILoadCallback
 import cn.jiguang.share.android.api.JShareInterface
 import cn.jiguang.share.android.api.PlatformConfig
 import cn.jpush.android.api.BasicPushNotificationBuilder
 import cn.jpush.android.api.JPushInterface
-import com.squareup.leakcanary.LeakCanary
 import com.wxsoft.fcare.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
-import java.lang.Exception
 
 
 class App : DaggerApplication() {
@@ -19,13 +15,6 @@ class App : DaggerApplication() {
 
     override fun onCreate() {
         super.onCreate()
-//
-//        if (!LeakCanary.isInAnalyzerProcess(this)) {
-//            LeakCanary.install(this)
-//        }
-//        SDKInitializer.initialize(this)
-//        SDKInitializer.setCoordType(CoordType.BD09LL);
-
 
         if (BuildConfig.DEBUG) {
             JPushInterface.setDebugMode(true)
@@ -44,14 +33,6 @@ class App : DaggerApplication() {
             setWechat("wx9f163d591186cfac", "c93e41a9676c998d865389acfec27548")
         }
         JShareInterface.init(this, config)
-
-        AndroidAudioConverter.load(this, object : ILoadCallback  {
-            override fun onSuccess() {
-            }
-
-            override fun onFailure(p0: Exception?) {
-            }
-        })
 
     }
 

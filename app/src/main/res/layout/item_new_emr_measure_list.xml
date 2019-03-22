@@ -44,114 +44,115 @@
                 android:text="治疗措施"/>
 
             <TextView
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/t1"
-                    android:id="@+id/t2"
-                    android:layout_marginLeft="18dp"
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="2dp"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:text="救治结果"/>
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/t1"
+                android:id="@+id/t2"
+                android:layout_marginLeft="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="救治结果"/>
 
             <TextView
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/t2"
-                    android:id="@+id/t3"
-                    android:layout_marginLeft="18dp"
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="2dp"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:text="出诊结果"/>
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/t2"
+                android:id="@+id/t3"
+                android:layout_marginLeft="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="出诊结果"/>
 
             <TextView
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/t3"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginBottom="18dp"
-                    android:id="@+id/t4"
-                    android:layout_marginLeft="18dp"
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="2dp"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:text="绕行"/>
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/t3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginBottom="18dp"
+                android:id="@+id/t4"
+                android:layout_marginLeft="18dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="绕行"/>
 
             <TextView
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginLeft="106dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/t1"
-                    android:id="@+id/v1"
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="2dp"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:text="@{measure.toString()}"/>
+                android:layout_marginTop="18dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="106dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/t1"
+                android:id="@+id/v1"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="@{measure.toString()}"/>
 
             <TextView
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginLeft="106dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/t2"
-                    android:id="@+id/v2"
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="2dp"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:text="@{measure.preCureResultCode}"/>
+                android:layout_marginTop="18dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="106dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/t2"
+                android:id="@+id/v2"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="@{measure.preCureResultCode}"/>
 
             <TextView
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginLeft="106dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/t3"
-                    android:id="@+id/v3"
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="2dp"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:text="@{measure.preVisitResultCode}"/>
+                android:layout_marginTop="18dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="106dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/t3"
+                android:id="@+id/v3"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="@{measure.preVisitResultCode}"/>
 
             <TextView
-                    android:layout_marginTop="18dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginLeft="106dp"
-                    app:layout_constraintBaseline_toBaselineOf="@id/t4"
-                    android:id="@+id/v4"
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="14sp"
-                    android:padding="2dp"
-                    android:gravity="center"
-                    android:textColor="#999999"
-                    android:text="@{measure.preDirectDepartId}"/>
+                android:layout_marginTop="18dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginLeft="106dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/t4"
+                android:id="@+id/v4"
 
-
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:padding="2dp"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:text="@{measure.preDirectDepartId}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+                app:layout_constraintTop_toBottomOf="@id/container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="13dp"
+                android:background="@mipmap/bg_bottom_waving"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

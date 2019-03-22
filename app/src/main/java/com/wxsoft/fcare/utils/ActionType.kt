@@ -13,6 +13,7 @@ import androidx.annotation.StringDef
     ActionType.通知启动导管室,ActionType.通知启动CT室, ActionType.来院方式,ActionType.Catheter,
     ActionType.CT_OPERATION,ActionType.出院诊断
 )
+
 annotation class ActionType {
     companion object {
         const val 绑定腕带 = "bdwd"

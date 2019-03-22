@@ -8,8 +8,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-    android:background="@drawable/bg_wave_line">
+        android:layout_height="wrap_content">
         <include
             layout="@layout/item_emr_common_head"
             android:id="@+id/head"
@@ -19,8 +18,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/head"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
         <com.google.android.material.tabs.TabLayout
-            app:layout_constraintTop_toBottomOf="@id/head"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             android:id="@+id/tabLayout"
             app:tabMode="scrollable"
@@ -35,5 +42,13 @@
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        app:layout_constraintTop_toBottomOf="@id/container"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="13dp"
+        android:background="@mipmap/bg_bottom_waving"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

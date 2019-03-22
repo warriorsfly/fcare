@@ -36,6 +36,8 @@ buildscript {
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
+
+
 }
 
 allprojects {
@@ -49,3 +51,16 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+//task ftp << {
+//    ant {
+//        taskdef(name: 'ftp',
+//                classname: 'org.apache.tools.ant.taskdefs.optional.net.FTP',
+//                classpath: configurations.ftpAntTask.asPath)
+//        ftp(server: "(removed)", userid: "(removed)", password: "(removed)", remoteDir: "(removed)") {
+//            fileset(dir: "(removed)") {
+//                include(name: "(removed)")
+//            }
+//        }
+//    }
+//}
