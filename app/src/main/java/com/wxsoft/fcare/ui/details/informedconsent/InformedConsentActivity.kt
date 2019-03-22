@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.informedconsent
 
+import android.app.Activity
 import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import android.content.Intent
@@ -82,14 +83,24 @@ class InformedConsentActivity : BaseActivity()  {
     }
 
     private fun toDetails(talk:Talk){//知情同意书详情页
-        val intent = Intent(this, InformedConsentDetailsActivity::class.java)
-        intent.putExtra(InformedConsentDetailsActivity.PATIENT_ID,patientId)
-        intent.putExtra(InformedConsentDetailsActivity.TALK_ID,talk.id)
-        intent.putExtra(InformedConsentDetailsActivity.TALK_NAME,talk.informedConsentName)
-        intent.putExtra(InformedConsentDetailsActivity.INFORMED_ID,talk.informedConsentId)
+        val intent = Intent(this, AddInformedActivity::class.java)
+        intent.putExtra(AddInformedActivity.PATIENT_ID,patientId)
+        intent.putExtra(AddInformedActivity.TALK_ID,talk.id)
+        intent.putExtra(AddInformedActivity.TITLE_NAME,talk.informedConsentName)
+        intent.putExtra(AddInformedActivity.INFORMED_ID,talk.informedConsentId)
         startActivity(intent)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK) {
+            when(requestCode){
+                100 ->{//
+                    viewModel.getTalkRecords(patientId)
+                }
 
+            }
+        }
+    }
 
 }
