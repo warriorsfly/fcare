@@ -19,3 +19,5 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+#保持Serializable实现类不被混淆
+-keepnames class * implements java.io.Serializable

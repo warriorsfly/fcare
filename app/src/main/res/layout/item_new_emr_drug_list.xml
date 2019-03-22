@@ -8,8 +8,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_wave_line">
+        android:layout_height="wrap_content">
         <include
             layout="@layout/item_emr_common_head"
             android:id="@+id/head"
@@ -39,7 +38,8 @@
             app:layout_constraintTop_toBottomOf="@id/container"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_width="match_parent"
-            android:layout_height="13dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="12dp"
             android:background="@mipmap/bg_bottom_waving"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

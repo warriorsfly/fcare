@@ -6,6 +6,7 @@ import android.widget.SeekBar
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.DateTimeUtils.Companion.formatter
@@ -54,7 +55,7 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding: LayoutItemAssignmentBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: LayoutItemAssignmentBinding) : RecyclerView.ViewHolder(binding.root) {
         var binding: LayoutItemAssignmentBinding
             private set
 

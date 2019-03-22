@@ -7,6 +7,14 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/allen/Work/wxsoft/fcare/key')
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+        }
+    }
     dataBinding { enabled = true }
     compileSdkVersion 28
     defaultConfig {
@@ -18,6 +26,7 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44398/api/"'
+        signingConfig signingConfigs.release
 //        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.0.190:5001/api/"'
 
 
@@ -31,11 +40,10 @@ android {
 //    }
     buildTypes {
         release {
-            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-
+            debuggable=true
             ndk {
-                //选择要添加的对应cpu类型的.so库。
+//                选择要添加的对应cpu类型的.so库。
                 abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
                 // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
 
@@ -49,11 +57,11 @@ dependencies {
     implementation project(path: ':core')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
     implementation 'com.google.android.material:material:1.1.0-alpha04'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.legacy:legacy-support-v13:1.0.0'
-    implementation 'androidx.annotation:annotation:1.1.0-alpha01'
+    implementation 'androidx.annotation:annotation:1.1.0-alpha02'
     implementation "android.arch.navigation:navigation-fragment:$navigation_version"
     implementation "android.arch.navigation:navigation-ui:$navigation_version"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
@@ -62,16 +70,16 @@ dependencies {
 
     implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha02'
-    implementation 'androidx.appcompat:appcompat:1.1.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03'
+    implementation 'androidx.appcompat:appcompat:1.1.0-alpha03'
     implementation 'com.google.android.material:material:1.1.0-alpha04'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha02'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0-alpha03'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0-alpha03'
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03'
     //dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"

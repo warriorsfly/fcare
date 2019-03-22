@@ -5,6 +5,14 @@ apply plugin: 'kotlin-kapt'
 
 android {
 
+    signingConfigs {
+        release {
+            storeFile file('/Users/allen/Work/wxsoft/fcare/key')
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+        }
+    }
     dataBinding { enabled = true }
     compileSdkVersion 28
     defaultConfig {
@@ -56,9 +64,9 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation "junit:junit:$junit_version"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha02'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03'
     //dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     implementation "com.google.dagger:dagger-android:$dagger_version"
@@ -87,9 +95,9 @@ dependencies {
 
     implementation 'com.yanzhenjie:permission:2.0.0'
 
-    implementation 'androidx.room:room-runtime:2.1.0-alpha04'
-    kapt 'androidx.room:room-compiler:2.1.0-alpha04'
-    implementation 'androidx.room:room-rxjava2:2.1.0-alpha04'
+    implementation 'androidx.room:room-runtime:2.1.0-alpha05'
+    kapt 'androidx.room:room-compiler:2.1.0-alpha05'
+    implementation 'androidx.room:room-rxjava2:2.1.0-alpha05'
 
     implementation 'androidx.paging:paging-runtime:2.1.0'
 }

@@ -1,20 +1,15 @@
 package com.wxsoft.fcare.ui.workspace
 
-import android.animation.Animator
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
-import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.databinding.FragmentEmrBinding
 import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
-import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.emr.EmrAdapter
 import com.wxsoft.fcare.ui.emr.EmrViewModel
@@ -22,7 +17,6 @@ import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
-import javax.inject.Named
 
 class WorkingEmrFragment : DaggerFragment() {
 
@@ -58,6 +52,8 @@ class WorkingEmrFragment : DaggerFragment() {
         return  FragmentWorkingEmrBinding
             .inflate(inflater,container, false).apply {
                 list.adapter=this@WorkingEmrFragment.adapter
+
+//                drawer.addDrawerListener(this@WorkingEmrFragment)
             lifecycleOwner=this@WorkingEmrFragment
         }.root
 
