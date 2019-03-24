@@ -14,6 +14,9 @@ interface ThrombolysisApi {
     @GET("Throm/GetThromById/{id}")
     fun loadThrombolysis(@Path("id")patientId:String): Maybe<Response<Thrombolysis>>
 
+    @GET("Throm/GetByPatientId/{patientId}")
+    fun loadThrom(@Path("patientId")patientId:String): Maybe<Response<Thrombolysis>>
+
     @GET("InformedConsent/GetInformedConsentById/{id}")
     fun getInformedConsentById(@Path("id")id:String): Maybe<Response<InformedConsent>>
 

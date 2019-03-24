@@ -119,6 +119,7 @@ class AddInformedActivity : BaseActivity() {
                     intent.putExtra("informedConsentId",viewModel.talkResultId.value)
                     intent.putExtra("startTime",viewModel.talk.value?.startTime)
                     intent.putExtra("endTime",viewModel.talk.value?.endTime)
+                    intent.putExtra("allTime",viewModel.talk.value?.allTime)
                     setResult(RESULT_OK, intent)
                     finish()
                 }

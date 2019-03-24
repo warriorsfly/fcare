@@ -363,7 +363,6 @@
                             android:gravity="right"
                             app:layout_constraintLeft_toRightOf="@+id/title4_1"
                             android:textSize="13sp"
-                            android:text="@{thrombolysis.throm_Drug_Name}"
                             tools:text="阿司匹林阿司匹林阿司阿司匹林"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"/>
@@ -387,7 +386,6 @@
                             app:layout_constraintTop_toTopOf="@+id/title4_2"
                             app:layout_constraintBottom_toBottomOf="@+id/title4_2"
                             android:textSize="13sp"
-                            android:text="@{thrombolysis.throm_Drug_Dose}"
                             tools:text="半量"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
