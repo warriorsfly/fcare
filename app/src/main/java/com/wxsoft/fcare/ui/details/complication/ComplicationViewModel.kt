@@ -75,7 +75,7 @@ class ComplicationViewModel @Inject constructor(private val api: DictEnumApi,
 
 
     fun getComplicationItems(){
-        disposable.add(api.loadComplication()
+        disposable.add(api.loadComplication(patientId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::loadComplicationItems,::error))

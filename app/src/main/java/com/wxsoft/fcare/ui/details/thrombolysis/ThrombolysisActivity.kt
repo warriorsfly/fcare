@@ -18,6 +18,8 @@ import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Pharmacy
+import com.wxsoft.fcare.core.data.entity.drug.Drug
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityThrombolysisBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -27,6 +29,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
+import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -76,6 +79,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     lateinit var factory: ViewModelFactory
 
     lateinit var binding: ActivityThrombolysisBinding
+    lateinit var drugAdapter: ThrombolysisDrugsAdapter
 
     private lateinit var placeDialog: Dialog
 
@@ -101,10 +105,18 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         back.setOnClickListener { onBackPressed() }
 
 //        viewModel.loadThrombolysis(thrombolysisId)
-        viewModel.thrombolysis.observe(this, Observer {  })
-        viewModel.loadThrombolysis(id)
+
+//        viewModel.loadThrombolysis(id)
 
         viewModel.informed.observe(this, Observer {  })
+
+        drugAdapter = ThrombolysisDrugsAdapter(this,viewModel)
+        binding.medicalList.adapter = drugAdapter
+
+        viewModel.thrombolysis.observe(this, Observer {
+            drugAdapter.submitList(it.drugRecords)
+            viewModel.drugs = it.drugRecords
+        })
 
         viewModel.clickLine.observe(this, Observer {
             when(it){
@@ -118,6 +130,10 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 }
                 "drugs" -> toDrugs()
                 "complication" -> toComplication()
+                "refreshDrugs" -> {
+                    drugAdapter.submitList(viewModel.drugs)
+//                    viewModel.thrombolysis.value?.drugRecords = viewModel.drugs
+                }
             }
         })
 
@@ -168,19 +184,19 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     }
 
     private fun toSeeInformedConsent(){
-        val intent = Intent(this@ThrombolysisActivity, InformedConsentDetailsActivity::class.java).apply {
-            putExtra(InformedConsentDetailsActivity.PATIENT_ID,patientId)
-            putExtra(InformedConsentDetailsActivity.TALK_ID,viewModel.thrombolysis.value?.informedConsentId)
-            putExtra(InformedConsentDetailsActivity.TALK_NAME,viewModel.informed.value?.name)
-            putExtra(InformedConsentDetailsActivity.INFORMED_ID,viewModel.informed.value?.id)
+        val intent = Intent(this@ThrombolysisActivity, AddInformedActivity::class.java).apply {
+            putExtra(AddInformedActivity.PATIENT_ID,patientId)
+            putExtra(AddInformedActivity.TALK_ID,viewModel.thrombolysis.value?.informedConsentId)
+            putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
+            putExtra(AddInformedActivity.INFORMED_ID,viewModel.informed.value?.id)
+            putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
         }
-        startActivity(intent)
+        startActivityForResult(intent, ThrombolysisActivity.INFORMED_CONSENT)
     }
 
     private fun toDrugs(){
-        val intent = Intent(this@ThrombolysisActivity, PharmacyActivity::class.java).apply {
-            putExtra(PharmacyActivity.PATIENT_ID,patientId)
-            putExtra(PharmacyActivity.COME_FROM,"THROMBOLYSIS")
+        val intent = Intent(this, SelectDrugsActivity::class.java).apply {
+            putExtra(SelectDrugsActivity.PATIENT_ID, patientId)
         }
         startActivityForResult(intent, ThrombolysisActivity.DRUG)
     }
@@ -201,12 +217,26 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                     viewModel.thrombolysis.value?.informedConsentId = data?.getStringExtra("informedConsentId")?:""
                     viewModel.thrombolysis.value?.start_Agree_Time = data?.getStringExtra("startTime")?:""
                     viewModel.thrombolysis.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
+//                    viewModel.thrombolysis.value?.allTime = data?.getStringExtra("allTime")?:""
 
                 }
                 ThrombolysisActivity.DRUG ->{//用药
-                    val pharmacy = data?.getSerializableExtra("drugRecords") as Pharmacy
-                    viewModel.thrombolysis.value?.drugRecords = emptyList()
-                    viewModel.thrombolysis.value?.drugRecords = pharmacy.drugRecordDetails
+                    var arr =  viewModel.thrombolysis.value?.drugRecords?.map { it }?: emptyList()
+                    val drugs = data?.getSerializableExtra("selectedDrugs") as ArrayList<Drug>
+                    val dlist = drugs.map { DrugRecord(it.id).apply {
+                        drugName = it.name
+                        dose = it.dose
+                        doseUnit = it.doseUnit
+                        drugId = it.id
+                    } }as ArrayList<DrugRecord>
+                    dlist.addAll(arr.filter { !dlist.contains(it) })
+                    viewModel.thrombolysis.value?.drugRecords = dlist
+                    viewModel.drugs = dlist
+                    drugAdapter.submitList(dlist)
+                }
+                ThrombolysisActivity.COMPLICATION ->{//并发症
+                    val otherIlls = data?.getStringExtra("otherIlls")
+                    binding.ohterIll.setText(otherIlls)
                 }
 
             }

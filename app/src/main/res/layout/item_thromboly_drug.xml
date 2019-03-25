@@ -5,8 +5,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="com.wxsoft.fcare.utils.Converter"/>
-        <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.DrugHistory"/>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryViewModel"/>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.DrugRecord"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,15 +34,15 @@
                     android:textColor="@color/small_title_text_gray"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="60dp"
-                    android:text="@{item.name}"
+                    android:text="@{item.drugName}"
                     tool:text="阿司匹林"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 
             <ImageView
-                    android:onClick="@{()->viewModel.subdelow(item)}"
                     android:id="@+id/ic_subtract"
+                    android:onClick="@{()->viewModel.subdelow(item)}"
                     app:layout_constraintLeft_toLeftOf="@+id/drug_name"
                     app:layout_constraintTop_toBottomOf="@+id/drug_name"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -73,8 +73,8 @@
             />
 
             <ImageView
-                    android:onClick="@{()->viewModel.add(item)}"
                     android:id="@+id/ic_add"
+                    android:onClick="@{()->viewModel.add(item)}"
                     app:layout_constraintLeft_toRightOf="@+id/drug_num"
                     app:layout_constraintTop_toBottomOf="@+id/drug_name"
                     app:layout_constraintBottom_toBottomOf="parent"

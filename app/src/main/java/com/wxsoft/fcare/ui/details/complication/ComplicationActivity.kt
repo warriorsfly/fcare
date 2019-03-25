@@ -1,10 +1,12 @@
 package com.wxsoft.fcare.ui.details.complication
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Complication
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -48,6 +50,15 @@ class ComplicationActivity : BaseActivity() {
 
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
+            Intent().let { intent->
+                var illStr = ""
+                viewModel.items.value?.filter {it.checked }?.map {
+                    if (illStr.isNullOrEmpty()) illStr = it.itemName else illStr = illStr + "、" + it.itemName
+                }
+                intent.putExtra("otherIlls",illStr)
+                setResult(RESULT_OK, intent)
+                finish()
+            }
         })
 
         back.setOnClickListener { onBackPressed() }

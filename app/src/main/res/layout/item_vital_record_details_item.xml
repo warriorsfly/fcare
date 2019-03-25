@@ -12,6 +12,12 @@
             android:onClick="@{()->viewModel.clickVital(item)}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+        <View
+                android:background="@color/line_gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"/>
 
         <TextView
                 android:id="@+id/consciousness_title"
@@ -308,13 +314,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <View android:layout_width="match_parent"
-              android:layout_height="0.5dp"
-              android:background="@color/line_gray"
-              app:layout_constraintLeft_toLeftOf="parent"
-              app:layout_constraintBottom_toBottomOf="parent"/>
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

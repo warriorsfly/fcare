@@ -103,11 +103,15 @@ class AddInformedActivity : BaseActivity() {
         binding.informedContent.text = informedConten
 
 
+
+
         back.setOnClickListener { onBackPressed() }
 
 
-        viewModel.talk.observe(this, Observer {})
+
         viewModel.talkResultId.observe(this, Observer {})
+
+        viewModel.loadTalk()
 
         viewModel.backToLast.observe(this, Observer {
             if (comeFrom == "THROMBOLYSIS"){
@@ -115,11 +119,15 @@ class AddInformedActivity : BaseActivity() {
                     intent.putExtra("informedConsentId",viewModel.talkResultId.value)
                     intent.putExtra("startTime",viewModel.talk.value?.startTime)
                     intent.putExtra("endTime",viewModel.talk.value?.endTime)
+                    intent.putExtra("allTime",viewModel.talk.value?.allTime)
                     setResult(RESULT_OK, intent)
                     finish()
                 }
             }else{
-                finish()
+                Intent().let { intent->
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
             }
 
         })
@@ -132,6 +140,12 @@ class AddInformedActivity : BaseActivity() {
         adapter.locals= emptyList()
         informed_attachments.adapter=adapter
 
+        viewModel.talk.observe(this, Observer {
+            if (it != null){
+                adapter.remotes = it.attachments.map { it.httpUrl }
+                viewModel.title = it.informedConsentName
+            }
+        })
 
         viewModel.clickStr.observe(this, Observer {
             when(it){

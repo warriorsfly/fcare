@@ -120,6 +120,7 @@
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/search_placeholder">
                 <androidx.recyclerview.widget.RecyclerView
+                        android:background="#E7E4F2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:id="@+id/list"

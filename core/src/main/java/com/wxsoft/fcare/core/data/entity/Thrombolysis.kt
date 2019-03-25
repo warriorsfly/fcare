@@ -5,6 +5,7 @@ import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 
 class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     /**
@@ -114,6 +115,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     var start_Agree_Time:String?=null
         set(value) {
             field=value
+            getInformedTime()
             notifyPropertyChanged(BR.start_Agree_Time)
         }
 
@@ -124,7 +126,18 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     var sign_Agree_Time:String?=null
         set(value) {
             field=value
+            getInformedTime()
             notifyPropertyChanged(BR.sign_Agree_Time)
+        }
+    /**
+     *  知情同意书总计时间
+     */
+    @Bindable
+    @Transient
+    var allTime:String?=null
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.allTime)
         }
 
     /**
@@ -163,23 +176,6 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 //            field=value
 //            notifyPropertyChanged(BR.throm_Drug_Type)
 //        }
-    /**
-     * 溶栓药物类别代码  字典：25
-     */
-    @Bindable
-    @Transient
-    var throm_Drug_Name:String=""
-        set(value) {
-            field=value
-            notifyPropertyChanged(BR.throm_Drug_Name)
-        }
-    @Bindable
-    @Transient
-    var throm_Drug_Dose:String=""
-        set(value) {
-            field=value
-            notifyPropertyChanged(BR.throm_Drug_Dose)
-        }
 
     /**
      *  剂量代码  字典：26
@@ -261,11 +257,6 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     var drugRecords:List<DrugRecord> = emptyList()
         set(value){
             field=value
-            throm_Drug_Name = ""
-            value.map {
-                throm_Drug_Name = if (throm_Drug_Name.isEmpty()) it.drugName else throm_Drug_Name+"、"+it.drugName
-                throm_Drug_Dose = if (throm_Drug_Dose.isEmpty()) it.dose.toString() else throm_Drug_Dose+"、"+it.dose.toString()
-            }
             notifyPropertyChanged(BR.drugRecords)
         }
 
@@ -277,16 +268,15 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.createdDate)
         }
 
+    fun getInformedTime(){
+        if(start_Agree_Time.isNullOrEmpty()|| sign_Agree_Time.isNullOrEmpty()) return
+        allTime = DateTimeUtils.getAAfromBBMinutes(start_Agree_Time!!, sign_Agree_Time!!) + "分钟"
 
+    }
 
     fun setUpChecked(){
         hasDirect = direct == "1"
-        if (!drugRecords.isNullOrEmpty()){
-            drugRecords.map {
-                throm_Drug_Name = if (throm_Drug_Name.isEmpty()) it.drugName else throm_Drug_Name+"、"+it.drugName
-                throm_Drug_Dose = if (throm_Drug_Dose.isEmpty()) it.dose.toString() else throm_Drug_Dose+"、"+it.dose.toString()
-            }
-        }
+        getInformedTime()
     }
 
     fun setPlaceCheck(comefrom:String){

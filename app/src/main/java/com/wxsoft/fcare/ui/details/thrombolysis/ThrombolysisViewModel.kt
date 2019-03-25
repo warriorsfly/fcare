@@ -7,14 +7,17 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Thrombolysis
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.ThrombolysisApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
-import com.wxsoft.fcare.core.utils.map
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: ThrombolysisApi,
@@ -33,6 +36,8 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         value=true
     }
 
+    var drugs:List<DrugRecord> = emptyList()
+
     /**
      * 病人id
      */
@@ -40,6 +45,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         set(value) {
             if (value == "") return
             field = value
+            loadThrombolysis(value)
         }
 
     var comefrom: String = ""
@@ -61,7 +67,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     private val initModifySome =  MediatorLiveData<String>()
 
     val thrombolysis:LiveData<Thrombolysis>
-    private val loadThrombolysis = MediatorLiveData<Resource<Response<Thrombolysis>>>()
+    private val loadThrombolysis = MediatorLiveData<Thrombolysis>()
 
     val thromPlaces:LiveData<List<Dictionary>>
     private val loadThromPlaces = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -73,14 +79,12 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
         clickable = clickResult.map { it }
-        thrombolysis = loadThrombolysis.map { (it as? Resource.Success)?.data?.result ?: Thrombolysis("") }
+        thrombolysis = loadThrombolysis.map { it?: Thrombolysis("") }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
-
         loadPlaces()
         getInformedConsent()
     }
-
 
     private fun loadPlaces(){
         dictEnumApi.loadThromPlaces().toResource()
@@ -96,11 +100,19 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             loadThrombolysis.value = null
             return
         }
-        thrombolysisApi.loadThrombolysis(id).toResource()
-            .subscribe {
-                loadThrombolysis.value = it
-                thrombolysis.value?.setUpChecked()
-            }
+        disposable.add(thrombolysisApi.loadThrom(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getThrom,::error))
+    }
+
+    private fun getThrom(response: Response<List<Thrombolysis>>){
+        if (response.result!!.isNotEmpty()){
+            loadThrombolysis.value = response.result?.first()
+            thrombolysis.value?.setUpChecked()
+        }else{
+            loadThrombolysis.value = null
+        }
     }
 
     //获取溶栓知情同意书内容
@@ -117,7 +129,6 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             when(line){
                 1 -> loadClickLine.value = "place"
             }
-
         }
     }
 
@@ -172,6 +183,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
 
     override fun click() {
         thrombolysis.value?.patientId = patientId
+        thrombolysis.value!!.drugRecords = drugs
         thrombolysisApi.save(thrombolysis.value!!).toResource()
             .subscribe {
                 when(it){
@@ -181,6 +193,27 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
                 }
 
             }
+    }
+
+    fun subdelow(item: DrugRecord){
+        if (item.dose ==0){
+            item.dose = 0
+        }  else {
+            if (item.dose != 0) item.dose = (item.dose - 1) else item.dose = 0
+        }
+    }
+
+    fun add(item: DrugRecord){
+        if (item.dose == 0){
+            item.dose = 1
+        }  else {
+            if (item.dose != 0) item.dose = (item.dose + 1) else item.dose = 1
+        }
+    }
+
+    fun deleteDrug(item: DrugRecord){
+        drugs = drugs.filter { it.id!= item.id }
+        loadClickLine.value = "refreshDrugs"
     }
 
 }

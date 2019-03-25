@@ -55,6 +55,7 @@
                             android:padding="15dp"
                             android:textSize="14sp"
                             android:layout_marginTop="15dp"
+                            android:text="@{viewModel.informedConsent.content}"
                             tools:text="知情同意书内容"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/inforemed_title"

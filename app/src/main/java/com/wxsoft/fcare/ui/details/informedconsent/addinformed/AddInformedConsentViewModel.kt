@@ -44,8 +44,6 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
 
     var titleName: String = ""
 
-    var voicePath: String = ""
-
     var patientsId: String = ""
         set(value) {
             if (value == "") return
@@ -55,7 +53,6 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         set(value) {
             if (value == "") return
             field = value
-            loadTalk()
         }
 
     var informedContenId: String = ""
@@ -108,14 +105,18 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         initVoiceStart.value = false
         clickable=clickResult.map { it }
         informedConsent = initInformedConsent.map { it.result?: InformedConsent("") }
-        talk = initTalk.map { it.result?: Talk("") }
+        talk = initTalk.map { it?.result?: Talk("") }
     }
 
-    private fun loadTalk(){
-        disposable.add(informedApi.getTalkById(talkId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (::getTheTalk,::error))
+    fun loadTalk(){
+        if (talkId.isNullOrEmpty()){
+            initTalk.value = null
+        }else{
+            disposable.add(informedApi.getTalkById(talkId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (::getTheTalk,::error))
+        }
     }
 
     fun getTheTalk(response: Response<Talk>){
@@ -127,7 +128,6 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
 
         if (saveAble){
             saveAble = false
-            if (voicePath.isNotEmpty()) bitmaps.add(voicePath)
             val files = bitmaps.map {
                 val file = File(it)
                 return@map MultipartBody.Part.createFormData(

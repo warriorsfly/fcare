@@ -58,15 +58,6 @@ class SelectDiagnoseActivity : BaseActivity() {
         viewModel.sonItems.observe(this, Observer { sondiagnoseAdapter.items = it ?: emptyList() })
         binding.secondList.adapter = sondiagnoseAdapter
 
-        viewModel.startConduitRoom.observe(this, Observer {
-            startConduitRoom()
-        })
-
-        viewModel.startCT.observe(this, Observer {
-            startCT()
-        })
-
-
         viewModel.getDiagnose()
 
         viewModel.diagnosis.observe(this, Observer {  })
@@ -85,27 +76,4 @@ class SelectDiagnoseActivity : BaseActivity() {
 
     }
 
-
-    private fun startConduitRoom(){
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
-            .setMessage("通知院内启动导管室？")
-            .setPositiveButton("确定") { _, _ ->
-                viewModel.commitNoticeInv()
-            }
-            .setNegativeButton("取消") { _, _ ->
-
-            }.show()
-    }
-
-
-    private fun startCT(){
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
-            .setMessage("通知院内CT室？")
-            .setPositiveButton("确定") { _, _ ->
-                viewModel.commitNoticePacs()
-            }
-            .setNegativeButton("取消") { _, _ ->
-
-            }.show()
-    }
 }
