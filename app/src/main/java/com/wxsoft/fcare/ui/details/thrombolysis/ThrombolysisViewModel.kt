@@ -36,7 +36,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         value=true
     }
 
-    var drugs:List<DrugRecord> = emptyList()
+    var drugs = mutableListOf<DrugRecord>()
 
     /**
      * 病人id
@@ -212,7 +212,8 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
     fun deleteDrug(item: DrugRecord){
-        drugs = drugs.filter { it.id!= item.id }
+//        val drus=drugs.filter { it.id!= item.id }
+        drugs.remove(item)
         loadClickLine.value = "refreshDrugs"
     }
 
