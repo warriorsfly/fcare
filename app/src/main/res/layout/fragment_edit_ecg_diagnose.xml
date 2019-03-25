@@ -5,21 +5,25 @@
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.ecg.EcgViewModel"/>
     </data>
 
-    <LinearLayout
+    <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:elevation="8dp"
-        android:background="@color/light_gray"
+        android:id="@+id/container"
+        android:background="@color/light_gray">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <com.google.android.material.appbar.AppBarLayout
-                android:id="@+id/appbar"
-                style="@style/Widget.AppBar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fitsSystemWindows="true">
+            android:id="@+id/appbar"
+            style="@style/Widget.AppBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
@@ -33,27 +37,52 @@
                 app:title="判读"/>
         </com.google.android.material.appbar.AppBarLayout>
 
+
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:layout_marginTop="12dp"
+            android:paddingLeft="16dp"
+            android:paddingTop="11dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="11dp"
             android:text="@string/ecg_property_title"
         />
-    <androidx.recyclerview.widget.RecyclerView
+    <com.google.android.material.chip.ChipGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list"
-        android:minHeight="300dp"
-        android:background="@color/white"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        android:minHeight="200dp"
+        android:background="@color/white"/>
 
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="添加"
+                android:id="@+id/add"
+                android:textColor="@color/colorPrimary"
+                android:drawableLeft="@drawable/ic_add_24dp"
+                android:drawableTint="@color/colorPrimary"
+                android:background="@color/white"
+                android:paddingLeft="16dp"
+                android:paddingTop="11dp"
+                android:gravity="center_vertical"
+                android:paddingBottom="11dp"
+        />
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/line_gray"/>
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ecg_memo_title"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingTop="11dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="11dp"
         />
         <EditText
             android:layout_width="match_parent"
@@ -62,5 +91,5 @@
             android:background="@null"
         />
     </LinearLayout>
-
+    </FrameLayout>
 </layout>

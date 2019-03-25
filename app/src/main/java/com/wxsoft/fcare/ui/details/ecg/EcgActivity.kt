@@ -93,6 +93,13 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
         start.setOnClickListener {
             supportFragmentManager.inTransaction {
+
+                setCustomAnimations(
+                    R.animator.left_enter,
+                    R.animator.left_exit,
+                    R.animator.right_enter,
+                    R.animator.right_exit)
+                addToBackStack(null)
                 add(R.id.fragment_container, fragment)
             }
         }
@@ -288,5 +295,27 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
                 start()
             }
         }
+    }
+
+    override fun onBackPressed() {
+
+        if(fragment.isAdded) {
+            fragment.childFragmentManager.also {
+                if (it.popBackStackImmediate()) {
+                    it.popBackStack()
+                } else {
+                    if (supportFragmentManager.popBackStackImmediate()) {
+                        supportFragmentManager.popBackStack()
+                    } else {
+                        super.onBackPressed()
+                    }
+                }
+            }
+        }else{
+            super.onBackPressed()
+        }
+
+
+
     }
 }

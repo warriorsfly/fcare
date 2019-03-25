@@ -2,16 +2,14 @@ package com.wxsoft.fcare.ui.details.complaints
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.databinding.ItemComplaintsOnlyNameBinding
 
-class ComplaintsAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: ComplaintsViewModel) :
+class ComplaintsAdapter constructor(private val owner: LifecycleOwner, val viewModel: ComplaintsViewModel) :
     RecyclerView.Adapter<ComplaintsAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Dictionary>(this, DiffCallback)
@@ -31,7 +29,7 @@ class ComplaintsAdapter constructor(private val lifecycleOwner: LifecycleOwner, 
         holder.binding.apply {
             item  = differ.currentList[position]
             listener = viewModel
-            lifecycleOwner = this@ComplaintsAdapter.lifecycleOwner
+            lifecycleOwner = owner
             executePendingBindings()
 
         }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
 import com.wxsoft.fcare.ui.details.ecg.fragment.EcgEditFragment
+import com.wxsoft.fcare.ui.details.ecg.fragment.EcgItemListFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -20,4 +21,8 @@ internal abstract class EcgModule {
     @ChildFragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeEcgEditFragment(): EcgEditFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeEcgItemFragment(): EcgItemListFragment
 }

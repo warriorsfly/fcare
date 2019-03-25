@@ -203,7 +203,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                             emr.result = vitals.result
                             if (!emr.done) {
                                 emr.done = true
-                                emr.completedAt = vitals.result?.lastOrNull()?.createdDate
+//                                emr.completedAt = vitals.result?.lastOrNull()?.items
                             }
                             val index =
                                 loadEmrResult.value?.result?.indexOf(emr)
@@ -322,7 +322,7 @@ class EmrViewModel @Inject constructor(private val emrApi: EmrApi,
                         .observeOn(AndroidSchedulers.mainThread()).subscribe({ complaints ->
                             if (complaints.result.isNullOrEmpty()) return@subscribe
                             emr.result = complaints.result
-                            if (complaints.result!!.size<=0)return@subscribe
+                            if (complaints.result!!.isEmpty())return@subscribe
                             if (!emr.done) {
                                 emr.done = true
                                 emr.completedAt = complaints.result?.last()?.createdDate

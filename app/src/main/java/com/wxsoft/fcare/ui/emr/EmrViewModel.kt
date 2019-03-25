@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.data.entity.EmrItem
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -82,6 +83,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionType.GRACE-> loadRating(pair.first)
             ActionType.DispostionMeasures-> loadMeasure(pair.first)
             ActionType.给药-> loadDrugList(pair.first)
+            ActionType.诊断-> loadDiagnosis(pair.first)
         }
     }
 
@@ -108,8 +110,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                setResultAtIndex(it)},::error))
+            .subscribe(::setResultAtIndex,::error))
     }
 
     /**
@@ -120,8 +121,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                setResultAtIndex(it)},::error))
+            .subscribe(::setResultAtIndex,::error))
     }
 
     /**
@@ -132,8 +132,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                setResultAtIndex(it)},::error))
+            .subscribe(::setResultAtIndex,::error))
     }
 
     /**
@@ -144,8 +143,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                setResultAtIndex(it)},::error))
+            .subscribe(::setResultAtIndex,::error))
     }
 
     /**
@@ -156,9 +154,29 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .map { Pair(index,it) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                setResultAtIndex(it)},::error))
+            .subscribe(::setResultAtIndex,::error))
     }
+
+    /**
+     * 获取病人病情诊断
+     */
+    private fun loadDiagnosis(index:Int){
+        disposable.add(api.getDiagnosisList(patientId)
+            .map {
+//                val item=it.result?.lastOrNull()?.let {
+//                        diagnosis->
+//                    Response<Diagnosis>(true ).apply{
+//                        result=diagnosis
+//                    }
+//                }?:it
+                Pair(index,it)
+            }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::setResultAtIndex,::error))
+    }
+
+
 
 
 }

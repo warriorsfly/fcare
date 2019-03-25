@@ -65,6 +65,11 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                     ItemEmrHeaderBinding.inflate(inflater,parent,false)
                         .apply {lifecycleOwner=owner},itemClick)
             }
+            R.layout.item_new_emr_diagnose_result->{
+                ItemViewHolder.DiagnoseViewHolder(
+                    ItemNewEmrDiagnoseResultBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
 
             else->{
                 ItemViewHolder.BaseInfoViewHolder(
@@ -122,6 +127,14 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 }
             }
 
+            is ItemViewHolder.DiagnoseViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    diag=item?.result  as? Diagnosis
+                    executePendingBindings()
+                }
+            }
+
             is ItemViewHolder.HeadViewHolder->{
                 holder.binding.apply {
                     item=emr
@@ -156,6 +169,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 ActionType.GRACE -> R.layout.item_new_emr_rating_list
                 ActionType.DispostionMeasures -> R.layout.item_new_emr_measure_list
                 ActionType.给药 -> R.layout.item_new_emr_drug_list
+                ActionType.诊断 -> R.layout.item_new_emr_diagnose_result
                 else -> 0
             }
         }
@@ -213,6 +227,22 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
         class DrugViewHolder(
             override val binding: ItemNewEmrDrugListBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.let {
+                                click(it.code)
+                            }
+                        }
+                }
+            }
+        }
+
+        class DiagnoseViewHolder(
+            override val binding: ItemNewEmrDiagnoseResultBinding,
             override val click:(String)->Unit
         ) : ItemViewHolder(binding,click){
             init {
