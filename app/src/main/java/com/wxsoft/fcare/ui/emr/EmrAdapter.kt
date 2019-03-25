@@ -21,7 +21,9 @@ import com.wxsoft.fcare.ui.rating.RatingAdapter
 import com.wxsoft.fcare.utils.ActionType
 
 
-class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemClick:(String)->Unit) : ListAdapter<EmrItem, EmrAdapter.ItemViewHolder>(DiffCallback) {
+class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemClick:(String)->Unit,private val isHeader:Boolean=false) : ListAdapter<EmrItem, EmrAdapter.ItemViewHolder>(DiffCallback) {
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
@@ -56,6 +58,11 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             R.layout.item_new_emr_drug_list->{
                 ItemViewHolder.DrugViewHolder(
                     ItemNewEmrDrugListBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+            R.layout.item_emr_header->{
+                ItemViewHolder.HeadViewHolder(
+                    ItemEmrHeaderBinding.inflate(inflater,parent,false)
                         .apply {lifecycleOwner=owner},itemClick)
             }
 
@@ -115,6 +122,13 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 }
             }
 
+            is ItemViewHolder.HeadViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    executePendingBindings()
+                }
+            }
+
             is ItemViewHolder.DrugViewHolder->{
                 holder.binding.apply {
                     item=emr
@@ -133,19 +147,37 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
     override fun getItemViewType(position: Int): Int {
 //        return  R.layout.item_new_emr_patient_info
 
-        return when(getItem(position).code){
-            ActionType.患者信息录入-> R.layout.item_new_emr_patient_info
-            ActionType.生命体征-> R.layout.item_new_emr_vital_list
-            ActionType.GRACE-> R.layout.item_new_emr_rating_list
-            ActionType.DispostionMeasures-> R.layout.item_new_emr_measure_list
-            ActionType.给药-> R.layout.item_new_emr_drug_list
-            else->0
+        return if(isHeader)
+            R.layout.item_emr_header
+            else {
+            when (getItem(position).code) {
+                ActionType.患者信息录入 -> R.layout.item_new_emr_patient_info
+                ActionType.生命体征 -> R.layout.item_new_emr_vital_list
+                ActionType.GRACE -> R.layout.item_new_emr_rating_list
+                ActionType.DispostionMeasures -> R.layout.item_new_emr_measure_list
+                ActionType.给药 -> R.layout.item_new_emr_drug_list
+                else -> 0
+            }
         }
     }
 
     sealed class ItemViewHolder(open val binding: ViewDataBinding,open val click:(String)->Unit) :
         RecyclerView.ViewHolder(binding.root) {
 
+        class HeadViewHolder(
+            override val binding:ItemEmrHeaderBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.setOnClickListener {
+                            item?.let {
+                                click(it.code)
+                            }
+                        }
+                }
+            }
+        }
 
         class BaseInfoViewHolder(
             override val binding: ItemNewEmrPatientInfoBinding,

@@ -7,31 +7,34 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('/Users/allen/Work/wxsoft/fcare/key')
+            storePassword '123456'
+            keyAlias = 'key0'
+            keyPassword '123456'
+        }
+    }
     dataBinding { enabled = true }
     compileSdkVersion 'android-Q'
     defaultConfig {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44398/api/"'
+        signingConfig signingConfigs.release
 //        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.0.190:5001/api/"'
 
 
     }
 
-//    lintOptions {
-//        checkReleaseBuilds false
-//        // Or, if you prefer, you can continue to check for errors in release builds,
-//        // but continue the build even when errors are found:
-//        abortOnError false
-//    }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             ndk {

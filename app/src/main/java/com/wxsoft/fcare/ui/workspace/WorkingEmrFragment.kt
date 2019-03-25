@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -18,7 +19,20 @@ import com.wxsoft.fcare.utils.ActionType
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class WorkingEmrFragment : DaggerFragment() {
+class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
+    override fun onDrawerStateChanged(newState: Int) {
+    }
+
+    override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+
+    }
+
+    override fun onDrawerClosed(drawerView: View) {
+    }
+
+    override fun onDrawerOpened(drawerView: View) {
+
+    }
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -28,6 +42,7 @@ class WorkingEmrFragment : DaggerFragment() {
     private lateinit var viewModel: EmrViewModel
 
     private lateinit var adapter: EmrAdapter
+    private lateinit var headerAdapter: EmrAdapter
 
     var patientId=""
     set(value) {
@@ -41,8 +56,10 @@ class WorkingEmrFragment : DaggerFragment() {
 
         viewModel=activityViewModelProvider(factory)
         adapter= EmrAdapter(this@WorkingEmrFragment,::clickItem)
+        headerAdapter= EmrAdapter(this@WorkingEmrFragment,::clickItem,true)
         viewModel.emrs.observe(this, Observer {
             adapter.submitList(it)
+            headerAdapter.submitList(it)
         })
 
         viewModel.emrItemLoaded.observe(this,EventObserver{
@@ -52,8 +69,7 @@ class WorkingEmrFragment : DaggerFragment() {
         return  FragmentWorkingEmrBinding
             .inflate(inflater,container, false).apply {
                 list.adapter=this@WorkingEmrFragment.adapter
-
-//                drawer.addDrawerListener(this@WorkingEmrFragment)
+                drawer.addDrawerListener(this@WorkingEmrFragment)
             lifecycleOwner=this@WorkingEmrFragment
         }.root
 

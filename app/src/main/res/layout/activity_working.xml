@@ -13,70 +13,68 @@
         tools:context=".ui.workspace.WorkingActivity"
         android:fitsSystemWindows="true">
 
-        <!--<include layout="@layout/layout_new_title"-->
         <com.google.android.material.appbar.AppBarLayout
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                android:id="@+id/app_bar"
-                style="@style/Widget.AppBar"
-                android:background="@drawable/bg_process_title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:id="@+id/app_bar"
+            style="@style/Widget.AppBar"
+            android:background="@drawable/bg_process_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fitsSystemWindows="true">
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
+                android:layout_marginBottom="10dp"
+                app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/appbar"
-                        android:background="#63B0F8"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingTop="13.5dp"
-                        android:paddingBottom="13.5dp">
+                    android:id="@+id/appbar"
+                    android:background="#63B0F8"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="13.5dp"
+                    android:paddingBottom="13.5dp">
 
                     <TextView
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            android:textSize="18sp"
-                            android:textColor="@color/white"
-                            tools:text="返回"
-                            android:text="@{viewModel.patient.name}"
-                            android:id="@+id/back_away"
-                            android:layout_marginLeft="16dp"
-                            android:drawableTint="@color/white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:textSize="18sp"
+                        android:textColor="@color/white"
+                        tools:text="返回"
+                        android:text="@{viewModel.patient.name}"
+                        android:id="@+id/back_away"
+                        android:layout_marginLeft="16dp"
+                        android:drawableTint="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                     <ImageView
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            android:textColor="#131D35"
-                            android:id="@+id/time_line"
-                            android:src="@drawable/ic_clock"
-                            android:layout_marginRight="16dp"
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"/>
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textColor="#131D35"
+                        android:id="@+id/time_line"
+                        android:src="@drawable/ic_clock"
+                        android:layout_marginRight="16dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"/>
 
                     <TextView
-                            android:id="@+id/notification"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/time_line"
-                            android:textColor="@color/white"
-                            android:text="通知"
-                            android:drawableLeft="@drawable/ic_call_phone"
-                            android:layout_marginRight="16dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
+                        android:id="@+id/notification"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/time_line"
+                        android:textColor="@color/white"
+                        android:text="通知"
+                        android:drawableLeft="@drawable/ic_call_phone"
+                        android:layout_marginRight="16dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -84,97 +82,96 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:layout_marginTop="53dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="16dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="117dp"
-                        app:cardElevation="2dp"
-                        android:translationZ="1dp"
-                        app:cardUseCompatPadding="true"
-                        android:id="@+id/patient_info"
-                        app:cardBackgroundColor="@color/white">
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginTop="53dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="117dp"
+                    app:cardElevation="2dp"
+                    android:translationZ="1dp"
+                    app:cardUseCompatPadding="true"
+                    android:id="@+id/patient_info"
+                    app:cardBackgroundColor="@color/white">
                     <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_marginBottom="10dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
 
                         <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                tools:text="发病计时"
-                                android:text="发病计时"
-                                android:id="@+id/time_title"
-                                android:paddingLeft="8dp"
-                                android:paddingRight="8dp"
-                                android:paddingTop="4dp"
-                                android:paddingBottom="4dp"
-                                android:background="@drawable/bg_conor_black"
-                                android:drawableLeft="@drawable/ic_black_clock"
-                                android:drawablePadding="8dp"
-                                android:layout_marginTop="11dp"
-                                android:layout_marginLeft="13.5dp"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            tools:text="发病计时"
+                            android:text="发病计时"
+                            android:id="@+id/time_title"
+                            android:paddingLeft="8dp"
+                            android:paddingRight="8dp"
+                            android:paddingTop="4dp"
+                            android:paddingBottom="4dp"
+                            android:background="@drawable/bg_conor_black"
+                            android:drawableLeft="@drawable/ic_black_clock"
+                            android:drawablePadding="8dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginLeft="13.5dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
                         <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="#63B0F8"
-                                android:textSize="15dp"
-                                tools:text="3分钟"
-                                android:text="@{viewModel.course+`分钟`}"
-                                android:id="@+id/time"
-                                android:paddingTop="3.5dp"
-                                android:paddingBottom="3.5dp"
-                                android:paddingLeft="12dp"
-                                android:paddingRight="12dp"
-                                android:layout_marginTop="11dp"
-                                android:layout_marginEnd="12.5dp"
-                                app:layout_constraintLeft_toRightOf="@id/time_title"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="#63B0F8"
+                            android:textSize="15dp"
+                            tools:text="3分钟"
+                            android:text="@{viewModel.course+`分钟`}"
+                            android:id="@+id/time"
+                            android:paddingTop="3.5dp"
+                            android:paddingBottom="3.5dp"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="12.5dp"
+                            app:layout_constraintLeft_toRightOf="@id/time_title"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
                         <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/white"
-                                tools:text="卒中"
-                                android:text="@{viewModel.patient.diagnosisName}"
-                                android:id="@+id/type"
-                                android:background="@drawable/bg_conor_red"
-                                android:paddingTop="3.5dp"
-                                android:paddingBottom="3.5dp"
-                                android:paddingLeft="12dp"
-                                android:paddingRight="12dp"
-                                android:layout_marginTop="11dp"
-                                android:layout_marginEnd="12.5dp"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            tools:text="卒中"
+                            android:text="@{viewModel.patient.diagnosisName}"
+                            android:id="@+id/type"
+                            android:background="@drawable/bg_conor_red"
+                            android:paddingTop="3.5dp"
+                            android:paddingBottom="3.5dp"
+                            android:paddingLeft="12dp"
+                            android:paddingRight="12dp"
+                            android:layout_marginTop="11dp"
+                            android:layout_marginEnd="12.5dp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
 
 
 
                         <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/quality"
-                                app:layout_constraintTop_toBottomOf="@id/type"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                android:clipToPadding="false"
-                                android:nestedScrollingEnabled="false"
-                                android:orientation="vertical"
-                                android:paddingHorizontal="@dimen/margin_normal"
-                                android:paddingVertical="@dimen/margin_normal"
-                                android:scrollbarStyle="outsideOverlay"
-                                android:scrollbars="vertical"
-                                android:layout_width="match_parent"
-                                android:layout_height="80dp"
-                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                                app:spanCount="5"
-                                tools:listitem="@layout/item_time_quality"
-                        />
+                            android:id="@+id/quality"
+                            app:layout_constraintTop_toBottomOf="@id/type"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:clipToPadding="false"
+                            android:nestedScrollingEnabled="false"
+                            android:orientation="vertical"
+                            android:paddingHorizontal="@dimen/margin_normal"
+                            android:paddingVertical="@dimen/margin_normal"
+                            android:scrollbarStyle="outsideOverlay"
+                            android:scrollbars="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                            app:spanCount="5"
+                            tools:listitem="@layout/item_time_quality"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -184,29 +181,30 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-                app:layout_constraintTop_toBottomOf="@id/app_bar"
-                android:layout_width="match_parent"
-                android:layout_height="258dp"
-                android:id="@+id/operationView"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="4"
-                android:layout_marginTop="4dp"
-                tools:listitem="@layout/item_work_space_operation"/>
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="258dp"
+            android:id="@+id/operationView"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="4"
+            android:layout_marginTop="4dp"
+            tools:listitem="@layout/item_work_space_operation"/>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:elevation="2dp">
             <fragment
-                    android:id="@+id/emr_list"
-                    android:name="com.wxsoft.fcare.ui.workspace.WorkingEmrFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="bottom"
-                    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
-                    app:behavior_skipCollapsed="true"
-                    tools:layout="@layout/fragment_working_emr" />
+                android:id="@+id/emr_list"
+                android:name="com.wxsoft.fcare.ui.workspace.WorkingEmrFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+                app:behavior_skipCollapsed="true"
+                tools:layout="@layout/fragment_working_emr" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
