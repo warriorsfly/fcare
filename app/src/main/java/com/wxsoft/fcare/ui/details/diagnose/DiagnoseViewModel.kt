@@ -12,11 +12,12 @@ import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.InterventionApi
 import com.wxsoft.fcare.core.data.remote.PACSApi
 import com.wxsoft.fcare.core.data.toResource
-import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseApi,
@@ -70,12 +71,6 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     val showSonList:LiveData<Boolean>
     private val initShowSonList = MediatorLiveData<Boolean>()
 
-    val startConduitRoom:LiveData<Boolean>
-    private val initStartConduitRoom = MediatorLiveData<Boolean>()
-
-    val startCT:LiveData<Boolean>
-    private val initStartCT = MediatorLiveData<Boolean>()
-
     val diagnosis: LiveData<Diagnosis>
     private val loadDiagnosisResult = MediatorLiveData<Resource<Response<Diagnosis>>>()
 
@@ -84,14 +79,10 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
     val thoracalgiaItems: LiveData<List<Dictionary>>
     private val secItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-    private val loadthoracalgiaItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-    private val loadApoplexyResultItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+
 
     val sonItems: LiveData<List<Dictionary>>
-    private val loadsonItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-    private val loadnotACSItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-    private val loadOtherXTItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
-    private val loadInfarctItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+    private val loadsonItemsResult = MediatorLiveData<List<Dictionary>>()
 
     val illnessItems: LiveData<List<Dictionary>>
     private val loadIllnessItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -103,20 +94,14 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
         submitDiagnosis = loadSubmitDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
 
-        startConduitRoom = initStartConduitRoom.map { it }
-        startCT = initStartCT.map { it }
         showSonList = initShowSonList.map { it }
         diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis(createrId = account.id,createrName = account.trueName) }
         loadDiagnosisResult.value = null
         clickable = clickResult.map { it }
         thoracalgiaItems = secItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        sonItems = loadsonItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
+        sonItems = loadsonItemsResult.map { it?: emptyList() }
         illnessItems = loadIllnessItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
-        loadNotACS()
-        loadOtherXT()
         loadIllness()
-        loadInfarct()
-        loadApoplexyResultItems()
     }
 
 
@@ -128,28 +113,6 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             })
     }
 
-    private fun loadNotACS(){
-        disposable.add(dictEnumApi.loadDict27Diagnosis().toResource()
-            .subscribe{
-                loadnotACSItemsResult.value = it
-                havedata()
-            })
-    }
-
-    private fun loadOtherXT(){
-        disposable.add(dictEnumApi.loadConsciousness().toResource()
-            .subscribe{
-                loadOtherXTItemsResult.value = it
-                havedata()
-            })
-    }
-
-    private fun loadInfarct(){//脑梗死
-        disposable.add(dictEnumApi.loadInfarct().toResource()
-            .subscribe{
-                loadInfarctItemsResult.value = it
-            })
-    }
 
     private fun loadIllness(){
         disposable.add( dictEnumApi.loadIllnessResultItems().toResource()
@@ -159,13 +122,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             })
     }
 
-    private fun loadApoplexyResultItems(){
-        disposable.add(dictEnumApi.loadApoplexyResultItems().toResource()
-            .subscribe{
-                loadApoplexyResultItemsResult.value = it
-                havedata()
-            })
-    }
+
 
     fun getDiagnose(){
         disposable.add(diagnoseApi.getDiagnosis(id).toResource()
@@ -181,6 +138,18 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
                 loadDiagnosisResult.value = it
                 initbackToLast.value = "back"
             })
+    }
+
+
+    fun getSonList(id:String){
+        disposable.add(dictEnumApi.loadSonList(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadSonList,::error))
+    }
+
+    fun loadSonList(response:List<Dictionary>){
+        loadsonItemsResult.value = response
     }
 
 
@@ -223,32 +192,8 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     }
 
     fun selectDiagnose(item:Dictionary){
-
-        when(item.itemName){
-            "非ACS胸痛" -> {
-                loadsonItemsResult.value = loadnotACSItemsResult.value
-                initShowSonList.value = true
-            }
-            "非心源性胸痛" -> {
-                loadsonItemsResult.value = loadOtherXTItemsResult.value
-                initShowSonList.value = true
-            }
-            "脑梗死" ->{
-                loadsonItemsResult.value = loadInfarctItemsResult.value
-                initShowSonList.value = true
-            }
-            "主动脉夹层","肺动脉栓塞" ->{
-                initStartCT.value = true
-            }
-            "STEMI" ->{
-                initStartConduitRoom.value = true
-            }
-            else ->{
-                initShowSonList.value = false
-                loadsonItemsResult.value = null
-                diagnosis.value?.diagnosisCode3 = ""
-            }
-        }
+        getSonList(item.id)
+        initShowSonList.value = true
         checkDianose(item)
     }
 
@@ -267,37 +212,37 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
     }
 
-    fun commitNoticePacs(){
-        disposable.add(
-            pacsApi.notice(patientId,account.id).toResource()
-                .subscribe {
-
-                    when(it){
-                        is Resource.Success->{
-                            messageAction.value= Event("通知成功")
-                        }
-                        is Resource.Error->{
-                            messageAction.value=Event(it.throwable.message?:"")
-                        }
-                    }
-                }
-        )
-    }
-
-    fun commitNoticeInv(){
-        disposable.add(
-            interventionApi.notice(patientId,account.id).toResource()
-                .subscribe {
-
-                    when(it){
-                        is Resource.Success->{
-                            messageAction.value= Event("通知成功")
-                        }
-                        is Resource.Error->{
-                            messageAction.value=Event(it.throwable.message?:"")
-                        }
-                    }
-                }
-        )
-    }
+//    fun commitNoticePacs(){
+//        disposable.add(
+//            pacsApi.notice(patientId,account.id).toResource()
+//                .subscribe {
+//
+//                    when(it){
+//                        is Resource.Success->{
+//                            messageAction.value= Event("通知成功")
+//                        }
+//                        is Resource.Error->{
+//                            messageAction.value=Event(it.throwable.message?:"")
+//                        }
+//                    }
+//                }
+//        )
+//    }
+//
+//    fun commitNoticeInv(){
+//        disposable.add(
+//            interventionApi.notice(patientId,account.id).toResource()
+//                .subscribe {
+//
+//                    when(it){
+//                        is Resource.Success->{
+//                            messageAction.value= Event("通知成功")
+//                        }
+//                        is Resource.Error->{
+//                            messageAction.value=Event(it.throwable.message?:"")
+//                        }
+//                    }
+//                }
+//        )
+//    }
 }

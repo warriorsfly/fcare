@@ -96,7 +96,7 @@ class DateTimeUtils {
             val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
             var c=end-start
             c %= (3600 * 1000)
-            val minute=if(c>60*1000) String.format("%02d", c/60000)   else  "0"
+            val minute=if(c>60*1000) String.format("%d", c/60000)   else  "0"
             c %= (60 * 1000)
             return StringBuilder().append(minute).toString()
         }

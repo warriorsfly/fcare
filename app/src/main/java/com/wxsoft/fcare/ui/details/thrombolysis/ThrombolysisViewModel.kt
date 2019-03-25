@@ -67,7 +67,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     private val initModifySome =  MediatorLiveData<String>()
 
     val thrombolysis:LiveData<Thrombolysis>
-    private val loadThrombolysis = MediatorLiveData<Response<Thrombolysis>>()
+    private val loadThrombolysis = MediatorLiveData<Thrombolysis>()
 
     val thromPlaces:LiveData<List<Dictionary>>
     private val loadThromPlaces = MediatorLiveData<Resource<List<Dictionary>>>()
@@ -79,14 +79,12 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
         clickable = clickResult.map { it }
-        thrombolysis = loadThrombolysis.map { it?.result ?: Thrombolysis("") }
+        thrombolysis = loadThrombolysis.map { it?: Thrombolysis("") }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
-
         loadPlaces()
         getInformedConsent()
     }
-
 
     private fun loadPlaces(){
         dictEnumApi.loadThromPlaces().toResource()
@@ -108,9 +106,13 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             .subscribe (::getThrom,::error))
     }
 
-    private fun getThrom(response: Response<Thrombolysis>){
-        loadThrombolysis.value = response
-        thrombolysis.value?.setUpChecked()
+    private fun getThrom(response: Response<List<Thrombolysis>>){
+        if (response.result!!.isNotEmpty()){
+            loadThrombolysis.value = response.result?.first()
+            thrombolysis.value?.setUpChecked()
+        }else{
+            loadThrombolysis.value = null
+        }
     }
 
     //获取溶栓知情同意书内容
@@ -127,7 +129,6 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             when(line){
                 1 -> loadClickLine.value = "place"
             }
-
         }
     }
 
@@ -211,10 +212,8 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
     fun deleteDrug(item: DrugRecord){
-        drugs = thrombolysis.value!!.drugRecords?.filter { it.id!= item.id }
+        drugs = drugs.filter { it.id!= item.id }
         loadClickLine.value = "refreshDrugs"
     }
-
-
 
 }

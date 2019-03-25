@@ -115,6 +115,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
 
         viewModel.thrombolysis.observe(this, Observer {
             drugAdapter.submitList(it.drugRecords)
+            viewModel.drugs = it.drugRecords
         })
 
         viewModel.clickLine.observe(this, Observer {
@@ -129,7 +130,10 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 }
                 "drugs" -> toDrugs()
                 "complication" -> toComplication()
-                "refreshDrugs" -> drugAdapter.submitList(viewModel.drugs)
+                "refreshDrugs" -> {
+                    drugAdapter.submitList(viewModel.drugs)
+//                    viewModel.thrombolysis.value?.drugRecords = viewModel.drugs
+                }
             }
         })
 
@@ -185,8 +189,9 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
             putExtra(AddInformedActivity.TALK_ID,viewModel.thrombolysis.value?.informedConsentId)
             putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
             putExtra(AddInformedActivity.INFORMED_ID,viewModel.informed.value?.id)
+            putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
         }
-        startActivity(intent)
+        startActivityForResult(intent, ThrombolysisActivity.INFORMED_CONSENT)
     }
 
     private fun toDrugs(){

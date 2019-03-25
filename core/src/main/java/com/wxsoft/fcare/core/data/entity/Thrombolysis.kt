@@ -276,6 +276,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 
     fun setUpChecked(){
         hasDirect = direct == "1"
+        getInformedTime()
     }
 
     fun setPlaceCheck(comefrom:String){

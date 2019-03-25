@@ -143,7 +143,6 @@ class AddInformedActivity : BaseActivity() {
         viewModel.talk.observe(this, Observer {
             if (it != null){
                 adapter.remotes = it.attachments.map { it.httpUrl }
-                viewModel.getInformedConsentById(it.informedConsentId)
                 viewModel.title = it.informedConsentName
             }
         })

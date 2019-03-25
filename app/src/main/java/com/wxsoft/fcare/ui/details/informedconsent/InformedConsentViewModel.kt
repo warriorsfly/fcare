@@ -13,6 +13,8 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class InformedConsentViewModel @Inject constructor(private val informedApi: InformedApi,
@@ -45,7 +47,7 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
     private val addInitInformedConsent = MediatorLiveData<Boolean>()
 
     val talkRecords:LiveData<List<Talk>>
-    private val loadTalkRecordsResult = MediatorLiveData<Resource<Response<List<Talk>>>>()
+    private val loadTalkRecordsResult = MediatorLiveData<Response<List<Talk>>>()
 
     val informeds:LiveData<List<InformedConsent>>
     private val loadInformedsResult = MediatorLiveData<Resource<Response<List<InformedConsent>>>>()
@@ -54,7 +56,7 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
     init {
         talk = initTalk.map { it }
 
-        talkRecords = loadTalkRecordsResult.map { (it as? Resource.Success)?.data?.result?: emptyList() }
+        talkRecords = loadTalkRecordsResult.map { it?.result?: emptyList() }
         informeds = loadInformedsResult.map { (it as? Resource.Success)?.data?.result?: emptyList() }
 
         clickable=clickResult.map { it }
@@ -63,10 +65,14 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
 
 
     fun getTalkRecords(id:String){
-        informedApi.getTalkRecords(id).toResource()
-            .subscribe {
-                loadTalkRecordsResult.value = it
-            }
+        disposable.add(informedApi.getTalkRecords(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadTalkRecords,::error))
+    }
+
+    fun loadTalkRecords(response:Response<List<Talk>>){
+        loadTalkRecordsResult.value = response
     }
 
     fun getInformedConsents(){

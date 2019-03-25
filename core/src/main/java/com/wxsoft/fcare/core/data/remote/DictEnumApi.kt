@@ -30,6 +30,9 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/27")
     fun loadDict27Diagnosis(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/28")
+    fun loadDict28Diagnosis(): Maybe<List<Dictionary>>
+
     @GET("EnumDic/enumItems/20")
     fun loadConsciousness(): Maybe<List<Dictionary>>
 
@@ -109,8 +112,8 @@ interface DictEnumApi {
     /**
      * 并发症
      */
-    @GET("EnumDic/enumItems/224")
-    fun loadComplication(): Maybe<List<Dictionary>>
+    @GET("EnumDic/enumItems/224/{patientId}")
+    fun loadComplication(@Path("patientId")patientId:String): Maybe<List<Dictionary>>
 
     /**
      * 二级诊断病种 （根据病人id自动获取对应大病下的二级病种）
@@ -129,6 +132,12 @@ interface DictEnumApi {
      */
     @GET("EnumDic/enumItems/14/{patientId}")
     fun loadStrategys(@Path("patientId")id:String): Maybe<List<Dictionary>>
+
+    /**
+     * 子集诊断
+     */
+    @GET("EnumDic/enumChildItems/{currrentEnumItemId}")
+    fun loadSonList(@Path("currrentEnumItemId")currrentEnumItemId:String): Maybe<List<Dictionary>>
 
     /**
      * 常见心电诊断

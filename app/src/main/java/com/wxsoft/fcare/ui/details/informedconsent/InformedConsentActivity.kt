@@ -45,11 +45,11 @@ class InformedConsentActivity : BaseActivity()  {
         back.setOnClickListener { onBackPressed() }
 
         val adapter = InformedConsentAdapter(this,viewModel)
-        viewModel.talkRecords.observe(this, Observer { adapter.items = it ?: emptyList() })
         binding.informedList.adapter = adapter
 
         viewModel.getTalkRecords(patientId)
         viewModel.getInformedConsents()
+        viewModel.talkRecords.observe(this, Observer { adapter.items = it.toList() })
 
         viewModel.informeds.observe(this, Observer {  })
 
@@ -98,7 +98,6 @@ class InformedConsentActivity : BaseActivity()  {
                 100 ->{//
                     viewModel.getTalkRecords(patientId)
                 }
-
             }
         }
     }

@@ -46,7 +46,7 @@ class ThrombolysisDrugsAdapter constructor(private val owner: LifecycleOwner, va
 
         override fun areContentsTheSame(oldItem: DrugRecord, newItem: DrugRecord): Boolean {
 
-            return oldItem.id == newItem.id && oldItem.dose==newItem.dose
+            return oldItem.id == newItem.id
         }
     }
 }

@@ -29,7 +29,9 @@ class InformedConsentAdapter constructor(private val lifecycleOwner: LifecycleOw
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            setVariable(BR.item, differ.currentList[position])
+            val ii = differ.currentList[position]
+            ii.judgeTime()
+            setVariable(BR.item, ii)
             setVariable(BR.viewmodel, viewModel)
             lifecycleOwner = lifecycleOwner
             executePendingBindings()
