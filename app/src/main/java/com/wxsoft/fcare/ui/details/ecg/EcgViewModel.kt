@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.ecg
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -26,6 +27,8 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
                                        override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon)  {
 
+
+    val query=ObservableField<String>()
     val bitmaps= mutableListOf<String>()
 
     val selectedEcgDiagnosis = mutableListOf<Dictionary>()

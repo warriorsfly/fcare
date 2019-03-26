@@ -16,6 +16,7 @@ import com.wxsoft.fcare.databinding.FragmentEcgDiagnosisBinding
 import com.wxsoft.fcare.databinding.ItemEcgDiagnoseTextBinding
 import com.wxsoft.fcare.ui.details.ecg.EcgViewModel
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.layout_search_bar.*
 import javax.inject.Inject
 
 class EcgItemListFragment : DaggerFragment() {
@@ -45,11 +46,20 @@ class EcgItemListFragment : DaggerFragment() {
            this@EcgItemListFragment.viewModel.diagnoses.observe(this@EcgItemListFragment, Observer {
                (list.adapter as? Adapter)?.submitList(it)
            })
+
+
         }.root
-
-
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        back.setOnClickListener {
+            parentFragment?.childFragmentManager?.let {
+                if(it.popBackStackImmediate())
+                    it.popBackStack()
+            }
+        }
+    }
     private fun select(dictionary: Dictionary){
         viewModel.selectedDiagnoseResult.value=dictionary
 //        adapter.notifyDataSetChanged()

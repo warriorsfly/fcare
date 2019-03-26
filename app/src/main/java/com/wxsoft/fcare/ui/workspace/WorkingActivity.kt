@@ -67,6 +67,7 @@ class WorkingActivity : BaseActivity() {
         const val COMPLAINTS = 39
         const val STRATEGY = 40
         const val NOTIFICATION = 41
+        const val RIS_LIS = 42
     }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>

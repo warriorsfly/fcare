@@ -185,10 +185,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             init {
                 binding.apply {
                     root.setOnClickListener {
-                            item?.let {
-                                click(it.code)
-                            }
-                        }
+                        item?.code?.let(click)
+                    }
                 }
             }
         }
@@ -201,9 +199,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 binding.apply {
                     root.findViewById<ImageButton>(R.id.edit)
                         .setOnClickListener {
-                            item?.let {
-                                click(it.code)
-                            }
+                            item?.code?.let(click)
                         }
                 }
             }
@@ -217,9 +213,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 binding.apply {
                     root.findViewById<ImageButton>(R.id.edit)
                         .setOnClickListener {
-                            item?.let {
-                                click(it.code)
-                            }
+                            item?.code?.let(click)
                         }
                 }
             }
@@ -233,9 +227,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 binding.apply {
                     root.findViewById<ImageButton>(R.id.edit)
                         .setOnClickListener {
-                            item?.let {
-                                click(it.code)
-                            }
+                            item?.code?.let(click)
                         }
                 }
             }
@@ -249,9 +241,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 binding.apply {
                     root.findViewById<ImageButton>(R.id.edit)
                         .setOnClickListener {
-                            item?.let {
-                                click(it.code)
-                            }
+                            item?.code?.let(click)
                         }
                 }
             }
@@ -279,9 +269,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 binding.apply {
                     root.findViewById<ImageButton>(R.id.edit)
                         .setOnClickListener {
-                            item?.let {
-                                click(it.code)
-                            }
+                            item?.code?.let(click)
                         }
 
                     tabLayout.addOnTabSelectedListener(this@VitalListViewHolder)

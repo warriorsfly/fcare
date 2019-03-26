@@ -9,6 +9,7 @@
             android:id="@+id/container"
             android:background="@drawable/bg_conor_light_blue"
             android:layout_margin="5dp"
+            android:minHeight="28dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView

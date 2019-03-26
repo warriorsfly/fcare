@@ -55,9 +55,11 @@ class EcgEditFragment : DaggerFragment() {
         })
 
         viewModel.saved.observe(this, Observer {
-            activity?.supportFragmentManager?.let {
-                if(it.popBackStackImmediate())
-                    it.popBackStack()
+            if(isAdded) {
+                activity?.supportFragmentManager?.let {
+                    if (it.popBackStackImmediate())
+                        it.popBackStack()
+                }
             }
         })
        return FragmentEditEcgDiagnoseBinding.inflate(inflater,container, false).apply {
@@ -68,6 +70,12 @@ class EcgEditFragment : DaggerFragment() {
            submit.setOnClickListener {
                if(viewModel?.selectedEcgDiagnosis?.isNotEmpty() == true && memo.text.isNotEmpty()){
                    viewModel?.diagnose()
+               }
+           }
+           back.setOnClickListener {
+               activity?.supportFragmentManager?.let {
+                   if(it.popBackStackImmediate())
+                       it.popBackStack()
                }
            }
            add.setOnClickListener {

@@ -177,6 +177,4 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
     }
 
 
-
-
 }

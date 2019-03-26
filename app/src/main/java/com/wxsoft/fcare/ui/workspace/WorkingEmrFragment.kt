@@ -11,9 +11,43 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
-import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
+import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
+import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
+import com.wxsoft.fcare.ui.details.ct.CTActivity
+import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
+import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
+import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
+import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
+import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
+import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
+import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
+import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
+import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.emr.EmrAdapter
 import com.wxsoft.fcare.ui.emr.EmrViewModel
+import com.wxsoft.fcare.ui.outcome.OutComeActivity
+import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.BASE_INFO
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.CABG
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.CHECK_BODY
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.COMPLAINTS
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.CT_OPERATION
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.Catheter
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.DIAGNOSE
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.DRUGRECORD
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.INFORMEDCONSENT
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.MEASURES
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.MEDICAL_HISTORY_CODE
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.OTDIAGNOSE
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.OUTCOME
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.RATING
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.RIS_LIS
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.STRATEGY
+import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.THROMBOLYSIS
 import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import dagger.android.support.DaggerFragment
@@ -76,13 +110,35 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
     }
 
     private fun clickItem(code:String){
-        when(code){
-            ActionType.生命体征 -> {
-                val intent = Intent(activity, VitalSignsRecordActivity::class.java).apply {
-                    putExtra(VitalSignsRecordActivity.PATIENT_ID, viewModel.patientId)
-                }
-                startActivityForResult(intent, VITAL_SIGNS)
+
+        val act =when(code) {
+            ActionType.患者信息录入 -> Pair(ProfileActivity::class.java, BASE_INFO)
+            ActionType.GRACE -> Pair(RatingActivity::class.java, RATING)
+            ActionType.生命体征 -> Pair(VitalSignsActivity::class.java, VITAL_SIGNS)
+            ActionType.PhysicalExamination -> Pair(CheckBodyActivity::class.java, CHECK_BODY)
+            ActionType.IllnessHistory -> Pair(MedicalHistoryActivity::class.java, MEDICAL_HISTORY_CODE)
+            ActionType.DispostionMeasures -> Pair(MeasuresActivity::class.java, MEASURES)
+            ActionType.给药 -> Pair(DrugRecordsActivity::class.java, DRUGRECORD)
+            ActionType.知情同意书 -> Pair(InformedConsentActivity::class.java, INFORMEDCONSENT)
+            ActionType.诊断 -> Pair(DiagnoseActivity::class.java, DIAGNOSE)
+            ActionType.溶栓处置 -> Pair(ThrombolysisActivity::class.java, THROMBOLYSIS)
+            ActionType.Catheter -> Pair(CatheterActivity::class.java, Catheter)
+            ActionType.出院诊断 -> Pair(DisChargeActivity::class.java, OTDIAGNOSE)
+            ActionType.辅助检查 -> Pair(AssistantExaminationActivity::class.java,RIS_LIS)
+            ActionType.患者转归 -> Pair(OutComeActivity::class.java, OUTCOME)
+            ActionType.主诉及症状 -> Pair(ComplaintsActivity::class.java, COMPLAINTS)
+            ActionType.CT_OPERATION -> Pair(CTActivity::class.java, CT_OPERATION)
+            ActionType.CABG -> Pair(ReperfusionActivity::class.java, CABG)
+            ActionType.治疗策略 -> Pair(StrategyActivity::class.java, STRATEGY)
+
+            else -> throw IllegalArgumentException("unknown code $code")
+        }
+        val intent = Intent(activity, act.first).apply {
+            putExtra("PATIENT_ID", viewModel.patientId)
+            when(code){
+                ActionType.溶栓处置->putExtra(ThrombolysisActivity.COME_FROM, "1")
             }
         }
+        startActivityForResult(intent, act.second)
     }
 }
