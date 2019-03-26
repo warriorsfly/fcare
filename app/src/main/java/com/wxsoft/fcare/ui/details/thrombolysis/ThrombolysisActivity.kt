@@ -114,8 +114,9 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         binding.medicalList.adapter = drugAdapter
 
         viewModel.thrombolysis.observe(this, Observer {
-            drugAdapter.submitList(it.drugRecords)
-            viewModel.drugs = it.drugRecords
+
+            viewModel.drugs.addAll( it.drugRecords)
+            drugAdapter.submitList(viewModel.drugs)
         })
 
         viewModel.clickLine.observe(this, Observer {
@@ -131,7 +132,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 "drugs" -> toDrugs()
                 "complication" -> toComplication()
                 "refreshDrugs" -> {
-                    drugAdapter.submitList(viewModel.drugs)
+                    drugAdapter.notifyDataSetChanged()
+//                    drugAdapter.submitList(viewModel.drugs)
 //                    viewModel.thrombolysis.value?.drugRecords = viewModel.drugs
                 }
             }

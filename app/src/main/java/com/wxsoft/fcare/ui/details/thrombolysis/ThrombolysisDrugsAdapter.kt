@@ -13,8 +13,6 @@ import com.wxsoft.fcare.databinding.ItemThrombolyDrugBinding
 class ThrombolysisDrugsAdapter constructor(private val owner: LifecycleOwner, val viewModel: ThrombolysisViewModel) :
     ListAdapter<DrugRecord, ThrombolysisDrugsAdapter.ItemViewHolder>(DiffCallback) {
 
-
-
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
@@ -25,7 +23,6 @@ class ThrombolysisDrugsAdapter constructor(private val owner: LifecycleOwner, va
         }
 
     }
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
@@ -46,7 +43,7 @@ class ThrombolysisDrugsAdapter constructor(private val owner: LifecycleOwner, va
 
         override fun areContentsTheSame(oldItem: DrugRecord, newItem: DrugRecord): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id && oldItem.dose==newItem.dose
         }
     }
 }
