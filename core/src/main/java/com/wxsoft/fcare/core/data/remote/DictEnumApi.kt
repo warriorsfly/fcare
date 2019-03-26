@@ -142,8 +142,8 @@ interface DictEnumApi {
     /**
      * 常见心电诊断
      */
-    @GET("EnumDic/enumItems/227/{patientId}")
-    fun loadEcgCommonDiagnoses(@Path("patientId")id:String): Maybe<List<Dictionary>>
+    @GET("EnumDic/enumItems/227")
+    fun loadEcgCommonDiagnoses(): Maybe<List<Dictionary>>
 
     /**
      * 发送通知类型

@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Ecg
+import com.wxsoft.fcare.core.data.entity.EcgDiagnose
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
@@ -26,6 +27,9 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon)  {
 
     val bitmaps= mutableListOf<String>()
+
+    val selectedEcgDiagnosis = mutableListOf<Dictionary>()
+
     /**
      * 病人id
      */
@@ -37,12 +41,13 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
             loadCommonDiagnoses(field)
         }
 
-
     val ecg:LiveData<Ecg>
     private val loadEcgResult = MediatorLiveData<Response<Ecg>>()
 
     val diagnoses:LiveData<List<Dictionary>>
     private val loadDiagnoseResult = MediatorLiveData<List<Dictionary>>()
+    val selectedDiagnoseResult = MediatorLiveData<Dictionary>()
+    val saved = MediatorLiveData<Boolean>()
     init {
         ecg = loadEcgResult.map { it?.result ?: Ecg(createrId = account.id)  }
         diagnoses = loadDiagnoseResult.map { it }
@@ -57,7 +62,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     }
 
     private fun loadCommonDiagnoses(patientId:String){
-        disposable.add(dictApi.loadEcgCommonDiagnoses(patientId)
+        disposable.add(dictApi.loadEcgCommonDiagnoses()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doCommonDiagnose,::error))
@@ -72,9 +77,15 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         bitmaps.clear()
         loadEcgResult.value= response.apply {
             result?.apply {
+                selectedEcgDiagnosis.addAll(diagnoses.map { Dictionary(it.code,it.name) })
                 diagnoseText=diagnoses.joinToString("\n",transform={ diagnoses.indexOf(it).toString()+"."+it.name})
             }
         }
+    }
+
+    private fun doDiagnosed(response: Response<Ecg>){
+        response.let(::doEcg)
+        saved.value=true
     }
 
     fun saveEcg(){
@@ -99,12 +110,21 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(::doEcg,::error)
-
             )
-
         }
     }
 
-
-
+    fun diagnose(){
+       ecg.value?.apply {
+           doctorId=account.id
+           doctorName=account.trueName
+           diagnoses=selectedEcgDiagnosis.map { EcgDiagnose("", it.id, it.itemName) }
+           disposable.add(
+               api.diagnosed(this)
+                   .subscribeOn(Schedulers.io())
+                   .observeOn(AndroidSchedulers.mainThread())
+                   .subscribe(::doDiagnosed, ::error)
+           )
+       }
+    }
 }

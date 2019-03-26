@@ -17,5 +17,6 @@ interface ECGApi {
     @POST("ECG/SaveElectroCardiogram")
     fun save(@Part("diogram")diogram: Ecg, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
 
-
+    @POST("ECG/Diagnosed")
+    fun diagnosed(@Body ecg:Ecg):Maybe<Response<Ecg>>
 }

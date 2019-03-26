@@ -13,32 +13,47 @@
         android:elevation="8dp"
         android:id="@+id/container"
         android:background="@color/light_gray">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <com.google.android.material.appbar.AppBarLayout
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
             style="@style/Widget.AppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:contentInsetLeft="0dp"
-                app:contentInsetStart="0dp"
-                app:titleMarginStart="0dp"
-                app:titleTextAppearance="@style/ActionBarTitle.White"
-                app:contentInsetStartWithNavigation="0dp"
-                app:navigationIcon="@drawable/ic_back"
-                app:title="判读"/>
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    app:titleMarginStart="0dp"
+                    app:titleTextAppearance="@style/ActionBarTitle.White"
+                    app:contentInsetStartWithNavigation="0dp"
+                    app:navigationIcon="@drawable/ic_back"
+                    app:title="判读"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/submit"
+                    android:textColor="@color/colorPrimary"
+                    android:text="保存"
+                    android:layout_margin="6dp"
+                    android:layout_gravity="right|center_vertical"/>
+            </FrameLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
-
-        <TextView
+            <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -47,33 +62,35 @@
             android:paddingTop="11dp"
             android:gravity="center_vertical"
             android:paddingBottom="11dp"
-            android:text="@string/ecg_property_title"
-        />
-    <com.google.android.material.chip.ChipGroup
+            android:text="@string/ecg_property_title"/>
+
+            <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/list"
-        android:minHeight="200dp"
-        android:background="@color/white"/>
+        android:background="@color/white"
+        app:spanCount="2"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
         <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="添加"
-                android:id="@+id/add"
-                android:textColor="@color/colorPrimary"
-                android:drawableLeft="@drawable/ic_add_24dp"
-                android:drawableTint="@color/colorPrimary"
-                android:background="@color/white"
-                android:paddingLeft="16dp"
-                android:paddingTop="11dp"
-                android:gravity="center_vertical"
-                android:paddingBottom="11dp"
-        />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加"
+            android:id="@+id/add"
+            android:textColor="@color/colorPrimary"
+            android:drawableLeft="@drawable/ic_add_24dp"
+            android:drawableTint="@color/colorPrimary"
+            android:background="@color/white"
+            android:paddingLeft="16dp"
+            android:paddingTop="11dp"
+            android:gravity="center_vertical"
+            android:paddingBottom="11dp"/>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
             android:background="@color/line_gray"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -82,14 +99,15 @@
             android:paddingLeft="16dp"
             android:paddingTop="11dp"
             android:gravity="center_vertical"
-            android:paddingBottom="11dp"
-        />
+            android:paddingBottom="11dp"/>
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="4"
-            android:background="@null"
-        />
+            android:id="@+id/memo"
+            android:text="@={viewModel.ecg.diagnoseResult}"
+            android:background="@null"/>
     </LinearLayout>
     </FrameLayout>
 </layout>

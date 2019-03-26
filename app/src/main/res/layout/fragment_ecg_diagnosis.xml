@@ -3,11 +3,13 @@
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.ecg.EcgViewModel"/>
     </data>
-    <FrameLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="@color/white"
         android:layout_height="match_parent">
 
         <include layout="@layout/layout_search_bar"
@@ -18,17 +20,29 @@
              app:layout_constraintLeft_toLeftOf="parent"
         />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="12.5dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:text="常用诊断提示"
+            android:id="@+id/toast"
+            android:background="@color/light_gray"
+            app:layout_constraintTop_toBottomOf="@id/seachbar"
+            app:layout_constraintLeft_toLeftOf="parent"
+        />
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="56dp"
             android:id="@+id/list"
-            android:background="@color/colorPrimary"
-            app:layout_constraintTop_toBottomOf="@id/seachbar"
+            android:background="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/toast"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-        </FrameLayout>
+        </LinearLayout>
 
 </layout>

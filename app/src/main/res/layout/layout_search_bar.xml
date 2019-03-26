@@ -28,8 +28,7 @@
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="请输入查询条件"
-
+                android:hint="搜索诊断提示"
                 android:background="@null"
                 android:layout_weight="1"
             />

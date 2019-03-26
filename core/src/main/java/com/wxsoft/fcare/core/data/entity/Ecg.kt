@@ -38,7 +38,7 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
     var doctorId=""
 
     @get:Bindable
-    @SerializedName("diagnoseDocgorName")
+    @SerializedName("diagnoseDoctorName")
     var doctorName=""
     @get:Bindable
     var diagnoseResult=""
@@ -59,6 +59,7 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
       diagnoseText=field.joinToString("\n",transform={ field.indexOf(it).toString()+"."+it.name})
     }
 
+    @Transient
     @get:Bindable
     var diagnoseText:String=""
 

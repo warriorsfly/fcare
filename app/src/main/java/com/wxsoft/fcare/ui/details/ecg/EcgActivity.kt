@@ -92,6 +92,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         setSupportActionBar(toolbar)
 
         start.setOnClickListener {
+            if(fragment.isAdded)return@setOnClickListener
             supportFragmentManager.inTransaction {
 
                 setCustomAnimations(
