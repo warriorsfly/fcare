@@ -12,6 +12,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityVitalSignsRecordBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
+import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -21,6 +22,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val ADD_VITAL = 10
+        const val SHARE = 20
 
     }
 
@@ -49,13 +51,26 @@ class VitalSignsRecordActivity :  BaseActivity() {
 
         viewModel.vitals.observe(this, Observer { listAdapter.items = it })
 
-        viewModel.addvital.observe(this, Observer { toAddVital(it) })
+        viewModel.addvital.observe(this, Observer {
+            if (it.equals("share")){
+                toShareVital()
+            }else{
+                toAddVital(it)
+            }
+
+
+        })
 
         viewModel.modifyvital.observe(this, Observer { toModifyVital(it) })
 
     }
 
-
+    fun toShareVital(){
+        val intent = Intent(this, ShareActivity::class.java).apply {
+            putExtra(ShareActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent,SHARE )
+    }
 
     fun toAddVital(typeId:String){
         val intent = Intent(this, VitalSignsActivity::class.java).apply {

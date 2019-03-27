@@ -30,7 +30,7 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
 
     override var title = "生命体征"
     override val clickableTitle: String
-        get() = ""
+        get() = "分享"
     override val clickable: LiveData<Boolean>
 
     private val clickResult  = MediatorLiveData<Boolean>().apply {
@@ -64,7 +64,7 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
     }
 
     override fun click(){
-
+        initAddvital.value = "share"
     }
 
     fun getVitalRecords(){

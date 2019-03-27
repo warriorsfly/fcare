@@ -49,8 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
+        <activity android:name=".ui.share.ShareActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.launch.LauncherActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
@@ -65,8 +68,9 @@
                 android:name=".ui.details.diagnose.select.SelectDiagnoseActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.emr.EmrActivity"/>
-        <activity android:name=".ui.selecter.SelecterOfOneModelActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.selecter.SelecterOfOneModelActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.main.fragment.task.searchtask.SearchTaskActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
@@ -193,7 +197,6 @@
         <activity
                 android:name=".ui.outcome.OutComeActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-
         <activity
                 android:name=".ui.details.ecg.EcgActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
