@@ -86,12 +86,14 @@ class CheckBodyActivity : BaseActivity()  {
                     val coordinationName = data?.getSerializableExtra("coordinationName") as String
                     binding.select1.setText(coordinationName)
                     viewModel.checkBody.value?.coordination = coordination
+                    viewModel.checkBody.value?.coordinationName = coordinationName
                 }
                 2 ->{//皮肤
                     val skin = data?.getSerializableExtra("skin") as String
                     val skinName = data?.getSerializableExtra("skinName") as String
                     binding.select2.setText(skinName)
                     viewModel.checkBody.value?.skin = skin
+                    viewModel.checkBody.value?.skinName = skinName
                 }
                 3 ->{//左瞳孔
                     val leftPupils = data?.getSerializableExtra("leftPupils") as String
@@ -100,7 +102,9 @@ class CheckBodyActivity : BaseActivity()  {
                     val leftResponseName = data?.getSerializableExtra("leftResponseName") as String
                     binding.select3.setText(leftPupilsName + " " + leftResponseName)
                     viewModel.checkBody.value?.leftPupils = leftPupils
+                    viewModel.checkBody.value?.leftPupilsName = leftPupilsName
                     viewModel.checkBody.value?.leftResponseLight = leftResponse
+                    viewModel.checkBody.value?.leftResponseLightName = leftResponseName
                 }
                 4 ->{//右瞳孔
                     val rightPupils = data?.getSerializableExtra("rightPupils") as String
@@ -109,7 +113,9 @@ class CheckBodyActivity : BaseActivity()  {
                     val rightResponseName = data?.getSerializableExtra("rightResponseName") as String
                     binding.select4.setText(rightPupilsName + " " + rightResponseName)
                     viewModel.checkBody.value?.rightPupils = rightPupils
+                    viewModel.checkBody.value?.rightPupilsName = rightPupilsName
                     viewModel.checkBody.value?.rightResponseLight = rightResponse
+                    viewModel.checkBody.value?.rightResponseLightName = rightResponseName
                 }
 
             }

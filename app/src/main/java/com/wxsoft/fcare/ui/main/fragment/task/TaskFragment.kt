@@ -91,7 +91,7 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
             viewModel = this@TaskFragment.viewModel
 
 //            this@TaskFragment.adapter= TaskAdapter(this@TaskFragment, this@TaskFragment.viewModel)
-            list.adapter = this@TaskFragment.adapter
+             taskList.adapter = this@TaskFragment.adapter
 
             lifecycleOwner = this@TaskFragment
         }
@@ -114,8 +114,7 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
         }
 
         viewModel.tasks.observe(this, Observer {
-
-            adapter.submitList(it ?: emptyList())
+            adapter.submitList(it)
         })
 
         viewModel.navigateToOperationAction.observe(this, EventObserver {

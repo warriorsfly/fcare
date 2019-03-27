@@ -104,11 +104,7 @@ class ShareActivity : BaseActivity() {
             }
         }).start()
 
-
-
-
     }
-
 
 
     fun share(){
@@ -119,8 +115,6 @@ class ShareActivity : BaseActivity() {
 //            params.setImagePath("/storage/emulated/0/PictureSelector/CameraImage/PictureSelector_20190226_085108.JPEG")
             params.shareType = Platform.SHARE_IMAGE
             JShareInterface.share(Wechat.Name, params,shareListener )
-
-
 
         }
     }

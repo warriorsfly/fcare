@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/allen/Work/wxsoft/fcare/key')
+            storeFile file('/Users/ccl/Desktop/fcare/key')
             storePassword '123456'
             keyAlias = 'key0'
             keyPassword '123456'
@@ -35,6 +35,7 @@ android {
             debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
 
             ndk {
                 //选择要添加的对应cpu类型的.so库。

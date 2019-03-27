@@ -95,7 +95,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     }
 
     private fun getDetourItems(){
-        dicEnumApi.loadDetour().toResource()
+        dicEnumApi.loadDetour(patientId).toResource()
             .subscribe {
                 loaddetourItemsResult.value = it
                 haveData()

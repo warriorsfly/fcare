@@ -17,6 +17,7 @@ import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Pharmacy
 import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
@@ -29,7 +30,9 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
+import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
@@ -73,6 +76,7 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         const val INFORMED_CONSENT = 20
         const val DRUG = 30
         const val COMPLICATION = 40
+        const val SELECT_PLACE = 50
     }
     private lateinit var viewModel: ThrombolysisViewModel
     @Inject
@@ -159,19 +163,27 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
     }
 
     private fun selectPlace(){
-        val adapter = ThromPlaceAdapter(this,viewModel)
-        val view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_thrombolysis_places, null)
-        placeDialog.setContentView(view)
-        viewModel.thromPlaces.observe(this, Observer { adapter.items = it ?: emptyList() })
-        view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.place_list).adapter = adapter
-        val attributes = placeDialog.window?.attributes
-        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
-        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT
-        attributes?.gravity = Gravity.BOTTOM
-        attributes?.windowAnimations = R.style.picture_alert_dialog
-        placeDialog.window?.attributes = attributes
-        placeDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        placeDialog.show()
+//        val adapter = ThromPlaceAdapter(this,viewModel)
+//        val view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_thrombolysis_places, null)
+//        placeDialog.setContentView(view)
+//        viewModel.thromPlaces.observe(this, Observer { adapter.items = it ?: emptyList() })
+//        view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.place_list).adapter = adapter
+//        val attributes = placeDialog.window?.attributes
+//        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
+//        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT
+//        attributes?.gravity = Gravity.BOTTOM
+//        attributes?.windowAnimations = R.style.picture_alert_dialog
+//        placeDialog.window?.attributes = attributes
+//        placeDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+//        placeDialog.show()
+
+
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "ThromSelectPlace")
+        }
+        startActivityForResult(intent,SELECT_PLACE)
+
     }
 
     private fun  toInformedConsent(){
@@ -239,6 +251,11 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
                 ThrombolysisActivity.COMPLICATION ->{//并发症
                     val otherIlls = data?.getStringExtra("otherIlls")
                     binding.ohterIll.setText(otherIlls)
+                }
+                ThrombolysisActivity.SELECT_PLACE ->{//溶栓场所
+                    val place = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.thrombolysis.value?.thromTreatmentPlaceName = place.itemName
+                    viewModel.thrombolysis.value?.throm_Treatment_Place = place.id
                 }
 
             }

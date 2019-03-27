@@ -28,7 +28,6 @@
                     android:elevation="2dp"
                     app:cardElevation="4dp"
             >
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/patients_top_bar"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -101,50 +100,7 @@
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-                <!--<androidx.appcompat.widget.SearchView-->
-                <!--android:id="@+id/search"-->
-                <!--android:layout_width="match_parent"-->
-                <!--app:queryHint="请输入患者姓名"-->
-                <!--app:queryBackground="@null"-->
-                <!--app:iconifiedByDefault="false"-->
-                <!--android:layout_height="wrap_content"/>-->
-
             </com.google.android.material.card.MaterialCardView>
-
-            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                    <!--android:id="@+id/task_topbar"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="44dp"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--app:layout_constraintLeft_toLeftOf="parent">-->
-                <!--&lt;!&ndash;<TextView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="急救任务"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_margin="10dp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textSize="22sp"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/title"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintLeft_toLeftOf="parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:layout_constraintTop_toTopOf="parent"/>&ndash;&gt;-->
-                <!--&lt;!&ndash;app:layout_constraintBaseline_toBaselineOf="@id/title"&ndash;&gt;-->
-                <!--<Button-->
-                        <!--android:id="@+id/select_task_date"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--style="@style/Widget.MaterialComponents.Button.TextButton"-->
-                        <!--android:layout_marginRight="10dp"-->
-                        <!--android:layout_marginBottom="10dp"-->
-                        <!--android:text="@{viewModel.taskDate}"-->
-                        <!--tools:text="2019-01-01"-->
-                        <!--android:textSize="19sp"-->
-                        <!--app:layout_constraintTop_toTopOf="parent"-->
-                        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--app:layout_constraintRight_toRightOf="parent"-->
-                        <!--/>-->
-
-            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                     android:layout_width="match_parent"
@@ -157,9 +113,9 @@
                     app:layout_constraintTop_toBottomOf="@id/search_placeholder">
                 <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:background="#E7E4F2"
-                        android:id="@+id/list"
+                        android:id="@+id/task_list"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

@@ -82,7 +82,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         thrombolysis = loadThrombolysis.map { it?: Thrombolysis("") }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
-        loadPlaces()
+//        loadPlaces()
         getInformedConsent()
     }
 
