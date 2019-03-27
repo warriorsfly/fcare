@@ -14,7 +14,6 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.main.fragment.task.TaskAdapter
 import com.wxsoft.fcare.ui.main.fragment.task.TaskViewModel
-import com.wxsoft.fcare.ui.patient.ProfileActivity
 import javax.inject.Inject
 
 class SearchTaskActivity : BaseActivity() , SearchView.OnQueryTextListener{
@@ -24,7 +23,7 @@ class SearchTaskActivity : BaseActivity() , SearchView.OnQueryTextListener{
     lateinit var factory: ViewModelFactory
 
     lateinit var binding: ActivitySearchTaskBinding
-    lateinit var adapter: TaskAdapter
+    lateinit var adapter: SearchTaskAdapter
 
 
     override fun onQueryTextSubmit(p0: String?): Boolean {
@@ -49,12 +48,11 @@ class SearchTaskActivity : BaseActivity() , SearchView.OnQueryTextListener{
                 back.setOnClickListener { onBackPressed() }
                 lifecycleOwner = this@SearchTaskActivity
             }
-        adapter= TaskAdapter(this,viewModel)
+        adapter= SearchTaskAdapter(this,viewModel)
         binding.list.adapter = adapter
 
         viewModel.searchTasks.observe(this, Observer {
-
-            adapter.submitList(it ?: emptyList())
+            adapter.submitList(it)
         })
 
         viewModel.navigateToOperationAction.observe(this, EventObserver {

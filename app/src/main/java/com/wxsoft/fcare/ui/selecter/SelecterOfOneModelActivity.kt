@@ -47,6 +47,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     "Notify" -> firstList.adapter = notiadapter
                     "MedicalHistoryProvider" -> firstList.adapter = adapter
                     "MedicalHistoryAnamnesis" -> firstList.adapter = adapter
+                    "ThromSelectPlace" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity

@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.workspace
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -19,7 +20,9 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
+import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
+import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -101,10 +104,7 @@ class WorkingActivity : BaseActivity() {
                 })
 
                 backAway.setOnClickListener {
-                    val intent = Intent(this@WorkingActivity, ProfileActivity::class.java).apply {
-                        putExtra(ProfileActivity.PATIENT_ID, patientId)
-                    }
-                    startActivityForResult(intent, BASE_INFO)
+                   onBackPressed()
                 }
 
                 timeLine.setOnClickListener {
@@ -266,6 +266,20 @@ class WorkingActivity : BaseActivity() {
            }
         }
     }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK) {
+//            when(requestCode){
+//
+//            }
+            viewModel.patientId=patientId
+
+        }
+    }
+
+
+
+
     fun showDialog(message:String,type:String){
         AlertDialog.Builder(this@WorkingActivity,R.style.Theme_FCare_Dialog_Text)
             .setMessage(message)

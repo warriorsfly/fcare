@@ -1,24 +1,20 @@
-package com.wxsoft.fcare.ui.main.fragment.task
+package com.wxsoft.fcare.ui.main.fragment.task.searchtask
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.SeekBar
 import androidx.lifecycle.LifecycleOwner
-import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.utils.DateTimeUtils
-import com.wxsoft.fcare.core.utils.DateTimeUtils.Companion.formatter
 import com.wxsoft.fcare.databinding.LayoutItemAssignmentBinding
+import com.wxsoft.fcare.ui.main.fragment.task.TaskPatientsItemAdapter
+import com.wxsoft.fcare.ui.main.fragment.task.TaskViewModel
 import java.text.ParseException
 
-
-class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: TaskViewModel) :
-    PagedListAdapter<Task, TaskAdapter.ItemViewHolder>(DiffCallback){
-
-
+class SearchTaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: TaskViewModel) :
+    ListAdapter<Task, SearchTaskAdapter.ItemViewHolder>(DiffCallback){
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
@@ -26,7 +22,7 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
             var item = getItem(position)
             task = item
             listener = viewModel
-            if (item!!.startAt!=null&&item.arriveHosAt!=null){
+            if (item.startAt!=null&&item.arriveHosAt!=null){
                 var startTime = DateTimeUtils.formatter.parse(item.startAt)?.time!!
                 var endTime = DateTimeUtils.formatter.parse(item.arriveHosAt)?.time!!
                 var fireAt=(endTime - startTime)/1000
@@ -82,8 +78,8 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
         var timeString = ""
 
         try {
-            val parse = formatter.parse(starTime)
-            val parse1 = formatter.parse(endTime)
+            val parse = DateTimeUtils.formatter.parse(starTime)
+            val parse1 = DateTimeUtils.formatter.parse(endTime)
 
             val diff = parse1.time - parse.time
             // System.out.println(day + "天" + hour + "小时" + min + "分" + s +

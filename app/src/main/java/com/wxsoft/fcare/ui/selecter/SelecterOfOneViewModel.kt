@@ -50,6 +50,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadNotifyTypes()
                     clickAlone = true
                 }
+                "ThromSelectPlace" ->{
+                    loadThromPlace()
+                    clickAlone = true
+                }
             }
         }
 
@@ -90,6 +94,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getNotify,::error))
+    }
+    private fun loadThromPlace(){
+        disposable.add(enumApi.loadThromPlaces()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
     }
 
     private fun getData(response: List<Dictionary>){
