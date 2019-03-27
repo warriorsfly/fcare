@@ -68,8 +68,8 @@ class ProfileViewModel @Inject constructor(
 
     }
 
-    fun changeCode(isChecked:Boolean,dCode:String){
-        if(isChecked) {
+    fun changeCode(dCode:String){
+        if(patient.value?.id!!.isEmpty()) {
             patient.value?.diagnosisCode=dCode
         }
     }
