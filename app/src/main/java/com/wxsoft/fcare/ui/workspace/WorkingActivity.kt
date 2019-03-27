@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.workspace
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -18,9 +19,7 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
-import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -36,46 +35,37 @@ import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
+import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
+import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
+import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
+import com.wxsoft.fcare.utils.ActionCode.Companion.CT_OPERATION
+import com.wxsoft.fcare.utils.ActionCode.Companion.Catheter
+import com.wxsoft.fcare.utils.ActionCode.Companion.DIAGNOSE
+import com.wxsoft.fcare.utils.ActionCode.Companion.DRUGRECORD
+import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
+import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
+import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
+import com.wxsoft.fcare.utils.ActionCode.Companion.NOTIFICATION
+import com.wxsoft.fcare.utils.ActionCode.Companion.OTDIAGNOSE
+import com.wxsoft.fcare.utils.ActionCode.Companion.OUTCOME
+import com.wxsoft.fcare.utils.ActionCode.Companion.RATING
+import com.wxsoft.fcare.utils.ActionCode.Companion.STRATEGY
+import com.wxsoft.fcare.utils.ActionCode.Companion.THROMBOLYSIS
+import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.activity_working.*
+import java.lang.ref.WeakReference
 import javax.inject.Inject
 
 class WorkingActivity : BaseActivity() {
-
-
-    companion object {
-        const val PATIENT_ID = "PATIENT_ID"
-        const val ARG_NEW_ITEM_CODE = 20
-        const val MEDICAL_HISTORY_CODE = 21
-        const val VITAL_SIGNS = 22
-        const val CHECK_BODY = 23
-        const val DIAGNOSE = 24
-        const val MEASURES = 25
-        const val INV = 26
-        const val Catheter = 27
-        const val CT = 28
-        const val DISCHARGE = 29
-        const val OUTCOME = 30
-        const val INFORMEDCONSENT = 31
-        const val THROMBOLYSIS = 32
-        const val DRUGRECORD = 33
-        const val OTDIAGNOSE = 34
-        const val CT_OPERATION = 35
-        const val RATING = 36
-        const val CABG = 37
-        const val BASE_INFO = 38
-        const val COMPLAINTS = 39
-        const val STRATEGY = 40
-        const val NOTIFICATION = 41
-        const val RIS_LIS = 42
-    }
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
 
-    private lateinit var viewModel: WorkingViewModel
+    lateinit var viewModel: WorkingViewModel
     private lateinit var emrViewModel: EmrViewModel
     @Inject
     lateinit var factory: ViewModelFactory
@@ -95,6 +85,8 @@ class WorkingActivity : BaseActivity() {
                     bottomSheetBehavior.peekHeight=root.height-bottom
                 }
                 bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
+                bottomSheetBehavior.setBottomSheetCallback(CallBack(this@WorkingActivity))
+
                 viewModel=this@WorkingActivity.viewModel.apply { patientId=this@WorkingActivity.patientId }
                 lifecycleOwner=this@WorkingActivity
                 viewModel?.qualities?.observe(this@WorkingActivity, Observer {
@@ -130,8 +122,6 @@ class WorkingActivity : BaseActivity() {
                 }
             }
 
-
-//        back.setOnClickListener { onBackPressed() }
     }
 
 
@@ -259,6 +249,23 @@ class WorkingActivity : BaseActivity() {
     }
 
 
+    class CallBack( context: WorkingActivity):BottomSheetBehavior.BottomSheetCallback(){
+        private val activity= WeakReference(context)
+        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+
+        }
+
+        override fun onStateChanged(bottomSheet: View, newState: Int) {
+           when(newState){
+               BottomSheetBehavior.STATE_COLLAPSED->{
+                   activity.get()?.viewModel?.emrFullScreen?.set(false)
+               }
+               BottomSheetBehavior.STATE_EXPANDED->{
+                   activity.get()?.viewModel?.emrFullScreen?.set(true)
+               }
+           }
+        }
+    }
     fun showDialog(message:String,type:String){
         AlertDialog.Builder(this@WorkingActivity,R.style.Theme_FCare_Dialog_Text)
             .setMessage(message)

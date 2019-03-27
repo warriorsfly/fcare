@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.workspace
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
@@ -50,6 +51,8 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         }
     val courseSeconds=ObservableInt()
     val course=ObservableField<String>()
+
+    val emrFullScreen=ObservableBoolean()
     /**
      * 病人信息
      */

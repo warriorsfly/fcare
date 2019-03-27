@@ -23,27 +23,6 @@ abstract class ScencelyRecordAdapter<T> constructor(private val owner: Lifecycle
                                                 callback:ScencelyDiffCallback<T>): ListAdapter<Record<T>,ScencelyRecordAdapter.ItemViewHolder>(callback) {
 
 
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-//        val inflater = LayoutInflater.from(parent.context)
-//        return ItemViewHolder(
-//            ItemRatingScenceBinding.inflate(inflater, parent, false).apply {
-//                lifecycleOwner=owner
-//
-//            },pool,newItem)
-//    }
-//
-//    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-//        holder.binding.apply {
-//            val result=getItem(position)
-////            item=result
-////            if(list.adapter==null){
-////                list.adapter=RatingAdapter(owner,showDetail)
-////            }
-////            (list.adapter as?RatingAdapter)?. submitList(result.items)
-//            executePendingBindings()
-//        }
-//    }
-//
     class ItemViewHolder(bind: ViewDataBinding,
                          private val pool: RecyclerView.RecycledViewPool,
                          private val newItemClick: (String)->Unit) : RecyclerView.ViewHolder(bind.root) {

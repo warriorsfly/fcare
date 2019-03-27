@@ -302,7 +302,6 @@
                     app:goneUnless="@{viewModel.ecg.diagnosedAt!=null}"
                     android:text="@{FloatConverter.floatToString(viewModel.ecg.ecg)+`分钟`}"
                     android:gravity="right|center_vertical"
-                    android:drawableRight="@drawable/ic_right_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

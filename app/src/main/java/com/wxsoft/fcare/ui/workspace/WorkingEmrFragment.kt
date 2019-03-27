@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.workspace
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,7 @@ import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
@@ -31,24 +33,24 @@ import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.BASE_INFO
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.CABG
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.CHECK_BODY
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.COMPLAINTS
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.CT_OPERATION
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.Catheter
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.DIAGNOSE
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.DRUGRECORD
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.INFORMEDCONSENT
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.MEASURES
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.MEDICAL_HISTORY_CODE
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.OTDIAGNOSE
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.OUTCOME
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.RATING
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.RIS_LIS
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.STRATEGY
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.THROMBOLYSIS
-import com.wxsoft.fcare.ui.workspace.WorkingActivity.Companion.VITAL_SIGNS
+import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
+import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
+import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
+import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
+import com.wxsoft.fcare.utils.ActionCode.Companion.CT_OPERATION
+import com.wxsoft.fcare.utils.ActionCode.Companion.Catheter
+import com.wxsoft.fcare.utils.ActionCode.Companion.DIAGNOSE
+import com.wxsoft.fcare.utils.ActionCode.Companion.DRUGRECORD
+import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
+import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
+import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
+import com.wxsoft.fcare.utils.ActionCode.Companion.OTDIAGNOSE
+import com.wxsoft.fcare.utils.ActionCode.Companion.OUTCOME
+import com.wxsoft.fcare.utils.ActionCode.Companion.RATING
+import com.wxsoft.fcare.utils.ActionCode.Companion.RIS_LIS
+import com.wxsoft.fcare.utils.ActionCode.Companion.STRATEGY
+import com.wxsoft.fcare.utils.ActionCode.Companion.THROMBOLYSIS
+import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
@@ -72,8 +74,7 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
     lateinit var factory: ViewModelFactory
 
     lateinit var binding: FragmentWorkingEmrBinding
-
-    private lateinit var viewModel: EmrViewModel
+    private lateinit var emrViewModel: EmrViewModel
 
     private lateinit var adapter: EmrAdapter
     private lateinit var headerAdapter: EmrAdapter
@@ -81,22 +82,22 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
     var patientId=""
     set(value) {
         field=value
-        viewModel.patientId=field
+        emrViewModel.patientId=field
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        viewModel=activityViewModelProvider(factory)
+        emrViewModel=activityViewModelProvider(factory)
         adapter= EmrAdapter(this@WorkingEmrFragment,::clickItem)
         headerAdapter= EmrAdapter(this@WorkingEmrFragment,::clickItem,true)
-        viewModel.emrs.observe(this, Observer {
+        emrViewModel.emrs.observe(this, Observer {
             adapter.submitList(it)
             headerAdapter.submitList(it)
         })
 
-        viewModel.emrItemLoaded.observe(this,EventObserver{
+        emrViewModel.emrItemLoaded.observe(this,EventObserver{
             adapter.notifyItemChanged(it)
         })
 
@@ -104,6 +105,7 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
             .inflate(inflater,container, false).apply {
                 list.adapter=this@WorkingEmrFragment.adapter
                 drawer.addDrawerListener(this@WorkingEmrFragment)
+                viewModel=this@WorkingEmrFragment.emrViewModel
             lifecycleOwner=this@WorkingEmrFragment
         }.root
 
@@ -130,15 +132,23 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
             ActionType.CT_OPERATION -> Pair(CTActivity::class.java, CT_OPERATION)
             ActionType.CABG -> Pair(ReperfusionActivity::class.java, CABG)
             ActionType.治疗策略 -> Pair(StrategyActivity::class.java, STRATEGY)
+            ActionType.心电图 -> Pair(EcgActivity::class.java, STRATEGY)
 
             else -> throw IllegalArgumentException("unknown code $code")
         }
         val intent = Intent(activity, act.first).apply {
-            putExtra("PATIENT_ID", viewModel.patientId)
+            putExtra("PATIENT_ID", emrViewModel.patientId)
             when(code){
                 ActionType.溶栓处置->putExtra(ThrombolysisActivity.COME_FROM, "1")
             }
         }
         startActivityForResult(intent, act.second)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            emrViewModel.refresh(requestCode)
+        }
     }
 }

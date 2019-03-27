@@ -59,9 +59,9 @@ class LauncherViewModel @Inject constructor(
             accountApi.login(loginInfo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe {
+                .subscribe ({
                     loadAccountResult.value = it
-                })
+                },::error))
     }
 
     private fun isLoginValid(): Boolean {

@@ -15,6 +15,7 @@ import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingResult
 import com.wxsoft.fcare.databinding.*
+import com.wxsoft.fcare.ui.common.EmrImageAdapter
 import com.wxsoft.fcare.ui.details.medicalhistory.DrugHistoryItemAdapter
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsAdapter
 import com.wxsoft.fcare.ui.rating.RatingAdapter
@@ -71,6 +72,23 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         .apply {lifecycleOwner=owner},itemClick)
             }
 
+            R.layout.item_new_emr_complaints->{
+                ItemViewHolder.ComplaintsViewHolder(
+                    ItemNewEmrComplaintsBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            R.layout.item_new_emr_med_his->{
+                ItemViewHolder.MedHisViewHolder(
+                    ItemNewEmrMedHisBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+            R.layout.item_new_emr_ecg->{
+                ItemViewHolder.EcgViewHolder(
+                    ItemNewEmrEcgBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
             else->{
                 ItemViewHolder.BaseInfoViewHolder(
                     ItemNewEmrPatientInfoBinding.inflate(inflater,parent,false)
@@ -85,12 +103,12 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             is ItemViewHolder.BaseInfoViewHolder->{
                 holder.binding.apply {
                     item=emr
-                    patient=emr.result as? Patient
-                    patient?.let {
-                        if(!panel.isInflated){
-                            panel.viewStub?.inflate()
-                        }
-                    }
+//                    patient=emr.result as? Patient
+//                    patient?.let {
+//                        if(!panel.isInflated){
+//                            panel.viewStub?.inflate()
+//                        }
+//                    }
                     executePendingBindings()
                 }
             }
@@ -154,12 +172,44 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                     executePendingBindings()
                 }
             }
+
+            is ItemViewHolder.ComplaintsViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    memo.text=(emr.result as? List<Complain>)?.joinToString (","){it.ccCode_Name}
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.MedHisViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    val his=emr.result as? MedicalHistory
+                    history=his
+                    if(list.adapter==null){
+                        list.adapter=EmrImageAdapter(owner)
+                    }
+                    (list.adapter as? EmrImageAdapter)?.submitList(his?.attachments?.map { it.httpUrl })
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.EcgViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    val ec=emr.result as? Ecg
+                    ecg=ec
+                    if(list.adapter==null){
+                        list.adapter=EmrImageAdapter(owner)
+                    }
+                    (list.adapter as? EmrImageAdapter)?.submitList(ec?.attachments?.map { it.httpUrl })
+                    executePendingBindings()
+                }
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-//        return  R.layout.item_new_emr_patient_info
-
         return if(isHeader)
             R.layout.item_emr_header
             else {
@@ -170,6 +220,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 ActionType.DispostionMeasures -> R.layout.item_new_emr_measure_list
                 ActionType.给药 -> R.layout.item_new_emr_drug_list
                 ActionType.诊断 -> R.layout.item_new_emr_diagnose_result
+                ActionType.主诉及症状 -> R.layout.item_new_emr_complaints
+                ActionType.IllnessHistory -> R.layout.item_new_emr_med_his
+                ActionType.心电图-> R.layout.item_new_emr_ecg
                 else -> 0
             }
         }
@@ -219,6 +272,21 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             }
         }
 
+
+        class ComplaintsViewHolder(
+            override val binding: ItemNewEmrComplaintsBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
         class DrugViewHolder(
             override val binding: ItemNewEmrDrugListBinding,
             override val click:(String)->Unit
@@ -235,6 +303,34 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
         class DiagnoseViewHolder(
             override val binding: ItemNewEmrDiagnoseResultBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class MedHisViewHolder(
+            override val binding: ItemNewEmrMedHisBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class EcgViewHolder(
+            override val binding: ItemNewEmrEcgBinding,
             override val click:(String)->Unit
         ) : ItemViewHolder(binding,click){
             init {

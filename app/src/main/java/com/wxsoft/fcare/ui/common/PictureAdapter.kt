@@ -150,7 +150,6 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
 
     object ForNewItem
 
-
     sealed class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
 
         class ImageViewHolder(
