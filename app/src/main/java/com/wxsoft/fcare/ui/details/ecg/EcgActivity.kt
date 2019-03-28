@@ -35,7 +35,6 @@ import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.EcgAdapter
-import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.details.ecg.fragment.EcgEditFragment
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import kotlinx.android.synthetic.main.activity_ecg.*

@@ -19,7 +19,6 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityTimePointBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
@@ -121,7 +120,7 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
-                startActivityForResult(intent, EmrFragment.RATING)
+                startActivityForResult(intent, RATING)
             }
             ActionType.给药 ->{
                 val intent = Intent(this@TimePointActivity, DrugRecordsActivity::class.java).apply {

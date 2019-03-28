@@ -29,8 +29,8 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.GisFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
 import com.wxsoft.fcare.ui.details.dominating.fragment.TaskSheetFragment
-import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment.Companion.BASE_INFO
 import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import javax.inject.Inject

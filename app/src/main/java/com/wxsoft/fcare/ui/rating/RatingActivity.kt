@@ -3,10 +3,8 @@ package com.wxsoft.fcare.ui.rating
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Rating
@@ -16,9 +14,7 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityRatingBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrFragment
-import kotlinx.android.synthetic.main.activity_rating.*
-import kotlinx.android.synthetic.main.layout_common_title.*
+import com.wxsoft.fcare.utils.ActionCode.Companion.ARG_NEW_ITEM_CODE
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 import javax.inject.Named
@@ -86,7 +82,7 @@ class RatingActivity : BaseActivity() {
 //            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
             putExtra(RatingSubjectActivity.RECORD_ID, result.id)
         }
-        startActivityForResult(intent, EmrFragment.ARG_NEW_ITEM_CODE)
+        startActivityForResult(intent, ARG_NEW_ITEM_CODE)
     }
     private fun newRating(rating:Rating){
         ratingFragment.dismiss()
@@ -96,7 +92,7 @@ class RatingActivity : BaseActivity() {
             putExtra(RatingSubjectActivity.RATING_NAME, rating.name)
             putExtra(RatingSubjectActivity.RATING_ID, rating.id)
         }
-        startActivityForResult(intent, EmrFragment.ARG_NEW_ITEM_CODE)
+        startActivityForResult(intent, ARG_NEW_ITEM_CODE)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -104,7 +100,7 @@ class RatingActivity : BaseActivity() {
 
         if(resultCode==RESULT_OK) {
             when (requestCode) {
-                EmrFragment.ARG_NEW_ITEM_CODE -> {
+                ARG_NEW_ITEM_CODE -> {
 
                     viewModel.refresh()
                 }

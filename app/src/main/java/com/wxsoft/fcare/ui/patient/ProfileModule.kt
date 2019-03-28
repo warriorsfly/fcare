@@ -16,19 +16,4 @@ internal abstract class ProfileModule {
     @ViewModelKey(ProfileViewModel::class)
     abstract fun bindProfileViewModel(viewModel: ProfileViewModel): ViewModel
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(PatientEmrViewModel::class)
-    abstract fun bindPatientEmrViewModel(viewModel: PatientEmrViewModel): ViewModel
-
-
-    @Binds
-    @IntoMap
-    @ViewModelKey(TimeLineViewModel::class)
-    abstract fun bindTimeLineViewModel(viewModel: TimeLineViewModel): ViewModel
-
-    @ChildFragmentScoped
-    @ContributesAndroidInjector
-    abstract fun contributeTimeLineFragment(): TimeLineFragment
-
 }

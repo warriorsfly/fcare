@@ -72,7 +72,6 @@ import com.wxsoft.fcare.ui.message.MessageActivity
 import com.wxsoft.fcare.ui.message.MessageModule
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.outcome.OutComeModule
-import com.wxsoft.fcare.ui.patient.PatientEmrActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
 import com.wxsoft.fcare.ui.rating.RatingActivity
@@ -179,10 +178,6 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ThrombolysisModule::class])
     internal abstract fun thrombolysisActivity(): ThrombolysisActivity
-
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = [ProfileModule::class,DoMinaModule::class])
-    internal abstract fun patientEmrActivity(): PatientEmrActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [MessageModule::class])
