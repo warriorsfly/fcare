@@ -16,16 +16,21 @@ import android.os.SystemClock
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.jzxiang.pickerview.TimePickerDialog
+import com.jzxiang.pickerview.data.Type
+import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAddInformedBinding
 import com.wxsoft.fcare.di.GlideApp
@@ -39,7 +44,32 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 
-class AddInformedActivity : BaseActivity() {
+class AddInformedActivity : BaseActivity(), OnDateSetListener {
+
+    private var dialog: TimePickerDialog?=null
+
+    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        when(selectedId){
+            R.id.start_informed_time -> viewModel.talk.value?.startTime = DateTimeUtils.formatter.format(millseconds)
+            R.id.end_informed_time -> viewModel.talk.value?.endTime = DateTimeUtils.formatter.format(millseconds)
+        }
+        viewModel.talk.value?.judgeTime()
+    }
+
+    private fun showDatePicker(v: View?){
+        (v as? TextView)?.let {
+            selectedId=it.id
+            val currentTime= it.text.toString().let { txt->
+                if(txt.isEmpty()) 0L else DateTimeUtils.formatter.parse(txt).time
+            }
+
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all")
+        }
+    }
+
+    private var selectedId=0
 
 
 
@@ -80,6 +110,13 @@ class AddInformedActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityAddInformedBinding>(this, R.layout.activity_add_informed)
             .apply {
+                startInformedTime.setOnClickListener{
+                    showDatePicker(findViewById(R.id.start_informed_time))
+                }
+                endInformedTime.setOnClickListener{
+                    showDatePicker(findViewById(R.id.end_informed_time))
+                }
+
                 lifecycleOwner = this@AddInformedActivity
             }
 
@@ -394,6 +431,28 @@ class AddInformedActivity : BaseActivity() {
         return String.format("%0" + formatLength + "d", sourceDate)
 
     }
+
+    private fun createDialog(time:Long): TimePickerDialog {
+
+        return TimePickerDialog.Builder()
+            .setCallBack(this)
+            .setCancelStringId("取消")
+            .setSureStringId("确定")
+            .setTitleStringId("选择时间")
+            .setYearText("")
+            .setMonthText("")
+            .setDayText("")
+            .setHourText("")
+            .setMinuteText("")
+            .setCyclic(false)
+            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
+            .setType(Type.ALL)
+            .setWheelItemTextSize(12)
+            .build()
+    }
+
+
+
 }
 
 

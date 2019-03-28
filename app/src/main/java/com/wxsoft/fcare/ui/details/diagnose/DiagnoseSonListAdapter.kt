@@ -34,28 +34,30 @@ class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOw
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            differ.currentList[position].section = section
+            val item = differ.currentList[position]
+            item.section = section
+            item.position = position
             if (section == 4){
-                when(differ.currentList[position].id){
+                when(item.id){
                     "216-1" -> {
                         root.illness_icon.setText("I")
-                        root.illness_name.setTextColor(Color.parseColor("#FE5F55"))
+                        root.illness_name.setTextColor(if(!item.checked) Color.parseColor("#FE5F55")else Color.parseColor("#FFFFFF"))
                     }
                     "216-2" -> {
                         root.illness_icon.setText("II")
-                        root.illness_name.setTextColor(Color.parseColor("#FCA542"))
+                        root.illness_name.setTextColor(if(!item.checked) Color.parseColor("#FCA542")else Color.parseColor("#FFFFFF"))
                     }
                     "216-3" -> {
                         root.illness_icon.setText("III")
-                        root.illness_name.setTextColor(Color.parseColor("#FFDA6F"))
+                        root.illness_name.setTextColor(if(!item.checked) Color.parseColor("#FFDA6F")else Color.parseColor("#FFFFFF"))
                     }
                     "216-4" -> {
                         root.illness_icon.setText("IV")
-                        root.illness_name.setTextColor(Color.parseColor("#30C890"))
+                        root.illness_name.setTextColor(if(!item.checked) Color.parseColor("#30C890")else Color.parseColor("#FFFFFF"))
                     }
                     "216-5" -> {
                         root.illness_icon.setText("IV")
-                        root.illness_name.setTextColor(Color.parseColor("#30C890"))
+                        root.illness_name.setTextColor(if(!item.checked) Color.parseColor("#30C890")else Color.parseColor("#FFFFFF"))
                     }
                 }
             }

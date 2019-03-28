@@ -44,6 +44,8 @@
                     android:layout_height="wrap_content"
                     android:textSize="16sp"
                     android:gravity="center"
+                    app:diagnoseType="@{item.checked}"
+                    app:position="@{item.position}"
                     android:text="@{item.itemName}"
                     tools:text="张三"
                     android:layout_marginLeft="6dp"

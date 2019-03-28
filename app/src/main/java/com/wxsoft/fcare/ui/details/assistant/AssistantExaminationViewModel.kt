@@ -3,11 +3,14 @@ package com.wxsoft.fcare.ui.details.assistant
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.lis.LisItem
 import com.wxsoft.fcare.core.data.entity.lis.LisRecord
 import com.wxsoft.fcare.core.data.entity.lis.LisRecordItem
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
@@ -17,6 +20,7 @@ import com.wxsoft.fcare.core.utils.map
 import javax.inject.Inject
 
 class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISApi,
+                                                        private var dictEnumApi: DictEnumApi,
                                                         override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                         override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) ,
@@ -56,6 +60,19 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
     private val loadLisRecordsResult = MediatorLiveData<Resource<Response<List<LisRecord>>>>()
 
 
+    val lisCr:LiveData<LisCr>
+    private val loadLisCrResult = MediatorLiveData<Resource<Response<LisCr>>>()
+
+    /**
+     * 肌酐蛋白单位
+     */
+    val troponinUnitsItems: LiveData<List<String>>
+    private lateinit var troponinUnits: List<Dictionary>
+    /**
+     *获取肌酐蛋白单位字典
+     */
+    private val loadTroponinDictEnumResult = MediatorLiveData<Resource<List<Dictionary>>>()
+
     init {
         clickEdit = loadClickEdit.map { it }
         selectedType = initSelectedType.map { it }
@@ -65,6 +82,14 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
             if (selectedType.value.equals("3")) (it as? Resource.Success)?.data?.result?: emptyList() else getDataModel()
         }
         getLisItems()
+
+
+        lisCr = loadLisCrResult.map { (it as? Resource.Success)?.data?.result?: LisCr("") }
+        troponinUnitsItems= loadTroponinDictEnumResult.map {
+            val cos=(it as? Resource.Success)?.data?: emptyList()
+            troponinUnits=cos
+            return@map troponinUnits.map { item -> item.itemName }
+        }
 
     }
 
@@ -223,5 +248,45 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
         })
         return arr
     }
+
+
+    fun getCrById(id:String){
+        if (id.isEmpty()){
+            loadLisCrResult.value = null
+            return
+        }
+        lisApi.getCrById(id).toResource()
+            .subscribe {
+                loadLisCrResult.value = it
+                lisCr.value?.setUpChecked()
+            }
+    }
+
+    /**
+     * 获取肌酐蛋白单位字典信息
+     */
+    fun loadTroponin() {
+        dictEnumApi.loadTroponinUnit().toResource()
+            .subscribe {
+                loadTroponinDictEnumResult.value = it
+            }
+    }
+
+    fun submit(){
+        if (lisCr.value == null) return
+        lisCr.value!!.patientId = patientId
+        lisApi.saveCr(lisCr.value!!).toResource()
+            .subscribe {
+                loadClickEdit.value = "success"
+                getLisRecords("3")
+            }
+    }
+
+
+    fun clickTime(id:String){
+        loadClickEdit.value = id
+    }
+
+
 
 }

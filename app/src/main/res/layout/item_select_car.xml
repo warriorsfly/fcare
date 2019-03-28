@@ -9,7 +9,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container"
-                taskSelectCar="@{car.status.equals(`203-1`)}"
+                taskSelectUser="@{car.selectStatus}"
                 android:layout_width="162dp"
                 android:layout_marginLeft="5dp"
                 android:onClick="@{() -> listener.selectCar(car)}"
@@ -20,8 +20,7 @@
                     android:layout_height="70dp"
                     android:textSize="20dp"
                     android:gravity="center"
-                    taskSelectCarTextColor="@{car.status.equals(`203-1`)}"
-                    android:textColor="@color/white"
+                    android:textColor="@{car.selectStatus?@color/white:@color/black_checked_nomal}"
                     tools:text="皖A 1P111"
                     android:text="@{car.id}"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -35,12 +34,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="11dp"
-                    taskSelectCarTextColor="@{!car.status.equals(`203-1`)}"
+                    taskSelectCarTextColor="@{car.selectStatus}"
                     android:layout_marginTop="2dp"
                     android:layout_marginLeft="2dp"
                     tools:text="任务中"
                     android:text="@{car.statuName}"
-                    taskSelectCar="@{!car.status.equals(`203-1`)}"
+                    taskSelectCar="@{car.selectStatus}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"/>
             
@@ -50,7 +49,7 @@
                     android:layout_marginRight="5dp"
                     android:layout_marginBottom="10dp"
                     goneUnless="@{car.selectStatus}"
-                    android:src="@drawable/ic_select_circle"
+                    android:src="@drawable/ic_checked_white_background"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
 

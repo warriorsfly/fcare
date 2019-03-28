@@ -95,10 +95,15 @@ class DateTimeUtils {
             val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
             val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
             var c=end-start
+            val hour=if(c>=3600*1000)  String.format("%d", c/3600000) else "0"
             c %= (3600 * 1000)
-            val minute=if(c>60*1000) String.format("%d", c/60000)   else  "0"
+            val minute=if(c>=60*1000) String.format("%d", c/60000)   else  "0"
             c %= (60 * 1000)
-            return StringBuilder().append(minute).toString()
+            val second=if(c>=1000) String.format("%d", c/1000) else "0"
+            if (hour.equals("0")){
+                return StringBuilder().append(minute).append("分钟").toString()
+            }
+            return StringBuilder().append(hour).append("小时").append(minute).append("分钟").toString()
         }
     }
 }

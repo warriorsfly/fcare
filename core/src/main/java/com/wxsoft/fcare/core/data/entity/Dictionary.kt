@@ -38,6 +38,13 @@ data class Dictionary(val id:String, val itemName:String): BaseObservable(), Ser
             field=value
             notifyPropertyChanged(BR.section)
         }
+    @Bindable
+    @Transient
+    var position:Int=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.position)
+        }
 
     fun selected(){
         checked = !checked

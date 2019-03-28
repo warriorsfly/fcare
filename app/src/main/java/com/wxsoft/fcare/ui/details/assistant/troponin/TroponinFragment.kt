@@ -17,7 +17,10 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.FragmentTroponinBinding
 import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationViewModel
 import com.wxsoft.fcare.widget.WxDimDialogFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -71,7 +74,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
     lateinit var fragmentInjector: DispatchingAndroidInjector<androidx.fragment.app.Fragment>
 
     private lateinit var binding: FragmentTroponinBinding
-    private lateinit var viewModel: TroponinViewModel
+    private lateinit var viewModel: AssistantExaminationViewModel
 
     override fun supportFragmentInjector(): AndroidInjector<androidx.fragment.app.Fragment> {
         return fragmentInjector
@@ -87,7 +90,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        viewModel=viewModelProvider(factory)
+        viewModel=activityViewModelProvider(factory)
         binding=FragmentTroponinBinding.inflate(inflater,container,false).apply {
 
             viewModel=this@TroponinFragment.viewModel
@@ -97,6 +100,7 @@ class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , On
         viewModel.patientId = patientId
         viewModel.getCrById(recordId)
         viewModel.lisCr.observe(this, Observer {  })
+        viewModel.loadTroponin()
 
         viewModel.clickEdit.observe(this, Observer {
             when(it){

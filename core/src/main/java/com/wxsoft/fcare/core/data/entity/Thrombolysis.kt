@@ -270,7 +270,7 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
 
     fun getInformedTime(){
         if(start_Agree_Time.isNullOrEmpty()|| sign_Agree_Time.isNullOrEmpty()) return
-        allTime = DateTimeUtils.getAAfromBBMinutes(start_Agree_Time!!, sign_Agree_Time!!) + "分钟"
+        allTime = DateTimeUtils.getAAfromBBMinutes(start_Agree_Time!!, sign_Agree_Time!!)
 
     }
 

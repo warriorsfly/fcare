@@ -92,7 +92,7 @@ data class Talk (val id:String) : BaseObservable() {
 
     fun judgeTime(){
         if(startTime.isNullOrEmpty()|| endTime.isNullOrEmpty()) return
-        allTime = DateTimeUtils.getAAfromBBMinutes(startTime,endTime) + "分钟"
+        allTime = DateTimeUtils.getAAfromBBMinutes(startTime,endTime)
     }
 
 }

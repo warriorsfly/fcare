@@ -22,6 +22,7 @@
     <color name="small_title_text_gray">#525252</color>
     <color name="bg_light_gray">#F7F7F7</color>
     <color name="bg_light_yellow">#FAE631</color>
+    <color name="diagnose_light_yellow">#FCA542</color>
 
 
     <color name="black_overlay">#66000000</color>

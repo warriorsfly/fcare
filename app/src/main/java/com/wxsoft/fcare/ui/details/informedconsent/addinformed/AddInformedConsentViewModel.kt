@@ -121,6 +121,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
 
     fun getTheTalk(response: Response<Talk>){
         initTalk.value = response
+        talk.value?.judgeTime()
     }
 
 

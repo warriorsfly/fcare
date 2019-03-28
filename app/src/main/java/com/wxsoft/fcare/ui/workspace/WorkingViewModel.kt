@@ -121,7 +121,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                     .subscribe {
                         courseSeconds.set(courseSeconds.get().plus(1))
                     })
-        }
+        }?:course.set("")
     }
     private fun doQualities(it: Response<List<TimeQuality>>){
         loadTimeQualityResult.value=it

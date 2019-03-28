@@ -30,6 +30,24 @@ import androidx.databinding.InverseMethod
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.di.GlideApp
 
+@BindingAdapter("diagnoseType","position")
+fun diagnoseType(view: TextView, visible: Boolean,position:Int?) {
+    view.setTextColor(
+        if (visible) {
+             view.context.resources.getColor(R.color.white)
+        } else {
+            when(position){
+                0 -> view.context.resources.getColor(R.color.rating_red)
+                1 -> view.context.resources.getColor(R.color.diagnose_light_yellow)
+                2 -> view.context.resources.getColor(R.color.lightemergency)
+                3-> view.context.resources.getColor(R.color.tint_work_space_rating)
+                4 -> view.context.resources.getColor(R.color.tint_work_space_rating)
+                else -> view.context.resources.getColor(R.color.white)
+            }
+        }
+    )
+}
+
 @BindingAdapter("taskSelectUser")
 fun taskSelectUser(view: View, visible: Boolean) {
     view.setBackgroundResource(if (visible) R.drawable.bg_select_user_selected else R.drawable.bg_select_user_normal)
@@ -41,7 +59,7 @@ fun taskSelectCar(view: View, visible: Boolean) {
 }
 @BindingAdapter("taskSelectCarTextColor")
 fun taskSelectCarTextColor(view: TextView, visible: Boolean) {
-    view.setTextColor(if (visible) view.context.resources.getColor(R.color.task_select_car_able_text) else view.context.resources.getColor(R.color.task_select_car_unable_text))
+    view.setTextColor(if (visible) view.context.resources.getColor(R.color.colorPrimary) else view.context.resources.getColor(R.color.task_select_car_unable_text))
 }
 
 @BindingAdapter("taskAt")
