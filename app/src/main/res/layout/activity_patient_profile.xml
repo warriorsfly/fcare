@@ -394,27 +394,62 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:layout_width="64dp"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:textSize="12sp"
-                    android:layout_marginTop="13dp"
-                    android:layout_marginBottom="13dp"
-                    android:textColor="@{viewModel.patient.unKnown ? @color/task_done  : @color/task_undo}"
-                    android:background="@{viewModel.patient.unKnown ? @color/patient_nothing_known  : @color/patient_known}"
-                    android:onClick="@{()->viewModel.patientIsUnkown()}"
-                    android:layout_marginLeft="15dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/ill_type"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:text="三无患者"/>
-                />
+                <!--<TextView-->
+                    <!--android:layout_width="64dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:gravity="center"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:layout_marginTop="13dp"-->
+                    <!--android:layout_marginBottom="13dp"-->
+                    <!--android:textColor="@{viewModel.patient.unKnown ? @color/task_done  : @color/task_undo}"-->
+                    <!--android:background="@{viewModel.patient.unKnown ? @color/patient_nothing_known  : @color/patient_known}"-->
+                    <!--android:onClick="@{()->viewModel.patientIsUnkown()}"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintTop_toBottomOf="@id/ill_type"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--android:text="三无患者"/>-->
+                <!--/>-->
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/sanwu_container"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line1"
+                    android:layout_width="match_parent"
+                    android:background="@color/white"
+                    android:layout_height="50dp">
+                <TextView
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:text="是否是三无患者"
+                        android:textSize="15sp"
+                        android:id="@+id/sanwu_title1"
+                        android:textColor="@color/edit_text_title"
+                        android:layout_marginLeft="15dp"
+                        android:layout_height="wrap_content"/>
+
+                <Switch
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:checked="@={viewModel.patient.unKnown}"
+                        android:textSize="14sp"
+                        android:layout_marginRight="15dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/line2"
-                app:layout_constraintTop_toBottomOf="@id/line1"
+                app:layout_constraintTop_toBottomOf="@id/sanwu_container"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
