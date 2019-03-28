@@ -172,4 +172,10 @@
         <item name="android:maxHeight">20dp</item>
     </style>
 
+
+    <style name="Fcare.BottomNav" parent="@style/Widget.MaterialComponents.BottomNavigationView">
+        <item name="itemIconTint">@color/bottom_nav_item</item>
+        <item name="labelVisibilityMode">labeled</item>
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+    </style>
 </resources>

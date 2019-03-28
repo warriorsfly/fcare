@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_tasks_selector"
+            android:icon="@drawable/ic_mission"
             android:title="@string/title_home"/>
 
     <item
             android:id="@+id/nav_dashboard"
             android:icon="@drawable/ic_main_patients"
             android:title="@string/title_dashboard"/>
+
+<!--    <item-->
+<!--            android:id="@+id/add"-->
+<!--            android:icon="@drawable/ic_big_add"-->
+<!--            android:actionLayout="@layout/layout_new_title"-->
+<!--            android:title=""-->
+<!--            app:showAsAction="always"-->
+
+<!--    />-->
 
     <item
             android:id="@+id/nav_notifications"

@@ -33,10 +33,10 @@
     <string name="action_edit_base_info">编辑</string>
     <string name="input_type_chars_numbers">1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
     <string name="input_type_numbers">1234567890</string>
-    <string name="title_home">任务列表</string>
+    <string name="title_home">院前</string>
     <string name="title_dashboard">工作台</string>
     <string name="title_notifications">消息</string>
-    <string name="title_user_info">个人信息</string>
+    <string name="title_user_info">我的</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_activity_patient_detail">PatientDetailActivity</string>
     <string name="tab_text_1">Tab 1</string>

@@ -1,27 +1,18 @@
 package com.wxsoft.fcare.ui.main
 
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import androidx.databinding.DataBindingUtil
-import android.nfc.NfcAdapter
-import android.nfc.Tag
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.fragment.app.Fragment
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.databinding.ActivityMainBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
-import com.wxsoft.fcare.core.utils.NfcUtils
-import com.wxsoft.fcare.core.utils.lazyFast
-import com.wxsoft.fcare.service.JPushReceiver
-import com.wxsoft.fcare.ui.login.LoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -30,18 +21,18 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    private var nfcAdapter: NfcAdapter? = null
+//    private var nfcAdapter: NfcAdapter? = null
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when (item.itemId) {
             R.id.nav_home -> {
 //                message.setText(R.string.title_home)
-                viewPager.setCurrentItem(0,true)
+                viewPager.setCurrentItem(0, true)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_dashboard -> {
-                viewPager.setCurrentItem(1,true)
+                viewPager.setCurrentItem(1, true)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
@@ -49,7 +40,7 @@ class MainActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_user -> {
-                viewPager.setCurrentItem(2,true)
+                viewPager.setCurrentItem(2, true)
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -62,10 +53,12 @@ class MainActivity : BaseActivity() {
 
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .apply {
-//                viewModel=this@MainActivity.viewModel
+                //                viewModel=this@MainActivity.viewModel
                 navigation.apply {
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-                    itemIconTintList=null
+//                    for ( v in getChildAt(2).fin)
+//                    getChildAt(2) .findViewById<TextView>(R.id.smallLabel).visibility= View.GONE
+//                    getChildAt(2) .findViewById<TextView>(R.id.largeLabel).visibility= View.GONE
                 }
                 if (savedInstanceState == null) {
                     navigation.selectedItemId = R.id.nav_home
@@ -75,7 +68,7 @@ class MainActivity : BaseActivity() {
 
 
         viewPager.adapter = MainAdapter(supportFragmentManager)
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+//        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
 //        pi = PendingIntent.getActivity(
 //            this, 0, Intent(this, javaClass)
 //                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0
@@ -98,21 +91,21 @@ class MainActivity : BaseActivity() {
 //
 //    }
 
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-
-        if (NfcAdapter.ACTION_TAG_DISCOVERED == intent!!.action) {
-
-            val tagFromIntent = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
-//            val cardId = NfcUtils.toHexString(tagFromIntent.id)
-
-//            viewModel.loadByRfid(cardId)
-        }
-    }
+//    override fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//
+//        if (NfcAdapter.ACTION_TAG_DISCOVERED == intent!!.action) {
+//
+//            val tagFromIntent = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
+////            val cardId = NfcUtils.toHexString(tagFromIntent.id)
+//
+////            viewModel.loadByRfid(cardId)
+//        }
+//    }
 }
 
 
-class MainAdapter(fm: androidx.fragment.app.FragmentManager) :
+class MainAdapter(fm:FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     private val fragments:List<androidx.fragment.app.Fragment> by lazyFast {
