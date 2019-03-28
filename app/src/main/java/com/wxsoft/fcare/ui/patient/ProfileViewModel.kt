@@ -88,11 +88,11 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun patientIsUnkown(){
-        patient.value?.let {
-            it.unKnown=!it.unKnown
-        }
-    }
+//    fun patientIsUnkown(){
+//        patient.value?.let {
+//            it.unKnown=!it.unKnown
+//        }
+//    }
 
     override fun click(){
         if(preHos && patientSavable) {
