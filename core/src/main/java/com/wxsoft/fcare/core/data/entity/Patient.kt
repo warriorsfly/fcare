@@ -237,7 +237,16 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
     var currentSceneName: String = ""
         set(value) {
             field = value
+            timing=field<"223-4"
             notifyPropertyChanged(BR.currentSceneName)
+        }
+
+    @Transient
+    @get:Bindable
+    var timing: Boolean=false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.timing)
         }
 
 

@@ -88,6 +88,7 @@ class RatingSubjectActivity : BaseActivity() {
             it ?: return@Observer
             adapter.setRat(it)
             adapter.submitList(it.subjects)
+            title=it.name
         })
 
         viewModel.mesAction.observe(this,EventObserver{

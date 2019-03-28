@@ -65,6 +65,7 @@ class RatingActivity : BaseActivity() {
 
 
         setSupportActionBar(toolbar)
+        title="评分"
     }
 
     private fun newItem(scence:String) {

@@ -50,7 +50,9 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             loadOperations(field,account.id)
         }
     val courseSeconds=ObservableInt()
-    val course=ObservableField<String>()
+    val course=ObservableField<String>().apply {
+        set("0")
+    }
 
     val emrFullScreen=ObservableBoolean()
     /**
@@ -106,7 +108,9 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     }
 
     private fun doPatient(response:Response<Patient>){
-        loadPatientResult.value=response
+        loadPatientResult.value=response.apply {  result?.let {
+            it.timing=it.currentScene<"223-4"
+        } }
 
         response.result?.attackTime?.let {
             courseSeconds.set((System.currentTimeMillis()/60000 - DateTimeUtils.formatter.parse(it).time / 60000).toInt())

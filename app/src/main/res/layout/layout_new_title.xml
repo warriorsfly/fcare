@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="subTitle" type="String"/>
-    </data>
     <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
         style="@style/Widget.AppBar"
@@ -20,7 +17,6 @@
                 app:titleTextAppearance="@style/ActionBarTitle.White"
                 app:contentInsetStartWithNavigation="0dp"
                 app:navigationIcon="@drawable/ic_back"
-                app:title="@{subTitle}"
-                tools:title="title"/>
+        />
     </com.google.android.material.appbar.AppBarLayout>
 </layout>
