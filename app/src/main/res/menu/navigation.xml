@@ -8,17 +8,17 @@
 
     <item
             android:id="@+id/nav_dashboard"
-            android:icon="@drawable/ic_patients_selector"
+            android:icon="@drawable/ic_main_patients"
             android:title="@string/title_dashboard"/>
 
     <item
             android:id="@+id/nav_notifications"
-            android:icon="@drawable/ic_message_selector"
+            android:icon="@drawable/ic_main_message"
             android:title="@string/title_notifications"/>
 
     <item
             android:id="@+id/nav_user"
-            android:icon="@drawable/ic_mine_selector"
+            android:icon="@drawable/ic_main_mine"
             android:title="@string/title_user_info"/>
 
 </menu>
