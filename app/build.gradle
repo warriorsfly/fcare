@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/ccl/Desktop/fcare/key')
+            storeFile file('/Users/allen/Work/wxsoft/fcare/key')
             storePassword '123456'
             keyAlias = 'key0'
             keyPassword '123456'
