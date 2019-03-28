@@ -29,7 +29,7 @@ class DispatchCarViewModel @Inject constructor(
 
     override var title= "发车"
     override val clickableTitle: String
-        get() = "立即发车"
+        get() = "保存"
     override val clickable:LiveData<Boolean>
 
     private val clickResult  = MediatorLiveData<Boolean>().apply {

@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.rating
 
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -39,7 +40,6 @@ class RatingSubjectViewModel @Inject constructor(
             if(value.isEmpty())return
             loadRecord()
         }
-
 
     val rating:LiveData<Rating>
     private val loadRatingResult =MediatorLiveData<Rating>()
@@ -84,6 +84,9 @@ class RatingSubjectViewModel @Inject constructor(
 
     private fun doSubjects(response: Response<Rating>) {
 
+        response.result?.apply {
+            max=subjects.size
+        }
         loadRecordResult.value?.records?.forEach {
 
             val selectedOptions = it.selection.split(",")

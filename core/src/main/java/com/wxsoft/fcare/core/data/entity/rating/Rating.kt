@@ -25,6 +25,22 @@ data class Rating(val id:String="",
             notifyPropertyChanged(BR.score)
         }
 
+    @Transient
+    @get:Bindable
+    var max:Int=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.max)
+        }
+
+    @Transient
+    @get:Bindable
+    var process:Int=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.process)
+        }
+
     @get:Bindable
     @Transient
     var grade: Grade?=null
@@ -39,7 +55,7 @@ data class Rating(val id:String="",
 
     fun refreshScore(){
         score = subjects.sumBy{ it.options.filter { option ->  option.checked }.sumBy { op->op.score } }
-
+        process=subjects.count{it.options.size==1 || it.options.any{option->option.checked}}
         grade=resultGrades.firstOrNull { it.scoreStart<score && it.scoreEnd>= score }
     }
 
