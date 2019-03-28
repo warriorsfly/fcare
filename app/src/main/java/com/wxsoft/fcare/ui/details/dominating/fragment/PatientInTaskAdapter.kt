@@ -9,10 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
-import com.wxsoft.fcare.databinding.ItemNewImageBinding
-import com.wxsoft.fcare.databinding.ItemPatientInTaskBinding
-import com.wxsoft.fcare.databinding.ItemTaskNoPatientBinding
+import com.wxsoft.fcare.databinding.*
 
 class PatientInTaskAdapter constructor(private val owner: LifecycleOwner,private val detailPatient:(Patient)->Unit) :
     RecyclerView.Adapter<PatientInTaskAdapter.ItemViewHolder>() {
@@ -65,8 +62,8 @@ class PatientInTaskAdapter constructor(private val owner: LifecycleOwner,private
                     lifecycleOwner=owner
                 }
             )
-            R.layout.item_patient_in_task -> ItemViewHolder.PatientViewHolder(
-                ItemPatientInTaskBinding.inflate(inflater, parent, false).apply {
+            R.layout.layout_item_patient -> ItemViewHolder.PatientViewHolder(
+                LayoutItemPatientBinding.inflate(inflater, parent, false).apply {
 
                     lifecycleOwner=owner
                 },detailPatient
@@ -79,7 +76,7 @@ class PatientInTaskAdapter constructor(private val owner: LifecycleOwner,private
     override fun getItemViewType(position: Int): Int {
         return when (differ.currentList[position]) {
             is EmptyItem -> R.layout.item_task_no_patient
-            is Patient-> R.layout.item_patient_in_task
+            is Patient-> R.layout.layout_item_patient
 
             else -> throw IllegalStateException("Unknown viewType at  $position")
         }
@@ -112,7 +109,7 @@ class PatientInTaskAdapter constructor(private val owner: LifecycleOwner,private
         ) : ItemViewHolder(binding)
 
         class PatientViewHolder(
-            val binding: ItemPatientInTaskBinding,
+            val binding: LayoutItemPatientBinding,
             val showDetail:(Patient)->Unit
         ) : ItemViewHolder(binding){
             init {

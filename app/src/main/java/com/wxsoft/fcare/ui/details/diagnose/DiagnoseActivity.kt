@@ -58,10 +58,6 @@ class DiagnoseActivity : BaseActivity() {
         back.setOnClickListener { onBackPressed() }
 
 
-
-
-
-
         val illnessdiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
         illnessdiagnoseAdapter.section = 4
         viewModel.illnessItems.observe(this, Observer { illnessdiagnoseAdapter.items = it ?: emptyList() })

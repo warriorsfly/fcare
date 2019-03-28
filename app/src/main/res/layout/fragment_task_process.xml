@@ -120,7 +120,10 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/clock"
                     android:layout_width="match_parent"
-                    android:layout_marginBottom="36dp"
+
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    android:layout_marginBottom="21dp"
                     android:id="@+id/list"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:layout_height="0dp"/>
