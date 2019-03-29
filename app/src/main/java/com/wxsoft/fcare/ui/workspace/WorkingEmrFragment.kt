@@ -41,6 +41,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.CT_OPERATION
 import com.wxsoft.fcare.utils.ActionCode.Companion.Catheter
 import com.wxsoft.fcare.utils.ActionCode.Companion.DIAGNOSE
 import com.wxsoft.fcare.utils.ActionCode.Companion.DRUGRECORD
+import com.wxsoft.fcare.utils.ActionCode.Companion.ECG
 import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
@@ -132,7 +133,7 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
             ActionType.CT_OPERATION -> Pair(CTActivity::class.java, CT_OPERATION)
             ActionType.CABG -> Pair(ReperfusionActivity::class.java, CABG)
             ActionType.治疗策略 -> Pair(StrategyActivity::class.java, STRATEGY)
-            ActionType.心电图 -> Pair(EcgActivity::class.java, STRATEGY)
+            ActionType.心电图 -> Pair(EcgActivity::class.java, ECG)
 
             else -> throw IllegalArgumentException("unknown code $code")
         }

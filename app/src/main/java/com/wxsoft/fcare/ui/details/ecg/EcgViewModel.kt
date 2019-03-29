@@ -86,6 +86,11 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         }
     }
 
+    private fun doSavedEcg(response: Response<Ecg>){
+        doEcg(response)
+        saved.value=true
+    }
+
     private fun doDiagnosed(response: Response<Ecg>){
         response.let(::doEcg)
         saved.value=true
@@ -112,7 +117,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
                 .flatMap { api.getPatientEcgs(patientId) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::doEcg,::error)
+                .subscribe(::doSavedEcg,::error)
             )
         }
     }
