@@ -228,6 +228,23 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
             field=value
             notifyPropertyChanged(BR.patientId)
         }
+    /**
+     *  并发症
+     */
+    @Bindable
+    var complications:List<Complication> = emptyList()
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.complications)
+        }
+
+    @Bindable
+    @Transient
+    var complication:String? = null
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.complication)
+        }
 
     @Bindable
     var d2N:Int?=0
@@ -277,7 +294,18 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     fun setUpChecked(){
         hasDirect = direct == "1"
         getInformedTime()
+        getComplicationStr()
     }
+    fun getComplicationStr(){
+        complications.map {
+           if (complication.isNullOrEmpty()){
+               complication = it.complicationCode_Name
+           }else{
+               complication = complication + "、" + it.complicationCode_Name
+           }
+        }
+    }
+
 
     fun setPlaceCheck(comefrom:String){
         if (comefrom == "1") {
