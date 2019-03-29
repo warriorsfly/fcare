@@ -51,8 +51,6 @@ class ShareViewModel  @Inject constructor(private val api: DischargeApi,
     }
 
     fun click() {
-        initClickShare.value = "share"
-    override fun click() {
         if (selectUrl.value != null) initClickShare.value = "share"
     }
 
