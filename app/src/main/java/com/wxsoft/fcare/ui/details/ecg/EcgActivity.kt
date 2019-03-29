@@ -37,6 +37,7 @@ import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.EcgAdapter
 import com.wxsoft.fcare.ui.details.ecg.fragment.EcgEditFragment
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
+import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_ecg.*
 import java.io.File
 import javax.inject.Inject
@@ -103,6 +104,11 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
                 add(R.id.fragment_container, fragment)
             }
         }
+
+        share_tv.setOnClickListener {
+            toShareEcg()
+        }
+
 
         viewModel.saved.observe(this, Observer {
 
@@ -299,6 +305,14 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
                 start()
             }
         }
+    }
+
+    fun toShareEcg(){
+        val intent = Intent(this, ShareActivity::class.java).apply {
+            putExtra(ShareActivity.PATIENT_ID, patientId)
+            putExtra(ShareActivity.TYPE_ID, "230-1")
+        }
+        startActivityForResult(intent,100 )
     }
 
     override fun onBackPressed() {
