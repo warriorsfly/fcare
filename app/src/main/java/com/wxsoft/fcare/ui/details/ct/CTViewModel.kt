@@ -18,17 +18,7 @@ import javax.inject.Inject
 class CTViewModel @Inject constructor(private val api: PACSApi,
                                                 override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                 override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title= "CT室操作"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon)  {
 
     /**
      * 病人id
@@ -45,7 +35,6 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
-        clickable = clickResult.map { it }
         intervention = loadInterventionResult.map { it?.result ?: Pacs()  }
     }
 
@@ -64,7 +53,7 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
 
 
 
-    override fun click() {
+    fun click() {
         intervention.value?.let {
             if (it.id.isEmpty()) {
                 it.createrId = account.id

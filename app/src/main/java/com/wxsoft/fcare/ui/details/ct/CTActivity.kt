@@ -4,6 +4,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -20,6 +22,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_ct.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
@@ -68,7 +71,7 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
         patientId=intent.getStringExtra(CTActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
-        back.setOnClickListener { onBackPressed() }
+//        back.setOnClickListener { onBackPressed() }
 
         start.setOnClickListener  (this)
         end_thromboly_time.setOnClickListener  (this)
@@ -92,6 +95,9 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
                 }
             }
         })
+
+        setSupportActionBar(toolbar)
+        title="CT室操作"
     }
 
     private fun createDialog(time:Long): TimePickerDialog {
@@ -111,5 +117,21 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
                 .setType(Type.ALL)
                 .setWheelItemTextSize(16)
                 .build()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 }

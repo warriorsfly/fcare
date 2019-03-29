@@ -11,9 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F8F8F9">
-        <include layout="@layout/layout_common_title"
-             android:id="@+id/title"
-             app:presenter="@{viewModel}"/>
+        <include layout="@layout/layout_new_title"
+             android:id="@+id/title"/>
         <androidx.core.widget.NestedScrollView
             android:id="@+id/baseScroll"
             android:layout_width="match_parent"
