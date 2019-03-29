@@ -33,7 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{diag.diagnosisCode1Name}"
+                android:text="@{diag.diagnosisCode2Name}"
                 tools:text="非ACS胸痛-瓣膜性心脏病"
                 android:gravity="center_vertical"
                 android:layout_weight="1"/>

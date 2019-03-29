@@ -115,9 +115,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minLines="4"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+
             android:id="@+id/memo"
             android:text="@={viewModel.ecg.diagnoseResult}"
-            android:background="@null"/>
+            android:background="@drawable/bg_dialog_edit_panel"/>
     </LinearLayout>
     </FrameLayout>
 </layout>

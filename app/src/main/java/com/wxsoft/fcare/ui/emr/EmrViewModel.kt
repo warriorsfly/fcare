@@ -246,7 +246,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      * 获取病人病情诊断
      */
     private fun loadDiagnosis(index:Int){
-        disposable.add(api.getDiagnosisList(patientId)
+        disposable.add(api.getLastDiagnose(patientId)
             .map {
 //                val item=it.result?.lastOrNull()?.let {
 //                        diagnosis->
