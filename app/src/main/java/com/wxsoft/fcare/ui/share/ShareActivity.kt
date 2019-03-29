@@ -86,25 +86,25 @@ class ShareActivity : BaseActivity() {
                 /**
                 - 异步线程
                  */
-                Thread(object : Runnable{
-                    override fun run() {
-                        val msg = Message.obtain()
-
-                        val future = Glide.with(this@ShareActivity)
-                            .load(it)
-                            .downloadOnly(500, 500)
-                        try {
-                            val cacheFile = future.get()
-                            msg.obj = cacheFile.getAbsolutePath()
-                        } catch (e: InterruptedException) {
-                            e.printStackTrace()
-                        } catch (e: ExecutionException) {
-                            e.printStackTrace()
-                        }
-                        //返回主线程
-                        handle.sendMessage(msg)
-                    }
-                }).start()
+//                Thread(object : Runnable{
+//                    override fun run() {
+//                        val msg = Message.obtain()
+//
+//                        val future = Glide.with(this@ShareActivity)
+//                            .load(it)
+//                            .downloadOnly(500, 500)
+//                        try {
+//                            val cacheFile = future.get()
+//                            msg.obj = cacheFile.getAbsolutePath()
+//                        } catch (e: InterruptedException) {
+//                            e.printStackTrace()
+//                        } catch (e: ExecutionException) {
+//                            e.printStackTrace()
+//                        }
+//                        //返回主线程
+//                        handle.sendMessage(msg)
+//                    }
+//                }).start()
             }
         })
 
