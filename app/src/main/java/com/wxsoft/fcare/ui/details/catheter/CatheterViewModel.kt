@@ -21,16 +21,8 @@ import javax.inject.Inject
 class CatheterViewModel @Inject constructor(private val interventionApi: InterventionApi,
                                                 override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                 override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
-    override var title="导管室操作"
-    override val clickableTitle="保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
 
     /**
      * 病人id
@@ -48,7 +40,6 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
-        clickable = clickResult.map { it }
         intervention = loadInterventionResult.map { it?.result ?: Intervention("")  }
     }
 
@@ -68,7 +59,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 
 
 
-    override fun click() {
+    fun saving() {
         intervention.value?.let {
             if (it.id.isEmpty()) {
                 it.doctorId = account.id

@@ -20,11 +20,8 @@ import javax.inject.Inject
 class InformedConsentViewModel @Inject constructor(private val informedApi: InformedApi,
                                                    override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                    override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
-    override var title = "知情同意书"
-    override val clickableTitle: String
-        get() = "新增"
 
     /**
      * 病人id
@@ -35,10 +32,7 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
             field = value
         }
 
-    override val clickable: LiveData<Boolean>
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+
 
     val talk:LiveData<Talk>
     private  val initTalk = MediatorLiveData<Talk>()
@@ -59,7 +53,6 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
         talkRecords = loadTalkRecordsResult.map { it?.result?: emptyList() }
         informeds = loadInformedsResult.map { (it as? Resource.Success)?.data?.result?: emptyList() }
 
-        clickable=clickResult.map { it }
         addInformedConsent = addInitInformedConsent.map { it }
     }
 
@@ -82,7 +75,7 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
             }
     }
 
-    override fun click() {
+    fun click() {
         addInitInformedConsent.value = true
     }
 

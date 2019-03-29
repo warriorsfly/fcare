@@ -13,6 +13,8 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.os.SystemClock
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -40,6 +42,7 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 import kotlinx.android.synthetic.main.activity_add_informed.*
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import java.util.*
 import javax.inject.Inject
@@ -119,11 +122,12 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
 
                 lifecycleOwner = this@AddInformedActivity
             }
+        setSupportActionBar(toolbar)
 
-//        initConvertor()
 
         patientId=intent.getStringExtra(AddInformedActivity.PATIENT_ID)?:""
         titleName=intent.getStringExtra(AddInformedActivity.TITLE_NAME)?:""
+        title = titleName
         informedConten=intent.getStringExtra(AddInformedActivity.TITLE_CONTENT)?:""
         informedContenId=intent.getStringExtra(AddInformedActivity.INFORMED_ID)?:""
         comeFrom=intent.getStringExtra(AddInformedActivity.COME_FROM)?:""
@@ -132,7 +136,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
 
         viewModel.informedContenId = informedContenId
         viewModel.informedname = titleName
-        viewModel.titleName = titleName
+
         viewModel.patientsId = patientId
         viewModel.talkId = talkId
         binding.viewModel = viewModel
@@ -142,7 +146,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
 
 
 
-        back.setOnClickListener { onBackPressed() }
+//        back.setOnClickListener { onBackPressed() }
 
 
 
@@ -180,7 +184,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
         viewModel.talk.observe(this, Observer {
             if (it != null){
                 adapter.remotes = it.attachments.map { it.httpUrl }
-                viewModel.title = it.informedConsentName
+                title = it.informedConsentName
             }
         })
 
@@ -199,6 +203,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
                 }
             }
         })
+
 
     }
 
@@ -451,7 +456,21 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
             .build()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 
 }
 

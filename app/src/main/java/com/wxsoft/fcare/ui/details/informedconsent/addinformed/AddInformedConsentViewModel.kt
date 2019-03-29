@@ -26,12 +26,8 @@ import javax.inject.Inject
 class AddInformedConsentViewModel @Inject constructor(private val informedApi: InformedApi,
                                                       override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                       override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
-    override var title: String = ""
-        get() = titleName
-    override val clickableTitle: String
-        get() = "保存"
 
     /**
      * 病人id
@@ -79,10 +75,6 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     val showVoiceTime:LiveData<Boolean>
     val initShowVoiceTime = MediatorLiveData<Boolean>()
 
-    override val clickable: LiveData<Boolean>
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
     val informedConsent:LiveData<InformedConsent>
     private val initInformedConsent = MediatorLiveData<Response<InformedConsent>>()
 
@@ -103,7 +95,6 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
         showVoiceTime = initShowVoiceTime.map { it }
         initShowVoiceTime.value = false
         initVoiceStart.value = false
-        clickable=clickResult.map { it }
         informedConsent = initInformedConsent.map { it.result?: InformedConsent("") }
         talk = initTalk.map { it?.result?: Talk("") }
     }
@@ -125,7 +116,7 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
     }
 
 
-    override fun click() {
+    fun click() {
 
         if (saveAble){
             saveAble = false
@@ -146,18 +137,15 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
 
                     when (it) {
                         is Resource.Success -> {
-                            clickResult.value = true
+//                            clickResult.value = true
                             saveTalkResult.value = it
                             messageAction.value = Event("保存成功")
                             initbackToLast.value = true
                             saveAble = true
                         }
                         is Resource.Error -> {
-                            clickResult.value = true
+//                            clickResult.value = true
                             messageAction.value = Event(it.throwable.message ?: "")
-                        }
-                        else -> {
-                            clickResult.value = false
                         }
                     }
                 }
@@ -169,19 +157,17 @@ class AddInformedConsentViewModel @Inject constructor(private val informedApi: I
                 }, files).toResource().subscribe {
                     when (it) {
                         is Resource.Success -> {
-                            clickResult.value = true
+//                            clickResult.value = true
                             saveTalkResult.value = it
                             messageAction.value = Event("保存成功")
                             initbackToLast.value = true
                             saveAble = true
                         }
                         is Resource.Error -> {
-                            clickResult.value = true
+//                            clickResult.value = true
                             messageAction.value = Event(it.throwable.message ?: "")
                         }
-                        else -> {
-                            clickResult.value = false
-                        }
+
                     }
                 }
             }

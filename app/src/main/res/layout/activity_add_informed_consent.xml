@@ -11,9 +11,8 @@
             android:layout_height="match_parent"
             android:background="#F8F8F9"
             tools:context=".ui.details.informedconsent.addinformed.AddInformedConsentActivity">
-        <include layout="@layout/layout_common_title"
+        <include layout="@layout/layout_new_title"
                  android:id="@+id/title"
-                 app:presenter="@{viewModel}"
         />
         <androidx.core.widget.NestedScrollView
                 android:id="@+id/baseScroll"

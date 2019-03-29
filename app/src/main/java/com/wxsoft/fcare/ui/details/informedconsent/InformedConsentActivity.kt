@@ -6,6 +6,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.InformedConsent
 import com.wxsoft.fcare.core.data.entity.Talk
@@ -16,6 +18,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 
@@ -42,7 +45,7 @@ class InformedConsentActivity : BaseActivity()  {
         patientId=intent.getStringExtra(InformedConsentActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
-        back.setOnClickListener { onBackPressed() }
+//        back.setOnClickListener { onBackPressed() }
 
         val adapter = InformedConsentAdapter(this,viewModel)
         binding.informedList.adapter = adapter
@@ -69,6 +72,8 @@ class InformedConsentActivity : BaseActivity()  {
             toDetails(it!!)
         })
 
+        setSupportActionBar(toolbar)
+        title="知情同意书"
     }
 
 
@@ -102,4 +107,19 @@ class InformedConsentActivity : BaseActivity()  {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_new,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.new_item->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

@@ -5,6 +5,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -21,6 +23,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.activity_catheter.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
@@ -102,8 +105,10 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
         patientId=intent.getStringExtra(CatheterActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
-        back.setOnClickListener { onBackPressed() }
+//        back.setOnClickListener { onBackPressed() }
 
+        setSupportActionBar(toolbar)
+        title="导管室操作"
         start.setOnClickListener  (this)
         end_thromboly_time.setOnClickListener  (this)
         patient_arrive.setOnClickListener  (this)
@@ -131,6 +136,22 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                 }
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.saving()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 
     private fun createDialog(time:Long): TimePickerDialog {

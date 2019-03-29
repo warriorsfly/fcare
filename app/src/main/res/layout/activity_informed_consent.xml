@@ -11,9 +11,8 @@
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:context=".ui.details.informedconsent.InformedConsentActivity">
-        <include layout="@layout/layout_common_title"
+        <include layout="@layout/layout_new_title"
                  android:id="@+id/title"
-                 app:presenter="@{viewModel}"
         />
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/base_content"
