@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.details.pharmacy.drugcar
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -15,7 +17,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDrugCarBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DrugCarActivity : BaseActivity() , View.OnClickListener {
@@ -47,9 +49,8 @@ class DrugCarActivity : BaseActivity() , View.OnClickListener {
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
-        back.setOnClickListener { onBackPressed() }
-
-
+        setSupportActionBar(toolbar)
+        title="用药清单"
         binding.selectDrugbags.setOnClickListener(this)
         binding.selectDrugs.setOnClickListener(this)
         binding.submitContainer.setOnClickListener(this)
@@ -126,6 +127,22 @@ class DrugCarActivity : BaseActivity() , View.OnClickListener {
                 }
 
             }
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_edit,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
         }
     }
 

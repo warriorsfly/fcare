@@ -14,25 +14,14 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
-import java.lang.Error
 import javax.inject.Inject
 
 class StrategyViewModel  @Inject constructor(private val api: PACSApi,
                                              private val dicEnumApi: DictEnumApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
                                              override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
-    override var title= "治疗策略"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
 
     /**
      * 病人id
@@ -54,7 +43,6 @@ class StrategyViewModel  @Inject constructor(private val api: PACSApi,
     private val loadStrategy = MediatorLiveData<Resource<Response<Strategy>>>()
 
     init {
-        clickable = clickResult.map { it }
         strategyItems = loadStrategyItemsResult.map { (it as? Resource.Success)?.data?: emptyList()  }
         strategy = loadStrategy.map { (it as? Resource.Success)?.data?.result?: Strategy("") }
         saveResult = loadsaveResult.map { it }
@@ -114,7 +102,7 @@ class StrategyViewModel  @Inject constructor(private val api: PACSApi,
     }
 
 
-    override fun click() {
+    fun click() {
         strategy.value?.patientId = patientId
         save()
     }

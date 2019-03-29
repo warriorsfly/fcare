@@ -7,8 +7,6 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.MedicalHistory
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
-import com.wxsoft.fcare.core.data.entity.previoushistory.History1
-import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.MedicalHistoryApi
@@ -17,7 +15,6 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
@@ -31,19 +28,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                                                   private val medicalHistoryApi: MedicalHistoryApi,
 //                                                  private val fileApi: FileApi,
                                                   override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                                  override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title = "病史"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable:LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
-
-
+                                                  override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
     /**
      * 病人id
      */
@@ -84,7 +69,6 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     init {
         monitorClick = loadmonitorClick.map { it }
         backToLast = initbackToLast.map { it }
-        clickable = clickResult.map { it }
         historyPhoto = loadPhoto.map { it }
         providerItems = loadProviderItemsResult.map { it }
         historyItems = loadHistoryItemsResult.map { it }
@@ -160,17 +144,14 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
 
                         when (it) {
                             is Resource.Success -> {
-                                clickResult.value = true
+//                                clickResult.value = true
                                 messageAction.value = Event("保存成功")
                                 initbackToLast.value = true
                                 saveAble = true
                             }
                             is Resource.Error -> {
-                                clickResult.value = true
+//                                clickResult.value = true
                                 messageAction.value = Event(it.throwable.message ?: "")
-                            }
-                            else -> {
-                                clickResult.value = false
                             }
                         }
                     }
@@ -178,17 +159,14 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                     medicalHistoryApi.save(history, files).toResource().subscribe {
                         when (it) {
                             is Resource.Success -> {
-                                clickResult.value = true
+//                                clickResult.value = true
                                 messageAction.value = Event("保存成功")
                                 initbackToLast.value = true
                                 saveAble = true
                             }
                             is Resource.Error -> {
-                                clickResult.value = true
+//                                clickResult.value = true
                                 messageAction.value = Event(it.throwable.message ?: "")
-                            }
-                            else -> {
-                                clickResult.value = false
                             }
                         }
                     }
@@ -206,7 +184,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         saveMedicalHistory()
     }
 
-    override fun click(){
+    fun click(){
         submit()
     }
 

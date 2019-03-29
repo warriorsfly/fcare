@@ -12,6 +12,8 @@ import android.graphics.RectF
 import android.graphics.drawable.LevelListDrawable
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -25,6 +27,7 @@ import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.PlayVoiceEventAction
 import kotlinx.android.synthetic.main.activity_informed_consent_details.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class InformedConsentDetailsActivity : BaseActivity() {
@@ -78,7 +81,8 @@ class InformedConsentDetailsActivity : BaseActivity() {
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="知情同意书详情"
 
         viewModel.getTalkById(talkId)
 
@@ -92,7 +96,7 @@ class InformedConsentDetailsActivity : BaseActivity() {
             if (it != null){
                 adapter.remotes = it.attachments
                 viewModel.getInformedConsentById(it.informedConsentId)
-                viewModel.title = it.informedConsentName
+                title = it.informedConsentName
             }
         })
 

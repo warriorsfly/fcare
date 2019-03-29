@@ -2,6 +2,8 @@ package com.wxsoft.fcare.ui.details.complication
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,6 +15,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComplicationBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ComplicationActivity : BaseActivity() {
@@ -39,6 +42,9 @@ class ComplicationActivity : BaseActivity() {
                 list.adapter = adapter
                 lifecycleOwner = this@ComplicationActivity
             }
+
+        setSupportActionBar(toolbar)
+        title="并发症"
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         sentype=intent.getStringExtra(SEN_TYPE)?:""
         viewModel.patientId = patientId
@@ -61,6 +67,21 @@ class ComplicationActivity : BaseActivity() {
             }
         })
 
-        back.setOnClickListener { onBackPressed() }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 }

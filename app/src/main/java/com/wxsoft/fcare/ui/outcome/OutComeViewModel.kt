@@ -21,17 +21,8 @@ import javax.inject.Inject
 class OutComeViewModel @Inject constructor(private val api: DischargeApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
                                              override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
-    override var title = "患者转归"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
 
     /**
      * 病人id
@@ -51,7 +42,6 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
-        clickable = clickResult.map { it }
         data = loadDiagnosisResult.map { it?.result ?: OutCome(patientId=patientId,createrId = account.id)  }
         des = loadDesResult.map { it ?: emptyList()  }
     }
@@ -68,7 +58,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
 
 
 
-    override fun click() {
+    fun click() {
         data.value?.let {
             when(it.outcomeCode){
                 "11-1"->{

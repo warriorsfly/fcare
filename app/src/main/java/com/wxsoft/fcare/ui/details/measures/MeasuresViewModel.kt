@@ -20,11 +20,7 @@ import javax.inject.Inject
 class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
                                             private val measuresApi: MeasuresApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-
-    override var title = "急救措施"
-    override val clickableTitle: String
-        get() = "保存"
+                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id
@@ -34,8 +30,6 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
             if (value == "") return
             field = value
         }
-
-    override val clickable:LiveData<Boolean>
 
     private val clickResult  = MediatorLiveData<Boolean>().apply {
         value=true
@@ -67,7 +61,6 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
 
     init {
         changeString = loadChangeString.map { it }
-        clickable=clickResult.map { it }
         pharmacy = loadPharmacy.map { it }
         resultString = initResultString.map { (it as? Resource.Success)?.data?.result ?: ""}
         departments = loaddetourItemsResult.map {(it as? Resource.Success)?.data?: emptyList()}
@@ -166,7 +159,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
     }
 
 
-    override fun click(){
+    fun click(){
 
         val ds=measuresItems.value?.filter { it.checked }
             ?.map { MeasureDic("",patientId,it.id) }?: emptyList()

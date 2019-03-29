@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.details.diagnose.record
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -14,6 +16,7 @@ import com.wxsoft.fcare.databinding.ActivityDiagnoseRecordBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DiagnoseRecordActivity : BaseActivity() {
@@ -39,7 +42,6 @@ class DiagnoseRecordActivity : BaseActivity() {
             .apply {
                 lifecycleOwner = this@DiagnoseRecordActivity
             }
-        back.setOnClickListener { onBackPressed() }
         patientId=intent.getStringExtra(PATIENT_ID)?:""
 
         binding.viewModel = viewModel
@@ -52,6 +54,9 @@ class DiagnoseRecordActivity : BaseActivity() {
 
         viewModel.adddiagnose.observe(this, Observer { toAddDiagnose(it) })
         viewModel.modifydiagnosis.observe(this, Observer { toModifyVital(it) })
+
+        setSupportActionBar(toolbar)
+        title="诊断记录"
 
     }
 
@@ -87,4 +92,19 @@ class DiagnoseRecordActivity : BaseActivity() {
         }
     }
 
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_subject,menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//
+//        return  when(item?.itemId){
+//            R.id.submit->{
+//                viewModel.click()
+//                true
+//            }
+//            else->super.onOptionsItemSelected(item)
+//        }
+//    }
 }

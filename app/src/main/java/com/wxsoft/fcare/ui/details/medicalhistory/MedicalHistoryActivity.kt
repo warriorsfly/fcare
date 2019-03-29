@@ -15,6 +15,8 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -41,6 +43,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.activity_medical_history.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 
@@ -79,7 +82,8 @@ class MedicalHistoryActivity : BaseActivity() {
         patientId=intent.getStringExtra(MedicalHistoryActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="病史"
 
         adapter= PictureAdapter(this,10)
         adapter.setActionListener(photoAction!!)
@@ -364,6 +368,22 @@ class MedicalHistoryActivity : BaseActivity() {
             putExtra(SelectDrugsActivity.PATIENT_ID, patientId)
         }
         startActivityForResult(intent, AddDrugs)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_share,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 
 

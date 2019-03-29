@@ -18,11 +18,7 @@ import javax.inject.Inject
 class InformedConsentDetailsViewModel @Inject constructor(private val informedApi: InformedApi,
                                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                           override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon), ICommonPresenter {
-
-    override var title = "知情同意书详情"
-    override val clickableTitle: String
-        get() = ""
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id
@@ -34,41 +30,29 @@ class InformedConsentDetailsViewModel @Inject constructor(private val informedAp
         }
 
 
-    val talk:LiveData<Talk>
+    val talk: LiveData<Talk>
     private val loadTalkResult = MediatorLiveData<Resource<Response<Talk>>>()
 
-    val informed:LiveData<InformedConsent>
+    val informed: LiveData<InformedConsent>
     private val loadInformedResult = MediatorLiveData<Resource<Response<InformedConsent>>>()
 
-    override val clickable: LiveData<Boolean>
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
-
     init {
-        clickable = clickResult.map { it }
-        talk = loadTalkResult.map { (it as? Resource.Success)?.data?.result?: Talk("") }
-        informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
+        talk = loadTalkResult.map { (it as? Resource.Success)?.data?.result ?: Talk("") }
+        informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result ?: InformedConsent("") }
     }
 
-    fun getTalkById(id:String){
+    fun getTalkById(id: String) {
         informedApi.getTalkById(id).toResource()
             .subscribe {
                 loadTalkResult.value = it
             }
     }
 
-    fun getInformedConsentById(id:String){
+    fun getInformedConsentById(id: String) {
         informedApi.getInformedConsentById(id).toResource()
             .subscribe {
                 loadInformedResult.value = it
             }
-    }
-
-
-
-    override fun click() {
-
     }
 
 }

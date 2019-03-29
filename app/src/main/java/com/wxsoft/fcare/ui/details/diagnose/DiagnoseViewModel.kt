@@ -22,20 +22,11 @@ import javax.inject.Inject
 
 class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseApi,
                                              private val dictEnumApi: DictEnumApi,
-                                             private val pacsApi: PACSApi,
-                                             private val interventionApi: InterventionApi,
+//                                             private val pacsApi: PACSApi,
+//                                             private val interventionApi: InterventionApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
                                              override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title="诊断"
-    override val clickableTitle: String
-        get() = "确定"
-    override val clickable: LiveData<Boolean>
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id
@@ -97,7 +88,6 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         showSonList = initShowSonList.map { it }
         diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis(createrId = account.id,createrName = account.trueName) }
         loadDiagnosisResult.value = null
-        clickable = clickResult.map { it }
         thoracalgiaItems = secItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         sonItems = loadsonItemsResult.map { it?: emptyList() }
         illnessItems = loadIllnessItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
@@ -159,7 +149,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         illnessItems.value?.filter { it.id == diagnosis.value?.criticalLevel }?.map { it.checked=true }
     }
 
-    override fun click(){
+    fun click(){
         if (activityType.equals("SelectDiagnose")){
             initbackToLast.value = "haveSelected"
         }else{

@@ -10,25 +10,14 @@ import com.wxsoft.fcare.core.data.remote.PharmacyApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.ui.BaseViewModel
 import javax.inject.Inject
 
 class ReperfusionViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
                                                override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title = "CABG"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id
@@ -49,13 +38,12 @@ class ReperfusionViewModel @Inject constructor(private val pharmacyApi: Pharmacy
     private val loadCABG = MediatorLiveData<Resource<Response<CABG>>>()
 
     init {
-        clickable = clickResult.map { it }
         backToLast = initbackToLast.map { it }
         mSelectTime = initSelectTime.map { it }
         cabg = loadCABG.map { (it as? Resource.Success)?.data?.result ?: CABG("") }
     }
 
-    override fun click() {
+    fun click() {
         saveCABG()
     }
 

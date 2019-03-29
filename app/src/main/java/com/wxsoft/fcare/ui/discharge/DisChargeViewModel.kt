@@ -21,21 +21,9 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
-                                             private val enumApi:DictEnumApi,
-                                             private val patientApi: PatientApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
                                              override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title= "出院"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id
@@ -55,7 +43,6 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
-        clickable = clickResult.map { it }
         data = loadDiagnosisResult.map { it?.result ?: DisChargeDiagnosis()  }
         des = loadDesResult.map { it ?: emptyList()  }
     }
@@ -77,7 +64,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
     }
 
 
-    override fun click() {
+    fun click() {
 
 
         data.value?.let {

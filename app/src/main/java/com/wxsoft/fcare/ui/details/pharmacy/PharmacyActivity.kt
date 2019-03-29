@@ -5,11 +5,14 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.databinding.ActivityPharmacyBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 
@@ -47,9 +50,8 @@ class PharmacyActivity : BaseActivity() {
 
         viewModel.getDrugRecord()
 
-//        val bagAdapter = DrugBagAdapter(this,viewModel)
-//        viewModel.drugPackages.observe(this, Observer { bagAdapter.items = it ?: emptyList() })
-//        binding.drugbagList.adapter = bagAdapter
+        setSupportActionBar(toolbar)
+        title="用药"
 
         val drugsAdapter = DrugsAdapter(this,viewModel)
         viewModel.drugs.observe(this, Observer { drugsAdapter.items = it ?: emptyList() })
@@ -78,6 +80,20 @@ class PharmacyActivity : BaseActivity() {
         })
     }
 
-
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_subject,menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//
+//        return  when(item?.itemId){
+//            R.id.submit->{
+//                viewModel.click()
+//                true
+//            }
+//            else->super.onOptionsItemSelected(item)
+//        }
+//    }
 
 }

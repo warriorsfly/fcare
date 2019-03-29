@@ -12,6 +12,8 @@
             android:background="#F8F8F9"
             tools:context=".ui.details.pharmacy.selectdrugs.SelectDrugsActivity">
         <com.google.android.material.appbar.AppBarLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/appbar"
                 style="@style/Widget.AppBar"
                 android:layout_width="match_parent"

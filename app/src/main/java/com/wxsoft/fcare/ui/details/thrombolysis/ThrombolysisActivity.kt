@@ -7,11 +7,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.*
 import androidx.recyclerview.widget.RecyclerView
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.WindowManager
 import android.widget.TextView
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
@@ -34,6 +31,7 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 
@@ -105,13 +103,8 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
         binding.viewModel = viewModel
 
         placeDialog = Dialog(this)
-
-        back.setOnClickListener { onBackPressed() }
-
-//        viewModel.loadThrombolysis(thrombolysisId)
-
-//        viewModel.loadThrombolysis(id)
-
+        setSupportActionBar(toolbar)
+        title="溶栓"
         viewModel.informed.observe(this, Observer {  })
 
         drugAdapter = ThrombolysisDrugsAdapter(this,viewModel)
@@ -281,4 +274,19 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
             .build()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

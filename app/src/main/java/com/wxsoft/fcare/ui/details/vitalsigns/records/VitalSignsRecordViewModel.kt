@@ -6,15 +6,10 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.VitalSign
 import com.wxsoft.fcare.core.data.entity.VitalSignRecord
-import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.VitalSignApi
-import com.wxsoft.fcare.core.data.toResource
-import com.wxsoft.fcare.core.result.Event
-import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -25,17 +20,8 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
                                                     private val tints:IntArray,
                                                     override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                     override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
-    override var title = "生命体征"
-    override val clickableTitle: String
-        get() = "分享"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
     /**
      * 病人id
      */
@@ -57,13 +43,12 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
     private val initModifyvital = MediatorLiveData<VitalSign>()
 
     init {
-        clickable=clickResult.map { it }
         vitals = initVitals.map {  it ?: emptyList() }
         addvital = initAddvital.map { it }
         modifyvital = initModifyvital.map { it }
     }
 
-    override fun click(){
+    fun click(){
         initAddvital.value = "share"
     }
 

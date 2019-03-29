@@ -18,26 +18,17 @@ import javax.inject.Inject
 
 class CheckBodyViewModel @Inject constructor(private val checkBodyApi:CheckBodyApi,
                                              override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,ICommonPresenter {
-    override fun click() {
+                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon)  {
+    fun click() {
         submit()
     }
 
-    override var title= "查体"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable:LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
 
     val backToLast:LiveData<Boolean>
     private val initbackToLast = MediatorLiveData<Boolean>()
 
     init {
         backToLast = initbackToLast.map { it }
-        clickable=clickResult.map { it }
     }
 
     /**

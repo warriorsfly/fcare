@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.details.diagnose
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -15,6 +17,7 @@ import com.wxsoft.fcare.databinding.ActivityDiagnoseBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DiagnoseActivity : BaseActivity() {
@@ -55,7 +58,7 @@ class DiagnoseActivity : BaseActivity() {
         binding.viewModel = viewModel
         viewModel.activityType = "Diagnose"
 
-        back.setOnClickListener { onBackPressed() }
+//        back.setOnClickListener { onBackPressed() }
 
 
         val illnessdiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
@@ -81,7 +84,8 @@ class DiagnoseActivity : BaseActivity() {
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
-
+        setSupportActionBar(toolbar)
+        title="诊断"
     }
 
 
@@ -107,5 +111,19 @@ class DiagnoseActivity : BaseActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

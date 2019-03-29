@@ -23,17 +23,7 @@ class ComplaintsViewModel @Inject constructor(private val api: PACSApi,
                                               private val dicEnumApi: DictEnumApi,
                                               override val sharedPreferenceStorage: SharedPreferenceStorage,
                                               override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title= "主诉及症状"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id
@@ -57,7 +47,6 @@ class ComplaintsViewModel @Inject constructor(private val api: PACSApi,
 
     init {
         saveResult = loadsaveResult.map { it }
-        clickable = clickResult.map { it }
         complaints = loadComplaints.map { (it as? Resource.Success)?.data?.result?: emptyList() }
         complaintsItems = loadComplaintsItemsResult.map { (it as? Resource.Success)?.data?: emptyList()  }
     }
@@ -82,7 +71,7 @@ class ComplaintsViewModel @Inject constructor(private val api: PACSApi,
         item.checked = !item.checked
     }
 
-    override fun click() {
+    fun click() {
         save()
     }
 

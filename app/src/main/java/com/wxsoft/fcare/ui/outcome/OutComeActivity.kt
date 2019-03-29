@@ -4,6 +4,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -24,6 +26,7 @@ import kotlinx.android.synthetic.main.layout_activity_outcome_chest2.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest3.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest4.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
@@ -72,7 +75,8 @@ class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener 
         patientId=intent.getStringExtra(OutComeActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="患者转归"
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
@@ -115,5 +119,21 @@ class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener 
             .setType(Type.ALL)
             .setWheelItemTextSize(16)
             .build()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 }

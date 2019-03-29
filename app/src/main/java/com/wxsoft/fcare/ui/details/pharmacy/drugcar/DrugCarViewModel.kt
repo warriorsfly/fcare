@@ -21,17 +21,8 @@ import javax.inject.Inject
 class DrugCarViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
                                            override val sharedPreferenceStorage: SharedPreferenceStorage,
                                            override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon){
 
-    override var title = "用药清单"
-    override val clickableTitle: String
-        get() = "编辑"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
 
     /**
      * 病人id
@@ -69,7 +60,6 @@ class DrugCarViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
     init {
         submitSuccess = initSubmitSuccess.map { it }
         selectAll = initSelectAll.map { it }
-        clickable = clickResult.map { it }
         submitTitle = initSubmitTitle.map { it }
         isEditing = initIsEditing.map { it }
         initIsEditing.value = false
@@ -79,7 +69,7 @@ class DrugCarViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
         drugPackages = loaddrugPackagesResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
     }
 
-    override fun click(){
+    fun click(){
         initIsEditing.value = !initIsEditing.value!!
         if (initIsEditing.value!!) initSubmitTitle.value = "删除所选药物（" +selectedDrugsToDelete.size+"）" else initSubmitTitle.value = "提交药物清单"
     }

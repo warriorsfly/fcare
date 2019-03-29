@@ -24,17 +24,9 @@ class DispatchCarViewModel @Inject constructor(
     private val  taskApi: TaskApi,
     private val carApi: CarApi,
     override val sharedPreferenceStorage: SharedPreferenceStorage,
-    override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions ,
-    ICommonPresenter {
+    override val gon: Gson): BaseViewModel(sharedPreferenceStorage,gon), EventActions {
 
-    override var title= "发车"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable:LiveData<Boolean>
 
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
 
     var taskId=""
     set(value) {
@@ -70,7 +62,6 @@ class DispatchCarViewModel @Inject constructor(
 
     init {
         haveSelectCar = initHaveSelectCar.map { it }
-        clickable = clickResult.map { it }
         val s = sharedPreferenceStorage.userInfo!!
         account = gon.fromJson(s, Account::class.java)
         task = initTask.map { it }
@@ -192,7 +183,7 @@ class DispatchCarViewModel @Inject constructor(
         saveTask()
     }
 
-    override fun click(){
+    fun click(){
         submitBtnClick()
     }
 

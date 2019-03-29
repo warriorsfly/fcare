@@ -2,6 +2,8 @@ package com.wxsoft.fcare.ui.details.complaints
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,6 +15,7 @@ import com.wxsoft.fcare.databinding.ActivityComplaintsBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ComplaintsActivity : BaseActivity() {
@@ -49,8 +52,8 @@ class ComplaintsActivity : BaseActivity() {
             adapter.items = it
         })
 
-        back.setOnClickListener { onBackPressed() }
-
+        setSupportActionBar(toolbar)
+        title="主诉及症状"
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
@@ -66,5 +69,21 @@ class ComplaintsActivity : BaseActivity() {
                 }
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 }

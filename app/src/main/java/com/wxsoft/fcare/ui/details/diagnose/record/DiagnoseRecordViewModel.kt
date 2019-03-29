@@ -21,16 +21,7 @@ class DiagnoseRecordViewModel @Inject constructor(private val diagnoseApi: Diagn
                                                   private val tints:IntArray,
                                                   override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                   override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title="诊断记录"
-    override val clickableTitle: String
-        get() = "确定"
-    override val clickable: LiveData<Boolean>
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon){
 
     /**
      * 病人id
@@ -52,17 +43,10 @@ class DiagnoseRecordViewModel @Inject constructor(private val diagnoseApi: Diagn
     private val initModifydiagnosisl = MediatorLiveData<Diagnosis>()
 
     init {
-        clickable = clickResult.map { it }
         diagnoses = initDiagnoses.map { it?: emptyList() }
         adddiagnose = initAdddiagnose.map { it }
         modifydiagnosis = initModifydiagnosisl.map { it }
     }
-
-    override fun click() {
-
-    }
-
-
 
     fun add(item:DiagnoseRecord){
         initAdddiagnose.value = item.typeId

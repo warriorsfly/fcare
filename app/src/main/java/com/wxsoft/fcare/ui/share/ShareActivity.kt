@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.share
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import cn.jiguang.share.android.api.JShareInterface
@@ -19,6 +21,7 @@ import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.layout_new_title.*
 
 import java.util.concurrent.ExecutionException
 
@@ -70,7 +73,8 @@ class ShareActivity : BaseActivity() {
 
             }
         }
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="分享预览"
 
         val handle = object : Handler() {
             override fun handleMessage(msg: Message?) {
@@ -83,28 +87,6 @@ class ShareActivity : BaseActivity() {
         viewModel.url.observe(this, Observer {
             if (it.isNotEmpty()){
                 binding.uri = it.first()
-                /**
-                - 异步线程
-                 */
-//                Thread(object : Runnable{
-//                    override fun run() {
-//                        val msg = Message.obtain()
-//
-//                        val future = Glide.with(this@ShareActivity)
-//                            .load(it)
-//                            .downloadOnly(500, 500)
-//                        try {
-//                            val cacheFile = future.get()
-//                            msg.obj = cacheFile.getAbsolutePath()
-//                        } catch (e: InterruptedException) {
-//                            e.printStackTrace()
-//                        } catch (e: ExecutionException) {
-//                            e.printStackTrace()
-//                        }
-//                        //返回主线程
-//                        handle.sendMessage(msg)
-//                    }
-//                }).start()
             }
         })
 
@@ -126,7 +108,7 @@ class ShareActivity : BaseActivity() {
         if(JShareInterface.isSupportAuthorize(Wechat.Name) ){ // &&(showVitalImage.get()||showDiagnosisImage.get()||showEvaluationImage.get())
 
             val params = ShareParams()
-            params.setImagePath(path)
+            params.imagePath = path
 //            params.setImagePath("/storage/emulated/0/PictureSelector/CameraImage/PictureSelector_20190226_085108.JPEG")
             params.shareType = Platform.SHARE_IMAGE
             JShareInterface.share(Wechat.Name, params,shareListener )
@@ -137,7 +119,21 @@ class ShareActivity : BaseActivity() {
 
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_share,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 
 
 }

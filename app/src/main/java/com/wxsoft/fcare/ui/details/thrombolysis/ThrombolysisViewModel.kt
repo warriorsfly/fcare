@@ -24,17 +24,8 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
                                                 private val dictEnumApi: DictEnumApi,
                                                 override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                 override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+) : BaseViewModel(sharedPreferenceStorage,gon)  {
 
-    override var title = "溶栓"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
 
     var drugs = mutableListOf<DrugRecord>()
 
@@ -78,7 +69,6 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     init {
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
-        clickable = clickResult.map { it }
         thrombolysis = loadThrombolysis.map { it?: Thrombolysis("") }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
@@ -181,7 +171,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         initModifySome.value = "HidenDialog"
     }
 
-    override fun click() {
+    fun click() {
         thrombolysis.value?.patientId = patientId
         thrombolysis.value!!.drugRecords = drugs
         thrombolysisApi.save(thrombolysis.value!!).toResource()

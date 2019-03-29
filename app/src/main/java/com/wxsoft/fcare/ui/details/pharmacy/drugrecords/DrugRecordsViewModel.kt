@@ -18,17 +18,7 @@ import javax.inject.Inject
 class DrugRecordsViewModel  @Inject constructor(private val pharmacyApi: PharmacyApi,
                                                 override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                 override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title = "用药"
-    override val clickableTitle: String
-        get() = "添加"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon)  {
 
     /**
      * 病人id
@@ -48,12 +38,11 @@ class DrugRecordsViewModel  @Inject constructor(private val pharmacyApi: Pharmac
 
 
     init {
-        clickable = clickResult.map { it }
         clikSomething = initClikSomething.map { it }
         drugrecords = initDrugrecords.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
     }
 
-    override fun click(){
+    fun click(){
         initClikSomething.value = "add"
     }
 

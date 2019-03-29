@@ -4,6 +4,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +21,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ReperfusionActivity : BaseActivity() , OnDateSetListener {
@@ -75,7 +78,8 @@ class ReperfusionActivity : BaseActivity() , OnDateSetListener {
         patientId=intent.getStringExtra(PharmacyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="CABG"
 
         viewModel.getCABG()
 
@@ -126,4 +130,19 @@ class ReperfusionActivity : BaseActivity() , OnDateSetListener {
     }
 
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

@@ -14,6 +14,8 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -43,6 +45,7 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 
@@ -114,8 +117,8 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
             lifecycleOwner = this@ProfileActivity
 
         }
+        setSupportActionBar(toolbar)
 
-        back.setOnClickListener { onBackPressed() }
         viewModel = viewModelProvider(factory)
 
         binding.viewModel=viewModel
@@ -161,6 +164,8 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
         viewModel.shareClick.observe(this, Observer { toShareVital() })
 
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
+
+        title=if(viewModel.preHos)"基本信息" else "病人信息"
     }
 
     fun toShareVital(){
@@ -376,6 +381,22 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
             .setType(Type.ALL)
             .setWheelItemTextSize(16)
             .build()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_share,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 
 }

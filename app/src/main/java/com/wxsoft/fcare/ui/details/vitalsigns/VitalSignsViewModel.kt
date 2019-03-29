@@ -3,7 +3,6 @@ package com.wxsoft.fcare.ui.details.vitalsigns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.databinding.ObservableInt
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.VitalSign
@@ -13,24 +12,14 @@ import com.wxsoft.fcare.core.data.remote.VitalSignApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.ui.BaseViewModel
 import javax.inject.Inject
 
 class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSignApi, private val dictEnumApi: DictEnumApi,
                                               override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                              override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
+                                              override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon)  {
 
-    override var title = "生命体征信息"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable:LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
     /**
      * 病人id
      */
@@ -69,8 +58,6 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     init {
         clickConcious = initClickConcious.map { it }
         backToLast = initbackToLast.map { it }
-
-        clickable=clickResult.map { it }
         vital = loadVitalResult.map { (it as? Resource.Success)?.data ?: VitalSign("") }
 
     }
@@ -146,7 +133,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
         }
     }
 
-    override fun click(){
+    fun click(){
         saveVitalSign()
     }
 

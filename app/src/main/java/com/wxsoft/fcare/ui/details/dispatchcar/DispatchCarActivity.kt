@@ -4,6 +4,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -14,6 +16,7 @@ import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DispatchCarActivity : BaseActivity() {
@@ -45,7 +48,8 @@ class DispatchCarActivity : BaseActivity() {
         viewModel.cars.observe(this, Observer { carAdapter.cars = it ?: emptyList() })
         binding.carList.adapter = carAdapter
 
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="发车"
 
         doctorAdapter = UsersAdapter(this,viewModel)
         doctorAdapter.type = "doctor"
@@ -94,4 +98,19 @@ class DispatchCarActivity : BaseActivity() {
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

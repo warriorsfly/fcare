@@ -5,6 +5,8 @@ import androidx.lifecycle.Observer
 import android.content.Intent
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
@@ -24,6 +26,7 @@ import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.activity_discharge.*
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
@@ -75,19 +78,13 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
         patientId=intent.getStringExtra(DisChargeActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="出院"
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
-//        viewModel.des.observe(this, Observer {
-//            if( diagnose_list.adapter==null){
-//                diagnose_list.adapter=DiagnoseAdapter(this@DisChargeActivity,viewModel)
-//            }
-//
-//            (diagnose_list.adapter as DiagnoseAdapter).items=it?: emptyList()
-//        })
 
         viewModel.commitResult .observe(this, Observer {
             when(it) {
@@ -130,8 +127,21 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
         }
         startActivityForResult(intent, 100)
     }
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {

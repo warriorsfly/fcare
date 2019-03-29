@@ -2,6 +2,8 @@ package com.wxsoft.fcare.ui.details.strategy
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -14,6 +16,7 @@ import com.wxsoft.fcare.databinding.ActivityStrategyBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class StrategyActivity : BaseActivity() {
@@ -42,7 +45,8 @@ class StrategyActivity : BaseActivity() {
         viewModel.patientId = patientId
 
         binding.viewModel = viewModel
-        back.setOnClickListener { onBackPressed() }
+        setSupportActionBar(toolbar)
+        title="治疗策略"
 
         adapter = StrategyAdapter(this,viewModel)
 //        adapter.items =
@@ -66,5 +70,21 @@ class StrategyActivity : BaseActivity() {
             }
         })
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 }

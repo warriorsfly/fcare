@@ -1,17 +1,19 @@
 package com.wxsoft.fcare.ui.details.checkbody
 
 import android.app.Activity
-import androidx.lifecycle.Observer
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityCheckBodyBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.checkbody.select.SelectBodyItemsActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CheckBodyActivity : BaseActivity()  {
@@ -39,9 +41,8 @@ class CheckBodyActivity : BaseActivity()  {
         patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
-        back.setOnClickListener { onBackPressed() }
-
-
+        setSupportActionBar(toolbar)
+        title="查体"
         viewModel.backToLast.observe(this, Observer {
             Intent().let { intent->
                 setResult(RESULT_OK, intent)
@@ -122,5 +123,19 @@ class CheckBodyActivity : BaseActivity()  {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

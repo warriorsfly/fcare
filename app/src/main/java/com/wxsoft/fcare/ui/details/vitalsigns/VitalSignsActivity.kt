@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.details.vitalsigns
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
@@ -13,6 +15,7 @@ import com.wxsoft.fcare.databinding.ActivityVitalSignsBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class VitalSignsActivity : BaseActivity() {
@@ -42,8 +45,9 @@ class VitalSignsActivity : BaseActivity() {
             .apply {
                 lifecycleOwner = this@VitalSignsActivity
             }
-        back.setOnClickListener { onBackPressed() }
 
+        setSupportActionBar(toolbar)
+        title="生命体征信息"
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         id=intent.getStringExtra(ID)?:""
         typeId=intent.getStringExtra(TYPE_ID)?:""
@@ -100,4 +104,20 @@ class VitalSignsActivity : BaseActivity() {
         }
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

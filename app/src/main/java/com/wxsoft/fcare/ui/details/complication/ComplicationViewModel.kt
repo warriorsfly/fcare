@@ -25,17 +25,7 @@ class ComplicationViewModel @Inject constructor(private val api: DictEnumApi,
                                                 private val thrombolysisApi: ThrombolysisApi,
                                                 override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                 override val gon: Gson
-) : BaseViewModel(sharedPreferenceStorage,gon) ,
-    ICommonPresenter {
-
-    override var title= "并发症"
-    override val clickableTitle: String
-        get() = "保存"
-    override val clickable: LiveData<Boolean>
-
-    private val clickResult  = MediatorLiveData<Boolean>().apply {
-        value=true
-    }
+) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     /**
      * 病人id
@@ -68,7 +58,6 @@ class ComplicationViewModel @Inject constructor(private val api: DictEnumApi,
     private val loadComplicationsResult = MediatorLiveData<Response<List<Complication>>>()
 
     init {
-        clickable = clickResult.map { it }
         items = loadItemsResult.map { it?: emptyList() }
         complications = loadComplicationsResult.map { it?.result?: emptyList()  }
     }
@@ -121,7 +110,7 @@ class ComplicationViewModel @Inject constructor(private val api: DictEnumApi,
         items.value?.filter { checkedTypes.contains(it.id) }?.map { it.checked = true }
     }
 
-    override fun click() {
+    fun click() {
         save()
     }
 
