@@ -251,6 +251,12 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
 
 
     @get:Bindable
+    var comingWay_Name: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.comingWay_Name)
+        }
+    @get:Bindable
     var comingWay: String=""
         set(value) {
             field = value

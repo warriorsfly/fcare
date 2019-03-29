@@ -26,8 +26,10 @@ import java.util.concurrent.ExecutionException
 class ShareActivity : BaseActivity() {
 
     private lateinit var patientId:String
+    private lateinit var typeId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val TYPE_ID = "TYPE_ID"
     }
     private lateinit var viewModel: ShareViewModel
     @Inject
@@ -37,7 +39,7 @@ class ShareActivity : BaseActivity() {
     private lateinit var binding: ActivityShareBinding
     private var path: String = ""
 
-    val url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553600258449&di=872164468d27fcd35b284f27fd0e3d05&imgtype=0&src=http%3A%2F%2Fpic1.16pic.com%2F00%2F06%2F41%2F16pic_641310_b.jpg"
+//    val url = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1553600258449&di=872164468d27fcd35b284f27fd0e3d05&imgtype=0&src=http%3A%2F%2Fpic1.16pic.com%2F00%2F06%2F41%2F16pic_641310_b.jpg"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,11 +47,15 @@ class ShareActivity : BaseActivity() {
 
         binding = DataBindingUtil.setContentView<ActivityShareBinding>(this, R.layout.activity_share)
             .apply {
-                uri = url.toString()
+//                uri = url.toString()
                 viewModel = this@ShareActivity. viewModel
                 lifecycleOwner = this@ShareActivity
             }
-        patientId=intent.getStringExtra(OutComeActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(ShareActivity.PATIENT_ID)?:""
+        typeId=intent.getStringExtra(ShareActivity.TYPE_ID)?:""
+
+        viewModel.patientId = patientId
+        viewModel.typeId = typeId
 
         shareListener = object : PlatActionListener {
             override fun onComplete(p0: Platform?, p1: Int, p2: HashMap<String, Any>?) {
@@ -66,13 +72,6 @@ class ShareActivity : BaseActivity() {
         }
         back.setOnClickListener { onBackPressed() }
 
-
-        viewModel.clickShare.observe(this, Observer {
-            share()
-        })
-
-
-
         val handle = object : Handler() {
             override fun handleMessage(msg: Message?) {
                 msg.let {
@@ -81,28 +80,44 @@ class ShareActivity : BaseActivity() {
             }
         }
 
-        /**
-        - 异步线程
-         */
-        Thread(object : Runnable{
-            override fun run() {
-                val msg = Message.obtain()
+        viewModel.url.observe(this, Observer {
+            if (it.isNotEmpty()){
+                binding.uri = it.first()
+                /**
+                - 异步线程
+                 */
+                Thread(object : Runnable{
+                    override fun run() {
+                        val msg = Message.obtain()
 
-                val future = Glide.with(this@ShareActivity)
-                    .load(url)
-                    .downloadOnly(500, 500)
-                try {
-                    val cacheFile = future.get()
-                    msg.obj = cacheFile.getAbsolutePath()
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                } catch (e: ExecutionException) {
-                    e.printStackTrace()
-                }
-                //返回主线程
-                handle.sendMessage(msg)
+                        val future = Glide.with(this@ShareActivity)
+                            .load(it)
+                            .downloadOnly(500, 500)
+                        try {
+                            val cacheFile = future.get()
+                            msg.obj = cacheFile.getAbsolutePath()
+                        } catch (e: InterruptedException) {
+                            e.printStackTrace()
+                        } catch (e: ExecutionException) {
+                            e.printStackTrace()
+                        }
+                        //返回主线程
+                        handle.sendMessage(msg)
+                    }
+                }).start()
             }
-        }).start()
+        })
+
+
+        viewModel.clickShare.observe(this, Observer {
+            share()
+        })
+
+
+
+
+
+
 
     }
 

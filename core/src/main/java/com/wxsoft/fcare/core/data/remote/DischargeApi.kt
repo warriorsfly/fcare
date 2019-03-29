@@ -26,4 +26,8 @@ interface DischargeApi {
     @POST("OutHospitalDiagnosis/Save")
     fun saveOtDiagnosis(@Body diagnosis : DisChargeDiagnosis): Maybe<Response<String>>
 
+
+    @GET("Patient/ShareImage/{patientId}/{imgType}")
+    fun getShareImg(@Path("patientId")patientId:String,@Path("imgType")imgType:String): Maybe<Response<List<String>>>
+
 }

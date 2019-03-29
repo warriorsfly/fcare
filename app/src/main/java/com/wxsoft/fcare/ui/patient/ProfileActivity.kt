@@ -39,6 +39,8 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
+import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import java.io.File
@@ -156,7 +158,17 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
         attack_button.setOnClickListener(this)
 
+        viewModel.shareClick.observe(this, Observer { toShareVital() })
+
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
+    }
+
+    fun toShareVital(){
+        val intent = Intent(this, ShareActivity::class.java).apply {
+            putExtra(ShareActivity.PATIENT_ID, patientId)
+            putExtra(ShareActivity.TYPE_ID, "230-3")
+        }
+        startActivityForResult(intent, VitalSignsRecordActivity.SHARE)
     }
 
 

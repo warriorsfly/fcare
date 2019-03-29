@@ -68,6 +68,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
     fun toShareVital(){
         val intent = Intent(this, ShareActivity::class.java).apply {
             putExtra(ShareActivity.PATIENT_ID, patientId)
+            putExtra(ShareActivity.TYPE_ID, "230-2")
         }
         startActivityForResult(intent,SHARE )
     }

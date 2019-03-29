@@ -56,7 +56,7 @@ data class Intervention(val id:String="",
                          */
                         @SerializedName("start_Puncture_Time")
                         var startPunctureTime	:String?=null,
-                        @SerializedName("successPunctureTime")
+                        @SerializedName("success_Puncture_Time")
                         var successPunctureTime	:String?=null,
                         @SerializedName("leave_Conduit_Time")
                         var leave	:String?=null,

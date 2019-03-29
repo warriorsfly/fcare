@@ -34,7 +34,7 @@ class ProfileViewModel @Inject constructor(
     var preHos=true
     override var title = if(preHos)"基本信息" else "病人信息"
     override val clickableTitle: String
-        get() = if(preHos)"保存" else ""
+        get() = if(preHos)"分享" else ""
 
     var taskId:String=""
     var patientId=""
@@ -55,8 +55,11 @@ class ProfileViewModel @Inject constructor(
     private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
     val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
 
-    init {
+    val shareClick:LiveData<String>
+    private val initShareClick = MediatorLiveData<String>()
 
+    init {
+        shareClick = initShareClick.map { it }
         clickable=clickResult.map { it }
         uploading=savePatientResult.map { it==Resource.Loading }
         patient=loadPatientResult.map {
@@ -94,7 +97,7 @@ class ProfileViewModel @Inject constructor(
 //        }
 //    }
 
-    override fun click(){
+    fun save(){
         if(preHos && patientSavable) {
             val files = bitmaps.map {
                 val file = File(it)
@@ -129,32 +132,36 @@ class ProfileViewModel @Inject constructor(
                     }
                 }
             }else{
-                    patientApi.save(patient.value!!.apply {
-                        createdBy = account.id
-                        hospitalId = account.hospitalId
-                        if(this@ProfileViewModel.taskId.isNotEmpty()) {
-                            taskId = this@ProfileViewModel.taskId
+                patientApi.save(patient.value!!.apply {
+                    createdBy = account.id
+                    hospitalId = account.hospitalId
+                    if(this@ProfileViewModel.taskId.isNotEmpty()) {
+                        taskId = this@ProfileViewModel.taskId
+                    }
+                }, files).toResource().subscribe {
+
+                    savePatientResult.value = it
+                    when (it) {
+                        is Resource.Success -> {
+                            clickResult.value = true
+
+                            messageAction.value = Event("保存成功")
                         }
-                    }, files).toResource().subscribe {
-
-                        savePatientResult.value = it
-                        when (it) {
-                            is Resource.Success -> {
-                                clickResult.value = true
-
-                                messageAction.value = Event("保存成功")
-                            }
-                            is Resource.Error -> {
-                                clickResult.value = true
-                                messageAction.value = Event(it.throwable.message ?: "")
-                            }
-                            else -> {
-                                clickResult.value = false
-                            }
+                        is Resource.Error -> {
+                            clickResult.value = true
+                            messageAction.value = Event(it.throwable.message ?: "")
+                        }
+                        else -> {
+                            clickResult.value = false
                         }
                     }
                 }
+            }
         }
+    }
+
+    override fun click(){
+        initShareClick.value = "share"
     }
 
     private val patientSavable:Boolean
