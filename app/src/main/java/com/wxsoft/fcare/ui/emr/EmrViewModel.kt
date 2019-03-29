@@ -77,6 +77,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      * @param pair ,first emr在列表中的序号,second emr类型
      */
     private fun loadDetail(pair:Pair<Int,String>) {
+        if(pair.first<0)return
         when (pair.second) {
             ActionType.患者信息录入 ->  loadBaseInfo(pair.first)
             ActionType.生命体征-> loadVitals(pair.first)
@@ -246,7 +247,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      * 获取病人病情诊断
      */
     private fun loadDiagnosis(index:Int){
-        disposable.add(api.getDiagnosisList(patientId)
+        disposable.add(api.getLastDiagnose(patientId)
             .map {
 //                val item=it.result?.lastOrNull()?.let {
 //                        diagnosis->

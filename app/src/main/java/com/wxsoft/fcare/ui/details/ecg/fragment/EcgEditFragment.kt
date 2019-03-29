@@ -55,6 +55,7 @@ class EcgEditFragment : DaggerFragment() {
         })
 
         viewModel.saved.observe(this, Observer {
+
             if(isAdded) {
                 activity?.supportFragmentManager?.let {
                     if (it.popBackStackImmediate())
@@ -68,7 +69,7 @@ class EcgEditFragment : DaggerFragment() {
 
            list.adapter=adapter
            submit.setOnClickListener {
-               if(viewModel?.selectedEcgDiagnosis?.isNotEmpty() == true && memo.text.isNotEmpty()){
+               if(viewModel?.selectedEcgDiagnosis?.isNotEmpty() == true ){
                    viewModel?.diagnose()
                }
            }

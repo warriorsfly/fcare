@@ -89,6 +89,12 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         .apply {lifecycleOwner=owner},itemClick)
             }
 
+            R.layout.item_new_emr_cb_result->{
+                ItemViewHolder.CbViewHolder(
+                    ItemNewEmrCbResultBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
             else->{
                 ItemViewHolder.BaseInfoViewHolder(
                     ItemNewEmrPatientInfoBinding.inflate(inflater,parent,false)
@@ -190,6 +196,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         list.adapter=EmrImageAdapter(owner)
                     }
                     (list.adapter as? EmrImageAdapter)?.submitList(his?.attachments?.map { it.httpUrl })
+                    memo3.text=his?.pastHistorys?.joinToString (","){it.phCode_Name}
                     executePendingBindings()
                 }
             }
@@ -203,6 +210,16 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         list.adapter=EmrImageAdapter(owner)
                     }
                     (list.adapter as? EmrImageAdapter)?.submitList(ec?.attachments?.map { it.httpUrl })
+                    executePendingBindings()
+                }
+            }
+
+
+            is ItemViewHolder.CbViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    checkBody=emr.result as? CheckBody
+
                     executePendingBindings()
                 }
             }
@@ -223,6 +240,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 ActionType.主诉及症状 -> R.layout.item_new_emr_complaints
                 ActionType.IllnessHistory -> R.layout.item_new_emr_med_his
                 ActionType.心电图-> R.layout.item_new_emr_ecg
+                ActionType.PhysicalExamination-> R.layout.item_new_emr_cb_result
                 else -> 0
             }
         }
@@ -324,6 +342,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                     root.findViewById<ImageButton>(R.id.edit)
                         .setOnClickListener {
                             item?.code?.let(click)
+
                         }
                 }
             }
@@ -331,6 +350,20 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
         class EcgViewHolder(
             override val binding: ItemNewEmrEcgBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class CbViewHolder(
+            override val binding: ItemNewEmrCbResultBinding,
             override val click:(String)->Unit
         ) : ItemViewHolder(binding,click){
             init {

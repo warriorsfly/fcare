@@ -103,6 +103,11 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
                 add(R.id.fragment_container, fragment)
             }
         }
+
+        viewModel.saved.observe(this, Observer {
+
+            setResult(Activity.RESULT_OK)
+        })
     }
 
     private fun checkPhotoTaking(){
@@ -130,7 +135,6 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
             }
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
