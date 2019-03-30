@@ -108,6 +108,7 @@
 
 
                     <Button
+                            android:hint="请选择通知类型"
                             style="@style/Widget.MaterialComponents.Button.TextButton"
                             android:id="@+id/notify_type"
                             android:textSize="16sp"

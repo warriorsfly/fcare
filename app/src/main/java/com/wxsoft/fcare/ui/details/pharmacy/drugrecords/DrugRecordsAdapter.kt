@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.details.pharmacy.drugrecords
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.LifecycleOwner
@@ -12,9 +13,11 @@ import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.databinding.ItemDrugRecordsItemsBinding
 import com.wxsoft.fcare.databinding.ItemNewEmrDrugItemBinding
 
+
 class DrugRecordsAdapter constructor(private val owner: LifecycleOwner,
                                      val viewModel: DrugRecordsViewModel?=null,
-                                     private val isEmr:Boolean=false) :
+                                     private val isEmr:Boolean=false,
+                                     private val itemClick:(View,Int)->Unit) :
     RecyclerView.Adapter<DrugRecordsAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<DrugRecord>(this, DiffCallback)
@@ -36,7 +39,22 @@ class DrugRecordsAdapter constructor(private val owner: LifecycleOwner,
             setVariable(BR.viewModel, viewModel)
             executePendingBindings()
         }
+        if(!isEmr) {
+            (holder as ItemViewHolder.RecordViewHolder).binding.itemContainer.setOnLongClickListener(View.OnLongClickListener {
+                val pos = holder.getLayoutPosition()
+                itemClick(holder.binding.line, pos)
+                return@OnLongClickListener false
+            })
+        }
     }
+    fun removeItem(pos:Int){
+        val arr:ArrayList<DrugRecord> = ArrayList()
+        arr.addAll(differ.currentList)
+        arr.removeAt(pos)
+        items = arr.toList()
+        notifyItemRemoved(pos)
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 

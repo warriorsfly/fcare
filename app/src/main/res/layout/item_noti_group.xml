@@ -33,13 +33,13 @@
 
             <CheckBox
                     android:id="@+id/check_ic"
-                    style="@style/CustomCheckboxTheme"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginRight="5dp"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"/>
+                    android:onClick="@{()->listener.selectedGroup(item)}"
+                    android:checked="@{item.checked}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             <View
                     android:id="@+id/line1"
                     app:layout_constraintLeft_toLeftOf="parent"

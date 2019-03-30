@@ -15,18 +15,18 @@
             app:cardCornerRadius="7.5dp">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
             <ImageView
                     android:id="@+id/share_img"
                     android:background="@color/white"
-                    android:scaleType="fitXY"
+                    android:scaleType="matrix"
                     app:imageUrl="@{uri}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="wrap_content"/>
 
             <ImageView
                     goneUnless="@{viewModel.selectUrl.equals(uri)}"

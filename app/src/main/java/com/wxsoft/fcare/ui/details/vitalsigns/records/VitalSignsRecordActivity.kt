@@ -106,7 +106,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject,menu)
+        menuInflater.inflate(R.menu.menu_share,menu)
         return true
     }
 

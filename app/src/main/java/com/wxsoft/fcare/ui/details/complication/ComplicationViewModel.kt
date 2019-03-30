@@ -80,7 +80,7 @@ class ComplicationViewModel @Inject constructor(private val api: DictEnumApi,
     private fun save(){
         var arr = ArrayList<Complication>()
         items.value?.filter {it.checked }?.map {
-            arr.add(Complication("",patientId,it.id,type))
+            arr.add(Complication("",patientId,it.id,it.itemName,type))
         }
         disposable.add(thrombolysisApi.saveComplication(arr)
             .subscribeOn(Schedulers.io())
