@@ -66,6 +66,10 @@ class WorkingActivity : BaseActivity() {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
 
+    private val pre: Boolean by lazyFast {
+        intent?.getBooleanExtra("PRE",false)?:false
+    }
+
     lateinit var viewModel: WorkingViewModel
     private lateinit var emrViewModel: EmrViewModel
     @Inject

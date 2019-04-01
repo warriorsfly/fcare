@@ -18,7 +18,7 @@ interface EmrApi{
     /**
      * 获取emr时间轴
      */
-    @GET("Patient/GetEmssTimeLine/{patientId}/{currUserId}/{isPreHospital}")
+    @GET("Patient/GetEmssModules/{patientId}/{currUserId}/{isPreHospital}")
     fun getEmrs(@Path("patientId")patientId:String,@Path("currUserId")userId:String,@Path("isPreHospital")pre:Boolean): Single<Response<List<EmrItem>>>
 
     /**

@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.main
 import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.FragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
+import com.wxsoft.fcare.ui.main.fragment.patients.MessageFragment
+import com.wxsoft.fcare.ui.main.fragment.patients.MessageViewModel
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsViewModel
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
@@ -37,6 +39,11 @@ internal abstract class MainModule {
     @ViewModelKey(TaskViewModel::class)
     abstract fun bindTaskViewModel(viewModel: TaskViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessageViewModel::class)
+    abstract fun bindMessageViewModel(viewModel: MessageViewModel): ViewModel
+
     @FragmentScoped
     @ContributesAndroidInjector
     internal abstract fun contributeUserProfileFragment(): UserProfileFragment
@@ -48,6 +55,10 @@ internal abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
     internal abstract fun contributePatientsFragment(): PatientsFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    internal abstract fun contributeMessageFragment(): MessageFragment
 
 
 }

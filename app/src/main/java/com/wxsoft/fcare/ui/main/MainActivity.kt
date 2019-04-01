@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.main
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -10,6 +11,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.databinding.ActivityMainBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.main.fragment.patients.MessageFragment
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
@@ -37,10 +39,11 @@ class MainActivity : BaseActivity() {
             }
             R.id.nav_notifications -> {
 //                message.setText(R.string.title_notifications)
+                viewPager.setCurrentItem(2, true)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_user -> {
-                viewPager.setCurrentItem(2, true)
+                viewPager.setCurrentItem(3, true)
                 return@OnNavigationItemSelectedListener true
             }
 
@@ -108,11 +111,11 @@ class MainActivity : BaseActivity() {
 class MainAdapter(fm:FragmentManager) :
     FragmentPagerAdapter(fm) {
 
-    private val fragments:List<androidx.fragment.app.Fragment> by lazyFast {
-        listOf(TaskFragment(), PatientsFragment(),UserProfileFragment())
+    private val fragments:List<Fragment> by lazyFast {
+        listOf(TaskFragment(), PatientsFragment(),MessageFragment(),UserProfileFragment())
     }
 
-    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+    override fun getItem(position: Int): Fragment {
 
         return fragments[position]
     }

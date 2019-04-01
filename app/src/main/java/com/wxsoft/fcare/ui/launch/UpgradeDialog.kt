@@ -26,6 +26,7 @@ import dagger.android.support.HasSupportFragmentInjector
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 import android.os.Environment.DIRECTORY_DOWNLOADS
+import androidx.lifecycle.Observer
 import java.io.File
 
 
@@ -52,6 +53,9 @@ class UpgradeDialog : CustomDimDialogFragment(), HasSupportFragmentInjector {
                               savedInstanceState: Bundle?): View? {
 
         viewModel=activityViewModelProvider(factory)
+        viewModel.update.observe(this, Observer {
+            dismiss()
+        })
         return FragmentUpgradeAppBinding.inflate(inflater,container, false)
             .apply {
 

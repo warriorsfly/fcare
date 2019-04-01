@@ -6,6 +6,8 @@ import com.wxsoft.fcare.core.data.remote.*
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
 import com.wxsoft.fcare.core.data.remote.version.VersionApi
+import com.wxsoft.fcare.core.domain.repository.message.IMessageRepository
+import com.wxsoft.fcare.core.domain.repository.message.PageKeyMessageRepository
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.core.domain.repository.patients.PageKeyPatientRepository
 import com.wxsoft.fcare.core.domain.repository.tasks.ITaskRepository
@@ -173,6 +175,11 @@ class NetWorkModule {
     }
 
     @Provides
+    fun provideMessageRepository(api: MessageApi): IMessageRepository {
+        return PageKeyMessageRepository(api)
+    }
+
+    @Provides
     fun provideThrombolysisApi(retrofit: Retrofit):ThrombolysisApi{
         return retrofit.create(ThrombolysisApi::class.java)
     }
@@ -205,6 +212,11 @@ class NetWorkModule {
     @Provides
     fun provideVersionApi(retrofit: Retrofit):VersionApi{
         return retrofit.create(VersionApi::class.java)
+    }
+
+    @Provides
+    fun provideMessageApi(retrofit: Retrofit):MessageApi{
+        return retrofit.create(MessageApi::class.java)
     }
 
 }

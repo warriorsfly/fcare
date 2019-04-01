@@ -54,6 +54,7 @@ class PatientManagerFragment : DaggerFragment() {
 
         Intent(activity, WorkingActivity::class.java).let {
             it.putExtra(ProfileActivity.PATIENT_ID,patient.id)
+            it.putExtra("PRE",true)
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }
     }

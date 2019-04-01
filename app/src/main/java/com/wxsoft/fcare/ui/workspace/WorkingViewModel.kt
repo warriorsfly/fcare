@@ -49,6 +49,8 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             loadQualities(field)
             loadOperations(field,account.id)
         }
+
+    var pre:Boolean=false
     val courseSeconds=ObservableInt()
     val course=ObservableField<String>().apply {
         set("0")
@@ -101,7 +103,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     }
 
     private fun loadOperations(id:String,userId:String){
-        disposable.add(qualityControlApi.getOperations(id,userId)
+        disposable.add(qualityControlApi.getOperations(id,userId,pre)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::doOperations,::error))
