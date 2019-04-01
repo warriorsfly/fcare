@@ -161,7 +161,17 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
         attack_button.setOnClickListener(this)
 
-        viewModel.shareClick.observe(this, Observer { toShareVital() })
+        viewModel.shareClick.observe(this, Observer {
+            when(it){
+                "share" ->toShareVital()
+                "saveSuccess" ->{
+                    Intent().let { intent->
+                        setResult(RESULT_OK, intent)
+                        finish()
+                    }
+                }
+            }
+        })
 
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 

@@ -104,12 +104,11 @@ class ProfileViewModel @Inject constructor(
                     savePatientResult.value = it
                     when (it) {
                         is Resource.Success -> {
-//                            clickResult.value = true
-
+                            initShareClick.value = "saveSuccess"
                             messageAction.value = Event("保存成功")
                         }
                         is Resource.Error -> {
-//                            clickResult.value = true
+                            initShareClick.value = "saveSuccess"
                             messageAction.value = Event(it.throwable.message ?: "")
                         }
 
@@ -127,12 +126,11 @@ class ProfileViewModel @Inject constructor(
                     savePatientResult.value = it
                     when (it) {
                         is Resource.Success -> {
-//                            clickResult.value = true
-
+                            initShareClick.value = "saveSuccess"
                             messageAction.value = Event("保存成功")
                         }
                         is Resource.Error -> {
-//                            clickResult.value = true
+                            initShareClick.value = "saveSuccess"
                             messageAction.value = Event(it.throwable.message ?: "")
                         }
 
