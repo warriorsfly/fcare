@@ -25,6 +25,6 @@ import com.wxsoft.fcare.R
 open class CustomBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return BottomSheetDialog(context!!, R.style.Theme_FCare_Dialog)
+        return BottomSheetDialog(context!!, R.style.Theme_FCare_Dialog_Text)
     }
 }

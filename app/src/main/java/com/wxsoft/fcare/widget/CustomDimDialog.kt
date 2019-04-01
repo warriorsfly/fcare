@@ -35,7 +35,7 @@ import com.wxsoft.fcare.R
 /**
  * Dialog with custom background dim.
  */
-class CustomDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FCare_Dialog) {
+class CustomDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FCare_Dialog_Text) {
 
     init {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -87,7 +87,7 @@ class CustomDimDialog(context: Context?) : AppCompatDialog(context, R.style.Them
                     }
                 }
             }
-            background = ColorDrawable(ResourcesCompat.getColor(res, R.color.scrim, context.theme))
+//            background = ColorDrawable(ResourcesCompat.getColor(res, 0, context.theme))
         }
     }
 }

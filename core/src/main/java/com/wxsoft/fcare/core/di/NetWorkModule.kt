@@ -5,6 +5,7 @@ import com.wxsoft.fcare.core.BuildConfig
 import com.wxsoft.fcare.core.data.remote.*
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
+import com.wxsoft.fcare.core.data.remote.version.VersionApi
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.core.domain.repository.patients.PageKeyPatientRepository
 import com.wxsoft.fcare.core.domain.repository.tasks.ITaskRepository
@@ -199,6 +200,11 @@ class NetWorkModule {
     @Provides
     fun provideNotificationApi(retrofit: Retrofit):NotificationApi{
         return retrofit.create(NotificationApi::class.java)
+    }
+
+    @Provides
+    fun provideVersionApi(retrofit: Retrofit):VersionApi{
+        return retrofit.create(VersionApi::class.java)
     }
 
 }

@@ -16,7 +16,7 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowBackground">@color/white</item>
-
+        <item name="actionMenuTextColor">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
     </style>
 
@@ -86,6 +86,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
     </style>
@@ -173,7 +174,6 @@
         <item name="android:minHeight">20dp</item>
         <item name="android:maxHeight">20dp</item>
     </style>
-
 
     <style name="Fcare.BottomNav" parent="@style/Widget.MaterialComponents.BottomNavigationView">
         <item name="itemIconTint">@color/bottom_nav_item</item>
