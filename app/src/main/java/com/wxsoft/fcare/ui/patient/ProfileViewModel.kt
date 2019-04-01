@@ -144,7 +144,7 @@ class ProfileViewModel @Inject constructor(
         initShareClick.value = "share"
     }
 
-    private val patientSavable:Boolean
+    val patientSavable:Boolean
         get(){
             return patient.value?.let {
 
@@ -162,10 +162,10 @@ class ProfileViewModel @Inject constructor(
                             return@let false
                         }
 
-                        it.idcard.isEmpty()->{
-                            messageAction.value= Event("身份证不能为空")
-                            return@let false
-                        }
+//                        it.idcard.isEmpty()->{
+//                            messageAction.value= Event("身份证不能为空")
+//                            return@let false
+//                        }
 
                         it.age==0->{
                             messageAction.value= Event("年龄不能为空")

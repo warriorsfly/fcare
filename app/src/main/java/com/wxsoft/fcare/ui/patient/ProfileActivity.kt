@@ -179,11 +179,13 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
     }
 
     fun toShareVital(){
-        val intent = Intent(this, ShareActivity::class.java).apply {
-            putExtra(ShareActivity.PATIENT_ID, patientId)
-            putExtra(ShareActivity.TYPE_ID, "230-3")
+        if(viewModel.patientSavable){
+            val intent = Intent(this, ShareActivity::class.java).apply {
+                putExtra(ShareActivity.PATIENT_ID, patientId)
+                putExtra(ShareActivity.TYPE_ID, "230-3")
+            }
+            startActivityForResult(intent, VitalSignsRecordActivity.SHARE)
         }
-        startActivityForResult(intent, VitalSignsRecordActivity.SHARE)
     }
 
 
