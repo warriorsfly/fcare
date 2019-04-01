@@ -22,9 +22,10 @@ android {
         minSdkVersion 21
         targetSdkVersion 27
         versionCode 1
-        versionName "1.1"
+        versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
+        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44398/"'
         buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44398/api/"'
         signingConfig signingConfigs.release
 //        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.0.190:5001/api/"'
@@ -32,6 +33,7 @@ android {
 
     buildTypes {
         release {
+            debuggable true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.release

@@ -1,30 +1,38 @@
 package com.wxsoft.fcare.ui.launch
 
-import android.Manifest
+import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import android.os.Environment
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.BuildConfig
 import com.wxsoft.fcare.core.data.entity.version.Version
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.service.JPushReceiver
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.main.MainActivity
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
+import java.io.File
+import java.lang.ref.WeakReference
 import javax.inject.Inject
+import androidx.core.content.FileProvider
+
 
 class LauncherActivity : BaseActivity(){
+
+    private val downloadManager:DownloadManager by lazy {
+        getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+    }
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -32,6 +40,7 @@ class LauncherActivity : BaseActivity(){
     private var receiver: RegistrationBroadcastReceiver? = null
 
     private lateinit var viewModel: LauncherViewModel
+    private lateinit var file: File
 
     private val disposable= CompositeDisposable()
 
@@ -54,6 +63,10 @@ class LauncherActivity : BaseActivity(){
             val intent = if(it) Intent(this, MainActivity::class.java) else Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
+        })
+
+        viewModel.update.observe(this, Observer {
+            viewModel.version.value?.let(::download)
         })
 
         disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion,::error))
@@ -88,6 +101,8 @@ class LauncherActivity : BaseActivity(){
             unregisterReceiver(receiver)
             receiver?.vm = null
         }
+
+        completeReceiver?.let{unregisterReceiver(it)}
     }
 
     private fun getLocalVersion():Long{
@@ -99,18 +114,18 @@ class LauncherActivity : BaseActivity(){
         }
     }
 
-    private fun checkPhotoTaking(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions(this,
-                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                BaseActivity.UPGRADE_PERMISSION_REQUEST
-            )
-
-        }else{
-
-        }
-    }
+//    private fun checkPhotoTaking(){
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+//
+//            ActivityCompat.requestPermissions(this,
+//                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+//                BaseActivity.UPGRADE_PERMISSION_REQUEST
+//            )
+//
+//        }else{
+//
+//        }
+//    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -120,6 +135,53 @@ class LauncherActivity : BaseActivity(){
 
                 }
             }
+        }
+    }
+
+
+    private var completeReceiver: CompleteReceiver? = null
+
+
+    private fun download(version:Version){
+
+        val request = DownloadManager.Request(Uri.parse(BuildConfig.ENDPOINT+version.url)).apply {
+
+            file = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "无限急救.apk")
+            setDestinationUri(Uri.fromFile(file))
+        }
+        downloadManager.enqueue(request)
+        completeReceiver = CompleteReceiver(downloadManager,file)
+        registerReceiver(
+            completeReceiver,
+            IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
+        )
+    }
+
+
+    class CompleteReceiver ( download: DownloadManager,fil:File): BroadcastReceiver() {
+        private val manager = WeakReference(download)
+        private val file = WeakReference(fil)
+
+        override fun onReceive(context: Context, intent: Intent) {
+
+           install(context)
+        }
+
+        private fun install(context: Context) {
+           val intent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
+           context.startActivity(intent)
+
+//            file.get()?.let {
+//                val uri = FileProvider.getUriForFile(
+//                    context,
+//                    context.applicationContext.packageName + ".fileProvider",
+//                    it
+//                    )
+//                val intent = Intent(Intent.ACTION_VIEW)
+//                intent.setDataAndType(uri, "application/vnd.android.package-archive")
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
+//                context.startActivity(intent)
+//            }
         }
     }
 

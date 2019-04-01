@@ -33,6 +33,7 @@ class LauncherViewModel @Inject constructor(
      *获取病人信息
      */
     private val loadAccountResult = MediatorLiveData<Response<Account>>()
+    val update = MediatorLiveData<Boolean>()
     /**
      * 是否登陆成功
      */
@@ -98,6 +99,9 @@ class LauncherViewModel @Inject constructor(
 
     }
 
+    fun startUpdate(){
+        update.value=true
+    }
     private fun isLoginValid(): Boolean {
         name = sharedPreferenceStorage.loginedName ?: ""
         password = sharedPreferenceStorage.loginedPassword ?: ""
