@@ -5,14 +5,14 @@ import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
-import com.wxsoft.fcare.core.data.entity.drug.DrugTypeitem
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.PharmacyApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DrugRecordsViewModel  @Inject constructor(private val pharmacyApi: PharmacyApi,
@@ -51,6 +51,19 @@ class DrugRecordsViewModel  @Inject constructor(private val pharmacyApi: Pharmac
             .subscribe {
                 initDrugrecords.value = it
             }
+    }
+
+    fun removeItem(pos:Int){
+        val record = drugrecords.value!!.get(pos)
+        disposable.add(pharmacyApi.deleteDrug(record.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::haveDelete,::error))
+
+    }
+
+    private fun haveDelete(response:Response<String>){
+        initClikSomething.value = "delete"
     }
 
 }

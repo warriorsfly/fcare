@@ -79,7 +79,6 @@ class ShareActivity : BaseActivity() {
 
         viewModel.urls.observe(this, Observer {
             adapter.submitList(it)
-
         })
 
 

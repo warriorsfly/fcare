@@ -176,7 +176,7 @@ class PatientsFragment : DaggerFragment() , OnDateSetListener{
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 BaseActivity.NEW_PATIENT_REQUEST -> {
-//                    viewModel.showPatients(search.query.toString())
+                    viewModel.showPatients("")
                 }
             }
         }

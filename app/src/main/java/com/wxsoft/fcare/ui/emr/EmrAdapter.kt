@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.ui.emr
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import androidx.databinding.ViewDataBinding
@@ -103,6 +105,10 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
         }
     }
 
+    private fun clickItem(view: View, pos :Int){
+
+    }
+
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val emr=getItem(position)
         when(holder){
@@ -170,7 +176,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 holder.binding.apply {
                     item=emr
                     if(list.adapter==null){
-                        list.adapter=DrugRecordsAdapter(owner,isEmr = true)
+                        list.adapter=DrugRecordsAdapter(owner,isEmr = true, viewModel = null, itemClick = ::clickItem)
                     }
                     ( emr.result as? List<DrugRecord>)?.let {
                         (list.adapter as DrugRecordsAdapter).items=it
@@ -446,6 +452,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             return oldItem.code==newItem.code && oldItem.id==newItem.id
         }
 
+        @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: EmrItem, newItem: EmrItem): Boolean {
             val oldResult = oldItem.result
             val newResult = newItem.result

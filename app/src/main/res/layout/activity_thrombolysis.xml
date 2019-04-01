@@ -642,6 +642,7 @@
                             android:layout_marginLeft="15dp"
                             android:gravity="right"
                             android:textSize="13sp"
+                            android:text="@{viewModel.thrombolysis.complication}"
                             android:textColor="#C1C1C1"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"

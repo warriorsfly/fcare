@@ -70,6 +70,7 @@ class NotificationActivity : BaseActivity() {
         viewModel.backToLast.observe(this, Observer {
             onBackPressed()
         })
+
     }
 
 

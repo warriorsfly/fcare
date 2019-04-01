@@ -66,10 +66,7 @@ class DiagnoseActivity : BaseActivity() {
         viewModel.illnessItems.observe(this, Observer { illnessdiagnoseAdapter.items = it ?: emptyList() })
         binding.illnessList.adapter = illnessdiagnoseAdapter
 
-
-
-        viewModel.getDiagnose()
-
+        viewModel.diagnosis.observe(this, Observer {  })
 
         viewModel.backToLast.observe(this, Observer {
            if (it.equals("back")){

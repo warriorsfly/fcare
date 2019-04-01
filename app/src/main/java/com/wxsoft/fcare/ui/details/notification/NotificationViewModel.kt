@@ -72,10 +72,10 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
     fun selectedUser(user:User){
         user.checked = !user.checked
         if (user.checked){
-            selectedUsers.add(user)
+            if (!selectedUsers.contains(user))selectedUsers.add(user)
             loadCheckedUsersResult.value = selectedUsers.toList()
         }else{
-            selectedUsers.remove(user)
+            if (selectedUsers.contains(user))selectedUsers.remove(user)
             loadCheckedUsersResult.value = selectedUsers.toList()
         }
 
@@ -88,6 +88,13 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
         loadCheckedUsersResult.value = selectedUsers.toList()
     }
 
+    fun selectedGroup(item:NotiUserItem){
+        item.checked = !item.checked
+        item.users.map {
+            it.checked = !item.checked
+            selectedUser(it)
+        }
+    }
 
 
 
@@ -98,6 +105,11 @@ class NotificationViewModel @Inject constructor(private val notificationApi: Not
         }
         notify.value?.receiverUserIds = arr.toList()
         notify.value?.patientId = patientId
+
+        if (notify.value?.messageTemplateName.isNullOrEmpty()) {
+            messageAction.value = Event("请选择通知类型")
+            return
+        }
 
         disposable.add(notificationApi.submitNotify(notify.value!!)
             .subscribeOn(Schedulers.io())

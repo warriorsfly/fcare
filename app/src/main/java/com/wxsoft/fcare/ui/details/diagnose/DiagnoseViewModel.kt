@@ -42,6 +42,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         set(value) {
             if (value == "") return
             field = value
+            getDiagnose()
         }
     var sceneTypeId: String = ""
         set(value) {
@@ -118,6 +119,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         disposable.add(diagnoseApi.getDiagnosis(id).toResource()
             .subscribe{
                 loadDiagnosisResult.value = it
+                loadSubmitDiagnosis.value = diagnosis.value
                 havedata()
             })
     }

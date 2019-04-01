@@ -5,6 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.PopupMenu
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
@@ -14,7 +16,6 @@ import com.wxsoft.fcare.databinding.ActivityDrugRecordsBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -45,7 +46,7 @@ class DrugRecordsActivity : BaseActivity() {
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
-        drugRecordsAdapter = DrugRecordsAdapter(this,viewModel)
+        drugRecordsAdapter = DrugRecordsAdapter(this@DrugRecordsActivity,viewModel,false,::clickItem)
         binding.drugRecordsList.adapter = drugRecordsAdapter
 
 
@@ -61,11 +62,18 @@ class DrugRecordsActivity : BaseActivity() {
                     }
                     startActivityForResult(intent,AddDrug)
                 }
+                "delete" ->{//删除
+                    viewModel.refreshList()
+                }
             }
         })
 
         setSupportActionBar(toolbar)
         title="用药记录"
+    }
+
+    private fun clickItem(view:View,pos :Int){
+        showPopMenu(view,pos)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -87,11 +95,25 @@ class DrugRecordsActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         return  when(item?.itemId){
-            R.id.submit->{
+            R.id.new_item->{
                 viewModel.click()
                 true
             }
             else->super.onOptionsItemSelected(item)
         }
     }
+
+    fun showPopMenu(view: View,pos:Int ){
+        val popupMenu = PopupMenu(this@DrugRecordsActivity,view);
+        popupMenu.getMenuInflater().inflate(R.menu.menu_item_delete,popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(PopupMenu.OnMenuItemClickListener {
+            viewModel.removeItem(pos)
+            return@OnMenuItemClickListener false
+        })
+        popupMenu.show()
+    }
+
+
+
+
 }

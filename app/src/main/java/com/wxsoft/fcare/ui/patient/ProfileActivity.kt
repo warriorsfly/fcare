@@ -161,7 +161,17 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
 
         attack_button.setOnClickListener(this)
 
-        viewModel.shareClick.observe(this, Observer { toShareVital() })
+        viewModel.shareClick.observe(this, Observer {
+            when(it){
+                "share" ->toShareVital()
+                "saveSuccess" ->{
+                    Intent().let { intent->
+                        setResult(RESULT_OK, intent)
+                        finish()
+                    }
+                }
+            }
+        })
 
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
@@ -169,11 +179,13 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
     }
 
     fun toShareVital(){
-        val intent = Intent(this, ShareActivity::class.java).apply {
-            putExtra(ShareActivity.PATIENT_ID, patientId)
-            putExtra(ShareActivity.TYPE_ID, "230-3")
+        if(viewModel.patientSavable){
+            val intent = Intent(this, ShareActivity::class.java).apply {
+                putExtra(ShareActivity.PATIENT_ID, patientId)
+                putExtra(ShareActivity.TYPE_ID, "230-3")
+            }
+            startActivityForResult(intent, VitalSignsRecordActivity.SHARE)
         }
-        startActivityForResult(intent, VitalSignsRecordActivity.SHARE)
     }
 
 
