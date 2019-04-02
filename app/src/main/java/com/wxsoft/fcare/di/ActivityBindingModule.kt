@@ -28,6 +28,7 @@ import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgModule
+import com.wxsoft.fcare.ui.details.ecg.ReactiveEcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
@@ -270,6 +271,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ShareModule::class])
     internal abstract fun shareActivity(): ShareActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [])
+    internal abstract fun reactiveEcgActivity(): ReactiveEcgActivity
 
 
 }

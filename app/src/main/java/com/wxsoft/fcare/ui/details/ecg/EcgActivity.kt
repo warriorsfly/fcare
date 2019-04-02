@@ -132,6 +132,11 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
             setResult(Activity.RESULT_OK)
         })
+
+        see_reactive.setOnClickListener {
+            val intent=Intent(this,ReactiveEcgActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun checkPhotoTaking(){

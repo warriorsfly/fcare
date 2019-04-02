@@ -128,11 +128,7 @@
         <activity
                 android:name=".ui.details.thrombolysis.ThrombolysisActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-                android:name=".ui.patient.PatientEmrActivity"
-                android:label="@string/title_activity_patient_emr"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+
         <activity
                 android:name=".ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -147,6 +143,13 @@
         <activity
                 android:name=".ui.details.catheter.CatheterActivity"
                 android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity
+                android:name=".ui.details.ecg.ReactiveEcgActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:screenOrientation="portrait">
         </activity>
         <activity
                 android:name=".ui.details.diagnose.DiagnoseActivity"

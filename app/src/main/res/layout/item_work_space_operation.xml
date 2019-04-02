@@ -24,7 +24,7 @@
             android:scaleType="centerCrop"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="56dp"
             android:elevation="1dp"
             android:src="@drawable/ic_work_space_operation_done"/>
 
