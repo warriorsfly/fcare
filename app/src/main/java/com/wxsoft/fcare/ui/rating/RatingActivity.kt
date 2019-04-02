@@ -110,7 +110,7 @@ class RatingActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject,menu)
+//        menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
 }

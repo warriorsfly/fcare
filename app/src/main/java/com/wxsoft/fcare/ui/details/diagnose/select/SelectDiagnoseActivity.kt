@@ -61,7 +61,9 @@ class SelectDiagnoseActivity : BaseActivity() {
         viewModel.sonItems.observe(this, Observer { sondiagnoseAdapter.items = it ?: emptyList() })
         binding.secondList.adapter = sondiagnoseAdapter
 
+        viewModel.loadThoracalgias()
         viewModel.getDiagnose()
+
 
         viewModel.diagnosis.observe(this, Observer {  })
 

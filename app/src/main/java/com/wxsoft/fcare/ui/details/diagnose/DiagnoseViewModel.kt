@@ -35,7 +35,6 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         set(value) {
             if (value == "") return
             field = value
-            loadThoracalgias()
         }
 
     var id: String = ""
@@ -70,7 +69,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     val loadSubmitDiagnosis = MediatorLiveData<Diagnosis>()
 
     val thoracalgiaItems: LiveData<List<Dictionary>>
-    private val secItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
+    private val secItemsResult = MediatorLiveData<List<Dictionary>>()
 
 
     val sonItems: LiveData<List<Dictionary>>
@@ -89,21 +88,24 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         showSonList = initShowSonList.map { it }
         diagnosis = loadDiagnosisResult.map { (it as? Resource.Success)?.data?.result?: Diagnosis(createrId = account.id,createrName = account.trueName) }
         loadDiagnosisResult.value = null
-        thoracalgiaItems = secItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
+        thoracalgiaItems = secItemsResult.map { it ?: emptyList() }
         sonItems = loadsonItemsResult.map { it?: emptyList() }
         illnessItems = loadIllnessItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         loadIllness()
     }
 
 
-    private fun loadThoracalgias(){
-        disposable.add(dictEnumApi.loadSecondTypes(patientId).toResource()
-            .subscribe{
-                secItemsResult.value = it
-                havedata()
-            })
+    fun loadThoracalgias(){
+        disposable.add(dictEnumApi.loadSecondTypes(patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getThoracalgias,::error))
     }
 
+    fun getThoracalgias(response:List<Dictionary>){
+        secItemsResult.value = response
+        havedata()
+    }
 
     private fun loadIllness(){
         disposable.add( dictEnumApi.loadIllnessResultItems().toResource()

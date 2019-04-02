@@ -161,6 +161,7 @@ class PatientsFragment : DaggerFragment() , OnDateSetListener{
 
         Intent(activity!!, WorkingActivity::class.java).let {
             it.putExtra(ProfileActivity.PATIENT_ID,id)
+            it.putExtra("PRE",false)
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }
 

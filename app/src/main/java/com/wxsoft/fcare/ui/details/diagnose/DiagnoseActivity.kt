@@ -99,7 +99,7 @@ class DiagnoseActivity : BaseActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
-                SELECT_DIAGNOSE_TYPE ->{//用药
+                SELECT_DIAGNOSE_TYPE ->{
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
                     viewModel.loadSubmitDiagnosis.value = diagnose
                 }

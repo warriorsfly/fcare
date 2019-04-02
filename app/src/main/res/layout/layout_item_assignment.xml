@@ -332,12 +332,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+            <ImageView
+                    android:id="@+id/time_ic"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/ic_time_point_head"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    goneUnless="@{task.taskOverallStatu.equals(2)}"
+                    android:id="@+id/time_start_end"
+                    app:layout_constraintLeft_toRightOf="@+id/time_ic"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="@{task.startAt.substring(5,19)+`--`+task.arriveHosAt.substring(11,19)}"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="16sp"
+                    android:textColor="@color/small_title_text_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
             <TextView
                     goneUnless="@{task.taskOverallStatu.equals(2)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/time_ic"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="14dp"
                     android:layout_marginBottom="20dp"
@@ -353,7 +376,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toRightOf="@+id/title_99"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/time_ic"
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="8dp"
                     android:layout_marginBottom="20dp"

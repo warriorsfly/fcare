@@ -86,6 +86,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
     companion object {
         const val TASK_ID = "TASK_ID"
         const val PATIENT_ID = "PATIENT_ID"
+        const val IS_PRE = "IS_PRE"
     }
 
     private var mCurrentAnimator: Animator? = null

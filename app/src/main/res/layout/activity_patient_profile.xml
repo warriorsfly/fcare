@@ -56,10 +56,10 @@
                     <com.google.android.material.card.MaterialCardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/container1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/container2"
+                            android:id="@+id/container6"
+                            app:layout_constraintTop_toBottomOf="@+id/container4"
+                            app:layout_constraintLeft_toRightOf="@+id/container5"
+                            app:layout_constraintRight_toRightOf="parent"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
@@ -82,8 +82,8 @@
                                     android:gravity="center"
                                     android:text="---"
                                     android:textColor="#525252"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_width="23.5dp"
+                                    android:layout_height="19dp"/>
                             <TextView
                                     android:id="@+id/type_title1"
                                     android:layout_width="0dp"
@@ -225,10 +225,10 @@
                     <com.google.android.material.card.MaterialCardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/container4"
-                            app:layout_constraintTop_toBottomOf="@+id/container2"
-                            app:layout_constraintLeft_toRightOf="@+id/container3"
-                            app:layout_constraintRight_toRightOf="parent"
+                            android:id="@+id/container1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/container2"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
@@ -337,10 +337,13 @@
                     <com.google.android.material.card.MaterialCardView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:id="@+id/container6"
-                            app:layout_constraintTop_toBottomOf="@+id/container4"
-                            app:layout_constraintLeft_toRightOf="@+id/container5"
+
+
+                            android:id="@+id/container4"
+                            app:layout_constraintTop_toBottomOf="@+id/container2"
+                            app:layout_constraintLeft_toRightOf="@+id/container3"
                             app:layout_constraintRight_toRightOf="parent"
+
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
