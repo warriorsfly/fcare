@@ -80,7 +80,7 @@ class MeasuresActivity : BaseActivity()  {
 
     private fun showDialog(item: Dictionary){
 
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
             .setMessage("确定"+item.itemName+"吗？")
             .setPositiveButton("是") { _, _ ->
                 item.checked = true

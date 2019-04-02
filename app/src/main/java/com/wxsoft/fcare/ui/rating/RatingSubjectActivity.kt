@@ -124,7 +124,7 @@ class RatingSubjectActivity : BaseActivity() {
             R.id.delete->{
 
                 if(recordId.isNotEmpty()) {
-                    val dialog = AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text)
+                    val dialog = AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
                     dialog.setTitle("是否删除当前评分?")
                         .setPositiveButton("确定") { _, _ -> viewModel.deleteRecord() }
                         .setNegativeButton("取消") { _, _ -> }

@@ -316,7 +316,7 @@ class WorkingActivity : BaseActivity() {
 
 
     fun showDialog(message:String,type:String){
-        AlertDialog.Builder(this@WorkingActivity,R.style.Theme_FCare_Dialog_Text)
+        AlertDialog.Builder(this@WorkingActivity,R.style.Theme_FCare_Dialog)
             .setMessage(message)
             .setPositiveButton("确定") { _, _ ->
                 when(type){

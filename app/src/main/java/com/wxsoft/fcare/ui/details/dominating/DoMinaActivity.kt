@@ -98,7 +98,7 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
                 5->"确认到达医院大门吗?"
                 else->throw IllegalStateException("Unknown type $it")
             }
-            val dialog=AlertDialog.Builder(this,R.style.Theme_FCare_Dialog_Text).setMessage(mess)
+            val dialog=AlertDialog.Builder(this,R.style.Theme_FCare_Dialog).setMessage(mess)
                 .setPositiveButton("确定") { _, _ -> viewModel.doAction(it) }
                 .setNegativeButton("取消"){ _, _ -> }
 

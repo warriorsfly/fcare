@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
@@ -78,6 +79,11 @@ class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
+                image.setOnLongClickListener {
+
+                    action?.deleteRemote(presenter)
+                    true
+                }
                 url=presenter
                 executePendingBindings()
             }

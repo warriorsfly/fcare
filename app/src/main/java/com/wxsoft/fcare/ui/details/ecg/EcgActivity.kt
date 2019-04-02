@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -43,6 +44,22 @@ import java.io.File
 import javax.inject.Inject
 
 class EcgActivity : BaseActivity(),PhotoEventAction {
+    override fun deleteRemote(url: String) {
+//        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+//            .setMessage("确定"+item.itemName+"吗？")
+//            .setPositiveButton("是") { _, _ ->
+//                item.checked = true
+//                if (item.id == "212-5"){//用药
+//                    toPharmacy()
+//                }else if(item.id == "212-6"){//溶栓
+//                    toThrombolysis()
+//                }
+//            }
+//            .setNegativeButton("否") { _, _ ->
+//                item.checked = false
+//            }.show()
+
+    }
 
 
     private val  fragment by lazy{

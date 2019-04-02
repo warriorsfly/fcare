@@ -20,6 +20,7 @@ interface PhotoEventAction{
     fun localSelected()
     //点击远程文件查看大图
     fun enlargeRemote(imageView: View, url:String)
+    fun deleteRemote(url:String)
 }
 
 

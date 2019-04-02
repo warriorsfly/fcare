@@ -23,6 +23,6 @@ import androidx.appcompat.app.AppCompatDialogFragment
 open class TransparentDimDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return CustomDimDialog(context)
+        return TransparentDimDialog(context)
     }
 }
