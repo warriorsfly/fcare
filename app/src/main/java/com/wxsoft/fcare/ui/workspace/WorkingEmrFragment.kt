@@ -76,6 +76,7 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
 
     lateinit var binding: FragmentWorkingEmrBinding
     private lateinit var emrViewModel: EmrViewModel
+//    private lateinit var workModel: WorkingViewModel
 
     private lateinit var adapter: EmrAdapter
     private lateinit var headerAdapter: EmrAdapter
@@ -91,6 +92,7 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
     ): View? {
 
         emrViewModel=activityViewModelProvider(factory)
+//        workModel=activityViewModelProvider(factory)
         adapter= EmrAdapter(this@WorkingEmrFragment,::clickItem)
         headerAdapter= EmrAdapter(this@WorkingEmrFragment,::clickItem,true)
         emrViewModel.emrs.observe(this, Observer {
@@ -107,6 +109,7 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
                 list.adapter=this@WorkingEmrFragment.adapter
                 drawer.addDrawerListener(this@WorkingEmrFragment)
                 viewModel=this@WorkingEmrFragment.emrViewModel
+//                workModel=this@WorkingEmrFragment.workModel
             lifecycleOwner=this@WorkingEmrFragment
         }.root
 

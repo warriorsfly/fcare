@@ -3,11 +3,11 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.emr.EmrViewModel"/>
+<!--        <variable name="workModel" type="com.wxsoft.fcare.ui.workspace.WorkingViewModel"/>-->
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
-        android:background="@drawable/bg_top_radius"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="0.5dp"
@@ -22,7 +22,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:elevation="6dp"
-            android:padding="12dp"
+            android:id="@+id/head"
+            android:background="@drawable/bg_working_emr_head"
             android:layout_height="wrap_content">
             <TextView
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -33,7 +34,7 @@
                 android:textSize="18sp"
                 android:layout_height="wrap_content"
                 android:text="病历"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/white"
             />
 
             <Button

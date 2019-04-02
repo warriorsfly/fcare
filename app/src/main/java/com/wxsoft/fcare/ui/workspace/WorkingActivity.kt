@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.workspace
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
@@ -72,6 +73,7 @@ class WorkingActivity : BaseActivity() {
 
     lateinit var viewModel: WorkingViewModel
     private lateinit var emrViewModel: EmrViewModel
+    lateinit var transition: TransitionDrawable
     @Inject
     lateinit var factory: ViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +81,8 @@ class WorkingActivity : BaseActivity() {
         viewModel=viewModelProvider(factory)
         emrViewModel=viewModelProvider(factory)
         emrViewModel.patientId=patientId
-        emrViewModel.preHos=false
+        emrViewModel.preHos=pre
+        viewModel.pre=pre
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
                 quality.adapter=QualityAdapter(this@WorkingActivity)
@@ -89,6 +92,7 @@ class WorkingActivity : BaseActivity() {
 
                     bottomSheetBehavior.peekHeight=root.height-bottom
                 }
+                transition=emr_list.view?.findViewById<View>(R.id.head)?.background as TransitionDrawable
                 bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
                 bottomSheetBehavior.setBottomSheetCallback(CallBack(this@WorkingActivity))
 
@@ -251,21 +255,48 @@ class WorkingActivity : BaseActivity() {
     }
 
 
-    class CallBack( context: WorkingActivity):BottomSheetBehavior.BottomSheetCallback(){
-        private val activity= WeakReference(context)
+    class CallBack( context: WorkingActivity):BottomSheetBehavior.BottomSheetCallback() {
+        private val activity = WeakReference(context)
+        private var translated:Boolean=false
+        private var lastState: Int = BottomSheetBehavior.STATE_COLLAPSED
         override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            if(!translated){
 
+                when(lastState){
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+                        translated=true
+                        activity.get()?.transition?.startTransition(500)
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        translated=true
+                        activity.get()?.transition?.reverseTransition(500)
+                    }
+                }
+            }
         }
 
         override fun onStateChanged(bottomSheet: View, newState: Int) {
-           when(newState){
-               BottomSheetBehavior.STATE_COLLAPSED->{
-                   activity.get()?.viewModel?.emrFullScreen?.set(false)
-               }
-               BottomSheetBehavior.STATE_EXPANDED->{
-                   activity.get()?.viewModel?.emrFullScreen?.set(true)
-               }
-           }
+
+            when (newState) {
+                BottomSheetBehavior.STATE_COLLAPSED -> {
+                    if(lastState==newState){
+                        activity.get()?.transition?.reverseTransition(250)
+                    }else {
+                        lastState = newState
+                    }
+                    translated=false
+                    activity.get()?.viewModel?.emrFullScreen?.set(false)
+                }
+                BottomSheetBehavior.STATE_EXPANDED -> {
+                    if(lastState==newState){
+                        activity.get()?.transition?.startTransition(250)
+                    }else {
+                        lastState = newState
+                    }
+                    translated=false
+                    activity.get()?.viewModel?.emrFullScreen?.set(true)
+                }
+            }
         }
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -294,6 +325,15 @@ class WorkingActivity : BaseActivity() {
             .setNegativeButton("取消") { _, _ ->
 
             }.show()
+    }
+
+    override fun onBackPressed() {
+
+        if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_EXPANDED){
+            bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
+        }else {
+            super.onBackPressed()
+        }
     }
 
 }

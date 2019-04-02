@@ -56,7 +56,7 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
     var diagnoses:List<EcgDiagnose> = emptyList()
     set(value){
       field=value
-      diagnoseText=field.joinToString("\n",transform={ it.name})
+      diagnoseText=field.joinToString("\n",transform={ (diagnoses.indexOf(it)+1).toString()+"."+it.name})
     }
 
     @Transient

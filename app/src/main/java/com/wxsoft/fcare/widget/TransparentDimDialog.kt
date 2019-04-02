@@ -29,12 +29,13 @@ import android.view.ViewGroup
 import android.view.Window
 import android.view.WindowManager
 import android.widget.FrameLayout
+
 import com.wxsoft.fcare.R
 
 /**
  * Dialog with custom background dim.
  */
-class WxDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FCare_Dialog) {
+class TransparentDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FCare_Dialog_Text) {
 
     init {
         supportRequestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -52,17 +53,17 @@ class WxDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FC
 
     override fun setContentView(view: View?) {
         if (view != null) {
-            super.setContentView(wrapHeight(view))
+            super.setContentView(wrap(view))
         }
     }
 
-    private fun wrapHeight(content: View): View {
+    private fun wrap(content: View): View {
         val res = context.resources
         val verticalMargin = res.getDimensionPixelSize(R.dimen.dialog_vertical_margin)
         val horizontalMargin = res.getDimensionPixelSize(R.dimen.dialog_horizontal_margin)
         return FrameLayout(context).apply {
             addView(content, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT
             ).apply {
                 setMargins(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin)
@@ -86,7 +87,7 @@ class WxDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FC
                     }
                 }
             }
-            background = ColorDrawable(ResourcesCompat.getColor(res, R.color.scrim, context.theme))
+//            background = ColorDrawable(ResourcesCompat.getColor(res, 0, context.theme))
         }
     }
 }

@@ -45,8 +45,8 @@ android {
 
     buildTypes {
         release {
-//            debuggable true
-            minifyEnabled false
+            debuggable true
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
@@ -66,7 +66,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation 'androidx.test.ext:junit:1.1.1-alpha02'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha03'
 
     //dagger
@@ -107,9 +107,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation 'com.yanzhenjie:permission:2.0.0'
-    implementation 'androidx.room:room-runtime:2.1.0-alpha05'
-    kapt 'androidx.room:room-compiler:2.1.0-alpha05'
-    implementation 'androidx.room:room-rxjava2:2.1.0-alpha05'
+    implementation 'androidx.room:room-runtime:2.1.0-alpha06'
+    kapt 'androidx.room:room-compiler:2.1.0-alpha06'
+    implementation 'androidx.room:room-rxjava2:2.1.0-alpha06'
     implementation 'androidx.paging:paging-runtime:2.1.0'
 }
 repositories {
