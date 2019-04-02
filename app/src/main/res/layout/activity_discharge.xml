@@ -162,7 +162,7 @@
                     android:maxLines="1"
                     android:text="@={viewModel.data.daysStr}"
                     android:imeOptions="actionNext"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="33dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
             <View
@@ -206,7 +206,7 @@
                     android:maxLines="1"
                     android:text="@={viewModel.data.costStr}"
                     android:imeOptions="actionNext"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="33dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

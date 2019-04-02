@@ -18,7 +18,7 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
         }
 
     @Bindable
-    var diagnosis: Diagnosis? = null
+    var diagnosis: Diagnosis = Diagnosis("","","")
         set(value) {
             field = value
             notifyPropertyChanged(BR.diagnosis)
