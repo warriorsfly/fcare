@@ -122,6 +122,15 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         }
     }
 
+    fun deleteImage(url:String){
+        ecg.value?.attachments?.firstOrNull { it.httpUrl==url }?.let {
+            api.deleteImage(it.id)
+                .flatMap { api.getPatientEcgs(patientId) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::doSavedEcg,::error)
+        }
+    }
     fun diagnose(){
        ecg.value?.apply {
            doctorId=account.id

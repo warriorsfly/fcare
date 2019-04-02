@@ -13,6 +13,10 @@ interface ECGApi {
     @GET("ECG/GetElectroCardiogramByPatientId/{patientId}/{location}")
     fun getPatientEcgs(@Path("patientId")id:String,@Path("location")location:Int=2):Maybe<Response<Ecg>>
 
+    @GET("ECG/GetElectroCardiogramByPatientId/{patientId}/{location}")
+    fun deleteImage(@Path("id")id:String):Maybe<Response<Ecg>>
+
+
     @Multipart
     @POST("ECG/SaveElectroCardiogram")
     fun save(@Part("diogram")diogram: Ecg, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>

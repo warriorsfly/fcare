@@ -55,7 +55,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
             .setView(binding.root)
             .setMessage("确定删除吗？")
             .setPositiveButton("是") { _, _ ->
-
+                viewModel.deleteImage(url)
             }
             .setNegativeButton("否") { _, _ ->
             }.show()
@@ -350,8 +350,5 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         }else{
             super.onBackPressed()
         }
-
-
-
     }
 }

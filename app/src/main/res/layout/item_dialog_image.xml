@@ -9,7 +9,9 @@
         xmlns:tools="http://schemas.android.com/tools"
         app:imageUrl="@{imageUrl}"
         android:layout_width="wrap_content"
-        android:minWidth="240dp"
-        android:minHeight="240dp"
+        android:minWidth="300dp"
+        android:minHeight="300dp"
+        android:maxWidth="340dp"
+        android:maxHeight="510dp"
         android:layout_height="wrap_content"/>
 </layout>

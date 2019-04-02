@@ -23,6 +23,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
+import com.wxsoft.fcare.databinding.FragmentTaskStateBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.GisFragment
@@ -33,6 +34,7 @@ import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
+import java.util.*
 import javax.inject.Inject
 
 class DoMinaActivity : BaseActivity(), OnDateSetListener {
@@ -98,7 +100,18 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
                 5->"确认到达医院大门吗?"
                 else->throw IllegalStateException("Unknown type $it")
             }
-            val dialog=AlertDialog.Builder(this,R.style.Theme_FCare_Dialog).setMessage(mess)
+            val bin=FragmentTaskStateBinding.inflate(layoutInflater)
+            val dialog=AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+                .setView(
+                    bin.apply {
+                        Calendar.getInstance().let {
+                            date.text="${it.get(Calendar.YEAR)}-${it.get(Calendar.MONTH)}-${it.get(Calendar.DAY_OF_MONTH)}"
+                            time.text="${it.get(Calendar.HOUR_OF_DAY)}:${it.get(Calendar.MINUTE)}"
+                            memo.text=mess
+                        }
+
+                    }.root
+                )
                 .setPositiveButton("确定") { _, _ -> viewModel.doAction(it) }
                 .setNegativeButton("取消"){ _, _ -> }
 
