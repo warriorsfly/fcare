@@ -82,7 +82,6 @@ class WorkingActivity : BaseActivity() {
         emrViewModel=viewModelProvider(factory)
         emrViewModel.patientId=patientId
         emrViewModel.preHos=pre
-        viewModel.pre=pre
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
                 quality.adapter=QualityAdapter(this@WorkingActivity)
