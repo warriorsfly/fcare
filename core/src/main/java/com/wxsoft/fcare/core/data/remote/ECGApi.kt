@@ -13,7 +13,7 @@ interface ECGApi {
     @GET("ECG/GetElectroCardiogramByPatientId/{patientId}/{location}")
     fun getPatientEcgs(@Path("patientId")id:String,@Path("location")location:Int=2):Maybe<Response<Ecg>>
 
-    @GET("ECG/GetElectroCardiogramByPatientId/{patientId}/{location}")
+    @GET("ECG/DeleteEcgImage/{id}")
     fun deleteImage(@Path("id")id:String):Maybe<Response<Ecg>>
 
 
