@@ -66,6 +66,7 @@ class SearchPatientsActivity : BaseActivity() , SearchView.OnQueryTextListener{
 
         Intent(this@SearchPatientsActivity, WorkingActivity::class.java).let {
             it.putExtra(ProfileActivity.PATIENT_ID,id)
+            it.putExtra("PRE",false)
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }
 

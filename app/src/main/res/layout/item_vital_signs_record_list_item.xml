@@ -51,6 +51,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="13dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
                     android:src="@drawable/ic_add_drugs"
                     android:layout_width="15dp"
                     android:layout_height="15dp"/>

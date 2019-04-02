@@ -96,7 +96,10 @@ class WorkingActivity : BaseActivity() {
                 bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
                 bottomSheetBehavior.setBottomSheetCallback(CallBack(this@WorkingActivity))
 
-                viewModel=this@WorkingActivity.viewModel.apply { patientId=this@WorkingActivity.patientId }
+                viewModel=this@WorkingActivity.viewModel.apply {
+                    pre = this@WorkingActivity.pre
+                    patientId=this@WorkingActivity.patientId
+                }
                 lifecycleOwner=this@WorkingActivity
                 viewModel?.qualities?.observe(this@WorkingActivity, Observer {
                     (quality.adapter as? QualityAdapter)?.submitList(it)

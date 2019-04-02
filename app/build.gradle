@@ -9,7 +9,7 @@ apply plugin: 'kotlin-kapt'
 android {
     signingConfigs {
         release {
-            storeFile file('../key')
+            storeFile file('/Users/ccl/Desktop/fcare/key')
             storePassword '123456'
             keyAlias = 'key0'
             keyPassword '123456'
@@ -21,7 +21,7 @@ android {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 2
+        versionCode 3
         versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 

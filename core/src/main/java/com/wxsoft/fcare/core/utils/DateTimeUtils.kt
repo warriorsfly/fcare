@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.core.utils
 
+import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -104,6 +105,13 @@ class DateTimeUtils {
                 return StringBuilder().append(minute).append("分钟").toString()
             }
             return StringBuilder().append(hour).append("小时").append(minute).append("分钟").toString()
+        }
+
+        fun compareAandB(startDate:String,endDaye:String):Boolean{
+            val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
+            val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
+            var c=end-start
+            return c>=0
         }
     }
 }
