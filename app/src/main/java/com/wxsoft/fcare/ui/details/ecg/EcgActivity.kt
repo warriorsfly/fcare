@@ -32,6 +32,8 @@ import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityEcgBinding
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
+import com.wxsoft.fcare.databinding.ItemImageBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
@@ -45,19 +47,18 @@ import javax.inject.Inject
 
 class EcgActivity : BaseActivity(),PhotoEventAction {
     override fun deleteRemote(url: String) {
-//        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
-//            .setMessage("确定"+item.itemName+"吗？")
-//            .setPositiveButton("是") { _, _ ->
-//                item.checked = true
-//                if (item.id == "212-5"){//用药
-//                    toPharmacy()
-//                }else if(item.id == "212-6"){//溶栓
-//                    toThrombolysis()
-//                }
-//            }
-//            .setNegativeButton("否") { _, _ ->
-//                item.checked = false
-//            }.show()
+        val binding=ItemDialogImageBinding.inflate(layoutInflater).apply {
+            lifecycleOwner=this@EcgActivity
+            imageUrl=url
+        }
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+            .setView(binding.root)
+            .setMessage("确定删除吗？")
+            .setPositiveButton("是") { _, _ ->
+
+            }
+            .setNegativeButton("否") { _, _ ->
+            }.show()
 
     }
 

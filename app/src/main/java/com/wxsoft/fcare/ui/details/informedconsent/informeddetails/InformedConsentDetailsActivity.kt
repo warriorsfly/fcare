@@ -110,6 +110,10 @@ class InformedConsentDetailsActivity : BaseActivity() {
 
 
     inner class EventAction : PhotoEventAction {
+        override fun deleteRemote(url: String) {
+
+        }
+
         override fun localSelected() {
 
         }

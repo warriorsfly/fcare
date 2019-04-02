@@ -112,9 +112,9 @@
         <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
-    <style name="Widget.FCare.SeekBar" parent="Widget.AppCompat.SeekBar.Discrete">
-        <item name="tickMark">@drawable/bg_red</item>
-    </style>
+<!--    <style name="Widget.FCare.SeekBar" parent="Widget.AppCompat.SeekBar.Discrete">-->
+<!--        <item name="tickMark">@drawable/bg_red</item>-->
+<!--    </style>-->
 
 
     <style name="Widget.AppBar" parent="@style/Widget.Design.AppBarLayout">

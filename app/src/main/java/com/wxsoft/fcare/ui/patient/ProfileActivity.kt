@@ -217,6 +217,10 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
     }
 
     inner class EventAction :PhotoEventAction{
+        override fun deleteRemote(url: String) {
+
+        }
+
         override fun localSelected() {
             checkPhotoTaking()
         }

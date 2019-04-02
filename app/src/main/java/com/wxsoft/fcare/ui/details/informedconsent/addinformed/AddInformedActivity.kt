@@ -242,6 +242,10 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
     }
 
     inner class EventAction : PhotoEventAction {
+        override fun deleteRemote(url: String) {
+
+        }
+
         override fun localSelected() {
             checkPhotoTaking()
         }
