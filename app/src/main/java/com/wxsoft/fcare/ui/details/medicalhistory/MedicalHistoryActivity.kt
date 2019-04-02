@@ -67,6 +67,7 @@ class MedicalHistoryActivity : BaseActivity() {
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
     private lateinit var adapter: PictureAdapter
+    private lateinit var drugAdapter: DrugHistoryItemAdapter
 
     private var photoAction: EventAction? =EventAction()
 
@@ -101,7 +102,9 @@ class MedicalHistoryActivity : BaseActivity() {
             }
         })
         viewModel.medicalHistory.observe(this, Observer {
-            if (it != null) this@MedicalHistoryActivity.adapter.remotes = it.attachments.map { it.httpUrl }
+            if (it != null) {
+                this@MedicalHistoryActivity.adapter.remotes = it.attachments.map { it.httpUrl }
+            }
         })
 
         viewModel.monitorClick.observe(this, Observer {
@@ -111,10 +114,10 @@ class MedicalHistoryActivity : BaseActivity() {
             }
         })
 
-        val adapter = DrugHistoryItemAdapter(this@MedicalHistoryActivity,viewModel)
-        binding.medicalHistoryList.adapter = adapter
+        drugAdapter = DrugHistoryItemAdapter(this@MedicalHistoryActivity,viewModel)
+        binding.medicalHistoryList.adapter = drugAdapter
         viewModel.drugHistory.observe(this@MedicalHistoryActivity, Observer {
-            adapter.submitList(it)
+            drugAdapter.submitList(it)
         })
 
 
@@ -206,11 +209,12 @@ class MedicalHistoryActivity : BaseActivity() {
                 AddDrugs ->{
                     var arr =  viewModel.drugHistory.value?.map { it }?: emptyList()
                     val drugs = data?.getSerializableExtra("selectedDrugs") as ArrayList<Drug>
-                    val dlist = drugs.map { DrugHistory(it.id).apply {
-                        name = it.name
+                    val dlist = drugs.map { History2("").apply {
+                        drugId = it.id
+                        drugName = it.name
                         dose = it.dose
                         doseUnit = it.doseUnit
-                    } }as ArrayList<DrugHistory>
+                    } }as ArrayList<History2>
                     dlist.addAll(arr.filter { !dlist.contains(it) })
                     viewModel.loadDrugHistoryResult.value = dlist
                 }
@@ -355,14 +359,17 @@ class MedicalHistoryActivity : BaseActivity() {
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
             putExtra(SelecterOfOneModelActivity.COME_FROM, "MedicalHistoryProvider")
+            putExtra(SelecterOfOneModelActivity.ID,viewModel.medicalHistory.value?.provide )
         }
         startActivityForResult(intent,SELECT_PROVIDER)
     }
 
     fun toSelectAnamnesis(){
+        val ids = viewModel.medicalHistory?.value?.pastHistorys?.map { it.phCode }
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
             putExtra(SelecterOfOneModelActivity.COME_FROM, "MedicalHistoryAnamnesis")
+            putStringArrayListExtra(SelecterOfOneModelActivity.IDS, ids as java.util.ArrayList<String>)
         }
         startActivityForResult(intent,SELECT_ANAMNESIS)
     }

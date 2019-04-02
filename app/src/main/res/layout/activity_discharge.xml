@@ -51,8 +51,9 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/rowe0_2"
+                    app:layout_constraintLeft_toRightOf="@+id/title0_2"
                     tools:text="脑梗死"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
             <TextView

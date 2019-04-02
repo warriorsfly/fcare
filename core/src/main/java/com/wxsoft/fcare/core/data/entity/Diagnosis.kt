@@ -34,7 +34,7 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
     var diagnosisCode1Name: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.diagnosisCode1)
+            notifyPropertyChanged(BR.diagnosisCode1Name)
         }
 
     /// <summary>
@@ -82,12 +82,12 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
             notifyPropertyChanged(BR.criticalLevel)
         }
 
-    @Bindable
     @SerializedName("criticalLevel_Name")
+    @Bindable
     var criticalLevelName: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.diagnosisCode1)
+            notifyPropertyChanged(BR.criticalLevelName)
         }
 
     /// <summary>

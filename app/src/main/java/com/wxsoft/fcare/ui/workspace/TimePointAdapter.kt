@@ -14,7 +14,8 @@ import com.wxsoft.fcare.databinding.ItemTimePointBinding
 import com.wxsoft.fcare.databinding.ItemTimePointHeadBinding
 
 
-class TimePointAdapter constructor(private val owner:LifecycleOwner,private val itemClick:(TimePoint)->Unit) :
+class TimePointAdapter constructor(private val owner:LifecycleOwner,private val itemClick:(TimePoint)->Unit,
+                                   private val itemLongClick:(TimePoint,Int)->Unit) :
     RecyclerView.Adapter<TimePointAdapter.ItemViewHolder>() {
 
     val differ = AsyncListDiffer<Any>(this, DiffCallback)
@@ -65,6 +66,14 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
                                     itemClick(it)
                                 }
                             }
+                        }
+                        root.setOnLongClickListener {
+                            item?.let {
+                                if (it.editable) {
+                                    itemLongClick(it,points.indexOf(it))
+                                }
+                            }
+                            true
                         }
                         lifecycleOwner = owner
                     })

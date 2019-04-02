@@ -85,6 +85,7 @@ import com.wxsoft.fcare.ui.share.ShareModule
 import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
+import com.wxsoft.fcare.ui.workspace.addpoint.AddTimeLinePointActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -239,6 +240,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [WorkSpaceModule::class])
     internal abstract fun timePointActivity(): TimePointActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [WorkSpaceModule::class])
+    internal abstract fun addTimeLinePointActivity(): AddTimeLinePointActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DiagnoseRecordModule::class])

@@ -1,3 +1,36 @@
 package com.wxsoft.fcare.core.data.entity.previoushistory
 
-data class History2(val drugId:String, val drugName:String,val dose:Int,val medicalHistoryId:String)
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import com.wxsoft.fcare.core.BR
+
+data class History2(val id:String)
+    : BaseObservable() {
+    var drugId: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.drugId)
+        }
+    var drugName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.drugName)
+        }
+    var doseUnit: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.doseUnit)
+        }
+//    var medicalHistoryId: String = ""
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.medicalHistoryId)
+//        }
+
+    @Bindable
+    var dose: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.dose)
+        }
+}

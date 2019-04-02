@@ -49,8 +49,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.share.ShareActivity"
+        <activity android:name=".ui.workspace.addpoint.AddTimeLinePointActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.share.ShareActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
@@ -103,7 +106,7 @@
                 android:theme="@style/AppTheme.NoActionBar.Dark"/>
         <activity
                 android:name=".ui.workspace.TimePointActivity"
-                android:theme="@style/AppTheme.NoActionBar.Dark"/>
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.complaints.ComplaintsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
@@ -128,7 +131,6 @@
         <activity
                 android:name=".ui.details.thrombolysis.ThrombolysisActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-
         <activity
                 android:name=".ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
@@ -144,12 +146,11 @@
                 android:name=".ui.details.catheter.CatheterActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
         <activity
                 android:name=".ui.details.ecg.ReactiveEcgActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
-                android:theme="@style/AppTheme.NoActionBar"
-                android:screenOrientation="portrait">
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
                 android:name=".ui.details.diagnose.DiagnoseActivity"
@@ -183,6 +184,7 @@
         </activity>
         <activity
                 android:name=".ui.details.medicalhistory.MedicalHistoryActivity"
+                android:configChanges="orientation|keyboardHidden"
                 android:screenOrientation="portrait"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>

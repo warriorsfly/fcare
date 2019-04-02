@@ -23,6 +23,9 @@ class ShareViewModel  @Inject constructor(private val api: DischargeApi,
     val selectUrl:LiveData<String>
     private val initSelectUrl = MediatorLiveData<String>()
 
+    val uploading:LiveData<Boolean>
+    private val loadUploading = MediatorLiveData<Boolean>()
+
     /**
      * 病人id
      */
@@ -42,12 +45,14 @@ class ShareViewModel  @Inject constructor(private val api: DischargeApi,
         }
 
     val urls:LiveData<List<String>>
-    private val initUrls = MediatorLiveData<List<String>>()
+    private val initUrls = MediatorLiveData<Response<List<String>>>()
 
     init {
         clickShare = initClickShare.map { it }
         selectUrl= initSelectUrl.map { it }
-        urls = initUrls.map { it }
+        urls = initUrls.map { it.result?: emptyList() }
+        uploading = loadUploading.map { it }
+        loadUploading.value = true
     }
 
     fun click() {
@@ -62,7 +67,8 @@ class ShareViewModel  @Inject constructor(private val api: DischargeApi,
     }
 
     private fun getImg(response: Response<List<String>>){
-        initUrls.value = response.result
+        initUrls.value = response
+        loadUploading.value = false
     }
 
     fun selectImage(uri:String){

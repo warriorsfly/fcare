@@ -1,5 +1,10 @@
 package com.wxsoft.fcare.core.data.entity
 
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import com.wxsoft.fcare.core.BR
+import java.io.Serializable
+
 data class TimePoint (
     val id:String,
     var excutedAt:String?,
@@ -16,7 +21,7 @@ data class TimePoint (
     /**
      * 是否允许编辑
      */
-    val editable:Boolean,
+    var editable:Boolean,
     /**
      *  fail:未达到质控规则或者有异常,ok:达成质控规则,null:普通状态
      */
@@ -25,7 +30,16 @@ data class TimePoint (
      * 描述
      */
     val eventContent:String
-){
+): BaseObservable(), Serializable {
+
+    @Bindable
+    @Transient
+    var checked:Boolean=false
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.checked)
+        }
+
     fun getExcuteTime():String{
         return excutedAt?.substring(11,16)?:"--:--"
     }

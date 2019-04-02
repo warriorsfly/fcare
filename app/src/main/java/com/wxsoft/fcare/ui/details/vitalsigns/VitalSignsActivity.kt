@@ -85,7 +85,7 @@ class VitalSignsActivity : BaseActivity() {
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
             putExtra(SelecterOfOneModelActivity.COME_FROM, "Vital")
-            putExtra(SelecterOfOneModelActivity.ID, viewModel.vital.value?.id)
+            putExtra(SelecterOfOneModelActivity.ID, viewModel.vital.value?.consciousness_Type)
         }
         startActivityForResult(intent,SELECT_CONCIOUS )
     }

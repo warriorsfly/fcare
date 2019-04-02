@@ -28,6 +28,16 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             field = value
         }
 
+    var haveSelectedId: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
+    var haveSelectedIds: List<String> = emptyList()
+        set(value) {
+            field = value
+        }
+
 
     var typeId: String = ""
         set(value) {
@@ -104,6 +114,7 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
 
     private fun getData(response: List<Dictionary>){
         loadDesResult.value = response
+        haveData()
     }
 
     private fun getNotify(response: Response<List<NotifyType>>){
@@ -120,6 +131,11 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     fun clickSelectNotify(item: NotifyType){
         notifyTypes.value?.filter { it.checked }?.map { it.checked = false }
         item.checked = true
+    }
+
+    private fun haveData(){
+        des.value?.filter { it.id.equals(haveSelectedId)}?.map { it.checked = true }
+        des.value?.filter { haveSelectedIds.contains(it.id)}?.map { it.checked = true }
     }
 
 }

@@ -7,6 +7,7 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.MedicalHistory
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
+import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.MedicalHistoryApi
@@ -49,10 +50,10 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
 
 
     val medicalHistory:LiveData<MedicalHistory>
-    private val loadMedicalHistoryResult = MediatorLiveData<Response<MedicalHistory>>()
+    val loadMedicalHistoryResult = MediatorLiveData<Response<MedicalHistory>>()
 
-    val drugHistory:LiveData<List<DrugHistory>>
-    val loadDrugHistoryResult = MediatorLiveData<List<DrugHistory>>()
+    val drugHistory:LiveData<List<History2>>
+    val loadDrugHistoryResult = MediatorLiveData<List<History2>>()
 
     val historyPhoto:LiveData<String>
     private val loadPhoto = MediatorLiveData<String>()
@@ -103,23 +104,24 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                 loadHistoryItemsResult.value=it.first.first
                 loadMedicalHistoryResult.value=it.second
                 medicalHistory.value?.getPastHistorys()
+                loadDrugHistoryResult.value = medicalHistory.value?.drugHistorys
 
-                disposable.add(medicalHistoryApi.loadDrugHistory(patientId)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe {drugs->
-
-                        if(!it.second.result?.drugHistorys.isNullOrEmpty()) {
-                            val histories = it.second.result!!.drugHistorys
-                            drugs.result?.forEach { drug ->
-                                histories.firstOrNull { his -> his.drugId == drug.id }?.let { history2 ->
-                                    drug.dose = history2.dose
-                                }
-                            }
-                        }
-                        loadDrugHistoryResult.value=drugs.result
-
-                    })
+//                disposable.add(medicalHistoryApi.loadDrugHistory(patientId)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe {drugs->
+//
+//                        if(!it.second.result?.drugHistorys.isNullOrEmpty()) {
+//                            val histories = it.second.result!!.drugHistorys
+//                            drugs.result?.forEach { drug ->
+//                                histories.firstOrNull { his -> his.drugId == drug.id }?.let { history2 ->
+//                                    drug.dose = history2.dose
+//                                }
+//                            }
+//                        }
+//                        loadDrugHistoryResult.value=drugs.result
+//
+//                    })
 
             })
     }
@@ -137,8 +139,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                         RequestBody.create(MediaType.parse("multipart/form-data"), file)
                     )
                 }
-
-
+                history.drugHistorys = drugHistory.value!!
                 if (files.isNullOrEmpty()) {
                     medicalHistoryApi.save(history).toResource().subscribe {
 
@@ -193,7 +194,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         loadmonitorClick.value = line
     }
 
-    fun subdelow(item: DrugHistory){
+    fun subdelow(item: History2){
         if (item.dose ==0){
             item.dose = 0
         }  else {
@@ -201,7 +202,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         }
     }
 
-    fun add(item: DrugHistory){
+    fun add(item: History2){
         if (item.dose == 0){
             item.dose = 1
         }  else {
@@ -209,8 +210,8 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         }
     }
 
-    fun deleteDrug(item: DrugHistory){
-        loadDrugHistoryResult.value = drugHistory.value?.filter { it.id!= item.id }
+    fun deleteDrug(item: History2){
+        loadDrugHistoryResult.value = drugHistory.value?.filter { it.drugId!= item.drugId }
     }
 
 

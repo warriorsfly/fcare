@@ -11,7 +11,6 @@ data class VitalSign(val id:String=""): BaseObservable() {
     @Bindable
     var consciousness_Type: String = ""
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.consciousness_Type)
         }

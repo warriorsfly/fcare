@@ -7,11 +7,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
+import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.databinding.ItemDrugHistoryBinding
 
 
 class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
-    ListAdapter<DrugHistory,DrugHistoryItemAdapter.ItemViewHolder>(DiffCallback) {
+    ListAdapter<History2,DrugHistoryItemAdapter.ItemViewHolder>(DiffCallback) {
 
 
 
@@ -38,15 +39,15 @@ class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner, val 
     class ItemViewHolder(val binding: ItemDrugHistoryBinding) : RecyclerView.ViewHolder(binding.root){
     }
 
-    object DiffCallback : DiffUtil.ItemCallback<DrugHistory>() {
-        override fun areItemsTheSame(oldItem: DrugHistory, newItem: DrugHistory): Boolean {
+    object DiffCallback : DiffUtil.ItemCallback<History2>() {
+        override fun areItemsTheSame(oldItem: History2, newItem: History2): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.drugId == newItem.drugId
         }
 
-        override fun areContentsTheSame(oldItem: DrugHistory, newItem: DrugHistory): Boolean {
+        override fun areContentsTheSame(oldItem: History2, newItem: History2): Boolean {
 
-            return oldItem.id == newItem.id && oldItem.dose==newItem.dose
+            return oldItem.drugId == newItem.drugId && oldItem.dose==newItem.dose
         }
     }
 }

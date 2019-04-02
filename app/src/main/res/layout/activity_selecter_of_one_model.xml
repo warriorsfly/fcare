@@ -10,60 +10,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:context=".ui.details.checkbody.select.SelectBodyItemsActivity">
-
-        <com.google.android.material.card.MaterialCardView
-                android:id="@+id/top_bar"
-                style="@style/Widget.AppBar"
-                android:layout_width="match_parent"
-                android:layout_height="49dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:elevation="2dp"
-                app:cardCornerRadius="0dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="49dp">
-
-                <TextView
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        android:textSize="18sp"
-                        android:textColor="#3C394A"
-                        android:text="返回"
-                        android:id="@+id/back"
-                        android:layout_marginLeft="16dp"
-                        android:drawableLeft="@drawable/ic_back"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                <TextView
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:textColor="#3C394A"
-                        android:textSize="18sp"
-                        android:text="确定"
-                        android:id="@+id/submit"
-                        android:background="?attr/selectableItemBackground"
-                        android:layout_marginRight="15dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-
+        <include layout="@layout/layout_new_title"
+                 android:id="@+id/title"
+        />
         <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:background="@color/white"
                 android:layout_marginTop="7dp"
                 android:id="@+id/first_list"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/top_bar"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -38,8 +38,11 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
     var docs:List<User> = emptyList()
     private val loadInterventionResult = MediatorLiveData<Response<Intervention>>()
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
+    val modifySome:LiveData<String>
+    private val initModifySome =  MediatorLiveData<String>()
 
     init {
+        modifySome = initModifySome.map { it }
         intervention = loadInterventionResult.map { it?.result ?: Intervention("")  }
     }
 
@@ -57,6 +60,9 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 
     }
 
+    fun clickSelectTime(location:String){
+        initModifySome.value= location
+    }
 
 
     fun saving() {

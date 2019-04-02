@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
@@ -26,61 +27,56 @@ import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
+class CatheterActivity : BaseActivity(), OnDateSetListener{
 
     private var dialog: TimePickerDialog?=null
     private val selectedIndex= mutableListOf<Int>()
-    override fun onClick(v: View?) {
-        when(v?.id) {
-            R.id.thromboly_place -> {
 
-                val list= viewModel.docs.map { it.trueName }.toTypedArray()
-
-                val selectedItems= viewModel.docs.map { user ->
-
-                    viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
-                }.toBooleanArray()
-
-                AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems)
-                { _, which, isChecked ->
-                    if(selectedIndex.contains(which) && !isChecked){
-                        selectedIndex.remove(which)
-
-                    }else if(!selectedIndex.contains(which) && isChecked){
-                        selectedIndex.add(which)
-                    }
-
-                    viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
-                        viewModel.docs[it].id
-                    }
-
-                    viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
-                        viewModel.docs[it].trueName
-                    }
-                }.show()
-
-
-            }
-            else ->{
-
-                (v as? Button)?.let {
-                    selectedId = it.id
-                    val currentTime = it.text.toString().let { text ->
-                        if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
-                    }
-
-                    dialog = createDialog(currentTime)
-                    dialog?.show(supportFragmentManager, "all")
-                }
-            }
-        }
-    }
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
 
         dialog?.onDestroy()
         dialog=null
-        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+    }
+
+    private fun showDatePicker(v: View?){
+        (v as? TextView)?.let {
+            selectedId=it.id
+            val currentTime= it.text.toString().let { txt->
+                if(txt.isEmpty()) 0L else DateTimeUtils.formatter.parse(txt).time
+            }
+
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all")
+        }
+    }
+
+    private fun selectPlace(){
+        val list= viewModel.docs.map { it.trueName }.toTypedArray()
+
+        val selectedItems= viewModel.docs.map { user ->
+
+            viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
+        }.toBooleanArray()
+
+        AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems)
+        { _, which, isChecked ->
+            if(selectedIndex.contains(which) && !isChecked){
+                selectedIndex.remove(which)
+
+            }else if(!selectedIndex.contains(which) && isChecked){
+                selectedIndex.add(which)
+            }
+
+            viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
+                viewModel.docs[it].id
+            }
+
+            viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
+                viewModel.docs[it].trueName
+            }
+        }.show()
     }
 
     private var selectedId=0
@@ -109,17 +105,6 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
 
         setSupportActionBar(toolbar)
         title="导管室操作"
-        start.setOnClickListener  (this)
-        end_thromboly_time.setOnClickListener  (this)
-        patient_arrive.setOnClickListener  (this)
-        start_puncture.setOnClickListener  (this)
-        punctured.setOnClickListener  (this)
-        start_angiography.setOnClickListener  (this)
-        angiographied.setOnClickListener  (this)
-        wire.setOnClickListener  (this)
-        end.setOnClickListener  (this)
-        leave.setOnClickListener  (this)
-        thromboly_place.setOnClickListener  (this)
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
@@ -136,6 +121,24 @@ class CatheterActivity : BaseActivity(), OnDateSetListener, View.OnClickListener
                 }
             }
         })
+
+        viewModel.modifySome.observe(this, Observer {
+            when(it){
+                "0"->selectPlace()
+                "1"->showDatePicker(findViewById(R.id.start))
+                "2"->showDatePicker(findViewById(R.id.end_thromboly_time))
+                "3"->showDatePicker(findViewById(R.id.patient_arrive))
+                "4"->showDatePicker(findViewById(R.id.start_puncture))
+                "5"->showDatePicker(findViewById(R.id.punctured))
+                "6"->showDatePicker(findViewById(R.id.start_angiography))
+                "7"->showDatePicker(findViewById(R.id.angiographied))
+                "8"->showDatePicker(findViewById(R.id.wire))
+                "9"->showDatePicker(findViewById(R.id.end))
+                "10"->showDatePicker(findViewById(R.id.leave))
+            }
+        })
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

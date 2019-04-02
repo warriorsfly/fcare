@@ -93,6 +93,7 @@
                 <TextView
                         android:hint="选择意识"
                         android:id="@+id/start"
+                        android:gravity="right"
                         android:layout_marginRight="60dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"

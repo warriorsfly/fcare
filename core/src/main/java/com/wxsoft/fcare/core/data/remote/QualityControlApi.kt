@@ -18,6 +18,9 @@ interface QualityControlApi {
     @GET("QualityControl/GetTimeLineByPatientId/{patientId}")
     fun getTimePoints(@Path("patientId")id:String): Maybe<Response<List<TimePoint>>>
 
+    @GET("QualityControl/GetCanAddTimePointByPatientId/{patientId}")
+    fun getAddTimePoints(@Path("patientId")id:String): Maybe<Response<List<TimePoint>>>
+
     @POST("QualityControl/SaveTimePoint/")
     fun saveTimePoints(@Body point: TimePointChange): Maybe<Response<String>>
 

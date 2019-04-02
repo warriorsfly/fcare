@@ -113,10 +113,10 @@
                             android:layout_marginTop="7.5dp"
                             android:layout_marginLeft="15dp"
                             android:textColor="#131D35"
-                            android:background="@drawable/bg_edittextview_border"
                             android:text="@={viewModel.medicalHistory.hpi}"
                             android:hint="请填写患者现病史"
                             android:imeOptions="actionNext"
+                            android:background="@null"
                             app:layout_constraintTop_toBottomOf="@+id/hpi_name"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toLeftOf="@+id/voice_hpi"
@@ -124,7 +124,10 @@
 
                     <ImageView
                             android:id="@+id/voice_hpi"
-                            android:padding="6dp"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp"
+                            android:paddingRight="6dp"
+                            android:paddingLeft="10dp"
                             android:background="@drawable/bg_conor_voice_blue"
                             android:layout_width="31dp"
                             android:layout_height="31dp"
@@ -184,7 +187,10 @@
 
                     <ImageView
                             android:id="@+id/gm_voice"
-                            android:padding="6dp"
+                            android:paddingTop="6dp"
+                            android:paddingBottom="6dp"
+                            android:paddingRight="6dp"
+                            android:paddingLeft="10dp"
                             android:background="@drawable/bg_conor_voice_blue"
                             android:layout_width="31dp"
                             android:layout_height="31dp"
@@ -221,7 +227,7 @@
                             android:textColor="#525252"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="既往病史"
+                            android:text="既往史"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent" />

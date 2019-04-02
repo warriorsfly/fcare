@@ -1,7 +1,12 @@
 package com.wxsoft.fcare.ui.workspace
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -23,6 +28,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.workspace.addpoint.AddTimeLinePointActivity
 import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
@@ -68,19 +74,24 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
     private lateinit var adapter: TimePointAdapter
     @Inject
     lateinit var factory: ViewModelFactory
+
+    var selectedPointIndex :Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        adapter= TimePointAdapter(this,::doTimeSelect)
+        adapter= TimePointAdapter(this,::doTimeSelect,::doTimeLongSelect)
         DataBindingUtil.setContentView<ActivityTimePointBinding>(this,R.layout.activity_time_point)
             .apply {
                 if (list.adapter == null)
                     list.adapter = this@TimePointActivity.adapter
                 viewModel = this@TimePointActivity.viewModel.apply { patientId = this@TimePointActivity.patientId }
-                title="急救时间轴"
                 lifecycleOwner = this@TimePointActivity
 
             }
+
+        setSupportActionBar(toolbar)
+        title="急救时间轴"
 
         viewModel.liveData.observe(this, Observer {
             adapter.points=it
@@ -107,9 +118,19 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
         val currentTime =point.excutedAt.let { text ->
             if (text==null) 0L else DateTimeUtils.formatter.parse(text).time
         }
-
         dialog = createDialog(currentTime)
         dialog?.show(supportFragmentManager, "all")
+    }
+
+    private fun doTimeLongSelect(point:TimePoint,position:Int){
+        selectedPointIndex = position
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+            .setMessage("新增节点？")
+            .setPositiveButton("是") { _, _ ->
+                toAddpoint()
+            }
+            .setNegativeButton("否") { _, _ ->
+            }.show()
     }
 
 
@@ -154,6 +175,47 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
             .setType(Type.ALL)
             .setWheelItemTextSize(16)
             .build()
+    }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_new,menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//
+//        return  when(item?.itemId){
+//            R.id.new_item->{
+//                toAddpoint()
+//                true
+//            }
+//            else->super.onOptionsItemSelected(item)
+//        }
+//    }
+
+    fun toAddpoint(){
+        val intent = Intent(this@TimePointActivity, AddTimeLinePointActivity::class.java)
+            .apply {
+                putExtra(AddTimeLinePointActivity.PATIENT_ID, patientId)
+            }
+        startActivityForResult(intent, 100)
+    }
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK) {
+            when(requestCode){
+                100 -> {
+                    var arr = adapter.points as ArrayList<TimePoint>
+                    val point = data?.getSerializableExtra("selectedTimePoint") as TimePoint
+                    arr.add(selectedPointIndex+1, point)
+                    adapter.points = arr.toList()
+                }
+            }
+        }
     }
 
 }
