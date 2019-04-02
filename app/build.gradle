@@ -21,8 +21,8 @@ android {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.0.1"
+        versionCode 4
+        versionName "1.0.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44398/"'
