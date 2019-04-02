@@ -27,10 +27,12 @@ import java.lang.ref.WeakReference
 import javax.inject.Inject
 import android.os.Environment.DIRECTORY_DOWNLOADS
 import androidx.lifecycle.Observer
+import com.wxsoft.fcare.widget.TransparentDimDialog
+import com.wxsoft.fcare.widget.TransparentDimDialogFragment
 import java.io.File
 
 
-class UpgradeDialog : CustomDimDialogFragment(), HasSupportFragmentInjector {
+class UpgradeDialog : TransparentDimDialogFragment(), HasSupportFragmentInjector {
 
 
 
