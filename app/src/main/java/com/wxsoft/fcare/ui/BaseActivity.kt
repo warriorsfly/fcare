@@ -21,9 +21,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         const val NEW_PATIENT_ID="new_patient_id"
     }
 
-
-
-
     fun dispatchTakePictureIntent(list:List<LocalMedia>,max:Int) {
 
 
