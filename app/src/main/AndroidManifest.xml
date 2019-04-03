@@ -185,10 +185,10 @@
         </activity>
         <activity
                 android:name=".ui.details.medicalhistory.MedicalHistoryActivity"
-                android:configChanges="orientation|keyboardHidden"
+                android:configChanges="orientation|keyboardHidden|screenSize"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.dominating.DoMinaActivity"
                 android:theme="@style/AppTheme.NoActionBar.Dark"/>
