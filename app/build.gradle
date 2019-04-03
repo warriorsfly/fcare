@@ -20,9 +20,9 @@ android {
     defaultConfig {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 5
-        versionName "1.0.3"
+        versionName "1.0.4"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44398/"'

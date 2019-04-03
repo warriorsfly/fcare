@@ -56,16 +56,16 @@ class LauncherActivity : BaseActivity(){
         viewModel = viewModelProvider(factory)
 
         viewModel.version.observe(this, Observer {
-            //            if(!it.changing) {
+
             if (it.changing) {
-                dialog = UpgradeDialog()
-                dialog?.show(supportFragmentManager, UpgradeDialog.DIALOG_UPGRADE)
+                checkUpgradePermission()
             }
         })
 
         viewModel.success.observe(this, Observer {
 
-            val intent = if (it) Intent(this, MainActivity::class.java) else Intent(this, LoginActivity::class.java)
+            val intent = Intent(this,if (it) MainActivity::class.java  else LoginActivity::class.java)
+
             startActivity(intent)
             finish()
         })
@@ -74,7 +74,7 @@ class LauncherActivity : BaseActivity(){
             viewModel.version.value?.let(::download)
         })
 
-        checkUpdatePermission()
+        checkStoragePermission()
     }
 
     class RegistrationBroadcastReceiver(var vm: LauncherViewModel?) : BroadcastReceiver() {
@@ -100,8 +100,10 @@ class LauncherActivity : BaseActivity(){
             unregisterReceiver(receiver)
             receiver?.vm = null
         }
-
-        completeReceiver?.let{unregisterReceiver(it)}
+        if(completeReceiver!=null){
+            unregisterReceiver(completeReceiver)
+            completeReceiver=null
+        }
     }
 
     private fun getLocalVersion():Long{
@@ -113,16 +115,48 @@ class LauncherActivity : BaseActivity(){
         }
     }
 
-    private fun checkUpdatePermission(){
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+    private fun showUpdateDialog(){
+        if(dialog==null)
+            dialog = UpgradeDialog()
+        dialog?.show(supportFragmentManager, UpgradeDialog.DIALOG_UPGRADE)
+    }
+    private fun checkStoragePermission() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
 
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(
+                this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
                 BaseActivity.UPGRADE_PERMISSION_REQUEST
             )
 
+        } else {
+            checkUpdate()
+        }
+    }
+    private fun checkUpdate(){
+        disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion, ::error))
+    }
+
+    private fun checkUpgradePermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (packageManager.canRequestPackageInstalls()) {
+                showUpdateDialog()
+            } else {
+                AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+                    .setTitle("提示")
+                    .setMessage("请在设置允许安装未知应用的列表里找到无限急救，点击，选择允许")
+                    .setPositiveButton("去设置") { _, _ ->
+                        val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+                        startActivityForResult(intent, UPGRADE_PERMISSION_SETTING)
+                    }
+                    .show()
+            }
         }else{
-            disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion,::error))
+            showUpdateDialog()
         }
     }
 
@@ -131,24 +165,9 @@ class LauncherActivity : BaseActivity(){
         when (requestCode) {
             BaseActivity.UPGRADE_PERMISSION_REQUEST -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        if (packageManager.canRequestPackageInstalls()) {
-                            disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion, ::error))
-                        } else {
-                            AlertDialog.Builder(this)
-                                .setTitle("提示")
-                                .setMessage("请设置允许安装无限急救app")
-                                .setPositiveButton("去设置") { _, _ ->
-                                    val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-                                    startActivityForResult(intent, UPGRADE_PERMISSION_SETTING)
-                                }
-                                .show()
-                        }
-                    }else{
-                        disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion, ::error))
-                    }
+                    checkUpdate()
                 } else {
-                    checkUpdatePermission()
+                    checkStoragePermission()
                 }
             }
         }
@@ -159,22 +178,7 @@ class LauncherActivity : BaseActivity(){
 
         when (requestCode) {
             UPGRADE_PERMISSION_SETTING->{
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    if (packageManager.canRequestPackageInstalls()) {
-                        disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion, ::error))
-                    } else {
-
-
-                        AlertDialog.Builder(this)
-                            .setTitle("提示")
-                            .setMessage("请设置允许安装无限急救app")
-                            .setPositiveButton("去设置") { _, _ ->
-                                val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
-                                startActivityForResult(intent, UPGRADE_PERMISSION_SETTING)
-                            }
-                            .show()
-                    }
-                }
+                checkUpgradePermission()
             }
         }
     }
@@ -189,13 +193,13 @@ class LauncherActivity : BaseActivity(){
         // 2. 设置接收广播的类型
         intentFilter.addAction(JPushReceiver.RegistrationId)
         registerReceiver(receiver, intentFilter)
-        val request = DownloadManager.Request(Uri.parse(BuildConfig.ENDPOINT+version.url)).apply {
+        val request = DownloadManager.Request(Uri.parse("""${BuildConfig.ENDPOINT}${version.url}""")).apply {
 
             file = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "无限急救.apk")
             setDestinationUri(Uri.fromFile(file))
         }
         downloadManager.enqueue(request)
-        completeReceiver = CompleteReceiver(downloadManager,file)
+        completeReceiver = CompleteReceiver()
         registerReceiver(
             completeReceiver,
             IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
@@ -203,34 +207,51 @@ class LauncherActivity : BaseActivity(){
     }
 
 
-    class CompleteReceiver ( download: DownloadManager,fil:File): BroadcastReceiver() {
-        private val manager = WeakReference(download)
-        private val file = WeakReference(fil)
+    inner class CompleteReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-
-           install(context)
+            val completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            val uri=downloadManager.getUriForDownloadedFile(completeDownloadId)
+            install(uri)
         }
 
-        private fun install(context: Context) {
-//           val intent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
-//           context.startActivity(intent)
-
-            file.get()?.let {
-                val uri = FileProvider.getUriForFile(
-                    context,
-                    context.applicationContext.packageName + ".fileProvider",
-                    it
-                    )
-                val intent = Intent(Intent.ACTION_VIEW).apply {
-                    setDataAndType(uri, "application/vnd.android.package-archive")
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
-                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                }
-
-                context.startActivity(intent)
+        private fun install(uri:Uri) {
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                setDataAndType(uri, "application/vnd.android.package-archive")
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
+            startActivity(intent)
         }
     }
+
+//    inner class CompleteReceiver (): BroadcastReceiver() {
+//
+//        override fun onReceive(context: Context, intent: Intent) {
+//
+//           install(context)
+//        }
+//
+//        private fun install(context: Context) {
+//            downloadManager.getUriForDownloadedFile()
+////           val intent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
+////           context.startActivity(intent)
+//
+//            file?.let {
+//                val uri = FileProvider.getUriForFile(
+//                    context,
+//                    context.applicationContext.packageName + ".fileProvider",
+//                    it
+//                    )
+//                val intent = Intent(Intent.ACTION_VIEW).apply {
+//                    setDataAndType(uri, "application/vnd.android.package-archive")
+//                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
+//                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+//                }
+//
+//                context.startActivity(intent)
+//            }
+//        }
+//    }
 
 }

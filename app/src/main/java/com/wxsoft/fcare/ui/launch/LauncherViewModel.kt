@@ -28,7 +28,6 @@ class LauncherViewModel @Inject constructor(
 
     var name: String = ""
     var password: String = ""
-    private var registrationId: String = ""
     /**
      *获取病人信息
      */
@@ -83,6 +82,7 @@ class LauncherViewModel @Inject constructor(
     }
 
     private fun checkUpdate(response: Response<Version>){
+
         loadVersionResult.value=response.apply {
             result?.let {
 //                if(it.changing) {
