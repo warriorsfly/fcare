@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.launch
 
+import android.Manifest
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -10,6 +11,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.BuildConfig
@@ -25,7 +28,8 @@ import io.reactivex.disposables.CompositeDisposable
 import java.io.File
 import java.lang.ref.WeakReference
 import javax.inject.Inject
-import androidx.core.content.FileProvider
+import android.app.AlertDialog
+import android.provider.Settings
 
 
 class LauncherActivity : BaseActivity(){
@@ -34,6 +38,7 @@ class LauncherActivity : BaseActivity(){
         getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     }
 
+    private var dialog:UpgradeDialog?=null
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -51,16 +56,16 @@ class LauncherActivity : BaseActivity(){
         viewModel = viewModelProvider(factory)
 
         viewModel.version.observe(this, Observer {
-//            if(!it.changing) {
-            if(it.changing) {
-                var dialog = UpgradeDialog()
-                dialog.show(supportFragmentManager, UpgradeDialog.DIALOG_UPGRADE)
+            //            if(!it.changing) {
+            if (it.changing) {
+                dialog = UpgradeDialog()
+                dialog?.show(supportFragmentManager, UpgradeDialog.DIALOG_UPGRADE)
             }
         })
 
         viewModel.success.observe(this, Observer {
 
-            val intent = if(it) Intent(this, MainActivity::class.java) else Intent(this, LoginActivity::class.java)
+            val intent = if (it) Intent(this, MainActivity::class.java) else Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         })
@@ -69,13 +74,7 @@ class LauncherActivity : BaseActivity(){
             viewModel.version.value?.let(::download)
         })
 
-        disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion,::error))
-
-        receiver =RegistrationBroadcastReceiver(viewModel)
-        val intentFilter = IntentFilter()
-        // 2. 设置接收广播的类型
-        intentFilter.addAction(JPushReceiver.RegistrationId)
-        registerReceiver(receiver, intentFilter)
+        checkUpdatePermission()
     }
 
     class RegistrationBroadcastReceiver(var vm: LauncherViewModel?) : BroadcastReceiver() {
@@ -114,25 +113,67 @@ class LauncherActivity : BaseActivity(){
         }
     }
 
-//    private fun checkPhotoTaking(){
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-//
-//            ActivityCompat.requestPermissions(this,
-//                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-//                BaseActivity.UPGRADE_PERMISSION_REQUEST
-//            )
-//
-//        }else{
-//
-//        }
-//    }
+    private fun checkUpdatePermission(){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this,
+                arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                BaseActivity.UPGRADE_PERMISSION_REQUEST
+            )
+
+        }else{
+            disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion,::error))
+        }
+    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode){
-            BaseActivity.UPGRADE_PERMISSION_REQUEST ->{
-                if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        when (requestCode) {
+            BaseActivity.UPGRADE_PERMISSION_REQUEST -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        if (packageManager.canRequestPackageInstalls()) {
+                            disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion, ::error))
+                        } else {
+                            AlertDialog.Builder(this)
+                                .setTitle("提示")
+                                .setMessage("请设置允许安装无限急救app")
+                                .setPositiveButton("去设置") { _, _ ->
+                                    val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+                                    startActivityForResult(intent, UPGRADE_PERMISSION_SETTING)
+                                }
+                                .show()
+                        }
+                    }else{
+                        disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion, ::error))
+                    }
+                } else {
+                    checkUpdatePermission()
+                }
+            }
+        }
+    }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            UPGRADE_PERMISSION_SETTING->{
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if (packageManager.canRequestPackageInstalls()) {
+                        disposable.add(Single.fromCallable { getLocalVersion() }.subscribe(::doVersion, ::error))
+                    } else {
+
+
+                        AlertDialog.Builder(this)
+                            .setTitle("提示")
+                            .setMessage("请设置允许安装无限急救app")
+                            .setPositiveButton("去设置") { _, _ ->
+                                val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES)
+                                startActivityForResult(intent, UPGRADE_PERMISSION_SETTING)
+                            }
+                            .show()
+                    }
                 }
             }
         }
@@ -143,7 +184,11 @@ class LauncherActivity : BaseActivity(){
 
 
     private fun download(version:Version){
-
+        receiver =RegistrationBroadcastReceiver(viewModel)
+        val intentFilter = IntentFilter()
+        // 2. 设置接收广播的类型
+        intentFilter.addAction(JPushReceiver.RegistrationId)
+        registerReceiver(receiver, intentFilter)
         val request = DownloadManager.Request(Uri.parse(BuildConfig.ENDPOINT+version.url)).apply {
 
             file = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "无限急救.apk")
@@ -168,20 +213,23 @@ class LauncherActivity : BaseActivity(){
         }
 
         private fun install(context: Context) {
-           val intent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
-           context.startActivity(intent)
+//           val intent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
+//           context.startActivity(intent)
 
-//            file.get()?.let {
-//                val uri = FileProvider.getUriForFile(
-//                    context,
-//                    context.applicationContext.packageName + ".fileProvider",
-//                    it
-//                    )
-//                val intent = Intent(Intent.ACTION_VIEW)
-//                intent.setDataAndType(uri, "application/vnd.android.package-archive")
-//                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
-//                context.startActivity(intent)
-//            }
+            file.get()?.let {
+                val uri = FileProvider.getUriForFile(
+                    context,
+                    context.applicationContext.packageName + ".fileProvider",
+                    it
+                    )
+                val intent = Intent(Intent.ACTION_VIEW).apply {
+                    setDataAndType(uri, "application/vnd.android.package-archive")
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
+                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                }
+
+                context.startActivity(intent)
+            }
         }
     }
 
