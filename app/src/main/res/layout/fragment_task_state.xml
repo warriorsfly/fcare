@@ -10,23 +10,37 @@
                   android:padding="10dp"
          tools:context=".ui.details.dominating.fragment.ProcessFragment">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="6dp"
-            android:id="@+id/time"
-            android:textColor="@color/rating_red"
-            android:textSize="22sp"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:padding="6dp"
-            android:id="@+id/date"
-            android:textColor="@color/rating_red"
-            android:textSize="14sp"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="6dp"
+                android:id="@+id/date"
+                android:textColor="@color/rating_red"
+                android:textSize="14sp"/>
+
+        <TimePicker
+                android:id="@+id/time_picker"
+                android:layout_gravity="center_horizontal"
+                android:calendarViewShown="false"
+                android:timePickerMode="spinner"
+                android:textSize="22sp"
+                android:numbersInnerTextColor="@color/rating_red"
+                android:numbersSelectorColor="@color/rating_red"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"/>
+
+        <!--<TextView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:padding="6dp"-->
+            <!--android:id="@+id/time"-->
+            <!--android:textColor="@color/rating_red"-->
+            <!--android:textSize="22sp"/>-->
+
+
 
         <TextView
             android:layout_width="match_parent"

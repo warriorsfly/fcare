@@ -22,6 +22,9 @@ interface VitalSignApi{
     @GET("VitalSigns/GetByPatientId/{patientId}")
     fun getVitalRecordlist(@Path("patientId")id:String): Maybe<Response<List<VitalSignRecord>>>
 
+    @GET("VitalSigns/GetVSByPatientId/{patientId}")
+    fun getVSRecordlist(@Path("patientId")id:String): Maybe<Response<List<VitalSign>>>
+
     @GET("VitalSigns/GetById/{id}")
     fun getOne(@Path("id")id:String): Maybe<Response<VitalSign>>
 }

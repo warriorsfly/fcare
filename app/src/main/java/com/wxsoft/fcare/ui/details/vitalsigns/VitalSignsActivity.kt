@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.details.vitalsigns
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
@@ -14,7 +16,6 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityVitalSignsBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -76,6 +77,20 @@ class VitalSignsActivity : BaseActivity() {
                 }
             }
         })
+
+        binding.breath.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {//输入后的监听
+
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {//输入后的监听
+
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {//输入文字产生变化的监听
+
+            }
+        })
+
+
 
     }
 

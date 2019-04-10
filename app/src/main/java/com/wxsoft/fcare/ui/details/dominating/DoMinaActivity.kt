@@ -106,8 +106,14 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
                     bin.apply {
                         Calendar.getInstance().let {
                             date.text="${it.get(Calendar.YEAR)}-${it.get(Calendar.MONTH)}-${it.get(Calendar.DAY_OF_MONTH)}"
-                            time.text="${it.get(Calendar.HOUR_OF_DAY)}:${it.get(Calendar.MINUTE)}"
+//                            time.text="${it.get(Calendar.HOUR_OF_DAY)}:${it.get(Calendar.MINUTE)}"
                             memo.text=mess
+                            timePicker.setIs24HourView(true)
+                            timePicker.currentHour = it.get(Calendar.HOUR_OF_DAY)
+                            timePicker.currentMinute = it.get(Calendar.MINUTE)
+//                            timePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
+//
+//                            }
                         }
 
                     }.root

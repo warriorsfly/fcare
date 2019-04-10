@@ -45,7 +45,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:textSize="18sp"
                         android:textColor="@color/white"
-                        tools:text="返回"
+                        tools:text="张三"
                         android:text="@{viewModel.patient.name}"
                         android:id="@+id/back_away"
                         android:layout_marginLeft="16dp"

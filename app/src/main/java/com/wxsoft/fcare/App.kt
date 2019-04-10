@@ -5,6 +5,7 @@ import cn.jiguang.share.android.api.JShareInterface
 import cn.jiguang.share.android.api.PlatformConfig
 import cn.jpush.android.api.BasicPushNotificationBuilder
 import cn.jpush.android.api.JPushInterface
+import com.baidu.mapapi.SDKInitializer
 import com.squareup.leakcanary.LeakCanary
 import com.wxsoft.fcare.di.DaggerAppComponent
 import dagger.android.AndroidInjector
@@ -38,6 +39,8 @@ class App : DaggerApplication() {
             setWechat("wx9f163d591186cfac", "c93e41a9676c998d865389acfec27548")
         }
         JShareInterface.init(this, config)
+
+        SDKInitializer.initialize(this)
 
     }
 

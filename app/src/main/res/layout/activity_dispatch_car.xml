@@ -90,7 +90,7 @@
                             android:id="@+id/title3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="选择护士"
+                            android:text="选择急救协救员"
                             android:textSize="18sp"
                             android:textColor="#131D35"
                             android:layout_marginLeft="5dp"

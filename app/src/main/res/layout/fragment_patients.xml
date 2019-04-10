@@ -18,7 +18,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:padding="4dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
                     android:id="@+id/search_placeholder"
                     app:strokeColor="@color/light_gray"
                     android:elevation="2dp"
@@ -30,7 +30,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="56dp">
 
                     <TextView
                             android:id="@+id/select_date"

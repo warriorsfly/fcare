@@ -7,6 +7,17 @@
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordViewModel"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.VitalSign"/>
     </data>
+
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            android:elevation="2dp"
+            app:cardCornerRadius="6dp">
+
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:onClick="@{()->viewModel.clickVital(item)}"
@@ -15,7 +26,7 @@
         <View
                 android:background="@color/line_gray"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"/>
 
@@ -316,4 +327,5 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 </layout>

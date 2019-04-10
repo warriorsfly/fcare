@@ -33,8 +33,8 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
         }
 
 
-    val vitals:LiveData<List<VitalSignRecord>>
-    private val initVitals = MediatorLiveData<List<VitalSignRecord>>()
+    val vitals:LiveData<List<VitalSign>>
+    private val initVitals = MediatorLiveData<List<VitalSign>>()
 
     val addvital:LiveData<String>
     private val initAddvital = MediatorLiveData<String>()
@@ -49,23 +49,25 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
     }
 
     fun click(){
-        initAddvital.value = "share"
+        initAddvital.value = "add"
     }
 
     fun getVitalRecords(){
 
-        disposable.add(vitalSignApi.getVitalRecordlist(patientId).subscribeOn(Schedulers.io())
+        disposable.add(vitalSignApi.getVSRecordlist(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doScenceLoadVitalRecord))
     }
 
-    private fun doScenceLoadVitalRecord(response: Response<List<VitalSignRecord>>){
+    private fun doScenceLoadVitalRecord(response: Response<List<VitalSign>>){
 
-        initVitals.value=response.result?.apply {
-            forEachIndexed { index, result ->
-                result.tint = tints[(index + 1) % tints.size]
-            }
-        }
+        initVitals.value=response.result
+
+//            ?.apply {
+//                forEachIndexed { index, result ->
+//                    result.tint = tints[(index + 1) % tints.size]
+//                }
+//            }
     }
 
     fun add(item:VitalSignRecord){

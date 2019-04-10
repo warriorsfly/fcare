@@ -34,7 +34,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
     lateinit var factory: ViewModelFactory
 
     lateinit var binding: ActivityVitalSignsRecordBinding
-    lateinit var listAdapter: VitalRecordListAdapter
+    lateinit var listAdapter: VitalSignsDetailItemAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
         binding.viewModel = viewModel
         viewModel.patientId = patientId
 
-        listAdapter = VitalRecordListAdapter(this,viewModel)
+        listAdapter = VitalSignsDetailItemAdapter(this,viewModel)
         binding.vitalRecordsList.adapter = listAdapter
 
         viewModel.vitals.observe(this, Observer { listAdapter.items = it })
@@ -106,14 +106,14 @@ class VitalSignsRecordActivity :  BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_share,menu)
+        menuInflater.inflate(R.menu.menu_new,menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         return  when(item?.itemId){
-            R.id.submit->{
+            R.id.new_item->{
                 viewModel.click()
                 true
             }

@@ -333,6 +333,7 @@
                 android:layout_height="wrap_content">
 
             <ImageView
+                    goneUnless="@{task.taskOverallStatu.equals(2)}"
                     android:id="@+id/time_ic"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
