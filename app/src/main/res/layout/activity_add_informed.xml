@@ -12,8 +12,7 @@
             android:background="#E7E4F2"
             tools:context=".ui.details.informedconsent.addinformed.AddInformedActivity">
         <include layout="@layout/layout_new_title"
-                 android:id="@+id/title"
-        />
+                 android:id="@+id/title"/>
         <androidx.core.widget.NestedScrollView
                 android:id="@+id/baseScroll"
                 android:layout_width="match_parent"
@@ -453,8 +452,6 @@
                         android:layout_height="wrap_content"/>
                 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

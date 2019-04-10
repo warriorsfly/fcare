@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.launch
 
 import android.Manifest
+import android.app.AlertDialog
 import android.app.DownloadManager
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -11,8 +12,8 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.provider.Settings
 import androidx.core.app.ActivityCompat
-import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.BuildConfig
@@ -26,10 +27,7 @@ import com.wxsoft.fcare.ui.main.MainActivity
 import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
 import java.io.File
-import java.lang.ref.WeakReference
 import javax.inject.Inject
-import android.app.AlertDialog
-import android.provider.Settings
 
 
 class LauncherActivity : BaseActivity(){

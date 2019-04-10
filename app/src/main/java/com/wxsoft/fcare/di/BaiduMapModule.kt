@@ -15,7 +15,7 @@ class BaiduMapModule {
      * 创建位置检测点
      */
     @Provides
-    @Singleton
+//    @Singleton
     fun provideLocationClient(context: Context): LocationClient {
         val option = LocationClientOption()
         //可选，设置定位模式，默认高精度

@@ -11,6 +11,8 @@ import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
+import android.media.AudioRecord
+import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.Menu
@@ -41,7 +43,6 @@ import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import kotlinx.android.synthetic.main.activity_add_informed.*
 import kotlinx.android.synthetic.main.activity_patient_profile.*
-import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import java.util.*
@@ -50,6 +51,8 @@ import javax.inject.Inject
 class AddInformedActivity : BaseActivity(), OnDateSetListener {
 
     private var dialog: TimePickerDialog?=null
+
+//    private var recorder:? =null
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)

@@ -62,7 +62,7 @@ import javax.inject.Inject
 
 class WorkingActivity : BaseActivity() {
 
-    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+//    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
@@ -73,7 +73,7 @@ class WorkingActivity : BaseActivity() {
 
     lateinit var viewModel: WorkingViewModel
     private lateinit var emrViewModel: EmrViewModel
-    lateinit var transition: TransitionDrawable
+//    lateinit var transition: TransitionDrawable
     @Inject
     lateinit var factory: ViewModelFactory
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,13 +87,13 @@ class WorkingActivity : BaseActivity() {
                 quality.adapter=QualityAdapter(this@WorkingActivity)
                 operationView.adapter=OperationAdapter(this@WorkingActivity,::doOperation)
 
-                operationView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, _ ->
-
-                    bottomSheetBehavior.peekHeight=root.height-bottom
-                }
-                transition=emr_list.view?.findViewById<View>(R.id.head)?.background as TransitionDrawable
-                bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
-                bottomSheetBehavior.setBottomSheetCallback(CallBack(this@WorkingActivity))
+//                operationView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, _ ->
+//
+//                    bottomSheetBehavior.peekHeight=root.height-bottom
+//                }
+////                transition=emr_list.view?.findViewById<View>(R.id.head)?.background as TransitionDrawable
+////                bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
+//                bottomSheetBehavior.setBottomSheetCallback(CallBack(this@WorkingActivity))
 
                 viewModel=this@WorkingActivity.viewModel.apply {
                     pre = this@WorkingActivity.pre
@@ -267,11 +267,11 @@ class WorkingActivity : BaseActivity() {
                 when(lastState){
                     BottomSheetBehavior.STATE_COLLAPSED -> {
                         translated=true
-                        activity.get()?.transition?.startTransition(500)
+//                        activity.get()?.transition?.startTransition(500)
                     }
                     BottomSheetBehavior.STATE_EXPANDED -> {
                         translated=true
-                        activity.get()?.transition?.reverseTransition(500)
+//                        activity.get()?.transition?.reverseTransition(500)
                     }
                 }
             }
@@ -282,7 +282,7 @@ class WorkingActivity : BaseActivity() {
             when (newState) {
                 BottomSheetBehavior.STATE_COLLAPSED -> {
                     if(lastState==newState){
-                        activity.get()?.transition?.reverseTransition(250)
+//                        activity.get()?.transition?.reverseTransition(250)
                     }else {
                         lastState = newState
                     }
@@ -291,7 +291,7 @@ class WorkingActivity : BaseActivity() {
                 }
                 BottomSheetBehavior.STATE_EXPANDED -> {
                     if(lastState==newState){
-                        activity.get()?.transition?.startTransition(250)
+//                        activity.get()?.transition?.startTransition(250)
                     }else {
                         lastState = newState
                     }
@@ -330,14 +330,14 @@ class WorkingActivity : BaseActivity() {
 
             }.show()
     }
-
-    override fun onBackPressed() {
-
-        if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_EXPANDED){
-            bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
-        }else {
-            super.onBackPressed()
-        }
-    }
+//
+//    override fun onBackPressed() {
+//
+//        if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_EXPANDED){
+//            bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
+//        }else {
+//            super.onBackPressed()
+//        }
+//    }
 
 }
