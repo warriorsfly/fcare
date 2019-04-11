@@ -34,6 +34,7 @@ import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -105,7 +106,7 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
                 .setView(
                     bin.apply {
                         Calendar.getInstance().let {
-                            date.text="${it.get(Calendar.YEAR)}-${it.get(Calendar.MONTH)}-${it.get(Calendar.DAY_OF_MONTH)}"
+                            date.text="${it.get(Calendar.YEAR)}-${it.get(Calendar.MONTH)+1}-${it.get(Calendar.DAY_OF_MONTH)}"
 //                            time.text="${it.get(Calendar.HOUR_OF_DAY)}:${it.get(Calendar.MINUTE)}"
                             memo.text=mess
                             timePicker.setIs24HourView(true)
@@ -118,7 +119,14 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
                     }.root
                 )
-                .setPositiveButton("确定") { _, _ -> viewModel.doAction(it,bin.timePicker.currentHour.toString()) }
+                .setPositiveButton("确定") { _, _ ->
+                    val times = bin.date.text.toString() + " " + bin.timePicker.currentHour.toString()+ ":" + bin.timePicker.currentMinute.toString() + ":00"
+                    var formatter =  SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    val dates = formatter.parse(times)
+                    val time = formatter.format(dates)
+//                    val time = dates.getTime()
+                    viewModel.doAction(it,time)
+                }
                 .setNegativeButton("取消"){ _, _ -> }
 
             dialog.show()

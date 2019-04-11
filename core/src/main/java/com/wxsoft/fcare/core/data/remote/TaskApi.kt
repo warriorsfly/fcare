@@ -30,20 +30,20 @@ interface TaskApi {
     @GET("User/driver/{accountId}")
     fun getDrivers(@Path("accountId")accountId:String): Maybe<Response<List<User>>>
 
-    @GET("Task/arrive/{id}")
-    fun arrive(@Path("id")taskId:String): Maybe<Response<String>>
+    @GET("Task/arrive/{id}/{time}")
+    fun arrive(@Path("id")taskId:String,@Path("time")time:String): Maybe<Response<String>>
 
-    @GET("Task/met/{id}")
-    fun met(@Path("id")taskId:String): Maybe<Response<String>>
+    @GET("Task/met/{id}/{time}")
+    fun met(@Path("id")taskId:String,@Path("time")time:String): Maybe<Response<String>>
 
-    @GET("Task/return/{id}")
-    fun returning(@Path("id")taskId:String): Maybe<Response<String>>
+    @GET("Task/return/{id}/{time}")
+    fun returning(@Path("id")taskId:String,@Path("time")time:String): Maybe<Response<String>>
 
     @GET("Task/GetByKeyword/{keyword}")
     fun searchTasks(@Path("keyword")keyword:String): Maybe<Response<List<Task>>>
     
-    @GET("Task/arrive-hos/{id}")
-    fun arriveHos(@Path("id")taskId:String): Maybe<Response<String>>
+    @GET("Task/arrive-hos/{id}/{time}")
+    fun arriveHos(@Path("id")taskId:String,@Path("time")time:String): Maybe<Response<String>>
     @GET("Task/CancelTask/{id}/{user}/{reason}")
     fun cancel(@Path("id")taskId:String,@Path("user")user:String,@Path("reason")reason:String): Maybe<Response<String>>
 

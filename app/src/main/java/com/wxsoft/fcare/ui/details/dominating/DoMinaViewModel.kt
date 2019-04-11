@@ -340,29 +340,29 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
 
         when (status) {
             2 -> {
-                arrive()
+                arrive(time)
             }
             3 -> {
-                met()
+                met(time)
             }
             4 -> {
-                returning()
+                returning(time)
             }
             5 -> {
-                arriveHos()
+                arriveHos(time)
             }
         }
     }
     /**
      * 到达现场
      */
-    private fun arrive(){
+    private fun arrive(time:String){
 
         if(task.value==null){
             messageAction.value= Event("任务不存在")
         }else {
            task.value?.let {
-               disposable.add(taskApi.arrive(it.id)
+               disposable.add(taskApi.arrive(it.id,time)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -390,11 +390,11 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     /**
      * 首次接触
      */
-    private fun met(){
+    private fun met(time:String){
 
         if (task.value != null) {
             task.value?.let {
-                disposable.add(taskApi.met(it.id)
+                disposable.add(taskApi.met(it.id,time)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -422,13 +422,13 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     /**
      * 开始返回医院
      */
-    private fun returning(){
+    private fun returning(time:String){
 
         if(task.value==null){
             messageAction.value= Event("任务不存在")
         }else {
             task.value?.let {
-                disposable.add(taskApi.returning(it.id)
+                disposable.add(taskApi.returning(it.id,time)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -453,13 +453,13 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     /**
      * 到达医院大门
      */
-    private fun arriveHos(){
+    private fun arriveHos(time:String){
 
         if(task.value==null){
             messageAction.value= Event("任务不存在")
         }else {
             task.value?.let {
-                disposable.add( taskApi.arriveHos(it.id)
+                disposable.add( taskApi.arriveHos(it.id,time)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
