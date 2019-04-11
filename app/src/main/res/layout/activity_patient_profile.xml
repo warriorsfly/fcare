@@ -484,8 +484,82 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/line3"
+                    android:id="@+id/line2_1"
                     app:layout_constraintTop_toBottomOf="@id/line2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white">
+                <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="wrap_content"
+                    android:text="门诊号"
+                    android:textSize="15sp"
+                    android:id="@+id/title2_1"
+                    android:textColor="@color/edit_text_title"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/title2_1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:hint="请输入门诊号"
+                    android:background="@null"
+                    android:inputType="textCapCharacters"
+                    android:text="@={viewModel.patient.outpatientId}"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line2_2"
+                    app:layout_constraintTop_toBottomOf="@id/line2_1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white">
+                <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="wrap_content"
+                    android:text="住院号"
+                    android:textSize="15sp"
+                    android:id="@+id/title2_2"
+                    android:textColor="@color/edit_text_title"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="wrap_content"/>
+
+                <EditText
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/title2_2"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:hint="请输入住院号"
+                    android:background="@null"
+                    android:inputType="textCapCharacters"
+                    android:text="@={viewModel.patient.inpatientId}"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_vertical"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line3"
+                    app:layout_constraintTop_toBottomOf="@id/line2_2"
                     app:layout_constraintLeft_toLeftOf="parent"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

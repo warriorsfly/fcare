@@ -53,6 +53,26 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
             field = value
             notifyPropertyChanged(BR.wristband)
         }
+    /*
+     * 门诊号
+     */
+    @SerializedName("outpatient_Id")
+    @get:Bindable
+    var outpatientId:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.outpatientId)
+        }
+    /*
+     * 住院号
+     */
+    @SerializedName("inpatient_Id")
+    @get:Bindable
+    var inpatientId:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.inpatientId)
+        }
 
     @SerializedName("idcard")
     @get:Bindable
