@@ -135,21 +135,21 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
             notifyPropertyChanged(BR.phone)
         }
 
-    @SerializedName("outpatient_Id")
-    @get:Bindable
-    var outId:String=""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.outId)
-        }
-
-    @SerializedName("inpatient_Id")
-    @get:Bindable
-    var inId:String=""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.inId)
-        }
+//    @SerializedName("outpatient_Id")
+//    @get:Bindable
+//    var outId:String=""
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.outId)
+//        }
+//
+//    @SerializedName("inpatient_Id")
+//    @get:Bindable
+//    var inId:String=""
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.inId)
+//        }
 
     @SerializedName("attack_Address")
     @get:Bindable
