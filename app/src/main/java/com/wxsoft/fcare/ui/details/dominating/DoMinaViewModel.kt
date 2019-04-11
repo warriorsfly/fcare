@@ -336,7 +336,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     /**
      * 执行操作
      */
-    fun doAction(status: Int){
+    fun doAction(status: Int,time:String){
 
         when (status) {
             2 -> {

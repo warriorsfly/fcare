@@ -118,7 +118,7 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
                     }.root
                 )
-                .setPositiveButton("确定") { _, _ -> viewModel.doAction(it) }
+                .setPositiveButton("确定") { _, _ -> viewModel.doAction(it,bin.timePicker.currentHour.toString()) }
                 .setNegativeButton("取消"){ _, _ -> }
 
             dialog.show()
