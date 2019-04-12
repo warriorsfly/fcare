@@ -16,18 +16,6 @@
         android:layout_height="74dp"
     >
 
-        <ImageView
-            app:layout_constraintBottom_toBottomOf="@id/op_part"
-            app:layout_constraintRight_toRightOf="@id/op_part"
-            android:id="@+id/done"
-            app:goneUnless="@{item.hasExcuted}"
-            android:scaleType="centerCrop"
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:layout_marginBottom="56dp"
-            android:elevation="1dp"
-            android:src="@drawable/ic_work_space_operation_done"/>
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/op_part"
@@ -39,6 +27,19 @@
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
+
+            <ImageView
+                    app:layout_constraintTop_toTopOf="@id/ico"
+                    app:layout_constraintRight_toRightOf="@id/ico"
+                    android:id="@+id/done"
+                    app:goneUnless="@{item.hasExcuted}"
+                    android:scaleType="centerCrop"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:elevation="1dp"
+                    android:src="@drawable/ic_work_space_operation_done"/>
+
+
             <ImageView
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -50,7 +51,7 @@
                     app:opItem="@{item.ico}"
                     android:src="@drawable/ic_work_space_rating_result"
                     tools:src="@drawable/ic_work_space_rating_result"
-                    android:backgroundTint="@{item.tint}"
+                    android:tint="@color/colorPrimary"
                     android:background="@drawable/bg_operation"
                     tools:backgroundTint="@color/tint_work_space_checking"/>
         <TextView

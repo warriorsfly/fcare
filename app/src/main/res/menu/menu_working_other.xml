@@ -1,0 +1,32 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.wxsoft.fcare.ui.home.EmrActivity">
+    <item
+        android:id="@+id/share"
+        android:orderInCategory="100"
+        android:title="分享"
+        android:icon="@drawable/ic_other_share"
+        app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/rating"
+            android:orderInCategory="100"
+            android:title="量表评估"
+            android:icon="@drawable/ic_other_rating"
+            app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/emr"
+            android:orderInCategory="100"
+            android:title="病历"
+            android:icon="@drawable/ic_other_emr"
+            app:showAsAction="always"/>
+
+    <item
+            android:id="@+id/more"
+            android:orderInCategory="100"
+            android:title="更多"
+            android:icon="@drawable/ic_other_more"
+            app:showAsAction="always"/>
+</menu>

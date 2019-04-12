@@ -1,6 +1,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-    <item android:width="18dp" android:height="18dp" android:top="12dp"
-          android:left="12dp" android:right="12dp" android:bottom="12dp">
+    <item android:width="18dp" android:height="18dp" android:top="3dp"
+          android:left="3dp" android:right="3dp" android:bottom="3dp">
         <vector android:height="24dp" android:viewportHeight="44"
             android:viewportWidth="44" android:width="24dp">
             <path android:fillColor="#fff" android:pathData="M0,22.234a1.147,1.147 0,1 1,2.293 0v18.956L0,41.19ZM4.2,41.19v-9.943L44.335,31.247v9.943L42.042,41.19v-7.65L6.496,33.54v7.65L4.203,41.19ZM46.245,13.964a1.147,1.147 0,1 1,2.293 0v27.225L46.248,41.189L46.248,13.964h0ZM33.826,25.513L22.36,25.513v-4.969L20.831,20.544v4.969L19.302,25.513v-4.969L8.407,20.544a4.214,4.214 0,0 0,-4.2 4.2v4.586L44.335,29.33L44.335,16.768c0,-0.721 -0.906,-0.858 -1.361,-0.405q-4.575,4.575 -9.148,9.15ZM40.704,5.842a3.631,3.631 0,1 0,3.631 3.631A3.631,3.631 0,0 0,40.704 5.842Z"/>

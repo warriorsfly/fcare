@@ -3,14 +3,16 @@ package com.wxsoft.fcare.ui.workspace
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.drawable.TransitionDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.WorkOperation
+import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -37,6 +39,9 @@ import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
+import com.wxsoft.fcare.ui.rating.RatingsSheetFragment
+import com.wxsoft.fcare.utils.ActionCode
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
@@ -56,13 +61,59 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.STRATEGY
 import com.wxsoft.fcare.utils.ActionCode.Companion.THROMBOLYSIS
 import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_working.*
+import kotlinx.android.synthetic.main.item_diagnose_record_details_item.*
 import java.lang.ref.WeakReference
 import javax.inject.Inject
+import javax.inject.Named
 
 class WorkingActivity : BaseActivity() {
 
-//    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
+    private val ratingFragment by lazy{
+        RatingsSheetFragment(::newRating).apply {
+            this.patientId=this@WorkingActivity.patientId
+        }
+    }
+
+    private fun newRating(rating: Rating){
+        ratingFragment.dismiss()
+        val intent = Intent(this, RatingSubjectActivity::class.java).apply {
+            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
+            putExtra(RatingSubjectActivity.RATING_NAME, rating.name)
+            putExtra(RatingSubjectActivity.RATING_ID, rating.id)
+        }
+        startActivityForResult(intent, ActionCode.ARG_NEW_ITEM_CODE)
+    }
+    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
+        when(bottomSheetBehavior.state){
+            BottomSheetBehavior.STATE_EXPANDED->bottomSheetBehavior.state=BottomSheetBehavior.STATE_HIDDEN
+        }
+        when (item.itemId) {
+            R.id.share -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.rating -> {
+                ratingFragment.show(supportFragmentManager,RatingsSheetFragment.TAG)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.emr -> {
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.more -> {
+                when(bottomSheetBehavior.state){
+
+                    BottomSheetBehavior.STATE_COLLAPSED,BottomSheetBehavior.STATE_HIDDEN->bottomSheetBehavior.state=BottomSheetBehavior.STATE_EXPANDED
+                }
+                return@OnNavigationItemSelectedListener true
+            }
+
+        }
+        false
+    }
+
+
+    private lateinit var bottomSheetBehavior: BottomSheetBehavior<*>
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
@@ -70,6 +121,10 @@ class WorkingActivity : BaseActivity() {
     private val pre: Boolean by lazyFast {
         intent?.getBooleanExtra("PRE",false)?:false
     }
+
+    @Inject
+    @field:Named("optionViewPool")
+    lateinit var optionViewPool: RecyclerView.RecycledViewPool
 
     lateinit var viewModel: WorkingViewModel
     private lateinit var emrViewModel: EmrViewModel
@@ -84,16 +139,14 @@ class WorkingActivity : BaseActivity() {
         emrViewModel.preHos=pre
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
-                quality.adapter=QualityAdapter(this@WorkingActivity)
-                operationView.adapter=OperationAdapter(this@WorkingActivity,::doOperation)
 
-//                operationView.addOnLayoutChangeListener { _, _, _, _, bottom, _, _, _, _ ->
-//
-//                    bottomSheetBehavior.peekHeight=root.height-bottom
-//                }
-////                transition=emr_list.view?.findViewById<View>(R.id.head)?.background as TransitionDrawable
-////                bottomSheetBehavior=BottomSheetBehavior.from( emr_list.view)
-//                bottomSheetBehavior.setBottomSheetCallback(CallBack(this@WorkingActivity))
+                operationMenu.apply {
+                    itemIconTintList=null
+                    setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+                }
+                quality.adapter=QualityAdapter(this@WorkingActivity)
+                operationView.adapter=OperationGroupAdapter(this@WorkingActivity,optionViewPool,::doOperation)
+                bottomSheetBehavior=BottomSheetBehavior.from( other_list.view)
 
                 viewModel=this@WorkingActivity.viewModel.apply {
                     pre = this@WorkingActivity.pre
@@ -105,7 +158,7 @@ class WorkingActivity : BaseActivity() {
                 })
 
                 viewModel?.operations?.observe(this@WorkingActivity, Observer {
-                    (operationView.adapter as? OperationAdapter)?.apply {
+                    (operationView.adapter as? OperationGroupAdapter)?.apply {
                         submitList(it)
                     }
 
@@ -313,9 +366,6 @@ class WorkingActivity : BaseActivity() {
 
         }
     }
-
-
-
 
     fun showDialog(message:String,type:String){
         AlertDialog.Builder(this@WorkingActivity,R.style.Theme_FCare_Dialog)

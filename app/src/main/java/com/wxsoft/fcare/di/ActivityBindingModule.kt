@@ -218,7 +218,7 @@ abstract class ActivityBindingModule {
     internal abstract fun strategyActivity(): StrategyActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [WorkSpaceModule::class])
+    @ContributesAndroidInjector(modules = [WorkSpaceModule::class,ViewPoolModule::class,RatingModule::class])
     internal abstract fun workingActivity(): WorkingActivity
 
     @ActivityScoped

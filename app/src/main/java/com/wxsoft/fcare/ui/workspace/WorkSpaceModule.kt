@@ -35,4 +35,8 @@ internal abstract class WorkSpaceModule {
     @ChildFragmentScoped
     @ContributesAndroidInjector
     abstract fun contributeWorkingEmrFragment(): WorkingEmrFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeOtherOperationFragment(): OtherOperationFragment
 }

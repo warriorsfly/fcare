@@ -22,8 +22,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44398"'
-        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44398/api/"'
+        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44390"'
+        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44390/api/"'
 //        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.0.122:51241/api/"'
 
 

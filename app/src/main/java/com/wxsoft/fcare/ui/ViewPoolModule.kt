@@ -29,4 +29,9 @@ internal class ViewPoolModule {
     @Provides
     @Named("ratingOptionViewPool")
     fun providesRatingOptionViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+
+    @ActivityScoped
+    @Provides
+    @Named("optionViewPool")
+    fun providesOptionViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 }

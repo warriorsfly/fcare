@@ -6,10 +6,7 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.TimeQuality
-import com.wxsoft.fcare.core.data.entity.WorkOperation
+import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.InterventionApi
 import com.wxsoft.fcare.core.data.remote.PACSApi
@@ -80,11 +77,14 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     /**
      * 操作列表
      */
-    val operations:LiveData<List<WorkOperation>>
-    private val loadOperationResult=MediatorLiveData<Response<List<WorkOperation>>>()
+    val operations:LiveData<List<Record<WorkOperation>>>
+    val otherOperations:LiveData<List<WorkOperation>>
+    private val loadOperationResult=MediatorLiveData<Response<List<Record<WorkOperation>>>>()
+    private val loadOtherOperationResult=MediatorLiveData<List<WorkOperation>>()
 
     init {
         operations=loadOperationResult.map { it.result?: emptyList() }
+        otherOperations=loadOtherOperationResult.map { it?: emptyList() }
     }
 
 
@@ -103,7 +103,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     }
 
     private fun loadOperations(id:String,userId:String){
-        disposable.add(qualityControlApi.getOperations(id,userId,pre)
+        disposable.add(qualityControlApi.getOperationGroups(id,userId,pre)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::doOperations,::error))
@@ -128,17 +128,22 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     private fun doQualities(it: Response<List<TimeQuality>>){
         loadTimeQualityResult.value=it
     }
-    private fun doOperations(response:Response<List<WorkOperation>>){
+    private fun doOperations(response:Response<List<Record<WorkOperation>>>){
         response.result?.forEach { operation->
-            operation.apply {
-                val index=keys.indexOf(actionCode)
+            operation.items.forEach {
+                val index=keys.indexOf(it.actionCode)
                 if(index>=0){
-                    tint=tints[index]
-                    ico=icons[index]
+//                    tint=tints[index]
+                    it.ico=icons[index]
                 }
             }
         }
-        loadOperationResult.value=response
+        val main=response.copy().apply {
+            result=response.result?.filter { it.typeId!="232-99" }
+        }
+        val other=response.result?.firstOrNull { it.typeId=="232-99" }?.items
+        loadOperationResult.value=main
+        loadOtherOperationResult.value=other
     }
 
     fun commitNoticePacs(){ //通知启动CT室

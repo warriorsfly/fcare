@@ -34,6 +34,7 @@ class RatingsSheetFragment constructor( private val itemClick: (Rating) -> Unit)
     @Inject
     lateinit var factory: ViewModelProvider.Factory
 
+    var patientId=""
     private lateinit var viewModel: RatingViewModel
     private lateinit var adapter: ItemAdapter
 
@@ -52,7 +53,9 @@ class RatingsSheetFragment constructor( private val itemClick: (Rating) -> Unit)
     ): View? {
 
         viewModel = activityViewModelProvider(factory)
-
+        if(viewModel.patientId.isEmpty()){
+            viewModel.patientId=patientId
+        }
         adapter=ItemAdapter(this@RatingsSheetFragment,itemClick)
         viewModel.ratings.observe(this, Observer {
             adapter.submitList(it)

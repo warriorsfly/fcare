@@ -1,6 +1,6 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
-<item android:width="18dp" android:height="18dp" android:top="12dp"
-      android:left="12dp" android:right="12dp" android:bottom="12dp">
+<item android:width="18dp" android:height="18dp" android:top="3dp"
+      android:left="3dp" android:right="3dp" android:bottom="3dp">
     <vector android:height="24dp" android:viewportHeight="48"
             android:viewportWidth="48" android:width="24dp" xmlns:android="http://schemas.android.com/apk/res/android">
         <path android:fillColor="#fff" android:pathData="M8.571,36L5.143,36a13.717,13.717 0,0 1,8 -12.471,8.571 8.571,0 1,1 11.43,0 13.716,13.716 0,0 1,8 12.47L29.143,35.999a10.286,10.286 0,1 0,-20.571 0ZM41.142,41.143h3.444A3.435,3.435 0,0 0,48 37.706L48,3.437A3.425,3.425 0,0 0,44.587 0L3.411,0A3.435,3.435 0,0 0,0 3.437v34.269a3.425,3.425 0,0 0,3.413 3.437h0.015L3.428,5.129a1.707,1.707 0,0 1,1.714 -1.7h37.714a1.72,1.72 0,0 1,1.714 1.7v30.885a1.707,1.707 0,0 1,-1.714 1.7h-1.714ZM18.854,22.286a5.143,5.143 0,1 0,-5.143 -5.143A5.143,5.143 0,0 0,18.854 22.286ZM30.854,18.857a1.705,1.705 0,0 1,1.719 -1.714h8.561a1.714,1.714 0,1 1,0 3.429L32.577,20.572a1.713,1.713 0,0 1,-1.719 -1.714ZM3.429,37.714h37.714v3.429L3.429,41.143ZM30.858,25.714A1.711,1.711 0,0 1,32.571 24h5.143a1.714,1.714 0,0 1,0 3.429L32.571,27.429A1.711,1.711 0,0 1,30.857 25.714Z"/>

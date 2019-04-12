@@ -109,6 +109,10 @@ class WorkingEmrFragment : DaggerFragment(),DrawerLayout.DrawerListener {
                 list.adapter=this@WorkingEmrFragment.adapter
                 drawer.addDrawerListener(this@WorkingEmrFragment)
                 viewModel=this@WorkingEmrFragment.emrViewModel
+
+                title.setOnClickListener{
+                    list.scrollToPosition(0)
+                }
 //                workModel=this@WorkingEmrFragment.workModel
             lifecycleOwner=this@WorkingEmrFragment
         }.root
