@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.rating
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +30,7 @@ class RatingActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    private lateinit var adapter: RatingResultAdapter
+    private lateinit var adapter: RatingAdapter
     private lateinit var viewModel: RatingViewModel
 
     private val ratingFragment by lazy{
@@ -46,7 +47,7 @@ class RatingActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        adapter=RatingResultAdapter(this,emrItemViewPool,::newItem,::showDetail)
+        adapter=RatingAdapter(this,::showDetail)
         DataBindingUtil.setContentView<ActivityRatingBinding>(
             this,
             R.layout.activity_rating
@@ -62,7 +63,6 @@ class RatingActivity : BaseActivity() {
         viewModel.scenceRatings.observe(this, Observer {
             adapter.submitList(it)
         })
-
 
         setSupportActionBar(toolbar)
         title="评分"
@@ -110,7 +110,18 @@ class RatingActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_subject,menu)
+        menuInflater.inflate(R.menu.menu_new,menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.new_item->{
+                ratingFragment.show(supportFragmentManager,RatingsSheetFragment.TAG)
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 }

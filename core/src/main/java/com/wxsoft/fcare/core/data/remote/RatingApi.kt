@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
+import com.wxsoft.fcare.core.data.entity.rating.RatingResult
 import com.wxsoft.fcare.core.data.entity.rating.ScencelyRatingResult
 import io.reactivex.Maybe
 import io.reactivex.Single
@@ -22,8 +23,8 @@ interface RatingApi {
      * 评分表列表
      * @param patientId
      */
-    @GET("Rating/GetSceneWithAnswerRecords/{patientId}")
-    fun getScencelyRatings(@Path("patientId")patientId:String): Single<Response<List<ScencelyRatingResult>>>
+    @GET("Rating/GetAnswerRecords/{patientId}")
+    fun getScencelyRatings(@Path("patientId")patientId:String): Single<Response<List<RatingResult>>>
 
 
     /***
