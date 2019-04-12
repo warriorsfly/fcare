@@ -183,6 +183,8 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
         diagnosis.value?.diagnosisCode2 = item.id
         diagnosis.value?.diagnosisCode2Name = item.itemName
+        diagnosis.value?.diagnosisCode3 = ""
+        diagnosis.value?.diagnosisCode3Name = ""
     }
 
     fun selectDiagnose(item:Dictionary){

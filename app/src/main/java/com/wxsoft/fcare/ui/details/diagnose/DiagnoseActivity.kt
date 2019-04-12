@@ -58,8 +58,6 @@ class DiagnoseActivity : BaseActivity() {
         binding.viewModel = viewModel
         viewModel.activityType = "Diagnose"
 
-//        back.setOnClickListener { onBackPressed() }
-
 
         val illnessdiagnoseAdapter = DiagnoseSonListAdapter(this,viewModel)
         illnessdiagnoseAdapter.section = 4

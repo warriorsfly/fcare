@@ -18,6 +18,8 @@ import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.ct.CTModule
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseModule
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewViewModel
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordModule
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
@@ -276,6 +278,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ShareModule::class])
     internal abstract fun shareActivity(): ShareActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DiagnoseModule::class])
+    internal abstract fun diagnoseNewActivity(): DiagnoseNewActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [])

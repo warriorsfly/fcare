@@ -23,7 +23,7 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
-import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -39,6 +39,7 @@ import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.workspace.notify.NotifyFragment
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.rating.RatingsSheetFragment
 import com.wxsoft.fcare.utils.ActionCode
@@ -245,9 +246,9 @@ class WorkingActivity : BaseActivity() {
                 }
                 startActivity(intent)
             }
-            ActionType.诊断 ->{//多条 需要记录界面
-                val intent = Intent(this@WorkingActivity, DiagnoseRecordActivity::class.java).apply {
-                    putExtra(DiagnoseRecordActivity.PATIENT_ID, patientId)
+            ActionType.诊断 ->{
+                val intent = Intent(this@WorkingActivity, DiagnoseNewActivity::class.java).apply {
+                    putExtra(DiagnoseNewActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DIAGNOSE)
             }
@@ -305,6 +306,10 @@ class WorkingActivity : BaseActivity() {
                     putExtra(OutComeActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, OUTCOME)
+            }
+            ActionType.一键通知 ->{
+                val dialog= NotifyFragment()
+                dialog.show(supportFragmentManager, NotifyFragment.TAG)
             }
         }
     }
