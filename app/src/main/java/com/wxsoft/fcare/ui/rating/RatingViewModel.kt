@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.rating.Rating
+import com.wxsoft.fcare.core.data.entity.rating.RatingResult
 import com.wxsoft.fcare.core.data.entity.rating.ScencelyRatingResult
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.RatingApi
@@ -43,8 +44,8 @@ class RatingViewModel @Inject constructor(
     /**
      * 场景化数据
      */
-    val scenceRatings:LiveData<List<ScencelyRatingResult>>
-    private val loadRatingResult =MediatorLiveData<List<ScencelyRatingResult>>()
+    val scenceRatings:LiveData<List<RatingResult>>
+    private val loadRatingResult =MediatorLiveData<List<RatingResult>>()
 
     init {
         scenceRatings=loadRatingResult.map { it ?: emptyList() }
@@ -63,16 +64,12 @@ class RatingViewModel @Inject constructor(
     private fun loadScenceRating(){
         disposable.add(ratingApi.getScencelyRatings(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::doScenceLoadRating))
+            .subscribe(::doScenceLoadRating,::error))
     }
 
-    private fun doScenceLoadRating(response: Response<List<ScencelyRatingResult>>){
+    private fun doScenceLoadRating(response: Response<List<RatingResult>>) {
 
-        loadRatingResult.value=response.result?.apply {
-            forEachIndexed { index, result ->
-                result.tint = tints[(index + 1) % tints.size]
-            }
-        }
+        loadRatingResult.value = response.result
     }
 
     private fun loadRating(){
