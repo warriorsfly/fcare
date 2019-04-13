@@ -52,7 +52,11 @@ class LauncherActivity : BaseActivity(){
         setContentView(R.layout.activity_launcher)
 
         viewModel = viewModelProvider(factory)
-
+        receiver =RegistrationBroadcastReceiver(viewModel)
+        val intentFilter = IntentFilter()
+        // 2. 设置接收广播的类型
+        intentFilter.addAction(JPushReceiver.RegistrationId)
+        registerReceiver(receiver, intentFilter)
         viewModel.version.observe(this, Observer {
 
             if (it.changing) {
@@ -186,11 +190,7 @@ class LauncherActivity : BaseActivity(){
 
 
     private fun download(version:Version){
-        receiver =RegistrationBroadcastReceiver(viewModel)
-        val intentFilter = IntentFilter()
-        // 2. 设置接收广播的类型
-        intentFilter.addAction(JPushReceiver.RegistrationId)
-        registerReceiver(receiver, intentFilter)
+
         val request = DownloadManager.Request(Uri.parse("""${BuildConfig.ENDPOINT}${version.url}""")).apply {
 
             file = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "无限急救.apk")

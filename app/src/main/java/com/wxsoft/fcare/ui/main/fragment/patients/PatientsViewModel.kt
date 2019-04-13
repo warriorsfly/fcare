@@ -72,7 +72,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
          * 在主页进行jpush相关
          */
         sharedPreferenceStorage.registrationId?.let {
-            disposable.add(accountApi.jpush(account.id, it)
+            disposable.add(accountApi.jPush(account.id, it)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({},::error))

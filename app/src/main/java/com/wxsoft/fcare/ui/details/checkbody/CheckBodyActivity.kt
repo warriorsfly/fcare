@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.checkbody
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -78,48 +79,47 @@ class CheckBodyActivity : BaseActivity()  {
     }
 
 
+    @SuppressLint("SetTextI18n")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode== Activity.RESULT_OK) {
-            when(requestCode){
-                1 ->{//检查过程
-                    val coordination = data?.getSerializableExtra("coordination") as String
-                    val coordinationName = data?.getSerializableExtra("coordinationName") as String
-                    binding.select1.setText(coordinationName)
-                    viewModel.checkBody.value?.coordination = coordination
-                    viewModel.checkBody.value?.coordinationName = coordinationName
-                }
-                2 ->{//皮肤
-                    val skin = data?.getSerializableExtra("skin") as String
-                    val skinName = data?.getSerializableExtra("skinName") as String
-                    binding.select2.setText(skinName)
-                    viewModel.checkBody.value?.skin = skin
-                    viewModel.checkBody.value?.skinName = skinName
-                }
-                3 ->{//左瞳孔
-                    val leftPupils = data?.getSerializableExtra("leftPupils") as String
-                    val leftPupilsName = data?.getSerializableExtra("leftPupilsName") as String
-                    val leftResponse = data?.getSerializableExtra("leftResponse") as String
-                    val leftResponseName = data?.getSerializableExtra("leftResponseName") as String
-                    binding.select3.setText(leftPupilsName + " " + leftResponseName)
-                    viewModel.checkBody.value?.leftPupils = leftPupils
-                    viewModel.checkBody.value?.leftPupilsName = leftPupilsName
-                    viewModel.checkBody.value?.leftResponseLight = leftResponse
-                    viewModel.checkBody.value?.leftResponseLightName = leftResponseName
-                }
-                4 ->{//右瞳孔
-                    val rightPupils = data?.getSerializableExtra("rightPupils") as String
-                    val rightPupilsName = data?.getSerializableExtra("rightPupilsName") as String
-                    val rightResponse = data?.getSerializableExtra("rightResponse") as String
-                    val rightResponseName = data?.getSerializableExtra("rightResponseName") as String
-                    binding.select4.setText(rightPupilsName + " " + rightResponseName)
-                    viewModel.checkBody.value?.rightPupils = rightPupils
-                    viewModel.checkBody.value?.rightPupilsName = rightPupilsName
-                    viewModel.checkBody.value?.rightResponseLight = rightResponse
-                    viewModel.checkBody.value?.rightResponseLightName = rightResponseName
-                }
-
+        if(resultCode== Activity.RESULT_OK) when(requestCode){
+            1 ->{//检查过程
+                val coordination = data?.getSerializableExtra("coordination") as String
+                val coordinationName = data.getSerializableExtra("coordinationName") as String
+                binding.select1.text = coordinationName
+                viewModel.checkBody.value?.coordination = coordination
+                viewModel.checkBody.value?.coordinationName = coordinationName
             }
+            2 ->{//皮肤
+                val skin = data?.getSerializableExtra("skin") as String
+                val skinName = data.getSerializableExtra("skinName") as String
+                binding.select2.text = skinName
+                viewModel.checkBody.value?.skin = skin
+                viewModel.checkBody.value?.skinName = skinName
+            }
+            3 ->{//左瞳孔
+                val leftPupils = data?.getSerializableExtra("leftPupils") as String
+                val leftPupilsName = data.getSerializableExtra("leftPupilsName") as String
+                val leftResponse = data.getSerializableExtra("leftResponse") as String
+                val leftResponseName = data?.getSerializableExtra("leftResponseName") as String
+                binding.select3.text = "$leftPupilsName $leftResponseName"
+                viewModel.checkBody.value?.leftPupils = leftPupils
+                viewModel.checkBody.value?.leftPupilsName = leftPupilsName
+                viewModel.checkBody.value?.leftResponseLight = leftResponse
+                viewModel.checkBody.value?.leftResponseLightName = leftResponseName
+            }
+            4 ->{//右瞳孔
+                val rightPupils = data?.getSerializableExtra("rightPupils") as String
+                val rightPupilsName = data?.getSerializableExtra("rightPupilsName") as String
+                val rightResponse = data?.getSerializableExtra("rightResponse") as String
+                val rightResponseName = data.getSerializableExtra("rightResponseName") as String
+                binding.select4.text = "$rightPupilsName $rightResponseName"
+                viewModel.checkBody.value?.rightPupils = rightPupils
+                viewModel.checkBody.value?.rightPupilsName = rightPupilsName
+                viewModel.checkBody.value?.rightResponseLight = rightResponse
+                viewModel.checkBody.value?.rightResponseLightName = rightResponseName
+            }
+
         }
     }
 

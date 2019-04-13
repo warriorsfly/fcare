@@ -15,6 +15,6 @@ interface AccountApi {
     @POST("Security")
     fun login(@Body info: LoginInfo): Maybe<Response<Account>>
 
-    @GET("Security/AddOrUpdateJPushAccount/{user}/{jpush}")
-    fun jpush(@Path("user")id:String,@Path("jpush")pushId:String): Maybe<Response<String>>
+    @GET("Security/AddOrUpdateJPushAccount/{user}/{pushId}")
+    fun jPush(@Path("user")id:String, @Path("pushId")pushId:String): Maybe<Response<String>>
 }
