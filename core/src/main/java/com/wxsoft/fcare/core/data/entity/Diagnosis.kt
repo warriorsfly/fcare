@@ -121,6 +121,34 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
         }
 
     @Bindable
+    var diagnosisTime: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.diagnosisTime)
+        }
+
+    @Bindable
+    var handWay: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.handWay)
+        }
+
+    @Bindable
+    var patientOutcom: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.patientOutcom)
+        }
+
+    @Bindable
+    var memo: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.memo)
+        }
+
+    @Bindable
     var createdDate:String= DateTimeUtils.getCurrentTime()
         set(value) {
             field=value

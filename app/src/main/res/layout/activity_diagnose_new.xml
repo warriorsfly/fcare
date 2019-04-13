@@ -54,6 +54,16 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
+                                goneUnless="@{viewModel.diagnosis.diagnosisCode2Name.equals(``)}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/title1_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
                                 android:id="@+id/title1_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -132,6 +142,16 @@
                             android:layout_height="wrap_content">
 
                         <TextView
+                                goneUnless="@{viewModel.diagnosis.handWay.equals(``)}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/title2_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
                                 android:id="@+id/title2_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -150,6 +170,7 @@
                                   android:id="@+id/et_2"
                                   android:textSize="16sp"
                                   android:hint="请填写处置措施"
+                                  android:text="@={viewModel.diagnosis.handWay}"
                                   android:gravity="right"
                                   android:imeOptions="actionNext"
                                   android:background="@null"
@@ -176,6 +197,15 @@
                             app:layout_constraintTop_toBottomOf="@+id/line2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+                        <TextView
+                                goneUnless="@{viewModel.diagnosis.patientOutcom.equals(``)}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/title3_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
                         <TextView
                                 android:id="@+id/title3_1"
@@ -196,6 +226,7 @@
                                   android:id="@+id/et_3"
                                   android:textSize="16sp"
                                   android:hint="请填患者去向"
+                                  android:text="@={viewModel.diagnosis.patientOutcom}"
                                   android:gravity="right"
                                   android:imeOptions="actionNext"
                                   android:background="@null"
@@ -223,6 +254,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
+                                goneUnless="@{viewModel.diagnosis.diagnosisTime.equals(``)}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/title4_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <TextView
                                 android:id="@+id/title4_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -238,6 +278,7 @@
 
                         <TextView
                                 android:hint="选择诊断时间"
+                                android:text="@{viewModel.diagnosis.diagnosisTime}"
                                 android:id="@+id/start_4"
                                 android:layout_marginRight="19dp"
                                 android:layout_marginTop="15dp"
@@ -279,7 +320,15 @@
                             app:layout_constraintTop_toBottomOf="@+id/line4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
+                        <TextView
+                                goneUnless="@{viewModel.doctorName.equals(``)}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/title5_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
                         <TextView
                                 android:id="@+id/title5_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -299,7 +348,7 @@
                                   android:id="@+id/et_5"
                                   android:textSize="16sp"
                                   android:hint="请填写医生"
-                                  android:text="张医生"
+                                  android:text="@={viewModel.doctorName}"
                                   android:gravity="right"
                                   android:imeOptions="actionNext"
                                   android:background="@null"
@@ -328,6 +377,16 @@
                             android:layout_height="wrap_content">
 
                         <TextView
+                                goneUnless="@{viewModel.diagnosis.memo.equals(``)}"
+                                app:layout_constraintTop_toTopOf="@+id/title6_1"
+                                app:layout_constraintBottom_toBottomOf="@+id/title6_1"
+                                app:layout_constraintRight_toLeftOf="@+id/title6_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
                                 android:id="@+id/title6_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -344,6 +403,7 @@
                                   android:layout_height="wrap_content"
                                   android:id="@+id/et_6"
                                   android:textSize="16sp"
+                                  android:text="@={viewModel.diagnosis.memo}"
                                   android:hint="请填写患者情况备注"
                                   android:gravity="left"
                                   android:imeOptions="actionNext"
@@ -373,7 +433,14 @@
                             app:layout_constraintTop_toBottomOf="@+id/line6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
+                        <TextView
+                                app:layout_constraintTop_toTopOf="@+id/title7_1"
+                                app:layout_constraintBottom_toBottomOf="@+id/title7_1"
+                                app:layout_constraintRight_toLeftOf="@+id/title7_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
                         <TextView
                                 android:id="@+id/title7_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -501,6 +568,15 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
+                                goneUnless="@{viewModel.selectedTreatment.strategyCode_Name.equals(``)}"
+                                app:layout_constraintTop_toTopOf="@+id/title9_1"
+                                app:layout_constraintBottom_toBottomOf="@+id/title9_1"
+                                app:layout_constraintRight_toLeftOf="@+id/title9_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <TextView
                                 android:id="@+id/title9_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -529,7 +605,7 @@
                                 app:layout_constraintRight_toLeftOf="@+id/rowe9_1"
                                 app:layout_constraintLeft_toRightOf="@+id/title9_1"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                tools:text="2019-04-12 12:38:40"
+                                android:text="@{viewModel.selectedTreatment.strategyCode_Name}"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"/>
 
@@ -552,10 +628,20 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line10"
+                            goneUnless="@{viewModel.selectedTreatment.strategyCode.equals(`14-8`)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line9"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+                        <TextView
+                                goneUnless="@{viewModel.selectedTreatment.noReperfusionCodeName.equals(``)}"
+                                app:layout_constraintTop_toTopOf="@+id/title10_1"
+                                app:layout_constraintBottom_toBottomOf="@+id/title10_1"
+                                app:layout_constraintRight_toLeftOf="@+id/title10_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
                         <TextView
                                 android:id="@+id/title10_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -564,7 +650,7 @@
                                 android:layout_marginTop="17.5dp"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginBottom="17.5dp"
-                                android:text="原因"
+                                android:text="无灌注措施原因"
                                 android:textSize="16sp"
                                 android:textColor="@color/small_title_text_gray"
                                 android:layout_width="wrap_content"
@@ -572,7 +658,7 @@
 
                         <TextView
                                 android:hint="选择原因"
-                                android:text="错过再灌注时间"
+                                android:text="@{viewModel.selectedTreatment.noReperfusionCodeName}"
                                 android:id="@+id/start_10"
                                 android:layout_marginRight="19dp"
                                 android:layout_marginTop="15dp"
@@ -608,11 +694,20 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line11"
+                            goneUnless="@{viewModel.selectedTreatment.strategyCode.equals(`14-19`)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line10"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-
+                        <TextView
+                                goneUnless="@{viewModel.selectedTreatment.otherTreatmentMeasure.equals(``)}"
+                                app:layout_constraintTop_toTopOf="@+id/title11_1"
+                                app:layout_constraintBottom_toBottomOf="@+id/title11_1"
+                                app:layout_constraintRight_toLeftOf="@+id/title11_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
                         <TextView
                                 android:id="@+id/title11_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -620,7 +715,7 @@
                                 android:layout_marginTop="17.5dp"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginBottom="17.5dp"
-                                android:text="其他原因"
+                                android:text="其他策略"
                                 android:textSize="16sp"
                                 android:textColor="@color/small_title_text_gray"
                                 android:layout_width="wrap_content"
@@ -630,7 +725,8 @@
                                   android:layout_height="wrap_content"
                                   android:id="@+id/et_11"
                                   android:textSize="16sp"
-                                  android:hint="请填写其他原因"
+                                  android:text="@={viewModel.selectedTreatment.otherTreatmentMeasure}"
+                                  android:hint="请填写其他策略"
                                   android:gravity="left"
                                   android:imeOptions="actionNext"
                                   android:background="@null"
@@ -654,10 +750,20 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line12"
+                            goneUnless="@{viewModel.selectedTreatment.strategyCode.equals(`14-5`)||viewModel.selectedTreatment.strategyCode.equals(`14-6`)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line11"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
+                        <TextView
+                                goneUnless="@{viewModel.selectedTreatment.selectiveOrTransportTime.equals(``)}"
+                                app:layout_constraintTop_toTopOf="@+id/title12_1"
+                                app:layout_constraintBottom_toBottomOf="@+id/title12_1"
+                                app:layout_constraintRight_toLeftOf="@+id/title12_1"
+                                android:text="*"
+                                android:textColor="@color/patient_nothing_known"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
                         <TextView
                                 android:id="@+id/title12_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -666,7 +772,7 @@
                                 android:layout_marginTop="17.5dp"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginBottom="17.5dp"
-                                android:text="选择(转运)时间"
+                                android:text="@{viewModel.selectedTreatment.strategyCode_Name+`时间`}"
                                 android:textSize="16sp"
                                 android:textColor="@color/small_title_text_gray"
                                 android:layout_width="wrap_content"
@@ -674,8 +780,8 @@
 
                         <TextView
                                 android:hint="选择时间"
-                                android:text="2018-04-12 14:23:34"
                                 android:id="@+id/start_12"
+                                android:text="@{viewModel.selectedTreatment.selectiveOrTransportTime}"
                                 android:layout_marginRight="19dp"
                                 android:layout_marginTop="15dp"
                                 android:layout_marginBottom="15dp"

@@ -24,6 +24,12 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/16")
     fun loadThromPlaces(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/14")
+    fun loadTreatments(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/234")
+    fun loadNoRefushionResons(): Maybe<List<Dictionary>>
+
     /**
      * 非心源ACS
      */
