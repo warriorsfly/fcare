@@ -102,5 +102,6 @@ annotation class ActionCode {
          */
         const val RIS_LIS = 42
         const val ECG = 43
+        const val EMR = 44
     }
 }

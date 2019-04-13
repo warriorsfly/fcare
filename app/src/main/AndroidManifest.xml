@@ -77,7 +77,8 @@
         <activity
                 android:name=".ui.details.diagnose.select.SelectDiagnoseActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.emr.EmrActivity"/>
+        <activity android:name=".ui.emr.EmrActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.selecter.SelecterOfOneModelActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

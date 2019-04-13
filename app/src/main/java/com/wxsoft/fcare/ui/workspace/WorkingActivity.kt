@@ -35,6 +35,7 @@ import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
+import com.wxsoft.fcare.ui.emr.EmrActivity
 import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
@@ -51,6 +52,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.CT_OPERATION
 import com.wxsoft.fcare.utils.ActionCode.Companion.Catheter
 import com.wxsoft.fcare.utils.ActionCode.Companion.DIAGNOSE
 import com.wxsoft.fcare.utils.ActionCode.Companion.DRUGRECORD
+import com.wxsoft.fcare.utils.ActionCode.Companion.EMR
 import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
@@ -103,6 +105,11 @@ class WorkingActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.emr -> {
+                val intent = Intent(this, EmrActivity::class.java)
+                    .apply {
+                        putExtra(ProfileActivity.PATIENT_ID, patientId)
+                    }
+                startActivityForResult(intent, EMR)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.more -> {
@@ -368,9 +375,7 @@ class WorkingActivity : BaseActivity() {
         if(resultCode== Activity.RESULT_OK) {
 
             emrViewModel.refresh(requestCode)
-//            when(requestCode){
-//
-//            }
+
             viewModel.patientId=patientId
 
         }

@@ -23,7 +23,7 @@ class AddTimeLinePointActivity : BaseActivity() {
     }
 
     private val patientId: String by lazyFast {
-        intent?.getStringExtra(AddTimeLinePointActivity.PATIENT_ID)?:""
+        intent?.getStringExtra(PATIENT_ID)?:""
     }
 
     private lateinit var viewModel: AddTimeLinePointViewModel
