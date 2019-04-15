@@ -14,6 +14,7 @@ import com.wxsoft.fcare.core.domain.repository.tasks.ITaskRepository
 import com.wxsoft.fcare.core.domain.repository.tasks.PageKeyTaskRepository
 import dagger.Module
 import dagger.Provides
+import dagger.Reusable
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -217,6 +218,12 @@ class NetWorkModule {
     @Provides
     fun provideMessageApi(retrofit: Retrofit):MessageApi{
         return retrofit.create(MessageApi::class.java)
+    }
+
+    @Provides
+    @Reusable
+    fun provideShareApi(retrofit: Retrofit):ShareApi{
+        return retrofit.create(ShareApi::class.java)
     }
 
 }

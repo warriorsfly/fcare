@@ -228,6 +228,9 @@
                 android:name=".ui.login.LoginActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+                android:name=".ui.share.ShareItemListActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
                 android:name=".wxapi.WXEntryActivity"
                 android:exported="true"
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"/> <!-- <intent-filter> -->

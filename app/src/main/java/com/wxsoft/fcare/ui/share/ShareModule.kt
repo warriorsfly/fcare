@@ -12,4 +12,9 @@ internal abstract class ShareModule {
     @IntoMap
     @ViewModelKey(ShareViewModel::class)
     abstract fun bindShareViewModel(viewModel: ShareViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ShareItemListViewModel::class)
+    abstract fun bindShareItemListViewModel(viewModel: ShareItemListViewModel): ViewModel
 }

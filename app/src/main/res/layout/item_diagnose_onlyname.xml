@@ -7,11 +7,6 @@
         <variable name="listener" type="com.wxsoft.fcare.ui.details.diagnose.DiagnoseViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/item_container"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/container1"
                 android:background="@{item.checked?@color/white:@color/drug_bg_gray}"
@@ -36,9 +31,6 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

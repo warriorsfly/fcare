@@ -84,6 +84,7 @@ import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModule
 import com.wxsoft.fcare.ui.share.ShareActivity
+import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.ui.share.ShareModule
 import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
@@ -279,6 +280,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ShareModule::class])
     internal abstract fun shareActivity(): ShareActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ShareModule::class])
+    internal abstract fun shareItemListActivity(): ShareItemListActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DiagnoseModule::class])

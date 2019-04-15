@@ -34,6 +34,7 @@ import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
+import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity.Companion.SHARE
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.emr.EmrActivity
 import com.wxsoft.fcare.ui.emr.EmrViewModel
@@ -43,6 +44,7 @@ import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.workspace.notify.NotifyFragment
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.rating.RatingsSheetFragment
+import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.utils.ActionCode
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
@@ -94,6 +96,11 @@ class WorkingActivity : BaseActivity() {
         }
         when (item.itemId) {
             R.id.share -> {
+                val intent = Intent(this, ShareItemListActivity::class.java)
+                    .apply {
+                        putExtra(ProfileActivity.PATIENT_ID, patientId)
+                    }
+                startActivityForResult(intent, SHARE)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.rating -> {
