@@ -2,6 +2,7 @@
 <layout>
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.workspace.WorkingViewModel"/>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -55,6 +56,26 @@
                         android:layout_height="wrap_content"/>
 
                     <ImageView
+                            app:layout_constraintTop_toBottomOf="@id/back_away"
+                            app:layout_constraintLeft_toLeftOf="@id/back_away"
+                            android:textColor="#131D35"
+                            android:id="@+id/gender"
+                            android:src="@{viewModel.patient.Male?@drawable/ic_gender_man:@drawable/ic_gender_woman}"
+                            android:layout_marginRight="16dp"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"/>
+
+                    <TextView
+                            android:id="@+id/age"
+                            app:layout_constraintTop_toTopOf="@id/gender"
+                            app:layout_constraintLeft_toRightOf="@id/gender"
+                            android:textColor="@color/white"
+                            android:text="@{Converter.intToString(viewModel.patient.age)+`岁`}"
+                            android:layout_marginRight="16dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <ImageView
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
@@ -86,7 +107,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginTop="53dp"
+                    android:layout_marginTop="80dp"
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_width="match_parent"

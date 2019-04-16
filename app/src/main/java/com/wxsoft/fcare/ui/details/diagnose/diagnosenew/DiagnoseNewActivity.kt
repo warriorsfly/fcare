@@ -23,7 +23,10 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
+import com.wxsoft.fcare.utils.ActionCode
+import kotlinx.android.synthetic.main.activity_diagnose_new.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -98,6 +101,16 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         viewModel.patientId = patientId
         setSupportActionBar(toolbar)
         title="诊断"
+
+        line8.setOnClickListener{
+            val intent = Intent(this, RatingSubjectActivity::class.java).apply {
+                putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
+                putExtra(RatingSubjectActivity.RATING_NAME, "GRACE评分")
+                putExtra(RatingSubjectActivity.RATING_ID, "5")
+                putExtra(RatingSubjectActivity.RECORD_ID, viewModel.diagnosisTreatment.value?.graceRating?.id?:"")
+            }
+            startActivityForResult(intent, ActionCode.RATING)
+        }
     }
 
 
@@ -150,6 +163,11 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
 //                        strategyCode_Name = dic.itemName
 //                        memo = dic.memo
 //                    }
+                }
+
+                ActionCode.RATING->{
+                    val score=data?.getIntExtra("SCORE",0)
+                    viewModel.diagnosisTreatment.value?.graceRating?.score=score?:0
                 }
 
                 SELECT_NOREFUSHION_RESON ->{

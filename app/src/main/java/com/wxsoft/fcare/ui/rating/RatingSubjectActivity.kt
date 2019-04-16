@@ -99,6 +99,7 @@ class RatingSubjectActivity : BaseActivity() {
         viewModel.savingResult.observe(this, Observer {
             if(it){
                 setResult(Activity.RESULT_OK,intent)
+                intent.putExtra("SCORE",viewModel.rating.value?.score?:0)
                 finish()
             }
         })
