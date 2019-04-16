@@ -139,7 +139,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     }
     private fun doOperations(response:Response<List<Record<WorkOperation>>>){
         response.result?.forEach { operation->
-            operation.items.forEach {
+            operation.items?.forEach {
                 val index=keys.indexOf(it.actionCode)
                 if(index>=0){
 //                    tint=tints[index]

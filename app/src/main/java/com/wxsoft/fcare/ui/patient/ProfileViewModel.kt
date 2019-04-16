@@ -162,16 +162,6 @@ class ProfileViewModel @Inject constructor(
                             return@let false
                         }
 
-//                        it.idcard.isEmpty()->{
-//                            messageAction.value= Event("身份证不能为空")
-//                            return@let false
-//                        }
-
-                        it.age==0->{
-                            messageAction.value= Event("年龄不能为空")
-                            return@let false
-                        }
-
                         it.diagnosisCode.isEmpty() ->{
                             messageAction.value= Event("大病分类需要选择")
                             return@let false
