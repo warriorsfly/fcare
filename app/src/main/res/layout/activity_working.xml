@@ -3,6 +3,7 @@
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.workspace.WorkingViewModel"/>
         <import type="com.wxsoft.fcare.utils.Converter"/>
+<!--        <import type="com.wxsoft.fcare.utils.LongConverter"/>-->
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -40,18 +41,28 @@
                     android:paddingTop="13.5dp"
                     android:paddingBottom="13.5dp">
 
+                    <ImageView
+                            app:layout_constraintTop_toTopOf="@id/back_away"
+                            app:layout_constraintBottom_toBottomOf="@id/gender"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:id="@+id/back"
+                            android:tint="@color/white"
+                            android:layout_marginLeft="16dp"
+                            android:src="@drawable/ic_back"
+                            android:layout_width="14dp"
+                            android:layout_height="14dp"/>
+
                     <TextView
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/back"
                         android:textSize="18sp"
                         android:textColor="@color/white"
                         tools:text="张三"
                         android:text="@{viewModel.patient.name}"
                         android:id="@+id/back_away"
-                        android:layout_marginLeft="16dp"
-                        android:drawableTint="@color/white"
-                        android:drawableLeft="@drawable/ic_back"
+
+                        android:layout_marginLeft="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -70,6 +81,7 @@
                             app:layout_constraintTop_toTopOf="@id/gender"
                             app:layout_constraintLeft_toRightOf="@id/gender"
                             android:textColor="@color/white"
+                            android:layout_marginLeft="10dp"
                             android:text="@{Converter.intToString(viewModel.patient.age)+`岁`}"
                             android:layout_marginRight="16dp"
                             android:layout_width="wrap_content"
@@ -111,8 +123,9 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_width="match_parent"
-                    android:layout_height="117dp"
+                    android:layout_height="wrap_content"
                     app:cardElevation="2dp"
+                    android:minHeight="90dp"
                     android:translationZ="1dp"
                     app:cardUseCompatPadding="true"
                     android:id="@+id/patient_info"
@@ -122,34 +135,33 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            tools:text="发病计时"
-                            android:text="发病计时"
-                            app:goneUnless="@{viewModel.patient.timing}"
-                            android:id="@+id/time_title"
-                            android:paddingLeft="8dp"
-                            android:paddingRight="8dp"
-                            android:paddingTop="4dp"
-                            android:paddingBottom="4dp"
-                            android:background="@drawable/bg_conor_black"
-                            android:drawableLeft="@drawable/ic_black_clock"
-                            android:drawablePadding="8dp"
-                            android:layout_marginTop="11dp"
-                            android:layout_marginLeft="13.5dp"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            tools:text="发病计时"-->
+<!--                            android:text="发病计时"-->
+<!--                            app:goneUnless="@{viewModel.patient.timing}"-->
+<!--                            android:id="@+id/time_title"-->
+<!--                            android:paddingLeft="8dp"-->
+<!--                            android:paddingRight="8dp"-->
+<!--                            android:paddingTop="4dp"-->
+<!--                            android:paddingBottom="4dp"-->
+<!--                            android:background="@drawable/bg_conor_black"-->
+<!--                            android:drawableLeft="@drawable/ic_black_clock"-->
+<!--                            android:drawablePadding="8dp"-->
+<!--                            android:layout_marginTop="11dp"-->
+<!--                            android:layout_marginLeft="13.5dp"-->
+<!--                            app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                            app:layout_constraintTop_toTopOf="parent"/>-->
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="#63B0F8"
                             android:textSize="15dp"
-                            tools:text="3分钟"
-                            app:goneUnless="@{viewModel.patient.timing}"
-                            android:text="@{viewModel.course+`分钟`}"
+                            tools:text="STEMI"
+                            android:layout_marginStart="12.5dp"
+                            android:text="@{viewModel.patient.diagnosis2Name}"
                             android:id="@+id/time"
                             android:paddingTop="3.5dp"
                             android:paddingBottom="3.5dp"
@@ -157,17 +169,15 @@
                             android:paddingRight="12dp"
                             android:layout_marginTop="11dp"
                             android:layout_marginEnd="12.5dp"
-                            app:layout_constraintLeft_toRightOf="@id/time_title"
+                            app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            tools:text="卒中"
-                            android:text="@{viewModel.patient.diagnosisName}"
+                            tools:text="PCI"
+                            android:text="@{viewModel.patient.strategyName}"
                             android:id="@+id/type"
-                            android:background="@drawable/bg_conor_red"
                             android:paddingTop="3.5dp"
                             android:paddingBottom="3.5dp"
                             android:paddingLeft="12dp"
@@ -177,30 +187,67 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"/>
 
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/quality"
+                        <androidx.constraintlayout.widget.ConstraintLayout
                             app:layout_constraintTop_toBottomOf="@id/type"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            android:clipToPadding="false"
-                            android:nestedScrollingEnabled="false"
-                            android:orientation="vertical"
-                            android:paddingHorizontal="@dimen/margin_normal"
-                            android:paddingVertical="@dimen/margin_normal"
-                            android:scrollbarStyle="outsideOverlay"
-                            android:scrollbars="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                            app:spanCount="5"
-                            tools:listitem="@layout/item_time_quality"/>
+                            app:layout_constraintLeft_toLeftOf="@+id/time"
+                            app:layout_constraintRight_toRightOf="@id/type"
+                            android:layout_width="0dp"
+                            android:padding="7.5dp"
+                            app:invisibleUnless="@{viewModel.patient.attackTime!=null}"
+                            android:layout_marginTop="7.5dp"
+                            android:background="@drawable/bg_conor_black"
+                            android:backgroundTint="@color/light_gray"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintLeft_toLeftOf="parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@drawable/ic_common_clock"
+                                android:drawableTint="@color/black"
+                                    android:id="@+id/title"
+                                android:drawablePadding="8dp"
+                                android:text="发病时间"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textSize="18sp"
+                                    app:layout_constraintRight_toLeftOf="@id/memo_hour"
+                                    app:layout_constraintBaseline_toBaselineOf="@id/title"
+                                    android:text="@{String.valueOf(viewModel.hour)}"
+                                    tools:text="9"/>
+                            <TextView
+                                    android:id="@+id/memo_hour"
+                                    app:layout_constraintBaseline_toBaselineOf="@id/title"
+                                    app:layout_constraintRight_toLeftOf="@id/minute"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="时"/>
+                            <TextView
+                                    app:layout_constraintBaseline_toBaselineOf="@id/title"
+                                    app:layout_constraintRight_toLeftOf="@id/memo_minute"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textSize="18sp"
+                                    android:id="@+id/minute"
+                                android:text="@{String.valueOf(viewModel.minute)}"
+                                tools:text="9"/>
+                            <TextView
+                                    android:id="@+id/memo_minute"
+                                    app:layout_constraintBaseline_toBaselineOf="@id/title"
+                                    app:layout_constraintRight_toRightOf="parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="分"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
-
         </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -222,16 +269,15 @@
             android:elevation="2dp">
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              app:layout_anchorGravity="top"
-              android:background="?android:attr/windowBackground"
-              android:id="@+id/operation_menu"
-              app:labelVisibilityMode="labeled"
-              app:layout_anchor="@id/other_list"
-              app:menu="@menu/menu_working_other"
-              android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
-            />
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  app:layout_anchorGravity="top"
+                  android:background="?android:attr/windowBackground"
+                  android:id="@+id/operation_menu"
+                  app:labelVisibilityMode="labeled"
+                  app:layout_anchor="@id/other_list"
+                  app:menu="@menu/menu_working_other"
+                  android:theme="@style/ThemeOverlay.MaterialComponents.Dark"/>
             <fragment
                 android:id="@+id/other_list"
                 android:name="com.wxsoft.fcare.ui.workspace.OtherOperationFragment"

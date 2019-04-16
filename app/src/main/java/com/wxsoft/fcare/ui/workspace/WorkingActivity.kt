@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -163,7 +164,8 @@ class WorkingActivity : BaseActivity() {
                     itemIconTintList=null
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
-                quality.adapter=QualityAdapter(this@WorkingActivity)
+//                quality.adapter=QualityAdapter(this@WorkingActivity)
+                operationView.addItemDecoration(DividerItemDecoration(this@WorkingActivity,DividerItemDecoration.VERTICAL))
                 operationView.adapter=OperationGroupAdapter(this@WorkingActivity,optionViewPool,::doOperation)
                 bottomSheetBehavior=BottomSheetBehavior.from( other_list.view)
 
@@ -172,9 +174,9 @@ class WorkingActivity : BaseActivity() {
                     patientId=this@WorkingActivity.patientId
                 }
                 lifecycleOwner=this@WorkingActivity
-                viewModel?.qualities?.observe(this@WorkingActivity, Observer {
-                    (quality.adapter as? QualityAdapter)?.submitList(it)
-                })
+//                viewModel?.qualities?.observe(this@WorkingActivity, Observer {
+//                    (quality.adapter as? QualityAdapter)?.submitList(it)
+//                })
 
                 viewModel?.operations?.observe(this@WorkingActivity, Observer {
                     (operationView.adapter as? OperationGroupAdapter)?.apply {

@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.complaints.ComplaintsViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F8F8F9"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            tools:context=".ui.details.complaints.ComplaintsActivity">
-        <include layout="@layout/layout_new_title"
-                 android:id="@+id/title"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F8F8F9"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".ui.details.complaints.ComplaintsActivity">
+        <include
+            layout="@layout/layout_new_title"
+            android:id="@+id/title"/>
         <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:id="@+id/complaints_list"
-                android:padding="10dp"
-                app:spanCount="2"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/complaints_list"
+            android:padding="10dp"
+            app:spanCount="2"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

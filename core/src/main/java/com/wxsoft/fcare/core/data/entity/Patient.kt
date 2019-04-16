@@ -209,6 +209,16 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
         }
 
 
+    @SerializedName("diagnosisCode2_Name")
+    @get:Bindable
+    var diagnosis2Name: String=""
+        set(value) {
+            if(value == "代码不存在")return
+            field = value
+            notifyPropertyChanged(BR.diagnosis2Name)
+        }
+
+
     @get:Bindable
     var memo: String=""
         set(value) {
@@ -295,5 +305,13 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.modifiedDate)
+        }
+
+    @get:Bindable
+    @SerializedName("strategyCode_Name")
+    var strategyName: String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.strategyName)
         }
 }

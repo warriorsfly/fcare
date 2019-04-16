@@ -3,6 +3,7 @@ package com.wxsoft.fcare.ui.workspace
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
+import androidx.databinding.ObservableLong
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -39,6 +40,9 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                                            override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon){
 
+    val timestamp=ObservableLong().apply { set(0) }
+    val hour=ObservableLong().apply { set(0) }
+    val minute=ObservableLong().apply { set(0) }
     var patientId:String=""
         set(value) {
             field=value
@@ -115,12 +119,17 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         } }
 
         response.result?.attackTime?.let {
+            timestamp.set(DateTimeUtils.formatter.parse(it).time)
+            hour.set((System.currentTimeMillis()- timestamp.get() )/3600000)
+            minute.set(((System.currentTimeMillis()- timestamp.get() )%3600000)/60000)
             courseSeconds.set((System.currentTimeMillis()/60000 - DateTimeUtils.formatter.parse(it).time / 60000).toInt())
 
             course.set(courseSeconds.get().toString())
             disposable.add(
                 Observable.interval(1, TimeUnit.MINUTES)
                     .subscribe {
+                        hour.set((System.currentTimeMillis()- timestamp.get() )/3600000)
+                        minute.set(((System.currentTimeMillis()- timestamp.get() )%3600000)/60000)
                         courseSeconds.set(courseSeconds.get().plus(1))
                     })
         }?:course.set("")
