@@ -15,12 +15,14 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Strategy
+import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDiagnoseNewBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
@@ -65,6 +67,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         const val SELECT_DIAGNOSE_TYPE = 10
         const val SELECT_TREATMENT = 20
         const val SELECT_NOREFUSHION_RESON = 30
+        const val SELECT_ACSDRUG = 40
     }
 
     private lateinit var viewModel: DiagnoseNewViewModel
@@ -94,6 +97,9 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                 }
                 line10.setOnClickListener {
                     toSelectNoReperfusionReson()
+                }
+                line7.setOnClickListener {
+                    toSelectDrugs()
                 }
                 lifecycleOwner = this@DiagnoseNewActivity
             }
@@ -140,6 +146,12 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         startActivityForResult(intent, SELECT_NOREFUSHION_RESON)
     }
 
+    fun toSelectDrugs(){
+        val intent = Intent(this, ACSDrugActivity::class.java).apply {
+            putExtra(ACSDrugActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent, SELECT_ACSDRUG)
+    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -186,6 +198,10 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
 //                        noReperfusionCode = dic.id
 //                        noReperfusionCodeName = dic.itemName
 //                    }
+                }
+                SELECT_ACSDRUG ->{
+                    val acsDrug = data?.getSerializableExtra("SelectedACSDrug") as ACSDrug
+                    viewModel.loadAcsDrug.value = acsDrug
                 }
 
             }

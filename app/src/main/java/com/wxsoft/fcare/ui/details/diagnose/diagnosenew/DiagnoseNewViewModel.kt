@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DiagnoseApi
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
@@ -40,10 +41,14 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
     var diagnosisTreatment: LiveData<DiagnoseTreatment>
     var loadDiagnosisTreatment = MediatorLiveData<DiagnoseTreatment>()
 
+    val acsDrug: LiveData<ACSDrug>
+    val loadAcsDrug = MediatorLiveData<ACSDrug>()
+
     init {
         diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("") }
         diagnosis = loadDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
         selectedTreatment = loadSelectedTreatment.map { it?: Strategy("") }
+        acsDrug = loadAcsDrug.map { it?: ACSDrug("") }
         haveData()
     }
 
@@ -62,5 +67,6 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         loadSelectedTreatment.value = diagnosisTreatment.value?.treatStrategy
         loadDiagnosis.value = diagnosisTreatment.value?.diagnosis
         if (diagnosis.value?.doctorName.isNullOrEmpty()) doctorName.set(account.trueName) else doctorName.set(diagnosis.value?.doctorName)
+        loadAcsDrug.value = diagnosisTreatment.value?.acsDrugRecord
     }
 }

@@ -3,10 +3,7 @@ package com.wxsoft.fcare.core.data.remote
 import androidx.room.Delete
 import com.wxsoft.fcare.core.data.entity.CABG
 import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.drug.Drug
-import com.wxsoft.fcare.core.data.entity.drug.DrugPackage
-import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
-import com.wxsoft.fcare.core.data.entity.drug.DrugTypeitem
+import com.wxsoft.fcare.core.data.entity.drug.*
 import io.reactivex.Maybe
 import retrofit2.http.*
 
@@ -24,6 +21,9 @@ interface PharmacyApi {
     @POST("Drug/SaveDrugRecords")
     fun save(@Body drugRecords: List<DrugRecord>):Maybe<Response<List<DrugRecord>>>
 
+    @POST("Drug/SaveAcs")
+    fun saveAcs(@Body drug: ACSDrug):Maybe<Response<String>>
+
     @GET("Drug/GetDrugs/{diagnosisCode}")
     fun loadDrugs(@Path("diagnosisCode")diagnosisCode:String): Maybe<Response<List<DrugTypeitem>>>
 
@@ -37,4 +37,6 @@ interface PharmacyApi {
 
     @DELETE("Drug/DeleteDrugRecordById/{id}")
     fun deleteDrug(@Path("id")id:String):Maybe<Response<String>>
+
+
 }

@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.entity
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.Rating
 
@@ -34,10 +35,10 @@ data class DiagnoseTreatment (val id:String=""): BaseObservable(){
 
     //ACS
     @Bindable
-    var acsDrugRecords :List<DrugRecord> = emptyList()
+    var acsDrugRecord :ACSDrug = ACSDrug("")
         set(value) {
             field = value
-            notifyPropertyChanged(BR.acsDrugRecords)
+            notifyPropertyChanged(BR.acsDrugRecord)
         }
 
     //知情谈话

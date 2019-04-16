@@ -50,8 +50,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity"
+        <activity android:name=".ui.details.diagnose.diagnosenew.drug.ACSDrugActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.diagnose.diagnosenew.DiagnoseNewActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
@@ -80,8 +83,9 @@
         <activity
                 android:name=".ui.details.diagnose.select.SelectDiagnoseActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.emr.EmrActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.emr.EmrActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.selecter.SelecterOfOneModelActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

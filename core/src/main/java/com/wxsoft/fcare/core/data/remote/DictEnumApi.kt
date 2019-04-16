@@ -152,6 +152,12 @@ interface DictEnumApi {
     fun loadEcgCommonDiagnoses(): Maybe<List<Dictionary>>
 
     /**
+     * 胸痛用药
+     */
+    @GET("EnumDic/enumItems/{id}")
+    fun loadDrugs1(@Path("id")id:String): Maybe<List<Dictionary>>
+
+    /**
      * 发送通知类型
      */
     @GET("Message/GetMessageTemplates")

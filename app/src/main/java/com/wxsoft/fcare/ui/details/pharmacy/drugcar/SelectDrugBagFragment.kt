@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.FragmentSelectDrugBagBinding
 import com.wxsoft.fcare.ui.details.pharmacy.DrugBagAdapter
 
@@ -30,8 +29,5 @@ class SelectDrugBagFragment constructor(private val lifecycleOwner: LifecycleOwn
 
         return binding.root
     }
-
-
-
 
 }
