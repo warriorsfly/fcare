@@ -50,11 +50,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.diagnose.diagnosenew.DiagnoseNewActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:screenOrientation="portrait"
-                  android:theme="@style/AppTheme.NoActionBar"
-                  android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        <activity android:name=".ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity"
+                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.diagnose.diagnosenew.DiagnoseNewActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
+                android:screenOrientation="portrait"
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity
                 android:name=".ui.workspace.addpoint.AddTimeLinePointActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

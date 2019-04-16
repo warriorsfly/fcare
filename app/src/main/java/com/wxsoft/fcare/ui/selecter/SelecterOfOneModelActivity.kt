@@ -53,13 +53,12 @@ class SelecterOfOneModelActivity : BaseActivity() {
                 adapter = SelecterOfOneAdapter(this@SelecterOfOneModelActivity,this@SelecterOfOneModelActivity.viewModel)
                 notiadapter = SelecterOfNotifyTypeAdapter(this@SelecterOfOneModelActivity,this@SelecterOfOneModelActivity.viewModel)
                 when(comFrom){
-                    "Vital" -> {
-                        firstList.adapter = adapter
-                    }
+                    "Vital" -> firstList.adapter = adapter
                     "Notify" -> firstList.adapter = notiadapter
                     "MedicalHistoryProvider" -> firstList.adapter = adapter
                     "MedicalHistoryAnamnesis" -> firstList.adapter = adapter
                     "ThromSelectPlace" -> firstList.adapter = adapter
+                    "Treatment" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -74,6 +73,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "MedicalHistoryProvider" -> title="选择病史提供者"
             "MedicalHistoryAnamnesis" -> title="选择既往病史"
             "ThromSelectPlace" -> title="选择溶栓地点"
+            "Treatment" -> title="选择无再灌注措施原因"
         }
 
 

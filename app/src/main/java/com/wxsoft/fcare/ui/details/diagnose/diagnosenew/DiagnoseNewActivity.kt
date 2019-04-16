@@ -13,13 +13,17 @@ import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Diagnosis
+import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.Strategy
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDiagnoseNewBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -28,12 +32,11 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
 
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+//        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
-//            R.id.start_4 -> viewModel.talk.value?.startTime = DateTimeUtils.formatter.format(millseconds)
-//            R.id.start_9 -> viewModel.talk.value?.endTime = DateTimeUtils.formatter.format(millseconds)
+            R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = DateTimeUtils.formatter.format(millseconds)
+            R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = DateTimeUtils.formatter.format(millseconds)
         }
-//        viewModel.talk.value?.judgeTime()
     }
 
     private fun showDatePicker(v: View?){
@@ -57,6 +60,8 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val SELECT_DIAGNOSE_TYPE = 10
+        const val SELECT_TREATMENT = 20
+        const val SELECT_NOREFUSHION_RESON = 30
     }
 
     private lateinit var viewModel: DiagnoseNewViewModel
@@ -78,13 +83,19 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                 line4.setOnClickListener {
                     showDatePicker(findViewById(R.id.start_4))
                 }
+                line12.setOnClickListener {
+                    showDatePicker(findViewById(R.id.start_12))
+                }
                 line9.setOnClickListener {
-                    showDatePicker(findViewById(R.id.start_9))
+                    toSelectTreatment()
+                }
+                line10.setOnClickListener {
+                    toSelectNoReperfusionReson()
                 }
                 lifecycleOwner = this@DiagnoseNewActivity
             }
         patientId=intent.getStringExtra(DiagnoseActivity.PATIENT_ID)?:""
-
+        viewModel.patientId = patientId
         setSupportActionBar(toolbar)
         title="诊断"
     }
@@ -100,7 +111,21 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         startActivityForResult(intent, SELECT_DIAGNOSE_TYPE)
     }
 
+    fun toSelectTreatment(){
+        val intent = Intent(this, TreatmentOptionsActivity::class.java).apply {
+            putExtra(TreatmentOptionsActivity.TREATMENT_ID, viewModel.selectedTreatment.value?.strategyCode)
+        }
+        startActivityForResult(intent, SELECT_TREATMENT)
+    }
 
+    fun toSelectNoReperfusionReson(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "Treatment")
+            putExtra(SelecterOfOneModelActivity.ID, viewModel.selectedTreatment.value?.noReperfusionCode)
+        }
+        startActivityForResult(intent, SELECT_NOREFUSHION_RESON)
+    }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -110,6 +135,39 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                 SELECT_DIAGNOSE_TYPE ->{
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
                     viewModel.loadDiagnosis.value = diagnose
+                    viewModel.diagnosisTreatment.value?.diagnosis = diagnose
+                }
+
+                SELECT_TREATMENT ->{
+                    val dic = data?.getSerializableExtra("SelectOption") as Dictionary
+                    viewModel.loadSelectedTreatment.value = Strategy("").apply {
+                        strategyCode = dic.id
+                        strategyCode_Name = dic.itemName
+                        memo = dic.memo
+                    }
+//                    viewModel.diagnosisTreatment.value?.treatStrategy = Strategy("").apply {
+//                        strategyCode = dic.id
+//                        strategyCode_Name = dic.itemName
+//                        memo = dic.memo
+//                    }
+                }
+
+                SELECT_NOREFUSHION_RESON ->{
+                    val dic = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.loadSelectedTreatment.value = Strategy("").apply {
+                        strategyCode = "14-8"
+                        strategyCode_Name = "无再灌注措施"
+                        memo = "group3"
+                        noReperfusionCode = dic.id
+                        noReperfusionCodeName = dic.itemName
+                    }
+//                    viewModel.diagnosisTreatment.value?.treatStrategy = Strategy("").apply {
+//                        strategyCode = "14-8"
+//                        strategyCode_Name = "无再灌注措施"
+//                        memo = "group3"
+//                        noReperfusionCode = dic.id
+//                        noReperfusionCodeName = dic.itemName
+//                    }
                 }
 
             }

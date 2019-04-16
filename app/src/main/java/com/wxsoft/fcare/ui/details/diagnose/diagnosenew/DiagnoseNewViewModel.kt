@@ -1,18 +1,20 @@
 package com.wxsoft.fcare.ui.details.diagnose.diagnosenew
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.data.entity.Diagnosis
+import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DiagnoseApi
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: DiagnoseApi,
-                                               private val dictEnumApi: DictEnumApi,
                                                override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
@@ -24,17 +26,41 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         set(value) {
             if (value == "") return
             field = value
+            getTreaatment()
         }
 
-    val diagnosis: LiveData<Diagnosis>
-    val loadDiagnosis = MediatorLiveData<Diagnosis>()
+    var doctorName=ObservableField<String>()
+
+    var diagnosis: LiveData<Diagnosis>
+    var loadDiagnosis = MediatorLiveData<Diagnosis>()
+
+    var selectedTreatment: LiveData<Strategy>
+    var loadSelectedTreatment = MediatorLiveData<Strategy>()
+
+    var diagnosisTreatment: LiveData<DiagnoseTreatment>
+    var loadDiagnosisTreatment = MediatorLiveData<DiagnoseTreatment>()
 
     init {
+        diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("") }
         diagnosis = loadDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
-        loadDiagnosis.value = null
+        selectedTreatment = loadSelectedTreatment.map { it?: Strategy("") }
+        haveData()
     }
 
+    fun getTreaatment(){
+        disposable.add(diagnoseApi.getTreatment(patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
 
-
-
+    private fun getData(response: Response<DiagnoseTreatment>){
+        loadDiagnosisTreatment.value = response.result
+        haveData()
+    }
+    fun haveData(){
+        loadSelectedTreatment.value = diagnosisTreatment.value?.treatStrategy
+        loadDiagnosis.value = diagnosisTreatment.value?.diagnosis
+        if (diagnosis.value?.doctorName.isNullOrEmpty()) doctorName.set(account.trueName) else doctorName.set(diagnosis.value?.doctorName)
+    }
 }

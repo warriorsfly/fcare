@@ -18,9 +18,29 @@ data class Dictionary(val id:String, val itemName:String): BaseObservable(), Ser
     @Bindable
     var patientId:String=""
         set(value) {
-
             field=value
             notifyPropertyChanged(BR.patientId)
+        }
+
+    @Bindable
+    var enumDictId:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.enumDictId)
+        }
+
+    @Bindable
+    var memo:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.memo)
+        }
+
+    @Bindable
+    var sortNum:Int=0
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.sortNum)
         }
 
     @Bindable

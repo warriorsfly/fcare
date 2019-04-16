@@ -64,6 +64,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadThromPlace()
                     clickAlone = true
                 }
+                "Treatment" ->{
+                    loadTreatments()
+                    clickAlone = true
+                }
             }
         }
 
@@ -107,6 +111,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     private fun loadThromPlace(){
         disposable.add(enumApi.loadThromPlaces()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadTreatments(){
+        disposable.add(enumApi.loadNoRefushionResons()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))
