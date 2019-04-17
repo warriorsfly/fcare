@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
@@ -25,6 +26,7 @@ import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.utils.ActionCode
@@ -68,6 +70,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         const val SELECT_TREATMENT = 20
         const val SELECT_NOREFUSHION_RESON = 30
         const val SELECT_ACSDRUG = 40
+        const val INFORMED_CONSENT = 50
     }
 
     private lateinit var viewModel: DiagnoseNewViewModel
@@ -108,6 +111,8 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         setSupportActionBar(toolbar)
         title="诊断"
 
+        viewModel.diagnosisTreatment.observe(this, Observer {  })
+
         line8.setOnClickListener{
             val intent = Intent(this, RatingSubjectActivity::class.java).apply {
                 putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
@@ -117,6 +122,16 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
             }
             startActivityForResult(intent, ActionCode.RATING)
         }
+        line13.setOnClickListener {
+            toInformedConsent()
+        }
+
+        viewModel.saveResult.observe(this, Observer {
+            if (it.equals("success")){
+                setResult(Activity.RESULT_OK,intent)
+                finish()
+            }
+        })
     }
 
 
@@ -153,6 +168,17 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         startActivityForResult(intent, SELECT_ACSDRUG)
     }
 
+    private fun  toInformedConsent(){
+        val intent = Intent(this@DiagnoseNewActivity, AddInformedActivity::class.java).apply {
+            putExtra(AddInformedActivity.PATIENT_ID,patientId)
+            putExtra(AddInformedActivity.TITLE_NAME,"")
+            putExtra(AddInformedActivity.TITLE_CONTENT,"")
+            putExtra(AddInformedActivity.INFORMED_ID,"")
+            putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
+        }
+        startActivityForResult(intent, INFORMED_CONSENT)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {
@@ -179,6 +205,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
 
                 ActionCode.RATING->{
                     val score=data?.getIntExtra("SCORE",0)
+                    viewModel.graceScore.set(score)
                     viewModel.diagnosisTreatment.value?.graceRating?.score=score?:0
                 }
 
@@ -201,6 +228,8 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                 }
                 SELECT_ACSDRUG ->{
                     val acsDrug = data?.getSerializableExtra("SelectedACSDrug") as ACSDrug
+                    acsDrug.haveData = true
+                    acsDrug.haveDrugs()
                     viewModel.loadAcsDrug.value = acsDrug
                 }
 
@@ -237,7 +266,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
 
         return  when(item?.itemId){
             R.id.submit->{
-
+                viewModel.saveDiagnose()
                 true
             }
             else->super.onOptionsItemSelected(item)

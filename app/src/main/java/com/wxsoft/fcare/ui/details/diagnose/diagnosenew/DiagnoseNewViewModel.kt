@@ -31,6 +31,8 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         }
 
     var doctorName=ObservableField<String>()
+    var graceScore=ObservableField<Int>()
+
 
     var diagnosis: LiveData<Diagnosis>
     var loadDiagnosis = MediatorLiveData<Diagnosis>()
@@ -44,12 +46,16 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
     val acsDrug: LiveData<ACSDrug>
     val loadAcsDrug = MediatorLiveData<ACSDrug>()
 
+    val saveResult: LiveData<String>
+    val loadSaveResult= MediatorLiveData<String>()
+
     init {
         diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("") }
         diagnosis = loadDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
         selectedTreatment = loadSelectedTreatment.map { it?: Strategy("") }
         acsDrug = loadAcsDrug.map { it?: ACSDrug("") }
         haveData()
+        saveResult = loadSaveResult.map { it }
     }
 
     fun getTreaatment(){
@@ -68,5 +74,19 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         loadDiagnosis.value = diagnosisTreatment.value?.diagnosis
         if (diagnosis.value?.doctorName.isNullOrEmpty()) doctorName.set(account.trueName) else doctorName.set(diagnosis.value?.doctorName)
         loadAcsDrug.value = diagnosisTreatment.value?.acsDrugRecord
+        graceScore.set(diagnosisTreatment.value?.graceRating?.score)
     }
+
+    fun saveDiagnose(){
+        diagnosisTreatment.value?.acsDrugRecord = acsDrug.value!!
+        diagnosisTreatment.value?.treatStrategy = selectedTreatment.value!!
+        disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadResult,::error))
+    }
+    private fun loadResult(response: Response<String>){
+        if (response.success) loadSaveResult.value = "success"
+    }
+
 }
