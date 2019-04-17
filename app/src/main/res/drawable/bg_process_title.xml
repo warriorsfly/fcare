@@ -4,7 +4,7 @@
             <solid android:color="@color/white"/>
         </shape>
     </item>
-    <item android:height="143dp">
+    <item android:height="132dp">
         <vector android:height="133dp" android:viewportHeight="265.917"
                 android:viewportWidth="720" android:width="360dp">
             <path android:fillColor="@color/colorPrimary" android:pathData="M0,0H720V215.408s-181.085,50.509 -361.085,50.509S0,215.408 0,215.408Z"/>
