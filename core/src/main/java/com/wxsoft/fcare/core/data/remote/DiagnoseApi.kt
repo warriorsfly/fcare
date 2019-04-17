@@ -24,4 +24,7 @@ interface DiagnoseApi {
     @POST("Diagnosis/SaveDiagnosis")
     fun save(@Body diagnosis : Diagnosis): Maybe<Response<Diagnosis>>
 
+    @POST("Diagnosis/Save")
+    fun saveNewDiagnose(@Body diagnosis : DiagnoseTreatment): Maybe<Response<String>>
+
 }

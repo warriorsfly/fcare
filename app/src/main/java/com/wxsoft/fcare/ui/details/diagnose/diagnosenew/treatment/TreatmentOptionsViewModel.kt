@@ -28,7 +28,11 @@ class TreatmentOptionsViewModel @Inject constructor(private val dictEnumApi: Dic
     val options: LiveData<List<Dictionary>>
     val loadOptions = MediatorLiveData<List<Dictionary>>()
 
+    val submitSuccess: LiveData<Boolean>
+    val loadSubmitSuccess = MediatorLiveData<Boolean>()
+
     init {
+        submitSuccess = loadSubmitSuccess.map { it }
         options = loadOptions.map { it?: emptyList()}
     }
 
@@ -47,6 +51,7 @@ class TreatmentOptionsViewModel @Inject constructor(private val dictEnumApi: Dic
     fun clickOption(item:Dictionary){
         options.value?.filter { it.checked }?.map { it.checked = false }
         item.checked = true
+        loadSubmitSuccess.value = true
     }
 
     fun haveData(){

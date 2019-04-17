@@ -4,9 +4,17 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import java.io.Serializable
 
 data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializable {
+
+    @Transient
+    @Bindable var haveData:Boolean=false
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.haveData)
+        }
 
     /**
      * 是否首次抗凝给药
@@ -33,6 +41,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
             field=value
             notifyPropertyChanged(BR.acsDrugTypeName)
         }
+
     /**
      * 是氯吡格雷 否则是替格瑞洛
      */
@@ -47,7 +56,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 首次抗凝给药时间
      */
-    @Bindable var anticoagulation_Date:String=""
+    @Bindable var anticoagulation_Date:String= DateTimeUtils.getCurrentTime()
         set(value) {
             field=value
             notifyPropertyChanged(BR.anticoagulation_Date)
@@ -56,7 +65,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 首次抗血小板给药时间
      */
-    @Bindable var acs_Delivery_Time:String=""
+    @Bindable var acs_Delivery_Time:String=DateTimeUtils.getCurrentTime()
         set(value) {
             field=value
             notifyPropertyChanged(BR.acs_Delivery_Time)
@@ -118,6 +127,14 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
         }
 
 
+    @Transient
+    @Bindable var drugsStr:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.drugsStr)
+        }
 
-
+    fun haveDrugs(){
+        drugsStr =  "阿司匹林"+aspirin_Dose+"mg" + (if (acs_Drug_Dose.isNullOrEmpty()) ""  else acsDrugTypeName +acs_Drug_Dose+"mg")
+    }
 }

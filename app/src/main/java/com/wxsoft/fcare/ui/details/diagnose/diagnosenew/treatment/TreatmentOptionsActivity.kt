@@ -60,6 +60,8 @@ class TreatmentOptionsActivity : BaseActivity() {
             adapter3.submitList(it.filter { it.memo.equals("group3") })
         })
 
+        viewModel.submitSuccess.observe(this, Observer { haveSelected() })
+
     }
 
     private fun haveSelected(){
@@ -74,20 +76,5 @@ class TreatmentOptionsActivity : BaseActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_sure,menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        return  when(item?.itemId){
-            R.id.sure->{
-                haveSelected()
-                true
-            }
-            else->super.onOptionsItemSelected(item)
-        }
-    }
 
 }

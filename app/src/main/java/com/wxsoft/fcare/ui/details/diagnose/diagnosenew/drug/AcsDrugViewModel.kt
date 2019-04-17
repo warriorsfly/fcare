@@ -61,20 +61,48 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
         loadClickSomething.value = id
     }
 
-    fun subdelow(item: Drug){
-        if (item.doseNum.isNullOrEmpty()){
-            item.doseNum = "0"
+    fun subdelow1(){
+        if (acsDrug.value?.aspirin_Dose.isNullOrEmpty()){
+            acsDrug.value?.aspirin_Dose = "0"
         }  else {
-            if (item.doseNum.toInt() >25) item.doseNum = (item.doseNum.toInt() - 25).toString() else item.doseNum = "0"
+            if (acsDrug.value?.aspirin_Dose!!.toInt() >25) acsDrug.value?.aspirin_Dose = (acsDrug.value?.aspirin_Dose!!.toInt() - 25).toString() else acsDrug.value?.aspirin_Dose = "0"
+        }
+    }
+    fun subdelow2(){
+        if (acsDrug.value?.acs_Drug_Dose.isNullOrEmpty()){
+            acsDrug.value?.acs_Drug_Dose = "0"
+        }  else {
+            if (acsDrug.value?.acs_Drug_Dose!!.toInt() >25) acsDrug.value?.acs_Drug_Dose = (acsDrug.value?.acs_Drug_Dose!!.toInt() - 25).toString() else acsDrug.value?.acs_Drug_Dose = "0"
+        }
+    }
+    fun subdelow3(){
+        if (acsDrug.value?.anticoagulation_Unit.isNullOrEmpty()){
+            acsDrug.value?.anticoagulation_Unit = "0"
+        }  else {
+            if (acsDrug.value?.anticoagulation_Unit!!.toInt() >25) acsDrug.value?.anticoagulation_Unit = (acsDrug.value?.anticoagulation_Unit!!.toInt() - 25).toString() else acsDrug.value?.anticoagulation_Unit = "0"
         }
     }
 
-    fun add(item: Drug){
-        if (item.doseNum.isNullOrEmpty()){
-            item.doseNum = "1"
-        }  else {
-            if (item.doseNum.toInt() != 0) item.doseNum = (item.doseNum.toInt() + 25).toString() else item.doseNum = "25"
-        }
+    fun add1(){
+            if (acsDrug.value?.aspirin_Dose.isNullOrEmpty()){
+                acsDrug.value?.aspirin_Dose = "25"
+            }  else {
+                if (acsDrug.value?.aspirin_Dose!!.toInt() != 0) acsDrug.value?.aspirin_Dose = (acsDrug.value?.aspirin_Dose!!.toInt() + 25).toString() else acsDrug.value?.aspirin_Dose = "25"
+            }
+    }
+    fun add2(){
+            if (acsDrug.value?.acs_Drug_Dose.isNullOrEmpty()){
+                acsDrug.value?.acs_Drug_Dose = "25"
+            }  else {
+                if (acsDrug.value?.acs_Drug_Dose!!.toInt() != 0) acsDrug.value?.acs_Drug_Dose = (acsDrug.value?.acs_Drug_Dose!!.toInt() + 25).toString() else acsDrug.value?.aspirin_Dose = "25"
+            }
+    }
+    fun add3(){
+            if (acsDrug.value?.anticoagulation_Unit.isNullOrEmpty()){
+                acsDrug.value?.anticoagulation_Unit = "25"
+            }  else {
+                if (acsDrug.value?.anticoagulation_Unit!!.toInt() != 0) acsDrug.value?.anticoagulation_Unit = (acsDrug.value?.anticoagulation_Unit!!.toInt() + 25).toString() else acsDrug.value?.anticoagulation_Unit = "25"
+            }
     }
 
     fun change(item:Dictionary){

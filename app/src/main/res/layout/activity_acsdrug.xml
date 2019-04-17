@@ -123,6 +123,7 @@
 
                         <ImageView
                                 android:id="@+id/ic_subtract"
+                                android:onClick="@{()->viewModel.subdelow1()}"
                                 app:layout_constraintRight_toLeftOf="@+id/drug_num"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -155,6 +156,7 @@
 
                         <ImageView
                                 android:id="@+id/ic_add"
+                                android:onClick="@{()->viewModel.add1()}"
                                 app:layout_constraintRight_toLeftOf="@+id/drug_unit"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -225,6 +227,7 @@
 
                         <ImageView
                                 android:id="@+id/ic_subtract2"
+                                android:onClick="@{()->viewModel.subdelow2()}"
                                 app:layout_constraintRight_toLeftOf="@+id/drug_num2"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -257,6 +260,7 @@
 
                         <ImageView
                                 android:id="@+id/ic_add2"
+                                android:onClick="@{()->viewModel.add2()}"
                                 app:layout_constraintRight_toLeftOf="@+id/drug_unit2"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -436,6 +440,7 @@
 
                         <ImageView
                                 android:id="@+id/ic_subtract5"
+                                android:onClick="@{()->viewModel.subdelow3()}"
                                 app:layout_constraintRight_toLeftOf="@+id/drug_num5"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -468,6 +473,7 @@
 
                         <ImageView
                                 android:id="@+id/ic_add5"
+                                android:onClick="@{()->viewModel.add3()}"
                                 app:layout_constraintRight_toLeftOf="@+id/drug_unit5"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"

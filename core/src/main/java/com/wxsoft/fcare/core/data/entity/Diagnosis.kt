@@ -121,7 +121,7 @@ data class Diagnosis (val id:String="",val createrId:String,val createrName:Stri
         }
 
     @Bindable
-    var diagnosisTime: String = ""
+    var diagnosisTime: String = DateTimeUtils.getCurrentTime()
         set(value) {
             field = value
             notifyPropertyChanged(BR.diagnosisTime)
