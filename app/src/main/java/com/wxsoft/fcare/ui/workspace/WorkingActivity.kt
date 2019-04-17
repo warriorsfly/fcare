@@ -26,6 +26,7 @@ import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
+import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -270,7 +271,7 @@ class WorkingActivity : BaseActivity() {
             ActionType.诊断 ->{
 
                 val cz=viewModel.patient.value?.diagnosisCode=="215-1"
-                val intent = Intent(this@WorkingActivity, if(cz)DiagnoseNewActivity::class.java else DiagnoseActivity::class.java).apply {
+                val intent = Intent(this@WorkingActivity, if(cz)DiagnoseNewActivity::class.java else DiagnoseRecordActivity::class.java).apply {
                     putExtra(DiagnoseNewActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DIAGNOSE)

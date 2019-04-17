@@ -67,7 +67,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         EcgEditFragment()
     }
     companion object {
-        const val PHOTO_COUNT=4
+        const val PHOTO_COUNT=9
     }
     override fun localSelected() {
         checkPhotoTaking()
