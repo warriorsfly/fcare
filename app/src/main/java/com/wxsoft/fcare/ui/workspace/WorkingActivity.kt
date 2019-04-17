@@ -24,6 +24,7 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
+import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
@@ -165,7 +166,7 @@ class WorkingActivity : BaseActivity() {
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
 //                quality.adapter=QualityAdapter(this@WorkingActivity)
-                operationView.addItemDecoration(DividerItemDecoration(this@WorkingActivity,DividerItemDecoration.VERTICAL))
+                operationView.addItemDecoration(DividerItemDecoration(this@WorkingActivity,DividerItemDecoration.VERTICAL).apply { setDrawable(resources.getDrawable(R.drawable.ic_working_operation_divider)) })
                 operationView.adapter=OperationGroupAdapter(this@WorkingActivity,optionViewPool,::doOperation)
                 bottomSheetBehavior=BottomSheetBehavior.from( other_list.view)
 
@@ -267,7 +268,9 @@ class WorkingActivity : BaseActivity() {
                 startActivity(intent)
             }
             ActionType.诊断 ->{
-                val intent = Intent(this@WorkingActivity, DiagnoseNewActivity::class.java).apply {
+
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
+                val intent = Intent(this@WorkingActivity, if(cz)DiagnoseNewActivity::class.java else DiagnoseActivity::class.java).apply {
                     putExtra(DiagnoseNewActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DIAGNOSE)

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingTop="28dp"
+        android:paddingTop="35.5dp"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:gravity="center"
@@ -11,6 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:spanCount="4"
+        android:paddingLeft="23dp"
+        android:paddingRight="23dp"
+        android:paddingBottom="7.5dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         android:id="@+id/list"/>
 </layout>

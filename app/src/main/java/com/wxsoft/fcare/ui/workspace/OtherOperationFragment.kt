@@ -10,7 +10,6 @@ import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentOtherOperationListBinding
-import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -67,7 +66,7 @@ class OtherOperationFragment : DaggerFragment() {
     ): View? {
 
         viewModel=activityViewModelProvider(factory)
-        adapter= OperationAdapter(this@OtherOperationFragment,::doOperation)
+        adapter= OperationAdapter(this@OtherOperationFragment,::doOperation,true)
         viewModel.otherOperations.observe(this, Observer {
             adapter.submitList(it)
         })

@@ -10,7 +10,7 @@ import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.databinding.ItemWorkSpaceOperationBinding
 
 
-class OperationAdapter constructor(private val owner:LifecycleOwner,private val itemClickListener: (WorkOperation) -> Unit) :
+class OperationAdapter constructor(private val owner:LifecycleOwner,private val itemClickListener: (WorkOperation) -> Unit,private val ev:Boolean=false) :
     ListAdapter<WorkOperation, OperationAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -27,6 +27,10 @@ class OperationAdapter constructor(private val owner:LifecycleOwner,private val 
 
         val binding = ItemWorkSpaceOperationBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
             lifecycleOwner=owner
+        }.apply {
+            if(ev){
+                ico.elevation=3f
+            }
         }
         return ItemViewHolder(binding,itemClickListener)
     }
