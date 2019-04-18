@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="width_task_process_clock">50dp</dimen>
+    <dimen name="text_size_timing">20sp</dimen>
+    <dimen name="text_size_timing_memo">12sp</dimen>
+    <dimen name="margin_timing_part">15dp</dimen>
+    <dimen name="margin_item_task_spend">4dp</dimen>
+</resources>

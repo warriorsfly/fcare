@@ -17,7 +17,6 @@
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             app:layout_scrollFlags="scroll|snap|exitUntilCollapsed">
             <androidx.appcompat.widget.Toolbar
                 app:layout_constraintTop_toTopOf="parent"
@@ -50,8 +49,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:paddingTop="13dp"
-                    android:paddingBottom="21.5dp"
+                    android:paddingTop="7.5dp"
+                    android:paddingBottom="10.5dp"
                     android:layout_height="wrap_content">
 
                     <TextView
@@ -215,7 +214,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toLeftOf="@id/arrive"
                         android:text="发车"
-                        app:taskedAt="@{viewModel.task.status>1}"
+                        app:taskedAt="@{viewModel.task.status>0}"
                         android:id="@+id/start"
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -227,7 +226,7 @@
                         app:layout_constraintLeft_toRightOf="@id/start"
                         app:layout_constraintRight_toLeftOf="@id/met"
                         android:text="到达"
-                        app:taskedAt="@{viewModel.task.status>2}"
+                        app:taskedAt="@{viewModel.task.status>1}"
                         android:id="@+id/arrive"
                         android:gravity="center"
                         app:layout_constraintBottom_toBottomOf="parent"/>
@@ -242,7 +241,7 @@
                         android:text="首次接触"
                         android:id="@+id/met"
                         android:gravity="center"
-                        app:taskedAt="@{viewModel.task.status>3}"
+                        app:taskedAt="@{viewModel.task.status>2}"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
@@ -255,7 +254,7 @@
                         android:textSize="12sp"
                         android:gravity="center"
                         android:id="@+id/returning"
-                        app:taskedAt="@{viewModel.task.status>4}"
+                        app:taskedAt="@{viewModel.task.status>3}"
                         app:layout_constraintBottom_toBottomOf="parent"/>
 
                     <TextView
@@ -268,7 +267,7 @@
                         android:textSize="12sp"
                         android:gravity="center"
                         android:id="@+id/returnarrival"
-                        app:taskedAt="@{viewModel.task.status>5}"
+                        app:taskedAt="@{viewModel.task.status>4}"
                         app:layout_constraintBottom_toBottomOf="parent"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </com.google.android.material.card.MaterialCardView>

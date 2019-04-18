@@ -8,6 +8,7 @@ import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -152,7 +153,7 @@ class WorkingActivity : BaseActivity() {
                     itemIconTintList=null
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
-//                quality.adapter=QualityAdapter(this@WorkingActivity)
+                quality.adapter=QualityAdapter(this@WorkingActivity)
                 operationView.addItemDecoration(DividerItemDecoration(this@WorkingActivity,DividerItemDecoration.VERTICAL).apply { setDrawable(resources.getDrawable(R.drawable.ic_working_operation_divider)) })
                 operationView.adapter=OperationGroupAdapter(this@WorkingActivity,optionViewPool,::doOperation)
                 bottomSheetBehavior=BottomSheetBehavior.from( other_list.view)
@@ -162,9 +163,15 @@ class WorkingActivity : BaseActivity() {
                     patientId=this@WorkingActivity.patientId
                 }
                 lifecycleOwner=this@WorkingActivity
-//                viewModel?.qualities?.observe(this@WorkingActivity, Observer {
-//                    (quality.adapter as? QualityAdapter)?.submitList(it)
-//                })
+                viewModel?.qualities?.observe(this@WorkingActivity, Observer {
+                    if(it.size in 1..4){
+                        (quality.layoutManager as GridLayoutManager).spanCount=it.size
+                    }else{
+                        (quality.layoutManager as GridLayoutManager).spanCount=5
+                    }
+
+                    (quality.adapter as? QualityAdapter)?.submitList(it)
+                })
 
                 viewModel?.operations?.observe(this@WorkingActivity, Observer {
                     (operationView.adapter as? OperationGroupAdapter)?.apply {

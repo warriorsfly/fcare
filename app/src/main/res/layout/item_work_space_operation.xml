@@ -32,8 +32,9 @@
                     app:layout_constraintTop_toTopOf="@id/ico"
                     app:layout_constraintRight_toRightOf="@id/ico"
                     android:id="@+id/done"
+
                     app:goneUnless="@{item.hasExcuted}"
-                    android:scaleType="centerCrop"
+                    android:scaleType="centerInside"
                     android:layout_width="14dp"
                     android:layout_height="14dp"
                     android:elevation="1dp"
