@@ -63,6 +63,10 @@
         <item>@drawable/ic_work_space_complications</item>
         <!--评估结果-->
         <item>@drawable/ic_work_space_rating_result</item>
+        <!--治疗操作-->
+        <item>@drawable/ic_work_space_pci</item>
+        <!--ACS给药-->
+        <item>@drawable/ic_work_space_pci</item>
     </array>
 
     <!--操作台操作背景色-->
@@ -117,6 +121,10 @@
         <item>@color/tint_work_space_leavehospital</item>
         <!--患者转归-->
         <item>@color/tint_work_space_lapse</item>
+        <!--治疗操作-->
+        <item>@color/tint_work_space_therapeutic_solution</item>
+        <!--ACS给药-->
+        <item>@color/tint_work_space_therapeutic_solution</item>
     </array>
 
 
@@ -185,5 +193,9 @@
         <item>cyzd</item>
         <!--患者转归-->
         <item>hzzg</item>
+        <!--治疗操作-->
+        <item>zlcz</item>
+        <!--ACS给药-->
+        <item>acsgy</item>
     </array>
 </resources>

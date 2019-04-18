@@ -6,6 +6,7 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.Rating
+import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 
 data class DiagnoseTreatment (val id:String=""): BaseObservable(){
 
@@ -27,7 +28,7 @@ data class DiagnoseTreatment (val id:String=""): BaseObservable(){
 
     //Grace评分
     @Bindable
-    var graceRating :Rating = Rating("","","", emptyList())
+    var graceRating : RatingRecord = RatingRecord("","","","","","")
         set(value) {
             field = value
             notifyPropertyChanged(BR.graceRating)
@@ -35,10 +36,10 @@ data class DiagnoseTreatment (val id:String=""): BaseObservable(){
 
     //ACS
     @Bindable
-    var acsDrugRecord :ACSDrug = ACSDrug("")
+    var acs :ACSDrug = ACSDrug("")
         set(value) {
             field = value
-            notifyPropertyChanged(BR.acsDrugRecord)
+            notifyPropertyChanged(BR.acs)
         }
 
     //知情谈话

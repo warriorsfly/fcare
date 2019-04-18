@@ -112,6 +112,10 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
         title="诊断"
 
         viewModel.diagnosisTreatment.observe(this, Observer {  })
+        viewModel.selectedTreatment.observe(this, Observer {  })
+        viewModel.diagnosis.observe(this, Observer {  })
+        viewModel.acsDrug.observe(this, Observer {  })
+        viewModel.talk.observe(this, Observer {  })
 
         line8.setOnClickListener{
             val intent = Intent(this, RatingSubjectActivity::class.java).apply {
@@ -169,11 +173,13 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
     }
 
     private fun  toInformedConsent(){
+        val title = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-1")) "PCI术前知情同意书" else "溶栓术前知情同意书"
+        val typeId = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-1")||viewModel.selectedTreatment.value?.strategyCode.equals("14-3")) "1" else "2"
         val intent = Intent(this@DiagnoseNewActivity, AddInformedActivity::class.java).apply {
             putExtra(AddInformedActivity.PATIENT_ID,patientId)
-            putExtra(AddInformedActivity.TITLE_NAME,"")
-            putExtra(AddInformedActivity.TITLE_CONTENT,"")
-            putExtra(AddInformedActivity.INFORMED_ID,"")
+            putExtra(AddInformedActivity.TITLE_NAME,title)
+            putExtra(AddInformedActivity.TALK_ID,viewModel.diagnosisTreatment.value?.talk?.id)
+            putExtra(AddInformedActivity.INFORMED_ID,typeId)
             putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
         }
         startActivityForResult(intent, INFORMED_CONSENT)
@@ -185,6 +191,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
             when(requestCode){
                 SELECT_DIAGNOSE_TYPE ->{
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
+                    diagnose.patientId = this@DiagnoseNewActivity.patientId
                     viewModel.loadDiagnosis.value = diagnose
                     viewModel.diagnosisTreatment.value?.diagnosis = diagnose
                 }
@@ -193,6 +200,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                     val dic = data?.getSerializableExtra("SelectOption") as Dictionary
                     viewModel.loadSelectedTreatment.value = Strategy("").apply {
                         strategyCode = dic.id
+                        patientId = this@DiagnoseNewActivity.patientId
                         strategyCode_Name = dic.itemName
                         memo = dic.memo
                     }
@@ -217,6 +225,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                         memo = "group3"
                         noReperfusionCode = dic.id
                         noReperfusionCodeName = dic.itemName
+                        patientId = this@DiagnoseNewActivity.patientId
                     }
 //                    viewModel.diagnosisTreatment.value?.treatStrategy = Strategy("").apply {
 //                        strategyCode = "14-8"
@@ -231,6 +240,15 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                     acsDrug.haveData = true
                     acsDrug.haveDrugs()
                     viewModel.loadAcsDrug.value = acsDrug
+                }
+
+                INFORMED_CONSENT ->{
+                    viewModel.talk.value?.informedConsentId = data?.getStringExtra("informedConsentId")?:""
+                    viewModel.talk.value?.startTime = data?.getStringExtra("startTime")?:""
+                    viewModel.talk.value?.endTime = data?.getStringExtra("endTime")?:""
+                    viewModel.talk.value?.allTime = data?.getStringExtra("allTime")?:""
+                    viewModel.talk.value?.informedConsent?.informedTypeName = data?.getStringExtra("typename")?:""
+                    viewModel.talk.value?.judgeTime()
                 }
 
             }

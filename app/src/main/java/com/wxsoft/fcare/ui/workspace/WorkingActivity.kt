@@ -27,6 +27,7 @@ import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -217,6 +218,12 @@ class WorkingActivity : BaseActivity() {
                 }
                 startActivityForResult(intent, DRUGRECORD)
             }
+            ActionType.ACS给药 ->{
+                val intent = Intent(this@WorkingActivity, ACSDrugActivity::class.java).apply {
+                    putExtra(ACSDrugActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, DRUGRECORD)
+            }
             ActionType.生命体征 -> {
                 val intent = Intent(this@WorkingActivity, VitalSignsRecordActivity::class.java).apply {
                     putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
@@ -267,6 +274,10 @@ class WorkingActivity : BaseActivity() {
                 }
                 startActivityForResult(intent, STRATEGY)
             }
+            ActionType.治疗操作 ->{
+
+            }
+
             ActionType.DispostionMeasures->{
                 val intent = Intent(this@WorkingActivity, MeasuresActivity::class.java).apply {
                     putExtra(MeasuresActivity.PATIENT_ID, patientId)

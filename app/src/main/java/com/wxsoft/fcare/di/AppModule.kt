@@ -63,7 +63,9 @@ class AppModule {
             R.drawable.ic_work_space_catheter,
             R.drawable.ic_work_space_cabg,
             R.drawable.ic_work_space_leavehospital,
-            R.drawable.ic_work_space_lapse
+            R.drawable.ic_work_space_lapse,
+            R.drawable.ic_work_space_pci,
+            R.drawable.ic_work_space_medication
         )
 
     @Singleton

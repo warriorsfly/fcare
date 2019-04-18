@@ -136,5 +136,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
 
     fun haveDrugs(){
         drugsStr =  "阿司匹林"+aspirin_Dose+"mg" + (if (acs_Drug_Dose.isNullOrEmpty()) ""  else acsDrugTypeName +acs_Drug_Dose+"mg")
+        if (aspirin_Dose.isNullOrEmpty()) haveData = false else haveData = true
     }
+
 }

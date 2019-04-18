@@ -5,6 +5,7 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -127,7 +128,6 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
             }
         setSupportActionBar(toolbar)
 
-
         patientId=intent.getStringExtra(AddInformedActivity.PATIENT_ID)?:""
         titleName=intent.getStringExtra(AddInformedActivity.TITLE_NAME)?:""
         title = titleName
@@ -164,6 +164,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
                     intent.putExtra("startTime",viewModel.talk.value?.startTime)
                     intent.putExtra("endTime",viewModel.talk.value?.endTime)
                     intent.putExtra("allTime",viewModel.talk.value?.allTime)
+                    intent.putExtra("typename",viewModel.informedConsent.value?.informedTypeName)
                     setResult(RESULT_OK, intent)
                     finish()
                 }
@@ -187,7 +188,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
         viewModel.talk.observe(this, Observer {
             if (it != null){
                 adapter.remotes = it.attachments.map { it.httpUrl }
-                title = it.informedConsentName
+                if (!it.informedConsentName.isNullOrEmpty()) title = it.informedConsentName
             }
         })
 
@@ -260,6 +261,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
 
     }
 
+    @SuppressLint("MissingSuperCall")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
 
         if(resultCode== Activity.RESULT_OK) {

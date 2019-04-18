@@ -32,6 +32,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
         set(value) {
             if (value == "") return
             field = value
+            getDrugs(value)
         }
 
     val drugs1: LiveData<List<Dictionary>>
@@ -54,7 +55,6 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
         drugs2 = loadDrugs2.map { it?: emptyList() }
         getDrugs1("235")
         getDrugs2("22")
-        loadAcsDrug.value = null
     }
 
     fun changeDrug(id:String){
@@ -94,7 +94,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
             if (acsDrug.value?.acs_Drug_Dose.isNullOrEmpty()){
                 acsDrug.value?.acs_Drug_Dose = "25"
             }  else {
-                if (acsDrug.value?.acs_Drug_Dose!!.toInt() != 0) acsDrug.value?.acs_Drug_Dose = (acsDrug.value?.acs_Drug_Dose!!.toInt() + 25).toString() else acsDrug.value?.aspirin_Dose = "25"
+                if (acsDrug.value?.acs_Drug_Dose!!.toInt() != 0) acsDrug.value?.acs_Drug_Dose = (acsDrug.value?.acs_Drug_Dose!!.toInt() + 25).toString() else acsDrug.value?.acs_Drug_Dose = "25"
             }
     }
     fun add3(){
@@ -127,6 +127,19 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
         loadClickSomething.value = "ok"
     }
 
+
+
+    fun getDrugs(id:String){
+        disposable.add(pharmacyApi.getACSDrug(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadAcsDrug,::error))
+    }
+
+    fun loadAcsDrug(response:Response<ACSDrug>){
+        loadAcsDrug.value  = response.result
+    }
+
     fun getDrugs1(id:String){
         disposable.add(dictEnumApi.loadDrugs1(id)
             .subscribeOn(Schedulers.io())
@@ -155,7 +168,6 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::saveResult,::error))
-
     }
 
     fun saveResult(response:Response<String>){
