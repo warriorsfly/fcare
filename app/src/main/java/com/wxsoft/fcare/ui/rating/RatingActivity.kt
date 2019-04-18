@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.rating.Rating
@@ -53,7 +54,7 @@ class RatingActivity : BaseActivity() {
             R.layout.activity_rating
         ).apply{
             list.adapter=this@RatingActivity.adapter
-
+            list.addItemDecoration(DividerItemDecoration(this@RatingActivity,DividerItemDecoration.VERTICAL))
             viewModel=this@RatingActivity.viewModel
 
             lifecycleOwner = this@RatingActivity

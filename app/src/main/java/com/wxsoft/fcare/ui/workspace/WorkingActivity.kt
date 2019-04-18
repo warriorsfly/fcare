@@ -78,21 +78,6 @@ import javax.inject.Named
 
 class WorkingActivity : BaseActivity() {
 
-//    private val ratingFragment by lazy{
-//        RatingsSheetFragment(::newRating).apply {
-//            this.patientId=this@WorkingActivity.patientId
-//        }
-//    }
-//
-//    private fun newRating(rating: Rating){
-//        ratingFragment.dismiss()
-//        val intent = Intent(this, RatingSubjectActivity::class.java).apply {
-//            putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
-//            putExtra(RatingSubjectActivity.RATING_NAME, rating.name)
-//            putExtra(RatingSubjectActivity.RATING_ID, rating.id)
-//        }
-//        startActivityForResult(intent, ActionCode.ARG_NEW_ITEM_CODE)
-//    }
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(bottomSheetBehavior.state){
             BottomSheetBehavior.STATE_EXPANDED->bottomSheetBehavior.state=BottomSheetBehavior.STATE_HIDDEN

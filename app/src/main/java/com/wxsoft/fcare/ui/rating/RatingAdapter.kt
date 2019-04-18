@@ -23,7 +23,7 @@ class RatingAdapter constructor(private val owner: LifecycleOwner,
         val inflater = LayoutInflater.from(parent.context)
 
         if(scencely){
-            return RatingAdapter.ItemViewHolder.ScencelyViewHolder(ItemRatingResultBinding.inflate(inflater, parent, false).apply {
+            return ItemViewHolder.ScencelyViewHolder(ItemRatingResultBinding.inflate(inflater, parent, false).apply {
 
                 root.setOnClickListener {
                     item?.let { showDetail(it) }
@@ -31,7 +31,7 @@ class RatingAdapter constructor(private val owner: LifecycleOwner,
                 lifecycleOwner = owner
             })
         }else {
-            return RatingAdapter.ItemViewHolder.EmrViewHolder(ItemNewEmrRatingItemBinding.inflate(inflater, parent, false).apply {
+            return ItemViewHolder.EmrViewHolder(ItemNewEmrRatingItemBinding.inflate(inflater, parent, false).apply {
                 lifecycleOwner = owner
             })
         }
@@ -40,14 +40,14 @@ class RatingAdapter constructor(private val owner: LifecycleOwner,
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         when(holder){
-            is RatingAdapter.ItemViewHolder.ScencelyViewHolder->{
+            is ItemViewHolder.ScencelyViewHolder->{
                 holder.binding.apply {
                     item=getItem(position)
                     executePendingBindings()
                 }
             }
 
-            is RatingAdapter.ItemViewHolder.EmrViewHolder->{
+            is ItemViewHolder.EmrViewHolder->{
                 holder.binding.apply {
                     item=getItem(position)
                     executePendingBindings()
