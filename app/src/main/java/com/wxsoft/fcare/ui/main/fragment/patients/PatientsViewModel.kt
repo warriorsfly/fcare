@@ -40,7 +40,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     }
 
     val clickTop:LiveData<String>
-    private val clickTopResult = MediatorLiveData<String>()
+    val clickTopResult = MediatorLiveData<String>()
 
     val clickCusDate:LiveData<String>
     private val clickCusDateResult = MediatorLiveData<String>()

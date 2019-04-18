@@ -50,7 +50,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
     private val clickCusDateResult = MediatorLiveData<String>()
 
     val clickTop:LiveData<String>
-    private val clickTopResult = MediatorLiveData<String>()
+    val clickTopResult = MediatorLiveData<String>()
 
     val typeItems: LiveData<List<Dictionary>>
     private val loadtypeItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()

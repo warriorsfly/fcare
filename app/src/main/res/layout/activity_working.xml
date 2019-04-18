@@ -277,6 +277,7 @@
             android:id="@+id/operationView"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="56dp"
             tools:listitem="@layout/item_operation_list"/>
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -288,7 +289,7 @@
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                   android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
+                  android:layout_height="56dp"
                   app:layout_anchorGravity="top"
                   android:background="@color/light_gray"
                   android:id="@+id/operation_menu"

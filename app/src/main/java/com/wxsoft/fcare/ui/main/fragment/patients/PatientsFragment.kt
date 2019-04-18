@@ -51,7 +51,15 @@ class PatientsFragment : DaggerFragment() , OnDateSetListener{
 
     private lateinit var viewModel: PatientsViewModel
 
-    private lateinit var popwindow:PopupWindow
+    private val popwindow:PopupWindow by lazy {
+        PopupWindow().apply {
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
+            width = ViewGroup.LayoutParams.MATCH_PARENT
+            this.isOutsideTouchable = true
+            isFocusable = true
+            this.setBackgroundDrawable(ColorDrawable(Color.GRAY))
+        }
+    }
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -95,14 +103,6 @@ class PatientsFragment : DaggerFragment() , OnDateSetListener{
         selectTypebinding = LayoutPatientSelectTypeBinding.inflate(inflater, container, false).apply {
             viewModel=this@PatientsFragment.viewModel
             lifecycleOwner = this@PatientsFragment
-        }
-
-        popwindow = PopupWindow().apply {
-            setHeight(ViewGroup.LayoutParams.MATCH_PARENT-60)
-            setWidth(ViewGroup.LayoutParams.MATCH_PARENT)
-            setOutsideTouchable(true)
-            setFocusable(true)
-            setBackgroundDrawable(ColorDrawable(Color.GRAY))
         }
 
         viewModel.patients.observe(this, Observer {
@@ -167,6 +167,13 @@ class PatientsFragment : DaggerFragment() , OnDateSetListener{
 
     }
 
+    override fun onPause() {
+        if (popwindow.isShowing)
+            popwindow.dismiss()
+        super.onPause()
+
+    }
+
 //    override fun onStop() {
 //        search.clearFocus()
 //        super.onStop()
@@ -190,16 +197,19 @@ class PatientsFragment : DaggerFragment() , OnDateSetListener{
 
 
     private fun selectDate(){
-        popwindow.setContentView(selectDatebinding.root)
-        PopupWindowCompat.showAsDropDown(popwindow, binding.searchPlaceholder, 0, 0, Gravity.START)
+        viewModel.clickTopResult.value="DONE"
+        popwindow.contentView = selectDatebinding.root
+        PopupWindowCompat.showAsDropDown(popwindow, binding.patientsTopBar, 0, 0, Gravity.START)
     }
     private fun selectType(){
-        popwindow.setContentView(selectTypebinding.root)
-        PopupWindowCompat.showAsDropDown(popwindow, binding.searchPlaceholder, 0, 0, Gravity.START)
+        viewModel.clickTopResult.value="DONE"
+        popwindow.contentView = selectTypebinding.root
+        PopupWindowCompat.showAsDropDown(popwindow, binding.patientsTopBar, 0, 0, Gravity.START)
     }
 
 
     fun toSearchPatient(){
+        viewModel.clickTopResult.value="DONE"
         Intent(activity!!, SearchPatientsActivity::class.java).let {
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }

@@ -54,8 +54,15 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
 
     private lateinit var viewModel: TaskViewModel
 
-    private lateinit var popwindow: PopupWindow
-
+    private val popwindow:PopupWindow by lazy {
+        PopupWindow().apply {
+            height = ViewGroup.LayoutParams.WRAP_CONTENT
+            width = ViewGroup.LayoutParams.MATCH_PARENT
+            this.isOutsideTouchable = true
+            isFocusable = true
+            this.setBackgroundDrawable(ColorDrawable(Color.GRAY))
+        }
+    }
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
@@ -103,14 +110,6 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
         selectTypebinding = LayoutTaskSelectTypeBinding.inflate(inflater, container, false).apply {
             viewModel=this@TaskFragment.viewModel
             lifecycleOwner = this@TaskFragment
-        }
-
-        popwindow = PopupWindow().apply {
-            height = ViewGroup.LayoutParams.MATCH_PARENT-60
-            width = ViewGroup.LayoutParams.MATCH_PARENT
-            isOutsideTouchable = true
-            isFocusable = true
-            setBackgroundDrawable(ColorDrawable(Color.GRAY))
         }
 
         viewModel.tasks.observe(this, Observer {
@@ -215,16 +214,19 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
 
 
     private fun selectDate(){
-        popwindow.setContentView(selectDatebinding.root)
-        PopupWindowCompat.showAsDropDown(popwindow, binding.searchPlaceholder, 0, 0, Gravity.START)
+        viewModel.clickTopResult.value="DONE"
+        popwindow.contentView = selectDatebinding.root
+        PopupWindowCompat.showAsDropDown(popwindow, binding.patientsTopBar, 0, 0, Gravity.START)
     }
     private fun selectType(){
-        popwindow.setContentView(selectTypebinding.root)
-        PopupWindowCompat.showAsDropDown(popwindow, binding.searchPlaceholder, 0, 0, Gravity.START)
+        viewModel.clickTopResult.value="DONE"
+        popwindow.contentView = selectTypebinding.root
+        PopupWindowCompat.showAsDropDown(popwindow, binding.patientsTopBar, 0, 0, Gravity.START)
     }
 
 
     fun toSearchPatient(){
+        viewModel.clickTopResult.value="DONE"
         Intent(activity!!, SearchTaskActivity::class.java).let {
             startActivityForResult(it, BaseActivity.NEW_PATIENT_REQUEST)
         }
@@ -247,6 +249,13 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
             .setType(Type.ALL)
             .setWheelItemTextSize(16)
             .build()
+    }
+
+    override fun onPause() {
+        if (popwindow.isShowing)
+            popwindow.dismiss()
+        super.onPause()
+
     }
 
 }
