@@ -18,8 +18,12 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="actionMenuTextColor">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="android:textViewStyle">@style/BlackTextViewStyle</item>
     </style>
-
+    <style name="BlackTextViewStyle" parent="Widget.AppCompat.TextView">
+        <item name="android:textColor">@color/lable_font</item>
+        <item name="android:textColorHint">#C1C1C1</item>
+    </style>
     <style name="AppTheme.NoActionBar.Dark">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
