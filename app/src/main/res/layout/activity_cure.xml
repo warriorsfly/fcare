@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.cure.CureViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.details.cure.CureActivity">
+        <include layout="@layout/layout_new_title"
+                 android:id="@+id/title"
+        />
+
+        <androidx.core.widget.NestedScrollView
+                android:id="@+id/baseScroll"
+                android:background="#E7E4F2"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/include_container"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <include layout="@layout/layout_cure_pci"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             app:viewModel="@{viewModel}"
+                             android:id="@+id/pci"
+                             android:layout_marginTop="5dp"
+                             app:layout_constraintTop_toTopOf="parent"
+                             app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <include layout="@layout/layout_cure_thrombolysis"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             app:viewModel="@{viewModel}"
+                             android:id="@+id/throm"
+                             android:layout_marginTop="5dp"
+                             app:layout_constraintTop_toTopOf="parent"
+                             app:layout_constraintLeft_toLeftOf="parent"/>
+
+                    <include layout="@layout/layout_cure_cabg"
+                             android:layout_width="match_parent"
+                             android:layout_height="wrap_content"
+                             app:viewModel="@{viewModel}"
+                             android:id="@+id/cabg"
+                             android:layout_marginTop="5dp"
+                             app:layout_constraintTop_toTopOf="parent"
+                             app:layout_constraintLeft_toLeftOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container1"
+                        android:background="@color/white"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/include_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <TextView
+                            android:id="@+id/title1_1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/small_title_text_gray"
+                            android:text="24小时强化他汀治疗"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="24小时强化他汀治疗"/>
+                    <Switch
+                            android:id="@+id/swich_1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/line1"
+                            android:checked="@={viewModel.cure.treatStrategy.intensify_Statins_Treat}"
+                            android:layout_marginRight="19dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                    <View
+                            android:id="@+id/line1"
+                            android:background="@color/line_gray"
+                            app:layout_constraintTop_toBottomOf="@+id/title1_1"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+
+                    <TextView
+                            android:id="@+id/title1_2"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/line1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/small_title_text_gray"
+                            android:text="β受体阻滞剂使用"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="β受体阻滞剂使用"/>
+                    <Switch
+                            android:id="@+id/swich_2"
+                            app:layout_constraintTop_toBottomOf="@+id/line1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:checked="@={viewModel.cure.treatStrategy.receptor_Retardant_Using}"
+                            android:layout_marginRight="19dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                        android:id="@+id/title2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/container1"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="16sp"
+                        android:textColor="@color/small_title_text_gray"
+                        android:text="TIMI等级"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        tools:text="TIMI等级"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/container2"
+                        android:background="@color/white"
+                        android:layout_marginTop="15dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/title2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <TextView
+                            android:id="@+id/title2_1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/small_title_text_gray"
+                            android:text="手术前"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                    />
+                    <TextView
+                            android:id="@+id/tv2_3"
+                            android:text="3"
+                            android:onClick="@{()->viewModel.seletedNum1(`3`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num1.equals(`3`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num1.equals(`3`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/line2"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+                    <TextView
+                            android:id="@+id/tv2_2"
+                            android:text="2"
+                            android:onClick="@{()->viewModel.seletedNum1(`2`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="13.5dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num1.equals(`2`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num1.equals(`2`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/line2"
+                            app:layout_constraintRight_toLeftOf="@+id/tv2_3"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+
+                    <TextView
+                            android:id="@+id/tv2_1"
+                            android:text="1"
+                            android:onClick="@{()->viewModel.seletedNum1(`1`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="13.5dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num1.equals(`1`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num1.equals(`1`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/line2"
+                            app:layout_constraintRight_toLeftOf="@+id/tv2_2"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+
+                    <TextView
+                            android:id="@+id/tv2_0"
+                            android:text="0"
+                            android:onClick="@{()->viewModel.seletedNum1(`0`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="13.5dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num1.equals(`0`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num1.equals(`0`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toTopOf="@+id/line2"
+                            app:layout_constraintRight_toLeftOf="@+id/tv2_1"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+
+                    <View
+                            android:id="@+id/line2"
+                            android:background="@color/line_gray"
+                            app:layout_constraintTop_toBottomOf="@+id/title2_1"
+                            android:layout_marginTop="15dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"/>
+
+                    <TextView
+                            android:id="@+id/title3_1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/line2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/small_title_text_gray"
+                            android:text="手术后"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                    />
+                    <TextView
+                            android:id="@+id/tv3_3"
+                            android:text="3"
+                            android:onClick="@{()->viewModel.seletedNum2(`3`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="15dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num2.equals(`3`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num2.equals(`3`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toBottomOf="@+id/line2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+                    <TextView
+                            android:id="@+id/tv3_2"
+                            android:text="2"
+                            android:onClick="@{()->viewModel.seletedNum2(`2`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="13.5dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num2.equals(`2`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num2.equals(`2`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toBottomOf="@+id/line2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/tv2_3"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+
+                    <TextView
+                            android:id="@+id/tv3_1"
+                            android:text="1"
+                            android:onClick="@{()->viewModel.seletedNum2(`1`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="13.5dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num2.equals(`1`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num2.equals(`1`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toBottomOf="@+id/line2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/tv2_2"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+
+                    <TextView
+                            android:id="@+id/tv3_0"
+                            android:text="0"
+                            android:onClick="@{()->viewModel.seletedNum2(`0`)}"
+                            android:gravity="center"
+                            android:layout_marginRight="13.5dp"
+                            android:background="@drawable/bg_cure_num_gray"
+                            android:backgroundTint="@{viewModel.num2.equals(`0`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                            android:textColor="@{viewModel.num2.equals(`0`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                            app:layout_constraintTop_toBottomOf="@+id/line2"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/tv2_1"
+                            android:layout_width="33dp"
+                            android:layout_height="33dp"/>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

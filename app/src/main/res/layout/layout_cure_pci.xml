@@ -1,0 +1,753 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.cure.CureViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            goneUnless="@{viewModel.typeId.equals(`14-1`)||viewModel.typeId.equals(`14-3`)||viewModel.typeId.equals(`14-5`)}"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/model1"
+                        android:onClick="@{()->viewModel.clickSelectTime(`0`)}"
+                        android:background="@color/white"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                    <TextView
+                            android:id="@+id/title1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="介入人员"
+
+                            android:textSize="15sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/thromboly_place"
+                            android:layout_marginRight="39dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="13sp"
+                            android:text="@{viewModel.intervention.interventionMates}"
+                            android:gravity="right"
+                            android:background="?attr/selectableItemBackground"
+                            android:textColor="#7D7D7D"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/title1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe1"
+                            tools:text="本院急诊科"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe1"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/title1"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/line13"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/model1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/title13_1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/line13_content_container"
+                    android:layout_marginTop="17.5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="17.5dp"
+                    android:text="知情同意书"
+                    android:textSize="16sp"
+                    android:textColor="@color/small_title_text_gray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <TextView
+                    android:id="@+id/title13_2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/line13_content_container"
+                    android:layout_marginTop="17.5dp"
+                    android:layout_marginRight="52dp"
+                    android:layout_marginBottom="17.5dp"
+                    android:text="去谈话"
+                    android:textSize="16sp"
+                    android:textColor="#63B0F8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line13_content_container"
+                    goneUnless="@{!viewModel.cure.intervention.informedConsentId.equals(``)}"
+                    app:layout_constraintTop_toBottomOf="@+id/title13_1"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/content_13_1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:text="时长:"
+                        android:textSize="16sp"
+                        android:textColor="#525252"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/time_all"
+                        app:layout_constraintLeft_toRightOf="@+id/content_13_1"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="7dp"
+                        android:text="@{viewModel.talk.allTime}"
+                        android:textSize="16sp"
+                        android:textColor="#999999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/start_time"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/informed_content_title"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="19dp"
+                        android:drawableLeft="@drawable/ic_common_clock"
+                        android:drawablePadding="7dp"
+                        android:text="@{viewModel.talk.startTime}"
+                        android:textSize="16sp"
+                        android:textColor="#999999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                    android:id="@+id/rowe13_1"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/title13_1"
+                    android:layout_width="14dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@drawable/ic_right_arrow"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/model3"
+                        android:background="@color/white"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/line13"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_2"
+                            android:onClick="@{()->viewModel.clickSelectTime(`1`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_2"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="启动导管室"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:id="@+id/start"
+                                android:gravity="right"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:textColor="#7D7D7D"
+                                android:minWidth="90dp"
+                                android:text="@={viewModel.intervention.startConduitTime}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_2"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_2"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_3"
+                            android:onClick="@{()->viewModel.clickSelectTime(`2`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_3"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="激活导管室"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/end_thromboly_time"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:text="@={viewModel.intervention.activateConduitTime}"
+                                android:textColor="#7D7D7D"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
+                                tools:text="2019-01-18 13:23:15"
+                                android:minWidth="90dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_3"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_3"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_4"
+                            android:onClick="@{()->viewModel.clickSelectTime(`3`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_4"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="患者到达导管室"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/patient_arrive"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:minWidth="90dp"
+                                android:textColor="#7D7D7D"
+                                android:text="@={viewModel.intervention.arriveConduitTime}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_4"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_4"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_4"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_5"
+                            android:onClick="@{()->viewModel.clickSelectTime(`4`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_5"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="开始穿刺"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/start_puncture"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:minWidth="90dp"
+                                android:textColor="#7D7D7D"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_5"
+                                tools:text="2019-01-18 13:23:15"
+                                android:text="@={viewModel.intervention.startPunctureTime}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_5"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_5"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_6"
+                            android:onClick="@{()->viewModel.clickSelectTime(`5`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_5"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_6"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="穿刺成功"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/punctured"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:textColor="#7D7D7D"
+                                android:minWidth="90dp"
+                                android:text="@={viewModel.intervention.successPunctureTime}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_6"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_6"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_6"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_7"
+                            android:onClick="@{()->viewModel.clickSelectTime(`6`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_6"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_7"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="造影开始"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/start_angiography"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:textColor="#7D7D7D"
+                                android:minWidth="90dp"
+                                android:text="@={viewModel.intervention.startRadiographyTime}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_7"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_7"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_7"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_8"
+                            android:onClick="@{()->viewModel.clickSelectTime(`7`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_7"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_8"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="造影结束"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/angiographied"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:text="@={viewModel.intervention.endRadiographyTime}"
+                                android:textColor="#7D7D7D"
+                                android:minWidth="90dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_8"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_8"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_8"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_9"
+                            android:onClick="@{()->viewModel.clickSelectTime(`8`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_8"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_9"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="导丝通过"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/wire"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:textColor="#7D7D7D"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_9"
+                                tools:text="2019-01-18 13:23:15"
+                                android:minWidth="90dp"
+                                android:text="@={viewModel.intervention.balloonExpansionTime}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_9"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_9"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_10"
+                            android:onClick="@{()->viewModel.clickSelectTime(`9`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_9"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_10"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="手术结束"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/end"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:text="@={viewModel.intervention.endOperationTime}"
+                                android:minWidth="90dp"
+                                android:textColor="#7D7D7D"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_10"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_10"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_10"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/model3_11"
+                            android:onClick="@{()->viewModel.clickSelectTime(`10`)}"
+                            android:background="@color/white"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_10"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp">
+
+                        <TextView
+                                android:id="@+id/title3_11"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="离开导管室"
+                                android:textSize="15sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="选择时间"
+                                android:gravity="right"
+                                android:id="@+id/leave"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="13sp"
+                                android:textColor="#7D7D7D"
+                                android:text="@={viewModel.intervention.leave}"
+                                android:minWidth="90dp"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_11"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_11"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_11"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

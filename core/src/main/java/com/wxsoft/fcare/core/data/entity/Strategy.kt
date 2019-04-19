@@ -42,6 +42,30 @@ data class Strategy (val id:String=""): BaseObservable() {
             field = value
             notifyPropertyChanged(BR.noReperfusionCode)
         }
+    @Bindable
+    var intensify_Statins_Treat: Boolean = true
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.intensify_Statins_Treat)
+        }
+    @Bindable
+    var receptor_Retardant_Using: Boolean = true
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.receptor_Retardant_Using)
+        }
+    @Bindable
+    var preoperative_Timi_Level: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.preoperative_Timi_Level)
+        }
+    @Bindable
+    var postoperative_Timi_Level: Int = 0
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.postoperative_Timi_Level)
+        }
     @SerializedName("noReperfusionCode_Name")
     @Bindable
     var noReperfusionCodeName: String = ""

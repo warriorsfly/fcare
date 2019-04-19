@@ -104,5 +104,9 @@ annotation class ActionCode {
         const val ECG = 43
         const val EMR = 44
         const val SHARE = 45
+        /**
+         *
+         */
+        const val CURE = 46
     }
 }

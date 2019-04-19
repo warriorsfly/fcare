@@ -16,8 +16,10 @@ class SelectDrugsActivity : BaseActivity() {
 
 
     private lateinit var patientId:String
+    private lateinit var comeFrom:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val COME_FROM = "COME_FROM"
     }
 
     private lateinit var viewModel: SelectDrugsViewModel
@@ -38,6 +40,7 @@ class SelectDrugsActivity : BaseActivity() {
                 lifecycleOwner = this@SelectDrugsActivity
             }
         patientId=intent.getStringExtra(SelectDrugsActivity.PATIENT_ID)?:""
+        comeFrom=intent.getStringExtra(SelectDrugsActivity.COME_FROM)?:""
         viewModel.patientId = patientId
         binding.viewModel = viewModel
 
