@@ -226,4 +226,10 @@ class NetWorkModule {
         return retrofit.create(ShareApi::class.java)
     }
 
+    @Provides
+    @Reusable
+    fun provideCureApi(retrofit: Retrofit):CureApi{
+        return retrofit.create(CureApi::class.java)
+    }
+
 }

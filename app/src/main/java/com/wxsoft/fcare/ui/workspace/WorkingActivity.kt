@@ -25,6 +25,7 @@ import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
+import com.wxsoft.fcare.ui.details.cure.CureActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
@@ -56,6 +57,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
 import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
 import com.wxsoft.fcare.utils.ActionCode.Companion.CT_OPERATION
+import com.wxsoft.fcare.utils.ActionCode.Companion.CURE
 import com.wxsoft.fcare.utils.ActionCode.Companion.Catheter
 import com.wxsoft.fcare.utils.ActionCode.Companion.DIAGNOSE
 import com.wxsoft.fcare.utils.ActionCode.Companion.DRUGRECORD
@@ -286,7 +288,10 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, STRATEGY)
             }
             ActionType.治疗操作 ->{
-
+                val intent = Intent(this@WorkingActivity, CureActivity::class.java).apply {
+                    putExtra(CureActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, CURE)
             }
 
             ActionType.DispostionMeasures->{

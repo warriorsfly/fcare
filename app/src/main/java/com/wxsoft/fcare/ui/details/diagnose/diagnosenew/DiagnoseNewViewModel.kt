@@ -90,6 +90,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         diagnosisTreatment.value?.acs = acsDrug.value!!
         diagnosisTreatment.value?.treatStrategy = selectedTreatment.value!!
         diagnosisTreatment.value?.talk = talk.value!!
+        diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
         disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

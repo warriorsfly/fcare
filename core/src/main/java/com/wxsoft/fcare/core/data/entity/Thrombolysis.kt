@@ -70,21 +70,9 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
      */
     @SerializedName("is_Direct")
     @Bindable
-    var direct:String=""
-        set(value) {
-            field=value
-            notifyPropertyChanged(BR.direct)
-        }
-
-    /**
-     *  是否直达 选填（1 是 2否 空值表示未选择，传1,2或空值）
-     */
-    @Transient
-    @Bindable
     var hasDirect:Boolean=true
         set(value) {
             field=value
-            direct = if (value) "1" else "2"
             notifyPropertyChanged(BR.hasDirect)
         }
 
@@ -261,6 +249,26 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
         }
 
     /**
+     *  用药 第一代 第二代 第三代
+     */
+    @Bindable
+    var throm_Drug_Type_Dt:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.throm_Drug_Type_Dt)
+        }
+      /**
+     *  用药 剂量 全量 半量
+     */
+    @Bindable
+    var throm_Drug_Code_Dt:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.throm_Drug_Code_Dt)
+        }
+
+
+    /**
      *  知情同意书id
      */
     @Bindable
@@ -292,7 +300,6 @@ class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
     }
 
     fun setUpChecked(){
-        hasDirect = direct == "1"
         getInformedTime()
         getComplicationStr()
     }

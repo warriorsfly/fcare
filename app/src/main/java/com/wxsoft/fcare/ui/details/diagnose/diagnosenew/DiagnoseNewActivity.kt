@@ -197,8 +197,9 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                 }
 
                 SELECT_TREATMENT ->{
+                    val stegyId = viewModel.selectedTreatment.value?.id!!
                     val dic = data?.getSerializableExtra("SelectOption") as Dictionary
-                    viewModel.loadSelectedTreatment.value = Strategy("").apply {
+                    viewModel.loadSelectedTreatment.value = Strategy(stegyId).apply {
                         strategyCode = dic.id
                         patientId = this@DiagnoseNewActivity.patientId
                         strategyCode_Name = dic.itemName
