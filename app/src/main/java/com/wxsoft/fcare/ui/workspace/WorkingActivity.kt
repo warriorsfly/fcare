@@ -184,6 +184,10 @@ class WorkingActivity : BaseActivity() {
                    onBackPressed()
                 }
 
+                back.setOnClickListener {
+                    onBackPressed()
+                }
+
                 timeLine.setOnClickListener {
                     val intent = Intent(this@WorkingActivity, TimePointActivity::class.java)
                         .apply {

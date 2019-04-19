@@ -16,7 +16,6 @@
                 app:titleMarginStart="0dp"
                 app:titleTextAppearance="@style/ActionBarTitle.White"
                 app:contentInsetStartWithNavigation="0dp"
-                app:navigationIcon="@drawable/ic_back"
-        />
+                app:navigationIcon="@drawable/ic_back"/>
     </com.google.android.material.appbar.AppBarLayout>
 </layout>

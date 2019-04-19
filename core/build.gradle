@@ -4,10 +4,9 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-
     signingConfigs {
         release {
-            storeFile file('../key')
+            storeFile file('../key.jks')
             storePassword '123456'
             keyAlias = 'key0'
             keyPassword '123456'

@@ -21,7 +21,7 @@ class MessageAdapter constructor(private val owner: LifecycleOwner) :
         holder.binding.apply {
             val message=getItem(position)
             item = message
-            icon.setImageResource(if(message?.messageType==2) R.drawable.ic_message_type2 else 0)
+            icon.setImageResource(if(message?.messageType==2) R.drawable.ic_message_type2 else R.drawable.ic_message_type1)
             executePendingBindings()
 
         }

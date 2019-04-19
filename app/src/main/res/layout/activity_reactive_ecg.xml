@@ -10,16 +10,21 @@
     tools:context=".ui.launch.LauncherActivity">
 
     <ImageView
-            android:padding="6dp"
+        android:padding="6dp"
+        android:id="@+id/image"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ic_reactive_ecg"/>
+        android:src="@drawable/pg_reactive_ecg"/>
 
     <ImageView
         android:src="@drawable/ic_delete_white"
         android:id="@+id/close"
+        android:visibility="gone"
+        android:layout_gravity="right"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </FrameLayout>

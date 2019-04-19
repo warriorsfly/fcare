@@ -66,7 +66,9 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.share.ShareActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
+                android:theme="@style/AppTheme.NoActionBar"
+                android:screenOrientation="portrait"
+        />
         <activity
                 android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
@@ -164,7 +166,7 @@
         <activity
                 android:name=".ui.details.ecg.ReactiveEcgActivity"
                 android:configChanges="orientation|keyboardHidden|screenSize"
-                android:screenOrientation="portrait"
+                android:screenOrientation="sensor"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
         <activity
