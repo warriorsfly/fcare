@@ -21,40 +21,44 @@ class ReactiveEcgActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reactive_ecg)
         close.setOnClickListener { finish() }
-    }
 
-    fun doLand(st:Boolean){
-        if(st) {
-
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-
-        }
-    }
-
-    fun showImage(st:Boolean){
-        image.visibility=if(st)View.VISIBLE else View.GONE
-    }
-
-    override fun onRestart() {
-
-        super.onRestart()
         disposable.add(
             Single.fromCallable { doStart() }
                 .delay(1, TimeUnit.SECONDS).subscribe(::doLand, ::error)
         )
-        image.visibility=if(requestedOrientation==ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)View.VISIBLE else View.GONE
-        close.visibility=if(requestedOrientation==ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)View.VISIBLE else View.GONE
-
     }
 
+    fun doLand(st:Boolean){
+        if(!st) {
 
-    fun doStart()=requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+    }
+
+//    override fun onRestart() {
+//
+//        super.onRestart()
+//        disposable.add(
+//            Single.fromCallable { doStart() }
+//                .delay(1, TimeUnit.SECONDS).subscribe(::doLand, ::error)
+//        )
+//        image.visibility=if(requestedOrientation==ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)View.VISIBLE else View.GONE
+//        close.visibility=if(requestedOrientation==ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)View.VISIBLE else View.GONE
+//
+//    }
+//
+//
+
+
+    private fun doStart()=requestedOrientation == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            image.visibility=View.VISIBLE
+            close.visibility=View.VISIBLE
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+            image.visibility=View.GONE
+            close.visibility=View.GONE
         }
     }
 
