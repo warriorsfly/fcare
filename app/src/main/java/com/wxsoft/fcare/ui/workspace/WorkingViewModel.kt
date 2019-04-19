@@ -43,6 +43,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     val timestamp=ObservableLong().apply { set(0) }
     val hour=ObservableLong().apply { set(0) }
     val minute=ObservableLong().apply { set(0) }
+    val second=ObservableLong().apply { set(0) }
     var patientId:String=""
         set(value) {
             field=value
@@ -65,7 +66,11 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     private val loadPatientResult=MediatorLiveData<Response<Patient>>()
 
     init {
-        patient=loadPatientResult.map { it.result?: Patient() }
+        patient=loadPatientResult.map { it.result?.apply {
+            if(diagnosis2Name.isNullOrEmpty()) {
+                diagnosis2Name = "诊断中"
+            }
+        }?: Patient() }
     }
 
     /**

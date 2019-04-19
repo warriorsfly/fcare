@@ -47,6 +47,7 @@
                             app:layout_constraintLeft_toLeftOf="parent"
                             android:id="@+id/back"
                             android:tint="@color/white"
+                            android:layout_marginTop="8dp"
                             android:layout_marginLeft="16dp"
                             android:src="@drawable/ic_back"
                             android:layout_width="14dp"
@@ -70,7 +71,7 @@
                             app:layout_constraintLeft_toLeftOf="@id/back_away"
                             android:textColor="#131D35"
                             android:id="@+id/gender"
-                            android:src="@{viewModel.patient.Male?@drawable/ic_gender_man:@drawable/ic_gender_woman}"
+                            android:src="@{viewModel.patient.Male?@drawable/ic_man:@drawable/ic_woman}"
                             android:layout_marginRight="16dp"
                             android:layout_width="14dp"
                             android:layout_height="14dp"/>
@@ -78,6 +79,7 @@
                     <TextView
                             android:id="@+id/age"
                             app:layout_constraintTop_toTopOf="@id/gender"
+                            app:layout_constraintBottom_toBottomOf="@id/gender"
                             app:layout_constraintLeft_toRightOf="@id/gender"
                             android:textColor="@color/white"
                             android:layout_marginLeft="10dp"

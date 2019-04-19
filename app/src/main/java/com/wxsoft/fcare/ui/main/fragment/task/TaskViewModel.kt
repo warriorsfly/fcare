@@ -63,7 +63,10 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
         searchTasks = loadSearchTasksResult.map { (it as? Resource.Success)?.data?.result?: emptyList() }
         clickTop = clickTopResult.map { it }
         clickCusDate = clickCusDateResult.map { it }
-        checkCondition = checkConditionResult.map { it?:PatientsCondition(1,10) }
+        checkCondition = checkConditionResult.map { it?:PatientsCondition(1,10).apply {
+            startDate = getTimesmorning()
+            endDate = DateTimeUtils.getCurrentTime()
+        } }
         checkConditionResult.value = null
 //        success = loadTasksResult.map { it == Resource.Loading }
 //        tasks = loadTasksResult.map {
@@ -85,7 +88,10 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
     private val patientName = MediatorLiveData<String>()
 
     private val taskResult = patientName.map{
-        repository.getTasks(checkCondition.value?:PatientsCondition(1,10))
+        repository.getTasks(checkCondition.value?:PatientsCondition(1,10).apply {
+            startDate = getTimesmorning()
+            endDate = DateTimeUtils.getCurrentTime()
+        } )
     }
 
     val tasks = taskResult.switchMap {

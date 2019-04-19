@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c665f8c79de84165bf49d37c7719cf07",
+    "identityHash": "2c694f60a2d3bfb59e25ae7b86b82b70",
     "entities": [
       {
         "tableName": "patients",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` TEXT, `name` TEXT NOT NULL, `unKnown` INTEGER NOT NULL, `hospitalId` TEXT NOT NULL, `citizen` TEXT NOT NULL, `wristband` TEXT NOT NULL, `outpatientId` TEXT NOT NULL, `inpatientId` TEXT NOT NULL, `idcard` TEXT NOT NULL, `firstMet` TEXT, `gender` INTEGER NOT NULL, `age` INTEGER NOT NULL, `ageUnit` TEXT NOT NULL, `phone` TEXT NOT NULL, `attackPosition` TEXT NOT NULL, `unKnowAttackingTime` INTEGER NOT NULL, `attackZone` TEXT NOT NULL, `attackTime` TEXT, `callForHelp` INTEGER NOT NULL, `helpDate` TEXT NOT NULL, `helpCode` INTEGER NOT NULL, `diagnosisCode` TEXT NOT NULL, `diagnosisName` TEXT NOT NULL, `diagnosis2Name` TEXT NOT NULL, `memo` TEXT NOT NULL, `registerId` TEXT NOT NULL, `status` INTEGER NOT NULL, `currentScene` TEXT NOT NULL, `currentSceneName` TEXT NOT NULL, `comingWay_Name` TEXT NOT NULL, `comingWay` TEXT NOT NULL, `createdBy` TEXT NOT NULL, `createdDate` TEXT, `modifiedBy` TEXT NOT NULL, `modifiedDate` TEXT, `strategyName` TEXT NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`taskId` TEXT, `name` TEXT NOT NULL, `unKnown` INTEGER NOT NULL, `hospitalId` TEXT NOT NULL, `citizen` TEXT NOT NULL, `wristband` TEXT NOT NULL, `outpatientId` TEXT NOT NULL, `inpatientId` TEXT NOT NULL, `idcard` TEXT NOT NULL, `firstMet` TEXT, `gender` INTEGER NOT NULL, `age` INTEGER NOT NULL, `ageUnit` TEXT NOT NULL, `phone` TEXT NOT NULL, `attackPosition` TEXT NOT NULL, `unKnowAttackingTime` INTEGER NOT NULL, `attackZone` TEXT NOT NULL, `attackTime` TEXT, `callForHelp` INTEGER NOT NULL, `helpDate` TEXT NOT NULL, `helpCode` INTEGER NOT NULL, `diagnosisCode` TEXT NOT NULL, `diagnosisName` TEXT NOT NULL, `diagnosis2Name` TEXT, `memo` TEXT NOT NULL, `registerId` TEXT NOT NULL, `status` INTEGER NOT NULL, `currentScene` TEXT NOT NULL, `currentSceneName` TEXT NOT NULL, `comingWay_Name` TEXT NOT NULL, `comingWay` TEXT NOT NULL, `createdBy` TEXT NOT NULL, `createdDate` TEXT, `modifiedBy` TEXT NOT NULL, `modifiedDate` TEXT, `strategyName` TEXT NOT NULL, `id` TEXT NOT NULL, PRIMARY KEY(`id`))",
         "fields": [
           {
             "fieldPath": "taskId",
@@ -150,7 +150,7 @@
             "fieldPath": "diagnosis2Name",
             "columnName": "diagnosis2Name",
             "affinity": "TEXT",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "memo",
@@ -244,7 +244,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c665f8c79de84165bf49d37c7719cf07\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"2c694f60a2d3bfb59e25ae7b86b82b70\")"
     ]
   }
 }

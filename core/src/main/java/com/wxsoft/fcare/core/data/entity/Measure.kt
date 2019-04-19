@@ -6,11 +6,13 @@ import java.lang.StringBuilder
 data class Measure (@SerializedName("measureDtos")
                     var measureDtos:List<MeasureDic> = emptyList(),
                     @SerializedName("pre_Visit_Result_Code")
-                    var preVisitResultCode:String?,
+                    var preVisitResultCode:String?=null,
                     @SerializedName("pre_Direct_DepartId")
-                    var preDirectDepartId:String?,
+                    var preDirectDepartId:String?=null,
                     @SerializedName("pre_Cure_Result_Code")
-                    var preCureResultCode:String?,
+                    var preCureResultCode:String?=null,
+                    @SerializedName("pre_Cure_Result_Code_Name")
+                    var preCureResultName:String?=null,
                     var createDate:String?=null
                     ){
     override fun toString(): String {

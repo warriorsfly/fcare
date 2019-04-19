@@ -211,7 +211,7 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
 
     @SerializedName("diagnosisCode2_Name")
     @get:Bindable
-    var diagnosis2Name: String=""
+    var diagnosis2Name: String?=null
         set(value) {
             if(value == "代码不存在")return
             field = value

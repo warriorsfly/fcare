@@ -68,7 +68,7 @@ class MeasuresViewModel @Inject constructor(private val dicEnumApi: DictEnumApi,
         cureResultItems = loadCureResultItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         outcallResultItems = loadOutcallResultItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
 
-        measure = loadMeasureResult.map { (it as? Resource.Success)?.data?.result?: Measure(emptyList(),"","","") }
+        measure = loadMeasureResult.map { (it as? Resource.Success)?.data?.result?: Measure() }
 
         getMeasuresItems()
         getCureResultItems()

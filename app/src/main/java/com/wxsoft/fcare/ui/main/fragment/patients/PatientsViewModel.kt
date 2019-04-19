@@ -54,7 +54,10 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
 
     init {
         clickTop = clickTopResult.map { it }
-        checkCondition = checkConditionResult.map { it ?: PatientsCondition(1, 10) }
+        checkCondition = checkConditionResult.map { it ?: PatientsCondition(1, 10).apply {
+            startDate = getTimesmorning()
+            endDate = DateTimeUtils.getCurrentTime()
+        } }
         clickCusDate = clickCusDateResult.map { it }
         checkConditionResult.value = null
         typeItems = loadtypeItemsResult.map {
@@ -82,7 +85,10 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     private val patientName = MediatorLiveData<String>()
 
     private val patientResult = patientName.map{
-        repository.getPatients(checkCondition.value?:PatientsCondition(1,10))
+        repository.getPatients(checkCondition.value?:PatientsCondition(1,10).apply {
+            startDate = getTimesmorning()
+            endDate = DateTimeUtils.getCurrentTime()
+        })
     }
 
     val patients = patientResult.switchMap {
