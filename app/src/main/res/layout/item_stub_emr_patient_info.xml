@@ -11,58 +11,58 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <!--<TextView-->
-        <!--android:id="@+id/patient_name"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginStart="@dimen/activity_horizontal_margin"-->
-        <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-        <!--android:layout_marginTop="@dimen/spacing_normal"-->
-        <!--android:textSize="17dp"-->
-        <!--android:textColor="@color/small_title_text_gray"-->
-        <!--tools:text="老王"-->
-        <!--android:text="@{patient.name}"-->
-        <!--android:textStyle="bold"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/patient_name"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
+<!--        android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+<!--        android:layout_marginTop="@dimen/spacing_normal"-->
+<!--        android:textSize="17dp"-->
+<!--        android:textColor="@color/small_title_text_gray"-->
+<!--        tools:text="老王"-->
+<!--        android:text="@{patient.name}"-->
+<!--        android:textStyle="bold"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
-    <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-        <!--android:id="@+id/sex_age_container"-->
-        <!--android:background="@{patient.gender==1?@drawable/bg_conor_green:@drawable/bg_conor_blue}"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/patient_name"-->
-        <!--app:layout_constraintLeft_toRightOf="@+id/patient_name"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/patient_name"-->
-        <!--android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
-        <!--android:padding="1dp"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content">-->
+<!--    <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--        android:id="@+id/sex_age_container"-->
+<!--        android:background="@{patient.gender==1?@drawable/bg_conor_green:@drawable/bg_conor_blue}"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/patient_name"-->
+<!--        app:layout_constraintLeft_toRightOf="@+id/patient_name"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/patient_name"-->
+<!--        android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
+<!--        android:padding="1dp"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content">-->
 
-    <!--<ImageView-->
-        <!--android:layout_width="12dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"-->
-        <!--android:id="@+id/gender"-->
-        <!--android:textSize="12dp"-->
-        <!--android:src="@{patient.gender==1 ?@drawable/ic_man:@drawable/ic_woman}"-->
-        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"/>-->
+<!--    <ImageView-->
+<!--        android:layout_width="12dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"-->
+<!--        android:id="@+id/gender"-->
+<!--        android:textSize="12dp"-->
+<!--        android:src="@{patient.gender==1 ?@drawable/ic_man:@drawable/ic_woman}"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:background="@color/white"-->
-        <!--android:id="@+id/age"-->
-        <!--android:textSize="12dp"-->
-        <!--android:paddingLeft="2dp"-->
-        <!--tools:text="24"-->
-        <!--android:textColor="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--android:text="@{ String.valueOf(patient.age)+`岁`}"-->
-        <!--app:layout_constraintLeft_toRightOf="@id/gender"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintRight_toRightOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"/>-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/white"-->
+<!--        android:id="@+id/age"-->
+<!--        android:textSize="12dp"-->
+<!--        android:paddingLeft="2dp"-->
+<!--        tools:text="24"-->
+<!--        android:textColor="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"-->
+<!--        android:layout_marginLeft="4dp"-->
+<!--        android:text="@{ String.valueOf(patient.age)+`岁`}"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/gender"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
 
 <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
@@ -70,89 +70,89 @@
 
 
 <!--<TextView-->
-    <!--android:id="@+id/patient_state"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
-    <!--android:layout_marginRight="@dimen/activity_horizontal_margin"-->
-    <!--android:textSize="12dp"-->
-    <!--tools:text="急救中"-->
-    <!--android:paddingLeft="10dp"-->
-    <!--android:paddingRight="10dp"-->
-    <!--android:paddingTop="3dp"-->
-    <!--android:paddingBottom="3dp"-->
-    <!--app:diagnosisCode="@{patient.diagnosisCode}"-->
-    <!--android:textColor="@android:color/white"-->
-    <!--android:text="@{patient.diagnosisName}"-->
-    <!--app:layout_constraintTop_toTopOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"/>-->
+<!--    android:id="@+id/patient_state"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
+<!--    android:layout_marginRight="@dimen/activity_horizontal_margin"-->
+<!--    android:textSize="12dp"-->
+<!--    tools:text="急救中"-->
+<!--    android:paddingLeft="10dp"-->
+<!--    android:paddingRight="10dp"-->
+<!--    android:paddingTop="3dp"-->
+<!--    android:paddingBottom="3dp"-->
+<!--    app:diagnosisCode="@{patient.diagnosisCode}"-->
+<!--    android:textColor="@android:color/white"-->
+<!--    android:text="@{patient.diagnosisName}"-->
+<!--    app:layout_constraintTop_toTopOf="parent"-->
+<!--    app:layout_constraintRight_toRightOf="parent"/>-->
 
-    <!--<ImageView-->
-        <!--android:id="@+id/ic_1"-->
-        <!--android:layout_width="13dp"-->
-        <!--android:layout_height="13dp"-->
-        <!--android:src="@drawable/ic_time_record"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--app:layout_constraintLeft_toLeftOf="@id/patient_name"-->
-        <!--app:layout_constraintTop_toBottomOf="@id/patient_name" />-->
+<!--    <ImageView-->
+<!--        android:id="@+id/ic_1"-->
+<!--        android:layout_width="13dp"-->
+<!--        android:layout_height="13dp"-->
+<!--        android:src="@drawable/ic_time_record"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        app:layout_constraintLeft_toLeftOf="@id/patient_name"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/patient_name" />-->
 
-    <!--<TextView-->
-        <!--android:id="@+id/attack_time"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:textSize="12dp"-->
-        <!--android:textColor="@color/small_text_gray"-->
-        <!--android:text="@{patient.attackTime.substring(11,16)}"-->
-        <!--tools:text="18:33"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--app:layout_constraintLeft_toRightOf="@id/ic_1"-->
-        <!--app:layout_constraintBottom_toBottomOf="@+id/ic_1"-->
-        <!--app:layout_constraintTop_toTopOf="@id/ic_1" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/attack_time"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="12dp"-->
+<!--        android:textColor="@color/small_text_gray"-->
+<!--        android:text="@{patient.attackTime.substring(11,16)}"-->
+<!--        tools:text="18:33"-->
+<!--        android:layout_marginLeft="4dp"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/ic_1"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/ic_1"-->
+<!--        app:layout_constraintTop_toTopOf="@id/ic_1" />-->
 
-    <!--<ImageView-->
-        <!--android:id="@+id/ic_2"-->
-        <!--android:layout_width="13dp"-->
-        <!--android:layout_height="13dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:src="@drawable/ic_tel_phone"-->
-        <!--app:layout_constraintLeft_toRightOf="@id/attack_time"-->
-        <!--app:layout_constraintBottom_toBottomOf="@id/ic_1" />-->
+<!--    <ImageView-->
+<!--        android:id="@+id/ic_2"-->
+<!--        android:layout_width="13dp"-->
+<!--        android:layout_height="13dp"-->
+<!--        android:layout_marginLeft="10dp"-->
+<!--        android:src="@drawable/ic_tel_phone"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/attack_time"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/ic_1" />-->
 
-    <!--<TextView-->
-        <!--android:id="@+id/patient_phone"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--android:textSize="12dp"-->
-        <!--tools:text="13699663569"-->
-        <!--android:text="@{String.valueOf(patient.phone)}"-->
-        <!--android:textColor="@color/small_text_gray"-->
-        <!--app:layout_constraintLeft_toRightOf="@id/ic_2"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/attack_time"-->
-        <!--app:layout_constraintBottom_toBottomOf="@id/attack_time" />-->
+<!--    <TextView-->
+<!--        android:id="@+id/patient_phone"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="4dp"-->
+<!--        android:textSize="12dp"-->
+<!--        tools:text="13699663569"-->
+<!--        android:text="@{String.valueOf(patient.phone)}"-->
+<!--        android:textColor="@color/small_text_gray"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/ic_2"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/attack_time"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/attack_time" />-->
 
-    <!--<ImageView-->
-        <!--android:id="@+id/ic_3"-->
-        <!--android:layout_width="13dp"-->
-        <!--android:layout_height="13dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:src="@drawable/ic_location"-->
-        <!--app:layout_constraintLeft_toLeftOf="@+id/ic_1"-->
-        <!--app:layout_constraintTop_toBottomOf="@+id/ic_1"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"/>-->
+<!--    <ImageView-->
+<!--        android:id="@+id/ic_3"-->
+<!--        android:layout_width="13dp"-->
+<!--        android:layout_height="13dp"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginBottom="8dp"-->
+<!--        android:src="@drawable/ic_location"-->
+<!--        app:layout_constraintLeft_toLeftOf="@+id/ic_1"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/ic_1"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@{patient.attackPosition}"-->
-        <!--android:textColor="@color/small_text_gray"-->
-        <!--android:textSize="12dp"-->
-        <!--tools:text="黄山路国家大学科技园"-->
-        <!--android:layout_marginLeft="4dp"-->
-        <!--app:layout_constraintLeft_toRightOf="@id/ic_3"-->
-        <!--app:layout_constraintBottom_toBottomOf="@id/ic_3"-->
-        <!--app:layout_constraintTop_toTopOf="@+id/ic_3" />-->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="@{patient.attackPosition}"-->
+<!--        android:textColor="@color/small_text_gray"-->
+<!--        android:textSize="12dp"-->
+<!--        tools:text="黄山路国家大学科技园"-->
+<!--        android:layout_marginLeft="4dp"-->
+<!--        app:layout_constraintLeft_toRightOf="@id/ic_3"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/ic_3"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/ic_3" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

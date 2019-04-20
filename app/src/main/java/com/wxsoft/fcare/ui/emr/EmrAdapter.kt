@@ -115,7 +115,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             is ItemViewHolder.BaseInfoViewHolder->{
                 holder.binding.apply {
                     item=emr
-//                    patient=emr.result as? Patient
+                    patient=emr.result as? Patient
 //                    patient?.let {
 //                        if(!panel.isInflated){
 //                            panel.viewStub?.inflate()
@@ -129,8 +129,12 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 holder.binding.apply {
                     item=emr
                     if(tabLayout.tabCount==0){
-                        ( emr.result as? List<Record<VitalSign>>)?.forEach {
-                            tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
+                        val tabs=( emr.result as? List<Record<VitalSign>>)
+                            tabs?.forEach {
+                                tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
+                            }
+                        if(tabs?.size?:0==1){
+                            tabLayout.visibility=View.GONE
                         }
                     }
                     executePendingBindings()
