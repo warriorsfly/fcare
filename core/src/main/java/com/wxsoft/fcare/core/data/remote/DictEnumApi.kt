@@ -30,6 +30,9 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/234")
     fun loadNoRefushionResons(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/236")
+    fun loadCalls(): Maybe<List<Dictionary>>
+
     /**
      * 非心源ACS
      */

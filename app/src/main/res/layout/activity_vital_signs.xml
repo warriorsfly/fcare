@@ -24,47 +24,8 @@
                 app:layout_constraintBottom_toBottomOf="parent">
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#FFFFFF"
+                android:layout_height="match_parent"
                 app:layout_constraintLeft_toLeftOf="parent">
-
-
-            <!--<android.support.constraint.ConstraintLayout-->
-                    <!--android:layout_width="0dp"-->
-                    <!--android:layout_height="50dp"-->
-                    <!--goneUnless="@{false}"-->
-                    <!--android:paddingLeft="12dp"-->
-                    <!--android:paddingRight="12dp"-->
-                    <!--android:id="@+id/base_info_item0"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--app:layout_constraintStart_toStartOf="parent"-->
-                    <!--app:layout_constraintEnd_toEndOf="parent"-->
-                    <!--app:layout_constraintLeft_toLeftOf="parent">-->
-                <!--<TextView-->
-                        <!--android:id="@+id/content0"-->
-                        <!--android:textSize="15sp"-->
-                        <!--android:textColor="#131D35"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:text="Killip分级："-->
-                        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                        <!--app:layout_constraintTop_toTopOf="parent"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent" />-->
-
-                <!--<android.support.v7.widget.AppCompatSpinner-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginStart="8dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:selectedItemPosition="@={viewModel.vital.killip_Unit_int}"-->
-                        <!--android:entries="@array/killip_leavel"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--app:layout_constraintStart_toEndOf="@+id/content0"-->
-                        <!--app:layout_constraintTop_toTopOf="parent"-->
-                        <!--app:layout_constraintEnd_toEndOf="parent"-->
-                        <!--android:gravity="center"/>-->
-
-            <!--</android.support.constraint.ConstraintLayout>-->
 
             <View android:layout_width="match_parent"
                   android:layout_height="1dp"
@@ -73,13 +34,68 @@
                   android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line0"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/white"
+                    android:onClick="@{()->viewModel.clickTime(`0`)}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                <TextView
+                        android:id="@+id/title0_1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="17.5dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginBottom="17.5dp"
+                        android:text="链接硬件"
+                        android:textSize="16sp"
+                        android:textColor="@color/small_title_text_gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:text="获取数据"
+                        android:id="@+id/aa"
+                        android:layout_marginRight="19dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:textSize="16sp"
+                        android:textColor="#63B0F8"
+                        android:gravity="right"
+                        android:minWidth="90dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toLeftOf="@+id/rowe0_1"
+                        app:layout_constraintLeft_toRightOf="@+id/title0_1"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        android:id="@+id/rowe0_1"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@id/title0_1"
+                        android:layout_width="14dp"
+                        android:layout_height="24dp"
+                        android:layout_marginRight="19dp"
+                        android:background="@drawable/ic_right_arrow"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
+                    android:layout_marginTop="15dp"
                     android:paddingLeft="12dp"
                     android:paddingRight="12dp"
                     android:id="@+id/base_info_item1"
                     android:onClick="@{()->viewModel.selectConscious()}"
-                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/line0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent">
@@ -89,13 +105,14 @@
                         android:textColor="#131D35"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="意识："
+                        android:text="意识"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent" />
 
                 <TextView
                         android:hint="选择意识"
+                        android:textColorHint="#999999"
                         android:id="@+id/start"
                         android:gravity="right"
                         android:layout_marginRight="60dp"
@@ -122,19 +139,6 @@
                         android:layout_marginRight="5dp"
                         android:background="@drawable/ic_right_arrow"/>
 
-                <!--<androidx.appcompat.widget.AppCompatSpinner-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginStart="8dp"-->
-                        <!--android:textSize="12sp"-->
-                        <!--android:selectedItemPosition="@={viewModel.selectedConsciousnessPosition}"-->
-                        <!--android:entries="@{viewModel.consciousnessItems}"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--app:layout_constraintStart_toEndOf="@+id/content"-->
-                        <!--app:layout_constraintTop_toTopOf="parent"-->
-                        <!--app:layout_constraintEnd_toEndOf="parent"-->
-                        <!--android:gravity="center"/>-->
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View android:layout_width="match_parent"
@@ -144,6 +148,7 @@
                   android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -160,7 +165,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="呼吸："/>
+                        android:text="呼吸"/>
 
                 <EditText android:selectAllOnFocus="true"
                           android:layout_width="0dp"
@@ -204,6 +209,7 @@
                   android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -220,7 +226,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="脉搏：" />
+                        android:text="脉搏" />
 
                 <EditText android:selectAllOnFocus="true"
                           android:layout_width="0dp"
@@ -263,6 +269,7 @@
                   android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -279,7 +286,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="心率：" />
+                        android:text="心率" />
 
                 <EditText android:selectAllOnFocus="true"
                           android:layout_width="0dp"
@@ -322,6 +329,7 @@
                   android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -338,7 +346,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="血压：" />
+                        android:text="血压" />
 
                 <EditText android:selectAllOnFocus="true"
                           android:layout_width="140dp"
@@ -411,6 +419,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -427,7 +436,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="血氧：" />
+                        android:text="血氧" />
 
                 <EditText android:selectAllOnFocus="true"
                           android:layout_width="0dp"
@@ -471,6 +480,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -487,7 +497,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="体温：" />
+                        android:text="体温" />
 
                 <EditText android:selectAllOnFocus="true"
                           android:layout_width="0dp"
@@ -529,6 +539,7 @@
                   android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:paddingLeft="12dp"
@@ -545,7 +556,7 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="体重：" />
+                        android:text="体重" />
 
                 <EditText android:selectAllOnFocus="true"
                           android:layout_width="0dp"
@@ -586,6 +597,7 @@
                   app:layout_constraintTop_toBottomOf="@+id/base_info_item6"
                   app:layout_constraintLeft_toLeftOf="parent"
                   android:background="#EDEDED"/>
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

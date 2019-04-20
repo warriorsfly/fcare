@@ -250,6 +250,7 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                     viewModel.talk.value?.allTime = data?.getStringExtra("allTime")?:""
                     viewModel.talk.value?.informedConsent?.informedTypeName = data?.getStringExtra("typename")?:""
                     viewModel.talk.value?.judgeTime()
+                    viewModel.talkShow.set(true)
                 }
 
             }

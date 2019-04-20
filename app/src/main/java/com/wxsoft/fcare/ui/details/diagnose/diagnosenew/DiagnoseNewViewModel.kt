@@ -32,6 +32,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
 
     var doctorName=ObservableField<String>()
     var graceScore=ObservableField<Int>()
+    var talkShow=ObservableField<Boolean>()
 
 
     var diagnosis: LiveData<Diagnosis>
@@ -84,6 +85,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
             judgeTime()
         }
         graceScore.set(diagnosisTreatment.value?.graceRating?.score)
+        talkShow.set(!diagnosisTreatment.value?.talk?.allTime.isNullOrEmpty())
     }
 
     fun saveDiagnose(){

@@ -24,7 +24,12 @@ interface NotificationApi {
     @GET("Message/GetWaitNoticeUsers/{patientId}")
     fun getNotifyUsers(@Path("patientId")patientId:String):Maybe<Response<List<NotiUserItem>>>
 
+    @GET("Notice/QuickNotice/{patientId}/{currUserId}")
+    fun submitCallTime(@Path("patientId")patientId:String,@Path("currUserId")currUserId:String):Maybe<Response<Int>>
+
     @POST("Message/SendMessageToUsers")
     fun submitNotify(@Body notyfi:Notify):Maybe<Response<String>>
+
+
 
 }

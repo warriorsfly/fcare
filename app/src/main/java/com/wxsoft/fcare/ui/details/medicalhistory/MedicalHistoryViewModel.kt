@@ -42,6 +42,9 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
 
     private var saveAble=true
 
+    val uploading:LiveData<Boolean>
+    val savePatientResult =MediatorLiveData<Boolean>()
+
     val bitmaps= mutableListOf<String>()
 
 
@@ -76,11 +79,12 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
 
         medicalHistory = loadMedicalHistoryResult.map { it.result?: MedicalHistory("") }
         drugHistory = loadDrugHistoryResult.map { it?: emptyList() }
-
+        uploading = savePatientResult.map { it }
     }
 
 
     private fun loadData(){
+        savePatientResult.value= true
         disposable.add(dicEnumApi.loadMedicalHistoryItems(patientId)
             .zipWith(dicEnumApi.loadMedicalHistoryProviderItems())
             .zipWith(medicalHistoryApi.loadMedicalHistory(patientId))
@@ -99,7 +103,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe {
-
+                savePatientResult.value= false
                 loadProviderItemsResult.value = it.first.second
                 loadHistoryItemsResult.value=it.first.first
                 loadMedicalHistoryResult.value=it.second
@@ -127,7 +131,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
     }
 
     private fun saveMedicalHistory() {
-
+        savePatientResult.value= true
         medicalHistory.value?.also {history->
             if (saveAble) {
                 saveAble = false
@@ -142,7 +146,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                 history.drugHistorys = drugHistory.value!!
                 if (files.isNullOrEmpty()) {
                     medicalHistoryApi.save(history).toResource().subscribe {
-
+                        savePatientResult.value= false
                         when (it) {
                             is Resource.Success -> {
 //                                clickResult.value = true
@@ -158,6 +162,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                     }
                 } else {
                     medicalHistoryApi.save(history, files).toResource().subscribe {
+                        savePatientResult.value= false
                         when (it) {
                             is Resource.Success -> {
 //                                clickResult.value = true

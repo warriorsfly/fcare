@@ -3,6 +3,8 @@ package com.wxsoft.fcare.ui.details.checkbody.select
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
@@ -13,6 +15,7 @@ import com.wxsoft.fcare.databinding.ActivitySelectBodyItemsBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyViewModel
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class SelectBodyItemsActivity : BaseActivity() {
@@ -41,8 +44,6 @@ class SelectBodyItemsActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivitySelectBodyItemsBinding>(this, R.layout.activity_select_body_items)
             .apply {
-                back.setOnClickListener { onBackPressed() }
-                submit.setOnClickListener { complit() }
                 adapter1 = SelectBodyItemsAdapter(this@SelectBodyItemsActivity,this@SelectBodyItemsActivity.viewModel)
                 adapter2 = SelectBodyItemsAdapter(this@SelectBodyItemsActivity,this@SelectBodyItemsActivity.viewModel)
                 firstList.adapter = adapter1
@@ -55,6 +56,14 @@ class SelectBodyItemsActivity : BaseActivity() {
         selectId=intent.getStringExtra(SelectBodyItemsActivity.SELECT_TYPE_ID)?:""
         selected1=intent.getStringExtra(SelectBodyItemsActivity.SELECT_ID_1)?:""
         selected2=intent.getStringExtra(SelectBodyItemsActivity.SELECT_ID_2)?:""
+
+        setSupportActionBar(toolbar)
+        when(selectId){
+            "1"-> title="选择检查过程"
+            "2"-> title="选择皮肤症状"
+            "3"-> title="选择左瞳孔症状"
+            "4"-> title="选择右瞳孔症状"
+        }
 
         viewModel.patientId = patientId
         viewModel.typeId = selectId
@@ -80,6 +89,12 @@ class SelectBodyItemsActivity : BaseActivity() {
             adapter2.submitList(it)
         })
 
+
+        viewModel.submit.observe(this, Observer {
+            if (selectId.equals("1")||selectId.equals("2")){
+                complit()
+            }
+        })
 
     }
 
@@ -131,6 +146,24 @@ class SelectBodyItemsActivity : BaseActivity() {
             intent.putExtras(bundle)
             setResult(RESULT_OK, intent)
             finish()
+        }
+    }
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (selectId.equals("3")||selectId.equals("4")) menuInflater.inflate(R.menu.menu_sure,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.sure->{
+                complit()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
         }
     }
 }

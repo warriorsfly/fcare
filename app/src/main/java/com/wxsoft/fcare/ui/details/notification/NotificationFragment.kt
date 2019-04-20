@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.wxsoft.fcare.databinding.FragmentNotifyBinding
 
 class NotificationFragment : Fragment() {
 
@@ -13,19 +14,19 @@ class NotificationFragment : Fragment() {
         fun newInstance() = NotificationFragment()
     }
 
-    private lateinit var viewModel: NotificationViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return null//inflater.inflate(R.layout.qq, container, false)
+        return FragmentNotifyBinding.inflate(inflater, container, false).apply {
+
+        }.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(NotificationViewModel::class.java)
-        // TODO: Use the ViewModel
+
     }
 
 }

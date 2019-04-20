@@ -11,7 +11,7 @@ import androidx.annotation.StringDef
     ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,
     ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室,ActionType.主诉及症状,ActionType.治疗策略,ActionType.治疗操作,
     ActionType.通知启动导管室,ActionType.通知启动CT室, ActionType.来院方式,ActionType.Catheter,
-    ActionType.CT_OPERATION,ActionType.出院诊断,ActionType.一键通知
+    ActionType.CT_OPERATION,ActionType.出院诊断,ActionType.一键通知,ActionType.肌钙蛋白
 )
 
 annotation class ActionType {
@@ -63,6 +63,7 @@ annotation class ActionType {
         const val 治疗策略= "zlcl"
         const val 治疗操作= "zlcz"
         const val 一键通知= "yjtz"
+        const val 肌钙蛋白= "jgdb"
 
     }
 }

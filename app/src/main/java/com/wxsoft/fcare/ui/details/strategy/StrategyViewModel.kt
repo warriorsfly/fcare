@@ -99,6 +99,7 @@ class StrategyViewModel  @Inject constructor(private val api: PACSApi,
         strategyItems.value?.filter{it.checked}?.map { it.checked = false }
         item.checked = true
         strategy.value?.strategyCode = item.id
+        click()
     }
 
 

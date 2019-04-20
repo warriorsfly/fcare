@@ -79,9 +79,13 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     val notifyTypes: LiveData<List<NotifyType>>
     private val loadNotifyTypes = MediatorLiveData<List<NotifyType>>()
 
+    val submit: LiveData<String>
+    private val loadSubmit = MediatorLiveData<String>()
+
     init {
         des = loadDesResult.map { it ?: emptyList()  }
         notifyTypes = loadNotifyTypes.map { it?: emptyList() }
+        submit = loadSubmit.map { it }
     }
 
     private fun loadVital(){
@@ -137,10 +141,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
         }else{
             item.checked = !item.checked
         }
+        loadSubmit.value = "success"
     }
     fun clickSelectNotify(item: NotifyType){
         notifyTypes.value?.filter { it.checked }?.map { it.checked = false }
         item.checked = true
+        loadSubmit.value = "success"
     }
 
     private fun haveData(){

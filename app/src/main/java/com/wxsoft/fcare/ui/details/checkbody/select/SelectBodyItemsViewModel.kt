@@ -68,9 +68,15 @@ class SelectBodyItemsViewModel @Inject constructor(private val dicEnumApi: DictE
     val title2: LiveData<String>
     val initTitle2 = MediatorLiveData<String>()
 
+    val submit: LiveData<String>
+    val initSubmit = MediatorLiveData<String>()
+
+
+
     init {
         title1 = initTitle1.map { it }
         title2 = initTitle2.map { it }
+        submit = initSubmit.map { it }
         backToLast = initbackToLast.map { it }
         coordinationItems = loadCoordinationItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
         skinItems = loadSkinItemsResult.map { (it as? Resource.Success)?.data?: emptyList() }
@@ -195,7 +201,6 @@ class SelectBodyItemsViewModel @Inject constructor(private val dicEnumApi: DictE
             "3" ->{
                 if (item.id.contains("208")) leftPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
                 else leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-
             }
             "4" ->{
                 if (item.id.contains("208")) rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
@@ -203,6 +208,8 @@ class SelectBodyItemsViewModel @Inject constructor(private val dicEnumApi: DictE
             }
         }
         item.checked = true
+
+        initSubmit.value = "success"
     }
 
 

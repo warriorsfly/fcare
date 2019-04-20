@@ -74,5 +74,6 @@
     </string>
     <string name="ecg_property_title"><font color="red">*</font>诊断提示
     </string>
-    <string name="profile_name_title"><font color="red">*</font>患者姓名</string>
+    <string name="profile_name_title"><font color="red">*</font>患者姓名
+    </string>
 </resources>

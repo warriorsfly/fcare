@@ -52,7 +52,10 @@ class VitalSignsRecordActivity :  BaseActivity() {
         listAdapter = VitalSignsDetailItemAdapter(this,viewModel)
         binding.vitalRecordsList.adapter = listAdapter
 
-        viewModel.vitals.observe(this, Observer { listAdapter.items = it })
+        viewModel.vitals.observe(this, Observer {
+            listAdapter.items = it
+            if (it.size == 0){ toAddVital("230-2")}
+        })
 
         viewModel.addvital.observe(this, Observer {
             if (it.equals("share")){

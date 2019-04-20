@@ -4,6 +4,7 @@ import com.wxsoft.fcare.core.di.ActivityScoped
 import com.wxsoft.fcare.ui.ViewPoolModule
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
+import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -93,6 +94,8 @@ import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import com.wxsoft.fcare.ui.workspace.addpoint.AddTimeLinePointActivity
+import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
+import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingModule
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -311,6 +314,14 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [CureModule::class])
     internal abstract fun cureActivity(): CureActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [OneTouchCallingModule::class])
+    internal abstract fun oneTouchCallingActivity(): OneTouchCallingActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [AssistantExaminationModule::class])
+    internal abstract fun jGDBActivity(): JGDBActivity
 
 
 }

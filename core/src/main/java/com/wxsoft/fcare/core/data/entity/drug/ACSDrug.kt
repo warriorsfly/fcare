@@ -28,7 +28,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 是氯吡格雷或者是替格瑞洛
      */
-    @Bindable var acs_Drug_Type:String="235-1"
+    @Bindable var acs_Drug_Type:String=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.acs_Drug_Type)
@@ -36,7 +36,8 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 是氯吡格雷或者是替格瑞洛
      */
-    @Bindable var acsDrugTypeName:String="替格瑞洛"
+    @SerializedName("acs_Drug_Type_Name")
+    @Bindable var acsDrugTypeName:String=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.acsDrugTypeName)
@@ -92,7 +93,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 首次抗凝给药药物
      */
-    @Bindable var anticoagulation_Drug_Name:String="普通肝素"
+    @Bindable var anticoagulation_Drug_Name:String=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.anticoagulation_Drug_Name)
@@ -102,7 +103,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 首次抗凝给药药物
      */
-    @Bindable var anticoagulation_Drug:String="22-1"
+    @Bindable var anticoagulation_Drug:String=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.anticoagulation_Drug)

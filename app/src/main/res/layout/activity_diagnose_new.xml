@@ -55,7 +55,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.diagnosis.diagnosisCode2Name.equals(``)}"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toLeftOf="@+id/title1_1"
@@ -143,7 +142,6 @@
                             android:layout_height="wrap_content">
 
                         <TextView
-                                goneUnless="@{viewModel.diagnosis.handWay.equals(``)}"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toLeftOf="@+id/title2_1"
@@ -199,7 +197,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.diagnosis.patientOutcom.equals(``)}"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toLeftOf="@+id/title3_1"
@@ -255,7 +252,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.diagnosis.diagnosisTime.equals(``)}"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toLeftOf="@+id/title4_1"
@@ -322,7 +318,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.doctorName.equals(``)}"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toLeftOf="@+id/title5_1"
@@ -378,16 +373,6 @@
                             android:layout_height="wrap_content">
 
                         <TextView
-                                goneUnless="@{viewModel.diagnosis.memo.equals(``)}"
-                                app:layout_constraintTop_toTopOf="@+id/title6_1"
-                                app:layout_constraintBottom_toBottomOf="@+id/title6_1"
-                                app:layout_constraintRight_toLeftOf="@+id/title6_1"
-                                android:text="*"
-                                android:textColor="@color/patient_nothing_known"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
                                 android:id="@+id/title6_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
@@ -434,14 +419,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/line6"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-                        <TextView
-                                app:layout_constraintTop_toTopOf="@+id/title7_1"
-                                app:layout_constraintBottom_toBottomOf="@+id/title7_1"
-                                app:layout_constraintRight_toLeftOf="@+id/title7_1"
-                                android:text="*"
-                                android:textColor="@color/patient_nothing_known"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
                         <TextView
                                 android:id="@+id/title7_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
@@ -737,7 +714,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.selectedTreatment.strategyCode_Name.equals(``)}"
                                 app:layout_constraintTop_toTopOf="@+id/title9_1"
                                 app:layout_constraintBottom_toBottomOf="@+id/title9_1"
                                 app:layout_constraintRight_toLeftOf="@+id/title9_1"
@@ -803,7 +779,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.selectedTreatment.noReperfusionCodeName.equals(``)}"
                                 app:layout_constraintTop_toTopOf="@+id/title10_1"
                                 app:layout_constraintBottom_toBottomOf="@+id/title10_1"
                                 app:layout_constraintRight_toLeftOf="@+id/title10_1"
@@ -869,7 +844,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.selectedTreatment.otherTreatmentMeasure.equals(``)}"
                                 app:layout_constraintTop_toTopOf="@+id/title11_1"
                                 app:layout_constraintBottom_toBottomOf="@+id/title11_1"
                                 app:layout_constraintRight_toLeftOf="@+id/title11_1"
@@ -925,7 +899,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
-                                goneUnless="@{viewModel.selectedTreatment.selectiveOrTransportTime.equals(``)}"
                                 app:layout_constraintTop_toTopOf="@+id/title12_1"
                                 app:layout_constraintBottom_toBottomOf="@+id/title12_1"
                                 app:layout_constraintRight_toLeftOf="@+id/title12_1"
@@ -1035,7 +1008,7 @@
                                 android:layout_height="wrap_content"/>
                         <androidx.constraintlayout.widget.ConstraintLayout
                                 android:id="@+id/line13_content_container"
-                                goneUnless="@{!viewModel.talk.allTime.equals(``)}"
+                                goneUnless="@{viewModel.talkShow}"
                                 app:layout_constraintTop_toBottomOf="@+id/title13_1"
                                 app:layout_constraintLeft_toLeftOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"

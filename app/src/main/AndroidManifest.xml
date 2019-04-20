@@ -23,6 +23,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
 
     <uses-feature android:name="android.hardware.camera"/>
 
@@ -50,8 +51,14 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.cure.CureActivity"
+        <activity android:name=".ui.details.assistant.troponin.JGDBActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.workspace.notify.OneTouchCallingActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.cure.CureActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.diagnose.diagnosenew.drug.ACSDrugActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
@@ -69,9 +76,8 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.share.ShareActivity"
-                android:theme="@style/AppTheme.NoActionBar"
                 android:screenOrientation="portrait"
-        />
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

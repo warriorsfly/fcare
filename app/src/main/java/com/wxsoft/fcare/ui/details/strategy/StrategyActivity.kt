@@ -72,19 +72,4 @@ class StrategyActivity : BaseActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject,menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        return  when(item?.itemId){
-            R.id.submit->{
-                viewModel.click()
-                true
-            }
-            else->super.onOptionsItemSelected(item)
-        }
-    }
 }

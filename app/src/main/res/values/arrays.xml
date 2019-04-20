@@ -63,10 +63,18 @@
         <item>@drawable/ic_work_space_complications</item>
         <!--评估结果-->
         <item>@drawable/ic_work_space_rating_result</item>
+        <!--患者转归-->
+        <item>@drawable/ic_work_space_lapse</item>
         <!--治疗操作-->
         <item>@drawable/ic_work_space_pci</item>
         <!--ACS给药-->
         <item>@drawable/ic_work_space_pci</item>
+        <!--一键通知-->
+        <item>@drawable/ic_work_space_call_immediately</item>
+        <!--肌钙蛋白-->
+        <item>@drawable/ic_work_space_jgdb</item>
+        <!--来院方式-->
+        <item>@drawable/ic_work_space_lapse</item>
     </array>
 
     <!--操作台操作背景色-->
@@ -124,6 +132,12 @@
         <!--治疗操作-->
         <item>@color/tint_work_space_therapeutic_solution</item>
         <!--ACS给药-->
+        <item>@color/tint_work_space_therapeutic_solution</item>
+        <!--一键通知-->
+        <item>@color/tint_work_space_therapeutic_solution</item>
+        <!--肌钙蛋白-->
+        <item>@color/tint_work_space_therapeutic_solution</item>
+        <!--来院方式-->
         <item>@color/tint_work_space_therapeutic_solution</item>
     </array>
 
@@ -197,5 +211,11 @@
         <item>zlcz</item>
         <!--ACS给药-->
         <item>acsgy</item>
+        <!--一键通知-->
+        <item>yjtz</item>
+        <!--肌钙蛋白-->
+        <item>jgdb</item>
+        <!--来院方式-->
+        <item>lyfs</item>
     </array>
 </resources>

@@ -108,5 +108,9 @@ annotation class ActionCode {
          *
          */
         const val CURE = 46
+        /**
+         *
+         */
+        const val ONETOUCH = 47
     }
 }

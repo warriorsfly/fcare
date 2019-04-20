@@ -5,11 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentNotifyBinding
-import com.wxsoft.fcare.ui.workspace.WorkingViewModel
 import com.wxsoft.fcare.widget.WxDimDialogFragment
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -23,11 +22,17 @@ class NotifyFragment : WxDimDialogFragment() , HasSupportFragmentInjector {
     lateinit var factory: ViewModelFactory
 
     @Inject
-    lateinit var fragmentInjector: DispatchingAndroidInjector<Fragment>
+    lateinit var fragmentInjector: DispatchingAndroidInjector<androidx.fragment.app.Fragment>
+
+
+    var patientId = ""
 
     private lateinit var binding: FragmentNotifyBinding
-    private lateinit var viewModel: WorkingViewModel
-    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
+    private lateinit var viewModel: OneTouchCallingViewModel
+    private lateinit var adapter: OneTouchCallingListAdapter
+
+
+    override fun supportFragmentInjector(): AndroidInjector<androidx.fragment.app.Fragment> {
         return fragmentInjector
     }
 
@@ -36,16 +41,26 @@ class NotifyFragment : WxDimDialogFragment() , HasSupportFragmentInjector {
         AndroidSupportInjection.inject(this)
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = activityViewModelProvider(factory)
+        adapter = OneTouchCallingListAdapter(this,viewModel)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel=activityViewModelProvider(factory)
         binding=FragmentNotifyBinding.inflate(inflater,container,false).apply {
-
             viewModel=this@NotifyFragment.viewModel
+
+            list.adapter = this@NotifyFragment.adapter
+
             lifecycleOwner = this@NotifyFragment
         }
+        viewModel.getCalls()
+        viewModel.calls.observe(this, Observer { adapter.submitList(it) })
+
 
         return binding.root
     }

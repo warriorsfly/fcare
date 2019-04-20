@@ -1,25 +1,21 @@
 package com.wxsoft.fcare.ui.details.assistant.troponin
 
 
-import androidx.lifecycle.Observer
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.databinding.FragmentTroponinBinding
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
-import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.databinding.FragmentTroponinBinding
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationViewModel
 import com.wxsoft.fcare.widget.WxDimDialogFragment
 import dagger.android.AndroidInjector
@@ -27,9 +23,6 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.AndroidSupportInjection
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
-
-
-
 
 
 class TroponinFragment : WxDimDialogFragment() , HasSupportFragmentInjector , OnDateSetListener {

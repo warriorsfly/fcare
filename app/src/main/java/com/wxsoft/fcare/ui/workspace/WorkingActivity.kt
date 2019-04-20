@@ -14,22 +14,21 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.WorkOperation
-import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityWorkingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.cure.CureActivity
-import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
-import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
+import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -47,11 +46,8 @@ import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
-import com.wxsoft.fcare.ui.workspace.notify.NotifyFragment
-import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
-import com.wxsoft.fcare.ui.rating.RatingsSheetFragment
 import com.wxsoft.fcare.ui.share.ShareItemListActivity
-import com.wxsoft.fcare.utils.ActionCode
+import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
@@ -66,6 +62,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
 import com.wxsoft.fcare.utils.ActionCode.Companion.NOTIFICATION
+import com.wxsoft.fcare.utils.ActionCode.Companion.ONETOUCH
 import com.wxsoft.fcare.utils.ActionCode.Companion.OTDIAGNOSE
 import com.wxsoft.fcare.utils.ActionCode.Companion.OUTCOME
 import com.wxsoft.fcare.utils.ActionCode.Companion.RATING
@@ -73,9 +70,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.STRATEGY
 import com.wxsoft.fcare.utils.ActionCode.Companion.THROMBOLYSIS
 import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_working.*
-import kotlinx.android.synthetic.main.item_diagnose_record_details_item.*
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 import javax.inject.Named
@@ -344,8 +339,16 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, OUTCOME)
             }
             ActionType.一键通知 ->{
-                val dialog= NotifyFragment()
-                dialog.show(supportFragmentManager, NotifyFragment.TAG)
+                val intent = Intent(this@WorkingActivity, OneTouchCallingActivity::class.java).apply {
+                    putExtra(OneTouchCallingActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, ONETOUCH)
+            }
+            ActionType.肌钙蛋白 ->{
+                val intent = Intent(this@WorkingActivity, JGDBActivity::class.java).apply {
+                    putExtra(JGDBActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, ONETOUCH)
             }
         }
     }

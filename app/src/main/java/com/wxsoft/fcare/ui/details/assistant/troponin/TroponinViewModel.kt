@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
+import com.wxsoft.fcare.core.data.entity.lis.LisRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.LISApi
@@ -46,9 +47,9 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     val clickEdit:LiveData<String>
     private val loadClickEdit = MediatorLiveData<String>()
 
+
     init {
         clickEdit = loadClickEdit.map { it }
-
         lisCr = loadLisCrResult.map { (it as? Resource.Success)?.data?.result?: LisCr("") }
         troponinUnitsItems= loadTroponinDictEnumResult.map {
             val cos=(it as? Resource.Success)?.data?: emptyList()
@@ -89,7 +90,6 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
                 loadClickEdit.value = "success"
             }
     }
-
 
     fun clickTime(id:String){
         loadClickEdit.value = id
