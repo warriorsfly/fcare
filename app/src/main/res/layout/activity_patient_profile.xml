@@ -606,7 +606,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="wrap_content"
-                    android:text="患者姓名"
+                    android:text="@string/profile_name_title"
                     android:textSize="15sp"
                     android:id="@+id/title3"
                     android:textColor="@color/edit_text_title"
