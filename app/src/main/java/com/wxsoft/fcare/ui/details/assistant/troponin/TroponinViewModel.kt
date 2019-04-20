@@ -65,7 +65,7 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             loadLisCrResult.value = null
             return
         }
-        lisApi.getCrById(id).toResource()
+        lisApi.getPoct(id).toResource()
             .subscribe {
                 loadLisCrResult.value = it
                 lisCr.value?.setUpChecked()
@@ -85,7 +85,7 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     fun submit(){
         if (lisCr.value == null) return
         lisCr.value!!.patientId = patientId
-        lisApi.saveCr(lisCr.value!!).toResource()
+        lisApi.savePoct(lisCr.value!!).toResource()
             .subscribe {
                 loadClickEdit.value = "success"
             }

@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.details.assistant.troponin
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -89,8 +90,10 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
                 "1"-> showDatePicker(binding.drawBloodTime)
                 "2"-> showDatePicker(binding.drawBloodReportTime)
                 "success" -> {
-
-//                    onDestroy()
+                    Intent().let { intent->
+                        setResult(RESULT_OK, intent)
+                        finish()
+                    }
                 }
             }
         })

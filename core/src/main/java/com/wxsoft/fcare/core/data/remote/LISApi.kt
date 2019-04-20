@@ -18,8 +18,14 @@ interface LISApi {
     @GET("LIS/GetCrById/{id}")
     fun getCrById(@Path("id")id:String): Maybe<Response<LisCr>>
 
+    @GET("POCT/GetTroponin/{patientId}")
+    fun getPoct(@Path("patientId")patientId:String): Maybe<Response<LisCr>>
+
     @POST("LIS/SaveCr")
     fun saveCr(@Body lisCr: LisCr): Maybe<Response<String>>
+
+    @POST("POCT/SaveTroponin")
+    fun savePoct(@Body lisCr: LisCr): Maybe<Response<String>>
 
     @GET("LIS/GetPatientLisRecords/{patientId}/{lisItemId}")
     fun getPatientLisRecords(@Path("patientId")patientId:String,@Path("lisItemId")lisItemId:String): Maybe<Response<List<LisRecord>>>
