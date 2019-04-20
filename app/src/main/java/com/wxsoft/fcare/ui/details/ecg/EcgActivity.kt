@@ -33,7 +33,6 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityEcgBinding
 import com.wxsoft.fcare.databinding.ItemDialogImageBinding
-import com.wxsoft.fcare.databinding.ItemImageBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
@@ -333,7 +332,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
     fun toShareEcg(){
         val intent = Intent(this, ShareActivity::class.java).apply {
             putExtra(ShareActivity.PATIENT_ID, patientId)
-            putExtra(ShareActivity.TYPE_ID, "230-1")
+            putExtra(ShareActivity.URL, "230-1")
         }
         startActivityForResult(intent,100 )
     }

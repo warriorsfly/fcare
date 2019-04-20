@@ -15,7 +15,6 @@ import com.wxsoft.fcare.databinding.ActivityVitalSignsRecordBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -72,7 +71,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
     fun toShareVital(){
         val intent = Intent(this, ShareActivity::class.java).apply {
             putExtra(ShareActivity.PATIENT_ID, patientId)
-            putExtra(ShareActivity.TYPE_ID, "230-2")
+            putExtra(ShareActivity.URL, "230-2")
         }
         startActivityForResult(intent,SHARE )
     }

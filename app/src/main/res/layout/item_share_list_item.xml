@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable name="uri" type="String"/>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.share.ShareViewModel"/>
-    </data>
-
     <com.google.android.material.card.MaterialCardView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->viewModel.selectImage(uri)}"
             android:layout_margin="15dp"
             app:cardCornerRadius="7.5dp">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +14,6 @@
                     android:id="@+id/share_img"
                     android:background="@color/white"
                     android:scaleType="matrix"
-                    app:imageUrl="@{uri}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -29,7 +22,6 @@
                     android:layout_height="wrap_content"/>
 
             <ImageView
-                    goneUnless="@{viewModel.selectUrl.equals(uri)}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"

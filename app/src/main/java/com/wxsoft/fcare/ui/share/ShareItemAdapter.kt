@@ -24,6 +24,9 @@ class ShareItemAdapter constructor(private val owner: LifecycleOwner) :
 
         val binding = ItemShareItemBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
             lifecycleOwner=owner
+            root.setOnClickListener {
+                selected.isChecked=!selected.isChecked
+            }
         }
         return ItemViewHolder(binding)
     }

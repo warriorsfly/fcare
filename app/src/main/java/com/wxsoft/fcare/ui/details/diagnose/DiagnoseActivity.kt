@@ -28,7 +28,7 @@ class DiagnoseActivity : BaseActivity() {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val ID = "ID"
-        const val TYPE_ID = "TYPE_ID"
+        const val TYPE_ID = "URL"
         const val SELECT_DIAGNOSE_TYPE = 10
     }
 

@@ -15,8 +15,8 @@ class ShareAdapter constructor(private val owner: LifecycleOwner,val viewModel: 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            uri=getItem(position)
-            viewModel= this@ShareAdapter.viewModel
+//            uri=getItem(position)
+//            viewModel= this@ShareAdapter.viewModel
             executePendingBindings()
         }
     }
@@ -25,6 +25,7 @@ class ShareAdapter constructor(private val owner: LifecycleOwner,val viewModel: 
 
         val binding = ItemShareListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
             lifecycleOwner=owner
+
         }
         return ItemViewHolder(binding)
     }

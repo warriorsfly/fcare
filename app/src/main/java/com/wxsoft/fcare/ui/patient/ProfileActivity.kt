@@ -44,7 +44,6 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
-import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
@@ -183,7 +182,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
         if(viewModel.patientSavable){
             val intent = Intent(this, ShareActivity::class.java).apply {
                 putExtra(ShareActivity.PATIENT_ID, patientId)
-                putExtra(ShareActivity.TYPE_ID, "230-3")
+                putExtra(ShareActivity.URL, "230-3")
             }
             startActivityForResult(intent, VitalSignsRecordActivity.SHARE)
         }
