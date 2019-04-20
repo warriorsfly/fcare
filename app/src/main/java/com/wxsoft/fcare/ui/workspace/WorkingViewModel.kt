@@ -41,7 +41,6 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon){
 
     val timestamp=ObservableLong().apply { set(0) }
-    val hour=ObservableLong().apply { set(0) }
     val minute=ObservableLong().apply { set(0) }
     val second=ObservableLong().apply { set(0) }
     var patientId:String=""
@@ -125,16 +124,16 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
 
         response.result?.attackTime?.let {
             timestamp.set(DateTimeUtils.formatter.parse(it).time)
-            hour.set((System.currentTimeMillis()- timestamp.get() )/3600000)
-            minute.set(((System.currentTimeMillis()- timestamp.get() )%3600000)/60000)
+            minute.set((System.currentTimeMillis()- timestamp.get() )/3600000)
+            second.set(((System.currentTimeMillis()- timestamp.get() )%3600000)/60000)
             courseSeconds.set((System.currentTimeMillis()/60000 - DateTimeUtils.formatter.parse(it).time / 60000).toInt())
 
             course.set(courseSeconds.get().toString())
             disposable.add(
-                Observable.interval(1, TimeUnit.MINUTES)
+                Observable.interval(1, TimeUnit.SECONDS)
                     .subscribe {
-                        hour.set((System.currentTimeMillis()- timestamp.get() )/3600000)
-                        minute.set(((System.currentTimeMillis()- timestamp.get() )%3600000)/60000)
+                        minute.set((System.currentTimeMillis()- timestamp.get() )/60000)
+                        second.set(((System.currentTimeMillis()- timestamp.get() )%60000)/1000)
                         courseSeconds.set(courseSeconds.get().plus(1))
                     })
         }?:course.set("")

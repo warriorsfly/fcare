@@ -19,7 +19,7 @@ abstract class BaseViewModel constructor(protected open val sharedPreferenceStor
     /**
      * 需要传递出去的toast消息
      */
-    protected val messageAction = MutableLiveData<Event<String>>()
+    val messageAction = MutableLiveData<Event<String>>()
     val mesAction: LiveData<Event<String>>
         get() = messageAction
 
@@ -27,6 +27,8 @@ abstract class BaseViewModel constructor(protected open val sharedPreferenceStor
         disposable.clear()
         super.onCleared()
     }
+
+
 
     /**
      * 共用的错误处理

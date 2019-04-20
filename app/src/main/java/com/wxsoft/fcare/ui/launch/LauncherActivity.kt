@@ -19,6 +19,7 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.BuildConfig
 import com.wxsoft.fcare.core.data.entity.version.Version
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.service.JPushReceiver
 import com.wxsoft.fcare.ui.BaseActivity
@@ -209,17 +210,31 @@ class LauncherActivity : BaseActivity(){
 
         override fun onReceive(context: Context, intent: Intent) {
             val completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            val uri=downloadManager.getUriForDownloadedFile(completeDownloadId)
-            install(uri)
+            if (completeDownloadId==-1L){
+                viewModel.messageAction.value=Event("下载失败")
+            }else {
+                try {
+                    val uri = downloadManager.getUriForDownloadedFile(completeDownloadId)
+                    if(uri==null){
+                        viewModel.messageAction.value=Event("下载失败")
+                    }else {
+                        install(uri)
+                    }
+                }catch (e:Exception){
+                    viewModel.messageAction.value=Event(e.message?:"")
+                }
+            }
         }
 
         private fun install(uri:Uri) {
+
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 setDataAndType(uri, "application/vnd.android.package-archive")
                 addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
                 addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
             }
             startActivity(intent)
+
         }
     }
 

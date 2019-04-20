@@ -84,7 +84,7 @@ fun overflowAt(view: TextView, visible: Boolean) {
 }
 
 /**
- * task complated time only show hour and minute
+ * task complated time only show minute and second
  */
 @BindingAdapter("doneAt")
 fun doneAt(view: TextView, doneAt:String?) {

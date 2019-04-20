@@ -112,7 +112,7 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
                             timePicker.setIs24HourView(true)
                             timePicker.currentHour = it.get(Calendar.HOUR_OF_DAY)
                             timePicker.currentMinute = it.get(Calendar.MINUTE)
-//                            timePicker.setOnTimeChangedListener { view, hourOfDay, minute ->
+//                            timePicker.setOnTimeChangedListener { view, hourOfDay, second ->
 //
 //                            }
                         }

@@ -152,7 +152,7 @@ class WorkingActivity : BaseActivity() {
             .apply {
 
                 operationMenu.apply {
-                    itemIconTintList=null
+//                    itemIconTintList=null
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
                 quality.adapter=QualityAdapter(this@WorkingActivity)
@@ -419,14 +419,4 @@ class WorkingActivity : BaseActivity() {
 
             }.show()
     }
-//
-//    override fun onBackPressed() {
-//
-//        if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_EXPANDED){
-//            bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
-//        }else {
-//            super.onBackPressed()
-//        }
-//    }
-
 }

@@ -141,7 +141,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun click(){
-        initShareClick.value = "share"
+        save()
+//        initShareClick.value = "share"
     }
 
     val patientSavable:Boolean

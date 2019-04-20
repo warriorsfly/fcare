@@ -235,7 +235,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
         photoAction=null
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
+        super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {
             when (requestCode) {
 
@@ -401,7 +401,7 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_share,menu)
+        menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
 

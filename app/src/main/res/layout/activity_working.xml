@@ -61,7 +61,6 @@
                         tools:text="张三"
                         android:text="@{viewModel.patient.name}"
                         android:id="@+id/back_away"
-
                         android:layout_marginLeft="8dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -84,7 +83,7 @@
                             app:layout_constraintLeft_toRightOf="@id/gender"
                             android:textColor="@color/white"
                             android:layout_marginLeft="10dp"
-                            android:text="@{Converter.intToString(viewModel.patient.age)+`岁`}"
+                            android:text="@{String.valueOf(viewModel.patient.age)+`岁`}"
                             android:layout_marginRight="16dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -220,7 +219,7 @@
                                     android:textSize="18sp"
                                     app:layout_constraintRight_toLeftOf="@id/memo_hour"
                                     app:layout_constraintBaseline_toBaselineOf="@id/title"
-                                    android:text="@{String.valueOf(viewModel.hour)}"
+                                    android:text="@{String.valueOf(viewModel.minute)}"
                                     tools:text="9"/>
                             <TextView
                                     android:id="@+id/memo_hour"
@@ -229,7 +228,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textSize="10sp"
-                                    android:text="时"/>
+                                    android:text="分"/>
                             <TextView
                                     app:layout_constraintBaseline_toBaselineOf="@id/title"
                                     app:layout_constraintRight_toLeftOf="@id/memo_minute"
@@ -237,7 +236,7 @@
                                 android:layout_height="wrap_content"
                                 android:textSize="18sp"
                                     android:id="@+id/minute"
-                                android:text="@{String.valueOf(viewModel.minute)}"
+                                android:text="@{String.valueOf(viewModel.second)}"
                                 tools:text="9"/>
                             <TextView
                                     android:id="@+id/memo_minute"
@@ -246,7 +245,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                     android:textSize="10sp"
-                                android:text="分"/>
+                                android:text="秒"/>
                         </androidx.constraintlayout.widget.ConstraintLayout>
                         <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/quality"
