@@ -29,8 +29,12 @@ class ShareItemListViewModel  @Inject constructor(private val api: ShareApi,
 
     val items:LiveData<List<Dictionary>>
     private val loadItemResult = MediatorLiveData<List<Dictionary>>()
-
+    private val defaultChecked= mutableListOf<String>().apply {
+        add("230-1" )
+        add("230-2" )
+    }
     init {
+
 
         items = loadItemResult.map { it?: emptyList() }
     }
@@ -41,7 +45,20 @@ class ShareItemListViewModel  @Inject constructor(private val api: ShareApi,
             .subscribe(::doSubscribe,::error)
     }
 
-    fun doSubscribe(items:List<Dictionary>){
+    /**
+     * first analysis of algorithms
+     */
+    private fun doSubscribe(items:List<Dictionary>){
+        var index=0
+        do {
+            if(items.isNotEmpty()){
+               if(items[index] .id in defaultChecked){
+                   items[index].checked=true
+                   defaultChecked.remove(items[index] .id)
+               }
+            }
+            ++index
+        }while (index<items.size && defaultChecked.isNotEmpty())
         loadItemResult.value=items
     }
 
