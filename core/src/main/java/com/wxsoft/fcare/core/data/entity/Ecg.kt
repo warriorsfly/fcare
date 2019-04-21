@@ -70,5 +70,5 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
     @get:Bindable
     var ecg = 0f
     @get:Bindable
-    var attachments:List<Attachment>  = emptyList()
+    var attachments:List<Attachment>?  = emptyList()
 }

@@ -12,6 +12,7 @@ import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.ECGApi
 import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.core.utils.switchMap
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -52,7 +53,9 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     val selectedDiagnoseResult = MediatorLiveData<Dictionary>()
     val saved = MediatorLiveData<Boolean>()
     init {
-        ecg = loadEcgResult.map { it?.result ?: Ecg(createrId = account.id)  }
+        ecg = loadEcgResult.map {
+            it?.result ?: Ecg(createrId = account.id)
+        }
         diagnoses = loadDiagnoseResult.map { it }
     }
 
@@ -80,8 +83,11 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         bitmaps.clear()
         loadEcgResult.value= response.apply {
             result?.apply {
-                selectedEcgDiagnosis.addAll(diagnoses.map { Dictionary(it.code,it.name) })
-                diagnoseText=diagnoses.joinToString("\n",transform={ (diagnoses.indexOf(it)+1).toString()+"."+it.name})
+                selectedEcgDiagnosis.apply{
+                    clear()
+                    addAll(diagnoses.map { Dictionary(it.code,it.name) })}
+                val t=diagnoses.joinToString("\n",transform={ (diagnoses.indexOf(it)+1).toString()+"."+it.name})
+                diagnoseText=t
             }
         }
     }

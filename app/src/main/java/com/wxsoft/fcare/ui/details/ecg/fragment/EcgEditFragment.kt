@@ -1,9 +1,9 @@
 package com.wxsoft.fcare.ui.details.ecg.fragment
 
-import android.animation.Animator
 import android.os.Bundle
-import android.view.*
-import android.view.animation.Animation
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DiffUtil
@@ -11,16 +11,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
-import com.wxsoft.fcare.core.data.entity.EcgDiagnose
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.databinding.FragmentEditEcgDiagnoseBinding
 import com.wxsoft.fcare.databinding.ItemEcgDiagnoseCheckedBinding
-import com.wxsoft.fcare.databinding.ItemEcgDiagnoseTextBinding
 import com.wxsoft.fcare.ui.details.ecg.EcgViewModel
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_edit_ecg_diagnose.*
 import javax.inject.Inject
 
 class EcgEditFragment : DaggerFragment() {
@@ -56,10 +53,11 @@ class EcgEditFragment : DaggerFragment() {
 
         viewModel.saved.observe(this, Observer {
 
-            if(isAdded) {
+            if(isAdded && it) {
                 activity?.supportFragmentManager?.let {
                     if (it.popBackStackImmediate())
                         it.popBackStack()
+                    viewModel.saved.value=false
                 }
             }
         })

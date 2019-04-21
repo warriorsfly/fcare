@@ -104,7 +104,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         }
         viewModel.ecg.observe(this, Observer {
             adapter.locals= emptyList()
-            adapter.remotes=it.attachments.map { it.httpUrl }
+            adapter.remotes=it.attachments?.map { it.httpUrl }?: emptyList()
         })
         setSupportActionBar(toolbar)
 
@@ -128,8 +128,9 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
 
         viewModel.saved.observe(this, Observer {
-
-            setResult(Activity.RESULT_OK)
+            if(it) {
+                setResult(Activity.RESULT_OK)
+            }
         })
 
         see_reactive.setOnClickListener {
