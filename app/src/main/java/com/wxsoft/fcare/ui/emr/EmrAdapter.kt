@@ -98,8 +98,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             }
 
             else->{
-                ItemViewHolder.BaseInfoViewHolder(
-                    ItemNewEmrPatientInfoBinding.inflate(inflater,parent,false)
+                ItemViewHolder.NoneViewHolder(
+                    ItemNewEmrNoneBinding.inflate(inflater,parent,false)
                         .apply {lifecycleOwner=owner},itemClick)
             }
         }
@@ -112,6 +112,13 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         val emr=getItem(position)
         when(holder){
+
+            is ItemViewHolder.NoneViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    executePendingBindings()
+                }
+            }
             is ItemViewHolder.BaseInfoViewHolder->{
                 holder.binding.apply {
                     item=emr
@@ -251,13 +258,26 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 ActionType.IllnessHistory -> R.layout.item_new_emr_med_his
                 ActionType.心电图-> R.layout.item_new_emr_ecg
                 ActionType.PhysicalExamination-> R.layout.item_new_emr_cb_result
-                else -> 0
+                else -> R.layout.item_new_emr_none
             }
         }
     }
 
     sealed class ItemViewHolder(open val binding: ViewDataBinding,open val click:(String)->Unit) :
         RecyclerView.ViewHolder(binding.root) {
+
+        class NoneViewHolder(
+            override val binding:ItemNewEmrNoneBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.setOnClickListener {
+                        item?.code?.let(click)
+                    }
+                }
+            }
+        }
 
         class HeadViewHolder(
             override val binding:ItemEmrHeaderBinding,
