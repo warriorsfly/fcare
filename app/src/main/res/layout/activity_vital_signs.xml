@@ -418,6 +418,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    goneUnless="@{!viewModel.xtShow}"
                     android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -479,6 +480,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    goneUnless="@{!viewModel.xtShow}"
                     android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -538,6 +540,7 @@
                   android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                    goneUnless="@{!viewModel.xtShow}"
                     android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"

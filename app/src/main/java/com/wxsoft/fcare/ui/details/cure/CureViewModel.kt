@@ -89,6 +89,10 @@ class CureViewModel @Inject constructor(private val cureApi: CureApi,
 
     private fun loadCureResult(response: Response<Cure>){
         loadCure.value = response.result
+        if(response.result?.treatStrategy == null) {
+            initModifySome.value = "isnull"
+            return
+        }
         typeId.set(response.result?.treatStrategy?.strategyCode?:"")
         num1.set(response.result?.treatStrategy?.preoperative_Timi_Level.toString())
         num2.set(response.result?.treatStrategy?.postoperative_Timi_Level.toString())

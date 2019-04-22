@@ -233,8 +233,10 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, DRUGRECORD)
             }
             ActionType.生命体征 -> {
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this@WorkingActivity, VitalSignsRecordActivity::class.java).apply {
                     putExtra(VitalSignsRecordActivity.PATIENT_ID, patientId)
+                    putExtra(VitalSignsRecordActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, VITAL_SIGNS)
             }
@@ -269,7 +271,6 @@ class WorkingActivity : BaseActivity() {
                 startActivity(intent)
             }
             ActionType.诊断 ->{
-
                 val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this@WorkingActivity, if(cz)DiagnoseNewActivity::class.java else DiagnoseRecordActivity::class.java).apply {
                     putExtra(DiagnoseNewActivity.PATIENT_ID, patientId)

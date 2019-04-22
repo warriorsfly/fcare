@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.vitalsigns
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -39,6 +40,9 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
             if (value == "") return
             field = value
         }
+
+    var xtShow= ObservableField<Boolean>()
+
     private val _errorToOperationAction = MutableLiveData<Event<String>>()
 
     val vital: LiveData<VitalSign>

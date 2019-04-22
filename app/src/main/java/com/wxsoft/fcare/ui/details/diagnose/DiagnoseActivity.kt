@@ -81,6 +81,15 @@ class DiagnoseActivity : BaseActivity() {
 
         setSupportActionBar(toolbar)
         title="诊断"
+
+        viewModel.modifySomeThing.observe(this, Observer {
+            when(it){
+                "have_not_seleted_criticalLevel"->{
+                    Toast.makeText(this,"请选择病情级别",Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
     }
 
 

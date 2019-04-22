@@ -29,7 +29,7 @@ class VitalSignsDetailItemAdapter constructor(private val owner: LifecycleOwner,
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
-            item=differ.currentList[position]
+            item=differ.currentList[position].apply { setUpChecked() }
             viewModel = this@VitalSignsDetailItemAdapter.viewModel
             executePendingBindings()
         }

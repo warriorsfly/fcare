@@ -55,12 +55,12 @@ class DiagnoseRecordDetailsAdapter constructor(private val owner: LifecycleOwner
     object DiffCallback : DiffUtil.ItemCallback<Diagnosis>() {
         override fun areItemsTheSame(oldItem: Diagnosis, newItem: Diagnosis): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id && oldItem.criticalLevel == newItem.criticalLevel
         }
 
         override fun areContentsTheSame(oldItem: Diagnosis, newItem: Diagnosis): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id && oldItem.criticalLevel == newItem.criticalLevel
         }
     }
 }

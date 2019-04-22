@@ -23,10 +23,11 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityCureBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
-import dagger.android.support.DaggerAppCompatActivity
+import com.wxsoft.fcare.utils.ActionCode
 import kotlinx.android.synthetic.main.layout_cure_pci.*
 import kotlinx.android.synthetic.main.layout_cure_thrombolysis.*
 import kotlinx.android.synthetic.main.layout_new_title.*
@@ -161,12 +162,28 @@ class CureActivity : BaseActivity() , OnDateSetListener {
                 "3-2"-> showDatePicker(findViewById(R.id.start_cabg_time))
                 "3-3"-> showDatePicker(findViewById(R.id.end_cabg_time))
 
-
                 "saveSuccess" ->{
                     Intent().let { intent->
-                        setResult(DaggerAppCompatActivity.RESULT_OK, intent)
+                        setResult(RESULT_OK, intent)
                         finish()
                     }
+                }
+                "isnull" ->{
+                    AlertDialog.Builder(this@CureActivity,R.style.Theme_FCare_Dialog)
+                        .setTitle("请先完成诊断")
+                        .setMessage("完成诊断后才可以进行治疗操作哦")
+                        .setPositiveButton("确定") { _, _ ->
+                            val intent = Intent(this@CureActivity,  DiagnoseNewActivity::class.java).apply {
+                                putExtra(DiagnoseNewActivity.PATIENT_ID, patientId)
+                            }
+                            startActivityForResult(intent, ActionCode.DIAGNOSE)
+                        }
+                        .setNegativeButton("取消") { _, _ ->
+                            Intent().let { intent->
+                                setResult(RESULT_OK, intent)
+                                finish()
+                            }
+                        }.show()
                 }
 
 
@@ -196,7 +213,6 @@ class CureActivity : BaseActivity() , OnDateSetListener {
         }
 
     }
-
 
 
     private fun selectPlace1(){
@@ -276,6 +292,10 @@ class CureActivity : BaseActivity() , OnDateSetListener {
                     viewModel.talk.value?.allTime = data?.getStringExtra("allTime")?:""
                     viewModel.intervention.value?.start_Agree_Time = data?.getStringExtra("startTime")?:""
                     viewModel.intervention.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
+                }
+
+                ActionCode.DIAGNOSE ->{
+                    viewModel.loadCure()
                 }
 
             }

@@ -24,9 +24,11 @@ class VitalSignsActivity : BaseActivity() {
     private lateinit var patientId:String
     private lateinit var id:String
     private lateinit var typeId:String
+    private lateinit var xt:String
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val IS_XT = "IS_XT"
         const val ID = "ID"
         const val TYPE_ID = "URL"
         const val SELECT_CONCIOUS = 100
@@ -52,6 +54,9 @@ class VitalSignsActivity : BaseActivity() {
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         id=intent.getStringExtra(ID)?:""
         typeId=intent.getStringExtra(TYPE_ID)?:""
+        xt=intent.getStringExtra(IS_XT)?:""
+
+        viewModel.xtShow.set(xt.equals("xt"))
 
         binding.viewModel = viewModel
 

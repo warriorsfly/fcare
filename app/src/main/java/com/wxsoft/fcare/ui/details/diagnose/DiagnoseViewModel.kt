@@ -78,9 +78,11 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
     val illnessItems: LiveData<List<Dictionary>>
     private val loadIllnessItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
+    val modifySomeThing: LiveData<String>
+    val loadModifySomeThing= MediatorLiveData<String>()
 
     init {
-
+        modifySomeThing = loadModifySomeThing.map { it }
         backToLast = initbackToLast.map { it }
 
         submitDiagnosis = loadSubmitDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
@@ -164,6 +166,10 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
                 doctorName=account.trueName
             }
             illnessItems.value?.filter { it.checked }?.map { submitDiagnosis.value?.criticalLevel = it.id }
+            if(submitDiagnosis.value?.criticalLevel.isNullOrEmpty()) {
+                loadModifySomeThing.value = "have_not_seleted_criticalLevel"
+                return
+            }
             submitDiagnosis.value?.sceneType = sceneTypeId
             saveDiagnose(submitDiagnosis.value!!)
         }
