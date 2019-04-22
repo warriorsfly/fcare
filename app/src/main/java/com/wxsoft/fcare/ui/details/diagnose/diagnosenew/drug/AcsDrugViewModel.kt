@@ -62,39 +62,39 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
     }
 
     fun subdelow1(){
-        if (acsDrug.value?.aspirin_Dose.isNullOrEmpty()){
-            acsDrug.value?.aspirin_Dose = "0"
+        if (acsDrug.value?.aspirin_Dose_str.isNullOrEmpty()){
+            acsDrug.value?.aspirin_Dose_str = "0"
         }  else {
-            if (acsDrug.value?.aspirin_Dose!!.toInt() >25) acsDrug.value?.aspirin_Dose = (acsDrug.value?.aspirin_Dose!!.toInt() - 25).toString() else acsDrug.value?.aspirin_Dose = "0"
+            if (acsDrug.value?.aspirin_Dose_str!!.toDouble() >25) acsDrug.value?.aspirin_Dose_str = (acsDrug.value?.aspirin_Dose_str!!.toDouble() - 25).toString() else acsDrug.value?.aspirin_Dose_str = "0"
         }
     }
     fun subdelow2(){
-        if (acsDrug.value?.acs_Drug_Dose.isNullOrEmpty()){
-            acsDrug.value?.acs_Drug_Dose = "0"
+        if (acsDrug.value?.acs_Drug_Dose_str.isNullOrEmpty()){
+            acsDrug.value?.acs_Drug_Dose_str = "0"
         }  else {
-            if (acsDrug.value?.acs_Drug_Dose!!.toInt() >25) acsDrug.value?.acs_Drug_Dose = (acsDrug.value?.acs_Drug_Dose!!.toInt() - 25).toString() else acsDrug.value?.acs_Drug_Dose = "0"
+            if (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() >25) acsDrug.value?.acs_Drug_Dose_str = (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() - 25).toString() else acsDrug.value?.acs_Drug_Dose_str = "0"
         }
     }
     fun subdelow3(){
         if (acsDrug.value?.anticoagulation_Unit.isNullOrEmpty()){
             acsDrug.value?.anticoagulation_Unit = "0"
         }  else {
-            if (acsDrug.value?.anticoagulation_Unit!!.toInt() >25) acsDrug.value?.anticoagulation_Unit = (acsDrug.value?.anticoagulation_Unit!!.toInt() - 25).toString() else acsDrug.value?.anticoagulation_Unit = "0"
+            if (acsDrug.value?.anticoagulation_Unit!!.toDouble() >25) acsDrug.value?.anticoagulation_Unit = (acsDrug.value?.anticoagulation_Unit!!.toInt() - 25).toString() else acsDrug.value?.anticoagulation_Unit = "0"
         }
     }
 
     fun add1(){
-            if (acsDrug.value?.aspirin_Dose.isNullOrEmpty()){
-                acsDrug.value?.aspirin_Dose = "25"
+            if (acsDrug.value?.aspirin_Dose_str.isNullOrEmpty()){
+                acsDrug.value?.aspirin_Dose_str = "25"
             }  else {
-                if (acsDrug.value?.aspirin_Dose!!.toInt() != 0) acsDrug.value?.aspirin_Dose = (acsDrug.value?.aspirin_Dose!!.toInt() + 25).toString() else acsDrug.value?.aspirin_Dose = "25"
+                if (acsDrug.value?.aspirin_Dose_str!!.toDouble() != 0.0) acsDrug.value?.aspirin_Dose_str = (acsDrug.value?.aspirin_Dose_str!!.toDouble() + 25).toString() else acsDrug.value?.aspirin_Dose_str = "25"
             }
     }
     fun add2(){
-            if (acsDrug.value?.acs_Drug_Dose.isNullOrEmpty()){
-                acsDrug.value?.acs_Drug_Dose = "25"
+            if (acsDrug.value?.acs_Drug_Dose_str.isNullOrEmpty()){
+                acsDrug.value?.acs_Drug_Dose_str = "25"
             }  else {
-                if (acsDrug.value?.acs_Drug_Dose!!.toInt() != 0) acsDrug.value?.acs_Drug_Dose = (acsDrug.value?.acs_Drug_Dose!!.toInt() + 25).toString() else acsDrug.value?.acs_Drug_Dose = "25"
+                if (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() != 0.0) acsDrug.value?.acs_Drug_Dose_str = (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() + 25).toString() else acsDrug.value?.acs_Drug_Dose_str = "25"
             }
     }
     fun add3(){
@@ -137,7 +137,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
     }
 
     fun loadAcsDrug(response:Response<ACSDrug>){
-        loadAcsDrug.value  = response.result
+        loadAcsDrug.value  = response.result?.apply { haveDrugs() }
     }
 
     fun getDrugs1(id:String){

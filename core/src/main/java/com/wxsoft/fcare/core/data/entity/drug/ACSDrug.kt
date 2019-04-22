@@ -75,20 +75,39 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 阿司匹林用量
      */
-    @Bindable var aspirin_Dose:String=""
+    @Bindable var aspirin_Dose:Double=0.0
         set(value) {
             field=value
             notifyPropertyChanged(BR.aspirin_Dose)
         }
 
+    @Transient
+    @Bindable var aspirin_Dose_str:String=""
+        set(value) {
+            field=value
+            if (!value.isNullOrEmpty()) aspirin_Dose = value.toDouble()
+            notifyPropertyChanged(BR.aspirin_Dose_str)
+        }
+
+
+
     /**
      * 氯吡格雷 或者 替格瑞洛 用量
      */
-    @Bindable var acs_Drug_Dose:String=""
+    @Bindable var acs_Drug_Dose:Double=0.0
         set(value) {
             field=value
             notifyPropertyChanged(BR.acs_Drug_Dose)
         }
+
+    @Transient
+    @Bindable var acs_Drug_Dose_str:String=""
+        set(value) {
+            field=value
+            if (!value.isNullOrEmpty()) acs_Drug_Dose = value.toDouble()
+            notifyPropertyChanged(BR.acs_Drug_Dose_str)
+        }
+
 
     /**
      * 首次抗凝给药药物
@@ -136,8 +155,10 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
         }
 
     fun haveDrugs(){
-        drugsStr =  "阿司匹林"+aspirin_Dose+"mg" + (if (acs_Drug_Dose.isNullOrEmpty()) ""  else acsDrugTypeName +acs_Drug_Dose+"mg")
-        if (aspirin_Dose.isNullOrEmpty()) haveData = false else haveData = true
+        drugsStr =  "阿司匹林"+aspirin_Dose+"mg" + (if (acs_Drug_Dose==0.0) ""  else acsDrugTypeName +acs_Drug_Dose+"mg")
+        if (aspirin_Dose==0.0) haveData = false else haveData = true
+        acs_Drug_Dose_str = acs_Drug_Dose.toString()
+        aspirin_Dose_str = aspirin_Dose.toString()
     }
 
 }

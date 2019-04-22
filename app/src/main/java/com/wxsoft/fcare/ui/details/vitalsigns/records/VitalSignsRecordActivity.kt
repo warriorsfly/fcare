@@ -82,7 +82,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
     fun toAddVital(typeId:String){
         val intent = Intent(this, VitalSignsActivity::class.java).apply {
             putExtra(VitalSignsActivity.PATIENT_ID, patientId)
-            putExtra(VitalSignsActivity.TYPE_ID, typeId)
+            putExtra(VitalSignsActivity.TYPE_ID, "")
         }
         startActivityForResult(intent,ADD_VITAL )
     }

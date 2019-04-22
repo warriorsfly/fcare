@@ -126,7 +126,6 @@ class OneTouchCallingActivity : BaseActivity() {
 //        intent.data = data
 //        startActivity(intent)
 
-
         //打开拨号界面，填充输入手机号码，让用户自主的选择
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK

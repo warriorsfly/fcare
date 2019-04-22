@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="com.wxsoft.fcare.utils.DoubleConverter"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.AcsDrugViewModel"/>
     </data>
 
@@ -135,7 +136,7 @@
                                 android:layout_height="25dp"/>
 
                         <EditText
-                                android:text="@={viewModel.acsDrug.aspirin_Dose}"
+                                android:text="@={viewModel.acsDrug.aspirin_Dose_str}"
                                 android:id="@+id/drug_num"
                                 android:selectAllOnFocus="true"
                                 android:layout_width="50dp"
@@ -146,7 +147,7 @@
                                 android:textColor="#9399A4"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:maxLength="4"
+                                android:maxLength="6"
                                 android:imeOptions="actionNext"
                                 android:inputType="number"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -239,7 +240,7 @@
                                 android:layout_height="25dp"/>
 
                         <EditText
-                                android:text="@={viewModel.acsDrug.acs_Drug_Dose}"
+                                android:text="@={viewModel.acsDrug.acs_Drug_Dose_str}"
                                 android:id="@+id/drug_num2"
                                 android:selectAllOnFocus="true"
                                 android:layout_width="50dp"
@@ -250,7 +251,7 @@
                                 android:textColor="#9399A4"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:maxLength="4"
+                                android:maxLength="6"
                                 android:imeOptions="actionNext"
                                 android:inputType="number"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -463,7 +464,7 @@
                                 android:textColor="#9399A4"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:maxLength="4"
+                                android:maxLength="6"
                                 android:imeOptions="actionNext"
                                 android:inputType="number"
                                 app:layout_constraintBottom_toBottomOf="parent"

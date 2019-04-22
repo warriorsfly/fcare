@@ -293,3 +293,14 @@ object FloatConverter{
         return if(value.isEmpty()) null else value.toFloat()
     }
 }
+object DoubleConverter{
+    @InverseMethod("stringToDouble")
+    @JvmStatic fun doubleToString(value: Double?):String  {
+        return if(value==null) ""  else value.toString()
+
+    }
+
+    @JvmStatic fun stringToDouble(value:String): Double? {
+        return if(value.isEmpty()) null else value.toDouble()
+    }
+}
