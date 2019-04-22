@@ -12,7 +12,6 @@ import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.ECGApi
 import com.wxsoft.fcare.core.utils.map
-import com.wxsoft.fcare.core.utils.switchMap
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -51,6 +50,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     val diagnoses:LiveData<List<Dictionary>>
     private val loadDiagnoseResult = MediatorLiveData<List<Dictionary>>()
     val selectedDiagnoseResult = MediatorLiveData<Dictionary>()
+    val diagnosised = MediatorLiveData<Boolean>()
     val saved = MediatorLiveData<Boolean>()
     init {
         ecg = loadEcgResult.map {
@@ -99,7 +99,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
 
     private fun doDiagnosed(response: Response<Ecg>){
 //        response.let(::doEcg)
-        saved.value=true
+        diagnosised.value=true
         loadEcg(patientId)
         loadCommonDiagnoses(patientId)
     }

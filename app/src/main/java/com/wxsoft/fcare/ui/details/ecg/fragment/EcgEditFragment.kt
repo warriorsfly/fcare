@@ -51,13 +51,13 @@ class EcgEditFragment : DaggerFragment() {
             adapter.notifyDataSetChanged()
         })
 
-        viewModel.saved.observe(this, Observer {
+        viewModel.diagnosised.observe(this, Observer {
 
             if(isAdded && it) {
                 activity?.supportFragmentManager?.let {
                     if (it.popBackStackImmediate())
                         it.popBackStack()
-                    viewModel.saved.value=false
+                    viewModel.diagnosised.value=false
                 }
             }
         })

@@ -127,12 +127,18 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         }
 
 
-        viewModel.saved.observe(this, Observer {
+        viewModel.diagnosised.observe(this, Observer {
             if(it) {
-                viewModel.saved.value=false
                 setResult(Activity.RESULT_OK)
             }
         })
+
+        viewModel.saved.observe(this, Observer {
+            if(it) {
+                setResult(Activity.RESULT_OK)
+            }
+        })
+
 
         see_reactive.setOnClickListener {
             val intent=Intent(this,ReactiveEcgActivity::class.java)
