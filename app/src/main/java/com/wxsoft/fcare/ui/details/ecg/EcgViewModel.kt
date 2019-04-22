@@ -98,8 +98,10 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     }
 
     private fun doDiagnosed(response: Response<Ecg>){
-        response.let(::doEcg)
+//        response.let(::doEcg)
         saved.value=true
+        loadEcg(patientId)
+        loadCommonDiagnoses(patientId)
     }
 
     fun saveEcg(){

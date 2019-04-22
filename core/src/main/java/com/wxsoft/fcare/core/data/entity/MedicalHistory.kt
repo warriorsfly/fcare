@@ -8,7 +8,7 @@ import com.wxsoft.fcare.core.data.entity.previoushistory.History1
 import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 
-data class MedicalHistory(val id:String): BaseObservable() {
+data class MedicalHistory(val createrId:String,val id:String=""): BaseObservable() {
 
     @Bindable
     var patientId:String=""

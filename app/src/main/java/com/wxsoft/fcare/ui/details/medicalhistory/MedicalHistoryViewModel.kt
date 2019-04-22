@@ -77,7 +77,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         providerItems = loadProviderItemsResult.map { it }
         historyItems = loadHistoryItemsResult.map { it }
 
-        medicalHistory = loadMedicalHistoryResult.map { it.result?: MedicalHistory("") }
+        medicalHistory = loadMedicalHistoryResult.map { it.result?: MedicalHistory(account.id) }
         drugHistory = loadDrugHistoryResult.map { it?: emptyList() }
         uploading = savePatientResult.map { it }
     }

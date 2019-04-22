@@ -146,7 +146,6 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             operation.items?.forEach {
                 val index=keys.indexOf(it.actionCode)
                 if(index>=0){
-//                    tint=tints[index]
                     it.ico=icons[index]
                 }
             }
