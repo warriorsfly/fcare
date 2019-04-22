@@ -116,10 +116,11 @@
             android:minLines="4"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-
             android:id="@+id/memo"
+            android:gravity="top"
+            android:hint="请输入对心电图的诊断描述"
             android:text="@={viewModel.ecg.diagnoseResult}"
-            android:background="@drawable/bg_dialog_edit_panel"/>
+            android:background="@drawable/bg_edittextview_black_border"/>
     </LinearLayout>
     </FrameLayout>
 </layout>

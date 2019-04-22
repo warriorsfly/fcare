@@ -129,6 +129,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
         viewModel.saved.observe(this, Observer {
             if(it) {
+                viewModel.saved.value=false
                 setResult(Activity.RESULT_OK)
             }
         })
