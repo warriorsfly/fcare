@@ -42,6 +42,8 @@
     <style name="AppTheme.RatingSubject">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="actionMenuTextColor">@color/colorPrimary</item>
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:screenOrientation">portrait</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
