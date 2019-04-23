@@ -11,9 +11,14 @@ import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.data.toResource
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.core.utils.map
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import javax.inject.Inject
 
 class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
@@ -21,9 +26,13 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
                                            override val sharedPreferenceStorage: SharedPreferenceStorage,
                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
-
     val lisCr:LiveData<LisCr>
     private val loadLisCrResult = MediatorLiveData<Resource<Response<LisCr>>>()
+
+    private var saveAble=true
+    val bitmaps= mutableListOf<String>()
+    val uploading:LiveData<Boolean>
+    val savePatientResult =MediatorLiveData<Boolean>()
 
     /**
      * 病人id
@@ -56,8 +65,8 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             troponinUnits=cos
             return@map troponinUnits.map { item -> item.itemName }
         }
-
-        loadTroponin()
+        uploading = savePatientResult.map { it }
+//        loadTroponin()
     }
 
     fun getCrById(id:String){
@@ -85,10 +94,53 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     fun submit(){
         if (lisCr.value == null) return
         lisCr.value!!.patientId = patientId
-        lisApi.savePoct(lisCr.value!!).toResource()
-            .subscribe {
-                loadClickEdit.value = "success"
+        savePatientResult.value= true
+        lisCr.value?.also {lisCr->
+            if (saveAble) {
+                saveAble = false
+                val files = bitmaps.map {
+                    val file = File(it)
+                    return@map MultipartBody.Part.createFormData(
+                        "images",
+                        it.split("/").last(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    )
+                }
+                if (files.isNullOrEmpty()) {
+                    lisApi.savePoct(lisCr).toResource().subscribe {
+                        savePatientResult.value= false
+                        when (it) {
+                            is Resource.Success -> {
+//                                clickResult.value = true
+                                messageAction.value = Event("保存成功")
+                                saveAble = true
+                                loadClickEdit.value = "success"
+                            }
+                            is Resource.Error -> {
+//                                clickResult.value = true
+                                messageAction.value = Event(it.throwable.message ?: "")
+                            }
+                        }
+                    }
+                } else {
+                    lisApi.savePoct(lisCr, files).toResource().subscribe {
+                        savePatientResult.value= false
+                        when (it) {
+                            is Resource.Success -> {
+//                                clickResult.value = true
+                                messageAction.value = Event("保存成功")
+                                saveAble = true
+                                loadClickEdit.value = "success"
+                            }
+                            is Resource.Error -> {
+//                                clickResult.value = true
+                                messageAction.value = Event(it.throwable.message ?: "")
+                            }
+                        }
+                    }
+                }
             }
+        }
     }
 
     fun clickTime(id:String){

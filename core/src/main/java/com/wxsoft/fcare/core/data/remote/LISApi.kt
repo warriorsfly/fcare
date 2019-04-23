@@ -5,10 +5,8 @@ import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.lis.LisItem
 import com.wxsoft.fcare.core.data.entity.lis.LisRecord
 import io.reactivex.Maybe
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 interface LISApi {
 
@@ -24,8 +22,13 @@ interface LISApi {
     @POST("LIS/SaveCr")
     fun saveCr(@Body lisCr: LisCr): Maybe<Response<String>>
 
+    @Multipart
     @POST("POCT/SaveTroponin")
-    fun savePoct(@Body lisCr: LisCr): Maybe<Response<String>>
+    fun savePoct(@Part("lisCr") lisCr: LisCr): Maybe<Response<String>>
+
+    @Multipart
+    @POST("POCT/SaveTroponin")
+    fun savePoct(@Part("lisCr")lisCr: LisCr, @Part files: List<MultipartBody.Part>): Maybe<Response<String>>
 
     @GET("LIS/GetPatientLisRecords/{patientId}/{lisItemId}")
     fun getPatientLisRecords(@Path("patientId")patientId:String,@Path("lisItemId")lisItemId:String): Maybe<Response<List<LisRecord>>>

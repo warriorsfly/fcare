@@ -51,8 +51,11 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.details.assistant.troponin.JGDBActivity"
-                  android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.hardwaredata.HardwareDataActivity">
+        </activity>
+        <activity
+                android:name=".ui.details.assistant.troponin.JGDBActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.workspace.notify.OneTouchCallingActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
@@ -153,7 +156,6 @@
                 android:name=".ui.message.MessageActivity"
                 android:label="@string/title_activity_message"
                 android:theme="@style/AppTheme.NoActionBar"/>
-
         <activity
                 android:name=".ui.details.fast.FastActivity"
                 android:label="@string/title_activity_message"
