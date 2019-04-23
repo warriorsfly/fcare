@@ -21,8 +21,10 @@ import javax.inject.Inject
 class VitalSignsRecordActivity :  BaseActivity() {
 
     private lateinit var patientId:String
+    private lateinit var xt:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val IS_XT = "IS_XT"
         const val ADD_VITAL = 10
         const val SHARE = 20
 
@@ -45,9 +47,11 @@ class VitalSignsRecordActivity :  BaseActivity() {
         setSupportActionBar(toolbar)
         title="生命体征"
         patientId=intent.getStringExtra(PATIENT_ID)?:""
+        xt=intent.getStringExtra(IS_XT)?:""
 
         binding.viewModel = viewModel
         viewModel.patientId = patientId
+
 
         listAdapter = VitalSignsDetailItemAdapter(this,viewModel)
         binding.vitalRecordsList.adapter = listAdapter
@@ -59,7 +63,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
 
         viewModel.addvital.observe(this, Observer {
             if (it.equals("share")){
-                toShareVital()
+
             }else{
                 toAddVital(it)
             }
@@ -71,18 +75,13 @@ class VitalSignsRecordActivity :  BaseActivity() {
 
     }
 
-    fun toShareVital(){
-        val intent = Intent(this, ShareActivity::class.java).apply {
-            putExtra(ShareActivity.PATIENT_ID, patientId)
-            putExtra(ShareActivity.URL, "230-2")
-        }
-        startActivityForResult(intent,SHARE )
-    }
+
 
     fun toAddVital(typeId:String){
         val intent = Intent(this, VitalSignsActivity::class.java).apply {
             putExtra(VitalSignsActivity.PATIENT_ID, patientId)
             putExtra(VitalSignsActivity.TYPE_ID, "")
+            putExtra(VitalSignsActivity.IS_XT, xt)
         }
         startActivityForResult(intent,ADD_VITAL )
     }
@@ -91,6 +90,7 @@ class VitalSignsRecordActivity :  BaseActivity() {
             putExtra(VitalSignsActivity.PATIENT_ID, patientId)
             putExtra(VitalSignsActivity.TYPE_ID, item.sceneType)
             putExtra(VitalSignsActivity.ID, item.id)
+            putExtra(VitalSignsActivity.IS_XT, xt)
         }
         startActivityForResult(intent,ADD_VITAL )
     }

@@ -32,7 +32,6 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
             getVitalRecords()
         }
 
-
     val vitals:LiveData<List<VitalSign>>
     private val initVitals = MediatorLiveData<List<VitalSign>>()
 

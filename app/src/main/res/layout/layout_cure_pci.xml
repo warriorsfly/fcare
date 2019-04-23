@@ -147,11 +147,10 @@
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="19dp"
-                        android:drawableLeft="@drawable/ic_common_clock"
                         android:drawablePadding="7dp"
                         android:text="@{viewModel.talk.startTime}"
-                        android:textSize="16sp"
-                        android:textColor="#999999"
+                        android:textSize="13sp"
+                        android:textColor="#7D7D7D"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 

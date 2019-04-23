@@ -31,14 +31,12 @@ data class VitalSign(val id:String=""): BaseObservable() {
     @Bindable
     var respiration_Rate: Int = 0
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.respiration_Rate)
         }
     @Bindable
     var pulse_Rate: Int = 0
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.pulse_Rate)
         }
@@ -90,14 +88,12 @@ data class VitalSign(val id:String=""): BaseObservable() {
     @Bindable
     var killip_Level: String = ""
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.killip_Level)
         }
     @Bindable
     var killip_Unit: String = ""
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.killip_Unit)
         }
@@ -140,7 +136,13 @@ data class VitalSign(val id:String=""): BaseObservable() {
             field = value
             notifyPropertyChanged(BR.createrName)
         }
-
+    @Transient
+    @Bindable
+    var sbpsp: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.sbpsp)
+        }
 
     override fun toString(): String {
         return  "$consciousness_Type,呼吸$respiration_Rate,脉搏$pulse_Rate,心率$heart_Rate"
@@ -155,7 +157,8 @@ data class VitalSign(val id:String=""): BaseObservable() {
             "3"-> killip_Unit_int = 3
             "4"-> killip_Unit_int = 4
         }
-        if (body_Temperature != null) bodyTemperatureStr = body_Temperature.toString()
+        if (body_Temperature != null) bodyTemperatureStr = body_Temperature.toString() else bodyTemperatureStr = "-"
+        sbpsp = (if(dbp.isNullOrEmpty()) "-" else dbp) + "-" +(if (sbp.isNullOrEmpty())"-" else sbp)
     }
     fun isDoubleOrFloat(str : String):Boolean {
         val pattern = Pattern.compile("^[-\\+]?[.\\d]*$");

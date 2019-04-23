@@ -4,6 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="com.wxsoft.fcare.utils.Converter"/>
+        <import type="com.wxsoft.fcare.utils.QualityScoreConverter"/>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordViewModel"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.VitalSign"/>
     </data>
@@ -83,7 +85,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(item.dbp) +`/`+ String.valueOf(item.sbp)}"
+                android:text="@{item.sbpsp}"
                 tools:text="100/140"
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toRightOf="@+id/consciousness_content"
@@ -112,7 +114,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(item.heart_Rate)}"
+                android:text="@{QualityScoreConverter.intToString(item.heart_Rate)}"
                 tools:text="58"
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toRightOf="@+id/blood_pressure_content"
@@ -143,7 +145,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(item.respiration_Rate)}"
+                android:text="@{QualityScoreConverter.intToString(item.respiration_Rate)}"
                 tools:text="46"
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toRightOf="@+id/heart_rate_title"
@@ -174,7 +176,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(item.spO2)}"
+                android:text="@{QualityScoreConverter.intToString(item.spO2)}"
                 tools:text="12"
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -202,7 +204,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(item.body_Temperature)}"
+                android:text="@{FloatConverter.floatToString(item.body_Temperature)}"
                 tools:text="36.8"
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toRightOf="@+id/blood_oxygen_content"
@@ -230,7 +232,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(item.weight)}"
+                android:text="@{QualityScoreConverter.intToString(item.weight)}"
                 tools:text="67"
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toRightOf="@+id/animal_heat_title"
@@ -258,7 +260,7 @@
                 android:textSize="16sp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="@{String.valueOf(item.pulse_Rate)}"
+                android:text="@{QualityScoreConverter.intToString(item.pulse_Rate)}"
                 tools:text="67"
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toRightOf="@+id/weight_content"

@@ -285,7 +285,7 @@ object LongConverter{
 object FloatConverter{
     @InverseMethod("stringToFloat")
     @JvmStatic fun floatToString(value: Float?):String  {
-        return if(value==null) ""  else value.toString()
+        return if(value==null) "-"  else value.toString()
 
     }
 
