@@ -30,6 +30,7 @@ import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
+import com.wxsoft.fcare.ui.details.fast.FastActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
@@ -245,10 +246,20 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, BASE_INFO)
             }
             ActionType.主诉及症状 ->{
-                val intent = Intent(this@WorkingActivity, ComplaintsActivity::class.java).apply {
-                    putExtra(ComplaintsActivity.PATIENT_ID, patientId)
+
+                if(viewModel.patient.value?.diagnosisCode=="215-2"){
+                    val intent = Intent(this@WorkingActivity, FastActivity::class.java).apply {
+                        putExtra(ComplaintsActivity.PATIENT_ID, patientId)
+                    }
+
+                    startActivityForResult(intent, COMPLAINTS)
+                }else {
+                    val intent = Intent(this@WorkingActivity, ComplaintsActivity::class.java).apply {
+                        putExtra(ComplaintsActivity.PATIENT_ID, patientId)
+                    }
+
+                    startActivityForResult(intent, COMPLAINTS)
                 }
-                startActivityForResult(intent, COMPLAINTS)
             }
             ActionType.PhysicalExamination->{
                 val intent = Intent(this@WorkingActivity, CheckBodyActivity::class.java).apply {

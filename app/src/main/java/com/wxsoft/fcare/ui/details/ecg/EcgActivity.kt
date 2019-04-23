@@ -122,9 +122,9 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
             }
         }
 
-        share_tv.setOnClickListener {
-            toShareEcg()
-        }
+//        share_tv.setOnClickListener {
+//            toShareEcg()
+//        }
 
 
         viewModel.diagnosised.observe(this, Observer {
@@ -337,13 +337,13 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         }
     }
 
-    fun toShareEcg(){
-        val intent = Intent(this, ShareActivity::class.java).apply {
-            putExtra(ShareActivity.PATIENT_ID, patientId)
-            putExtra(ShareActivity.URL, "230-1")
-        }
-        startActivityForResult(intent,100 )
-    }
+//    fun toShareEcg(){
+//        val intent = Intent(this, ShareActivity::class.java).apply {
+//            putExtra(ShareActivity.PATIENT_ID, patientId)
+//            putExtra(ShareActivity.URL, "230-1")
+//        }
+//        startActivityForResult(intent,100 )
+//    }
 
     override fun onBackPressed() {
 

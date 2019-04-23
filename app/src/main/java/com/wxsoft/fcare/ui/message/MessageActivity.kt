@@ -1,15 +1,13 @@
 package com.wxsoft.fcare.ui.message
 
-import android.media.AudioRecord
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityMessageBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
 import javax.inject.Inject
 
 class MessageActivity : BaseActivity()  {
@@ -36,9 +34,9 @@ class MessageActivity : BaseActivity()  {
                 lifecycleOwner = this@MessageActivity
             }
         viewModel = viewModelProvider(factory)
-        title=intent.getStringExtra(MessageActivity.TITLE)?:""
-        content=intent.getStringExtra(MessageActivity.CONTENT)?:""
-        extra=intent.getStringExtra(MessageActivity.EXTRA)?:""
+        title=intent.getStringExtra(TITLE)?:""
+        content=intent.getStringExtra(CONTENT)?:""
+        extra=intent.getStringExtra(EXTRA)?:""
         viewModel.extra = extra
         binding.viewModel = viewModel
         binding.title.setText(title)

@@ -101,22 +101,23 @@
                     android:layout_margin="16dp"
                     android:text="心电图"
                     android:textSize="16sp"
+                    android:textColor="#525252"
                     android:id="@+id/photo_title"
                     android:textColorHint="@color/colorPrimary"
                     android:gravity="right|center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
 
-                <TextView
-                        android:id="@+id/share_tv"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:text="分享"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="16sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+<!--                <TextView-->
+<!--                        android:id="@+id/share_tv"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        app:layout_constraintRight_toRightOf="parent"-->
+<!--                        android:text="分享"-->
+<!--                        android:textColor="@color/colorPrimary"-->
+<!--                        android:layout_marginRight="16dp"-->
+<!--                        android:layout_marginTop="16sp"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"/>-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
@@ -145,6 +146,7 @@
                     android:layout_margin="16dp"
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:text="@{viewModel.ecg.time}"
+                    android:textColor="#999999"
                     android:drawablePadding="6dp"
                     android:drawableLeft="@drawable/ic_common_clock"
                     android:layout_width="wrap_content"
@@ -169,6 +171,7 @@
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:text="@{FloatConverter.floatToString(viewModel.ecg.fmC2ECG)+`分钟`}"
                     android:hint="3分钟"
+                    android:textColor="#999999"
                     android:gravity="right|center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
@@ -228,6 +231,7 @@
                 android:layout_margin="16dp"
                 android:text="诊断提示"
                 android:textSize="16sp"
+
                 app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -240,7 +244,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="match_parent"
-                android:textColor="#525252"
+                android:textColor="#C1C1C1"
                 android:gravity="left"
                 app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
                 android:text="@={viewModel.ecg.diagnoseText}"
@@ -266,7 +270,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 android:layout_width="match_parent"
-                android:textColor="#525252"
+                android:textColor="#C1C1C1"
                 android:gravity="left"
                 app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
                 android:text="@={viewModel.ecg.diagnoseResult}"
@@ -292,6 +296,8 @@
                     android:text="@{viewModel.ecg.diagnosedAt}"
                     app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
                     android:drawablePadding="6dp"
+
+                    android:textColor="#999999"
                     android:drawableLeft="@drawable/ic_common_clock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -313,6 +319,7 @@
                     android:layout_margin="16dp"
                     android:hint="2分钟"
                     android:id="@+id/fm2egg"
+                    android:textColor="#999999"
                     app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
                     android:text="@{FloatConverter.floatToString(viewModel.ecg.ecg)+`分钟`}"
                     android:gravity="right|center_vertical"

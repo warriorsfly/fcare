@@ -97,6 +97,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionType.CABG-> loadCABG(pair.first)
             ActionType.患者转归-> loadOT(pair.first)
             ActionType.心电图-> loadEcgs(pair.first)
+            ActionType.ACS给药-> loadAcs(pair.first)
         }
     }
 
@@ -125,6 +126,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionCode.CABG ->ActionType.CABG
             ActionCode.ECG ->ActionType.心电图
             ActionCode.OUTCOME ->ActionType.患者转归
+            ActionCode.ACS ->ActionType.ACS给药
             else->null
         }
         actionType?.let(::indexOf)?.let(::loadDetail)
@@ -330,6 +332,14 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
                     diagnoseText=diagnoses.joinToString("\n",transform={ diagnoses.indexOf(it).toString()+"."+it.name})
                 }
             })}
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::setResultAtIndex,::error))
+    }
+
+    private fun loadAcs(index:Int){
+        disposable.add(api.getACSDrug(patientId)
+            .map {Pair(index,it)}
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::setResultAtIndex,::error))

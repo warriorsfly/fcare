@@ -112,5 +112,6 @@ annotation class ActionCode {
          *
          */
         const val ONETOUCH = 47
+        const val ACS = 48
     }
 }

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.message.MessageViewModel"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.message.MessageActivity">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/top_container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="#63B0F8"
+                android:layout_width="match_parent"
+                android:layout_height="260dp">
+
+            <TextView
+                    android:onClick="@{()->viewModel.closePage()}"
+                    android:id="@+id/close_tv"
+                    android:layout_marginBottom="50dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_marginTop="16sp"
+                    android:layout_marginLeft="27.5dp"
+                    android:text="关闭"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/title"
+                    android:layout_marginTop="15dp"
+                    android:textSize="28sp"
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:text="中风“120”三步识别"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:id="@+id/phone"
+                    android:padding="22dp"
+                    android:background="@drawable/bg_rating_option_white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@drawable/ic_fast"
+                    android:layout_marginTop="70dp"
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content_container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/top_container"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+
+
+           <LinearLayout
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintLeft_toLeftOf="parent"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical"
+               >
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <CheckBox
+                       android:id="@+id/c1"
+                       android:layout_marginLeft="20dp"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintLeft_toLeftOf="parent"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+                   <TextView
+                       android:id="@+id/index1"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintLeft_toRightOf="@id/c1"
+                       android:layout_marginLeft="20dp"
+                       android:textColor="@color/colorPrimary"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="26sp"
+                       android:text="1"/>
+
+                   <TextView
+                       android:layout_marginBottom="3dp"
+                       app:layout_constraintBaseline_toBaselineOf="@id/index1"
+                       app:layout_constraintLeft_toRightOf="@id/index1"
+                       android:layout_marginLeft="6dp"
+                       android:textSize="19sp"
+                       android:text="看一张脸"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"/>
+
+                   <TextView
+                           android:id="@+id/memo1"
+                           app:layout_constraintTop_toBottomOf="@id/index1"
+                           app:layout_constraintLeft_toLeftOf="@id/index1"
+                           android:layout_marginTop="3dp"
+                           android:text="不对称"
+                           android:textColor="#999999"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                   <TextView
+                           app:layout_constraintTop_toBottomOf="@id/memo1"
+                           app:layout_constraintLeft_toLeftOf="@id/memo1"
+                           android:layout_marginTop="3dp"
+                           android:text="口角歪斜"
+                           android:textColor="#999999"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                   <ImageView
+                       app:layout_constraintRight_toRightOf="parent"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       android:layout_width="39dp"
+                       android:layout_height="64dp"
+                       android:layout_marginRight="20dp"
+                   android:src="@drawable/ic_fast_1"/>
+               </androidx.constraintlayout.widget.ConstraintLayout>
+               <View
+                       android:background="@color/line_gray"
+                       app:layout_constraintTop_toBottomOf="@+id/patient_name"
+                       android:layout_marginTop="20dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="1dp"/>
+               <androidx.constraintlayout.widget.ConstraintLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+                   <CheckBox
+                           android:id="@+id/c2"
+                           android:layout_marginLeft="20dp"
+                           app:layout_constraintBottom_toBottomOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintLeft_toLeftOf="parent"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                   <TextView
+                           android:id="@+id/index2"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintLeft_toRightOf="@id/c2"
+                           android:layout_marginLeft="20dp"
+                           android:textColor="@color/colorPrimary"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textSize="26sp"
+                           android:text="2"/>
+
+                   <TextView
+                           android:layout_marginBottom="3dp"
+                           app:layout_constraintBaseline_toBaselineOf="@id/index2"
+                           app:layout_constraintLeft_toRightOf="@id/index2"
+                           android:layout_marginLeft="6dp"
+                           android:textSize="19sp"
+                           android:text="查2只胳膊"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                   <TextView
+                           android:id="@+id/memo2"
+                           app:layout_constraintTop_toBottomOf="@id/index2"
+                           app:layout_constraintLeft_toLeftOf="@id/index2"
+                           android:layout_marginTop="3dp"
+                           android:text="平行举起"
+                           android:textColor="#999999"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                   <TextView
+                           app:layout_constraintTop_toBottomOf="@id/memo2"
+                           app:layout_constraintLeft_toLeftOf="@id/memo2"
+                           android:layout_marginTop="3dp"
+                           android:text="单侧无力"
+                           android:textColor="#999999"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                   <ImageView
+                           app:layout_constraintRight_toRightOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintBottom_toBottomOf="parent"
+                           android:layout_width="53dp"
+                           android:layout_height="64dp"
+                           android:layout_marginRight="20dp"
+                           android:src="@drawable/ic_fast_2"/>
+               </androidx.constraintlayout.widget.ConstraintLayout>
+               <View
+                       android:background="@color/line_gray"
+                       app:layout_constraintTop_toBottomOf="@+id/patient_name"
+                       android:layout_marginTop="20dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="1dp"/>
+               <androidx.constraintlayout.widget.ConstraintLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content">
+
+                   <CheckBox
+                           android:id="@+id/c3"
+                           android:layout_marginLeft="20dp"
+                           app:layout_constraintBottom_toBottomOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintLeft_toLeftOf="parent"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                   <TextView
+                           android:id="@+id/index3"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintLeft_toRightOf="@id/c3"
+                           android:layout_marginLeft="20dp"
+                           android:textColor="@color/colorPrimary"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textSize="26sp"
+                           android:text="3"/>
+
+                   <TextView
+                           android:layout_marginBottom="3dp"
+                           app:layout_constraintBaseline_toBaselineOf="@id/index3"
+                           app:layout_constraintLeft_toRightOf="@id/index3"
+                           android:layout_marginLeft="6dp"
+                           android:textSize="19sp"
+                           android:text="查2只胳膊"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                   <TextView
+                           android:id="@+id/memo3"
+                           app:layout_constraintTop_toBottomOf="@id/index3"
+                           app:layout_constraintLeft_toLeftOf="@id/index3"
+                           android:layout_marginTop="3dp"
+                           android:text="平行举起"
+                           android:textColor="#999999"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+                   <TextView
+                           app:layout_constraintTop_toBottomOf="@id/memo3"
+                           app:layout_constraintLeft_toLeftOf="@id/memo3"
+                           android:layout_marginTop="3dp"
+                           android:text="单侧无力"
+                           android:textColor="#999999"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"/>
+
+                   <ImageView
+                           app:layout_constraintRight_toRightOf="parent"
+                           app:layout_constraintTop_toTopOf="parent"
+                           app:layout_constraintBottom_toBottomOf="parent"
+                           android:layout_width="77dp"
+                           android:layout_height="64dp"
+                           android:layout_marginRight="20dp"
+                           android:src="@drawable/ic_fast_3"/>
+               </androidx.constraintlayout.widget.ConstraintLayout>
+
+           </LinearLayout>
+
+
+
+            <com.google.android.material.button.MaterialButton
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:onClick="@{()->viewModel.areadyRead()}"
+                    android:text="确定"
+                    android:padding="12dp"
+                    android:textSize="18sp"
+                    android:layout_marginBottom="43.5dp"
+                    android:layout_width="324dp"
+                    android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

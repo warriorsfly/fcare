@@ -9,7 +9,7 @@ data class TaskSpend(val task:String):BaseObservable(){
     set(value) {
         field=value
         field?.let {
-            spending= """${(it / 60)}分${(it % 60)}秒"""
+            spending= """${(it / 60)}分"""
         }
     }
 

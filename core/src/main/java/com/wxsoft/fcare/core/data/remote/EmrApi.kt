@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
+import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import com.wxsoft.fcare.core.data.entity.rating.ScencelyRatingResult
@@ -123,6 +124,11 @@ interface EmrApi{
     @GET("Outcome/GetById/{patientId}")
     fun getOt(@Path("patientId")patientId:String): Maybe<Response<OutCome>>
 
+    /**
+     * acs给药
+     */
+    @GET("Drug/GetAcsByPatientId/{patientId}")
+    fun getACSDrug(@Path("patientId")patientId:String):Maybe<Response<ACSDrug>>
 
 
 

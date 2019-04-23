@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.dominating
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
@@ -40,6 +41,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     val bText=ObservableField<String>()
     private var fireAt=0L
     val task:LiveData<Task>
+    val arriving=MediatorLiveData<Boolean>()
     private val selectIndex = ObservableInt()
     var taskId:String=""
         set(value) {
@@ -405,7 +407,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 selectIndex.set(3)
                                 firstMetTimeStamp = DateTimeUtils.formatter.parse(resp.result)?.time
                                 messageAction.value = Event(it.carId + "首次接触")
-
+                                arriving.value=true
                                 loadSpendResult.value=it.spends
                                 getText()
                             } else {

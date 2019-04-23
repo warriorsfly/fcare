@@ -35,6 +35,7 @@ import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgModule
 import com.wxsoft.fcare.ui.details.ecg.ReactiveEcgActivity
+import com.wxsoft.fcare.ui.details.fast.FastActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
@@ -322,6 +323,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [AssistantExaminationModule::class])
     internal abstract fun jGDBActivity(): JGDBActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [])
+    internal abstract fun fastActivity(): FastActivity
 
 
 }
