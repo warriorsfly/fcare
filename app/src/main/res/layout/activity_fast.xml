@@ -17,10 +17,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:background="#63B0F8"
                 android:layout_width="match_parent"
-                android:layout_height="260dp">
+                android:layout_height="190dp">
 
             <TextView
-                    android:onClick="@{()->viewModel.closePage()}"
                     android:id="@+id/close_tv"
                     android:layout_marginBottom="50dp"
                     android:textSize="18sp"
@@ -49,32 +48,23 @@
 
             <ImageView
                     android:id="@+id/phone"
-                    android:padding="22dp"
+                    android:padding="12dp"
                     android:background="@drawable/bg_rating_option_white"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     android:src="@drawable/ic_fast"
-                    android:layout_marginTop="70dp"
-                    android:layout_width="110dp"
-                    android:layout_height="110dp"/>
-
+                    android:layout_marginTop="40dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/content_container"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/top_container"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="0dp">
-
-
-
            <LinearLayout
-               app:layout_constraintTop_toTopOf="parent"
+               android:layout_marginTop="5dp"
+               android:id="@+id/cd"
                app:layout_constraintLeft_toLeftOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/top_container"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:orientation="vertical"
@@ -244,7 +234,7 @@
                            app:layout_constraintLeft_toRightOf="@id/index3"
                            android:layout_marginLeft="6dp"
                            android:textSize="19sp"
-                           android:text="查2只胳膊"
+                           android:text="（聆）听语言"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"/>
 
@@ -253,7 +243,7 @@
                            app:layout_constraintTop_toBottomOf="@id/index3"
                            app:layout_constraintLeft_toLeftOf="@id/index3"
                            android:layout_marginTop="3dp"
-                           android:text="平行举起"
+                           android:text="言语不清"
                            android:textColor="#999999"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"/>
@@ -261,7 +251,7 @@
                            app:layout_constraintTop_toBottomOf="@id/memo3"
                            app:layout_constraintLeft_toLeftOf="@id/memo3"
                            android:layout_marginTop="3dp"
-                           android:text="单侧无力"
+                           android:text="表达困难"
                            android:textColor="#999999"
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"/>
@@ -275,25 +265,21 @@
                            android:layout_marginRight="20dp"
                            android:src="@drawable/ic_fast_3"/>
                </androidx.constraintlayout.widget.ConstraintLayout>
-
            </LinearLayout>
 
 
 
             <com.google.android.material.button.MaterialButton
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/cd"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    android:onClick="@{()->viewModel.areadyRead()}"
                     android:text="确定"
                     android:padding="12dp"
                     android:textSize="18sp"
-                    android:layout_marginBottom="43.5dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="324dp"
                     android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
