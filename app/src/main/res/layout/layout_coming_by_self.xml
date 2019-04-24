@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout >
     <data>
+        <import type="com.wxsoft.fcare.utils.TimingType"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.comingby.ComingByViewModel"/>
     </data>
 
-
-        <LinearLayout
-            app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3`)}"
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-3`)}"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/title"
             android:layout_width="match_parent"
@@ -18,6 +18,7 @@
                 android:background="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/model3_4"
+                android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveHospital)}"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
@@ -30,7 +31,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
                     android:text="到达本院大门"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="#131D35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -41,12 +42,12 @@
                     android:layout_marginRight="19dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textColor="#7D7D7D"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/rowe3_5"
-                    tools:text="2019-01-18 13:23:15"
+                    android:text="@{viewModel.comingBy.arrived_Hospital_Time}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -69,6 +70,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/model3_6"
                     android:background="@color/white"
+                    android:onClick="@{()->viewModel.changeTiming(TimingType.InHospitalAdmission)}"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/model3_5"
                     android:layout_width="match_parent"
@@ -83,7 +85,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginBottom="15dp"
                         android:text="院内接诊时间"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textColor="#131D35"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -94,12 +96,13 @@
                         android:layout_marginRight="19dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
-                        android:textSize="13sp"
+                        android:textSize="16sp"
                         android:textColor="#7D7D7D"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toLeftOf="@+id/rowe3_6"
-                        tools:text="2019-01-18 13:23:15"
+
+                        android:text="@{viewModel.comingBy.inhospital_Admission_Time}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -119,5 +122,4 @@
                         android:layout_height="1dp"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
-
 </layout>

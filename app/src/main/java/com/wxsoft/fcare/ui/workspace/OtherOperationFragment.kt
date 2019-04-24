@@ -68,6 +68,7 @@ class OtherOperationFragment : DaggerFragment() {
     ): View? {
 
         viewModel=activityViewModelProvider(factory)
+        patientId=viewModel.patientId
         adapter= OperationAdapter(this@OtherOperationFragment,::doOperation,true)
         viewModel.otherOperations.observe(this, Observer {
             adapter.submitList(it)
@@ -204,7 +205,7 @@ class OtherOperationFragment : DaggerFragment() {
 
             ActionType.来院方式 ->{
                 val intent = Intent(activity, ComingByActivity::class.java).apply {
-                    putExtra(ComingByActivity.PATIENT_ID, patientId)
+                    putExtra(ComingByActivity.PATIENT_ID, viewModel.patientId)
                 }
                 activity?.startActivityForResult(intent, COMEBY)
             }

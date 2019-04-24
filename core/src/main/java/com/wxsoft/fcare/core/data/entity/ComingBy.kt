@@ -13,6 +13,14 @@ data class ComingBy(val id:String=""): BaseObservable() {
            field = value
            notifyPropertyChanged(BR.comingWayCode)
        }
+
+    @SerializedName("coming_Way_Code_Name")
+    @Bindable
+    var comingWayName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.comingWayName)
+        }
    /**
     *出车单位代码
     * 字典：18

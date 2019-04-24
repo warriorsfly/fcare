@@ -27,7 +27,7 @@
             android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                    app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`1`)||viewModel.comingBy.comingWayCode.equals(`2`)}"
+
                     android:id="@+id/model3_2"
                     android:background="@color/white"
                     app:layout_constraintLeft_toLeftOf="parent"
@@ -44,7 +44,7 @@
                         android:layout_marginLeft="15dp"
                         android:layout_marginBottom="15dp"
                         android:text="来院方式"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textColor="#131D35"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -55,7 +55,8 @@
                         android:layout_marginRight="19dp"
                         android:layout_marginTop="15dp"
                         android:layout_marginBottom="15dp"
-                        android:textSize="13sp"
+                        android:textSize="16sp"
+                        android:text="@{viewModel.comingBy.comingWayName}"
                         android:textColor="#7D7D7D"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -88,6 +89,7 @@
                 android:layout_height="wrap_content">
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3_3"
+                        app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)}"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/model3_2"
@@ -103,7 +105,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginBottom="15dp"
                             android:text="出车单位"
-                            android:textSize="15sp"
+                            android:textSize="16sp"
                             android:textColor="#131D35"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
@@ -114,7 +116,7 @@
                             android:layout_marginRight="19dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="15dp"
-                            android:textSize="13sp"
+                            android:textSize="16sp"
                             android:textColor="#7D7D7D"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"

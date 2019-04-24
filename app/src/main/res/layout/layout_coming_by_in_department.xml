@@ -3,12 +3,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="com.wxsoft.fcare.utils.TimingType"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.comingby.ComingByViewModel"/>
     </data>
 
 
         <LinearLayout
-            app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`4`)}"
+            app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-4`)}"
             android:orientation="vertical"
             app:layout_constraintTop_toBottomOf="@+id/title"
             android:layout_width="match_parent"
@@ -30,7 +31,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
                     android:text="发病科室"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="#131D35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -41,7 +42,9 @@
                     android:layout_marginRight="19dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="13sp"
+
+                    android:text="@={viewModel.comingBy.attack_Department}"
+                    android:textSize="16sp"
                     android:gravity="right"
                     android:textColor="#7D7D7D"
                     app:layout_constraintTop_toTopOf="parent"
@@ -72,6 +75,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model3_3"
                 android:background="@color/white"
+                android:onClick="@{()->viewModel.changeTiming(TimingType.Consultation)}"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/model3_2"
                 android:layout_width="match_parent"
@@ -86,7 +90,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
                     android:text="会诊时间"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="#131D35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -97,12 +101,12 @@
                     android:layout_marginRight="19dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textColor="#7D7D7D"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
-                    tools:text="2019-01-18 13:23:15"
+                    android:text="@{viewModel.comingBy.consultation_Time}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -127,6 +131,7 @@
                 android:id="@+id/model3_4"
                 android:background="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
+                android:onClick="@{()->viewModel.changeTiming(TimingType.LeaveDepartment)}"
                 app:layout_constraintTop_toBottomOf="@+id/model3_3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
@@ -140,7 +145,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
                     android:text="离开科室时间"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="#131D35"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -151,12 +156,13 @@
                     android:layout_marginRight="19dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="13sp"
+                    android:textSize="16sp"
                     android:textColor="#7D7D7D"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toLeftOf="@+id/rowe3_4"
-                    tools:text="2019-01-18 13:23:15"
+
+                    android:text="@{viewModel.comingBy.leave_Department_Time}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

@@ -8,7 +8,6 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.workspace.addpoint.AddTimeLinePointActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ class ComingByActivity : BaseActivity()  {
     lateinit var binding: ActivityComingByBinding
 
     private val patientId: String by lazyFast {
-        intent?.getStringExtra(AddTimeLinePointActivity.PATIENT_ID)?:""
+        intent?.getStringExtra(PATIENT_ID)?:""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +39,7 @@ class ComingByActivity : BaseActivity()  {
             }
         setSupportActionBar(toolbar)
         title="来院方式"
+        viewModel.patientId=patientId
 
     }
 
