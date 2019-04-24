@@ -13,6 +13,7 @@ import com.wxsoft.fcare.databinding.FragmentOtherOperationListBinding
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
@@ -32,6 +33,7 @@ import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
+import com.wxsoft.fcare.utils.ActionCode.Companion.COMEBY
 import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
 import com.wxsoft.fcare.utils.ActionCode.Companion.CT_OPERATION
 import com.wxsoft.fcare.utils.ActionCode.Companion.Catheter
@@ -198,6 +200,13 @@ class OtherOperationFragment : DaggerFragment() {
                     putExtra(OutComeActivity.PATIENT_ID, patientId)
                 }
                 activity?.startActivityForResult(intent, OUTCOME)
+            }
+
+            ActionType.来院方式 ->{
+                val intent = Intent(activity, ComingByActivity::class.java).apply {
+                    putExtra(ComingByActivity.PATIENT_ID, patientId)
+                }
+                activity?.startActivityForResult(intent, COMEBY)
             }
         }
     }

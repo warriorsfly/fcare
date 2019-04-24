@@ -23,6 +23,7 @@ import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.cure.CureActivity
@@ -49,6 +50,7 @@ import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
+import com.wxsoft.fcare.utils.ActionCode
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
@@ -361,6 +363,13 @@ class WorkingActivity : BaseActivity() {
                     putExtra(JGDBActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, ONETOUCH)
+            }
+
+            ActionType.来院方式 ->{
+                val intent = Intent(this, ComingByActivity::class.java).apply {
+                    putExtra(ComingByActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, ActionCode.COMEBY)
             }
         }
     }

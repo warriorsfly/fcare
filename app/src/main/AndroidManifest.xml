@@ -275,11 +275,16 @@
                 android:name="cn.jpush.android.ui.PopWinActivity"
                 android:exported="false">
         </activity> <!-- Required SDK核心功能 -->
+
         <activity
-                android:name="cn.jpush.android.ui.PushActivity"
-                android:configChanges="orientation|keyboardHidden"
-                android:exported="false"
-                android:theme="@android:style/Theme.NoTitleBar">
+                android:name=".ui.details.comingby.ComingByActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name="cn.jpush.android.ui.PushActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:exported="false"
+            android:theme="@android:style/Theme.NoTitleBar">
+
             <intent-filter>
                 <action android:name="cn.jpush.android.ui.PushActivity"/>
 

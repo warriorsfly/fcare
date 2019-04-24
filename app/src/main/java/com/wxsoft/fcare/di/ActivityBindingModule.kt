@@ -11,6 +11,8 @@ import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyModule
 import com.wxsoft.fcare.ui.details.checkbody.select.SelectBodyItemsActivity
 import com.wxsoft.fcare.ui.details.checkbody.select.SelectBodyItemsModule
+import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
+import com.wxsoft.fcare.ui.details.comingby.ComingByModule
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsModule
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
@@ -327,6 +329,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [])
     internal abstract fun fastActivity(): FastActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ComingByModule::class])
+    internal abstract fun comingByActivity(): ComingByActivity
 
 
 }

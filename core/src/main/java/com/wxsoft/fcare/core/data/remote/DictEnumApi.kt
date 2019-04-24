@@ -158,7 +158,7 @@ interface DictEnumApi {
      * 胸痛用药
      */
     @GET("EnumDic/enumItems/{id}")
-    fun loadDrugs1(@Path("id")id:String): Maybe<List<Dictionary>>
+    fun loadDicts(@Path("id")id:String): Maybe<List<Dictionary>>
 
     /**
      * 发送通知类型

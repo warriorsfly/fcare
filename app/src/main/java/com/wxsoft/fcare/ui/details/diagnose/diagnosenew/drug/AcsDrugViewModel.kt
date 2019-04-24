@@ -1,18 +1,14 @@
 package com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
-import com.wxsoft.fcare.core.data.entity.drug.Drug
-import com.wxsoft.fcare.core.data.entity.drug.DrugPackage
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.PharmacyApi
-import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -141,7 +137,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
     }
 
     fun getDrugs1(id:String){
-        disposable.add(dictEnumApi.loadDrugs1(id)
+        disposable.add(dictEnumApi.loadDicts(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::loadSonList1,::error))
@@ -152,7 +148,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
     }
 
     fun getDrugs2(id:String){
-        disposable.add(dictEnumApi.loadDrugs1(id)
+        disposable.add(dictEnumApi.loadDicts(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::loadSonList2,::error))
