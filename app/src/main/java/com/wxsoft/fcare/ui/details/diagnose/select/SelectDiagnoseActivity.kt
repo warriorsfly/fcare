@@ -81,19 +81,4 @@ class SelectDiagnoseActivity : BaseActivity() {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_sure,menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-        return  when(item?.itemId){
-            R.id.sure->{
-                viewModel.click()
-                true
-            }
-            else->super.onOptionsItemSelected(item)
-        }
-    }
 }

@@ -146,6 +146,9 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
 
     fun loadSonList(response:List<Dictionary>){
         loadsonItemsResult.value = response
+        if (response.isEmpty()){
+            click()
+        }
     }
 
 
@@ -210,8 +213,7 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
                 item.checked = true
             }
         }
-
-
+        click()
     }
 
 //    fun commitNoticePacs(){

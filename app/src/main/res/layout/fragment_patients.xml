@@ -73,7 +73,6 @@
                         android:gravity="right"
                         android:textSize="16sp"
                         android:textColor="@color/tint_work_space_checking"
-
                         android:text="搜索"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="5dp"
@@ -90,7 +89,6 @@
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="5dp"
                 app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"
                 app:refreshing="@{viewModel.networkState}"
                 app:layout_constraintBottom_toBottomOf="parent"
