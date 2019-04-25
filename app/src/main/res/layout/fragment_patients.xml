@@ -73,7 +73,6 @@
                         android:gravity="right"
                         android:textSize="16sp"
                         android:textColor="@color/tint_work_space_checking"
-
                         android:text="搜索"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="5dp"

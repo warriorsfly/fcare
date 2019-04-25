@@ -51,6 +51,13 @@ data class PatientsCondition (
             notifyPropertyChanged(BR.checkedCusDateStr)
         }
 
+    @Bindable
+    var currUserId:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.currUserId)
+        }
+
 
 
 

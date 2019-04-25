@@ -57,6 +57,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         checkCondition = checkConditionResult.map { it ?: PatientsCondition(1, 10).apply {
             startDate = getTimesmorning()
             endDate = DateTimeUtils.getCurrentTime()
+            currUserId = account.id
         } }
         clickCusDate = clickCusDateResult.map { it }
         checkConditionResult.value = null
@@ -88,6 +89,7 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         repository.getPatients(checkCondition.value?:PatientsCondition(1,10).apply {
             startDate = getTimesmorning()
             endDate = DateTimeUtils.getCurrentTime()
+            currUserId = account.id
         })
     }
 
