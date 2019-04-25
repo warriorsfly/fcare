@@ -43,10 +43,21 @@
                     app:title="心电图"
                     tools:title="title"/>
 
-                <TextView
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ss_ecg"
+                android:background="@color/white"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
                     android:id="@+id/wave_title"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_margin="16dp"
                     android:textSize="16sp"
@@ -54,10 +65,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-                <TextView
+            <TextView
                     app:layout_constraintLeft_toRightOf="@id/wave_title"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/toolbar"
+                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_margin="16dp"
                     android:hint="查看"
                     android:id="@+id/see_reactive"
@@ -66,13 +77,13 @@
                     android:drawableRight="@drawable/ic_right_arrow"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </com.google.android.material.appbar.AppBarLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@id/ss_ecg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent">
 

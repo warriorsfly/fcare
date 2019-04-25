@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+    <data>
+        <variable name="device" type="com.wxsoft.fcare.core.data.entity.hardware.MindrayDevices"/>
+        <variable name="viewmodel" type="com.wxsoft.fcare.ui.hardwaredata.HardwareDataViewModel"/>
+    </data>
+    <com.google.android.material.card.MaterialCardView
+            android:onClick="@{()->viewmodel.selectDevice(device)}"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardCornerRadius="7.5dp">
+        <TextView
+                android:background="@{device.checked?@color/colorPrimary:@color/line_gray}"
+                android:id="@+id/device_tv"
+                android:text="@{device.name}"
+                android:textColor="@{device.checked?@color/white:@color/lable_font}"
+                android:gravity="center"
+                android:textSize="16sp"
+                android:layout_width="80dp"
+                android:layout_height="80dp"/>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

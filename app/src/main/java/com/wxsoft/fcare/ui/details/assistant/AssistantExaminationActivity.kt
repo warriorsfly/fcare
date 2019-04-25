@@ -1,19 +1,17 @@
 package com.wxsoft.fcare.ui.details.assistant
 
-import androidx.lifecycle.Observer
 import android.content.DialogInterface
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.lis.LisRecord
-import com.wxsoft.fcare.core.data.entity.lis.LisRecordItem
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAssistantExaminationBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.assistant.troponin.TroponinFragment
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
-import com.wxsoft.fcare.core.utils.viewModelProvider
-import kotlinx.android.synthetic.main.layout_common_title.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissListener{
@@ -38,11 +36,13 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
             .apply {
                 lifecycleOwner = this@AssistantExaminationActivity
             }
-        back.setOnClickListener { onBackPressed() }
         patientId=intent.getStringExtra(VitalSignsActivity.PATIENT_ID)?:""
 
         binding.viewModel = viewModel
         viewModel.patientId = patientId
+
+        setSupportActionBar(toolbar)
+        title="检查检验"
 
         val typeAdapter = AssistantTypeAdapter(this,viewModel)
         viewModel.lisItems.observe(this, Observer { typeAdapter.items = it ?: emptyList() })

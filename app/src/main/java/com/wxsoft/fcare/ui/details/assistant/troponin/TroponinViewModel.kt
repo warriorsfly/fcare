@@ -5,16 +5,21 @@ import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.hardware.LepuDetection
+import com.wxsoft.fcare.core.data.entity.hardware.MindrayDetection
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.lis.LisRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
+import com.wxsoft.fcare.core.data.remote.HardwareApi
 import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.core.utils.map
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -23,11 +28,12 @@ import javax.inject.Inject
 
 class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
                                             private var dictEnumApi:DictEnumApi,
+                                            private var hardwareApi: HardwareApi,
                                            override val sharedPreferenceStorage: SharedPreferenceStorage,
                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     val lisCr:LiveData<LisCr>
-    private val loadLisCrResult = MediatorLiveData<Resource<Response<LisCr>>>()
+    private val loadLisCrResult = MediatorLiveData<LisCr>()
 
     private var saveAble=true
     val bitmaps= mutableListOf<String>()
@@ -59,7 +65,7 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
 
     init {
         clickEdit = loadClickEdit.map { it }
-        lisCr = loadLisCrResult.map { (it as? Resource.Success)?.data?.result?: LisCr("") }
+        lisCr = loadLisCrResult.map { it?: LisCr("") }
         troponinUnitsItems= loadTroponinDictEnumResult.map {
             val cos=(it as? Resource.Success)?.data?: emptyList()
             troponinUnits=cos
@@ -74,11 +80,14 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             loadLisCrResult.value = null
             return
         }
-        lisApi.getPoct(id).toResource()
-            .subscribe {
-                loadLisCrResult.value = it
-                lisCr.value?.setUpChecked()
-            }
+        disposable.add(lisApi.getPoct(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getPoct,::error))
+    }
+    private fun getPoct(response:Response<LisCr>){
+        loadLisCrResult.value = response.result
+        lisCr.value?.setUpChecked()
     }
 
     /**
@@ -145,6 +154,19 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
 
     fun clickTime(id:String){
         loadClickEdit.value = id
+    }
+
+    //从机器获取数据
+    fun loadJGDB(id:String){
+        disposable.add(hardwareApi.getJGDB(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::getJGDB,::error))
+    }
+    private fun getJGDB(response: LepuDetection){
+        loadLisCrResult.value = LisCr("").apply {
+
+        }
     }
 
 }

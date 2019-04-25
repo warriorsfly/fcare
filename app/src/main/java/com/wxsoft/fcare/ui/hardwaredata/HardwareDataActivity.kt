@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.hardwaredata
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -22,6 +23,7 @@ class HardwareDataActivity : BaseActivity() {
     @Inject
     lateinit var factory: ViewModelFactory
     lateinit var binding: ActivityHardwareDataBinding
+    lateinit var adapter: HardwareAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +35,16 @@ class HardwareDataActivity : BaseActivity() {
             }
         patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
+
+        adapter = HardwareAdapter(this,viewModel)
+        binding.hardwareRv.adapter = adapter
+
         setSupportActionBar(toolbar)
         title="选择设备"
 
+        viewModel.mindrayDevices.observe(this, Observer {
+            adapter.submitList(it)
+        })
 
     }
 }

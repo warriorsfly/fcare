@@ -9,6 +9,7 @@ import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DiagnoseApi
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -89,17 +90,41 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
     }
 
     fun saveDiagnose(){
+
         diagnosisTreatment.value?.acs = acsDrug.value!!
         diagnosisTreatment.value?.treatStrategy = selectedTreatment.value!!
         diagnosisTreatment.value?.talk = talk.value!!
         diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
-        disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (::loadResult,::error))
+        if (saveable){
+            disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (::loadResult,::error))
+        }
     }
     private fun loadResult(response: Response<String>){
         if (response.success) loadSaveResult.value = "success"
     }
+
+    val saveable:Boolean
+        get(){
+            return diagnosisTreatment.value?.let {
+                if(it.diagnosis?.diagnosisCode2.isNullOrEmpty()){
+                    messageAction.value= Event("请选择诊断类型")
+                    return@let false
+                }else{
+                    when{
+                        it.treatStrategy?.strategyCode.isNullOrEmpty()->{
+                            messageAction.value= Event("请选择治疗策略")
+                            return@let false
+                        }
+                        else->
+                            return@let true
+                    }
+                }
+
+            }?:false
+
+        }
 
 }

@@ -186,7 +186,7 @@ fun taskStatus(textView: TextView, taskOverallStatu: Int?) {
 @BindingAdapter(value = ["imageUri"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: Uri?) {
 
-    GlideApp.with(imageView.context).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
+    GlideApp.with(imageView.context).load(url).placeholder(R.drawable.img_electrocardiogram).into(imageView)
 }
 
 @BindingAdapter(value = ["opItem"], requireAll = false)
@@ -200,7 +200,7 @@ fun setOpItem(imageView: ImageView, ico:Int) {
 @BindingAdapter(value = ["imageUrl"], requireAll = false)
 fun setImageUrl(imageView: ImageView, url: String?) {
 
-    GlideApp.with(imageView.context).load(url).placeholder(R.mipmap.img_electrocardiogram).into(imageView)
+    GlideApp.with(imageView.context).load(url).placeholder(R.drawable.img_electrocardiogram).into(imageView)
 }
 
 @BindingAdapter(value = ["eventStatus"], requireAll = false)

@@ -361,6 +361,7 @@ class WorkingActivity : BaseActivity() {
             ActionType.肌钙蛋白 ->{
                 val intent = Intent(this@WorkingActivity, JGDBActivity::class.java).apply {
                     putExtra(JGDBActivity.PATIENT_ID, patientId)
+                    putExtra(JGDBActivity.LSH_ID, viewModel.patient.value?.lsh)
                 }
                 startActivityForResult(intent, ONETOUCH)
             }

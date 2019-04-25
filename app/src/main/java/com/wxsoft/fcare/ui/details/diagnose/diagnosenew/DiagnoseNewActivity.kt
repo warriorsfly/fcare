@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
@@ -18,6 +19,7 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Strategy
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDiagnoseNewBinding
@@ -135,6 +137,10 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
                 setResult(Activity.RESULT_OK,intent)
                 finish()
             }
+        })
+
+        viewModel.mesAction.observe(this, EventObserver{
+            Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
     }
 

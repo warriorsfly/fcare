@@ -170,7 +170,7 @@ class InformedConsentDetailsActivity : BaseActivity() {
         // immediately and proceed with this one.
         mCurrentAnimator?.cancel()
 
-        GlideApp.with(this).load(imageResId).error(R.mipmap.img_electrocardiogram).into(imageView)//enlarged.setImageResource(imageResId)
+        GlideApp.with(this).load(imageResId).error(R.drawable.img_electrocardiogram).into(imageView)//enlarged.setImageResource(imageResId)
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.

@@ -1,17 +1,31 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.EmrItem
-import com.wxsoft.fcare.core.data.entity.Response
-import io.reactivex.Single
+import com.wxsoft.fcare.core.data.entity.hardware.LepuDetection
+import com.wxsoft.fcare.core.data.entity.hardware.MindrayDetection
+import com.wxsoft.fcare.core.data.entity.hardware.MindrayDevices
+import io.reactivex.Maybe
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface HardwareApi {
     /**
-     * 获取emr时间轴
+     * 获取生命体征设备列表
      */
-    @GET("Patient/GetEmr/{patientId}/{currUserId}/{isPreHospital}")
-    fun getEmrs(@Path("patientId")patientId:String, @Path("currUserId")userId:String, @Path("isPreHospital")pre:Boolean): Single<Response<List<EmrItem>>>
+    @GET("Device/GetMindrayDevices")
+    fun getMindrayDevices(): Maybe<List<MindrayDevices>>
+
+    /**
+     * 获取生命体征设备数据
+     */
+    @GET("Device/GetMindrayDetection/{deviceId}")
+    fun getVital(@Path("deviceId")deviceId:String): Maybe<MindrayDetection>
+
+    /**
+     * 获取肌钙蛋白数据
+     */
+    @GET("Device/GetLepuDetection/{NoOrName}")
+    fun getJGDB(@Path("NoOrName")NoOrName:String): Maybe<LepuDetection>
+
 
 
 }
