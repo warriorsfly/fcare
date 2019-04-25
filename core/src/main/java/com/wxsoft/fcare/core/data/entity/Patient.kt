@@ -13,6 +13,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
 
     var taskId: String?=null
+    var lsh: String?=null
 
     @get:Bindable
     var name: String=""

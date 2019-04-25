@@ -16,7 +16,6 @@
         android:layout_height="74dp"
     >
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/op_part"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,22 +28,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                    app:layout_constraintTop_toTopOf="@id/ico"
-                    app:layout_constraintRight_toRightOf="@id/ico"
-                    android:id="@+id/done"
-
-                    app:goneUnless="@{item.hasExcuted}"
-                    android:scaleType="centerInside"
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:elevation="1dp"
-                    android:src="@drawable/ic_work_space_operation_done"/>
-
-
-            <ImageView
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
+                    android:padding="3dp"
                     android:id="@+id/ico"
                     android:layout_width="48dp"
                     android:layout_height="48dp"
@@ -54,6 +41,18 @@
                     android:tint="@color/colorPrimary"
                     android:background="@drawable/bg_operation"
                     tools:backgroundTint="@color/tint_work_space_checking"/>
+
+            <ImageView
+                    app:layout_constraintTop_toTopOf="@id/ico"
+                    app:layout_constraintRight_toRightOf="@id/ico"
+                    android:id="@+id/done"
+                    app:goneUnless="@{item.hasExcuted}"
+                    android:scaleType="centerInside"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:elevation="1dp"
+                    android:src="@drawable/ic_work_space_operation_done"/>
+
         <TextView
             app:layout_constraintTop_toBottomOf="@id/ico"
             app:layout_constraintLeft_toLeftOf="parent"

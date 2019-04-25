@@ -111,7 +111,12 @@ class RatingSubjectActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject2,menu)
+        if(recordId.isNotEmpty()) {
+            menuInflater.inflate(R.menu.menu_subject2,menu)
+        }else{
+            menuInflater.inflate(R.menu.menu_subject,menu)
+        }
+
         return true
     }
 
@@ -123,7 +128,6 @@ class RatingSubjectActivity : BaseActivity() {
                 true
             }
             R.id.delete->{
-
                 if(recordId.isNotEmpty()) {
                     val dialog = AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
                     dialog.setTitle("是否删除当前评分?")

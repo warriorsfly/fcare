@@ -105,6 +105,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
         drugs1.value?.filter { it.checked }?.map { it.checked = false }
         drugs2.value?.filter { it.checked }?.map { it.checked = false }
         item.checked = !item.checked
+        sure()
     }
 
     fun cancel(){

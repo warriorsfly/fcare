@@ -81,10 +81,12 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
 
     private lateinit var patientId:String
     private lateinit var recordId:String
+    private lateinit var lshId:String
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val RECORD_ID = "RECORD_ID"
+        const val LSH_ID = "LSH_ID"
         const val HARDWARE_DATA = 10
     }
 
@@ -116,6 +118,7 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
             }
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         recordId=intent.getStringExtra(RECORD_ID)?:""
+        lshId=intent.getStringExtra(LSH_ID)?:""
         viewModel.patientId = patientId
         viewModel.getCrById(patientId)
         viewModel.lisCr.observe(this, Observer {
@@ -148,7 +151,7 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
     }
 
     fun toGetHardwareData(){
-
+        viewModel.loadJGDB(lshId)
     }
 
 
@@ -265,7 +268,7 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
         // immediately and proceed with this one.
         mCurrentAnimator?.cancel()
 
-        GlideApp.with(this).load(imageResId).error(R.mipmap.img_electrocardiogram).into(imageView)//enlarged.setImageResource(imageResId)
+        GlideApp.with(this).load(imageResId).error(R.drawable.img_electrocardiogram).into(imageView)//enlarged.setImageResource(imageResId)
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.

@@ -15,7 +15,6 @@
         />
         <androidx.recyclerview.widget.RecyclerView
                 android:background="#FFFFFF"
-                android:layout_marginTop="10dp"
                 android:id="@+id/hardware_rv"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="4"

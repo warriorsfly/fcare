@@ -140,7 +140,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         })
 
 
-        see_reactive.setOnClickListener {
+        ss_ecg.setOnClickListener {
             val intent=Intent(this,ReactiveEcgActivity::class.java)
             startActivity(intent)
         }
@@ -180,16 +180,14 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
                 PictureConfig.CHOOSE_REQUEST->{
                     viewModel.bitmaps.clear()
                     adapter.locals= PictureSelector.obtainMultipleResult(data)?.map { media->
-
                         viewModel.bitmaps.add(media.path)
-
                         return@map Pair(media, FileProvider.getUriForFile(
                             this,
                             BuildConfig.APPLICATION_ID + ".fileProvider",
                             File(media.path)
                         ))
                     }?: emptyList()
-
+                    viewModel.saveEcg()
                 }
             }
         }
@@ -218,7 +216,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         // immediately and proceed with this one.
         mCurrentAnimator?.cancel()
 
-        GlideApp.with(this).load(imageResId).error(R.mipmap.img_electrocardiogram).into(imageView)//enlarged.setImageResource(imageResId)
+        GlideApp.with(this).load(imageResId).error(R.drawable.img_electrocardiogram).into(imageView)//enlarged.setImageResource(imageResId)
 
         // Calculate the starting and ending bounds for the zoomed-in image.
         // This step involves lots of math. Yay, math.
