@@ -1,13 +1,41 @@
 package com.wxsoft.fcare.ui.hardwaredata
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.databinding.DataBindingUtil
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ActivityHardwareDataBinding
+import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import kotlinx.android.synthetic.main.layout_new_title.*
+import javax.inject.Inject
 
-class HardwareDataActivity : AppCompatActivity() {
+class HardwareDataActivity : BaseActivity() {
+
+    private lateinit var patientId:String
+    companion object {
+        const val PATIENT_ID = "PATIENT_ID"
+    }
+
+    private lateinit var viewModel: HardwareDataViewModel
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    lateinit var binding: ActivityHardwareDataBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hardware_data)
+        viewModel = viewModelProvider(factory)
+        binding = DataBindingUtil.setContentView<ActivityHardwareDataBinding>(this, R.layout.activity_hardware_data)
+            .apply {
+                viewModel = this@HardwareDataActivity.viewModel
+                lifecycleOwner = this@HardwareDataActivity
+            }
+        patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
+        viewModel.patientId = patientId
+        setSupportActionBar(toolbar)
+        title="设备数据"
     }
 }

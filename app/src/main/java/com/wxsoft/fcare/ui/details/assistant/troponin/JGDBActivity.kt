@@ -6,7 +6,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -38,11 +37,12 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityJgdbBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.EventAction
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
+import com.wxsoft.fcare.ui.hardwaredata.HardwareDataActivity
+import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.utils.ActionCode
 import kotlinx.android.synthetic.main.activity_jgdb.*
-import kotlinx.android.synthetic.main.activity_medical_history.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
@@ -85,6 +85,7 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val RECORD_ID = "RECORD_ID"
+        const val HARDWARE_DATA = 10
     }
 
     private lateinit var viewModel: TroponinViewModel
@@ -108,13 +109,20 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
         binding = DataBindingUtil.setContentView<ActivityJgdbBinding>(this, R.layout.activity_jgdb)
             .apply {
                 viewModel = this@JGDBActivity.viewModel
+                line0.setOnClickListener {
+                    toGetHardwareData()
+                }
                 lifecycleOwner = this@JGDBActivity
             }
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         recordId=intent.getStringExtra(RECORD_ID)?:""
         viewModel.patientId = patientId
         viewModel.getCrById(patientId)
-        viewModel.lisCr.observe(this, Observer {  })
+        viewModel.lisCr.observe(this, Observer {
+            if (it != null){
+                adapter.remotes = it.attachments.map { it.httpUrl }
+            }
+        })
         setSupportActionBar(toolbar)
         title="肌钙蛋白"
 //        viewModel.loadTroponin()
@@ -132,15 +140,19 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
             }
         })
 
-
         adapter= PictureAdapter(this,10)
         adapter.setActionListener(photoAction!!)
         adapter.locals= emptyList()
         jgdb_photo_items_rv.adapter = adapter
 
-
     }
 
+    fun toGetHardwareData(){
+        val intent = Intent(this@JGDBActivity, HardwareDataActivity::class.java).apply {
+            putExtra(HardwareDataActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent, HARDWARE_DATA)
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

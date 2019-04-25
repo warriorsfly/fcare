@@ -61,14 +61,6 @@ class OneTouchCallingActivity : BaseActivity() {
 
     }
 
-
-    fun call(numer:String){
-        val intent = Intent(Intent.ACTION_CALL)
-        val data = Uri.parse("tel:${numer}")
-        intent.data = data
-        startActivity(intent)
-    }
-
     fun  startCallPhone(phoneNumber:String) {
         phoneNuber = phoneNumber
         //判断Android版本是否大于23

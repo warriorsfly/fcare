@@ -255,8 +255,14 @@ class NetWorkModule {
 
     @Provides
     @Reusable
-    fun provideCureApi(retrofit: Retrofit):CureApi{
+    fun provideCureApi(retrofit: Retrofit):CureApi {
         return retrofit.create(CureApi::class.java)
+    }
+
+    @Provides
+    @Reusable
+    fun provideHardwareApi(retrofit: Retrofit):HardwareApi{
+        return retrofit.create(HardwareApi::class.java)
     }
 
     @Provides

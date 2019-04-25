@@ -182,6 +182,7 @@
                           android:id="@+id/breath"
                           android:imeOptions="actionNext"
                           android:inputType="number"
+                          android:digits="@string/input_type_numbers"
                           app:layout_constraintBottom_toBottomOf="parent"
                           app:layout_constraintLeft_toRightOf="@+id/item_title2"
                           app:layout_constraintTop_toTopOf="parent"

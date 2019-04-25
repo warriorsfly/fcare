@@ -2,8 +2,10 @@ package com.wxsoft.fcare.core.data.entity.lis
 
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
+import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.data.entity.Attachment
 
 data class LisCr (val id:String) : BaseObservable() {
 
@@ -205,6 +207,12 @@ data class LisCr (val id:String) : BaseObservable() {
             notifyPropertyChanged(BR.patientId)
         }
 
+    @Bindable
+    var attachments:List<Attachment> = emptyList()
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.attachments)
+        }
 
     fun setUpChecked(){
         if (!crUnit.isEmpty()){

@@ -69,6 +69,8 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordModule
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeModule
 import com.wxsoft.fcare.ui.emr.EmrActivity
+import com.wxsoft.fcare.ui.hardwaredata.HardwareDataActivity
+import com.wxsoft.fcare.ui.hardwaredata.HardwareDataModule
 import com.wxsoft.fcare.ui.launch.LaunchModule
 import com.wxsoft.fcare.ui.launch.LauncherActivity
 import com.wxsoft.fcare.ui.login.LoginActivity
@@ -325,6 +327,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [AssistantExaminationModule::class])
     internal abstract fun jGDBActivity(): JGDBActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [HardwareDataModule::class])
+    internal abstract fun hardwareDataActivity(): HardwareDataActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [])

@@ -33,7 +33,6 @@ class CheckBodyActivity : BaseActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityCheckBodyBinding>(this, R.layout.activity_check_body)
             .apply {
