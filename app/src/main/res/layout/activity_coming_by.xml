@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
     <data>
+      <import type="com.wxsoft.fcare.utils.TimingType"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.comingby.ComingByViewModel"/>
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+      android:orientation="vertical"
         android:background="#F8F8F9">
         <include layout="@layout/layout_new_title"
                  android:id="@+id/title"
@@ -17,78 +19,81 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintBottom_toBottomOf="parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-
-                    android:id="@+id/model3_2"
-                    android:background="@color/white"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+            <FrameLayout
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/fragment_container">
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
+                    android:layout_height="match_parent">
 
-                <TextView
-                        android:id="@+id/title3_2"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:onClick="@{()->viewModel.changeType(true)}"
+                        android:id="@+id/model3_2"
+                        android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:text="来院方式"
-                        android:textSize="16sp"
-                        android:textColor="#131D35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                <TextView
-                        android:hint="请选择"
-                        android:id="@+id/decide_cabg_time"
-                        android:layout_marginRight="19dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:textSize="16sp"
-                        android:text="@{viewModel.comingBy.comingWayName}"
-                        android:textColor="#7D7D7D"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
-                        tools:text="2019-01-18 13:23:15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                <TextView
-                        android:id="@+id/rowe3_2"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="@id/title3_2"
-                        android:layout_width="14dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="19dp"
-                        android:background="@drawable/ic_right_arrow"/>
-                <View
-                        android:background="#EDEDED"
-                        android:layout_marginBottom="1dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"/>
+                        android:layout_height="50dp">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                        <TextView
+                                android:id="@+id/title3_2"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="来院方式"
+                                android:textSize="16sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:id="@+id/part_120"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                <androidx.constraintlayout.widget.ConstraintLayout
+                        <TextView
+                                android:hint="请选择"
+                                android:id="@+id/decide_cabg_time"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="16sp"
+                                android:text="@{viewModel.comingBy.comingWayName}"
+                                android:textColor="#7D7D7D"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_2"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_2"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:id="@+id/part_120"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                         <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3_3"
+                        android:onClick="@{()->viewModel.changeType(false)}"
                         app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)}"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -96,23 +101,98 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 
-                    <TextView
-                            android:id="@+id/title3_3"
+                        <TextView
+                                android:id="@+id/title3_3"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:text="出车单位"
+                                android:textSize="16sp"
+                                android:textColor="#131D35"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:hint="请选择"
+                                android:id="@+id/start_cabg_time"
+                                android:layout_marginRight="19dp"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="16sp"
+                                android:textColor="#7D7D7D"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
+                                android:text="@{viewModel.comingBy.dispatchName}"
+                                tools:text="2019-01-18 13:23:15"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                        <TextView
+                                android:id="@+id/rowe3_3"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toBottomOf="@id/title3_3"
+                                android:layout_width="14dp"
+                                android:layout_height="24dp"
+                                android:layout_marginRight="19dp"
+                                android:background="@drawable/ic_right_arrow"/>
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        <include
+                            layout="@layout/layout_coming_by_120"
+                            app:viewModel="@{viewModel}"/>
+
+                        <include
+                            layout="@layout/layout_coming_by_from_other"
+                            app:viewModel="@{viewModel}"/>
+
+                        <include
+                                layout="@layout/layout_coming_by_in_department"
+                                app:viewModel="@{viewModel}"/>
+
+                        <include
+                                layout="@layout/layout_coming_by_self"
+                                app:viewModel="@{viewModel}"/>
+
+
+                      <LinearLayout
+                        app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)}"
+                        android:orientation="vertical"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                          android:background="@color/white"
+                          android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveScene)}"
+                          android:layout_width="match_parent"
+                          android:layout_height="50dp">
+
+                          <TextView
+                            android:id="@+id/title3_4"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_marginTop="15dp"
                             android:layout_marginLeft="15dp"
                             android:layout_marginBottom="15dp"
-                            android:text="出车单位"
+                            android:text="患者绕行急诊"
                             android:textSize="16sp"
                             android:textColor="#131D35"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-                    <TextView
-                            android:hint="请选择"
-                            android:id="@+id/start_cabg_time"
+                          <Switch
+                            android:id="@+id/arriving_time"
                             android:layout_marginRight="19dp"
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="15dp"
@@ -120,47 +200,215 @@
                             android:textColor="#7D7D7D"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
-                            tools:text="2019-01-18 13:23:15"
+                            app:layout_constraintRight_toRightOf="parent"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 
-                    <TextView
-                            android:id="@+id/rowe3_3"
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                          android:id="@+id/model3_5"
+                          android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveHospital)}"
+                          android:background="@color/white"
+                          app:layout_constraintLeft_toLeftOf="parent"
+                          app:layout_constraintTop_toBottomOf="@+id/model3_4"
+                          android:layout_width="match_parent"
+                          android:layout_height="50dp">
+
+                          <TextView
+                            android:id="@+id/title3_5"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="到达时间"
+                            android:textSize="16sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                          <TextView
+                            android:hint="请选择"
+                            android:id="@+id/arrive_hospital_time"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="#7D7D7D"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe3_5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                          <TextView
+                            android:id="@+id/rowe3_5"
                             app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintBottom_toBottomOf="@id/title3_3"
+                            app:layout_constraintBottom_toBottomOf="@id/title3_5"
                             android:layout_width="14dp"
                             android:layout_height="24dp"
                             android:layout_marginRight="19dp"
                             android:background="@drawable/ic_right_arrow"/>
-                    <View
+                          <View
                             android:background="#EDEDED"
                             android:layout_marginBottom="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <include
-                    layout="@layout/layout_coming_by_120"
-                    app:viewModel="@{viewModel}"
-                />
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                          android:id="@+id/model3_6"
+                          android:background="@color/white"
+                          android:layout_width="match_parent"
+                          android:layout_height="50dp">
 
-                <include
-                    layout="@layout/layout_coming_by_from_other"
-                    app:viewModel="@{viewModel}"/>
+                          <TextView
+                            android:id="@+id/title3_6"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="离开时间"
+                            android:textSize="16sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                <include
-                        layout="@layout/layout_coming_by_in_department"
-                        app:viewModel="@{viewModel}"/>
+                          <TextView
+                            android:hint="请选择"
+                            android:id="@+id/doctor_time"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="#7D7D7D"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe3_6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
 
-                <include
-                        layout="@layout/layout_coming_by_self"
-                        app:viewModel="@{viewModel}"/>
+                          <TextView
+                            android:id="@+id/rowe3_6"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/title3_6"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+                          <View
+                            android:background="#EDEDED"
+                            android:layout_marginBottom="1dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                      </LinearLayout>
 
-            </LinearLayout>
-        </LinearLayout>
+
+                      <LinearLayout
+                        app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)||viewModel.comingBy.comingWayCode.equals(`3-3`)}"
+                        android:orientation="vertical"
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                          android:background="@color/white"
+                          android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveScene)}"
+                          app:layout_constraintLeft_toLeftOf="parent"
+                          android:layout_width="match_parent"
+                          android:layout_height="50dp">
+
+                          <TextView
+                            android:id="@+id/titleccu"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="患者绕行CCU"
+                            android:textSize="16sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                          <Switch
+                            android:id="@+id/arriving_time2"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="#7D7D7D"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                          android:id="@+id/model3_7"
+                          android:background="@color/white"
+                          android:layout_width="match_parent"
+                          android:layout_height="50dp">
+
+                          <TextView
+                            android:id="@+id/title3_7"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="到达时间"
+                            android:textSize="16sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                          <TextView
+                            android:hint="请选择"
+                            android:id="@+id/arriving_time1"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="16sp"
+                            android:textColor="#7D7D7D"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe3_7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                          <TextView
+                            android:id="@+id/rowe3_7"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/title3_7"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+                          <View
+                            android:background="#EDEDED"
+                            android:layout_marginBottom="1dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                      </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </layout>

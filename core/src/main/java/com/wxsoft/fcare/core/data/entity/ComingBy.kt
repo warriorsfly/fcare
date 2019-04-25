@@ -35,6 +35,14 @@ data class ComingBy(val id:String=""): BaseObservable() {
           notifyPropertyChanged(BR.dispatchCode)
        }
 
+    @SerializedName("dispatch_Unit_Code_Name")
+    @Bindable
+    var dispatchName: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.dispatchName)
+        }
+
   @SerializedName("arrived_Emergency_Time")
    @Bindable
    var arrivedTime: String = ""

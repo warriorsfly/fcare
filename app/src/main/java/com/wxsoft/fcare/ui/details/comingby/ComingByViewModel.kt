@@ -43,6 +43,7 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
      */
     private val loadFroms=MediatorLiveData<List<Dictionary>>()
     private val loadComingBy=MediatorLiveData<Response<ComingBy>>()
+    val selectType=MediatorLiveData<Boolean>()
 
     init {
         comingType=loadTypes.map { it?: emptyList() }
@@ -109,6 +110,10 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
                 else -> throw IllegalArgumentException("error timing type ${pair.first}")
             }
         }
+    }
+
+    fun changeType(flag:Boolean){
+        selectType.value=flag
     }
 
 
