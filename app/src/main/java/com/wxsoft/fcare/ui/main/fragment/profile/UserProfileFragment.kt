@@ -34,6 +34,7 @@ class UserProfileFragment : DaggerFragment() {
                     flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 }
                 startActivity(intent)
+                activity?.finish()
             }
             lifecycleOwner = this@UserProfileFragment
         }

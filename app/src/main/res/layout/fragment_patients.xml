@@ -90,7 +90,6 @@
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="5dp"
                 app:onRefreshListener="@{() -> viewModel.onSwipeRefresh()}"
                 app:refreshing="@{viewModel.networkState}"
                 app:layout_constraintBottom_toBottomOf="parent"
