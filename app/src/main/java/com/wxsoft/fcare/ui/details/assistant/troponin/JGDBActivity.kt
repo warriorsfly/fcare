@@ -148,10 +148,7 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
     }
 
     fun toGetHardwareData(){
-        val intent = Intent(this@JGDBActivity, HardwareDataActivity::class.java).apply {
-            putExtra(HardwareDataActivity.PATIENT_ID, patientId)
-        }
-        startActivityForResult(intent, HARDWARE_DATA)
+
     }
 
 

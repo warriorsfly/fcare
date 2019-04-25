@@ -36,7 +36,7 @@
                 android:layout_marginLeft="10dp"
                 android:text="@{item.memo}"
                 tools:text="李医生"
-                android:textColor="@color/white"
+                android:textColor="@color/lable_font"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
@@ -52,9 +52,18 @@
                 android:layout_marginLeft="10dp"
                 android:text="@{item.itemName}"
                 tools:text="18356078389"
-                android:textColor="@color/white"
+                android:textColor="@color/lable_font"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+        <ImageView
+                android:id="@+id/call_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginRight="19dp"
+                android:src="@drawable/ic_tel_phone"
+                android:layout_width="18dp"
+                android:layout_height="18dp"/>
 
         <View
                 android:id="@+id/line"

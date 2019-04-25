@@ -103,6 +103,7 @@
 					android:id="@+id/come_by"
 					android:layout_width="14dp"
 					android:layout_height="14dp"
+					android:text="@{patient.comingWay_Name}"
 					tools:text="自行来院"
 					android:layout_marginTop="14dp"
 					app:layout_constraintLeft_toLeftOf="@id/patient_name"

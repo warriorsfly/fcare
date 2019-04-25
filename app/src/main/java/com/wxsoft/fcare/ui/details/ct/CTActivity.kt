@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.details.ct
 
 import androidx.lifecycle.Observer
 import android.content.Intent
+import android.graphics.Color
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.Menu
@@ -101,7 +102,6 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
     }
 
     private fun createDialog(time:Long): TimePickerDialog {
-
             return TimePickerDialog.Builder()
                 .setCallBack(this)
                 .setCancelStringId("取消")
@@ -116,6 +116,7 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
                 .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
                 .setType(Type.ALL)
                 .setWheelItemTextSize(16)
+                .setThemeColor(R.color.colorPrimary)
                 .build()
     }
 

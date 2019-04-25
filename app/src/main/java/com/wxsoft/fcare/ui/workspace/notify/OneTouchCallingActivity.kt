@@ -19,6 +19,7 @@ import android.os.Build
 import androidx.core.app.ActivityCompat
 import android.provider.Settings
 import android.widget.Toast
+import kotlinx.android.synthetic.main.layout_new_title.*
 
 
 class OneTouchCallingActivity : BaseActivity() {
@@ -58,6 +59,9 @@ class OneTouchCallingActivity : BaseActivity() {
                 finish()
             }
         })
+
+        setSupportActionBar(toolbar)
+        title="呼叫"
 
     }
 

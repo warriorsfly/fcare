@@ -21,9 +21,7 @@ class HardwareDataActivity : BaseActivity() {
     private lateinit var viewModel: HardwareDataViewModel
     @Inject
     lateinit var factory: ViewModelFactory
-
     lateinit var binding: ActivityHardwareDataBinding
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +34,8 @@ class HardwareDataActivity : BaseActivity() {
         patientId=intent.getStringExtra(CheckBodyActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
         setSupportActionBar(toolbar)
-        title="设备数据"
+        title="选择设备"
+
+
     }
 }

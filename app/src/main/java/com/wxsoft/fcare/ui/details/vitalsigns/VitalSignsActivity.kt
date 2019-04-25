@@ -15,6 +15,8 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityVitalSignsBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
+import com.wxsoft.fcare.ui.hardwaredata.HardwareDataActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
@@ -50,6 +52,9 @@ class VitalSignsActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityVitalSignsBinding>(this, R.layout.activity_vital_signs)
             .apply {
+                line0.setOnClickListener {
+                    toGetHardwareData()
+                }
                 lifecycleOwner = this@VitalSignsActivity
             }
 
@@ -265,6 +270,14 @@ class VitalSignsActivity : BaseActivity() {
 
             }
         }
+    }
+
+
+    fun toGetHardwareData(){
+        val intent = Intent(this@VitalSignsActivity, HardwareDataActivity::class.java).apply {
+            putExtra(HardwareDataActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent, JGDBActivity.HARDWARE_DATA)
     }
 
 
