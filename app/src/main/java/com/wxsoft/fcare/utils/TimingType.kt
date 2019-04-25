@@ -61,6 +61,18 @@ annotation class TimingType {
          * 离开科室时间
          */
         const val LeaveDepartment = "LeaveDepartment"
+        /**
+         * 绕行急诊到达场所时间
+         */
+        const val PassingArriveEmergency= "PassingArriveEmergency"
+        /**
+         * 离开时间
+         */
+        const val PassingLeaveEmergency= "PassingLeaveEmergency"
+        /**
+         * 急诊绕行CCU到达导管室时间
+         */
+        const val PassingArriveCCU = "PassingArriveCCU"
 
     }
 }

@@ -98,6 +98,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionType.患者转归-> loadOT(pair.first)
             ActionType.心电图-> loadEcgs(pair.first)
             ActionType.ACS给药-> loadAcs(pair.first)
+            ActionType.来院方式-> loadComingBy(pair.first)
         }
     }
 
@@ -127,6 +128,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionCode.ECG ->ActionType.心电图
             ActionCode.OUTCOME ->ActionType.患者转归
             ActionCode.ACS ->ActionType.ACS给药
+            ActionCode.COMEBY ->ActionType.来院方式
             else->null
         }
         actionType?.let(::indexOf)?.let(::loadDetail)
@@ -343,6 +345,14 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::setResultAtIndex,::error))
+    }
+
+    private fun loadComingBy(index:Int){
+        disposable.add(api.getComing(patientId)
+                .map {Pair(index,it)}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::setResultAtIndex,::error))
     }
 
 

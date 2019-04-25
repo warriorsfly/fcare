@@ -130,6 +130,9 @@ interface EmrApi{
     @GET("Drug/GetAcsByPatientId/{patientId}")
     fun getACSDrug(@Path("patientId")patientId:String):Maybe<Response<ACSDrug>>
 
-
-
+    /**
+     * 来院方式
+     */
+    @GET("ComingWay/GetById/{patientId}")
+    fun getComing(@Path("patientId")patientId:String):Maybe<Response<ComingBy>>
 }

@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.Account
-import com.wxsoft.fcare.core.data.entity.ComingBy
-import com.wxsoft.fcare.core.data.entity.LoginInfo
-import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.*
 import io.reactivex.Maybe
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -18,4 +15,10 @@ interface ComingByApi {
 
     @POST("ComingWay/Save")
     fun save(@Body comingBy: ComingBy):Maybe<Response<String?>>
+
+    @GET("ComingWay/GetBypass/{patientId}")
+    fun getPassing(@Path("patientId")patientId:String):Maybe<Response<Passing>>
+
+    @POST("ComingWay/SaveByPass")
+    fun savePassing(@Body passing: Passing):Maybe<Response<String?>>
 }

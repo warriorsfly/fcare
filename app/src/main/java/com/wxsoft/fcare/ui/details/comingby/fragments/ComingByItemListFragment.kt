@@ -19,7 +19,10 @@ import dagger.android.support.DaggerFragment as DaggerFragment1
 
 class ComingByItemListFragment : DaggerFragment1() {
 
-    var type=true
+    /**
+     * 1来院方式2发车单位3绕行急诊科后绕行科室
+     */
+    var type=1
 
     private lateinit var viewModel: ComingByViewModel
 
@@ -41,10 +44,10 @@ class ComingByItemListFragment : DaggerFragment1() {
         adapter = Adapter(this@ComingByItemListFragment, ::select)
 
 
-        if (type) {
-            viewModel.comingType.value?.let(adapter::submitList)
-        } else {
-            viewModel.comingFrom.value?.let(adapter::submitList)
+        when (type) {
+            1->viewModel.comingType.value?.let(adapter::submitList)
+            2->viewModel.comingFrom.value?.let(adapter::submitList)
+            3->viewModel.passingKs.value?.let(adapter::submitList)
         }
 
         return FragmentComingByListBinding.inflate(inflater, container, false).apply {
@@ -53,25 +56,34 @@ class ComingByItemListFragment : DaggerFragment1() {
         }.root
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-////        back.setOnClickListener {
-////            parentFragment?.childFragmentManager?.let {
-////                if(it.popBackStackImmediate())
-////                    it.popBackStack()
-////            }
-////        }
-//    }
     private fun select(dictionary: Dictionary) {
         viewModel.comingBy.value?.apply {
 
-            if (type) {
+            when (type) {
+                1 -> {
 
-                comingWayCode = dictionary.id
-                comingWayName = dictionary.itemName
-            } else {
-                dispatchCode = dictionary.id
-                dispatchName = dictionary.itemName
+                    comingWayCode = dictionary.id
+                    comingWayName = dictionary.itemName
+                    if (dictionary.id == "3-3") {
+                        viewModel.passing.value?.let {
+                            it.passingEmergency = false
+                        }
+                    }
+                }
+                2->{
+                    dispatchCode = dictionary.id
+                    dispatchName = dictionary.itemName
+                }
+            }
+
+        }
+        viewModel.passing.value?.apply {
+
+            when (type) {
+                3 -> {
+                    passingEmergencyCode=dictionary.id
+                    passingEmergencyName=dictionary.itemName
+                }
             }
 
         }

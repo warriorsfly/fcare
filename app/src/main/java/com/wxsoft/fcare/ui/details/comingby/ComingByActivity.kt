@@ -1,6 +1,10 @@
 package com.wxsoft.fcare.ui.details.comingby
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
@@ -9,6 +13,7 @@ import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
@@ -74,6 +79,7 @@ class ComingByActivity : BaseActivity() , OnDateSetListener {
 
         viewModel.comingType.observe(this, Observer {  })
         viewModel.comingFrom.observe(this, Observer {  })
+        viewModel.passingKs.observe(this, Observer {  })
 
         viewModel.selectType.observe(this, Observer {
 
@@ -90,6 +96,16 @@ class ComingByActivity : BaseActivity() , OnDateSetListener {
                     type = it
                 })
             }
+        })
+        viewModel.messageAction.observe(this, EventObserver {
+            Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
+        })
+        viewModel.saved.observe(this, Observer {
+            if(it){
+                setResult(Activity.RESULT_OK)
+                finish()
+            }
+
         })
     }
 
@@ -110,6 +126,22 @@ class ComingByActivity : BaseActivity() , OnDateSetListener {
             .setType(Type.ALL)
             .setWheelItemTextSize(12)
             .build().apply {  setStyle(DialogFragment.STYLE_NORMAL,R.style.Theme_FCare_Dialog)}
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.save()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
     }
 
 }
