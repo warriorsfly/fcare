@@ -167,7 +167,7 @@
                     app:layout_constraintRight_toLeftOf="@id/ecg"
                     app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
                     android:layout_margin="16dp"
-                    android:text="FM2EGG"
+                    android:text="FMC2ECG"
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:textColor="#525252"
                     android:gravity="right|center_vertical"

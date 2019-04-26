@@ -121,7 +121,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/clock"
                     android:layout_width="match_parent"
-
                     android:paddingTop="15dp"
                     android:paddingBottom="15dp"
                     android:layout_marginBottom="21dp"
