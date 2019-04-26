@@ -17,6 +17,7 @@ import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -26,11 +27,9 @@ import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.databinding.FragmentTaskStateBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.GisFragment
-import com.wxsoft.fcare.ui.details.dominating.fragment.PatientManagerFragment
-import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
-import com.wxsoft.fcare.ui.details.dominating.fragment.TaskSheetFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.*
 import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
@@ -59,6 +58,9 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
     private lateinit var taskId:String
 
+
+    private lateinit var adapter: PatientInTaskAdapter
+
     companion object {
         const val TASK_ID = "TASK_ID"
         const val STATE_COUNT = 3
@@ -71,6 +73,7 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
+        adapter=PatientInTaskAdapter(this,::showPatient)
         DataBindingUtil.setContentView<ActivityDoMinaBinding>(
             this,
             R.layout.activity_do_mina
@@ -78,6 +81,14 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
 
             viewModel=this@DoMinaActivity.viewModel
+            list.adapter=adapter
+            goTo.setOnClickListener {
+                val intent = Intent(this@DoMinaActivity, ProfileActivity::class.java).apply {
+                    putExtra(ProfileActivity.TASK_ID, viewModel?.taskId)
+                }
+                startActivityForResult(intent, NEW_PATIENT_REQUEST)
+
+            }
             lifecycleOwner = this@DoMinaActivity
 
         }
@@ -132,7 +143,7 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
             dialog.show()
         })
         setSupportActionBar(toolbar)
-        viewPager.adapter = TaskStateAdapter(supportFragmentManager)
+//        viewPager.adapter = TaskStateAdapter(supportFragmentManager)
 
         viewModel.changeTimeAction.observe(this, EventObserver {
             changingStatus=it
@@ -148,7 +159,9 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
             dialog=createDialog(time)
             dialog?.show(supportFragmentManager,"all")
         })
-
+        viewModel.task.observe(this, Observer {
+            adapter.patients=it.patients.toList()
+        })
         viewModel.cancelResult.observe(this, Observer {
             if(it) {
                 dictFragment.dismiss()
@@ -166,7 +179,6 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
         if(resultCode==RESULT_OK) {
             when (requestCode) {
                 NEW_PATIENT_REQUEST, BASE_INFO -> {
-//                    data?.getStringExtra(NEW_PATIENT_ID)
                     viewModel.loadTask()
                     setResult(RESULT_OK)
                 }
@@ -221,42 +233,51 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
         viewModel.cancel(dict.id)
     }
+    private fun showPatient(patient: Patient){
 
-
-}
-
-class TaskStateAdapter(fm: FragmentManager) :
-    FragmentPagerAdapter(fm) {
-
-    private val statusFragments:List<Fragment> by lazyFast {
-        (0..2).map {
-            when (it) {
-                DoMinaActivity.START_POSITION ->ProcessFragment()
-                DoMinaActivity.PATIENTS_POSITION -> PatientManagerFragment()
-                DoMinaActivity.GIS_POSITION ->GisFragment()
-
-                else -> throw IllegalStateException("Unknown index $it")
-            }
+        Intent(this, WorkingActivity::class.java).let {
+            it.putExtra(ProfileActivity.PATIENT_ID,patient.id)
+            it.putExtra("PRE",true)
+            startActivityForResult(it, NEW_PATIENT_REQUEST)
         }
     }
 
-    override fun getItem(position: Int): androidx.fragment.app.Fragment {
-
-        return statusFragments[position]
-    }
-
-    override fun getPageTitle(position: Int): CharSequence? {
-        return when (position) {
-            DoMinaActivity.START_POSITION ->"任务进度"
-            DoMinaActivity.PATIENTS_POSITION -> "病人信息"
-            DoMinaActivity.GIS_POSITION ->"轨迹"
-
-            else -> throw IllegalStateException("Unknown index $position")
-        }
-    }
-
-    override fun getCount(): Int {
-        return statusFragments.size
-    }
-
 }
+//
+//class TaskStateAdapter(fm: FragmentManager) :
+//    FragmentPagerAdapter(fm) {
+//
+//    private val statusFragments:List<Fragment> by lazyFast {
+//        (0..2).map {
+//            when (it) {
+//                DoMinaActivity.START_POSITION ->ProcessFragment()
+//                DoMinaActivity.PATIENTS_POSITION -> PatientManagerFragment()
+//                DoMinaActivity.GIS_POSITION ->GisFragment()
+//
+//                else -> throw IllegalStateException("Unknown index $it")
+//            }
+//        }
+//    }
+//
+//    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+//
+//        return statusFragments[position]
+//    }
+//
+//    override fun getPageTitle(position: Int): CharSequence? {
+//        return when (position) {
+//            DoMinaActivity.START_POSITION ->"任务进度"
+//            DoMinaActivity.PATIENTS_POSITION -> "病人信息"
+//            DoMinaActivity.GIS_POSITION ->"轨迹"
+//
+//            else -> throw IllegalStateException("Unknown index $position")
+//        }
+//    }
+//
+//    override fun getCount(): Int {
+//        return statusFragments.size
+//    }
+//
+//
+//
+//}
