@@ -28,7 +28,9 @@ class DispatchCarActivity : BaseActivity() {
     private lateinit var carAdapter: CarAdapter
     private lateinit var doctorAdapter: UsersAdapter
     private lateinit var nurseAdapter: UsersAdapter
+    private lateinit var nurseAdapter1: UsersAdapter
     private lateinit var driverAdapter: UsersAdapter
+    private lateinit var driverAdapter1: UsersAdapter
 
     lateinit var binding: ActivityDispatchCarBinding
 
@@ -51,28 +53,37 @@ class DispatchCarActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         title="发车"
 
-        doctorAdapter = UsersAdapter(this,viewModel)
-        doctorAdapter.type = "doctor"
-        viewModel.doctors.observe(this, Observer { doctorAdapter.users = it ?: emptyList() })
-        binding.doctorList.adapter = doctorAdapter
+//        doctorAdapter = UsersAdapter(this,viewModel)
+//        doctorAdapter.type = "doctor"
+//        viewModel.doctors.observe(this, Observer { doctorAdapter.users = it ?: emptyList() })
+//        binding.doctorList.adapter = doctorAdapter
 
         nurseAdapter = UsersAdapter(this,viewModel)
         nurseAdapter.type = "nurse"
-        viewModel.nurses.observe(this, Observer { nurseAdapter.users = it ?: emptyList() })
+        viewModel.nurses.observe(this, Observer { nurseAdapter.users = it.filter { it.hospitalId.equals("1") } })
         binding.nurseList.adapter = nurseAdapter
+
+        nurseAdapter1 = UsersAdapter(this,viewModel)
+        nurseAdapter1.type = "nurse"
+        viewModel.nurses.observe(this, Observer { nurseAdapter1.users = it.filter { it.hospitalId.equals("2") } })
+        binding.nurseList1.adapter = nurseAdapter1
 
         driverAdapter = UsersAdapter(this,viewModel)
         driverAdapter.type = "driver"
-        viewModel.drivers.observe(this, Observer { driverAdapter.users = it ?: emptyList() })
+        viewModel.drivers.observe(this, Observer { driverAdapter.users = it.filter { it.hospitalId.equals("1") }})
         binding.driverList.adapter = driverAdapter
+
+        driverAdapter1 = UsersAdapter(this,viewModel)
+        driverAdapter1.type = "driver"
+        viewModel.drivers.observe(this, Observer { driverAdapter1.users = it.filter { it.hospitalId.equals("3") }})
+        binding.driverList1.adapter = driverAdapter1
 
         viewModel.task.observe(this, Observer {  })
 
         viewModel.taskSavedId.observe(this, Observer {
             if (it != null){
-
                 Intent().let { intent ->
-                    toDetail(it)
+                    if (taskId.isNullOrEmpty()){toDetail(it)}
                     setResult(RESULT_OK, intent)
                     finish()
                 }
@@ -80,7 +91,6 @@ class DispatchCarActivity : BaseActivity() {
         })
         viewModel.haveSelectCar.observe(this, Observer {
             Toast.makeText(this@DispatchCarActivity, "请先选择车辆", Toast.LENGTH_SHORT).show()
-
         })
 
     }
@@ -99,14 +109,14 @@ class DispatchCarActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject,menu)
+        menuInflater.inflate(R.menu.menu_startcar,menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         return  when(item?.itemId){
-            R.id.submit->{
+            R.id.startar->{
                 viewModel.click()
                 true
             }

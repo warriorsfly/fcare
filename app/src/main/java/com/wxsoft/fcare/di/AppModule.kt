@@ -66,7 +66,7 @@ class AppModule {
             R.drawable.ic_work_space_lapse,
             R.drawable.ic_work_space_pci,
             R.drawable.ic_work_space_medication,
-            R.drawable.ic_work_space_call_immediately,
+            R.drawable.ic_call_phone,
             R.drawable.ic_work_space_jgdb,
             R.drawable.ic_work_space_lapse
         )

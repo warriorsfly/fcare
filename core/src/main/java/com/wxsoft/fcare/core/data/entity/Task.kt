@@ -40,7 +40,6 @@ data class Task (val id:String): BaseObservable(){
     @get:Bindable
     var returnAt: String? = ""
         set(value) {
-
             field = value
             notifyPropertyChanged(BR.returnAt)
         }
