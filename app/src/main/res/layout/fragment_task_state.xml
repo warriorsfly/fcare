@@ -8,7 +8,7 @@
          android:layout_height="wrap_content"
                   android:orientation="vertical"
                   android:padding="10dp"
-         tools:context=".ui.details.dominating.fragment.ProcessFragment">
+         tools:context=".ui.details.dominating.fragment.ProcessActivity">
 
 
         <TextView

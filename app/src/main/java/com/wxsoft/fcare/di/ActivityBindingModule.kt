@@ -34,6 +34,8 @@ import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarModule
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaModule
+import com.wxsoft.fcare.ui.details.dominating.fragment.GisActivity
+import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgModule
 import com.wxsoft.fcare.ui.details.ecg.ReactiveEcgActivity
@@ -135,6 +137,14 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DoMinaModule::class])
     internal abstract fun doMinaActivity(): DoMinaActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DoMinaModule::class])
+    internal abstract fun processFragment(): ProcessActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DoMinaModule::class])
+    internal abstract fun gisFragment(): GisActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DispatchCarModule::class])

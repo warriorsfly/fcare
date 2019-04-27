@@ -58,7 +58,6 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
     private lateinit var taskId:String
 
-
     private lateinit var adapter: PatientInTaskAdapter
 
     companion object {
@@ -169,9 +168,21 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
                 finish()
             }
         })
+
+        go_process.setOnClickListener {
+            val intent=Intent(this,ProcessActivity::class.java).apply {
+                putExtra(TASK_ID,taskId)
+            }
+            startActivity(intent)
+        }
+
+        go_gis.setOnClickListener {
+            val intent=Intent(this,GisActivity::class.java).apply {
+                putExtra(TASK_ID,taskId)
+            }
+            startActivity(intent)
+        }
     }
-
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -250,9 +261,9 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 //    private val statusFragments:List<Fragment> by lazyFast {
 //        (0..2).map {
 //            when (it) {
-//                DoMinaActivity.START_POSITION ->ProcessFragment()
+//                DoMinaActivity.START_POSITION ->ProcessActivity()
 //                DoMinaActivity.PATIENTS_POSITION -> PatientManagerFragment()
-//                DoMinaActivity.GIS_POSITION ->GisFragment()
+//                DoMinaActivity.GIS_POSITION ->GisActivity()
 //
 //                else -> throw IllegalStateException("Unknown index $it")
 //            }

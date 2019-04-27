@@ -3,25 +3,29 @@ package com.wxsoft.fcare.ui.details.dominating.fragment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.ui.details.dominating.DoMinaViewModel
-import com.wxsoft.fcare.core.utils.activityViewModelProvider
+import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.FragmentTaskProcessBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
-import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class ProcessFragment : DaggerFragment() {
+class ProcessActivity : BaseActivity() {
 
     private lateinit var viewModel: DoMinaViewModel
 
     @Inject
     lateinit var factory: ViewModelFactory
+
+    private val taskId: String by lazyFast {
+        intent?.getStringExtra(ProfileActivity.TASK_ID)?:""
+    }
 
 
     lateinit var binding: FragmentTaskProcessBinding
@@ -29,34 +33,30 @@ class ProcessFragment : DaggerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        viewModel=activityViewModelProvider(factory)
-    }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        binding=FragmentTaskProcessBinding.inflate(inflater,container, false).apply {
-            list.adapter=ProcessAdapter(this@ProcessFragment)
-            lifecycleOwner = this@ProcessFragment
-            viewModel=this@ProcessFragment.viewModel
+        viewModel=viewModelProvider(factory)
+        binding = DataBindingUtil.setContentView<FragmentTaskProcessBinding>(this, R.layout.fragment_task_process).apply {
+            list.adapter=ProcessAdapter(this@ProcessActivity)
+            lifecycleOwner = this@ProcessActivity
+            viewModel=this@ProcessActivity.viewModel
         }
 
         viewModel.arriving.observe(this, Observer {
             if(it){
                 viewModel.arriving.value=false
-                val intent = Intent(activity, ProfileActivity::class.java).apply {
-                    putExtra(ProfileActivity.TASK_ID, viewModel?.taskId)
+                val intent = Intent(this, ProfileActivity::class.java).apply {
+                    putExtra(ProfileActivity.TASK_ID, taskId)
                 }
-                activity?.startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
+                startActivityForResult(intent, NEW_PATIENT_REQUEST)
             }
         })
 
         viewModel.spends.observe(this, Observer {
             ( binding.list.adapter as? ProcessAdapter)?.submitList(it)
         })
-        return binding.root
+
+        viewModel.taskId=taskId
+        setSupportActionBar(toolbar)
+        title="时间进度"
     }
 
 }

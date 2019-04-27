@@ -224,6 +224,13 @@
                 android:name=".ui.details.dominating.DoMinaActivity"
                 android:theme="@style/AppTheme.NoActionBar.Dark"/>
         <activity
+                android:name=".ui.details.dominating.fragment.ProcessActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+                android:name=".ui.details.dominating.fragment.GisActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
                 android:name=".ui.details.dispatchcar.DispatchCarActivity"
                 android:theme="@style/AppTheme.NoActionBar">
         </activity>
