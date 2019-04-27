@@ -90,24 +90,30 @@ class DispatchCarViewModel @Inject constructor(
     }
 
     private fun loadTask(id:String){
-//
-//        disposable.add(taskApi.task(id)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe({
-//                initTask.value=it.result
-//                doctors.value?.forEach { u->u.checked=it.result?. }
-//            },{
-//
-//            })
-//        )
+        disposable.add(taskApi.task(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::loadTaskResult,::error))
+    }
+    private fun loadTaskResult(response:Response<Task>){
+        initTask.value = response.result
+        cars.value?.filter { it.id.equals(task.value?.carId) }?.map {
+            it.selectStatus = true
+            selectedCar = it
+        }
+//        val ids = task.value?.taskStaffs?.map { it.id }
+//        if (ids!!.isNotEmpty()){
+//            doctors.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
+//            nurses.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
+//            drivers.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
+//        }
+
     }
 
     private fun getCars(){
         disposable.add(carApi.cars().toResource()
             .subscribe{
                 loadCarsResult.value = it
-
             }
         )
     }
@@ -140,13 +146,12 @@ class DispatchCarViewModel @Inject constructor(
     override fun onOpen(t: String) {
 
     }
+
     fun selectCar(car:Car){
         if (car.status == "203-1"){
-            if (car.id != selectedCar.id){
-                selectedCar.selectStatus = !selectedCar.selectStatus
-                car.selectStatus = !car.selectStatus
-                selectedCar = car
-            }
+            cars.value?.filter { it.selectStatus }?.map { it.selectStatus = false }
+            car.selectStatus = true
+            selectedCar = car
         }
     }
 

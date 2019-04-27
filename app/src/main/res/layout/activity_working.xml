@@ -106,7 +106,7 @@
                         app:layout_constraintRight_toLeftOf="@+id/time_line"
                         android:textColor="@color/white"
                         android:text="通知"
-                        android:drawableLeft="@drawable/ic_call_phone"
+                        android:drawableLeft="@drawable/ic_work_space_call_immediately"
                         android:layout_marginRight="16dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>

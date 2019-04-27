@@ -70,7 +70,7 @@
         <!--ACS给药-->
         <item>@drawable/ic_work_space_pci</item>
         <!--一键通知-->
-        <item>@drawable/ic_work_space_call_immediately</item>
+        <item>@drawable/ic_call_phone</item>
         <!--肌钙蛋白-->
         <item>@drawable/ic_work_space_jgdb</item>
         <!--来院方式-->
