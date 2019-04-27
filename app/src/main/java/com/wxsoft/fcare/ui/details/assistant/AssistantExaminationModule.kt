@@ -3,8 +3,8 @@ package com.wxsoft.fcare.ui.details.assistant
 import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
-import com.wxsoft.fcare.ui.details.assistant.troponin.TroponinFragment
 import com.wxsoft.fcare.ui.details.assistant.troponin.TroponinViewModel
+import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -24,6 +24,6 @@ internal abstract class AssistantExaminationModule {
 
     @ChildFragmentScoped
     @ContributesAndroidInjector
-    internal abstract fun contributeTroponinFragment(): TroponinFragment
+    abstract fun contributeLisFragment(): LisFragment
 
 }

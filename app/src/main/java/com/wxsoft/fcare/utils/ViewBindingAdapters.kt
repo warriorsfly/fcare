@@ -48,6 +48,27 @@ fun diagnoseType(view: TextView, visible: Boolean,position:Int?) {
     )
 }
 
+@BindingAdapter("lisItems")
+fun lisItems(view: TextView, position:Int?) {
+    when(position){
+        0->view.setTextColor(view.context.resources.getColor(R.color.black))
+        1->view.setTextColor(view.context.resources.getColor(R.color.colorPrimary))
+        2->view.setTextColor(view.context.resources.getColor(R.color.task_select_car_able_text))
+        else -> view.setTextColor(view.context.resources.getColor(R.color.black))
+    }
+}
+@BindingAdapter("lisItemsRow")
+fun lisItemsRow(textView: TextView, position:Int?) {
+    when(position){
+        0->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        1->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
+        2->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        //不在上述代码中则清空textView的背景
+        else->textView.setBackgroundResource(0)
+    }
+}
+
+
 @BindingAdapter("taskSelectUser")
 fun taskSelectUser(view: View, visible: Boolean) {
     view.setBackgroundResource(if (visible) R.drawable.bg_select_user_selected else R.drawable.bg_select_user_normal)

@@ -6,9 +6,7 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.hardware.LepuDetection
-import com.wxsoft.fcare.core.data.entity.hardware.MindrayDetection
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
-import com.wxsoft.fcare.core.data.entity.lis.LisRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.HardwareApi
@@ -16,8 +14,8 @@ import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType

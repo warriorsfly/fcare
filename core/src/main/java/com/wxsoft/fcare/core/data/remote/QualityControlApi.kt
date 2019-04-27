@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.*
-import com.wxsoft.fcare.core.data.entity.lis.LisCr
-import com.wxsoft.fcare.core.data.entity.lis.LisItem
-import com.wxsoft.fcare.core.data.entity.lis.LisRecord
 import io.reactivex.Maybe
 import retrofit2.http.Body
 import retrofit2.http.GET

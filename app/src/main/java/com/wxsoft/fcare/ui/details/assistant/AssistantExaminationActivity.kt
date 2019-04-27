@@ -1,20 +1,26 @@
 package com.wxsoft.fcare.ui.details.assistant
 
-import android.content.DialogInterface
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAssistantExaminationBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.assistant.troponin.TroponinFragment
+import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
+import kotlinx.android.synthetic.main.activity_assistant_examination.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissListener{
+class AssistantExaminationActivity : BaseActivity(){
 
 
     private lateinit var patientId:String
@@ -34,52 +40,50 @@ class AssistantExaminationActivity : BaseActivity() , DialogInterface.OnDismissL
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityAssistantExaminationBinding>(this, R.layout.activity_assistant_examination)
             .apply {
+                viewModel = this@AssistantExaminationActivity.viewModel
                 lifecycleOwner = this@AssistantExaminationActivity
             }
         patientId=intent.getStringExtra(VitalSignsActivity.PATIENT_ID)?:""
-
-        binding.viewModel = viewModel
         viewModel.patientId = patientId
 
         setSupportActionBar(toolbar)
         title="检查检验"
-
-        val typeAdapter = AssistantTypeAdapter(this,viewModel)
-        viewModel.lisItems.observe(this, Observer { typeAdapter.items = it ?: emptyList() })
-        binding.typesList.adapter = typeAdapter
-
-        val containerAdapter = AssistantContainerAdapter(this,viewModel)
-        viewModel.lisRecords.observe(this, Observer {
-            if (it.isNullOrEmpty()&&!viewModel.selectedType.value.equals("3")) containerAdapter.items = viewModel.getDataModel() else containerAdapter.items = it
+        viewModel.mesAction.observe(this, EventObserver {
+            Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
-        binding.containerList.adapter = containerAdapter
 
-        viewModel.clickEdit.observe(this, Observer {
-            when(it){
-                "EDITJGDB"->{
-                    toJGDB(viewModel.recordId)
-                }
-                "ADDJGDB"->{
-                    toJGDB("")
-                }
+        viewModel.lisRecords.observe(this, Observer {
+            if (it.isNotEmpty()){
+                viewPager.adapter = AssistantAdapter(supportFragmentManager,it.size,it.map { it.jylbmc })
             }
         })
-
     }
 
 
-    private fun toJGDB(id:String){
-        val dialog= TroponinFragment()
-        dialog.patientId=viewModel.patientId
-        dialog.recordId = id
-        dialog.show(supportFragmentManager, TroponinFragment.TAG)
 
+}
+
+
+class AssistantAdapter(fm: FragmentManager,count:Int,val arr:List<String>) :
+    FragmentPagerAdapter(fm) {
+
+    private val statusFragments:List<Fragment> by lazyFast {
+        (0..count).map {
+            LisFragment(it)
+        }
     }
 
-    override fun onDismiss(dialog: DialogInterface?) {
-        viewModel.getLisRecords(viewModel.selectedType.value!!)
+    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+
+        return statusFragments[position]
     }
 
+    override fun getPageTitle(position: Int): CharSequence? {
+        return arr.get(position)
+    }
 
+    override fun getCount(): Int {
+        return statusFragments.size
+    }
 
 }

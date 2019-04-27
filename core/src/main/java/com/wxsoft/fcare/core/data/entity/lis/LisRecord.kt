@@ -12,56 +12,56 @@ data class LisRecord(val id:String) : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.patientId)
         }
-
+    //申请单号
     @Bindable
-    var applyNo: String = ""
+    var reportNo: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.applyNo)
+            notifyPropertyChanged(BR.reportNo)
         }
-
+    //检验类别
     @Bindable
-    var lisItemId: String = ""
+    var jylbmc: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.lisItemId)
+            notifyPropertyChanged(BR.jylbmc)
         }
-
+    //采样日期
     @Bindable
-    var lisItemName: String = ""
+    var cyrq: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.lisItemName)
+            notifyPropertyChanged(BR.cyrq)
         }
-
+    //送检日期
     @Bindable
-    var applyTime: String = ""
+    var sjrq: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.applyTime)
+            notifyPropertyChanged(BR.sjrq)
         }
-
+    //检验日期
     @Bindable
-    var excuteTime: String = ""
+    var jyrq: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.excuteTime)
+            notifyPropertyChanged(BR.jyrq)
         }
-
+    //报告日期
     @Bindable
-    var endTime: String = ""
+    var bgrq: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.endTime)
+            notifyPropertyChanged(BR.bgrq)
         }
-
+    //发布日期
     @Bindable
-    var reportTime: String = ""
+    var fbrq: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.reportTime)
+            notifyPropertyChanged(BR.fbrq)
         }
-
+    //检验报告明细项
     @Bindable
     var lisRecordDetails:List<LisRecordItem> = emptyList()
     set(value) {

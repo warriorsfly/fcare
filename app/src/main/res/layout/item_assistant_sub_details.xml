@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.lis.LisRecordItem"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.details.assistant.AssistantExaminationViewModel"/>
     </data>
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:background="@color/white"
@@ -12,55 +12,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         <TextView
-                android:id="@+id/assistant_name"
+                android:id="@+id/tv1"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="@{item.itemName}"
-                android:textSize="13sp"
-                android:textColor="#131D35"
-                android:layout_weight="3"
-                android:layout_width="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="15dp"
+                app:lisItems="@{item.gdbz}"
+                android:text="@{item.xmmc +` (` +item.xmdw +`)`}"
+                tools:text="白细胞计数（g/L）"
+                android:textSize="16sp"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+
         <TextView
-                android:id="@+id/assistant_result"
-                app:layout_constraintLeft_toRightOf="@+id/assistant_name"
-                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/tv2"
+                app:layout_constraintLeft_toLeftOf="@+id/tv1"
+                app:layout_constraintTop_toBottomOf="@+id/tv1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:text="@{item.result}"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{`参考值 `+item.jgckz}"
+                tools:text="参考值 4.00~10.00"
                 android:textSize="13sp"
                 android:textAlignment="center"
-                android:textColor="#131D35"
-                android:layout_weight="2"
-                android:layout_width="0dp"
+                android:textColor="@color/small_text_gray"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <TextView
-                android:id="@+id/assistant_consult"
-                app:layout_constraintLeft_toRightOf="@+id/assistant_result"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:text="@{item.referenceAange}"
-                android:textSize="13sp"
-                android:textAlignment="center"
-                android:textColor="#131D35"
-                android:layout_weight="3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                android:id="@+id/assistant_unit"
-                app:layout_constraintLeft_toRightOf="@+id/assistant_consult"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:id="@+id/tv3"
                 app:layout_constraintRight_toRightOf="parent"
-                android:text="@{item.unit}"
-                android:textSize="13sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginRight="19dp"
+                app:lisItems="@{item.gdbz}"
+                android:text="@{item.xmjg}"
+                tools:text="16.7"
+                android:textSize="22sp"
                 android:textAlignment="center"
-                android:textColor="#131D35"
-                android:layout_weight="2"
-                android:layout_width="0dp"
+                android:textColor="#000"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-    </LinearLayout>
+        <!--<TextView-->
+                <!--app:lisItemsRow="@{item.gdbz}"-->
+                <!--android:id="@+id/row"-->
+                <!--app:layout_constraintRight_toLeftOf="@+id/tv3"-->
+                <!--app:layout_constraintTop_toTopOf="parent"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--android:layout_marginRight="8dp"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+
+        <View
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/line_gray"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

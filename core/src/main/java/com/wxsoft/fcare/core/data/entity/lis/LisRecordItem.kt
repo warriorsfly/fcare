@@ -6,67 +6,40 @@ import com.wxsoft.fcare.core.BR
 
 data class LisRecordItem(val id:String) : BaseObservable(){
 
+    //项目名称
     @Bindable
-    var lisRecordId: String = ""
+    var xmmc: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.lisRecordId)
+            notifyPropertyChanged(BR.xmmc)
         }
-
+    //项目结果
     @Bindable
-    var itemCode: String = ""
+    var xmjg: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.itemCode)
+            notifyPropertyChanged(BR.xmjg)
         }
-
+    //项目单位
     @Bindable
-    var itemName: String = ""
+    var xmdw: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.itemName)
+            notifyPropertyChanged(BR.xmdw)
         }
-
+    //参考范围
     @Bindable
-    var resultValue: Float = 0.0f
+    var jgckz: String = ""
         set(value) {
             field = value
-            notifyPropertyChanged(BR.resultValue)
+            notifyPropertyChanged(BR.jgckz)
         }
-
+    //高低标志
     @Bindable
-    var resultChar: String = ""
+    var gdbz: Int = 0
         set(value) {
             field = value
-            notifyPropertyChanged(BR.resultChar)
-        }
-
-    @Bindable
-    var result: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.result)
-        }
-
-    @Bindable
-    var referenceAange: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.referenceAange)
-        }
-
-    @Bindable
-    var hightLowFlag: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.hightLowFlag)
-        }
-
-    @Bindable
-    var unit: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.unit)
+            notifyPropertyChanged(BR.gdbz)
         }
 
 }
