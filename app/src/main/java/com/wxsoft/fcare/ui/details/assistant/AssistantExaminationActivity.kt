@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
+import androidx.viewpager.widget.ViewPager
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -26,6 +27,8 @@ class AssistantExaminationActivity : BaseActivity(){
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val JY = 0
+        const val JC = 1
     }
 
     private lateinit var viewModel: AssistantExaminationViewModel
@@ -44,31 +47,44 @@ class AssistantExaminationActivity : BaseActivity(){
             }
         patientId=intent.getStringExtra(VitalSignsActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
-
         setSupportActionBar(toolbar)
-        title="检查检验"
+        title=""
+
         viewModel.mesAction.observe(this, EventObserver {
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
 
-        viewModel.lisRecords.observe(this, Observer {
-            if (it.isNotEmpty()){
-                viewPager.adapter = AssistantAdapter(supportFragmentManager,it.size,it.map { it.jylbmc })
+        viewPager.adapter = AssistantAdapter(supportFragmentManager)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+            }
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+            }
+            override fun onPageSelected(position: Int) {
+                viewModel.loadJcjyShow.value = (position==0)
             }
         })
+
+
+        viewModel.jcjyShow.observe(this, Observer {
+            if (it)viewPager.setCurrentItem(0,true) else viewPager.setCurrentItem(1,true)
+        })
+
     }
-
-
 
 }
 
 
-class AssistantAdapter(fm: FragmentManager,count:Int,val arr:List<String>) :
+class AssistantAdapter(fm: FragmentManager) :
     FragmentPagerAdapter(fm) {
 
     private val statusFragments:List<Fragment> by lazyFast {
-        (0..(count-1)).map {
-            LisFragment(it)
+        (0..1).map {
+            when(it){
+                AssistantExaminationActivity.JY -> LisJYFragment()
+                AssistantExaminationActivity.JC -> LisJCFragment()
+                else ->  throw IllegalStateException("Unknown index $it")
+            }
         }
     }
 
@@ -78,7 +94,7 @@ class AssistantAdapter(fm: FragmentManager,count:Int,val arr:List<String>) :
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return arr.get(position)
+        return null
     }
 
     override fun getCount(): Int {

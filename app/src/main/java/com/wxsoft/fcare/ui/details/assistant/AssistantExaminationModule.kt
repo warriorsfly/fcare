@@ -25,4 +25,16 @@ internal abstract class AssistantExaminationModule {
     @ContributesAndroidInjector
     abstract fun contributeLisFragment(): LisFragment
 
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeLisJYFragment(): LisJYFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeLisJCFragment(): LisJCFragment
+
+    @ChildFragmentScoped
+    @ContributesAndroidInjector
+    abstract fun contributeLisJCItemFragment(): LisJCItemFragment
+
 }
