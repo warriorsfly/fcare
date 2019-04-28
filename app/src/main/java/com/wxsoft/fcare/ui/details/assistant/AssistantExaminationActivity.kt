@@ -14,7 +14,6 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAssistantExaminationBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import kotlinx.android.synthetic.main.activity_assistant_examination.*
 import kotlinx.android.synthetic.main.layout_new_title.*
@@ -68,7 +67,7 @@ class AssistantAdapter(fm: FragmentManager,count:Int,val arr:List<String>) :
     FragmentPagerAdapter(fm) {
 
     private val statusFragments:List<Fragment> by lazyFast {
-        (0..count).map {
+        (0..(count-1)).map {
             LisFragment(it)
         }
     }

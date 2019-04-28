@@ -63,10 +63,10 @@ data class LisRecord(val id:String) : BaseObservable() {
         }
     //检验报告明细项
     @Bindable
-    var lisRecordDetails:List<LisRecordItem> = emptyList()
+    var lisReoprtaRecordDetails:List<LisRecordItem> = emptyList()
     set(value) {
         field = value
-        notifyPropertyChanged(BR.lisRecordDetails)
+        notifyPropertyChanged(BR.lisReoprtaRecordDetails)
     }
 
 }
