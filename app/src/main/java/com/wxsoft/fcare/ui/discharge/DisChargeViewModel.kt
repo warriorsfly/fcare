@@ -36,14 +36,14 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
         }
 
     val data:LiveData<DisChargeDiagnosis>
-    private val loadDiagnosisResult = MediatorLiveData<Response<DisChargeDiagnosis>>()
+    private val loadDiagnosisResult = MediatorLiveData<DisChargeDiagnosis>()
     val des:LiveData<List<Dictionary>>
     private val loadDesResult = MediatorLiveData<List<Dictionary>>()
 
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
-        data = loadDiagnosisResult.map { it?.result ?: DisChargeDiagnosis()  }
+        data = loadDiagnosisResult.map { it?: DisChargeDiagnosis()  }
         des = loadDesResult.map { it ?: emptyList()  }
     }
 
@@ -55,8 +55,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
     }
 
     private fun loadOtDiagnosis(response:Response<DisChargeDiagnosis>){
-        loadDiagnosisResult.value=response
-        data.value?.haveLoaded()
+        loadDiagnosisResult.value=response.result?.apply { haveLoaded() }
     }
 
     override fun error(throwable: Throwable){
@@ -65,8 +64,6 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
 
 
     fun click() {
-
-
         data.value?.let {
             when {
                 it.diagnosis==null->{

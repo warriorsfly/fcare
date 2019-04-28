@@ -118,6 +118,7 @@ class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener 
             .setCurrentMillseconds(if (time == 0L) System.currentTimeMillis() else time)
             .setType(Type.ALL)
             .setWheelItemTextSize(16)
+            .setThemeColor(R.color.colorPrimary)
             .build()
     }
 

@@ -9,14 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.databinding.FragmentLisJcBinding
-import com.wxsoft.fcare.databinding.FragmentLisJyBinding
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_assistant_examination.*
+import kotlinx.android.synthetic.main.fragment_lis_jc.*
+import kotlinx.android.synthetic.main.item_stub_emr_vital_list.view.*
 import javax.inject.Inject
 
 class LisJCFragment : DaggerFragment() {
@@ -46,8 +45,11 @@ class LisJCFragment : DaggerFragment() {
         viewModel.lisJCRecords.observe(this, Observer {
             if (it.isNotEmpty()){
                 viewPager.adapter = LisJCAdapter(childFragmentManager,it.size,it.map { it.jylbmc })
+//                tabLayout.getTabAt(0).setCustomView()
             }
         })
+
+
 
         return binding.root
     }

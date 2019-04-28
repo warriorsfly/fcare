@@ -204,9 +204,10 @@
         </activity>
         <activity
                 android:name=".ui.details.vitalsigns.VitalSignsActivity"
+                android:configChanges="orientation|keyboardHidden|screenSize"
                 android:screenOrientation="portrait"
-                android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+                android:theme="@style/AppTheme.NoActionBar"
+                android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         <activity
                 android:name=".ui.details.measures.MeasuresActivity"
                 android:screenOrientation="portrait"

@@ -127,5 +127,21 @@ class SelecterOfOneModelActivity : BaseActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if (comFrom.equals("MedicalHistoryAnamnesis")) menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                complit()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
+
 
 }

@@ -7,11 +7,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityVitalSignsBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -90,6 +92,10 @@ class VitalSignsActivity : BaseActivity() {
                     toSelectConscious()
                 }
             }
+        })
+
+        viewModel.mesAction.observe(this, EventObserver{
+            Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
 
         binding.breath.addTextChangedListener(object : TextWatcher {

@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.main.fragment.patients
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -38,6 +39,9 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     override fun onOpen(t: String) {
         _detailAction.value=Event(t)
     }
+
+    var noPatientsShow= ObservableField<Boolean>()
+
 
     val clickTop:LiveData<String>
     val clickTopResult = MediatorLiveData<String>()

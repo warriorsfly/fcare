@@ -209,13 +209,17 @@ class MedicalHistoryActivity : BaseActivity() {
                 AddDrugs ->{
                     var arr =  viewModel.drugHistory.value?.map { it }?: emptyList()
                     val drugs = data?.getSerializableExtra("selectedDrugs") as ArrayList<Drug>
-                    val dlist = drugs.map { History2("").apply {
+                    val drugIds = arr.map { it.drugId }
+                    val dlist = drugs.filter {
+                        !drugIds.contains(it.id)
+                    }?.map {
+                        History2("").apply {
                         drugId = it.id
                         drugName = it.name
                         dose = it.dose
                         doseUnit = it.doseUnit
                     } }as ArrayList<History2>
-                    dlist.addAll(arr.filter { !dlist.contains(it) })
+                    dlist.addAll(arr)
                     viewModel.loadDrugHistoryResult.value = dlist
                 }
             }
