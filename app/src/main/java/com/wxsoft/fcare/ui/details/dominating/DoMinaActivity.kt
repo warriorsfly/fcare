@@ -190,7 +190,7 @@ class DoMinaActivity : BaseTimingActivity() {
             }
         }
     }
-    
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_task_info,menu)
         return true
