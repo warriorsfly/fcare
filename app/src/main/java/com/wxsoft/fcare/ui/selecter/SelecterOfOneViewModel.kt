@@ -138,10 +138,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
         if (clickAlone){
             des.value?.filter { it.checked }?.map { it.checked = false }
             item.checked = true
+            loadSubmit.value = "success"
         }else{
             item.checked = !item.checked
         }
-        loadSubmit.value = "success"
     }
     fun clickSelectNotify(item: NotifyType){
         notifyTypes.value?.filter { it.checked }?.map { it.checked = false }

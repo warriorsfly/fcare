@@ -37,13 +37,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            <Button
+            <TextView
                     android:hint="请选择"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:gravity="right"
                     android:id="@+id/diagnose"
                     android:layout_marginRight="19dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="5dp"
                     android:textSize="13sp"
                     android:textColor="#7D7D7D"
                     android:minWidth="90dp"
@@ -96,9 +97,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-            <Button
+            <TextView
                     android:hint="选择时间"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
+                    android:gravity="right"
                     android:id="@+id/start"
                     android:layout_marginRight="19dp"
                     android:layout_marginTop="15dp"
@@ -163,7 +164,8 @@
                     android:maxLines="1"
                     android:text="@={viewModel.data.daysStr}"
                     android:imeOptions="actionNext"
-                    android:layout_marginRight="33dp"
+                    android:layout_marginRight="52dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
             <View
@@ -207,7 +209,8 @@
                     android:maxLines="1"
                     android:text="@={viewModel.data.costStr}"
                     android:imeOptions="actionNext"
-                    android:layout_marginRight="33dp"
+                    android:layout_marginRight="52dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -152,6 +152,7 @@ class ACSDrugActivity : BaseActivity() , OnDateSetListener {
             .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
             .setType(Type.ALL)
             .setWheelItemTextSize(12)
+            .setThemeColor(R.color.colorPrimary)
             .build()
     }
 

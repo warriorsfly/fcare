@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -248,6 +249,7 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
             .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
             .setType(Type.ALL)
             .setWheelItemTextSize(16)
+            .setThemeColor(R.color.colorPrimary)
             .build()
     }
 

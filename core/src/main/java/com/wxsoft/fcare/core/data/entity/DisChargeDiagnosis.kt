@@ -120,5 +120,10 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
     fun haveLoaded(){
         if (days != null) daysStr = days.toString()
         if (cost != null) costStr = cost.toString()
+        if (diagnosis != null){
+            if (diagnosis.diagnosisCode3Name.equals("代码不存在")){
+                diagnosis.diagnosisCode3Name = ""
+            }
+        }
     }
 }

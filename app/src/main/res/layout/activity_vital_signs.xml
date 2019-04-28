@@ -138,6 +138,12 @@
                         android:layout_marginRight="5dp"
                         android:background="@drawable/ic_right_arrow"/>
 
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View android:layout_width="match_parent"
@@ -200,13 +206,13 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         android:text="次/分钟" />
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item2"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:background="@color/white"
@@ -260,13 +266,12 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         android:text="次/分钟" />
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item3"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:background="@color/white"
@@ -320,13 +325,14 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="次/分钟" />
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item4"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:background="@color/white"
@@ -409,13 +415,14 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         android:text="mmHg" />
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item5"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -471,13 +478,13 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="%" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
 
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item6"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -533,12 +540,13 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="°C" />
+                <View android:layout_width="match_parent"
+                      android:layout_height="1dp"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintLeft_toLeftOf="parent"
+                      android:background="@color/line_gray"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item7"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     goneUnless="@{!viewModel.xtShow}"
@@ -593,13 +601,14 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:text="kg" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <View android:layout_width="match_parent"
                   android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item6"
+                  app:layout_constraintTop_toBottomOf="@+id/base_info_item8"
                   app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
+                  android:background="@color/line_gray"/>
 
 
 

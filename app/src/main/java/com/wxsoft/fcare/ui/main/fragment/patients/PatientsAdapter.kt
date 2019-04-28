@@ -15,7 +15,7 @@ class PatientsAdapter constructor(private val owner: LifecycleOwner, val viewMod
     PagedListAdapter<Patient, PatientsAdapter.ItemViewHolder>(DiffCallback) {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-
+        viewModel.noPatientsShow.set(false)
         holder.binding.apply {
             val p= getItem(position)
             patient =p

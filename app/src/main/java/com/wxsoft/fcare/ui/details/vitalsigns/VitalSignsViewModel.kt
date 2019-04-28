@@ -67,16 +67,10 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     }
 
     private fun saveVitalSign() {
-
+        if (!saveable) return
         val v = vital.value!!
         v.sceneType = sceneTypeId
-        if (v.id.isEmpty())
-            v.patientId = patientId
-        if (
-//            v.blood_Pressure.isEmpty() ||
-//            v.body_Temperature==0f||
-            v.heart_Rate == 0
-        ) return
+        if (v.id.isEmpty()) v.patientId = patientId
         v.createrName = account.trueName
         disposable.add((if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
             .subscribe({
@@ -144,5 +138,37 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     fun selectConscious(){
         initClickConcious.value = "Conscious"
     }
+
+
+    val saveable:Boolean
+        get(){
+            return vital.value?.let {
+                when{
+                    it.consciousness_Type.isNullOrEmpty()->{
+                        messageAction.value= Event("请选择意识")
+                        return@let false
+                    }
+                    it.respiration_Rate==0->{
+                        messageAction.value= Event("请填写呼吸")
+                        return@let false
+                    }
+                    it.pulse_Rate==0->{
+                        messageAction.value= Event("请填写脉搏")
+                        return@let false
+                    }
+                    it.heart_Rate==0->{
+                        messageAction.value= Event("请填写心率")
+                        return@let false
+                    }
+                    it.dbp.isNullOrEmpty()||it.sbp.isNullOrEmpty()->{
+                        messageAction.value= Event("请填写血压")
+                        return@let false
+                    }
+                    else->
+                        return@let true
+                }
+            }?:false
+
+        }
 
 }
