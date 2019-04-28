@@ -52,17 +52,17 @@ fun diagnoseType(view: TextView, visible: Boolean,position:Int?) {
 fun lisItems(view: TextView, position:Int?) {
     when(position){
         0->view.setTextColor(view.context.resources.getColor(R.color.black))
-        1->view.setTextColor(view.context.resources.getColor(R.color.colorPrimary))
-        2->view.setTextColor(view.context.resources.getColor(R.color.task_select_car_able_text))
+        1->view.setTextColor(view.context.resources.getColor(R.color.sex_wuman))
+        2->view.setTextColor(view.context.resources.getColor(R.color.colorPrimary))
         else -> view.setTextColor(view.context.resources.getColor(R.color.black))
     }
 }
 @BindingAdapter("lisItemsRow")
 fun lisItemsRow(textView: TextView, position:Int?) {
     when(position){
-        0->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
-        1->textView.setBackgroundResource(R.drawable.ic_diagnosis5)
-        2->textView.setBackgroundResource(R.drawable.ic_diagnosis1)
+        0->textView.setBackgroundResource(0)
+        1->textView.setBackgroundResource(R.drawable.ic_row_down)
+        2->textView.setBackgroundResource(R.drawable.ic_row_up)
         //不在上述代码中则清空textView的背景
         else->textView.setBackgroundResource(0)
     }

@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.assistant
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -31,16 +32,23 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
             loadJCResults()
         }
 
+    var show:Boolean = true
+
+    val jcjyShow: LiveData<Boolean>
+    val loadJcjyShow = MediatorLiveData<Boolean>()
+
     val lisRecords: LiveData<List<LisRecord>>
     private val loadLisRecordsResult = MediatorLiveData<List<LisRecord>>()
 
-    val lisJCRecords: LiveData<LisJCRecord>
-    private val loadLisJCRecordsResult = MediatorLiveData<LisJCRecord>()
+    val lisJCRecords: LiveData<List<LisJCRecord>>
+    private val loadLisJCRecordsResult = MediatorLiveData<List<LisJCRecord>>()
 
 
     init {
+        jcjyShow= loadJcjyShow.map { it }
         lisRecords  = loadLisRecordsResult.map { it?: emptyList()}
-        lisJCRecords = loadLisJCRecordsResult.map { it?:LisJCRecord("") }
+        lisJCRecords = loadLisJCRecordsResult.map { it?: emptyList() }
+        loadJcjyShow.value = true
     }
 
 
@@ -60,7 +68,14 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::getYCresult,::error))
     }
-    private fun getYCresult(response:Response<LisJCRecord>){
+    private fun getYCresult(response:Response<List<LisJCRecord>>){
         loadLisJCRecordsResult.value = response.result
     }
+
+
+    fun changeTitle(){
+        show = !show
+        loadJcjyShow.value = show
+    }
+
 }

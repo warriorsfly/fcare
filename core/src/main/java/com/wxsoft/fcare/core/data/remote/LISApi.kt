@@ -38,7 +38,7 @@ interface LISApi {
     fun getJYResults(@Path("patientId")patientId:String): Maybe<Response<List<LisRecord>>>
 
     @GET("YJReport/GetJCResults/{patientId}")
-    fun getJCResults(@Path("patientId")patientId:String): Maybe<Response<LisJCRecord>>
+    fun getJCResults(@Path("patientId")patientId:String): Maybe<Response<List<LisJCRecord>>>
 
 
 }
