@@ -39,7 +39,7 @@ class LisFragment(val position:Int) : DaggerFragment(){
         binding.list.adapter = adapter
         if (datas != null){
             binding.item = datas
-            adapter.submitList(datas!!.lisRecordDetails)
+            adapter.submitList(datas!!.lisReoprtaRecordDetails)
         }
 
         return binding.root

@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
 import com.wxsoft.fcare.ui.details.assistant.troponin.TroponinViewModel
-import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessFragment
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

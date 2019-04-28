@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.lis.LisItem
+import com.wxsoft.fcare.core.data.entity.lis.LisJCRecord
 import com.wxsoft.fcare.core.data.entity.lis.LisRecord
 import io.reactivex.Maybe
 import okhttp3.MultipartBody
@@ -32,5 +33,12 @@ interface LISApi {
 
     @GET("LIS/GetPatientLisRecords/{patientId}/{lisItemId}")
     fun getPatientLisRecords(@Path("patientId")patientId:String,@Path("lisItemId")lisItemId:String): Maybe<Response<List<LisRecord>>>
+
+    @GET("YJReport/GetJYResults/{patientId}")
+    fun getJYResults(@Path("patientId")patientId:String): Maybe<Response<List<LisRecord>>>
+
+    @GET("YJReport/GetJCResults/{patientId}")
+    fun getJCResults(@Path("patientId")patientId:String): Maybe<Response<LisJCRecord>>
+
 
 }
