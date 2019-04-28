@@ -313,7 +313,8 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                         <androidx.constraintlayout.widget.ConstraintLayout
                           android:id="@+id/model3_5"
-                          android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveHospital)}"
+
+                          android:onClick="@{()->viewModel.changeTiming(TimingType.PassingArriveEmergency)}"
                           android:background="@color/white"
                           app:layout_constraintLeft_toLeftOf="parent"
                           app:layout_constraintTop_toBottomOf="@+id/model3_4"
@@ -322,7 +323,6 @@
 
                           <TextView
                             android:id="@+id/title3_5"
-                            android:onClick="@{()->viewModel.changeTiming(TimingType.PassingArriveEmergency)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -343,6 +343,7 @@
                             android:layout_marginBottom="15dp"
                             android:textSize="16sp"
                             android:textColor="#7D7D7D"
+                            android:text="@{viewModel.passing.arriveEmergencyTime}"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toLeftOf="@+id/rowe3_5"
@@ -441,6 +442,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="15dp"
                             android:textSize="16sp"
+                            android:text="@{viewModel.passing.arriveCCUTime}"
                             android:textColor="#7D7D7D"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"

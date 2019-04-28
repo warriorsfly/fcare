@@ -8,9 +8,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
@@ -21,13 +18,15 @@ import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
-import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.databinding.FragmentTaskStateBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
-import com.wxsoft.fcare.ui.details.dominating.fragment.*
+import com.wxsoft.fcare.ui.details.dominating.fragment.GisActivity
+import com.wxsoft.fcare.ui.details.dominating.fragment.PatientInTaskAdapter
+import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessActivity
+import com.wxsoft.fcare.ui.details.dominating.fragment.TaskSheetFragment
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
@@ -62,11 +61,6 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
 
     companion object {
         const val TASK_ID = "TASK_ID"
-        const val STATE_COUNT = 3
-        const val START_POSITION = 0
-        const val PATIENTS_POSITION = 1
-        const val GIS_POSITION = 2
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +71,6 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
             this,
             R.layout.activity_do_mina
         ).apply {
-
 
             viewModel=this@DoMinaActivity.viewModel
             list.adapter=adapter

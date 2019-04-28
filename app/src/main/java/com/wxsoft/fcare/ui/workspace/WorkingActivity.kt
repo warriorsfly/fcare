@@ -74,6 +74,8 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.THROMBOLYSIS
 import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.activity_working.*
+import kotlinx.android.synthetic.main.layout_working_title.*
+//import kotlinx.android.synthetic.main.activity_working.*
 import java.lang.ref.WeakReference
 import javax.inject.Inject
 import javax.inject.Named
@@ -82,7 +84,7 @@ class WorkingActivity : BaseActivity() {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(bottomSheetBehavior.state){
-            BottomSheetBehavior.STATE_EXPANDED->bottomSheetBehavior.state=BottomSheetBehavior.STATE_HIDDEN
+            BottomSheetBehavior.STATE_EXPANDED->bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
         }
         when (item.itemId) {
             R.id.share -> {
@@ -107,6 +109,14 @@ class WorkingActivity : BaseActivity() {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
                 startActivityForResult(intent, EMR)
+                return@OnNavigationItemSelectedListener true
+            }
+            R.id.time_line -> {
+                val intent = Intent(this@WorkingActivity, TimePointActivity::class.java)
+                    .apply {
+                        putExtra(TimePointActivity.PATIENT_ID, patientId)
+                    }
+                startActivityForResult(intent, TimePointActivity.BASE_INFO)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.more -> {
@@ -146,11 +156,12 @@ class WorkingActivity : BaseActivity() {
         emrViewModel=viewModelProvider(factory)
         emrViewModel.patientId=patientId
         emrViewModel.preHos=pre
+
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
 
                 operationMenu.apply {
-//                    itemIconTintList=null
+                    itemIconTintList=null
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
                 quality.adapter=QualityAdapter(this@WorkingActivity)
@@ -173,6 +184,7 @@ class WorkingActivity : BaseActivity() {
                     (quality.adapter as? QualityAdapter)?.submitList(it)
                 })
 
+
                 viewModel?.operations?.observe(this@WorkingActivity, Observer {
                     (operationView.adapter as? OperationGroupAdapter)?.apply {
                         submitList(it)
@@ -180,21 +192,6 @@ class WorkingActivity : BaseActivity() {
 
                 })
 
-                backAway.setOnClickListener {
-                   onBackPressed()
-                }
-
-                back.setOnClickListener {
-                    onBackPressed()
-                }
-
-                timeLine.setOnClickListener {
-                    val intent = Intent(this@WorkingActivity, TimePointActivity::class.java)
-                        .apply {
-                            putExtra(TimePointActivity.PATIENT_ID, patientId)
-                        }
-                    startActivityForResult(intent, TimePointActivity.BASE_INFO)
-                }
                 notification.setOnClickListener {
                     val intent = Intent(this@WorkingActivity, NotificationActivity::class.java).apply {
                         putExtra(NotificationActivity.PATIENT_ID, patientId)
@@ -202,6 +199,12 @@ class WorkingActivity : BaseActivity() {
                     startActivityForResult(intent, NOTIFICATION)
                 }
             }
+
+        setSupportActionBar(toolbar)
+
+        viewModel.patient.observe(this, Observer {
+            title=it.name
+        })
 
     }
 
@@ -376,50 +379,50 @@ class WorkingActivity : BaseActivity() {
     }
 
 
-    class CallBack( context: WorkingActivity):BottomSheetBehavior.BottomSheetCallback() {
-        private val activity = WeakReference(context)
-        private var translated:Boolean=false
-        private var lastState: Int = BottomSheetBehavior.STATE_COLLAPSED
-        override fun onSlide(bottomSheet: View, slideOffset: Float) {
-            if(!translated){
-
-                when(lastState){
-                    BottomSheetBehavior.STATE_COLLAPSED -> {
-                        translated=true
-//                        activity.get()?.transition?.startTransition(500)
-                    }
-                    BottomSheetBehavior.STATE_EXPANDED -> {
-                        translated=true
-//                        activity.get()?.transition?.reverseTransition(500)
-                    }
-                }
-            }
-        }
-
-        override fun onStateChanged(bottomSheet: View, newState: Int) {
-
-            when (newState) {
-                BottomSheetBehavior.STATE_COLLAPSED -> {
-                    if(lastState==newState){
-//                        activity.get()?.transition?.reverseTransition(250)
-                    }else {
-                        lastState = newState
-                    }
-                    translated=false
-                    activity.get()?.viewModel?.emrFullScreen?.set(false)
-                }
-                BottomSheetBehavior.STATE_EXPANDED -> {
-                    if(lastState==newState){
-//                        activity.get()?.transition?.startTransition(250)
-                    }else {
-                        lastState = newState
-                    }
-                    translated=false
-                    activity.get()?.viewModel?.emrFullScreen?.set(true)
-                }
-            }
-        }
-    }
+//    class CallBack( context: WorkingActivity):BottomSheetBehavior.BottomSheetCallback() {
+//        private val activity = WeakReference(context)
+//        private var translated:Boolean=false
+//        private var lastState: Int = BottomSheetBehavior.STATE_COLLAPSED
+//        override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//            if(!translated){
+//
+//                when(lastState){
+//                    BottomSheetBehavior.STATE_COLLAPSED -> {
+//                        translated=true
+////                        activity.get()?.transition?.startTransition(500)
+//                    }
+//                    BottomSheetBehavior.STATE_EXPANDED -> {
+//                        translated=true
+////                        activity.get()?.transition?.reverseTransition(500)
+//                    }
+//                }
+//            }
+//        }
+//
+//        override fun onStateChanged(bottomSheet: View, newState: Int) {
+//
+//            when (newState) {
+//                BottomSheetBehavior.STATE_COLLAPSED -> {
+//                    if(lastState==newState){
+////                        activity.get()?.transition?.reverseTransition(250)
+//                    }else {
+//                        lastState = newState
+//                    }
+//                    translated=false
+//                    activity.get()?.viewModel?.emrFullScreen?.set(false)
+//                }
+//                BottomSheetBehavior.STATE_EXPANDED -> {
+//                    if(lastState==newState){
+////                        activity.get()?.transition?.startTransition(250)
+//                    }else {
+//                        lastState = newState
+//                    }
+//                    translated=false
+//                    activity.get()?.viewModel?.emrFullScreen?.set(true)
+//                }
+//            }
+//        }
+//    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {

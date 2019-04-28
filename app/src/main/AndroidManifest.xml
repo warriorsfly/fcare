@@ -135,7 +135,7 @@
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.workspace.WorkingActivity"
-                android:theme="@style/AppTheme.NoActionBar.Dark"/>
+                android:theme="@style/AppTheme.NoActionBar.Primary"/>
         <activity
                 android:name=".ui.workspace.TimePointActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

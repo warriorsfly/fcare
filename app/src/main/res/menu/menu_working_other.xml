@@ -24,6 +24,13 @@
             app:showAsAction="always"/>
 
     <item
+            android:id="@+id/time_line"
+            android:orderInCategory="100"
+            android:title="时间轴"
+            android:icon="@drawable/ic_other_time_line"
+            app:showAsAction="always"/>
+
+    <item
             android:id="@+id/more"
             android:orderInCategory="100"
             android:title="更多"
