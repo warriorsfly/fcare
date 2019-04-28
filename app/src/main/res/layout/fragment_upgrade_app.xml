@@ -37,7 +37,7 @@
                 android:textSize="18sp"
                 android:layout_marginLeft="58dp"
                 android:id="@+id/new_version"
-                android:text="发现新版本!"
+                android:text="@{`发现新版本!)`+viewModel.version.versionName+`)`}"
                 android:layout_height="wrap_content"/>
 
         <TextView

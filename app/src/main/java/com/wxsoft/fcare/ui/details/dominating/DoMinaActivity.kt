@@ -22,6 +22,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.databinding.FragmentTaskStateBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.GisActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.PatientInTaskAdapter
@@ -36,7 +37,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
-class DoMinaActivity : BaseActivity(), OnDateSetListener {
+class DoMinaActivity : BaseTimingActivity() {
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
 
         viewModel.changing(changingStatus,DateTimeUtils.formatter.format(millseconds),millseconds)
@@ -189,26 +190,7 @@ class DoMinaActivity : BaseActivity(), OnDateSetListener {
             }
         }
     }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .build()
-    }
-
+    
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_task_info,menu)
         return true

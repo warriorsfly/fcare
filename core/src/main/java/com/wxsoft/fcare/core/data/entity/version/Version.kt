@@ -12,5 +12,6 @@ data class Version(
     @SerializedName("apkSizeAsByte")
     val size:Int=0,
     @SerializedName("mD5")
-    val md5:String=""
+    val md5:String="",
+    val versionName:String=""
 )

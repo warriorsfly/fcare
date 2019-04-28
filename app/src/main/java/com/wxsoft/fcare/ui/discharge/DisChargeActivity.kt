@@ -101,9 +101,10 @@ class DisChargeActivity : BaseActivity(), OnDateSetListener, View.OnClickListene
         start.setOnClickListener(this)
     }
 
-    private fun createDialog(time:Long): TimePickerDialog {
+    protected fun createDialog(time:Long): TimePickerDialog {
 
         return TimePickerDialog.Builder()
+
             .setCallBack(this)
             .setCancelStringId("取消")
             .setSureStringId("确定")

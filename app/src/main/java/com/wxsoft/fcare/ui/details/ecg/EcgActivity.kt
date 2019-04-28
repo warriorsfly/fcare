@@ -18,6 +18,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -28,6 +29,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -89,6 +91,8 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         intent?.getStringExtra(RatingSubjectActivity.PATIENT_ID)?:""
     }
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
@@ -105,6 +109,9 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
         viewModel.ecg.observe(this, Observer {
             adapter.locals= emptyList()
             adapter.remotes=it.attachments?.map { it.httpUrl }?: emptyList()
+        })
+        viewModel.mesAction.observe(this, EventObserver{
+            Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
         setSupportActionBar(toolbar)
 

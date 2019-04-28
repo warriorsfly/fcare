@@ -67,9 +67,7 @@ class EcgEditFragment : DaggerFragment() {
 
            list.adapter=adapter
            submit.setOnClickListener {
-               if(viewModel?.selectedEcgDiagnosis?.isNotEmpty() == true ){
-                   viewModel?.diagnose()
-               }
+               viewModel?.diagnose()
            }
            back.setOnClickListener {
                activity?.supportFragmentManager?.let {

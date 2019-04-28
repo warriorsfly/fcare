@@ -449,6 +449,7 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
     private fun createDialog(time:Long): TimePickerDialog {
 
         return TimePickerDialog.Builder()
+            .setThemeColor(resources.getColor(R.color.colorPrimary))
             .setCallBack(this)
             .setCancelStringId("取消")
             .setSureStringId("确定")

@@ -11,6 +11,7 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.ECGApi
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -140,6 +141,11 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         }
     }
     fun diagnose(){
+
+        if(selectedEcgDiagnosis.size==0){
+            messageAction.value= Event("请添加诊断提示")
+            return
+        }
        ecg.value?.apply {
            doctorId=account.id
            doctorName=account.trueName
