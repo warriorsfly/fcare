@@ -380,7 +380,8 @@
                             android:layout_marginTop="12dp"
                             android:background="@color/line_gray"
                             android:layout_height="1dp"/>
-                    <androidx.constraintlayout.widget.ConstraintLayout android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent" android:layout_height="wrap_content">
                         <TextView
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -388,6 +389,8 @@
                             app:layout_constraintRight_toLeftOf="@id/middle"
                             android:layout_width="wrap_content"
                             android:text="质控时间"
+                            android:drawablePadding="8dp"
+                            android:drawableLeft="@drawable/ic_task_process"
                             android:id="@+id/go_process"
                             android:layout_margin="12dp"
                             android:layout_height="wrap_content"/>
@@ -404,6 +407,8 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 android:text="行车轨迹"
                                 android:id="@+id/go_gis"
+                                android:drawablePadding="8dp"
+                                android:drawableLeft="@drawable/ic_task_gis"
                                 android:layout_margin="12dp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"

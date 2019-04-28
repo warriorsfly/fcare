@@ -56,7 +56,7 @@ class ProcessActivity : BaseActivity() {
 
         viewModel.taskId=taskId
         setSupportActionBar(toolbar)
-        title="时间进度"
+        title="任务进度及耗时"
     }
 
 }
