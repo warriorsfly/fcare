@@ -21,14 +21,14 @@ import com.wxsoft.fcare.databinding.ActivityCtBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import kotlinx.android.synthetic.main.activity_ct.*
 import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
+class CTActivity : BaseTimingActivity(), View.OnClickListener {
 
-    private var dialog: TimePickerDialog?=null
     private val selectedIndex= mutableListOf<Int>()
     override fun onClick(v: View?) {
 
@@ -99,25 +99,6 @@ class CTActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
 
         setSupportActionBar(toolbar)
         title="CT室操作"
-    }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-            return TimePickerDialog.Builder()
-                .setCallBack(this)
-                .setCancelStringId("取消")
-                .setSureStringId("确定")
-                .setTitleStringId("选择时间")
-                .setYearText("")
-                .setMonthText("")
-                .setDayText("")
-                .setHourText("")
-                .setMinuteText("")
-                .setCyclic(false)
-                .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-                .setType(Type.ALL)
-                .setWheelItemTextSize(16)
-                .setThemeColor(R.color.colorPrimary)
-                .build()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

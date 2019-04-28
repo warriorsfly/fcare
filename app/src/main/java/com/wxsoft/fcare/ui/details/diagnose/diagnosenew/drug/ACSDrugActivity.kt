@@ -17,13 +17,12 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAcsdrugBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class ACSDrugActivity : BaseActivity() , OnDateSetListener {
-    private var dialog: TimePickerDialog?=null
-
+class ACSDrugActivity : BaseTimingActivity() {
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
@@ -135,25 +134,4 @@ class ACSDrugActivity : BaseActivity() , OnDateSetListener {
             finish()
         }
     }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
-    }
-
 }

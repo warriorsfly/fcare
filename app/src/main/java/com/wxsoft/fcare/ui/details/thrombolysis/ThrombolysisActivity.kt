@@ -3,41 +3,33 @@ package com.wxsoft.fcare.ui.details.thrombolysis
 
 import android.app.Activity
 import android.app.Dialog
-import androidx.lifecycle.Observer
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.view.*
-import androidx.recyclerview.widget.RecyclerView
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
-import com.wxsoft.fcare.core.data.entity.Pharmacy
 import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.databinding.ActivityThrombolysisBinding
-import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
-import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ActivityThrombolysisBinding
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
-import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 
-class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
-
-    private var dialog: TimePickerDialog?=null
+class ThrombolysisActivity : BaseTimingActivity() {
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
@@ -254,27 +246,6 @@ class ThrombolysisActivity : BaseActivity(), OnDateSetListener {
             }
         }
     }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
-    }
-
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)
         return true

@@ -5,9 +5,10 @@ import com.jzxiang.pickerview.TimePickerDialog
 import com.jzxiang.pickerview.data.Type
 import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
+import dagger.android.support.DaggerFragment
 
 
-abstract class BaseTimingActivity : BaseActivity(), OnDateSetListener {
+abstract class BaseTimingFragment : DaggerFragment() , OnDateSetListener {
 
     protected var dialog: TimePickerDialog?=null
 

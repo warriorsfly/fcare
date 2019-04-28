@@ -15,9 +15,6 @@ import android.widget.PopupWindow
 import androidx.core.widget.PopupWindowCompat
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -26,17 +23,15 @@ import com.wxsoft.fcare.databinding.FragmentAssignmentBinding
 import com.wxsoft.fcare.databinding.LayoutTaskSelectDateBinding
 import com.wxsoft.fcare.databinding.LayoutTaskSelectTypeBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingFragment
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.DoMinaActivity
 import com.wxsoft.fcare.ui.main.fragment.task.searchtask.SearchTaskActivity
-import dagger.android.support.DaggerFragment
 import java.util.*
 import javax.inject.Inject
 
 
-class TaskFragment : DaggerFragment() , OnDateSetListener {
-
-    private var dialog: TimePickerDialog?=null
+class TaskFragment : BaseTimingFragment() {
 
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
@@ -233,25 +228,7 @@ class TaskFragment : DaggerFragment() , OnDateSetListener {
         }
     }
 
-    private fun createDialog(time:Long): TimePickerDialog {
 
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(16)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
-    }
 
     override fun onPause() {
         if (popwindow.isShowing)

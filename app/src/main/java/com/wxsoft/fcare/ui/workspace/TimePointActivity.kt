@@ -24,6 +24,7 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityTimePointBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
@@ -33,14 +34,13 @@ import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class TimePointActivity : BaseActivity(), OnDateSetListener  {
+class TimePointActivity : BaseTimingActivity()  {
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         dialog?.onDestroy()
         dialog=null
        viewModel.newTime(DateTimeUtils.formatter.format(millseconds))
     }
 
-    private var dialog: TimePickerDialog?=null
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val ARG_NEW_ITEM_CODE = 20
@@ -156,26 +156,6 @@ class TimePointActivity : BaseActivity(), OnDateSetListener  {
                 startActivityForResult(intent, VITAL_SIGNS)
             }
         }
-    }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if (time == 0L) System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(16)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu?): Boolean {

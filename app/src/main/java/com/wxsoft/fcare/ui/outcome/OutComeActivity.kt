@@ -1,37 +1,32 @@
 package com.wxsoft.fcare.ui.outcome
 
-import androidx.lifecycle.Observer
 import android.content.Intent
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.databinding.ActivityOutcomeChestBinding
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.ui.selecter.SelecterOfOneAdapter
+import com.wxsoft.fcare.databinding.ActivityOutcomeChestBinding
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest1.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest2.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest3.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest4.*
-import kotlinx.android.synthetic.main.layout_common_title.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener {
+class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
 
-    private var dialog: TimePickerDialog?=null
     override fun onClick(v: View?) {
 
         (v as? Button)?.let {
@@ -102,25 +97,6 @@ class OutComeActivity : BaseActivity(), OnDateSetListener, View.OnClickListener 
         pci_start.setOnClickListener(this)
     }
 
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if (time == 0L) System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(16)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)

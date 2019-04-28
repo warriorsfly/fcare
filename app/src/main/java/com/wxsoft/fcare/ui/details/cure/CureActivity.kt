@@ -22,6 +22,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityCureBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
@@ -33,11 +34,9 @@ import kotlinx.android.synthetic.main.layout_cure_thrombolysis.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class CureActivity : BaseActivity() , OnDateSetListener {
+class CureActivity : BaseTimingActivity() {
 
-    private var dialog: TimePickerDialog?=null
     private val selectedIndex= mutableListOf<Int>()
-
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         dialog?.onDestroy()
@@ -320,24 +319,4 @@ class CureActivity : BaseActivity() , OnDateSetListener {
             else->super.onOptionsItemSelected(item)
         }
     }
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(16)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
-    }
-
 }

@@ -11,8 +11,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.data.entity.Dictionary
@@ -23,7 +21,7 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDiagnoseNewBinding
-import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
@@ -36,9 +34,7 @@ import kotlinx.android.synthetic.main.activity_diagnose_new.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
-    private var dialog: TimePickerDialog?=null
-
+class DiagnoseNewActivity : BaseTimingActivity() {
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
 //        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
@@ -261,26 +257,6 @@ class DiagnoseNewActivity : BaseActivity() , OnDateSetListener {
 
             }
         }
-    }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
     }
 
 

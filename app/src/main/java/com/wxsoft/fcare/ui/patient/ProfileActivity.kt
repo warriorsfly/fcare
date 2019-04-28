@@ -41,6 +41,7 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
@@ -52,9 +53,7 @@ import javax.inject.Inject
 /**
  * A login screen that offers login via email/password.
  */
-class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener{
-
-    private var dialog: com.jzxiang.pickerview.TimePickerDialog?=null
+class ProfileActivity : BaseTimingActivity(), View.OnClickListener{
 
     private var selectedId=0
     override fun onClick(v: View?) {
@@ -377,26 +376,6 @@ class ProfileActivity : BaseActivity() , OnDateSetListener, View.OnClickListener
                 start()
             }
         }
-    }
-
-
-    private fun createDialog(time:Long): com.jzxiang.pickerview.TimePickerDialog {
-
-        return com.jzxiang.pickerview.TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if (time == 0L) System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(16)
-            .build()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

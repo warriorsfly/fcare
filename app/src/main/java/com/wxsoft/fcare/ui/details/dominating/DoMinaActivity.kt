@@ -10,8 +10,6 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Patient
@@ -21,7 +19,6 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDoMinaBinding
 import com.wxsoft.fcare.databinding.FragmentTaskStateBinding
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.dispatchcar.DispatchCarActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.GisActivity
@@ -31,7 +28,6 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.TaskSheetFragment
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
-import kotlinx.android.synthetic.main.activity_do_mina.*
 import kotlinx.android.synthetic.main.layout_task_process_title.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -47,8 +43,6 @@ class DoMinaActivity : BaseTimingActivity() {
     private val dictFragment by lazy{
         TaskSheetFragment(::cancel)
     }
-
-    private var dialog: TimePickerDialog?=null
 
     private var changingStatus=0
 

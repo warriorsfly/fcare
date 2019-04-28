@@ -12,8 +12,6 @@ import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
-import android.media.AudioRecord
-import android.media.MediaRecorder
 import android.os.Bundle
 import android.os.SystemClock
 import android.view.Menu
@@ -28,8 +26,6 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
@@ -39,7 +35,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAddInformedBinding
 import com.wxsoft.fcare.di.GlideApp
-import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import kotlinx.android.synthetic.main.activity_add_informed.*
@@ -49,9 +45,8 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 
-class AddInformedActivity : BaseActivity(), OnDateSetListener {
+class AddInformedActivity : BaseTimingActivity() {
 
-    private var dialog: TimePickerDialog?=null
 
 //    private var recorder:? =null
 
@@ -444,27 +439,6 @@ class AddInformedActivity : BaseActivity(), OnDateSetListener {
     　　      */
         return String.format("%0" + formatLength + "d", sourceDate)
 
-    }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setThemeColor(resources.getColor(R.color.colorPrimary))
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

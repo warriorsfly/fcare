@@ -6,11 +6,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -19,12 +16,12 @@ import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByBinding
-import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListFragment
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class ComingByActivity : BaseActivity() , OnDateSetListener {
+class ComingByActivity : BaseTimingActivity() {
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
 
         val newTime=DateTimeUtils.formatter.format(millseconds)
@@ -49,8 +46,6 @@ class ComingByActivity : BaseActivity() , OnDateSetListener {
     private val  fragment by lazy{
         ComingByItemListFragment()
     }
-
-    private var dialog: TimePickerDialog?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -109,26 +104,6 @@ class ComingByActivity : BaseActivity() , OnDateSetListener {
         })
     }
 
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setThemeColor(resources.getColor(R.color.colorPrimary))
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .setThemeColor(R.color.colorPrimary)
-            .build().apply {  setStyle(DialogFragment.STYLE_NORMAL,R.style.Theme_FCare_Dialog)}
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)

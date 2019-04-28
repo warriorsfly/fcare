@@ -25,8 +25,6 @@ import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
@@ -36,21 +34,15 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityJgdbBinding
 import com.wxsoft.fcare.di.GlideApp
-import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
-import com.wxsoft.fcare.ui.hardwaredata.HardwareDataActivity
-import com.wxsoft.fcare.ui.patient.ProfileActivity
-import com.wxsoft.fcare.utils.ActionCode
 import kotlinx.android.synthetic.main.activity_jgdb.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 
-class JGDBActivity : BaseActivity() , OnDateSetListener {
-
-    private var dialog: TimePickerDialog?=null
-    private val selectedIndex= mutableListOf<Int>()
+class JGDBActivity : BaseTimingActivity() {
 
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
@@ -170,27 +162,6 @@ class JGDBActivity : BaseActivity() , OnDateSetListener {
             else->super.onOptionsItemSelected(item)
         }
     }
-
-    private fun createDialog(time:Long): TimePickerDialog {
-
-        return TimePickerDialog.Builder()
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(false)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(16)
-            .setThemeColor(R.color.colorPrimary)
-            .build()
-    }
-
 
     private fun checkPhotoTaking(){
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ||
