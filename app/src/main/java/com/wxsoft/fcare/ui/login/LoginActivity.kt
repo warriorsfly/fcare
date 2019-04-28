@@ -9,8 +9,10 @@ import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import android.widget.Toast
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.ActivityLoginBinding
 import com.wxsoft.fcare.service.JPushReceiver.Companion.RegistrationId
 import com.wxsoft.fcare.ui.BaseActivity
@@ -67,6 +69,10 @@ class LoginActivity : BaseActivity() {
                 startActivity(intent)
                 finish()
             }
+        })
+
+        viewModel.mesAction.observe(this,EventObserver{
+            Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
     }

@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Account
@@ -10,6 +11,7 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.AccountApi
 import com.wxsoft.fcare.core.data.toResource
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import io.reactivex.disposables.CompositeDisposable
@@ -37,6 +39,15 @@ class LoginViewModel @Inject constructor(
     val account: LiveData<Response<Account>>
     val logined: LiveData<Boolean>
 
+
+    /**
+     * 需要传递出去的toast消息
+     */
+    val messageAction = MutableLiveData<Event<String>>()
+    val mesAction: LiveData<Event<String>>
+        get() = messageAction
+
+
     init {
         attemptLogin()
         account = loadAccountResult.map {
@@ -44,22 +55,26 @@ class LoginViewModel @Inject constructor(
             val acc = (it as? Resource.Success)?.data ?: Response(false)
             when (it) {
                 is Resource.Error -> {
-//                    TODO 显示错误
+                    messageAction.value=Event(it.throwable.message?:"")
                 }
                 is Resource.Success -> {
                     if (it.data.success) {
                         sharedPreferenceStorage.loginedName = name
                         sharedPreferenceStorage.loginedPassword = password
                         sharedPreferenceStorage.userInfo = gson.toJson(it.data.result)
+                    }else{
+                        messageAction.value=Event(it.data.msg)
                     }
                 }
             }
             return@map acc
         }
         logined = loadAccountResult.map {
-            it is Resource.Success
+            it is Resource.Success && it.data.success
         }
-        isLoading = loadAccountResult.map { it == Resource.Loading }
+        isLoading = loadAccountResult.map {
+            it == Resource.Loading
+        }
     }
 
     private fun attemptLogin() {
