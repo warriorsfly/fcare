@@ -46,7 +46,7 @@ class DisChargeActivity : BaseTimingActivity(), View.OnClickListener {
 
         dialog?.onDestroy()
         dialog=null
-        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private var selectedId=0
