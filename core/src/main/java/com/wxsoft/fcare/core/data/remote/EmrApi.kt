@@ -32,7 +32,7 @@ interface EmrApi{
      * 获取生命体征列表
      */
     @GET("VitalSigns/GetByPatientId/{id}")
-    fun getVitals(@Path("id")id:String): Maybe<Response<List<Record<VitalSign>>>>
+    fun getVitals(@Path("id")id:String): Maybe<Response<List<VitalSign>>>
 
     @GET("VitalSigns/GetById/{id}")
     fun getVital(@Path("id")id:String): Maybe<Response<VitalSign>>

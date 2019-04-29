@@ -142,15 +142,16 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             is ItemViewHolder.VitalListViewHolder->{
                 holder.binding.apply {
                     item=emr
-                    if(tabLayout.tabCount==0){
-                        val tabs=( emr.result as? List<Record<VitalSign>>)
-                            tabs?.forEach {
-                                tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
-                            }
-                        if(tabs?.size?:0==1){
-                            tabLayout.visibility=View.GONE
-                        }
-                    }
+                    vital=(emr.result as? List<VitalSign>)?.get(0)
+//                    if(tabLayout.tabCount==0){
+//                        val tabs=( emr.result as? List<Record<VitalSign>>)
+//                            tabs?.forEach {
+//                                tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
+//                            }
+//                        if(tabs?.size?:0==1){
+//                            tabLayout.visibility=View.GONE
+//                        }
+//                    }
                     executePendingBindings()
                 }
             }
@@ -439,20 +440,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
         class VitalListViewHolder(
             override val binding: ItemNewEmrVitalListBinding,
             override val click:(String)->Unit
-        ) : ItemViewHolder(binding,click),TabLayout.OnTabSelectedListener{
-            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                binding.apply {
-                    (item?.result  as List<Record<VitalSign>>)?.apply {
-                        vital= this[tab?.position?:0].items.firstOrNull()
-                        executePendingBindings()
-                    }
-                }
-
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {}
+        ) : ItemViewHolder(binding,click){
 
             init {
                 binding.apply {
@@ -460,10 +448,32 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         .setOnClickListener {
                             item?.code?.let(click)
                         }
-
-                    tabLayout.addOnTabSelectedListener(this@VitalListViewHolder)
                 }
             }
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+//
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                binding.apply {
+//                    (item?.result  as List<Record<VitalSign>>)?.apply {
+//                        vital= this[tab?.position?:0].items.firstOrNull()
+//                        executePendingBindings()
+//                    }
+//                }
+//
+//            }
+//
+//            override fun onTabReselected(tab: TabLayout.Tab?) {}
+//
+//            init {
+//                binding.apply {
+//                    root.findViewById<ImageButton>(R.id.edit)
+//                        .setOnClickListener {
+//                            item?.code?.let(click)
+//                        }
+//
+//                    tabLayout.addOnTabSelectedListener(this@VitalListViewHolder)
+//                }
+//            }
         }
 
         class RatingListViewHolder(

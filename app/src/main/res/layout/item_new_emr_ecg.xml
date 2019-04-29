@@ -101,7 +101,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/memo"
                     android:layout_margin="6dp"
-                    android:text="@{ecg.diagnosedAt}"
+                    android:text="@{ecg.diagnosedAt==null?``:ecg.diagnosedAt.substring(0,16)}"
                     app:goneUnless="@{ecg.diagnosedAt!=null}"
                     android:drawablePadding="6dp"
                     android:drawableLeft="@drawable/ic_common_clock"
@@ -128,7 +128,6 @@
                     app:goneUnless="@{ecg.diagnosedAt!=null}"
                     android:text="@{FloatConverter.floatToString(ecg.ecg)+`分钟`}"
                     android:gravity="right|center_vertical"
-                    android:drawableRight="@drawable/ic_right_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -138,9 +137,11 @@
                     app:layout_constraintTop_toBottomOf="@id/fmc2egg_title"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_margin="6dp"
-                    app:goneUnless="@{ecg.time!=null}"
-                    android:text="@{ecg.time}"
+
                     android:drawablePadding="6dp"
+                    android:drawableLeft="@drawable/ic_common_clock"
+                    app:goneUnless="@{ecg.time!=null}"
+                    android:text="@{ecg.time==null?``:ecg.time.substring(0,16)}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -148,7 +149,7 @@
                     app:layout_constraintRight_toLeftOf="@id/ecg1"
                     app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
                     android:layout_margin="6dp"
-                    android:text="FM2EGG"
+                    android:text="FM2ECG"
                     app:goneUnless="@{ecg.time!=null}"
                     android:textColor="#525252"
                     android:gravity="right|center_vertical"

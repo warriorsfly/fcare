@@ -331,7 +331,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
         disposable.add(api.getEcgs(patientId)
             .map {Pair(index,it.apply {
                 result?.apply {
-                    diagnoseText=diagnoses.joinToString("\n",transform={ diagnoses.indexOf(it).toString()+"."+it.name})
+                    diagnoseText=diagnoses.joinToString("\n",transform={ (diagnoses.indexOf(it)+1).toString()+"."+it.name})
                 }
             })}
             .subscribeOn(Schedulers.io())

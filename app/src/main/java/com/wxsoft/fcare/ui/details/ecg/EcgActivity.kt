@@ -201,22 +201,22 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject,menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-
-       return when(item?.itemId){
-            R.id.submit->{
-                viewModel.saveEcg()
-                true
-            }
-            else->super.onOptionsItemSelected(item)
-        }
-
-    }
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_subject,menu)
+//        return true
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+//
+//       return when(item?.itemId){
+//            R.id.submit->{
+//                viewModel.saveEcg()
+//                true
+//            }
+//            else->super.onOptionsItemSelected(item)
+//        }
+//
+//    }
 
     private fun zoomImageFromThumb(thumbView: View, imageView: ImageView, imageResId: String) {
         // If there's an animation in progress, cancel it
