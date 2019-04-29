@@ -49,6 +49,8 @@ class VitalSignsRecordActivity :  BaseActivity() {
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         xt=intent.getStringExtra(IS_XT)?:""
 
+        viewModel.xtShow.set(xt.equals("xt"))
+
         binding.viewModel = viewModel
         viewModel.patientId = patientId
 

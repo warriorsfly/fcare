@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.vitalsigns.records
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -31,6 +32,8 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
             field = value
             getVitalRecords()
         }
+
+    var xtShow= ObservableField<Boolean>()
 
     val vitals:LiveData<List<VitalSign>>
     private val initVitals = MediatorLiveData<List<VitalSign>>()

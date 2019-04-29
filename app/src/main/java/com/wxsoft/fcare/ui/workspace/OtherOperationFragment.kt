@@ -67,7 +67,7 @@ class OtherOperationFragment : DaggerFragment() {
     ): View? {
 
         viewModel=activityViewModelProvider(factory)
-        adapter= OperationAdapter(this@OtherOperationFragment,::doOperation,true)
+         adapter= OperationAdapter(this@OtherOperationFragment,::doOperation,true)
         viewModel.otherOperations.observe(this, Observer {
             adapter.submitList(it)
         })
