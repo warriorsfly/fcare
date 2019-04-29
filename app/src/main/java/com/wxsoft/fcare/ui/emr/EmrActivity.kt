@@ -34,7 +34,6 @@ import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
-import com.wxsoft.fcare.utils.ActionCode
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY

@@ -10,11 +10,8 @@ import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.databinding.ActivityCheckBodyBinding
 import com.wxsoft.fcare.databinding.ActivitySelectBodyItemsBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
-import com.wxsoft.fcare.ui.details.checkbody.CheckBodyViewModel
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
