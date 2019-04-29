@@ -7,6 +7,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -29,7 +30,7 @@ class DisChargeActivity : BaseTimingActivity(), View.OnClickListener {
 
     override fun onClick(v: View?) {
 
-        (v as? Button)?.let {
+        (v as? TextView)?.let {
             selectedId = it.id
             val currentTime = it.text.toString().let { text ->
                 if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
