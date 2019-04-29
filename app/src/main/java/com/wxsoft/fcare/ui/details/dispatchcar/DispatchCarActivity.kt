@@ -75,7 +75,7 @@ class DispatchCarActivity : BaseActivity() {
 
         driverAdapter1 = UsersAdapter(this,viewModel)
         driverAdapter1.type = "driver"
-        viewModel.drivers.observe(this, Observer { driverAdapter1.users = it.filter { it.hospitalId.equals("3") }})
+        viewModel.drivers.observe(this, Observer { driverAdapter1.users = it.filter { it.hospitalId.equals("2") }})
         binding.driverList1.adapter = driverAdapter1
 
         viewModel.task.observe(this, Observer {  })

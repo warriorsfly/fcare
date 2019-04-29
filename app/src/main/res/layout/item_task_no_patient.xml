@@ -13,7 +13,7 @@
 			android:layout_height="0dp"
 			android:textSize="17dp"
 			android:textColor="#C1C1C1"
-			android:text="只有在首次接触后才可以 填写病人信息"
+			android:text="还没有添加患者"
 			android:textStyle="bold"
 			android:gravity="top|center_horizontal"
 			app:layout_constraintTop_toBottomOf="@id/ico"

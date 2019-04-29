@@ -160,8 +160,12 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                         messageAction.value= Event("请填写心率")
                         return@let false
                     }
-                    it.dbp.isNullOrEmpty()||it.sbp.isNullOrEmpty()->{
-                        messageAction.value= Event("请填写血压")
+                    it.dbp.isNullOrEmpty()->{
+                        messageAction.value= Event("请填舒张压")
+                        return@let false
+                    }
+                    it.sbp.isNullOrEmpty()->{
+                        messageAction.value= Event("请填收缩压")
                         return@let false
                     }
                     else->
