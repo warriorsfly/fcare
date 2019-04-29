@@ -19,6 +19,7 @@ import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -32,6 +33,8 @@ import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
+import com.wxsoft.fcare.utils.ActionCode
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
@@ -44,6 +47,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.ECG
 import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
+import com.wxsoft.fcare.utils.ActionCode.Companion.ONETOUCH
 import com.wxsoft.fcare.utils.ActionCode.Companion.OTDIAGNOSE
 import com.wxsoft.fcare.utils.ActionCode.Companion.OUTCOME
 import com.wxsoft.fcare.utils.ActionCode.Companion.RATING
@@ -105,6 +109,7 @@ class EmrActivity : BaseActivity() {
             ActionType.IllnessHistory -> Pair(MedicalHistoryActivity::class.java, MEDICAL_HISTORY_CODE)
             ActionType.DispostionMeasures -> Pair(MeasuresActivity::class.java, MEASURES)
             ActionType.给药 -> Pair(DrugRecordsActivity::class.java, DRUGRECORD)
+            ActionType.ACS给药 -> Pair(ACSDrugActivity::class.java, DRUGRECORD)
             ActionType.知情同意书 -> Pair(InformedConsentActivity::class.java, INFORMEDCONSENT)
             ActionType.诊断 -> Pair(DiagnoseActivity::class.java, DIAGNOSE)
             ActionType.溶栓处置 -> Pair(ThrombolysisActivity::class.java, THROMBOLYSIS)
@@ -117,6 +122,8 @@ class EmrActivity : BaseActivity() {
             ActionType.CABG -> Pair(ReperfusionActivity::class.java, CABG)
             ActionType.治疗策略 -> Pair(StrategyActivity::class.java, STRATEGY)
             ActionType.心电图 -> Pair(EcgActivity::class.java, ECG)
+            ActionType.一键通知 ->Pair(OneTouchCallingActivity::class.java, ONETOUCH)
+
 
             else -> throw IllegalArgumentException("unknown code $code")
         }

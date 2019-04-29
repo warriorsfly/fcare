@@ -269,6 +269,7 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
 
 
     @get:Bindable
+    @SerializedName("coming_Way_Code_Name")
     var comingWay_Name: String=""
         set(value) {
             field = value

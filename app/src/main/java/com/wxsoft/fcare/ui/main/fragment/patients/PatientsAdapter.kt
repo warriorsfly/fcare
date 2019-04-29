@@ -1,12 +1,11 @@
 package com.wxsoft.fcare.ui.main.fragment.patients
 
 
+import android.view.LayoutInflater
+import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.ViewGroup
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.databinding.LayoutItemPatientBinding
 

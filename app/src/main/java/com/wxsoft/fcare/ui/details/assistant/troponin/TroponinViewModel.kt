@@ -70,7 +70,7 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             return@map troponinUnits.map { item -> item.itemName }
         }
         uploading = savePatientResult.map { it }
-//        loadTroponin()
+        loadTroponin()
     }
 
     fun getCrById(id:String){
