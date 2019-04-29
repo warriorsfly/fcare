@@ -58,6 +58,7 @@
                         android:textSize="12dp"
                         android:paddingLeft="2dp"
                         tools:text="24"
+                        app:goneUnless="@{patient.age>0}"
                         android:textColor="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"
                         android:layout_marginLeft="4dp"
                         android:text="@{ String.valueOf(patient.age)+`岁`}"

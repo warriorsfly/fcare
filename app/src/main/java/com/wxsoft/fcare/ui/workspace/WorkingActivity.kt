@@ -208,6 +208,13 @@ class WorkingActivity : BaseActivity() {
 
     }
 
+    override fun onPause() {
+        if(bottomSheetBehavior.state==BottomSheetBehavior.STATE_EXPANDED){
+            bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
+        }
+        super.onPause()
+    }
+
 
     private fun doOperation(operation:WorkOperation){
         when(operation.actionCode){

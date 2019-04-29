@@ -44,7 +44,7 @@
             android:layout_marginRight="16.5dp"
             android:id="@+id/rating"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="@{item.publishedTime.substring(11,16)}"
+            android:text="@{item.publishedTime.substring(0,16)}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

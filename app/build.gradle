@@ -18,8 +18,8 @@ android {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 16
-        versionName "1.0.16"
+        versionCode 17
+        versionName "1.0.17"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
 //        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44390/"'
@@ -68,7 +68,7 @@ dependencies {
     implementation "android.arch.navigation:navigation-ui:$navigation_version"
     implementation "android.arch.navigation:navigation-fragment-ktx:$navigation_version"
     implementation "android.arch.navigation:navigation-ui-ktx:$navigation_version"
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04'
     implementation 'androidx.appcompat:appcompat:1.1.0-alpha04'
@@ -93,7 +93,7 @@ dependencies {
     //    implementation "com.squareup.picasso:picasso:$picasso_version"
 
     //glide
-    implementation "com.github.bumptech.glide:annotations:$glide_version"
+    implementation "com.github.bumptech.glide:annotations:${glide_version}"
     implementation("com.github.bumptech.glide:glide:$glide_version") {
         exclude group: "com.android.support"
     }

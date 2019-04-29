@@ -19,10 +19,16 @@
         <item name="actionMenuTextColor">@color/colorPrimary</item>
         <item name="android:textColorSecondary">@color/colorPrimary</item>
         <item name="android:textViewStyle">@style/BlackTextViewStyle</item>
+        <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
     </style>
     <style name="BlackTextViewStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/lable_font</item>
         <item name="android:textColorHint">#C1C1C1</item>
+    </style>
+
+    <style name="MenuTextStyle" parent="AppTheme">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
     </style>
     <style name="AppTheme.NoActionBar.Dark">
         <item name="windowActionBar">false</item>
@@ -205,4 +211,5 @@
         <item name="labelVisibilityMode">labeled</item>
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark</item>
     </style>
+
 </resources>
