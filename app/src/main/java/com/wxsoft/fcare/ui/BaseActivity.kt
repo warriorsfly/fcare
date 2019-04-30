@@ -18,6 +18,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
     companion object {
         const val CAMERA_PERMISSION_REQUEST=10
         const val UPGRADE_PERMISSION_REQUEST=15
+        const val GIS_PERMISSION_REQUEST=17
         const val UPGRADE_PERMISSION_SETTING=16
         const val AUDIO_RECRD_PERMISSION_REQUEST=14
         const val CAMERA_PIC_REQUEST=11

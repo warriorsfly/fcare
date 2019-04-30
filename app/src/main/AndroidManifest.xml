@@ -24,6 +24,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <uses-feature android:name="android.hardware.camera"/>
 
@@ -51,6 +52,10 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="81acf78611701a4cc0262c313e6165ac"/>
         <activity android:name=".ui.hardwaredata.HardwareDataActivity"
                   android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -400,6 +405,8 @@
                     android:name="android.support.FILE_PROVIDER_PATHS"
                     android:resource="@xml/provider_paths"/>
         </provider>
+
+        <service android:name="com.amap.api.location.APSService"/>
     </application>
 
 </manifest>

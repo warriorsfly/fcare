@@ -6,58 +6,68 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.databinding.DataBindingUtil
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Toast
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.amap.api.location.AMapLocation
+import com.amap.api.location.AMapLocationClient
+import com.amap.api.location.AMapLocationListener
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
-import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.PhotoEventAction
-import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
+import com.wxsoft.fcare.di.GlideApp
+import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.PhotoEventAction
+import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
+import javax.inject.Named
 
 
 /**
  * A login screen that offers login via email/password.
  */
-class ProfileActivity : BaseTimingActivity(), View.OnClickListener{
+class ProfileActivity : BaseTimingActivity(), View.OnClickListener,AMapLocationListener{
+    override fun onLocationChanged(p0: AMapLocation?) {
 
+        p0?.let {
+            locat.setText(it.address)
+        }
+
+    }
+
+    @field:[Inject Named("single")]
+    lateinit var client: AMapLocationClient
     private var selectedId=0
     override fun onClick(v: View?) {
-
         (v as? Button)?.let {
             selectedId = it.id
             val currentTime = it.text.toString().let { text ->
@@ -175,6 +185,10 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener{
         mShortAnimationDuration = resources.getInteger(android.R.integer.config_shortAnimTime)
 
         title=if(viewModel.preHos)"基本信息" else "病人信息"
+        client.setLocationListener(this)
+        loc.setOnClickListener {
+            checkGpsPermission()
+        }
     }
 
     fun toShareVital(){
@@ -211,6 +225,15 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener{
                   dispatchTakePictureIntent(adapter.locals.map { it.first },4-adapter.remotes.size)
                 }
             }
+            GIS_PERMISSION_REQUEST -> {
+                if (grantResults.isNotEmpty() &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED &&
+                    grantResults[1] == PackageManager.PERMISSION_GRANTED) {
+
+                    client.stopLocation()
+                    client.startLocation()
+                }
+            }
         }
     }
 
@@ -229,8 +252,13 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener{
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         photoAction=null
+        client.let {
+            it.stopLocation()
+            it.onDestroy()
+        }
+
+        super.onDestroy()
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -391,6 +419,26 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener{
                 true
             }
             else->super.onOptionsItemSelected(item)
+        }
+    }
+    private fun checkGpsPermission() {
+        if (ActivityCompat.checkSelfPermission(this,Manifest.permission.ACCESS_COARSE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+            ||
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION),
+                GIS_PERMISSION_REQUEST
+            )
+
+        } else {
+
+            client.stopLocation()
+            client.startLocation()
         }
     }
 

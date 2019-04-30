@@ -68,7 +68,6 @@ class LauncherActivity : BaseActivity(){
         viewModel.success.observe(this, Observer {
 
             val intent = Intent(this,if (it) MainActivity::class.java  else LoginActivity::class.java)
-
             startActivity(intent)
             finish()
         })
@@ -133,7 +132,7 @@ class LauncherActivity : BaseActivity(){
             ActivityCompat.requestPermissions(
                 this,
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                BaseActivity.UPGRADE_PERMISSION_REQUEST
+                UPGRADE_PERMISSION_REQUEST
             )
 
         } else {
@@ -166,7 +165,7 @@ class LauncherActivity : BaseActivity(){
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
-            BaseActivity.UPGRADE_PERMISSION_REQUEST -> {
+            UPGRADE_PERMISSION_REQUEST -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     checkUpdate()
                 } else {
@@ -237,34 +236,5 @@ class LauncherActivity : BaseActivity(){
 
         }
     }
-
-//    inner class CompleteReceiver (): BroadcastReceiver() {
-//
-//        override fun onReceive(context: Context, intent: Intent) {
-//
-//           install(context)
-//        }
-//
-//        private fun install(context: Context) {
-//            downloadManager.getUriForDownloadedFile()
-////           val intent = Intent(DownloadManager.ACTION_VIEW_DOWNLOADS)
-////           context.startActivity(intent)
-//
-//            file?.let {
-//                val uri = FileProvider.getUriForFile(
-//                    context,
-//                    context.applicationContext.packageName + ".fileProvider",
-//                    it
-//                    )
-//                val intent = Intent(Intent.ACTION_VIEW).apply {
-//                    setDataAndType(uri, "application/vnd.android.package-archive")
-//                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//4.0以上系统弹出安装成功打开界面
-//                    addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-//                }
-//
-//                context.startActivity(intent)
-//            }
-//        }
-//    }
 
 }
