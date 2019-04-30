@@ -7,6 +7,7 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -34,6 +35,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAddInformedBinding
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
@@ -45,7 +47,30 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 
-class AddInformedActivity : BaseTimingActivity() {
+class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
+    override fun localSelected() {
+        checkPhotoTaking()
+    }
+
+    override fun enlargeRemote(imageView: View, url: String) {
+        zoomImageFromThumb(imageView,enlarged,url)
+    }
+
+    override fun deleteRemote(url: String) {
+        val binding= ItemDialogImageBinding.inflate(layoutInflater).apply {
+            lifecycleOwner=this@AddInformedActivity
+            imageUrl=url
+        }
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+            .setView(binding.root)
+            .setMessage("确定删除吗？")
+            .setPositiveButton("是") { _, _ ->
+                //                viewModel.deleteImage(url)
+            }
+            .setNegativeButton("否") { _, _ ->
+            }.show()
+
+    }
 
 
 //    private var recorder:? =null
@@ -175,8 +200,7 @@ class AddInformedActivity : BaseTimingActivity() {
         viewModel.showVoiceTime.observe(this, Observer {  })
 
 
-        adapter= PictureAdapter(this,10)
-        adapter.setActionListener(photoAction)
+        adapter= PictureAdapter(this,10,this)
         adapter.locals= emptyList()
         informed_attachments.adapter=adapter
 

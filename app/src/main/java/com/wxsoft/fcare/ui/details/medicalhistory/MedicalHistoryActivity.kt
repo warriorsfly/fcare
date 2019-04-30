@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import androidx.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -39,6 +40,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.activity_medical_history.*
@@ -47,8 +49,30 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 
-class MedicalHistoryActivity : BaseActivity() {
+class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
+    override fun localSelected() {
+        checkPhotoTaking()
+    }
 
+    override fun enlargeRemote(imageView: View, url: String) {
+        zoomImageFromThumb(imageView,enlarged,url)
+    }
+
+    override fun deleteRemote(url: String) {
+        val binding= ItemDialogImageBinding.inflate(layoutInflater).apply {
+            lifecycleOwner=this@MedicalHistoryActivity
+            imageUrl=url
+        }
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+            .setView(binding.root)
+            .setMessage("确定删除吗？")
+            .setPositiveButton("是") { _, _ ->
+//                viewModel.deleteImage(url)
+            }
+            .setNegativeButton("否") { _, _ ->
+            }.show()
+
+    }
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
@@ -86,8 +110,7 @@ class MedicalHistoryActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         title="病史"
 
-        adapter= PictureAdapter(this,10)
-        adapter.setActionListener(photoAction!!)
+        adapter= PictureAdapter(this,10,this)
         adapter.locals= emptyList()
         medical_photo_items_rv.adapter=adapter
 
@@ -179,9 +202,7 @@ class MedicalHistoryActivity : BaseActivity() {
                 PictureConfig.CHOOSE_REQUEST->{
                     viewModel.bitmaps.clear()
                     adapter.locals= PictureSelector.obtainMultipleResult(data)?.map { localmedia->
-
                         viewModel.bitmaps.add(localmedia.path)
-
                         return@map Pair(localmedia, FileProvider.getUriForFile(
                             this,
                             BuildConfig.APPLICATION_ID + ".fileProvider",

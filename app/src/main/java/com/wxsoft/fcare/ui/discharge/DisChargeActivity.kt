@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -46,7 +45,7 @@ class DisChargeActivity : BaseTimingActivity(), View.OnClickListener {
 
         dialog?.onDestroy()
         dialog=null
-        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private var selectedId=0
