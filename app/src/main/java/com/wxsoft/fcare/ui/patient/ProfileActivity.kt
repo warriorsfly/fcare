@@ -47,6 +47,7 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
@@ -161,9 +162,8 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
         })
 
 
-        adapter= PictureAdapter(this,4)
+        adapter= PictureAdapter(this,4,this)
 
-        adapter.setActionListener(photoAction!!)
         adapter.locals= emptyList()
         attachments.adapter=adapter
         viewModel.patient.observe(this, Observer {
