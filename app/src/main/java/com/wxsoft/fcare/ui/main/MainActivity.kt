@@ -28,7 +28,9 @@ class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var gson:Gson
-    lateinit var account:Account
+
+    private var doctor:Boolean=false
+
     @Inject
     lateinit var sharedPreferenceStorage: SharedPreferenceStorage
 
@@ -36,14 +38,13 @@ class MainActivity : BaseActivity() {
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        val doctor=account.deptName.contains("120")
         when (item.itemId) {
             R.id.nav_home -> {
-                viewPager.setCurrentItem(if(doctor)1 else 0, true)
+                viewPager.setCurrentItem(0, true)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_dashboard -> {
-                viewPager.setCurrentItem(if(doctor)0 else 1, true)
+                viewPager.setCurrentItem(1, true)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
@@ -62,29 +63,23 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        account=gson.fromJson(sharedPreferenceStorage.userInfo!!, Account::class.java)
-
+        val account=gson.fromJson(sharedPreferenceStorage.userInfo!!, Account::class.java)
+        doctor=!account.deptName.contains("120")
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .apply {
                 //                viewModel=this@MainActivity.viewModel
                 navigation.apply {
-                    if(account.deptName.contains("120")){
+                    if(doctor){
                         menu.clear()
                         inflateMenu(R.menu.navigation2)
                     }
 
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-//                    for ( v in getChildAt(2).fin)
-//                    getChildAt(2) .findViewById<TextView>(R.id.smallLabel).visibility= View.GONE
-//                    getChildAt(2) .findViewById<TextView>(R.id.largeLabel).visibility= View.GONE
                 }
 
-                viewPager.adapter = MainAdapter(supportFragmentManager,account.deptName.contains("120"))
+                viewPager.adapter = MainAdapter(supportFragmentManager,doctor)
                 if (savedInstanceState == null) {
-                    if(account.deptName.contains("120"))
-                        navigation.selectedItemId = R.id.nav_dashboard
-                        else
-                        navigation.selectedItemId = R.id.nav_home
+                    navigation.selectedItemId = R.id.nav_home
                 }
                 lifecycleOwner = this@MainActivity
             }
