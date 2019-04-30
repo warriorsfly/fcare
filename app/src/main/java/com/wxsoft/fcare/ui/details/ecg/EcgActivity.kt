@@ -63,7 +63,6 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
     }
 
-
     private val  fragment by lazy{
         EcgEditFragment()
     }

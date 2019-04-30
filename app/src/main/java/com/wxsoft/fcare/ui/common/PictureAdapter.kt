@@ -16,15 +16,8 @@ import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 
-class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val max:Int=0) :
+class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val max:Int=0,private var action: PhotoEventAction?=null) :
     RecyclerView.Adapter<PictureAdapter.ItemViewHolder>() {
-
-
-    private var action: PhotoEventAction?=null
-
-    fun setActionListener(actions: PhotoEventAction){
-        this.action=actions
-    }
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
@@ -60,7 +53,6 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
             } else {
                 if (local.isNotEmpty()) {
                     merged.addAll(local)
-
                 }
                 if(local.size + remote.size < max)
                     merged += ForNewItem
@@ -87,6 +79,10 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
+                image.setOnLongClickListener {
+                    action?.deleteRemote(presenter)
+                    true
+                }
                 url=presenter
                 lifecycleOwner = this@PictureAdapter.lifecycleOwner
                 executePendingBindings()

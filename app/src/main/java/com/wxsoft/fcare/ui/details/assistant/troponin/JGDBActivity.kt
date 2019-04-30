@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -33,6 +34,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityJgdbBinding
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
@@ -42,7 +44,30 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 
-class JGDBActivity : BaseTimingActivity() {
+class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
+    override fun localSelected() {
+        checkPhotoTaking()
+    }
+
+    override fun enlargeRemote(imageView: View, url: String) {
+        zoomImageFromThumb(imageView,enlarged,url)
+    }
+
+    override fun deleteRemote(url: String) {
+        val binding= ItemDialogImageBinding.inflate(layoutInflater).apply {
+            lifecycleOwner=this@JGDBActivity
+            imageUrl=url
+        }
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+            .setView(binding.root)
+            .setMessage("确定删除吗？")
+            .setPositiveButton("是") { _, _ ->
+                //                viewModel.deleteImage(url)
+            }
+            .setNegativeButton("否") { _, _ ->
+            }.show()
+
+    }
 
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
@@ -135,8 +160,7 @@ class JGDBActivity : BaseTimingActivity() {
             }
         })
 
-        adapter= PictureAdapter(this,10)
-        adapter.setActionListener(photoAction!!)
+        adapter= PictureAdapter(this,10,this)
         adapter.locals= emptyList()
         jgdb_photo_items_rv.adapter = adapter
 

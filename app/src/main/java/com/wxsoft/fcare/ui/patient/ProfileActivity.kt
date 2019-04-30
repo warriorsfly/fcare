@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -16,8 +17,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
-import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -38,29 +39,48 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
-import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
 
 
-/**
- * A login screen that offers login via email/password.
- */
-class ProfileActivity : BaseTimingActivity(), View.OnClickListener,AMapLocationListener{
+class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAction ,AMapLocationListener{
+    override fun localSelected() {
+        checkPhotoTaking()
+    }
+
     override fun onLocationChanged(p0: AMapLocation?) {
 
         p0?.let {
             locat.setText(it.address)
         }
+    }
+
+    override fun enlargeRemote(imageView: View, url: String) {
+        zoomImageFromThumb(imageView,enlarged,url)
+    }
+
+    override fun deleteRemote(url: String) {
+        val binding= ItemDialogImageBinding.inflate(layoutInflater).apply {
+            lifecycleOwner=this@ProfileActivity
+            imageUrl=url
+        }
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+            .setView(binding.root)
+            .setMessage("确定删除吗？")
+            .setPositiveButton("是") { _, _ ->
+                //                viewModel.deleteImage(url)
+            }
+            .setNegativeButton("否") { _, _ ->
+            }.show()
 
     }
 
@@ -68,7 +88,7 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,AMapLocationL
     lateinit var client: AMapLocationClient
     private var selectedId=0
     override fun onClick(v: View?) {
-        (v as? Button)?.let {
+        (v as? TextView)?.let {
             selectedId = it.id
             val currentTime = it.text.toString().let { text ->
                 if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse("$text:00").time
@@ -84,7 +104,7 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,AMapLocationL
 
         dialog?.onDestroy()
         dialog=null
-        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private val toast:Toast by  lazy {

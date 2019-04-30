@@ -80,7 +80,6 @@ class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:
                 val presenter =differ.currentList[position] as String
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
                 image.setOnLongClickListener {
-
                     action?.deleteRemote(presenter)
                     true
                 }
