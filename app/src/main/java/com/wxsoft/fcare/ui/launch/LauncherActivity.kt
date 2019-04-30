@@ -76,6 +76,7 @@ class LauncherActivity : BaseActivity(){
             viewModel.version.value?.let(::download)
         })
 
+
         checkStoragePermission()
     }
 

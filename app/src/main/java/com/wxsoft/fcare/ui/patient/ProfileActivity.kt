@@ -186,6 +186,11 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,AMapLocationL
 
         title=if(viewModel.preHos)"基本信息" else "病人信息"
         client.setLocationListener(this)
+        viewModel.patient.observe(this, Observer {
+            if(it.attackPosition.isNullOrEmpty()){
+                checkGpsPermission()
+            }
+        })
         loc.setOnClickListener {
             checkGpsPermission()
         }
