@@ -101,12 +101,12 @@ class DispatchCarViewModel @Inject constructor(
             it.selectStatus = true
             selectedCar = it
         }
-//        val ids = task.value?.taskStaffs?.map { it.id }
-//        if (ids!!.isNotEmpty()){
-//            doctors.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
-//            nurses.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
-//            drivers.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
-//        }
+        val ids = task.value?.taskStaffs?.map { it.id }
+        if (ids!!.isNotEmpty()){
+            doctors.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
+            nurses.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
+            drivers.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
+        }
 
     }
 
