@@ -99,7 +99,7 @@ class PatientsFragment : BaseTimingFragment(){
         }
 
         viewModel.patients.observe(this, Observer {
-            viewModel.noPatientsShow.set(true)
+            viewModel.noPatientsShow.set(it.snapshot().size==0)
             adapter.submitList(it)
         })
         viewModel.detailAction.observe(this, EventObserver{
