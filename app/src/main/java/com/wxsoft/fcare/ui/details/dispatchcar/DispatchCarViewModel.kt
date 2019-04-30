@@ -97,23 +97,27 @@ class DispatchCarViewModel @Inject constructor(
     }
     private fun loadTaskResult(response:Response<Task>){
         initTask.value = response.result
+        haveData()
+    }
+
+    fun haveData(){
         cars.value?.filter { it.id.equals(task.value?.carId) }?.map {
             it.selectStatus = true
             selectedCar = it
         }
-        val ids = task.value?.taskStaffs?.map { it.id }
+        val ids = task.value?.taskStaffs?.map { it.staffId }
         if (ids!!.isNotEmpty()){
-            doctors.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
-            nurses.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
-            drivers.value?.filter {ids!!.contains(it.id)}?.map { it.checked = true }
+            doctors.value?.filter {ids.contains(it.id)}?.map { it.checked = true }
+            nurses.value?.filter {ids.contains(it.id)}?.map { it.checked = true }
+            drivers.value?.filter {ids.contains(it.id)}?.map { it.checked = true }
         }
-
     }
 
     private fun getCars(){
         disposable.add(carApi.cars().toResource()
             .subscribe{
                 loadCarsResult.value = it
+                haveData()
             }
         )
     }
@@ -122,6 +126,7 @@ class DispatchCarViewModel @Inject constructor(
         disposable.add(taskApi.getDoctors(account.id).toResource()
             .subscribe{
                 loadDoctorsResult.value = it
+                haveData()
             }
         )
     }
@@ -130,6 +135,7 @@ class DispatchCarViewModel @Inject constructor(
         disposable.add(taskApi.getNurses(account.id).toResource()
             .subscribe{
                 loadNursesResult.value = it
+                haveData()
             }
         )
     }
@@ -138,6 +144,7 @@ class DispatchCarViewModel @Inject constructor(
         disposable.add(taskApi.getDrivers(account.id).toResource()
             .subscribe{
                 loadDriversResult.value = it
+                haveData()
             }
         )
     }
