@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.Dictionary"/>
     </data>
 
-   <LinearLayout
-       xmlns:android="http://schemas.android.com/apk/res/android"
-       xmlns:app="http://schemas.android.com/apk/res-auto"
-       xmlns:tools="http://schemas.android.com/tools"
-       android:layout_width="match_parent"
-       android:orientation="horizontal"
-       android:layout_margin="6.5dp"
-       android:backgroundTint="#E7E4F2"
-       android:background="@drawable/bg_conor_black"
-       android:layout_height="wrap_content">
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:gravity="center_vertical"
-           android:padding="6dp"
-           tools:text="念奴娇"
-           android:textSize="16dp"
-           android:text="@{item.itemName}"
-           android:layout_weight="1"/>
-<!--       <TextView-->
-<!--           android:layout_width="wrap_content"-->
-<!--           android:layout_height="wrap_content"/>-->
-   </LinearLayout>
+    <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            taskSelectUser="@{item.checked}"
+            android:elevation="2dp"
+            app:cardCornerRadius="6dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_gravity="center">
+            <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textSize="14sp"
+                    android:text="@{item.itemName}"
+                    tools:text="张三"
+                    android:textColor="@{item.checked?@color/white:@color/black_checked_nomal}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/check_ic"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+            <ImageView
+                    android:id="@+id/check_ic"
+                    goneUnless="@{item.checked}"
+                    app:layout_constraintLeft_toRightOf="@+id/user_name"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:src="@drawable/ic_checked_white_background"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
 </layout>

@@ -36,18 +36,10 @@ data class LisCr (val id:String) : BaseObservable() {
      */
     @Bindable
     @SerializedName("ctni_Value")
-    var ctniValue: Float = 0.0f
+    var ctniValue: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.ctniValue)
-        }
-    @Bindable
-    @Transient
-    var ctniValueStr: String = ""
-        set(value) {
-            field = value
-            if (!value.isEmpty()) ctniValue = value.toFloat()
-            notifyPropertyChanged(BR.ctniValueStr)
         }
 
     /**
@@ -99,19 +91,12 @@ data class LisCr (val id:String) : BaseObservable() {
      */
     @Bindable
     @SerializedName("ctnt_Value")
-    var ctntValue: Float = 0.0f
+    var ctntValue: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.ctntValue)
         }
-    @Bindable
-    @Transient
-    var ctntValueStr: String = ""
-        set(value) {
-            field = value
-            if (!value.isEmpty()) ctntValue = value.toFloat()
-            notifyPropertyChanged(BR.ctntValueStr)
-        }
+
 
     /**
      * CTNT单位
@@ -214,30 +199,46 @@ data class LisCr (val id:String) : BaseObservable() {
             notifyPropertyChanged(BR.attachments)
         }
 
+
+
+    @Bindable
+    @SerializedName("cK_MB")
+    var ckmb: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.ckmb)
+        }
+
+    @Bindable
+    var myo: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.myo)
+        }
+
+
     fun setUpChecked(){
-        if (!crUnit.isEmpty()){
+        if (!crUnit.isNullOrEmpty()){
             when(crUnit){
                 "1"-> selectCrUnit = 0
                 "0"-> selectCrUnit = 1
             }
         }
-        if (!ctntStatus.isEmpty()){
+        if (!ctntStatus.isNullOrEmpty()){
             when(ctntStatus){
                 "阴性"->selectCtntStatus = 1
                 "阳性"->selectCtntStatus = 2
             }
         }
-        if (!ctniStatus.isEmpty()){
+        if (!ctniStatus.isNullOrEmpty()){
             when(ctniStatus){
                 "阴性"->selectCtniStatus = 1
                 "阳性"->selectCtniStatus = 2
             }
         }
-        if (!ctniUnit.isEmpty()) selectCtniUnit = ctniUnit.toInt()-1
-        if (!ctntUnit.isEmpty()) selectCtntUnit = ctntUnit.toInt()-1
+        if (!ctniUnit.isNullOrEmpty()) selectCtniUnit = ctniUnit.split("-").last().toInt()-1
+        if (!ctntUnit.isNullOrEmpty()) selectCtntUnit = ctntUnit.split("-").last().toInt()-1
 
-        ctniValueStr = ctniValue.toString()
-        ctntValueStr = ctntValue.toString()
         crValueStr = crValue.toString()
     }
 

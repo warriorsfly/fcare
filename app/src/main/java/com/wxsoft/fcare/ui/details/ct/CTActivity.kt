@@ -89,7 +89,6 @@ class CTActivity : BaseTimingActivity(), View.OnClickListener {
             when(it) {
                 is Resource.Success -> {
                     Intent().let { intent ->
-
                         setResult(RESULT_OK, intent)
                         finish()
                     }

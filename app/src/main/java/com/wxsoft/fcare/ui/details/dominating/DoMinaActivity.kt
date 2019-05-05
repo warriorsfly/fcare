@@ -157,6 +157,15 @@ class DoMinaActivity : BaseTimingActivity() {
             }
         })
 
+        viewModel.modifySomeThing.observe(this, Observer {
+            if (it.equals("back")) {
+                Intent().let { intent ->
+                    setResult(RESULT_OK, intent)
+                    finish()
+                }
+            }
+        })
+
         go_process.setOnClickListener {
             val intent=Intent(this,ProcessActivity::class.java).apply {
                 putExtra(TASK_ID,taskId)

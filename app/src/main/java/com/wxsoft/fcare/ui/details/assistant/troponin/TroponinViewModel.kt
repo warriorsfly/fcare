@@ -26,7 +26,6 @@ import javax.inject.Inject
 
 class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
                                             private var dictEnumApi:DictEnumApi,
-                                            private var hardwareApi: HardwareApi,
                                            override val sharedPreferenceStorage: SharedPreferenceStorage,
                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
@@ -155,16 +154,16 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     }
 
     //从机器获取数据
-    fun loadJGDB(id:String){
-        disposable.add(hardwareApi.getJGDB(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::getJGDB,::error))
-    }
-    private fun getJGDB(response: LepuDetection){
-        loadLisCrResult.value = LisCr("").apply {
-
-        }
-    }
+//    fun loadJGDB(id:String){
+//        disposable.add(hardwareApi.getJGDB(id)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(::getJGDB,::error))
+//    }
+//    private fun getJGDB(response: LepuDetection){
+//        loadLisCrResult.value = LisCr("").apply {
+//
+//        }
+//    }
 
 }

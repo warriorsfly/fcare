@@ -219,5 +219,19 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         loadDrugHistoryResult.value = drugHistory.value?.filter { it.drugId!= item.drugId }
     }
 
+    fun deleteImage(url:String){
+        medicalHistory.value?.attachments?.firstOrNull { it.httpUrl==url }?.let {
+            medicalHistoryApi.deleteImage(it.id)
+                .flatMap { medicalHistoryApi.loadMedicalHistory(patientId) }
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(::doSavedMed,::error)
+        }
+    }
+    private fun doSavedMed(response: Response<MedicalHistory>){
+        loadMedicalHistoryResult.value = response
+        medicalHistory.value?.getPastHistorys()
+        loadDrugHistoryResult.value = medicalHistory.value?.drugHistorys
+    }
 
 }

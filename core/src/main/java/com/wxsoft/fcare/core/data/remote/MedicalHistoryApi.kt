@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.Ecg
 import com.wxsoft.fcare.core.data.entity.MedicalHistory
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
@@ -22,4 +23,7 @@ interface MedicalHistoryApi {
     @Multipart
     @POST("MedicalHistory/Save")
     fun save(@Part("medicalHistory")medicalHistory: MedicalHistory):Maybe<Response<String>>
+
+    @GET("MedicalHistory/DeleteImage/{attachmentId}")
+    fun deleteImage(@Path("attachmentId")attachmentId:String):Maybe<Response<String>>
 }

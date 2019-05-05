@@ -153,7 +153,10 @@ class ProfileViewModel @Inject constructor(
                     if(it.diagnosisCode.isEmpty()){
                         messageAction.value= Event("大病分类需要选择")
                         return@let false
-                    }else {
+                    }else if(it.attackTime.isNullOrEmpty()){
+                        messageAction.value= Event("发病时间需要选择")
+                        return@let false
+                    } else {
                         return@let true
                     }
                 }else{
@@ -165,6 +168,10 @@ class ProfileViewModel @Inject constructor(
 
                         it.diagnosisCode.isEmpty() ->{
                             messageAction.value= Event("大病分类需要选择")
+                            return@let false
+                        }
+                        it.attackTime.isNullOrEmpty() ->{
+                            messageAction.value= Event("发病时间需要选择")
                             return@let false
                         }
                         else->
