@@ -145,7 +145,6 @@ class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
         })
         setSupportActionBar(toolbar)
         title="肌钙蛋白"
-//        viewModel.loadTroponin()
 
         viewModel.clickEdit.observe(this, Observer {
             when(it){

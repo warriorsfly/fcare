@@ -25,10 +25,10 @@ import javax.inject.Inject
 class ACSDrugActivity : BaseTimingActivity() {
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+//        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
             R.id.start_1 -> viewModel.acsDrug.value?.acs_Delivery_Time = DateTimeUtils.formatter.format(millseconds)
-            R.id.start_4 -> viewModel.acsDrug.value?.anticoagulation_Date = DateTimeUtils.formatter.format(millseconds)
+            R.id.start_2 -> viewModel.acsDrug.value?.anticoagulation_Date = DateTimeUtils.formatter.format(millseconds)
         }
     }
 

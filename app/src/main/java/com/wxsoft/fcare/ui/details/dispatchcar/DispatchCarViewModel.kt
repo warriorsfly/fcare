@@ -107,9 +107,9 @@ class DispatchCarViewModel @Inject constructor(
         }
         val ids = task.value?.taskStaffs?.map { it.staffId }
         if (ids!!.isNotEmpty()){
-            doctors.value?.filter {ids.contains(it.id)}?.map { it.checked = true }
-            nurses.value?.filter {ids.contains(it.id)}?.map { it.checked = true }
-            drivers.value?.filter {ids.contains(it.id)}?.map { it.checked = true }
+            doctors.value?.filter {ids.contains(it.id)}?.map { it.status = true }
+            nurses.value?.filter {ids.contains(it.id)}?.map { it.status = true }
+            drivers.value?.filter {ids.contains(it.id)}?.map { it.status = true }
         }
     }
 
