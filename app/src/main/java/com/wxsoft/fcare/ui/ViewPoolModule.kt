@@ -32,6 +32,12 @@ internal class ViewPoolModule {
 
     @ActivityScoped
     @Provides
+    @Named("emrImageViewPool")
+    fun providesEmrImageViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+
+
+    @ActivityScoped
+    @Provides
     @Named("optionViewPool")
     fun providesOptionViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
 }

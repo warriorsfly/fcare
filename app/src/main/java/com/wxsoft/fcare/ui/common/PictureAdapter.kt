@@ -14,10 +14,16 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemImageBinding
 import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
+import com.wxsoft.fcare.generated.callback.OnClickListener
 import com.wxsoft.fcare.ui.PhotoEventAction
 
-class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val max:Int=0,private var action: PhotoEventAction?=null) :
+class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
+                                 private val max:Int=0,
+                                 private val action: PhotoEventAction?=null,
+                                 private val indexAction:(Int)->Unit ={}) :
     RecyclerView.Adapter<PictureAdapter.ItemViewHolder>() {
+
+    var indexing:Int=0
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
 
@@ -61,15 +67,16 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
         return merged
     }
 
-
-
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         when (holder) {
             is ItemViewHolder.ImageViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as Pair<LocalMedia, Uri>
 //                presenter.first.num
-                root.setOnClickListener{action?.localSelected()}
+                root.setOnClickListener{
+
+                    action?.localSelected()
+                }
                 uri=presenter.second
                 lifecycleOwner = this@PictureAdapter.lifecycleOwner
 
@@ -88,7 +95,13 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner, pri
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
-                image.setOnClickListener{action?.localSelected()}
+                image.setOnClickListener{
+
+                    indexAction(indexing)
+//                    if(indexing!=null)
+//                        indexing
+                    action?.localSelected()
+                }
                 lifecycleOwner = this@PictureAdapter.lifecycleOwner
                 executePendingBindings()
             }

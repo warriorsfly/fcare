@@ -135,4 +135,17 @@ interface EmrApi{
      */
     @GET("ComingWay/GetById/{patientId}")
     fun getComing(@Path("patientId")patientId:String):Maybe<Response<ComingBy>>
+
+    /**
+     * 获取资料图片信息
+     */
+    @GET("Emr/GetEmrImages/{patientId}")
+    fun getEmrImages(@Path("patientId")patientId:String):Maybe<Response<List<EmrRecord>>>
+
+    /**
+     *保存
+     */
+    @Multipart
+    @POST("Emr/SaveEmrImages")
+    fun savingImages(@Part("eimage")image: EmrRecord, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
 }

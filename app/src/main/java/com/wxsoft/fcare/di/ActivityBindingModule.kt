@@ -327,6 +327,10 @@ abstract class ActivityBindingModule {
     internal abstract fun emrActivity(): EmrActivity
 
     @ActivityScoped
+    @ContributesAndroidInjector(modules = [WorkSpaceModule::class,ViewPoolModule::class])
+    internal abstract fun emrProfileActivity(): com.wxsoft.fcare.ui.emr.ProfileActivity
+
+    @ActivityScoped
     @ContributesAndroidInjector(modules = [CureModule::class])
     internal abstract fun cureActivity(): CureActivity
 

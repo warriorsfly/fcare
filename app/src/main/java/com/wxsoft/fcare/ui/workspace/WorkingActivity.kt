@@ -45,6 +45,7 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity.C
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.emr.EmrActivity
 import com.wxsoft.fcare.ui.emr.EmrViewModel
+import com.wxsoft.fcare.ui.emr.ProfileViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
@@ -96,11 +97,17 @@ class WorkingActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.rating -> {
-                val intent = Intent(this, RatingActivity::class.java)
+
+                val intent = Intent(this, com.wxsoft.fcare.ui.emr.ProfileActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                     }
                 startActivityForResult(intent, RATING)
+//                val intent = Intent(this, RatingActivity::class.java)
+//                    .apply {
+//                        putExtra(ProfileActivity.PATIENT_ID, patientId)
+//                    }
+//                startActivityForResult(intent, RATING)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.emr -> {

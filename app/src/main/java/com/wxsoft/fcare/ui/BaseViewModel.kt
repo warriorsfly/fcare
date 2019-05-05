@@ -14,7 +14,7 @@ abstract class BaseViewModel constructor(protected open val sharedPreferenceStor
 
     protected val disposable= CompositeDisposable()
 
-    protected open val account: Account by lazy {  gon.fromJson(sharedPreferenceStorage.userInfo!!,Account::class.java)}
+    open val account: Account by lazy {  gon.fromJson(sharedPreferenceStorage.userInfo!!,Account::class.java)}
 
     /**
      * 需要传递出去的toast消息

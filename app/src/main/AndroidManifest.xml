@@ -105,26 +105,13 @@
         <activity
                 android:name=".ui.details.diagnose.select.SelectDiagnoseActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
+
+
         <activity
                 android:name=".ui.emr.EmrActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-                android:name=".ui.selecter.SelecterOfOneModelActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-                android:name=".ui.main.fragment.task.searchtask.SearchTaskActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-                android:name=".ui.details.notification.NotificationActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-                android:name=".ui.details.complication.ComplicationActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-                android:name=".ui.main.fragment.patients.searchpatients.SearchPatientsActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-                android:name=".ui.details.diagnose.record.DiagnoseRecordActivity"
+                android:name=".ui.emr.ProfileActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.vitalsigns.records.VitalSignsRecordActivity"
