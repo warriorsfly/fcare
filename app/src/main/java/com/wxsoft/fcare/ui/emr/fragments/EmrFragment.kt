@@ -1,24 +1,19 @@
-package com.wxsoft.fcare.ui.emr
+package com.wxsoft.fcare.ui.emr.fragments
 
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.viewpager.widget.ViewPager
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.core.utils.lazyFast
-import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.databinding.ActivityEmrBinding
 import com.wxsoft.fcare.databinding.ActivityWorkingEmrBinding
 import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
-import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.assistant.AssistantAdapter
+import com.wxsoft.fcare.ui.BaseFragment
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -36,8 +31,8 @@ import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
-import com.wxsoft.fcare.ui.emr.fragments.EmrFragment
-import com.wxsoft.fcare.ui.emr.fragments.ProfileFragment
+import com.wxsoft.fcare.ui.emr.EmrAdapter
+import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
@@ -63,25 +58,14 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.STRATEGY
 import com.wxsoft.fcare.utils.ActionCode.Companion.THROMBOLYSIS
 import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
-import kotlinx.android.synthetic.main.activity_assistant_examination.*
-import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class EmrActivity : BaseActivity() {
+class EmrFragment : BaseFragment() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        emrViewModel=viewModelProvider(factory)
-        emrPageViewModel=viewModelProvider(factory)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        emrViewModel=activityViewModelProvider(factory)
         emrViewModel.patientId=patientId
         adapter= EmrAdapter(this,::clickItem)
-        DataBindingUtil.setContentView<ActivityEmrBinding>(this, R.layout.activity_emr).apply {
-            viewModel=emrPageViewModel
-            lifecycleOwner=this@EmrActivity
-        }
-
-
         emrViewModel.emrs.observe(this, Observer {
             adapter.submitList(it)
         })
@@ -89,25 +73,10 @@ class EmrActivity : BaseActivity() {
         emrViewModel.emrItemLoaded.observe(this,EventObserver{
             adapter.notifyItemChanged(it)
         })
+        return ActivityWorkingEmrBinding.inflate(inflater,container, false).apply {
+            list.adapter=this@EmrFragment.adapter
+        }.root
 
-        setSupportActionBar(toolbar)
-        title=""
-
-        viewPager.adapter = PageAdapter(supportFragmentManager)
-        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-            }
-            override fun onPageSelected(position: Int) {
-                emrPageViewModel.showEmrResult.value=position==0
-            }
-        })
-
-
-        emrPageViewModel.showEmr.observe(this, Observer {
-            if (it)viewPager.setCurrentItem(0,true) else viewPager.setCurrentItem(1,true)
-        })
     }
 
 
@@ -117,12 +86,11 @@ class EmrActivity : BaseActivity() {
 
     lateinit var binding: FragmentWorkingEmrBinding
     private lateinit var emrViewModel: EmrViewModel
-    private lateinit var emrPageViewModel: EmrPageViewModel
     private lateinit var adapter: EmrAdapter
 //    private lateinit var headerAdapter: EmrAdapter
 
     private val patientId: String by lazyFast {
-        intent?.getStringExtra("PATIENT_ID")?:""
+        activity?.intent?.getStringExtra("PATIENT_ID")?:""
     }
 
 
@@ -154,7 +122,7 @@ class EmrActivity : BaseActivity() {
 
             else -> throw IllegalArgumentException("unknown code $code")
         }
-        val intent = Intent(this, act.first).apply {
+        val intent = Intent(activity, act.first).apply {
             putExtra("PATIENT_ID", emrViewModel.patientId)
             when(code){
                 ActionType.溶栓处置->putExtra(ThrombolysisActivity.COME_FROM, "1")
@@ -168,33 +136,5 @@ class EmrActivity : BaseActivity() {
         if (resultCode == Activity.RESULT_OK) {
             emrViewModel.refresh(requestCode)
         }
-    }
-
-    class PageAdapter(fm: FragmentManager) :
-        FragmentPagerAdapter(fm) {
-
-        private val statusFragments:List<Fragment> by lazyFast {
-            (0..1).map {
-                when(it) {
-                    0 -> EmrFragment()
-                    1 -> ProfileFragment()
-                    else -> throw IllegalStateException("Unknown index $it")
-                }
-            }
-        }
-
-        override fun getItem(position: Int): Fragment {
-
-            return statusFragments[position]
-        }
-
-        override fun getPageTitle(position: Int): CharSequence? {
-            return null
-        }
-
-        override fun getCount(): Int {
-            return statusFragments.size
-        }
-
     }
 }

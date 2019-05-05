@@ -98,16 +98,16 @@ class WorkingActivity : BaseActivity() {
             }
             R.id.rating -> {
 
-                val intent = Intent(this, com.wxsoft.fcare.ui.emr.ProfileActivity::class.java)
-                    .apply {
-                        putExtra(ProfileActivity.PATIENT_ID, patientId)
-                    }
-                startActivityForResult(intent, RATING)
-//                val intent = Intent(this, RatingActivity::class.java)
+//                val intent = Intent(this, com.wxsoft.fcare.ui.emr.ProfileActivity::class.java)
 //                    .apply {
 //                        putExtra(ProfileActivity.PATIENT_ID, patientId)
 //                    }
 //                startActivityForResult(intent, RATING)
+                val intent = Intent(this, RatingActivity::class.java)
+                    .apply {
+                        putExtra(ProfileActivity.PATIENT_ID, patientId)
+                    }
+                startActivityForResult(intent, RATING)
                 return@OnNavigationItemSelectedListener true
             }
             R.id.emr -> {

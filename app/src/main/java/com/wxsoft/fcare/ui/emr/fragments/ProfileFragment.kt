@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.ui.emr
+package com.wxsoft.fcare.ui.emr.fragments
 
 import android.Manifest
 import android.animation.Animator
@@ -12,13 +12,14 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.luck.picture.lib.PictureSelector
@@ -26,25 +27,24 @@ import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EmrImage
-import com.wxsoft.fcare.core.data.entity.Record
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.core.utils.lazyFast
-import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityFilesBinding
 import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
 import com.wxsoft.fcare.di.GlideApp
-import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseActivity.Companion.AUDIO_RECRD_PERMISSION_REQUEST
+import com.wxsoft.fcare.ui.BaseActivity.Companion.CAMERA_PERMISSION_REQUEST
+import com.wxsoft.fcare.ui.BaseFragment
 import com.wxsoft.fcare.ui.PhotoEventAction
+import com.wxsoft.fcare.ui.emr.ProfileViewModel
+import com.wxsoft.fcare.ui.emr.RecordEmrImageAdapter
 import kotlinx.android.synthetic.main.activity_files.*
-import kotlinx.android.synthetic.main.layout_new_title.*
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
 
-class ProfileActivity : BaseActivity(), PhotoEventAction {
+class ProfileFragment : BaseFragment(), PhotoEventAction {
     override fun localSelected() {
         checkPhotoTaking()
     }
@@ -57,22 +57,18 @@ class ProfileActivity : BaseActivity(), PhotoEventAction {
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        profileViewModel=viewModelProvider(factory)
+        profileViewModel=activityViewModelProvider(factory)
         profileViewModel.patientId=patientId
         adapter= RecordEmrImageAdapter(this,emrImageViewPool,this)
-        DataBindingUtil.setContentView<ActivityFilesBinding>(this, R.layout.activity_files).apply {
-            list.adapter=this@ProfileActivity.adapter
-        }
-
         profileViewModel.emrs.observe(this, Observer {
             adapter.submitList(it)
         })
+        return ActivityFilesBinding.inflate(inflater,container, false).apply {
+            list.adapter=this@ProfileFragment.adapter
+        }.root
 
-        setSupportActionBar(toolbar)
-        title="资料库"
     }
 
     private var mCurrentAnimator: Animator? = null
@@ -92,14 +88,14 @@ class ProfileActivity : BaseActivity(), PhotoEventAction {
 //    private lateinit var headerAdapter: EmrAdapter
 
     private val patientId: String by lazyFast {
-        intent?.getStringExtra("PATIENT_ID")?:""
+        activity?.intent?.getStringExtra("PATIENT_ID")?:""
     }
 
     private fun checkPhotoTaking(){
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ||
-            ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(activity!!, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED ||
+            ContextCompat.checkSelfPermission(activity!!, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
 
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(activity!!,
                 arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
                 CAMERA_PERMISSION_REQUEST
             )
@@ -265,7 +261,7 @@ class ProfileActivity : BaseActivity(), PhotoEventAction {
                         val f= File(media.path)
                         fs.add(f)
                         return@map Pair(media, FileProvider.getUriForFile(
-                            this,
+                            activity!!,
                             BuildConfig.APPLICATION_ID + ".fileProvider",
                            f
                         ))

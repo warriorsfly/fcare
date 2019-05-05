@@ -71,6 +71,7 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordModule
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.discharge.DisChargeModule
 import com.wxsoft.fcare.ui.emr.EmrActivity
+import com.wxsoft.fcare.ui.emr.EmrModule
 import com.wxsoft.fcare.ui.hardwaredata.HardwareDataActivity
 import com.wxsoft.fcare.ui.hardwaredata.HardwareDataModule
 import com.wxsoft.fcare.ui.launch.LaunchModule
@@ -323,12 +324,8 @@ abstract class ActivityBindingModule {
     internal abstract fun reactiveEcgActivity(): ReactiveEcgActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [WorkSpaceModule::class])
+    @ContributesAndroidInjector(modules = [EmrModule::class,ViewPoolModule::class])
     internal abstract fun emrActivity(): EmrActivity
-
-    @ActivityScoped
-    @ContributesAndroidInjector(modules = [WorkSpaceModule::class,ViewPoolModule::class])
-    internal abstract fun emrProfileActivity(): com.wxsoft.fcare.ui.emr.ProfileActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [CureModule::class])

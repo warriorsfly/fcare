@@ -8,7 +8,7 @@ import com.wxsoft.fcare.R
 import dagger.android.support.DaggerFragment
 
 
-abstract class BaseTimingFragment : DaggerFragment() , OnDateSetListener {
+abstract class BaseTimingFragment : BaseFragment() , OnDateSetListener {
 
     protected var dialog: TimePickerDialog?=null
 

@@ -110,9 +110,7 @@
         <activity
                 android:name=".ui.emr.EmrActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
-        <activity
-                android:name=".ui.emr.ProfileActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
+
         <activity
                 android:name=".ui.details.vitalsigns.records.VitalSignsRecordActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

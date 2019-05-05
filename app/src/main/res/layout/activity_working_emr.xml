@@ -11,8 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ui.workspace.WorkingEmrFragment">
-        <include layout="@layout/layout_new_title"
-                 android:id="@+id/title"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/list"

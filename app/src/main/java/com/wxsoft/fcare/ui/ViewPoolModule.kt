@@ -13,31 +13,31 @@ internal class ViewPoolModule {
     @ChildFragmentScoped
     @Provides
     @Named("emrViewPool")
-    fun providesEmrViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+    fun providesEmrViewPool() = RecyclerView.RecycledViewPool()
 
     @ChildFragmentScoped
     @Provides
     @Named("emrItemViewPool")
-    fun providesEmrItemViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+    fun providesEmrItemViewPool() = RecyclerView.RecycledViewPool()
 
     @ActivityScoped
     @Provides
     @Named("ratingResultViewPool")
-    fun providesRatingResultViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+    fun providesRatingResultViewPool() = RecyclerView.RecycledViewPool()
 
     @ActivityScoped
     @Provides
     @Named("ratingOptionViewPool")
-    fun providesRatingOptionViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+    fun providesRatingOptionViewPool() = RecyclerView.RecycledViewPool()
 
     @ActivityScoped
     @Provides
     @Named("emrImageViewPool")
-    fun providesEmrImageViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+    fun providesEmrImageViewPool() = RecyclerView.RecycledViewPool()
 
 
     @ActivityScoped
     @Provides
     @Named("optionViewPool")
-    fun providesOptionViewPool(): RecyclerView.RecycledViewPool = RecyclerView.RecycledViewPool()
+    fun providesOptionViewPool() = RecyclerView.RecycledViewPool()
 }
