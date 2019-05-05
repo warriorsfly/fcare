@@ -25,27 +25,27 @@ import kotlinx.android.synthetic.main.activity_discharge.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class DisChargeActivity : BaseTimingActivity(), View.OnClickListener {
+class DisChargeActivity : BaseTimingActivity(){
 
-    override fun onClick(v: View?) {
+    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        when(selectedId){
+            R.id.decide_cabg_time -> viewModel.data.value?.diagnosisTime = DateTimeUtils.formatter.format(millseconds)
+        }
+    }
 
+    private fun showDatePicker(v: View?){
         (v as? TextView)?.let {
-            selectedId = it.id
-            val currentTime = it.text.toString().let { text ->
-                if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
+            selectedId=it.id
+            val currentTime= it.text.toString().let { text->
+                if(text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time
             }
 
             dialog = createDialog(currentTime)
             dialog?.show(supportFragmentManager, "all")
         }
-
-    }
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-
-        dialog?.onDestroy()
-        dialog=null
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private var selectedId=0
@@ -66,7 +66,7 @@ class DisChargeActivity : BaseTimingActivity(), View.OnClickListener {
         binding = DataBindingUtil.setContentView<ActivityDischargeBinding>(this, R.layout.activity_discharge)
             .apply {
                 model0.setOnClickListener { toSelectDiagnose() }
-                diagnose.setOnClickListener { toSelectDiagnose() }
+                model1.setOnClickListener { showDatePicker(findViewById(R.id.start)) }
                 viewModel = this@DisChargeActivity. viewModel
                 lifecycleOwner = this@DisChargeActivity
             }
@@ -93,7 +93,6 @@ class DisChargeActivity : BaseTimingActivity(), View.OnClickListener {
             }
         })
 
-        start.setOnClickListener(this)
     }
 
 

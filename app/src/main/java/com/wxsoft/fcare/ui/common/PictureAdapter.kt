@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
@@ -23,6 +24,8 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
                                  private val indexAction:(Int)->Unit ={}) :
     RecyclerView.Adapter<PictureAdapter.ItemViewHolder>() {
 
+//    var pairs= arrayOfNulls<android.util.Pair<View, String>>(list.size)
+
     var indexing:Int=0
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
@@ -30,6 +33,12 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
     override fun getItemCount(): Int {
         return differ.currentList.size
     }
+
+//    var pairs: List<Pair<View,String>> = emptyList()
+//        set(value) {
+//            field = value
+//            differ.submitList(buildMergedList(remotes,value))
+//        }
 
     var locals: List<Pair<LocalMedia,Uri>> = emptyList()
         set(value) {

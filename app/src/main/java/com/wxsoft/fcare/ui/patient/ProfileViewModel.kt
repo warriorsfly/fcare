@@ -13,6 +13,8 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -182,4 +184,31 @@ class ProfileViewModel @Inject constructor(
             }?:false
 
     }
+
+
+    fun getPatientInfos(blh:String,type:Int){
+        if (blh.isNullOrEmpty()) return
+        disposable.add(
+            patientApi.getPatientInfo(blh,type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe {
+                    val p = it.result
+                    if (p!=null){
+                        loadPatientResult.value = Resource.Success(Response<Patient>(true).apply {
+                            this.result= patient.value?.apply {
+                                if (!p.idcard.isNullOrEmpty()) idcard = p.idcard
+                                if (!p.name.isNullOrEmpty()) name = p.name
+                                gender = p.gender
+                                age = p.age
+                                if (!p.phone.isNullOrEmpty()) phone = p.phone
+                                if (!p.outpatientId.isNullOrEmpty()) outpatientId = p.outpatientId
+                                if (!p.inpatientId.isNullOrEmpty()) inpatientId = p.inpatientId
+                            }
+                        })
+                    }
+                }
+        )
+    }
+
+
 }

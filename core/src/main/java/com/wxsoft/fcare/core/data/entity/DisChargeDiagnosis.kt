@@ -52,7 +52,7 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
     /// </summary>
     @Bindable
     @SerializedName("is_Heart_Failure")
-    var heartFailure: String? = null
+    var heartFailure: Boolean = false
         set(value) {
             field = value
             notifyPropertyChanged(BR.heartFailure)

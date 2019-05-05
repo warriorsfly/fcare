@@ -505,6 +505,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:id="@+id/mzh"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/title2_1"
@@ -542,6 +543,7 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
+                    android:id="@+id/zyh"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/title2_2"
@@ -802,7 +804,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line9"
-                            app:layout_constraintTop_toBottomOf="@id/line7"
+                            app:layout_constraintTop_toBottomOf="@id/line5"
                             app:layout_constraintLeft_toLeftOf="parent"
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
@@ -929,7 +931,7 @@
             </androidx.core.widget.NestedScrollView>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
+        <com.luck.picture.lib.photoview.PhotoView
             android:id="@+id/enlarged"
             android:background="@color/white"
             android:layout_width="match_parent"
