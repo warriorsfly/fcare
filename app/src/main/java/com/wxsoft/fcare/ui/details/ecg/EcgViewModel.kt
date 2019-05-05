@@ -31,6 +31,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
 
     val query=ObservableField<String>()
     val bitmaps= mutableListOf<String>()
+    val seleted= mutableListOf<String>()
 
     val selectedEcgDiagnosis = mutableListOf<Dictionary>()
 
@@ -82,15 +83,21 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
 
     private fun doEcg(response: Response<Ecg>){
         bitmaps.clear()
+        seleted.clear()
         loadEcgResult.value= response.apply {
             result?.apply {
                 selectedEcgDiagnosis.apply{
                     clear()
-                    addAll(diagnoses.map { Dictionary(it.code,it.name) })}
+                    addAll(diagnoses.map { Dictionary(it.code,it.name).apply { checked = true } })}
                 val t=diagnoses.joinToString("\n",transform={ (diagnoses.indexOf(it)+1).toString()+"."+it.name})
                 diagnoseText=t
+                seleted.addAll(diagnoses.map { it.code })
             }
         }
+
+//        diagnoses.value?.filter {
+//            seleted.contains(it.id)
+//        }?.map { it.checked = true }
     }
 
     private fun doSavedEcg(response: Response<Ecg>){

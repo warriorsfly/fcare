@@ -33,6 +33,8 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
 
 
+    val modifySomeThing: LiveData<String>
+    val loadModifySomeThing= MediatorLiveData<String>()
 
     private var timedispose: Disposable?=null
 
@@ -208,6 +210,8 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
         }
 
     init {
+
+        modifySomeThing = loadModifySomeThing.map { it }
 
         spends=loadSpendResult.map {
             it
@@ -475,6 +479,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                                 messageAction.value = Event(it.carId + "返回医院大门")
                                 loadSpendResult.value=it.spends
                                 timedispose?.dispose()
+                                loadModifySomeThing.value = "back"
                             } else {
                                 messageAction.value = Event(resp.msg)
                             }

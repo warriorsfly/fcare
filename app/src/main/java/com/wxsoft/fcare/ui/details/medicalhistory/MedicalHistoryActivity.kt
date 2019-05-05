@@ -67,7 +67,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
             .setView(binding.root)
             .setMessage("确定删除吗？")
             .setPositiveButton("是") { _, _ ->
-//                viewModel.deleteImage(url)
+                viewModel.deleteImage(url)
             }
             .setNegativeButton("否") { _, _ ->
             }.show()

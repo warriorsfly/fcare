@@ -142,7 +142,11 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             is ItemViewHolder.VitalListViewHolder->{
                 holder.binding.apply {
                     item=emr
-                    vital=(emr.result as? List<VitalSign>)?.get(0)
+                    if(emr.result != null ) {
+                        if((emr.result as? List<VitalSign>)!!.size>0){
+                            vital=(emr.result as? List<VitalSign>)?.get(0)
+                        }
+                    }
 //                    if(tabLayout.tabCount==0){
 //                        val tabs=( emr.result as? List<Record<VitalSign>>)
 //                            tabs?.forEach {

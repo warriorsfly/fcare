@@ -45,6 +45,10 @@ class EcgItemListFragment : DaggerFragment() {
            viewModel=this@EcgItemListFragment.viewModel
            list.adapter=adapter
            this@EcgItemListFragment.viewModel.diagnoses.observe(this@EcgItemListFragment, Observer {
+               it.map { it.checked = false }
+               it.filter {
+                   this@EcgItemListFragment.viewModel.seleted.contains(it.id)
+               }?.map { it.checked = true }
                (list.adapter as? Adapter)?.submitList(it)
            })
 
@@ -64,6 +68,7 @@ class EcgItemListFragment : DaggerFragment() {
     private fun select(dictionary: Dictionary){
         with(viewModel.selectedEcgDiagnosis){
             if(!contains(dictionary)){
+                dictionary.checked = true
                 viewModel.selectedDiagnoseResult.value=dictionary
                 parentFragment?.let {
                     if(it.childFragmentManager.popBackStackImmediate()){

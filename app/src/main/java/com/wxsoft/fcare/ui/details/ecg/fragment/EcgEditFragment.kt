@@ -47,8 +47,13 @@ class EcgEditFragment : DaggerFragment() {
         adapter=Adapter(this,::select)
         adapter.submitList(viewModel.selectedEcgDiagnosis)
         viewModel.selectedDiagnoseResult.observe(this, Observer {
-            viewModel.selectedEcgDiagnosis.add(it)
-            adapter.notifyDataSetChanged()
+            with(viewModel.selectedEcgDiagnosis){
+                if(!contains(it)){
+                    viewModel.selectedEcgDiagnosis.add(it)
+                    viewModel.seleted.add(it.id)
+                    adapter.notifyDataSetChanged()
+                }
+            }
         })
 
         viewModel.diagnosised.observe(this, Observer {
@@ -93,6 +98,8 @@ class EcgEditFragment : DaggerFragment() {
     }
 
     private fun select(dictionary: Dictionary){
+        dictionary.checked = false
+        viewModel.seleted.remove(dictionary.id)
         viewModel.selectedEcgDiagnosis.remove(dictionary)
         adapter.notifyDataSetChanged()
     }

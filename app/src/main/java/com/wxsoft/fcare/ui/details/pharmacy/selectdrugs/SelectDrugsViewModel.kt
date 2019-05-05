@@ -62,6 +62,7 @@ class SelectDrugsViewModel @Inject constructor(private val pharmacyApi: Pharmacy
             .subscribe {
                 initDrugs.value = it
                 drugs.value?.first()?.checked = true
+                if (!drugs.value.isNullOrEmpty()){clickDrugType(drugs.value?.first()!!)}
             }
     }
 

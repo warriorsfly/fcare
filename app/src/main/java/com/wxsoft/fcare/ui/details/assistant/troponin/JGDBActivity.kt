@@ -128,9 +128,6 @@ class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
         binding = DataBindingUtil.setContentView<ActivityJgdbBinding>(this, R.layout.activity_jgdb)
             .apply {
                 viewModel = this@JGDBActivity.viewModel
-                line0.setOnClickListener {
-                    toGetHardwareData()
-                }
                 lifecycleOwner = this@JGDBActivity
             }
         patientId=intent.getStringExtra(PATIENT_ID)?:""
@@ -145,7 +142,6 @@ class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
         })
         setSupportActionBar(toolbar)
         title="肌钙蛋白"
-//        viewModel.loadTroponin()
 
         viewModel.clickEdit.observe(this, Observer {
             when(it){
@@ -164,10 +160,6 @@ class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
         adapter.locals= emptyList()
         jgdb_photo_items_rv.adapter = adapter
 
-    }
-
-    fun toGetHardwareData(){
-        viewModel.loadJGDB(lshId)
     }
 
 
