@@ -21,7 +21,7 @@ class TaskAdapter constructor(private val owner: LifecycleOwner, val viewModel: 
 
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-
+        viewModel.noPatientsShow.set(false)
         holder.binding.apply {
             var item = getItem(position)
             task = item

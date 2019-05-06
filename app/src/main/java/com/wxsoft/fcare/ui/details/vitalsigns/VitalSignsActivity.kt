@@ -127,28 +127,28 @@ class VitalSignsActivity : BaseActivity() {
                 }
             }
         })
-        binding.breath.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                val max: Int = 40
-                val min: Int = 25
-                if (min != -1 && max != -1) {
-                    try {
-                        var num = Integer.parseInt(binding.breath.text.toString());
-                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                        if (num > max) {
-                            binding.breath.setText(max.toString()) //如果大于max，则内容为max
-                            binding.breath.setSelection(max.toString().length)
-                            viewModel.vital.value?.respiration_Rate = max
-                        } else if (num < min) {
-                            binding.breath.setText(min.toString()) //如果小于min,则内容为min
-                            binding.breath.setSelection(min.toString().length)
-                            viewModel.vital.value?.respiration_Rate = min
-                        }
-                    } catch ( e :NumberFormatException) {
-                    }
-                }
-            }
-        }
+//        binding.breath.setOnFocusChangeListener{ view, b ->
+//            if (!b){
+//                val max: Int = 40
+//                val min: Int = 10
+//                if (min != -1 && max != -1) {
+//                    try {
+//                        var num = Integer.parseInt(binding.breath.text.toString());
+//                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+//                        if (num > max) {
+//                            binding.breath.setText(max.toString()) //如果大于max，则内容为max
+//                            binding.breath.setSelection(max.toString().length)
+//                            viewModel.vital.value?.respiration_Rate = max
+//                        } else if (num < min) {
+//                            binding.breath.setText(min.toString()) //如果小于min,则内容为min
+//                            binding.breath.setSelection(min.toString().length)
+//                            viewModel.vital.value?.respiration_Rate = min
+//                        }
+//                    } catch ( e :NumberFormatException) {
+//                    }
+//                }
+//            }
+//        }
         binding.mb.addTextChangedListener(object : TextWatcher {
             private val max: Int = 100
             private val min: Int = 0
@@ -179,28 +179,28 @@ class VitalSignsActivity : BaseActivity() {
                 }
             }
         })
-        binding.mb.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                val max: Int = 100
-                val min: Int = 30
-                if (min != -1 && max != -1) {
-                    try {
-                        var num = Integer.parseInt(binding.mb.text.toString());
-                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                        if (num > max) {
-                            binding.mb.setText(max.toString()) //如果大于max，则内容为max
-                            binding.mb.setSelection(max.toString().length)
-                            viewModel.vital.value?.pulse_Rate = max
-                        } else if (num < min) {
-                            binding.mb.setText(min.toString()) //如果小于min,则内容为min
-                            binding.mb.setSelection(min.toString().length)
-                            viewModel.vital.value?.pulse_Rate = min
-                        }
-                    } catch ( e :NumberFormatException) {
-                    }
-                }
-            }
-        }
+//        binding.mb.setOnFocusChangeListener{ view, b ->
+//            if (!b){
+//                val max: Int = 100
+//                val min: Int = 30
+//                if (min != -1 && max != -1) {
+//                    try {
+//                        var num = Integer.parseInt(binding.mb.text.toString());
+//                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+//                        if (num > max) {
+//                            binding.mb.setText(max.toString()) //如果大于max，则内容为max
+//                            binding.mb.setSelection(max.toString().length)
+//                            viewModel.vital.value?.pulse_Rate = max
+//                        } else if (num < min) {
+//                            binding.mb.setText(min.toString()) //如果小于min,则内容为min
+//                            binding.mb.setSelection(min.toString().length)
+//                            viewModel.vital.value?.pulse_Rate = min
+//                        }
+//                    } catch ( e :NumberFormatException) {
+//                    }
+//                }
+//            }
+//        }
 
         binding.heart.addTextChangedListener(object : TextWatcher {
             private val max: Int = 100
@@ -232,28 +232,28 @@ class VitalSignsActivity : BaseActivity() {
                 }
             }
         })
-        binding.heart.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                val max: Int = 100
-                val min: Int = 30
-                if (min != -1 && max != -1) {
-                    try {
-                        var num = Integer.parseInt(binding.heart.text.toString());
-                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                        if (num > max) {
-                            binding.heart.setText(max.toString()) //如果大于max，则内容为max
-                            binding.heart.setSelection(max.toString().length)
-                            viewModel.vital.value?.heart_Rate = max
-                        } else if (num < min) {
-                            binding.heart.setText(min.toString()) //如果小于min,则内容为min
-                            binding.heart.setSelection(min.toString().length)
-                            viewModel.vital.value?.heart_Rate = min
-                        }
-                    } catch ( e :NumberFormatException) {
-                    }
-                }
-            }
-        }
+//        binding.heart.setOnFocusChangeListener{ view, b ->
+//            if (!b){
+//                val max: Int = 100
+//                val min: Int = 30
+//                if (min != -1 && max != -1) {
+//                    try {
+//                        var num = Integer.parseInt(binding.heart.text.toString());
+//                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+//                        if (num > max) {
+//                            binding.heart.setText(max.toString()) //如果大于max，则内容为max
+//                            binding.heart.setSelection(max.toString().length)
+//                            viewModel.vital.value?.heart_Rate = max
+//                        } else if (num < min) {
+//                            binding.heart.setText(min.toString()) //如果小于min,则内容为min
+//                            binding.heart.setSelection(min.toString().length)
+//                            viewModel.vital.value?.heart_Rate = min
+//                        }
+//                    } catch ( e :NumberFormatException) {
+//                    }
+//                }
+//            }
+//        }
         binding.bloodOxygen.addTextChangedListener(object : TextWatcher {
             private val max: Int = 100
             private val min: Int = 0
@@ -284,28 +284,28 @@ class VitalSignsActivity : BaseActivity() {
                 }
             }
         })
-        binding.bloodOxygen.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                val max: Int = 100
-                val min: Int = 70
-                if (min != -1 && max != -1) {
-                    try {
-                        var num = Integer.parseInt(binding.bloodOxygen.text.toString());
-                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                        if (num > max) {
-                            binding.bloodOxygen.setText(max.toString()) //如果大于max，则内容为max
-                            binding.bloodOxygen.setSelection(max.toString().length)
-                            viewModel.vital.value?.spO2 = max
-                        } else if (num < min) {
-                            binding.bloodOxygen.setText(min.toString()) //如果小于min,则内容为min
-                            binding.bloodOxygen.setSelection(min.toString().length)
-                            viewModel.vital.value?.spO2 = min
-                        }
-                    } catch ( e :NumberFormatException) {
-                    }
-                }
-            }
-        }
+//        binding.bloodOxygen.setOnFocusChangeListener{ view, b ->
+//            if (!b){
+//                val max: Int = 100
+//                val min: Int = 70
+//                if (min != -1 && max != -1) {
+//                    try {
+//                        var num = Integer.parseInt(binding.bloodOxygen.text.toString());
+//                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+//                        if (num > max) {
+//                            binding.bloodOxygen.setText(max.toString()) //如果大于max，则内容为max
+//                            binding.bloodOxygen.setSelection(max.toString().length)
+//                            viewModel.vital.value?.spO2 = max
+//                        } else if (num < min) {
+//                            binding.bloodOxygen.setText(min.toString()) //如果小于min,则内容为min
+//                            binding.bloodOxygen.setSelection(min.toString().length)
+//                            viewModel.vital.value?.spO2 = min
+//                        }
+//                    } catch ( e :NumberFormatException) {
+//                    }
+//                }
+//            }
+//        }
         binding.temperature.addTextChangedListener(object : TextWatcher {
             private val max: Float = 45.0f
             private val min: Float = 0.0f
@@ -337,28 +337,28 @@ class VitalSignsActivity : BaseActivity() {
             }
         })
 
-        binding.temperature.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                val max: Float = 45.0f
-                val min: Float = 33.0f
-                if (min != -1.0f && max != -1.0f) {
-                    try {
-                        var num = Integer.parseInt(binding.temperature.text.toString());
-                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                        if (num > max) {
-                            binding.temperature.setText(max.toString()) //如果大于max，则内容为max
-                            binding.temperature.setSelection(max.toString().length)
-                            viewModel.vital.value?.body_Temperature = max
-                        } else if (num < min) {
-                            binding.temperature.setText(min.toString()) //如果小于min,则内容为min
-                            binding.temperature.setSelection(min.toString().length)
-                            viewModel.vital.value?.body_Temperature = min
-                        }
-                    } catch ( e :NumberFormatException) {
-                    }
-                }
-            }
-        }
+//        binding.temperature.setOnFocusChangeListener{ view, b ->
+//            if (!b){
+//                val max: Float = 45.0f
+//                val min: Float = 33.0f
+//                if (min != -1.0f && max != -1.0f) {
+//                    try {
+//                        var num = Integer.parseInt(binding.temperature.text.toString());
+//                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+//                        if (num > max) {
+//                            binding.temperature.setText(max.toString()) //如果大于max，则内容为max
+//                            binding.temperature.setSelection(max.toString().length)
+//                            viewModel.vital.value?.body_Temperature = max
+//                        } else if (num < min) {
+//                            binding.temperature.setText(min.toString()) //如果小于min,则内容为min
+//                            binding.temperature.setSelection(min.toString().length)
+//                            viewModel.vital.value?.body_Temperature = min
+//                        }
+//                    } catch ( e :NumberFormatException) {
+//                    }
+//                }
+//            }
+//        }
 
 
     }

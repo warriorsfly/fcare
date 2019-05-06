@@ -109,6 +109,7 @@ class TaskFragment : BaseTimingFragment() {
         }
 
         viewModel.tasks.observe(this, Observer {
+            viewModel.noPatientsShow.set(it.snapshot().size==0)
             adapter.submitList(it)
         })
 

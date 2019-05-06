@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.core.utils
 
-import android.text.format.DateUtils
 import java.text.SimpleDateFormat
 import java.util.*
 
