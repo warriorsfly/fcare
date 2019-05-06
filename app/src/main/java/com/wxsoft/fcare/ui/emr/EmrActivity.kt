@@ -100,13 +100,13 @@ class EmrActivity : BaseActivity() {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
             }
             override fun onPageSelected(position: Int) {
-                emrPageViewModel.showEmrResult.value=position==0
+                emrPageViewModel.showEmrResult.value=position==1
             }
         })
 
 
         emrPageViewModel.showEmr.observe(this, Observer {
-            if (it)viewPager.setCurrentItem(0,true) else viewPager.setCurrentItem(1,true)
+            if (it)viewPager.setCurrentItem(1,true) else viewPager.setCurrentItem(0,true)
         })
     }
 
@@ -176,8 +176,8 @@ class EmrActivity : BaseActivity() {
         private val statusFragments:List<Fragment> by lazyFast {
             (0..1).map {
                 when(it) {
-                    0 -> EmrFragment()
-                    1 -> ProfileFragment()
+                    1 -> EmrFragment()
+                    0 -> ProfileFragment()
                     else -> throw IllegalStateException("Unknown index $it")
                 }
             }

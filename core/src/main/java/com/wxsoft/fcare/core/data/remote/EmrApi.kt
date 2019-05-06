@@ -141,6 +141,11 @@ interface EmrApi{
      */
     @GET("Emr/GetEmrImages/{patientId}")
     fun getEmrImages(@Path("patientId")patientId:String):Maybe<Response<List<EmrRecord>>>
+  /**
+     * 获取资料图片信息
+     */
+    @GET("/api/Emr/DeleteImage/{typeId}/{attachmentId}")
+    fun deleteImage(@Path("typeId")typeId:String,@Path("attachmentId")imageId:String):Maybe<Response<String>>
 
     /**
      *保存

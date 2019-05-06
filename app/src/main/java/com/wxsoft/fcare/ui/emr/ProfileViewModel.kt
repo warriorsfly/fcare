@@ -63,6 +63,10 @@ class ProfileViewModel @Inject constructor(private val api: EmrApi,
             .subscribe(::loadEmrDetails, ::error))
     }
 
+    private fun reloadEmrDetails(response: Response<String>?) {
+        if(response?.success==true)
+            loadEmrs()
+    }
 
     fun savingRecord(record:EmrRecord,fs:List<File>){
 
@@ -74,13 +78,34 @@ class ProfileViewModel @Inject constructor(private val api: EmrApi,
             )
         }
 
-        fun reloadEmrDetails(response: Response<String>?) {
-            loadEmrs()
-        }
+
         disposable.add( api.savingImages(record,files)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::reloadEmrDetails, ::error))
 
+    }
+
+
+
+    fun delete(url:String){
+        var itemId=""
+        var typeId=""
+        emrs.value?.let{
+            for ( t in it){
+                for(item in t.items){
+                    if(item.httpUrl==url){
+                        itemId=item.id
+                        typeId=t.typeId
+                        disposable.add( api.deleteImage(typeId,itemId)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(::reloadEmrDetails, ::error))
+
+                        return@let
+                    }
+                }
+            }
+        }
     }
 }

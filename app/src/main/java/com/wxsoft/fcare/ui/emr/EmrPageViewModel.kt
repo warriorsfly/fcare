@@ -15,7 +15,7 @@ class EmrPageViewModel @Inject constructor(override val sharedPreferenceStorage:
 
     val showEmr:LiveData<Boolean>
     val showEmrResult=MediatorLiveData<Boolean>().apply {
-        value=true
+        value=false
     }
     init {
 

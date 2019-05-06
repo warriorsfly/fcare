@@ -2,6 +2,7 @@ package com.wxsoft.fcare.core.data.entity
 
 data class EmrImage
     (
+        val id: String="",
         val fileName: String="",
         val fileType: String="",
         val fileSize: Long=0L,

@@ -37,7 +37,7 @@
                         android:layout_width="190dp"
                         android:layout_height="28sp">
                     <TextView
-                            android:background="@{viewModel.showEmr?@drawable/bg_conor_jcjy_2:@drawable/bg_conor_jcjy_1}"
+                            android:background="@{viewModel.showEmr?@drawable/bg_conor_jcjy_1:@drawable/bg_conor_jcjy_2}"
                             android:id="@+id/tv1"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -45,12 +45,13 @@
                             app:layout_constraintRight_toRightOf="parent"
                             android:layout_marginRight="95dp"
                             android:gravity="center"
-                            android:textColor="@{viewModel.showEmr?@color/white:@color/colorPrimary}"
-                            android:text="病历"
+
+                            android:textColor="@{viewModel.showEmr?@color/colorPrimary:@color/white}"
+                            android:text="资料库"
                             android:layout_width="95dp"
                             android:layout_height="26dp"/>
                     <TextView
-                            android:background="@{viewModel.showEmr?@drawable/bg_conor_jcjy_3:@drawable/bg_conor_jcjy_4}"
+                            android:background="@{viewModel.showEmr?@drawable/bg_conor_jcjy_4:@drawable/bg_conor_jcjy_3}"
                             android:id="@+id/tv2"
                             app:layout_constraintLeft_toLeftOf="parent"
                             android:layout_marginLeft="95dp"
@@ -58,8 +59,9 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             android:gravity="center"
-                            android:textColor="@{viewModel.showEmr?@color/colorPrimary:@color/white}"
-                            android:text="资料库"
+                            android:text="病历"
+
+                            android:textColor="@{viewModel.showEmr?@color/white:@color/colorPrimary}"
                             android:layout_width="95dp"
                             android:layout_height="26dp"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
