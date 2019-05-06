@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.common
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.databinding.ViewDataBinding
 import android.net.Uri
@@ -17,18 +18,21 @@ import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.generated.callback.OnClickListener
 import com.wxsoft.fcare.ui.PhotoEventAction
+import com.wxsoft.fcare.ui.photo.PhotoActivity
 
 class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
                                  private val max:Int=0,
+//                                 private val mcontext:Context,
                                  private val action: PhotoEventAction?=null,
                                  private val indexAction:(Int)->Unit ={}) :
     RecyclerView.Adapter<PictureAdapter.ItemViewHolder>() {
 
-//    var pairs= arrayOfNulls<android.util.Pair<View, String>>(list.size)
 
     var indexing:Int=0
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
+
+
 
     override fun getItemCount(): Int {
         return differ.currentList.size
@@ -45,6 +49,11 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
             field = value
             differ.submitList(buildMergedList(remotes,value))
         }
+
+//    var pairs:ArrayList<Pair<View, String>> = ArrayList()
+//        set(value) {
+//            field = value
+//        }
 
     var remotes:List<String> = emptyList()
         set(value) {
@@ -94,13 +103,20 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
 
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
+//                remotes.forEachIndexed { index, s ->
+//                    pairs = remotes.map { Pair<View, String>(image, "img" + index) }
+//                }
                 image.setOnClickListener{action?.enlargeRemote(root,presenter)}
+//                image.setOnClickListener{
+//                    PhotoActivity.startActivity(mcontext, pairs, position, remotes)
+//                }
                 image.setOnLongClickListener {
                     action?.deleteRemote(presenter)
                     true
                 }
                 url=presenter
                 lifecycleOwner = this@PictureAdapter.lifecycleOwner
+
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
