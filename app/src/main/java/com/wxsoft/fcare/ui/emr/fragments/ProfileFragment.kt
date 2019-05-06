@@ -43,6 +43,9 @@ import kotlinx.android.synthetic.main.activity_files.*
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
+import android.util.Pair
+
+
 
 class ProfileFragment : BaseFragment(), PhotoEventAction {
     override fun localSelected() {
@@ -61,7 +64,7 @@ class ProfileFragment : BaseFragment(), PhotoEventAction {
 
         profileViewModel=activityViewModelProvider(factory)
         profileViewModel.patientId=patientId
-        adapter= RecordEmrImageAdapter(this,emrImageViewPool,this)
+        adapter= RecordEmrImageAdapter(this, context!!,emrImageViewPool,this)
         profileViewModel.emrs.observe(this, Observer {
             adapter.submitList(it)
         })

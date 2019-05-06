@@ -52,6 +52,7 @@ import java.io.File
 import java.lang.NumberFormatException
 import javax.inject.Inject
 import javax.inject.Named
+import android.util.Pair
 
 
 class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAction ,AMapLocationListener{
@@ -162,8 +163,7 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
             toast.show()
         })
 
-
-        adapter= PictureAdapter(this,4,this)
+        adapter= PictureAdapter(this,4,this,this)
 
         adapter.locals= emptyList()
         attachments.adapter=adapter

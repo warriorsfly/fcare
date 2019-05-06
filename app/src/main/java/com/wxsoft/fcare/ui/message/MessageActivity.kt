@@ -48,6 +48,8 @@ class MessageActivity : BaseActivity()  {
 
         viewModel.patient.observe(this, Observer {  })
 
+
+
     }
 
 }

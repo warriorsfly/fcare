@@ -46,6 +46,7 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import java.util.*
 import javax.inject.Inject
+import android.util.Pair
 
 class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
     override fun localSelected() {
@@ -200,7 +201,7 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
         viewModel.showVoiceTime.observe(this, Observer {  })
 
 
-        adapter= PictureAdapter(this,10,this)
+        adapter= PictureAdapter(this,10,this,this)
         adapter.locals= emptyList()
         informed_attachments.adapter=adapter
 
