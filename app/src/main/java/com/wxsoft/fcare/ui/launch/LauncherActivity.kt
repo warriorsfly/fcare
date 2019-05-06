@@ -37,6 +37,8 @@ class LauncherActivity : BaseActivity(){
         getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
     }
 
+    private var downloadId:Long=0L
+
     private var dialog:UpgradeDialog?=null
     @Inject
     lateinit var factory: ViewModelFactory
@@ -46,7 +48,6 @@ class LauncherActivity : BaseActivity(){
     private lateinit var viewModel: LauncherViewModel
     private lateinit var file: File
 
-    private val disposable= CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -197,7 +198,7 @@ class LauncherActivity : BaseActivity(){
             file = File(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "无限急救.apk")
             setDestinationUri(Uri.fromFile(file))
         }
-        downloadManager.enqueue(request)
+        downloadId=downloadManager.enqueue(request)
         completeReceiver = CompleteReceiver()
         registerReceiver(
             completeReceiver,
@@ -209,20 +210,15 @@ class LauncherActivity : BaseActivity(){
     inner class CompleteReceiver : BroadcastReceiver() {
 
         override fun onReceive(context: Context, intent: Intent) {
-            val completeDownloadId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            if (completeDownloadId==-1L){
-                viewModel.messageAction.value=Event("下载失败")
-            }else {
-                try {
-                    val uri = downloadManager.getUriForDownloadedFile(completeDownloadId)
-                    if(uri==null){
-                        viewModel.messageAction.value=Event("下载失败")
-                    }else {
-                        install(uri)
-                    }
-                }catch (e:Exception){
-                    viewModel.messageAction.value=Event(e.message?:"")
+            try {
+                val uri = downloadManager.getUriForDownloadedFile(downloadId)
+                if(uri==null){
+                    viewModel.messageAction.value=Event("下载失败")
+                }else {
+                    install(uri)
                 }
+            }catch (e:Exception){
+                viewModel.messageAction.value=Event(e.message?:"")
             }
         }
 

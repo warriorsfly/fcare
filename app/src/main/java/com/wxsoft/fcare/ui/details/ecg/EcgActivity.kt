@@ -6,15 +6,12 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
@@ -34,32 +31,37 @@ import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityEcgBinding
-import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
+import com.wxsoft.fcare.ui.BaseShareOrDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.EcgAdapter
 import com.wxsoft.fcare.ui.details.ecg.fragment.EcgEditFragment
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
-import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_ecg.*
 import java.io.File
 import javax.inject.Inject
 
-class EcgActivity : BaseActivity(),PhotoEventAction {
+class EcgActivity : BaseShareOrDeleteActivity(),PhotoEventAction {
+    override fun doError(throwable: Throwable) {
+
+    }
+
+    override fun delete(id: String) {
+        viewModel.deleteImage(id)
+    }
+
     override fun deleteRemote(url: String) {
-        val binding=ItemDialogImageBinding.inflate(layoutInflater).apply {
-            lifecycleOwner=this@EcgActivity
-            imageUrl=url
-        }
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
-            .setView(binding.root)
-            .setMessage("确定删除吗？")
-            .setPositiveButton("是") { _, _ ->
-                viewModel.deleteImage(url)
-            }
-            .setNegativeButton("否") { _, _ ->
-            }.show()
+
+        showImageDialog(url)
+//        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+//            .setView(binding.root)
+//            .setMessage("确定删除吗？")
+//            .setPositiveButton("是") { _, _ ->
+//                viewModel.deleteImage(url)
+//            }
+//            .setNegativeButton("否") { _, _ ->
+//            }.show()
 
     }
 
@@ -158,7 +160,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
             ActivityCompat.requestPermissions(this,
                 arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                BaseActivity.CAMERA_PERMISSION_REQUEST
+                CAMERA_PERMISSION_REQUEST
             )
 
         }else{
@@ -169,7 +171,7 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when(requestCode){
-            BaseActivity.CAMERA_PERMISSION_REQUEST ->{
+            CAMERA_PERMISSION_REQUEST ->{
                 if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED){
                     dispatchTakePictureIntent(adapter  .locals.map { it.first }, PHOTO_COUNT-adapter.remotes.size)
@@ -200,22 +202,6 @@ class EcgActivity : BaseActivity(),PhotoEventAction {
 
     }
 
-//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-//        menuInflater.inflate(R.menu.menu_subject,menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-//
-//       return when(item?.itemId){
-//            R.id.submit->{
-//                viewModel.saveEcg()
-//                true
-//            }
-//            else->super.onOptionsItemSelected(item)
-//        }
-//
-//    }
 
     private fun zoomImageFromThumb(thumbView: View, imageView: ImageView, imageResId: String) {
         // If there's an animation in progress, cancel it

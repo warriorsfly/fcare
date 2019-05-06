@@ -44,7 +44,7 @@ import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.activity_medical_history.*
-import kotlinx.android.synthetic.main.layout_common_title.*
+
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject

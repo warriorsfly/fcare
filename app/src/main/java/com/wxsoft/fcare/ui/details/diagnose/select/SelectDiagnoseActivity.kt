@@ -15,7 +15,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseAdapter
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseSonListAdapter
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseViewModel
-import kotlinx.android.synthetic.main.layout_common_title.*
+
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 

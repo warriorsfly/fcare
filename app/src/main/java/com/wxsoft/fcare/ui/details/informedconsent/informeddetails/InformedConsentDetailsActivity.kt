@@ -26,7 +26,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.PlayVoiceEventAction
 import kotlinx.android.synthetic.main.activity_informed_consent_details.*
-import kotlinx.android.synthetic.main.layout_common_title.*
+
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 

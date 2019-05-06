@@ -4,16 +4,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.CheckBody
-import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.CheckBodyApi
-import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.ui.BaseViewModel
 import javax.inject.Inject
 
 class CheckBodyViewModel @Inject constructor(private val checkBodyApi:CheckBodyApi,

@@ -13,5 +13,6 @@
         android:minHeight="300dp"
         android:maxWidth="340dp"
         android:maxHeight="510dp"
+        android:padding="10dp"
         android:layout_height="wrap_content"/>
 </layout>

@@ -6,9 +6,12 @@ import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import dagger.android.support.DaggerFragment
+import io.reactivex.disposables.CompositeDisposable
 
 
 abstract class BaseFragment : DaggerFragment() {
+
+    protected val disposable= CompositeDisposable()
 
     fun dispatchTakePictureIntent(list:List<LocalMedia>, max:Int) {
 

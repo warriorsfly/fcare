@@ -15,8 +15,6 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
-import java.lang.Error
 import javax.inject.Inject
 
 class ComplaintsViewModel @Inject constructor(private val api: PACSApi,

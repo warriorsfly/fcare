@@ -17,7 +17,7 @@ import com.wxsoft.fcare.databinding.ActivityInformedConsentBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
+
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 

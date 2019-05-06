@@ -15,7 +15,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityStrategyBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
+
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 

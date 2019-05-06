@@ -18,7 +18,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
-import kotlinx.android.synthetic.main.layout_common_title.*
+
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 

@@ -16,7 +16,6 @@ import kotlinx.android.synthetic.main.activity_reactive_ecg.*
 import java.util.concurrent.TimeUnit
 
 class ReactiveEcgActivity : BaseActivity() {
-    private val disposable= CompositeDisposable()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reactive_ecg)

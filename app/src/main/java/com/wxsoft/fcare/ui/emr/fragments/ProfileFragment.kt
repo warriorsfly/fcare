@@ -35,7 +35,7 @@ import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity.Companion.AUDIO_RECRD_PERMISSION_REQUEST
 import com.wxsoft.fcare.ui.BaseActivity.Companion.CAMERA_PERMISSION_REQUEST
-import com.wxsoft.fcare.ui.BaseFragment
+import com.wxsoft.fcare.ui.BaseShareOrDeleteFragment
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.emr.ProfileViewModel
 import com.wxsoft.fcare.ui.emr.RecordEmrImageAdapter
@@ -44,7 +44,15 @@ import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
 
-class ProfileFragment : BaseFragment(), PhotoEventAction {
+class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
+    override fun doError(throwable: Throwable) {
+
+    }
+
+    override fun delete(id: String) {
+//        profileViewModel.delete
+    }
+
     override fun localSelected() {
         checkPhotoTaking()
     }
@@ -54,7 +62,7 @@ class ProfileFragment : BaseFragment(), PhotoEventAction {
     }
 
     override fun deleteRemote(url: String) {
-
+        showImageDialog(url)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

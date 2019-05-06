@@ -32,7 +32,7 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginBottom="15dp"
-                    android:text="初诊医生到达现场"
+                    android:text="出诊医生到达现场"
                     android:textSize="16sp"
                     android:textColor="#131D35"
                     android:layout_width="wrap_content"

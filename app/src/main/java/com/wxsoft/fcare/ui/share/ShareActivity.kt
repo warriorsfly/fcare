@@ -41,8 +41,6 @@ class ShareActivity : BaseActivity() {
     private lateinit var viewModel: ShareViewModel
     @Inject
     lateinit var factory: ViewModelFactory
-
-    private val disposable=CompositeDisposable()
     private lateinit var shareListener: PlatActionListener
     private lateinit var binding: ActivityShareBinding
     private var path: String = ""

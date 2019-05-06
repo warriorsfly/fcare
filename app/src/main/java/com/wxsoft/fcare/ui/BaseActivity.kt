@@ -10,11 +10,12 @@ import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
 import dagger.android.support.DaggerAppCompatActivity
+import io.reactivex.disposables.CompositeDisposable
 
 
 abstract class BaseActivity : DaggerAppCompatActivity() {
 
-
+    protected val disposable= CompositeDisposable()
     companion object {
         const val CAMERA_PERMISSION_REQUEST=10
         const val UPGRADE_PERMISSION_REQUEST=15

@@ -105,6 +105,7 @@
         <item name="android:windowBackground">@color/white</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
+        <item name="android:buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton</item>
         <!--<item name="android:backgroundDimEnabled">false</item>-->
     </style>
     <style name="Theme.FCare.Dialog.Text" parent="Theme.MaterialComponents.Light.Dialog">

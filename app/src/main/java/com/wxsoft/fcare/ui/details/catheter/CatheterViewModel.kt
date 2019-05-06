@@ -11,11 +11,9 @@ import com.wxsoft.fcare.core.data.remote.InterventionApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
 import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.rxkotlin.zipWith
-import java.lang.Error
 import javax.inject.Inject
 
 class CatheterViewModel @Inject constructor(private val interventionApi: InterventionApi,

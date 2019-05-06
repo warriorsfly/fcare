@@ -15,7 +15,6 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
-import com.wxsoft.fcare.ui.ICommonPresenter
 import javax.inject.Inject
 
 class DrugCarViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
