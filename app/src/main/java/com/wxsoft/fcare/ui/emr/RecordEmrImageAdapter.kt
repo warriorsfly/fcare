@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.emr
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
@@ -14,6 +15,7 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 
 
 class RecordEmrImageAdapter constructor(private val owner:LifecycleOwner,
+                                        private val mcontext: Context,
                                         private val pool: RecyclerView.RecycledViewPool,
                                         private var action: PhotoEventAction?=null) :
     ListAdapter<EmrRecord, RecordEmrImageAdapter.ItemViewHolder>(DiffCallback) {
@@ -51,7 +53,7 @@ class RecordEmrImageAdapter constructor(private val owner:LifecycleOwner,
 
         val binding = ItemOperationListBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
             lifecycleOwner=owner
-            val acuter=PictureAdapter(owner,10,action,::indexing)
+            val acuter=PictureAdapter(owner,10,mcontext,action,::indexing)
             list.adapter=acuter
             adapters.add(acuter)
             list.setRecycledViewPool(pool)

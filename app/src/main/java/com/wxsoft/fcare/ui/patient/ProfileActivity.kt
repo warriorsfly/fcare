@@ -49,8 +49,10 @@ import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
+import java.lang.NumberFormatException
 import javax.inject.Inject
 import javax.inject.Named
+import android.util.Pair
 
 
 class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAction ,AMapLocationListener{
@@ -161,8 +163,7 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
             toast.show()
         })
 
-
-        adapter= PictureAdapter(this,4,this)
+        adapter= PictureAdapter(this,4,this,this)
 
         adapter.locals= emptyList()
         attachments.adapter=adapter
@@ -171,13 +172,22 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
             adapter.remotes=it.attachments.map { attachment -> attachment.httpUrl }
         })
 
+        binding.mzh.setOnFocusChangeListener{ view, b ->
+            if (!b){
+                viewModel.getPatientInfos(binding.mzh.text.toString(),0)
+            }
+        }
+        binding.zyh.setOnFocusChangeListener{ view, b ->
+            if (!b){
+                viewModel.getPatientInfos(binding.zyh.text.toString(),1)
+            }
+        }
+
 
         viewModel.savePatientResult.observe(this, Observer {
 
             when(it){
                 is Resource.Success->{
-
-
                     Intent().let {intent->
                         intent.putExtra(NEW_PATIENT_ID,it.data.result)
                         setResult(RESULT_OK, intent)

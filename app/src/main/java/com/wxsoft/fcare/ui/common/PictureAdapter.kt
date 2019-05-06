@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.common
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.databinding.ViewDataBinding
 import android.net.Uri
@@ -8,24 +9,31 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemImageBinding
 import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
-import com.wxsoft.fcare.generated.callback.OnClickListener
 import com.wxsoft.fcare.ui.PhotoEventAction
+import com.wxsoft.fcare.ui.photo.PhotoActivity
+import android.util.Pair
+
 
 class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
                                  private val max:Int=0,
+                                 private val mcontext:Context,
                                  private val action: PhotoEventAction?=null,
                                  private val indexAction:(Int)->Unit ={}) :
     RecyclerView.Adapter<PictureAdapter.ItemViewHolder>() {
 
+
     var indexing:Int=0
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
+
+
 
     override fun getItemCount(): Int {
         return differ.currentList.size
@@ -40,28 +48,42 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
     var remotes:List<String> = emptyList()
         set(value) {
             field = value
+            pairs=arrayOfNulls(remotes.size)
             differ.submitList(buildMergedList(value,locals))
         }
+
+//    val views= mutableListOf<Pair<View,String?>>()
+    lateinit var pairs:Array<Pair<View,String>?>
+    //= arrayOfNulls<Pair<View, String>>(2)
+//    var pairs= arrayOfNulls<Pair<View, String>>(2)
 
     private fun buildMergedList(
         remote:List<String> =remotes,
         local: List<Pair<LocalMedia,Uri>> =locals): List<Any> {
         val merged = mutableListOf<Any>()
+//        var arraySize=0
         if(remote.isNotEmpty()){
             merged.addAll(remote)
+
+//            arraySize=merged.size
         }
         if(max==0){
             merged.addAll(local)
+//            arraySize=merged.size
         }else {
             if (local.isNotEmpty() && local.size + remote.size == max) {
 
                 merged.addAll(local)
+//                arraySize=merged.size
             } else {
                 if (local.isNotEmpty()) {
                     merged.addAll(local)
+//                    arraySize=merged.size
                 }
-                if(local.size + remote.size < max)
+                if(local.size + remote.size < max) {
                     merged += ForNewItem
+                }
+
             }
         }
         return merged
@@ -85,13 +107,19 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
 
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
-                image.setOnClickListener{action?.enlargeRemote(root,presenter)}
+
+                pairs[position] = Pair(image, "img$position")
+//                image.setOnClickListener{action?.enlargeRemote(root,presenter)}
+                image.setOnClickListener{
+                    PhotoActivity.startActivity(mcontext, pairs, position, remotes.toTypedArray())
+                }
                 image.setOnLongClickListener {
                     action?.deleteRemote(presenter)
                     true
                 }
                 url=presenter
                 lifecycleOwner = this@PictureAdapter.lifecycleOwner
+
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {

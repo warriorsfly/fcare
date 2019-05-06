@@ -18,6 +18,9 @@ interface PatientApi{
     @GET("Patient/GetPaged/{keyWord}/{pageIndex}/{pageSize}")
     fun getPagedPatients(@Path("keyWord") keyword:String, @Path("pageIndex")index:Int, @Path("pageSize")size:Int):Maybe<Page<Patient>>
 
+    @GET("Patient/GetPatientFromHisByBlh/{blh}/{type}")
+        fun getPatientInfo(@Path("blh") blh:String, @Path("type")type:Int):Maybe<Response<Patient>>
+
     @GET("Patient/GetById/{id}")
     fun getOne(@Path("id")id:String):Single<Response<Patient>>
 

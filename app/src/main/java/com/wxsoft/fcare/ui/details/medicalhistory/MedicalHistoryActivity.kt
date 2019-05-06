@@ -48,6 +48,7 @@ import kotlinx.android.synthetic.main.activity_medical_history.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
+import android.util.Pair
 
 class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
     override fun localSelected() {
@@ -110,7 +111,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
         setSupportActionBar(toolbar)
         title="病史"
 
-        adapter= PictureAdapter(this,10,this)
+        adapter= PictureAdapter(this,10,this,this)
         adapter.locals= emptyList()
         medical_photo_items_rv.adapter=adapter
 

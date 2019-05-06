@@ -43,6 +43,7 @@ import kotlinx.android.synthetic.main.activity_jgdb.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
+import android.util.Pair
 
 class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
     override fun localSelected() {
@@ -156,7 +157,7 @@ class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
             }
         })
 
-        adapter= PictureAdapter(this,10,this)
+        adapter= PictureAdapter(this,10,this,this)
         adapter.locals= emptyList()
         jgdb_photo_items_rv.adapter = adapter
 
