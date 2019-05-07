@@ -52,7 +52,7 @@ data class Task (val id:String): BaseObservable(){
     @get:Bindable
     var carId: String? = ""
     var canceled: String? = ""
-    var taskStaffs: Array<Staff> = emptyArray()
+    var taskStaffs: Array<TaskStaff> = emptyArray()
 
     var patients: List<Patient> = emptyList()
     @SerializedName("isCanceled")var hasCanceled: Boolean = false

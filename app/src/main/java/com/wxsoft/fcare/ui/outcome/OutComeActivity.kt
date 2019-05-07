@@ -15,6 +15,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityOutcomeChestBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
@@ -26,6 +27,8 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
+
+
 
     override fun onClick(v: View?) {
 

@@ -17,6 +17,7 @@ import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorListFragment
 import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListFragment
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
@@ -45,6 +46,10 @@ class ComingByActivity : BaseTimingActivity() {
 
     private val  fragment by lazy{
         ComingByItemListFragment()
+    }
+
+    private val doctorFragment by lazyFast {
+        ComingByDoctorListFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,6 +81,10 @@ class ComingByActivity : BaseTimingActivity() {
         viewModel.comingFrom.observe(this, Observer {  })
         viewModel.passingKs.observe(this, Observer {  })
 
+        viewModel.emergencyDoctors.observe(this, Observer {  })
+        viewModel.emergencyNurses.observe(this, Observer {  })
+        viewModel.consultantDoctors.observe(this, Observer {  })
+
         viewModel.selectType.observe(this, Observer {
 
             supportFragmentManager.inTransaction {
@@ -92,6 +101,24 @@ class ComingByActivity : BaseTimingActivity() {
                 })
             }
         })
+
+        viewModel.selectDoctor.observe(this, Observer {
+
+            supportFragmentManager.inTransaction {
+
+                setCustomAnimations(
+                    R.animator.left_enter,
+                    R.animator.left_exit,
+                    R.animator.right_enter,
+                    R.animator.right_exit)
+                addToBackStack(null)
+                add(R.id.fragment_container, doctorFragment.apply {
+
+                    type = it
+                })
+            }
+        })
+
         viewModel.messageAction.observe(this, EventObserver {
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })

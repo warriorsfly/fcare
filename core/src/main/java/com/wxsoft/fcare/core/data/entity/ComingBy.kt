@@ -47,7 +47,6 @@ data class ComingBy(val id:String=""): BaseObservable() {
    @Bindable
    var arrivedTime: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.arrivedTime)
        }
@@ -55,105 +54,90 @@ data class ComingBy(val id:String=""): BaseObservable() {
    @Bindable
    var arrived_Ccu_Date: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.arrived_Ccu_Date)
        }
    @Bindable
    var is_Netword_Hospital: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.is_Netword_Hospital)
        }
    @Bindable
    var hospital_Name: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.hospital_Name)
        }
    @Bindable
    var department: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.department)
        }
    @Bindable
    var outhospital_Visit_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.outhospital_Visit_Time)
        }
    @Bindable
    var transfer_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.transfer_Time)
        }
    @Bindable
    var ambulance_Arrived_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.ambulance_Arrived_Time)
        }
    @Bindable
    var leave_Outhospital_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.leave_Outhospital_Time)
        }
    @Bindable
    var arrived_Scene_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.arrived_Scene_Time)
        }
    @Bindable
    var arrived_Hospital_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.arrived_Hospital_Time)
        }
    @Bindable
    var inhospital_Admission_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.inhospital_Admission_Time)
        }
    @Bindable
    var attack_Department: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.attack_Department)
        }
    @Bindable
    var consultation_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.consultation_Time)
        }
    @Bindable
    var leave_Department_Time: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.leave_Department_Time)
        }
    @Bindable
    var patientId: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.patientId)
        }
@@ -161,14 +145,12 @@ data class ComingBy(val id:String=""): BaseObservable() {
    @Bindable
    var createrId: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.createrId)
        }
    @Bindable
    var createrName: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.createrName)
        }
@@ -176,53 +158,52 @@ data class ComingBy(val id:String=""): BaseObservable() {
    @Transient
    var createdDate: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.createdDate)
        }
    @Bindable
    var modifierId: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.modifierId)
        }
    @Bindable
    var modifierName: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.modifierName)
        }
    @Bindable
    var modifiedDate: String = ""
        set(value) {
-
            field = value
            notifyPropertyChanged(BR.modifiedDate)
        }
 
-
-    var comingWayStaffs: List<Staff> = emptyList()
+    var comingWayStaffs: List<ComingByStaff> = emptyList()
 
     /**
      * 接诊医生
      */
     @Transient
     @Bindable
-    var emergencyDoctor:User?=null
+    var emergencyDoctor:User=User(id="",trueName="")
 
     /**
      * 接诊护士
      */
     @Transient
     @Bindable
-    var emergencyNurse:User?=null
+    var emergencyNurse:User=User(id="",trueName="")
 
     /**
      * 会诊医生
      */
     @Transient
     @Bindable
-    var consultantDoctors:List<User> = emptyList()
+    var consultantDoctors:String = ""
+    set(value) {
+           field = value
+           notifyPropertyChanged(BR.consultantDoctors)
+       }
 }
