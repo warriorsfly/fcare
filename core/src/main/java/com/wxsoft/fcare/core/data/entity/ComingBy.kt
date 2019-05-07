@@ -201,4 +201,28 @@ data class ComingBy(val id:String=""): BaseObservable() {
            field = value
            notifyPropertyChanged(BR.modifiedDate)
        }
+
+
+    var comingWayStaffs: List<Staff> = emptyList()
+
+    /**
+     * 接诊医生
+     */
+    @Transient
+    @Bindable
+    var emergencyDoctor:User?=null
+
+    /**
+     * 接诊护士
+     */
+    @Transient
+    @Bindable
+    var emergencyNurse:User?=null
+
+    /**
+     * 会诊医生
+     */
+    @Transient
+    @Bindable
+    var consultantDoctors:List<User> = emptyList()
 }

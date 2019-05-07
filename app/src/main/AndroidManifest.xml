@@ -64,6 +64,14 @@
         <activity
                 android:name=".ui.hardwaredata.HardwareDataActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+                android:name=".ui.main.fragment.task.searchtask.SearchTaskActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+                android:name=".ui.main.fragment.patients.searchpatients.SearchPatientsActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.assistant.troponin.JGDBActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

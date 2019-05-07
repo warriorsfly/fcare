@@ -174,13 +174,13 @@ class DispatchCarViewModel @Inject constructor(
     }
 
     private fun submitBtnClick(){
-        val staffs:ArrayList<TaskStaff> = ArrayList()
+        val staffs:ArrayList<Staff> = ArrayList()
         val dstaff=doctors.value?.filter { it.status }
-            ?.map { TaskStaff("","",it.id,it.trueName,"3")}?: emptyList()
+            ?.map { Staff("","",it.id,it.trueName,"3")}?: emptyList()
         val nstaff=nurses.value?.filter { it.status }
-            ?.map { TaskStaff("","",it.id,it.trueName,"2")}?: emptyList()
+            ?.map { Staff("","",it.id,it.trueName,"2")}?: emptyList()
         val drtaff=drivers.value?.filter { it.status }
-            ?.map { TaskStaff("","",it.id,it.trueName,"7")}?: emptyList()
+            ?.map { Staff("","",it.id,it.trueName,"7")}?: emptyList()
         staffs.addAll(dstaff)
         staffs.addAll(nstaff)
         staffs.addAll(drtaff)

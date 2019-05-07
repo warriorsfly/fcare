@@ -132,6 +132,11 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
 
     }
 
+    private val handOvered: Boolean by lazyFast {
+        intent ?.getBooleanExtra("HandOver",false)?:false
+
+    }
+
     private var photoAction:EventAction?=EventAction()
 
     @Inject
@@ -218,11 +223,20 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
         client.setLocationListener(this)
         viewModel.patient.observe(this, Observer {
             if(it.attackPosition.isNullOrEmpty()){
+                if(handOvered)
                 checkGpsPermission()
             }
         })
-        loc.setOnClickListener {
-            checkGpsPermission()
+
+        loc.apply {
+            if(handOvered) {
+
+                setOnClickListener {
+                    checkGpsPermission()
+                }
+            }else{
+                visibility=View.GONE
+            }
         }
     }
 

@@ -1,6 +1,6 @@
 package com.wxsoft.fcare.core.data.entity
 
-data class TaskStaff (
+data class Staff (
     val id:String,
     var taskId: String,
     var staffId: String,

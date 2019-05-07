@@ -29,6 +29,23 @@ interface TaskApi {
 
     @GET("User/driver/{accountId}")
     fun getDrivers(@Path("accountId")accountId:String): Maybe<Response<List<User>>>
+    /**
+     * 获取接诊医生
+     */
+    @GET("User/GetEmergencyDepartmentDoctor/{accountId}")
+    fun getEmergencyDoctor(@Path("accountId")accountId:String): Maybe<Response<List<User>>>
+
+    /**
+     * 获取接诊护士
+     */
+    @GET("User/GetEmergencyDepartmentNurse/{accountId}")
+    fun getEmergencyNurse(@Path("accountId")accountId:String): Maybe<Response<List<User>>>
+
+    /**
+     * 获取会诊医生
+     */
+    @GET("User/GetConsultantDoctor/{accountId}/{patientId}")
+    fun getConsultantDoctor(@Path("accountId")accountId:String,@Path("patientId")patientId:String): Maybe<Response<List<User>>>
 
     @GET("Task/arrive/{id}/{time}")
     fun arrive(@Path("id")taskId:String,@Path("time")time:String): Maybe<Response<String>>

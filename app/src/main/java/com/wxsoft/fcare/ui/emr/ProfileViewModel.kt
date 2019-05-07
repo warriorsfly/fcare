@@ -78,15 +78,12 @@ class ProfileViewModel @Inject constructor(private val api: EmrApi,
             )
         }
 
-
         disposable.add( api.savingImages(record,files)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::reloadEmrDetails, ::error))
 
     }
-
-
 
     fun delete(url:String){
         var itemId=""

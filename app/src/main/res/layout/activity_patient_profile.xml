@@ -839,18 +839,17 @@
                                 android:gravity="right|center_vertical"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:id="@+id/line8"
+                android:gravity="center_vertical"
                 app:layout_constraintTop_toBottomOf="@id/line3"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:background="@color/white">
                 <TextView
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_width="wrap_content"
                     android:text="发病地址"
                     android:textSize="15sp"
@@ -860,36 +859,28 @@
                     android:layout_height="wrap_content"/>
 
                 <EditText
-                    app:layout_constraintRight_toLeftOf="@id/loc"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/title7"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_weight="1"
                     android:hint="请输入地址"
                     android:background="@null"
                     android:textSize="14sp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:inputType="textAutoComplete"
-                    android:maxLines="3"
                     android:id="@+id/locat"
                     android:imeOptions="actionNext"
+                    android:minLines="2"
                     android:text="@={viewModel.patient.attackPosition}"
-                    android:layout_height="wrap_content"
-                    android:gravity="right|center_vertical"/>
+                    android:layout_height="wrap_content"/>
 
                 <Button android:layout_width="wrap_content"
                     android:text="@{``.equals(viewModel.patient.attackPosition)?`定位`:`重新定位`}"
                     style="@style/Widget.MaterialComponents.Button.TextButton"
                     android:layout_height="wrap_content"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:padding="3dp"
                     android:id="@+id/loc"
                     android:src="@drawable/ic_task_gis"
                     android:layout_marginRight="10dp"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
 
 

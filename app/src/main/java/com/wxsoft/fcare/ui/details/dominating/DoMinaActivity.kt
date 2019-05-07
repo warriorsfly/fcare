@@ -227,46 +227,8 @@ class DoMinaActivity : BaseTimingActivity() {
         Intent(this, WorkingActivity::class.java).let {
             it.putExtra(ProfileActivity.PATIENT_ID,patient.id)
             it.putExtra("PRE",true)
+            it.putExtra("HandOver",viewModel.task.value?.handOvered?:false)
             startActivityForResult(it, NEW_PATIENT_REQUEST)
         }
     }
-
 }
-//
-//class TaskStateAdapter(fm: FragmentManager) :
-//    FragmentPagerAdapter(fm) {
-//
-//    private val statusFragments:List<Fragment> by lazyFast {
-//        (0..2).map {
-//            when (it) {
-//                DoMinaActivity.START_POSITION ->ProcessActivity()
-//                DoMinaActivity.PATIENTS_POSITION -> PatientManagerFragment()
-//                DoMinaActivity.GIS_POSITION ->GisActivity()
-//
-//                else -> throw IllegalStateException("Unknown index $it")
-//            }
-//        }
-//    }
-//
-//    override fun getItem(position: Int): androidx.fragment.app.Fragment {
-//
-//        return statusFragments[position]
-//    }
-//
-//    override fun getPageTitle(position: Int): CharSequence? {
-//        return when (position) {
-//            DoMinaActivity.START_POSITION ->"任务进度"
-//            DoMinaActivity.PATIENTS_POSITION -> "病人信息"
-//            DoMinaActivity.GIS_POSITION ->"轨迹"
-//
-//            else -> throw IllegalStateException("Unknown index $position")
-//        }
-//    }
-//
-//    override fun getCount(): Int {
-//        return statusFragments.size
-//    }
-//
-//
-//
-//}
