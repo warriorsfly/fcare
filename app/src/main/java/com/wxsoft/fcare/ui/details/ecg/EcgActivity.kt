@@ -98,7 +98,7 @@ class EcgActivity : BaseShareOrDeleteActivity(),PhotoEventAction {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
         viewModel.patientId=patientId
-        adapter= EcgAdapter(this,PHOTO_COUNT,this)
+        adapter= EcgAdapter(this,PHOTO_COUNT,this,this)
         DataBindingUtil.setContentView<ActivityEcgBinding>(
             this,
             R.layout.activity_ecg

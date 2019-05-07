@@ -269,7 +269,7 @@
                 android:textColor="@color/small_title_text_gray"
                 app:layout_constraintLeft_toRightOf="@+id/blood_oxygen_content"
                 app:layout_constraintRight_toRightOf="@+id/blood_pressure_content"
-                app:layout_constraintTop_toBottomOf="@+id/animal_heat_title"/>
+                app:layout_constraintTop_toBottomOf="@+id/pulse_title"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/creater"

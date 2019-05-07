@@ -55,7 +55,6 @@ class VitalSignsRecordViewModel @Inject constructor(private val vitalSignApi: Vi
     }
 
     fun getVitalRecords(){
-
         disposable.add(vitalSignApi.getVSRecordlist(patientId).subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doScenceLoadVitalRecord))

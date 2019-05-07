@@ -6,13 +6,13 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
+import android.util.Pair
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -39,9 +39,8 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
-import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
-import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
@@ -49,16 +48,11 @@ import com.wxsoft.fcare.ui.share.ShareActivity
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
-import java.lang.NumberFormatException
 import javax.inject.Inject
 import javax.inject.Named
-import android.util.Pair
 
 
-class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAction ,AMapLocationListener{
-    override fun localSelected() {
-        checkPhotoTaking()
-    }
+class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,PhotoEventAction ,AMapLocationListener{
 
     override fun onLocationChanged(p0: AMapLocation?) {
 
@@ -67,24 +61,25 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
         }
     }
 
+
+    override fun doError(throwable: Throwable) {
+
+    }
+
+    override fun delete(id: String) {
+        viewModel.delete(id)
+    }
+
+    override fun localSelected() {
+        checkPhotoTaking()
+    }
+
     override fun enlargeRemote(imageView: View, url: String) {
         zoomImageFromThumb(imageView,enlarged,url)
     }
 
     override fun deleteRemote(url: String) {
-        val binding= ItemDialogImageBinding.inflate(layoutInflater).apply {
-            lifecycleOwner=this@ProfileActivity
-            imageUrl=url
-        }
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
-            .setView(binding.root)
-            .setMessage("确定删除吗？")
-            .setPositiveButton("是") { _, _ ->
-                //                viewModel.deleteImage(url)
-            }
-            .setNegativeButton("否") { _, _ ->
-            }.show()
-
+        showImageDialog(url)
     }
 
     @field:[Inject Named("single")]
@@ -129,7 +124,6 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
 
     private val taskId: String by lazyFast {
          intent ?.getStringExtra(TASK_ID)?:""
-
     }
 
     private val handOvered: Boolean by lazyFast {
@@ -174,6 +168,7 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
         attachments.adapter=adapter
         viewModel.patient.observe(this, Observer {
             it ?: return@Observer
+            adapter.locals= emptyList()
             adapter.remotes=it.attachments.map { attachment -> attachment.httpUrl }
         })
 
@@ -230,7 +225,6 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
 
         loc.apply {
             if(handOvered) {
-
                 setOnClickListener {
                     checkGpsPermission()
                 }
@@ -325,7 +319,7 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
                                 BuildConfig.APPLICATION_ID + ".fileProvider",
                                 File(localmedia.path)))
                     }?: emptyList()
-
+                    viewModel.savePic()
                 }
             }
         }
@@ -464,7 +458,7 @@ class ProfileActivity : BaseTimingActivity(), View.OnClickListener,PhotoEventAct
 
         return  when(item?.itemId){
             R.id.submit->{
-                viewModel.click()
+                viewModel.save()
                 true
             }
             else->super.onOptionsItemSelected(item)

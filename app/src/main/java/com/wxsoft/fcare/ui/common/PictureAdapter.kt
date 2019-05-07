@@ -52,38 +52,29 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
             differ.submitList(buildMergedList(value,locals))
         }
 
-//    val views= mutableListOf<Pair<View,String?>>()
+
     lateinit var pairs:Array<Pair<View,String>?>
-    //= arrayOfNulls<Pair<View, String>>(2)
-//    var pairs= arrayOfNulls<Pair<View, String>>(2)
 
     private fun buildMergedList(
         remote:List<String> =remotes,
         local: List<Pair<LocalMedia,Uri>> =locals): List<Any> {
         val merged = mutableListOf<Any>()
-//        var arraySize=0
         if(remote.isNotEmpty()){
             merged.addAll(remote)
-
-//            arraySize=merged.size
         }
         if(max==0){
             merged.addAll(local)
-//            arraySize=merged.size
         }else {
             if (local.isNotEmpty() && local.size + remote.size == max) {
 
                 merged.addAll(local)
-//                arraySize=merged.size
             } else {
                 if (local.isNotEmpty()) {
                     merged.addAll(local)
-//                    arraySize=merged.size
                 }
                 if(local.size + remote.size < max) {
                     merged += ForNewItem
                 }
-
             }
         }
         return merged
@@ -176,11 +167,12 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when {
-                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
-                oldItem is String && newItem is String -> newItem == oldItem
-                else -> false
-            }
+//            return when {
+//                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
+//                oldItem is String && newItem is String -> newItem == oldItem
+//                else -> false
+//            }
+            return false
         }
 
     }

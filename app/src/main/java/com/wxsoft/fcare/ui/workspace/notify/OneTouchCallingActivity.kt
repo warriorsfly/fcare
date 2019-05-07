@@ -2,8 +2,13 @@ package com.wxsoft.fcare.ui.workspace.notify
 
 import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -13,20 +18,8 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityOneTouchCallingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
-import javax.inject.Inject
-import android.content.pm.PackageManager
-import android.os.Build
-import androidx.core.app.ActivityCompat
-import android.provider.Settings
-import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_new_title.*
-import com.luck.picture.lib.tools.VoiceUtils.release
-import cn.jiguang.api.JCoreInterface.stop
-import android.media.AudioManager
-import android.media.MediaPlayer
-import android.media.RingtoneManager
-import android.app.Activity
-import com.wxsoft.fcare.utils.VirateUtil
+import javax.inject.Inject
 
 
 class OneTouchCallingActivity : BaseActivity() {
