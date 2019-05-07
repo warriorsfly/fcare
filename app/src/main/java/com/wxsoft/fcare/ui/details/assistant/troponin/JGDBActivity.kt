@@ -14,6 +14,7 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Pair
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -36,16 +37,26 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityJgdbBinding
 import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
-import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import kotlinx.android.synthetic.main.activity_jgdb.*
+import kotlinx.android.synthetic.main.activity_jgdb.enlarged
+import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
-import android.util.Pair
 
-class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
+class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
+
+    override fun doError(throwable: Throwable) {
+
+    }
+
+    override fun delete(id: String) {
+//        viewModel.delete(id)
+    }
+
     override fun localSelected() {
         checkPhotoTaking()
     }
@@ -55,19 +66,7 @@ class JGDBActivity : BaseTimingActivity() ,PhotoEventAction {
     }
 
     override fun deleteRemote(url: String) {
-        val binding= ItemDialogImageBinding.inflate(layoutInflater).apply {
-            lifecycleOwner=this@JGDBActivity
-            imageUrl=url
-        }
-        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
-            .setView(binding.root)
-            .setMessage("确定删除吗？")
-            .setPositiveButton("是") { _, _ ->
-                //                viewModel.deleteImage(url)
-            }
-            .setNegativeButton("否") { _, _ ->
-            }.show()
-
+        showImageDialog(url)
     }
 
 

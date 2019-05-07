@@ -72,6 +72,7 @@ class DoMinaActivity : BaseTimingActivity() {
             goTo.setOnClickListener {
                 val intent = Intent(this@DoMinaActivity, ProfileActivity::class.java).apply {
                     putExtra(ProfileActivity.TASK_ID, viewModel?.taskId)
+                    putExtra("HandOver",true)
                 }
                 startActivityForResult(intent, NEW_PATIENT_REQUEST)
 

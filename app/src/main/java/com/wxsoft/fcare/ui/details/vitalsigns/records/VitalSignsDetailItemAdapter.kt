@@ -62,7 +62,7 @@ class VitalSignsDetailItemAdapter constructor(private val owner: LifecycleOwner,
 
         override fun areContentsTheSame(oldItem: VitalSign, newItem: VitalSign): Boolean {
 
-            return oldItem.id == newItem.id
+            return false
         }
     }
 

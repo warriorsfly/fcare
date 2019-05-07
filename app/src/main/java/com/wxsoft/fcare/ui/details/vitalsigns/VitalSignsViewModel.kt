@@ -152,10 +152,10 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                         messageAction.value= Event("请填写呼吸")
                         return@let false
                     }
-                    it.pulse_Rate==0->{
-                        messageAction.value= Event("请填写脉搏")
-                        return@let false
-                    }
+//                    it.pulse_Rate==0->{
+//                        messageAction.value= Event("请填写脉搏")
+//                        return@let false
+//                    }
                     it.heart_Rate==0->{
                         messageAction.value= Event("请填写心率")
                         return@let false

@@ -37,7 +37,7 @@ class NetWorkModule {
     @Provides
     @Singleton
     fun provideRetrofit(): Retrofit {
-
+     
         val builder= Retrofit.Builder()
 
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

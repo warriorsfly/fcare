@@ -176,11 +176,12 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when {
-                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
-                oldItem is String && newItem is String -> newItem == oldItem
-                else -> false
-            }
+//            return when {
+//                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
+//                oldItem is String && newItem is String -> newItem == oldItem
+//                else -> false
+//            }
+            return false
         }
 
     }

@@ -15,6 +15,9 @@ interface PatientApi{
     @GET("Patient/GetByKeyword/{keyword}")
     fun searchPatients(@Path("keyword")keyword:String):Maybe<Response<List<Patient>>>
 
+    @GET("Patient/DeleteImage/{attachmentId}")
+    fun deleteImage(@Path("attachmentId")attachmentId:String):Maybe<Response<String>>
+
     @GET("Patient/GetPaged/{keyWord}/{pageIndex}/{pageSize}")
     fun getPagedPatients(@Path("keyWord") keyword:String, @Path("pageIndex")index:Int, @Path("pageSize")size:Int):Maybe<Page<Patient>>
 

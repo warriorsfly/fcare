@@ -263,6 +263,7 @@ class WorkingActivity : BaseActivity() {
             ActionType.患者信息录入->{
                 val intent = Intent(this@WorkingActivity, ProfileActivity::class.java).apply {
                     putExtra(ProfileActivity.PATIENT_ID, patientId)
+                    putExtra("HandOver",pre)
                 }
                 startActivityForResult(intent, BASE_INFO)
             }

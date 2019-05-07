@@ -56,7 +56,6 @@ class ProfileViewModel @Inject constructor(
             }?:Patient("")
         }
 
-
     }
 
     fun changeCode(dCode:String){
@@ -67,7 +66,6 @@ class ProfileViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     private fun loadPatient(){
-
         if(patientId.isEmpty()){
             loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
                 this.result= Patient("")
@@ -87,6 +85,31 @@ class ProfileViewModel @Inject constructor(
 
     fun save(){
         if(preHos && patientSavable) {
+            patientApi.save(patient.value!!.apply {
+                createdBy = account.id
+                hospitalId = account.hospitalId
+                if(this@ProfileViewModel.taskId.isNotEmpty()) {
+                    taskId = this@ProfileViewModel.taskId
+                }
+            }).toResource().subscribe {
+                savePatientResult.value = it
+                when (it) {
+                    is Resource.Success -> {
+                        initShareClick.value = "saveSuccess"
+                        messageAction.value = Event("保存成功")
+                    }
+                    is Resource.Error -> {
+                        initShareClick.value = "saveSuccess"
+                        messageAction.value = Event(it.throwable.message ?: "")
+                    }
+
+                }
+            }
+        }
+    }
+
+    fun savePic(){
+        if(preHos && patientSavable) {
             val files = bitmaps.map {
                 val file = File(it)
                 return@map MultipartBody.Part.createFormData(
@@ -95,56 +118,25 @@ class ProfileViewModel @Inject constructor(
                     RequestBody.create(MediaType.parse("multipart/form-data"), file)
                 )
             }
-            if (files.isNullOrEmpty()){
-                patientApi.save(patient.value!!.apply {
-                    createdBy = account.id
-                    hospitalId = account.hospitalId
-                    if(this@ProfileViewModel.taskId.isNotEmpty()) {
-                        taskId = this@ProfileViewModel.taskId
-                    }
-                }).toResource().subscribe {
-                    savePatientResult.value = it
-                    when (it) {
-                        is Resource.Success -> {
-                            initShareClick.value = "saveSuccess"
-                            messageAction.value = Event("保存成功")
-                        }
-                        is Resource.Error -> {
-                            initShareClick.value = "saveSuccess"
-                            messageAction.value = Event(it.throwable.message ?: "")
-                        }
 
-                    }
+            patientApi.save(patient.value!!.apply {
+                createdBy = account.id
+                hospitalId = account.hospitalId
+                if (this@ProfileViewModel.taskId.isNotEmpty()) {
+                    taskId = this@ProfileViewModel.taskId
                 }
-            }else{
-                patientApi.save(patient.value!!.apply {
-                    createdBy = account.id
-                    hospitalId = account.hospitalId
-                    if(this@ProfileViewModel.taskId.isNotEmpty()) {
-                        taskId = this@ProfileViewModel.taskId
+            }, files).toResource().subscribe {
+                when (it) {
+                    is Resource.Success -> {
+                        loadPatient()
                     }
-                }, files).toResource().subscribe {
-
-                    savePatientResult.value = it
-                    when (it) {
-                        is Resource.Success -> {
-                            initShareClick.value = "saveSuccess"
-                            messageAction.value = Event("保存成功")
-                        }
-                        is Resource.Error -> {
-                            initShareClick.value = "saveSuccess"
-                            messageAction.value = Event(it.throwable.message ?: "")
-                        }
-
+                    is Resource.Error -> {
+                        messageAction.value = Event(it.throwable.message ?: "")
                     }
+
                 }
             }
         }
-    }
-
-    fun click(){
-        save()
-//        initShareClick.value = "share"
     }
 
     val patientSavable:Boolean
@@ -191,7 +183,7 @@ class ProfileViewModel @Inject constructor(
         disposable.add(
             patientApi.getPatientInfo(blh,type)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe {
+                .observeOn(AndroidSchedulers.mainThread()).subscribe ({
                     val p = it.result
                     if (p!=null){
                         loadPatientResult.value = Resource.Success(Response<Patient>(true).apply {
@@ -205,9 +197,34 @@ class ProfileViewModel @Inject constructor(
                                 if (!p.inpatientId.isNullOrEmpty()) inpatientId = p.inpatientId
                             }
                         })
+                        messageAction.value= Event("已获取到患者信息")
                     }
-                }
+                },{
+
+                })
+
         )
+    }
+
+    fun delete(url:String){
+
+        patient.value?.let{
+            for ( t in it.attachments){
+                if(t.httpUrl==url){
+                    disposable.add( patientApi.deleteImage(t.id)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(::reloadPatientDetails, ::error))
+                    return@let
+                }
+
+            }
+        }
+    }
+
+    private fun reloadPatientDetails(response: Response<String>?) {
+        if(response?.success==true)
+            loadPatient()
     }
 
 
