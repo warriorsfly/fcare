@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.common
 
 import android.annotation.SuppressLint
+import android.content.Context
 import androidx.lifecycle.LifecycleOwner
 import androidx.databinding.ViewDataBinding
 import android.net.Uri
@@ -16,8 +17,9 @@ import com.wxsoft.fcare.databinding.ItemImageBinding
 import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
+import com.wxsoft.fcare.ui.photo.PhotoActivity
 
-class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:Int=0,private var action: PhotoEventAction?=null) :
+class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:Int=0, private val mcontext: Context ,private var action: PhotoEventAction?=null) :
     RecyclerView.Adapter<EcgAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Any>(this, DiffCallback)
@@ -35,8 +37,12 @@ class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:
     var remotes:List<String> = emptyList()
         set(value) {
             field = value
+            pairs=arrayOfNulls(remotes.size)
             differ.submitList(buildMergedList(value,locals))
         }
+
+
+    lateinit var pairs:Array<android.util.Pair<View, String>?>
 
     private fun buildMergedList(
         remote:List<String> =remotes,
@@ -78,7 +84,10 @@ class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:
 
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
-                image.setOnClickListener{action?.enlargeRemote(root,presenter)}
+
+                pairs[position] = android.util.Pair(image, "img$position")
+
+                image.setOnClickListener{ PhotoActivity.startActivity(mcontext, pairs, position, remotes.toTypedArray())}
                 image.setOnLongClickListener {
                     action?.deleteRemote(presenter)
                     true
@@ -142,11 +151,12 @@ class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:
 
         @SuppressLint("DiffUtilEquals")
         override fun areContentsTheSame(oldItem: Any, newItem: Any): Boolean {
-            return when {
-                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
-                oldItem is String && newItem is String -> newItem == oldItem
-                else -> false
-            }
+//            return when {
+//                oldItem is Pair<*, *> && newItem is Pair<*, *> -> newItem.first == oldItem.first
+//                oldItem is String && newItem is String -> newItem == oldItem
+//                else -> false
+//            }
+            return false
         }
 
     }
