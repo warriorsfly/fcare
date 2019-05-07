@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.main.fragment.task
 
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,6 +36,8 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
 
 //    val success: LiveData<Boolean>
 //    val tasks: LiveData<List<Task>>
+    var noPatientsShow= ObservableField<Boolean>()
+
     var taskDate: String = DateTimeUtils.getCurrentDate()
     private val _navigateToOperationAction = MutableLiveData<Event<String>>()
     private val _errorToOperationAction = MutableLiveData<Event<String>>()

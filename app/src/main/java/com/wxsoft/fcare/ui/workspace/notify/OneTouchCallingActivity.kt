@@ -20,6 +20,13 @@ import androidx.core.app.ActivityCompat
 import android.provider.Settings
 import android.widget.Toast
 import kotlinx.android.synthetic.main.layout_new_title.*
+import com.luck.picture.lib.tools.VoiceUtils.release
+import cn.jiguang.api.JCoreInterface.stop
+import android.media.AudioManager
+import android.media.MediaPlayer
+import android.media.RingtoneManager
+import android.app.Activity
+import com.wxsoft.fcare.utils.VirateUtil
 
 
 class OneTouchCallingActivity : BaseActivity() {
@@ -62,7 +69,6 @@ class OneTouchCallingActivity : BaseActivity() {
 
         setSupportActionBar(toolbar)
         title="呼叫"
-
     }
 
     fun  startCallPhone(phoneNumber:String) {
@@ -142,6 +148,8 @@ class OneTouchCallingActivity : BaseActivity() {
         }
 
     }
+
+
 
 
 }
