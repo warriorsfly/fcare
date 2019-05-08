@@ -12,6 +12,7 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,9 +77,13 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
         profileViewModel.emrs.observe(this, Observer {
             adapter.submitList(it)
         })
+//        profileViewModel.uploading.observe(this, Observer {
+//            Log.i("","")
+//        })
         return ActivityFilesBinding.inflate(inflater,container, false).apply {
             list.adapter=this@ProfileFragment.adapter
             viewModel=this@ProfileFragment.profileViewModel
+            lifecycleOwner=this@ProfileFragment
         }.root
 
     }
@@ -94,10 +99,8 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
     @Inject
     lateinit var factory: ViewModelFactory
 
-    lateinit var binding: FragmentWorkingEmrBinding
     private lateinit var profileViewModel: ProfileViewModel
     private lateinit var adapter: RecordEmrImageAdapter
-//    private lateinit var headerAdapter: EmrAdapter
 
     private val patientId: String by lazyFast {
         activity?.intent?.getStringExtra("PATIENT_ID")?:""
