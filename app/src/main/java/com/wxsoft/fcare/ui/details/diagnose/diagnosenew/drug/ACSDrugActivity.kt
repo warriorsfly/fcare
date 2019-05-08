@@ -9,14 +9,11 @@ import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAcsdrugBinding
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.layout_new_title.*

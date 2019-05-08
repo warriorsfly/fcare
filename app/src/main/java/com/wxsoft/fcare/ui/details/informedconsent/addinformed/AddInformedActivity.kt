@@ -73,7 +73,7 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
 
     }
 
-
+    private var selectedId=0
 //    private var recorder:? =null
 
     override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
@@ -97,7 +97,6 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
         }
     }
 
-    private var selectedId=0
 
 
 

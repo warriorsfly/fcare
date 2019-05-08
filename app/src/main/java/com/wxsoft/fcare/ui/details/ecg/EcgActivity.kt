@@ -15,25 +15,27 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import com.jzxiang.pickerview.TimePickerDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityEcgBinding
 import com.wxsoft.fcare.di.GlideApp
-import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.BaseShareOrDeleteActivity
+import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.EcgAdapter
 import com.wxsoft.fcare.ui.details.ecg.fragment.EcgEditFragment
@@ -42,7 +44,32 @@ import kotlinx.android.synthetic.main.activity_ecg.*
 import java.io.File
 import javax.inject.Inject
 
-class EcgActivity : BaseShareOrDeleteActivity(),PhotoEventAction {
+class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
+
+    private var selectedId=0
+
+
+    private fun showDatePicker(v: View?){
+        (v as? TextView)?.let {
+            selectedId=it.id
+            val currentTime= it.text.toString().let { txt->
+                if(txt.isEmpty()) 0L else DateTimeUtils.formatter.parse(txt).time
+            }
+
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all")
+        }
+    }
+
+    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        when(selectedId){
+            R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
+            R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
+        }
+        viewModel.saveEcg()
+    }
+
     override fun doError(throwable: Throwable) {
 
     }
@@ -54,15 +81,6 @@ class EcgActivity : BaseShareOrDeleteActivity(),PhotoEventAction {
     override fun deleteRemote(url: String) {
 
         showImageDialog(url)
-//        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
-//            .setView(binding.root)
-//            .setMessage("确定删除吗？")
-//            .setPositiveButton("是") { _, _ ->
-//                viewModel.deleteImage(url)
-//            }
-//            .setNegativeButton("否") { _, _ ->
-//            }.show()
-
     }
 
     private val  fragment by lazy{
@@ -105,6 +123,13 @@ class EcgActivity : BaseShareOrDeleteActivity(),PhotoEventAction {
         ).apply{
             viewModel=this@EcgActivity.viewModel
             list.adapter=this@EcgActivity.adapter
+
+            eggTitle.setOnClickListener{
+                showDatePicker(findViewById(R.id.egg_title))
+            }
+            fmc2eggTitle.setOnClickListener{
+                showDatePicker(findViewById(R.id.fmc2egg_title))
+            }
             lifecycleOwner = this@EcgActivity
         }
         viewModel.ecg.observe(this, Observer {

@@ -48,6 +48,8 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
 
     val ecg:LiveData<Ecg>
     private val loadEcgResult = MediatorLiveData<Response<Ecg>>()
+    val uploading:LiveData<Boolean>
+    private val uploadResult = MediatorLiveData<Boolean>()
 
     val diagnoses:LiveData<List<Dictionary>>
     private val loadDiagnoseResult = MediatorLiveData<List<Dictionary>>()
@@ -55,6 +57,8 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     val diagnosised = MediatorLiveData<Boolean>()
     val saved = MediatorLiveData<Boolean>()
     init {
+
+        uploading = uploadResult.map { it}
         ecg = loadEcgResult.map {
             it?.result ?: Ecg(createrId = account.id)
         }
@@ -82,6 +86,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     }
 
     private fun doEcg(response: Response<Ecg>){
+        uploadResult.value=false
         bitmaps.clear()
         seleted.clear()
         loadEcgResult.value= response.apply {
@@ -129,11 +134,16 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
             }
         }
         item?.let {
+            uploadResult.value=true
             disposable.add(api.save(it, files)
                 .flatMap { api.getPatientEcgs(patientId) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::doSavedEcg,::error)
+                .subscribe(::doSavedEcg
+                ) {
+                    error(it)
+                    uploadResult.value=false
+                }
             )
         }
     }

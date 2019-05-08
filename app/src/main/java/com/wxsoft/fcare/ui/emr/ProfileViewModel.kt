@@ -28,7 +28,13 @@ class ProfileViewModel @Inject constructor(private val api: EmrApi,
      */
     private val loadEmrResult = MediatorLiveData<Response<List<EmrRecord>>>()
 
+    val uploading:LiveData<Boolean>
+    private val uploadResult = MediatorLiveData<Boolean>()
+
     init {
+
+        uploading = uploadResult.map { it }
+
         emrs = loadEmrResult.map { it.result ?.apply {
             forEach {
                 it.patientId=patientId
@@ -64,11 +70,12 @@ class ProfileViewModel @Inject constructor(private val api: EmrApi,
     }
 
     private fun reloadEmrDetails(response: Response<String>?) {
+
         if(response?.success==true)
             loadEmrs()
     }
 
-    fun savingRecord(record:EmrRecord,fs:List<File>){
+    fun savingRecord(record:EmrRecord,fs:List<File>) {
 
         val files = fs.map {
             return@map MultipartBody.Part.createFormData(
@@ -77,12 +84,19 @@ class ProfileViewModel @Inject constructor(private val api: EmrApi,
                 RequestBody.create(MediaType.parse("multipart/form-data"), it)
             )
         }
-
-        disposable.add( api.savingImages(record,files)
+        uploadResult.value = true
+        disposable.add(api.savingImages(record, files)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::reloadEmrDetails, ::error))
-
+            .subscribe(
+                {
+                    uploadResult.value = false
+                    reloadEmrDetails(it)
+                }, {
+                    error(it)
+                    uploadResult.value = false
+                })
+        )
     }
 
     fun delete(url:String){

@@ -78,6 +78,7 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
         })
         return ActivityFilesBinding.inflate(inflater,container, false).apply {
             list.adapter=this@ProfileFragment.adapter
+            viewModel=this@ProfileFragment.profileViewModel
         }.root
 
     }

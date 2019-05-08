@@ -3,14 +3,25 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.hardwaredata.HardwareDataViewModel"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.emr.ProfileViewModel"/>
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#F8F8F9"
             tools:context=".ui.hardwaredata.HardwareDataActivity">
-
+        <ProgressBar
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:id="@+id/login_progress"
+                android:elevation="8dp"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:goneUnless="@{viewModel.uploading}"/>
         <androidx.recyclerview.widget.RecyclerView
                 android:background="#FFFFFF"
                 android:id="@+id/list"
