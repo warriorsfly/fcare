@@ -124,6 +124,10 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             if (diagnosis.diagnosisCode3Name.equals("代码不存在")){
                 diagnosis.diagnosisCode3Name = ""
             }
+            if (diagnosis.diagnosisCode2Name.isNullOrEmpty()) diagnosis.diagnosisCode2Name = ""
+            if (diagnosis.diagnosisCode3Name.isNullOrEmpty()) diagnosis.diagnosisCode3Name = ""
+        }else{
+            diagnosis = Diagnosis("","","")
         }
     }
 }

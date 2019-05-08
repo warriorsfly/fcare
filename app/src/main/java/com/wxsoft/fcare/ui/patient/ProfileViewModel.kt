@@ -193,7 +193,7 @@ class ProfileViewModel @Inject constructor(
                                 gender = p.gender
                                 age = p.age
                                 if (!p.phone.isNullOrEmpty()) phone = p.phone
-                                if (!p.outpatientId.isNullOrEmpty()) outpatientId = p.outpatientId
+//                                if (!p.outpatientId.isNullOrEmpty()) outpatientId = p.outpatientId
                                 if (!p.inpatientId.isNullOrEmpty()) inpatientId = p.inpatientId
                             }
                         })

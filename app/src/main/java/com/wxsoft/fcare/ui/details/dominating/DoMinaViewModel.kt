@@ -12,6 +12,7 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.data.entity.TaskSpend
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
+import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -28,6 +29,7 @@ import javax.inject.Inject
  * 考虑到本程序的服务端特殊性（非restful api），不显示状态的查询不使用result.Resource类进行结果封装
  */
 class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
+                                          private val patientApi: PatientApi,
                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
                                           override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
@@ -37,6 +39,9 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
     val loadModifySomeThing= MediatorLiveData<String>()
 
     private var timedispose: Disposable?=null
+
+    val showAttackTime=ObservableBoolean().apply { set(false) }
+    val timeTile= ObservableField<String>()
 
     val minute= ObservableField<String>()
     val second=ObservableField<String>()
@@ -66,6 +71,22 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
      * 时间处理
      */
 
+     var dValue :Long = 0
+        set(value) {
+            field = value
+        }
+
+    fun getSeverTime(){
+        disposable.add(patientApi.getServerDateTime()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::judgeMinete,::error))
+    }
+
+    private fun judgeMinete(response: Response<String>){
+         dValue = System.currentTimeMillis() - DateTimeUtils.formatter.parse(response.result).time
+    }
+
      var startTimeStamp:Long?=null
         set(value) {
             field = value
@@ -83,9 +104,22 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                         }
                     }
 
-                    fireAt=(System.currentTimeMillis()-it)/1000
+                    fireAt=(System.currentTimeMillis()-it - dValue)/1000
                     minute.set((fireAt/60).toString())
                     second.set((fireAt%60).toString())
+
+                    if (task.value?.status!! >= 4){
+                        timeTile.set("任务总耗时")
+                    } else {
+                        timeTile.set("距离发车已经用时")
+                        if (minute.get()!!.toLong() > 300){
+                            showAttackTime.set(true)
+                            timeTile.set("发车时间")
+                        }
+                    }
+
+
+
 
                     if(stat<5){
                         timedispose?.dispose()
@@ -210,7 +244,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
         }
 
     init {
-
+        getSeverTime()
         modifySomeThing = loadModifySomeThing.map { it }
 
         spends=loadSpendResult.map {
@@ -236,11 +270,22 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             DateTimeUtils.formatter.parse(at)?.time?.let { time ->
                 startTimeStamp = time
 
-                fireAt=(System.currentTimeMillis()-time)/1000
+                fireAt=(System.currentTimeMillis()-time - dValue)/1000
                 minute.set((fireAt/60).toString())
                 second.set((fireAt%60).toString())
 
-               if( task.value?.status?:0<5) {
+                if (task.value?.status!! >= 4){
+                    timeTile.set("任务总耗时")
+                } else {
+                    timeTile.set("距离发车已经用时")
+                    if (minute.get()!!.toLong() > 300){
+                        showAttackTime.set(true)
+                        timeTile.set("发车时间")
+                    }
+                }
+
+
+                if( task.value?.status?:0<5) {
                    timedispose = Observable.interval(1, TimeUnit.SECONDS)
                        .subscribe {
                            fireAt++

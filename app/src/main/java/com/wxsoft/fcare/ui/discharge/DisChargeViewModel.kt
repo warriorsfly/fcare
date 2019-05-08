@@ -52,7 +52,9 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
     }
 
     private fun loadOtDiagnosis(response:Response<DisChargeDiagnosis>){
-        loadDiagnosisResult.value=response.result?.apply { haveLoaded() }
+        loadDiagnosisResult.value=response.result?.apply {
+            haveLoaded()
+        }
     }
 
     override fun error(throwable: Throwable){

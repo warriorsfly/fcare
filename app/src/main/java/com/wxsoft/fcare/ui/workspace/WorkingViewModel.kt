@@ -40,6 +40,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                                            override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon){
 
+    val showAttackTime=ObservableBoolean().apply { set(false) }
     val timestamp=ObservableLong().apply { set(0) }
     val minute=ObservableLong().apply { set(0) }
     val second=ObservableLong().apply { set(0) }
@@ -122,22 +123,35 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             it.timing=it.currentScene<"223-4"
         } }
 
-        response.result?.attackTime?.let {
-            timestamp.set(DateTimeUtils.formatter.parse(it).time)
-            minute.set((System.currentTimeMillis()- timestamp.get() )/3600000)
-            second.set(((System.currentTimeMillis()- timestamp.get() )%3600000)/60000)
-            courseSeconds.set((System.currentTimeMillis()/60000 - DateTimeUtils.formatter.parse(it).time / 60000).toInt())
+        disposable.add(patientApi.getServerDateTime()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::judgeMinete,::error))
+    }
 
+    private fun judgeMinete(response: Response<String>){
+        val dValue = System.currentTimeMillis() - DateTimeUtils.formatter.parse(response.result).time
+
+        patient.value?.attackTime?.let {
+            timestamp.set(DateTimeUtils.formatter.parse(it).time)
+            minute.set((System.currentTimeMillis()- timestamp.get() - dValue)/60000)
+            second.set(((System.currentTimeMillis()- timestamp.get() - dValue)%60000)/1000)
+            courseSeconds.set((System.currentTimeMillis()/60000 - DateTimeUtils.formatter.parse(it).time / 60000 - dValue/60000).toInt())
+            if (minute.get() > 300){
+                showAttackTime.set(true)
+                return
+            }
             course.set(courseSeconds.get().toString())
             disposable.add(
                 Observable.interval(1, TimeUnit.SECONDS)
                     .subscribe {
-                        minute.set((System.currentTimeMillis()- timestamp.get() )/60000)
-                        second.set(((System.currentTimeMillis()- timestamp.get() )%60000)/1000)
+                        minute.set((System.currentTimeMillis()- timestamp.get() - dValue)/60000)
+                        second.set(((System.currentTimeMillis()- timestamp.get() - dValue)%60000)/1000)
                         courseSeconds.set(courseSeconds.get().plus(1))
                     })
         }?:course.set("")
     }
+
     private fun doQualities(it: Response<List<TimeQuality>>){
         loadTimeQualityResult.value=it
     }
