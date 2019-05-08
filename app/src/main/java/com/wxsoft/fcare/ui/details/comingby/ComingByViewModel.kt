@@ -264,8 +264,8 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
                     d1= ComingByStaff(comingWayId = id,staffType = "1")
             }
             if(d1?.staffId!=emergencyDoctor.id){
-                d1?.staffId==emergencyDoctor.id
-                d1?.staffName==emergencyDoctor.trueName
+                d1?.staffId=emergencyDoctor.id
+                d1?.staffName=emergencyDoctor.trueName
             }
 
             var d2=comingWayStaffs.firstOrNull { it.staffType=="2" }
@@ -275,8 +275,8 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
                     d2= ComingByStaff(comingWayId = id,staffType = "2")
             }
             if(d2?.staffId!=emergencyNurse.id){
-                d2?.staffId==emergencyNurse.id
-                d2?.staffName==emergencyNurse.trueName
+                d2?.staffId=emergencyNurse.id
+                d2?.staffName=emergencyNurse.trueName
             }
 
             val d3=this@ComingByViewModel.consultantDoctors.value?.filter { it.checked }?.map {
