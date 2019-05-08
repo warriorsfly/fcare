@@ -137,11 +137,11 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
         viewModel.getCrById(patientId)
         viewModel.lisCr.observe(this, Observer {
             if (it != null){
-                adapter.remotes = it.attachments.map { it.httpUrl }
+                adapter.remotes = it.attachments?.map { it.httpUrl }?: emptyList()
             }
         })
         setSupportActionBar(toolbar)
-        title="肌钙蛋白"
+        title="心梗三项"
 
         viewModel.clickEdit.observe(this, Observer {
             when(it){
