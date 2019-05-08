@@ -187,15 +187,21 @@ data class ComingBy(val id:String=""): BaseObservable() {
      */
     @Transient
     @Bindable
-    var emergencyDoctor:User=User(id="",trueName="")
-
+    var emergencyDoctor:User=User()
+      set(value) {
+                field = value
+                notifyPropertyChanged(BR.emergencyDoctor)
+            }
     /**
      * 接诊护士
      */
     @Transient
     @Bindable
-    var emergencyNurse:User=User(id="",trueName="")
-
+    var emergencyNurse:User=User()
+      set(value) {
+                field = value
+                notifyPropertyChanged(BR.emergencyNurse)
+            }
     /**
      * 会诊医生
      */

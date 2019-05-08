@@ -4,11 +4,11 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 
-data class User(
-    var id:String,
+data class User (
+  @Bindable
+   
     var userName: String="",
     var password: String="",
-    var trueName: String ="",
     var tel: String ="",
     var email: String ="",
     var weiXin: String="",
@@ -28,6 +28,19 @@ data class User(
     var createrName: String ="",
     var modifierId: String ="",
     var modifierName: String =""): BaseObservable() {
+@Bindable
+ var id:String=""
+      set(value) {
+           field = value
+           notifyPropertyChanged(BR.id)
+       }
+@Bindable
+var trueName: String =""
+      set(value) {
+           field = value
+           notifyPropertyChanged(BR.trueName)
+       }
+
 
     @Transient
     @get:Bindable

@@ -115,12 +115,18 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
                 result?.let {
                     cb->
                     cb.emergencyDoctor=cb.comingWayStaffs.firstOrNull { it.staffType=="1" }?.let {
-                        User(id=it.staffId,trueName = it.staffName)
-                    }?:User(id="",trueName = "")
+                        User().apply {
+                            this.id=it.staffId
+                            trueName = it.staffName
+                        }
+                    }?:User()
 
                     cb.emergencyNurse=cb.comingWayStaffs.firstOrNull { it.staffType=="2" }?.let {
-                        User(id=it.staffId,trueName = it.staffName)
-                    }?:User(id="",trueName = "")
+                        User().apply {
+                            this.id=it.staffId
+                            trueName = it.staffName
+                        }
+                    }?:User()
 
                     cb.consultantDoctors=cb.comingWayStaffs.filter { it.staffType=="3" }?.
                         joinToString(separator = ","){ it.staffName }
