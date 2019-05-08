@@ -79,7 +79,7 @@
             android:layout_height="wrap_content">
             <TextView
                 android:alpha="0.8"
-                app:layout_constraintTop_toBottomOf="@id/memo_hour"
+                app:layout_constraintBottom_toTopOf="@+id/patient_info"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -91,7 +91,10 @@
                 android:drawablePadding="8dp"
                 android:text="发病时间"/>
 
+
+
             <TextView
+                    goneUnless="@{!viewModel.showAttackTime}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="30sp"
@@ -99,10 +102,11 @@
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/title"
                 android:text="@{String.valueOf(viewModel.minute)}"
                 tools:text="9"/>
             <TextView
+                    goneUnless="@{!viewModel.showAttackTime}"
                 android:id="@+id/memo_hour"
                 app:layout_constraintBaseline_toBaselineOf="@id/hour"
                 app:layout_constraintLeft_toRightOf="@id/hour"
@@ -111,6 +115,7 @@
                 android:textColor="@color/white"
                 android:text="分"/>
             <TextView
+                    goneUnless="@{!viewModel.showAttackTime}"
                 app:layout_constraintBaseline_toBaselineOf="@id/hour"
                 app:layout_constraintLeft_toRightOf="@id/memo_hour"
                 android:layout_width="wrap_content"
@@ -121,6 +126,7 @@
                 android:text="@{String.valueOf(viewModel.second)}"
                 tools:text="6"/>
             <TextView
+                    goneUnless="@{!viewModel.showAttackTime}"
                 android:id="@+id/memo_minute"
                 app:layout_constraintBaseline_toBaselineOf="@id/hour"
                 app:layout_constraintLeft_toRightOf="@id/minute"
@@ -128,6 +134,20 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
                 android:text="秒"/>
+
+            <TextView
+                    goneUnless="@{ viewModel.showAttackTime }"
+                    android:id="@+id/start_ill_date"
+                    android:textSize="17sp"
+                    android:text="@{viewModel.patient.attackTime}"
+                    android:maxLength="16"
+                    android:layout_marginLeft="20dp"
+                    android:textColor="@color/white"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
 
                 <TextView
@@ -158,6 +178,7 @@
                     android:id="@+id/patient_info"
                     app:cardBackgroundColor="@color/white">
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/sss"
                     android:layout_marginBottom="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">

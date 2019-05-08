@@ -148,26 +148,26 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                         messageAction.value= Event("请选择意识")
                         return@let false
                     }
-                    it.respiration_Rate==0->{
-                        messageAction.value= Event("请填写呼吸")
-                        return@let false
-                    }
+//                    it.respiration_Rate==0->{
+//                        messageAction.value= Event("请填写呼吸")
+//                        return@let false
+//                    }
 //                    it.pulse_Rate==0->{
 //                        messageAction.value= Event("请填写脉搏")
 //                        return@let false
 //                    }
-                    it.heart_Rate==0->{
-                        messageAction.value= Event("请填写心率")
-                        return@let false
-                    }
-                    it.dbp.isNullOrEmpty()->{
-                        messageAction.value= Event("请填舒张压")
-                        return@let false
-                    }
-                    it.sbp.isNullOrEmpty()->{
-                        messageAction.value= Event("请填收缩压")
-                        return@let false
-                    }
+//                    it.heart_Rate==0->{
+//                        messageAction.value= Event("请填写心率")
+//                        return@let false
+//                    }
+//                    it.dbp.isNullOrEmpty()->{
+//                        messageAction.value= Event("请填舒张压")
+//                        return@let false
+//                    }
+//                    it.sbp.isNullOrEmpty()->{
+//                        messageAction.value= Event("请填收缩压")
+//                        return@let false
+//                    }
                     else->
                         return@let true
                 }

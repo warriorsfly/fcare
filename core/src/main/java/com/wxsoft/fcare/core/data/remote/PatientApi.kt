@@ -12,6 +12,9 @@ interface PatientApi{
     @GET("Patient/GetPatients")
     fun patients():Maybe<Response<List<Patient>>>
 
+    @GET("Patient/GetServerDateTime")
+    fun getServerDateTime():Maybe<Response<String>>
+
     @GET("Patient/GetByKeyword/{keyword}")
     fun searchPatients(@Path("keyword")keyword:String):Maybe<Response<List<Patient>>>
 

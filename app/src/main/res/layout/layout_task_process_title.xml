@@ -46,11 +46,23 @@
                     android:textStyle="bold"
                     android:textColor="#fff"
                     tools:text="距离发车已经用时"
-                    android:text="@{viewModel.task.status>=4?`任务总耗时`:`距离发车已经用时`}"/>
-
-
+                    android:text="@{viewModel.timeTile}"/>
 
             <TextView
+                    goneUnless="@{ viewModel.showAttackTime }"
+                    android:id="@+id/start_ill_date"
+                    android:textSize="@dimen/text_size_timing"
+                    android:text="@{viewModel.task.startAt}"
+                    android:maxLength="16"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    app:layout_constraintLeft_toLeftOf="@id/time_spend"
+                    app:layout_constraintTop_toBottomOf="@+id/time_spend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    goneUnless="@{ !viewModel.showAttackTime }"
                     android:id="@+id/minutes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,6 +75,7 @@
                     app:layout_constraintBaseline_toBaselineOf="@id/seconds"/>
 
             <TextView
+                    goneUnless="@{ !viewModel.showAttackTime }"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toRightOf="@id/minutes"
@@ -73,6 +86,7 @@
                     android:textColor="@color/white"
                     android:text="分"/>
             <TextView
+                    goneUnless="@{ !viewModel.showAttackTime }"
                     android:id="@+id/seconds"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,6 +98,7 @@
                     tools:text="12"
                     android:textColor="@color/white"/>
             <TextView
+                    goneUnless="@{ !viewModel.showAttackTime }"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintLeft_toRightOf="@id/seconds"
@@ -134,11 +149,11 @@
                 app:cardCornerRadius="7.5dp"
                 app:cardElevation="2dp"
                 android:translationZ="1dp"
-                android:layout_marginTop="17dp"
+                android:layout_marginTop="37dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 app:cardUseCompatPadding="true"
-                app:layout_constraintTop_toBottomOf="@id/the_second"
+                app:layout_constraintTop_toBottomOf="@id/time_spend"
                 android:layout_width="match_parent"
                 app:cardBackgroundColor="@color/white"
                 android:layout_height="wrap_content">

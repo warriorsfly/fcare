@@ -158,7 +158,7 @@ data class VitalSign(val id:String=""): BaseObservable() {
             "4"-> killip_Unit_int = 4
         }
         if (body_Temperature != null) bodyTemperatureStr = body_Temperature.toString() else bodyTemperatureStr = "-"
-        sbpsp = (if(dbp.isNullOrEmpty()) "/" else dbp) + "/" +(if (sbp.isNullOrEmpty())"/" else sbp)
+        sbpsp = (if(dbp.isNullOrEmpty()) " - " else dbp) + "/" +(if (sbp.isNullOrEmpty())" - " else sbp)
     }
     fun isDoubleOrFloat(str : String):Boolean {
         val pattern = Pattern.compile("^[-\\+]?[.\\d]*$");
