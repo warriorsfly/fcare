@@ -204,7 +204,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                     viewModel.bitmaps.clear()
                     adapter.locals= PictureSelector.obtainMultipleResult(data)?.map { localmedia->
                         viewModel.bitmaps.add(localmedia.path)
-                        return@map Pair(localmedia, FileProvider.getUriForFile(
+                        return@map kotlin.Pair(localmedia, FileProvider.getUriForFile(
                             this,
                             BuildConfig.APPLICATION_ID + ".fileProvider",
                             File(localmedia.path)

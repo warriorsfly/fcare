@@ -18,6 +18,7 @@ import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.photo.PhotoActivity
+import android.util.Pair as ViewPair
 
 class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:Int=0, private val mcontext: Context ,private var action: PhotoEventAction?=null) :
     RecyclerView.Adapter<EcgAdapter.ItemViewHolder>() {
@@ -84,14 +85,6 @@ class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:
 
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
-
-                pairs[position] = android.util.Pair(image, "img$position")
-
-                image.setOnClickListener{ PhotoActivity.startActivity(mcontext, pairs, position, remotes.toTypedArray())}
-                image.setOnLongClickListener {
-                    action?.deleteRemote(presenter)
-                    true
-                }
                 url=presenter
                 executePendingBindings()
             }
@@ -115,9 +108,23 @@ class EcgAdapter constructor(private val owner: LifecycleOwner, private val max:
             R.layout.item_image_remote -> ItemViewHolder.ImageRemoteViewHolder(
                 ItemImageRemoteBinding.inflate(inflater, parent, false)
                     .apply {
+
+
+                        image.setOnLongClickListener {
+                            url?.let {
+                                action?.deleteRemote(it)
+                            }
+
+                            true
+                        }
                         lifecycleOwner = owner
                     }
-            )
+            ).apply {
+                binding.image.setOnClickListener{
+                    PhotoActivity.startActivity(mcontext, arrayOf(ViewPair(it,"img$adapterPosition")), adapterPosition, remotes.toTypedArray())
+                }
+
+            }
             R.layout.item_new_image -> ItemViewHolder.PlaceViewHolder(
                 ItemNewImageBinding.inflate(inflater, parent, false)
                     .apply {

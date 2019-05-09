@@ -293,7 +293,7 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
 
                         viewModel.bitmaps.add(localmedia.path)
 
-                        return@map Pair(localmedia, FileProvider.getUriForFile(
+                        return@map kotlin.Pair(localmedia, FileProvider.getUriForFile(
                             this,
                             BuildConfig.APPLICATION_ID + ".fileProvider",
                             File(localmedia.path)
