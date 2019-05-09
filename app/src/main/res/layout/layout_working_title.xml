@@ -65,7 +65,7 @@
                 android:gravity="right"
                 tools:text="No:0425109"
                 android:textColor="@color/white"
-                android:text="@{`No:`+(viewModel.patient.inpatientId==null? viewModel.patient.lsh:viewModel.patient.inpatientId)}"
+                android:text="@{`No:`+(viewModel.patient.outpatientId==null? viewModel.patient.lsh:viewModel.patient.outpatientId)}"
                 android:layout_marginEnd="12dp"/>
         </androidx.appcompat.widget.Toolbar>
 
