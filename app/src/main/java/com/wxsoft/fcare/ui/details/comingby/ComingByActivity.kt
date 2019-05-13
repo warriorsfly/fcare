@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.details.comingby
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -9,16 +10,17 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.EntityIdName
+import com.wxsoft.fcare.core.data.entity.User
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
-import com.wxsoft.fcare.core.utils.inTransaction
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
-import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorListFragment
-import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListFragment
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorsActivity
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -44,13 +46,7 @@ class ComingByActivity : BaseTimingActivity() {
         intent?.getStringExtra(PATIENT_ID)?:""
     }
 
-    private val  fragment by lazy{
-        ComingByItemListFragment()
-    }
 
-    private val doctorFragment by lazyFast {
-        ComingByDoctorListFragment()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,46 +73,53 @@ class ComingByActivity : BaseTimingActivity() {
             dialog?.show(supportFragmentManager, "all")
         })
 
-        viewModel.comingType.observe(this, Observer {  })
-        viewModel.comingFrom.observe(this, Observer {  })
-        viewModel.passingKs.observe(this, Observer {  })
+//        viewModel.comingType.observe(this, Observer {  })
+//        viewModel.comingFrom.observe(this, Observer {  })
+//        viewModel.passingKs.observe(this, Observer {  })
 
-        viewModel.emergencyDoctors.observe(this, Observer {  })
-        viewModel.emergencyNurses.observe(this, Observer {  })
-        viewModel.consultantDoctors.observe(this, Observer {  })
+//        viewModel.emergencyDoctors.observe(this, Observer {  })
+//        viewModel.emergencyNurses.observe(this, Observer {  })
+//        viewModel.consultantDoctors.observe(this, Observer {  })
 
         viewModel.selectType.observe(this, Observer {
 
-            supportFragmentManager.inTransaction {
+            val inti=Intent(this,ComingByItemListActivity::class.java).apply {
+                putExtra("type",it)
+                putExtra(PATIENT_ID,patientId)
 
-                setCustomAnimations(
-                        R.animator.left_enter,
-                        R.animator.left_exit,
-                        R.animator.right_enter,
-                        R.animator.right_exit)
-                addToBackStack(null)
-                add(R.id.fragment_container, fragment.apply {
-
-                    type = it
-                })
             }
+
+            startActivityForResult(inti,COMING_WAY_TYPES)
         })
 
         viewModel.selectDoctor.observe(this, Observer {
 
-            supportFragmentManager.inTransaction {
+            val ids=
+                    when(it){
+                        1->{
+                            arrayListOf(EntityIdName(viewModel.comingBy.value?.emergencyDoctor?.id?:"",viewModel.comingBy.value?.emergencyDoctor?.trueName?:""))
 
-                setCustomAnimations(
-                    R.animator.left_enter,
-                    R.animator.left_exit,
-                    R.animator.right_enter,
-                    R.animator.right_exit)
-                addToBackStack(null)
-                add(R.id.fragment_container, doctorFragment.apply {
+                        }
+                        2->{
+                            arrayListOf(EntityIdName(viewModel.comingBy.value?.emergencyNurse?.id?:"",viewModel.comingBy.value?.emergencyNurse?.trueName?:""))
+                        }
+                        3->{
+                            ArrayList<EntityIdName>().apply {
+                                addAll(viewModel.cdoctors.map { EntityIdName(it.id,it.trueName) })
+                            }
+                        }
+                        else->throw IllegalMonitorStateException("error type $it")
+                    }
 
-                    type = it
-                })
+            val inti=Intent(this,ComingByDoctorsActivity::class.java).apply {
+                putExtra("type",it)
+                putExtra(PATIENT_ID,patientId)
+                putExtra("ids",ids)
+
             }
+
+            startActivityForResult(inti,COMING_WAY_DOCTOR)
+
         })
 
         viewModel.messageAction.observe(this, EventObserver {
@@ -148,4 +151,68 @@ class ComingByActivity : BaseTimingActivity() {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                COMING_WAY_DOCTOR->{
+                    val returnType=data?.getIntExtra("type",0)?:0
+                    val users=data?.getParcelableArrayListExtra<EntityIdName>("user")
+
+                    viewModel.comingBy.value?.let {
+                        when(returnType){
+                            1->{
+                                it.emergencyDoctor.trueName= users?.get(0)?.name?:""
+                                it.emergencyDoctor.id= users?.get(0)?.id?:""
+                            }
+                            2->{
+                                it.emergencyNurse.trueName= users?.get(0)?.name?:""
+                                it.emergencyNurse.id= users?.get(0)?.id?:""
+                            }
+                            3->{
+                                viewModel.cdoctors=users?.map {
+                                    entity->
+                                    User().apply {
+                                    id=entity.id
+                                        trueName=entity.name
+                                }
+                                }?: emptyList()
+                                it.consultantDoctors=users?.joinToString(separator = ","){it.name}?:""
+                            }
+                        }
+                    }
+
+                }
+
+                COMING_WAY_TYPES->{
+                    val returnType=data?.getIntExtra("type",3)?:3
+                    val id=data?.getStringExtra("id")?:""
+                    val name=data?.getStringExtra("name")?:""
+
+                    viewModel.comingBy.value?.let {
+                        when(returnType){
+                            3->{
+                                it.comingWayCode=id
+                                it.comingWayName=name
+                            }
+                            18->{
+                                it.dispatchCode=id
+                                it.dispatchName=name
+                            }
+                        }
+                    }
+
+                    viewModel.passing.value?.let {
+                        when(returnType){
+                            5->{
+                                it.passingEmergencyCode=id
+                                it.passingEmergencyName=name
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+    }
 }

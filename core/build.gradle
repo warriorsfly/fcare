@@ -21,10 +21,10 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-//        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44390"'
-//        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44390/api/"'
-        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
-        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
+        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44390"'
+        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44390/api/"'
+//        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
 
 
         sourceSets {
@@ -65,9 +65,9 @@ dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testImplementation "junit:junit:$junit_version"
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1-alpha04'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha04'
-    implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0-alpha04'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1-beta01'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-beta01'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0-alpha01'
 
     //dagger
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -81,15 +81,13 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    //    implementation "com.squareup.retrofit2:converter-scalars:$retrofit_version"
-
     //rxkotlin
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation 'com.yanzhenjie:permission:2.0.0'
-    implementation 'androidx.room:room-runtime:2.1.0-alpha07'
-    kapt 'androidx.room:room-compiler:2.1.0-alpha07'
-    implementation 'androidx.room:room-rxjava2:2.1.0-alpha07'
+    implementation 'androidx.room:room-runtime:2.1.0-beta01'
+    kapt 'androidx.room:room-compiler:2.1.0-beta01'
+    implementation 'androidx.room:room-rxjava2:2.1.0-beta01'
     implementation 'androidx.paging:paging-runtime:2.1.0'
 }
 repositories {

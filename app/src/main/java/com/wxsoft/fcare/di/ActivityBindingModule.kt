@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
+import com.wxsoft.fcare.ui.ContainerActivity
 import com.wxsoft.fcare.ui.ViewPoolModule
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
@@ -13,6 +14,8 @@ import com.wxsoft.fcare.ui.details.checkbody.select.SelectBodyItemsActivity
 import com.wxsoft.fcare.ui.details.checkbody.select.SelectBodyItemsModule
 import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
 import com.wxsoft.fcare.ui.details.comingby.ComingByModule
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorsActivity
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsModule
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
@@ -350,6 +353,14 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ComingByModule::class])
     internal abstract fun comingByActivity(): ComingByActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ComingByModule::class])
+    internal abstract fun comingByDoctorsActivity(): ComingByDoctorsActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ComingByModule::class])
+    internal abstract fun comingByItemListActivity(): ComingByItemListActivity
 
 
 }

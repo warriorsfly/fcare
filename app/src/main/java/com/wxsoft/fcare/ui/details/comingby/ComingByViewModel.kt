@@ -26,9 +26,6 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
     val comingType:LiveData<List<Dictionary>>
     val comingFrom:LiveData<List<Dictionary>>
     val passingKs:LiveData<List<Dictionary>>
-    val emergencyDoctors:LiveData<List<User>>
-    val emergencyNurses:LiveData<List<User>>
-    val consultantDoctors:LiveData<List<User>>
     val comingBy:LiveData<ComingBy>
     val saved:LiveData<Boolean>
     val passing:LiveData<Passing>
@@ -52,12 +49,10 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
     private val loadPassing=MediatorLiveData<Response<Passing>>()
     private val savingResult=MediatorLiveData<Response<String?>>()
 
-    private val loadEmergencyDoctors=MediatorLiveData<Response<List<User>>>()
-    private val loadEmergencyNurses=MediatorLiveData<Response<List<User>>>()
-    private val loadConsultantDoctors=MediatorLiveData<Response<List<User>>>()
-    
     val selectType=MediatorLiveData<Int>()
     val selectDoctor=MediatorLiveData<Int>()
+
+    var cdoctors:List<User> = emptyList()
 
     init {
         saved=savingResult.map { it.success }
@@ -66,50 +61,12 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
         comingFrom=loadFroms.map { it?: emptyList() }
         comingBy=loadComingBy.map { it.result?: ComingBy()}
 
-        emergencyDoctors=loadEmergencyDoctors.map { it.result?: emptyList()}
-        emergencyNurses=loadEmergencyNurses.map { it.result?: emptyList()}
-        consultantDoctors=loadConsultantDoctors.map { it.result?: emptyList()}
         passing=loadPassing.map { it.result?: Passing(patientId=patientId,createrId = account.id)}
     }
 
 
 
     private fun loadData(id:String){
-
-        fun doDoctor1(response: Response<List<User>>){
-         loadEmergencyDoctors.value=response.apply {
-             result?.firstOrNull {
-                 user->
-                 comingBy.value?.
-                     comingWayStaffs?.
-                     any { user.id==it.staffId && it.staffType=="1" }?:false
-             }?.checked=true
-         }
-        }
-
-        fun doNurse(response: Response<List<User>>){
-            loadEmergencyNurses.value=response.apply {
-                result?.firstOrNull {
-                        user->
-                    comingBy.value?.
-                        comingWayStaffs?.
-                        any { user.id==it.staffId && it.staffType=="2" }?:false
-                }?.checked=true
-            }
-        }
-
-        fun doDoctor2(response: Response<List<User>>){
-            loadConsultantDoctors.value=response.apply {
-                result?.forEach {
-                        user->
-                    if(comingBy.value?.comingWayStaffs?.any { user.id==it.staffId && it.staffType=="3" } == true){
-                        user.checked=true
-                    }
-
-                }
-            }
-        }
-
         fun doComing(response: Pair<Response<ComingBy>,Response<Passing>>){
             loadComingBy.value=response.first.apply {
                 result?.let {
@@ -127,28 +84,18 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
                             trueName = it.staffName
                         }
                     }?:User()
-
-                    cb.consultantDoctors=cb.comingWayStaffs.filter { it.staffType=="3" }?.
-                        joinToString(separator = ","){ it.staffName }
+                    cdoctors=cb.comingWayStaffs.filter { it.staffType=="3" }?.map {
+                        User().apply {
+                            this.id=it.staffId
+                            trueName=it.staffName
+                        }
+                    }
+                    cb.consultantDoctors=cdoctors.
+                        joinToString(separator = ","){ it.trueName }
                 }
             }
             loadPassing.value=response.second
 
-
-            disposable.add(doctorApi.getEmergencyDoctor(account.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::doDoctor1,::error))
-
-            disposable.add(doctorApi.getEmergencyNurse(account.id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::doNurse,::error))
-
-            disposable.add(doctorApi.getConsultantDoctor(account.id,id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::doDoctor2,::error))
         }
 
         fun doTypes(response: Pair<List<Dictionary>,List<Dictionary>>){
@@ -279,14 +226,14 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
                 d2?.staffName=emergencyNurse.trueName
             }
 
-            val d3=this@ComingByViewModel.consultantDoctors.value?.filter { it.checked }?.map {
+            val d3= this@ComingByViewModel.cdoctors.map {
                 ComingByStaff(comingWayId = id,staffType = "3",staffId = it.id,staffName = it.trueName)
-            }?: emptyList()
+            }
             val l= mutableListOf<ComingByStaff>()
             d1?.let(l::add)
             d2?.let(l::add)
             l.addAll(d3)
-            comingWayStaffs= l
+//            comingWayStaffs= l
         }
         comingByApi.save(comingBy.value!!).flatMap {
             comingByApi.savePassing(passing.value!!)

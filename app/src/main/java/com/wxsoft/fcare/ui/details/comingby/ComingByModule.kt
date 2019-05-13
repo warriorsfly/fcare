@@ -3,8 +3,7 @@ package com.wxsoft.fcare.ui.details.comingby
 import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
-import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorListFragment
-import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListFragment
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListActivity
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -17,11 +16,13 @@ internal abstract class ComingByModule {
     @ViewModelKey(ComingByViewModel::class)
     abstract fun bindComingByViewModel(viewModel: ComingByViewModel): ViewModel
 
-    @ChildFragmentScoped
-    @ContributesAndroidInjector
-    abstract fun contributeComingByItemListFragment(): ComingByItemListFragment
+    @Binds
+    @IntoMap
+    @ViewModelKey(ComingByDoctorsViewModel::class)
+    abstract fun bindComingByDoctorsViewModel(viewModel: ComingByDoctorsViewModel): ViewModel
 
-    @ChildFragmentScoped
-    @ContributesAndroidInjector
-    abstract fun contributeComingByDoctorListFragment(): ComingByDoctorListFragment
+    @Binds
+    @IntoMap
+    @ViewModelKey(ComingByTypeViewModel::class)
+    abstract fun bindComingByTypeViewModel(viewModel: ComingByTypeViewModel): ViewModel
 }
