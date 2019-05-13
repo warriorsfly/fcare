@@ -275,7 +275,7 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
 
                         val f= File(media.path)
                         fs.add(f)
-                        return@map Pair(media, FileProvider.getUriForFile(
+                        return@map kotlin.Pair(media, FileProvider.getUriForFile(
                             activity!!,
                             BuildConfig.APPLICATION_ID + ".fileProvider",
                            f

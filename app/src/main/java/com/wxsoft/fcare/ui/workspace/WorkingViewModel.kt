@@ -70,6 +70,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             if(diagnosis2Name.isNullOrEmpty()) {
                 diagnosis2Name = "诊断中"
             }
+//            if (!outpatientId.isNullOrEmpty()) lsh = outpatientId
         }?: Patient() }
     }
 

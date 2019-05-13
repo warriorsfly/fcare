@@ -135,6 +135,7 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
         viewModel.ecg.observe(this, Observer {
             adapter.locals= emptyList()
             adapter.remotes=it.attachments?.map { it.httpUrl }?: emptyList()
+            list.scrollToPosition(0)
         })
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()

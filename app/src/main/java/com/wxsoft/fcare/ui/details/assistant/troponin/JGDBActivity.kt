@@ -6,7 +6,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -35,14 +34,11 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityJgdbBinding
-import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import kotlinx.android.synthetic.main.activity_jgdb.*
-import kotlinx.android.synthetic.main.activity_jgdb.enlarged
-import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
@@ -214,7 +210,7 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
                     viewModel.bitmaps.clear()
                     adapter.locals = PictureSelector.obtainMultipleResult(data)?.map { localmedia ->
                         viewModel.bitmaps.add(localmedia.path)
-                        return@map Pair(
+                        return@map kotlin.Pair(
                             localmedia, FileProvider.getUriForFile(
                                 this,
                                 BuildConfig.APPLICATION_ID + ".fileProvider",

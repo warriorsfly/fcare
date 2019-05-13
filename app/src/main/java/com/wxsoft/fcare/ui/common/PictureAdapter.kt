@@ -18,7 +18,7 @@ import com.wxsoft.fcare.databinding.ItemImageRemoteBinding
 import com.wxsoft.fcare.databinding.ItemNewImageBinding
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.photo.PhotoActivity
-import android.util.Pair
+import android.util.Pair as ViewPair
 
 
 class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
@@ -53,7 +53,7 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
         }
 
 
-    lateinit var pairs:Array<Pair<View,String>?>
+    lateinit var pairs:Array<android.util.Pair<View, String>?>
 
     private fun buildMergedList(
         remote:List<String> =remotes,
@@ -87,30 +87,15 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
                 val presenter =differ.currentList[position] as Pair<LocalMedia, Uri>
 //                presenter.first.num
                 root.setOnClickListener{
-
                     action?.localSelected()
                 }
                 uri=presenter.second
-                lifecycleOwner = this@PictureAdapter.lifecycleOwner
-
                 executePendingBindings()
             }
 
             is ItemViewHolder.ImageRemoteViewHolder -> holder.binding.apply {
                 val presenter =differ.currentList[position] as String
-
-                pairs[position] = Pair(image, "img$position")
-//                image.setOnClickListener{action?.enlargeRemote(root,presenter)}
-                image.setOnClickListener{
-                    PhotoActivity.startActivity(mcontext, pairs, position, remotes.toTypedArray())
-                }
-                image.setOnLongClickListener {
-                    action?.deleteRemote(presenter)
-                    true
-                }
                 url=presenter
-                lifecycleOwner = this@PictureAdapter.lifecycleOwner
-
                 executePendingBindings()
             }
             is ItemViewHolder.PlaceViewHolder -> holder.binding.apply {
@@ -121,7 +106,6 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
 //                        indexing
                     action?.localSelected()
                 }
-                lifecycleOwner = this@PictureAdapter.lifecycleOwner
                 executePendingBindings()
             }
         }
@@ -133,12 +117,32 @@ class PictureAdapter constructor(private val lifecycleOwner: LifecycleOwner,
         return when (viewType) {
             R.layout.item_image -> ItemViewHolder.ImageViewHolder(
                 ItemImageBinding.inflate(inflater, parent, false)
+                    .apply {
+                        lifecycleOwner = this@PictureAdapter.lifecycleOwner
+                    }
             )
             R.layout.item_image_remote -> ItemViewHolder.ImageRemoteViewHolder(
                 ItemImageRemoteBinding.inflate(inflater, parent, false)
-            )
+                    .apply {
+                        image.setOnLongClickListener {
+                            url?.let {
+                                action?.deleteRemote(it)
+                            }
+                            true
+                        }
+                        lifecycleOwner = this@PictureAdapter.lifecycleOwner
+                    }
+            ).apply {
+                binding.image.setOnClickListener{
+                    PhotoActivity.startActivity(mcontext, arrayOf(ViewPair(it,"img$adapterPosition")), adapterPosition, remotes.toTypedArray())
+                }
+
+            }
             R.layout.item_new_image -> ItemViewHolder.PlaceViewHolder(
                 ItemNewImageBinding.inflate(inflater, parent, false)
+                    .apply {
+                        lifecycleOwner = this@PictureAdapter.lifecycleOwner
+                    }
             )
             else -> throw IllegalStateException("Unknown viewType $viewType")
         }
