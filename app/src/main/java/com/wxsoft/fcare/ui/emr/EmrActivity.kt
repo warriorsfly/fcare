@@ -15,10 +15,8 @@ import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityEmrBinding
-import com.wxsoft.fcare.databinding.ActivityWorkingEmrBinding
 import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import com.wxsoft.fcare.ui.details.assistant.AssistantAdapter
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -101,6 +99,9 @@ class EmrActivity : BaseActivity() {
             }
             override fun onPageSelected(position: Int) {
                 emrPageViewModel.showEmrResult.value=position==1
+                if(position==1){
+                    ((viewPager.adapter as? PageAdapter)?.getItem(position) as? EmrFragment)?.refresh()
+                }
             }
         })
 

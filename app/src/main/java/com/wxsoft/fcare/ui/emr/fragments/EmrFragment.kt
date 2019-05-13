@@ -80,6 +80,9 @@ class EmrFragment : BaseFragment() {
     }
 
 
+    fun refresh(){
+        adapter.notifyDataSetChanged()
+    }
 
     @Inject
     lateinit var factory: ViewModelFactory

@@ -14,12 +14,10 @@ import com.google.android.material.tabs.TabLayout
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
-import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.rating.RatingResult
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.common.EmrImageAdapter
-import com.wxsoft.fcare.ui.details.medicalhistory.DrugHistoryItemAdapter
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsAdapter
 import com.wxsoft.fcare.ui.rating.RatingAdapter
 import com.wxsoft.fcare.utils.ActionType
@@ -130,11 +128,6 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 holder.binding.apply {
                     item=emr
                     patient=emr.result as? Patient
-//                    patient?.let {
-//                        if(!panel.isInflated){
-//                            panel.viewStub?.inflate()
-//                        }
-//                    }
                     executePendingBindings()
                 }
             }
@@ -143,19 +136,11 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 holder.binding.apply {
                     item=emr
                     if(emr.result != null ) {
-                        if((emr.result as? List<VitalSign>)!!.size>0){
+                        if((emr.result as? List<VitalSign>)!!.isNotEmpty()){
                             vital=(emr.result as? List<VitalSign>)?.get(0)
                         }
                     }
-//                    if(tabLayout.tabCount==0){
-//                        val tabs=( emr.result as? List<Record<VitalSign>>)
-//                            tabs?.forEach {
-//                                tabLayout.addTab(tabLayout.newTab().setText(it.typeName))
-//                            }
-//                        if(tabs?.size?:0==1){
-//                            tabLayout.visibility=View.GONE
-//                        }
-//                    }
+
                     executePendingBindings()
                 }
             }
@@ -454,30 +439,6 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         }
                 }
             }
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {}
-//
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                binding.apply {
-//                    (item?.result  as List<Record<VitalSign>>)?.apply {
-//                        vital= this[tab?.position?:0].items.firstOrNull()
-//                        executePendingBindings()
-//                    }
-//                }
-//
-//            }
-//
-//            override fun onTabReselected(tab: TabLayout.Tab?) {}
-//
-//            init {
-//                binding.apply {
-//                    root.findViewById<ImageButton>(R.id.edit)
-//                        .setOnClickListener {
-//                            item?.code?.let(click)
-//                        }
-//
-//                    tabLayout.addOnTabSelectedListener(this@VitalListViewHolder)
-//                }
-//            }
         }
 
         class RatingListViewHolder(
