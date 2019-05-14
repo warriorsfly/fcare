@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.launch
 
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -25,6 +26,13 @@ class LauncherViewModel @Inject constructor(
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
+
+    val processPercent=ObservableInt().apply {
+        set(0)
+    }
+    val processTotal=ObservableInt().apply {
+        set(0)
+    }
 
     var name: String = ""
     var password: String = ""

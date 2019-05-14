@@ -233,7 +233,7 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
             d1?.let(l::add)
             d2?.let(l::add)
             l.addAll(d3)
-//            comingWayStaffs= l
+            comingWayStaffs= l
         }
         comingByApi.save(comingBy.value!!).flatMap {
             comingByApi.savePassing(passing.value!!)
