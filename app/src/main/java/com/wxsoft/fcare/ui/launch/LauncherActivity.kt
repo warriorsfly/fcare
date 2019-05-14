@@ -221,8 +221,8 @@ class LauncherActivity : BaseActivity(){
             setFilterById(downloadId)
         }).use{
             if(it.moveToFirst()){
-                viewModel.processPercent.set(it.getInt(it.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)))
-                viewModel.processTotal.set(it.getInt(it.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)))
+                viewModel.processPercent.set(it.getInt(it.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR))/(1024*1024))
+                viewModel.processTotal.set(it.getInt(it.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))/(1024*1024))
             }
         }
 
