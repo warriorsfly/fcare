@@ -53,9 +53,9 @@ class VitalSignsActivity : BaseActivity() {
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityVitalSignsBinding>(this, R.layout.activity_vital_signs)
             .apply {
-                line0.setOnClickListener {
-                    toGetHardwareData()
-                }
+//                line0.setOnClickListener {
+//                    toGetHardwareData()
+//                }
                 lifecycleOwner = this@VitalSignsActivity
             }
 

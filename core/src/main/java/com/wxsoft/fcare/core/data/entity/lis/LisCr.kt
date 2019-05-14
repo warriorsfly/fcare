@@ -78,7 +78,7 @@ data class LisCr (val id:String) : BaseObservable() {
         set(value){
             field=value
             when(value){
-                0->ctniStatus = ""
+                0->ctniStatus = "正常"
                 1->ctniStatus = "阴性"
                 2->ctniStatus = "阳性"
             }
@@ -238,7 +238,25 @@ data class LisCr (val id:String) : BaseObservable() {
         if (!ctniUnit.isNullOrEmpty()) selectCtniUnit = ctniUnit.split("-").last().toInt()-1
         if (!ctntUnit.isNullOrEmpty()) selectCtntUnit = ctntUnit.split("-").last().toInt()-1
 
-        crValueStr = crValue.toString()
+        crValueStr = if(crValue!=0.0f) crValue.toString() else ""
+
+        if (ctniValue.contains("<")){
+            selectCtniStatus = 1
+        }else if(ctniValue.isNullOrEmpty()){
+            selectCtniStatus = 0
+        }else {
+            try {
+                val dou = ctniValue.toFloat()
+                if (dou - 0.5 > 0.5) {
+                    selectCtniStatus = 2
+                }else {
+                    selectCtniStatus = 0
+                }
+            } catch (_: Exception){
+
+            }
+        }
+
     }
 
 }

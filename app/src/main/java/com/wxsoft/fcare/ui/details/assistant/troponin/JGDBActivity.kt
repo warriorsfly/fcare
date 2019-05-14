@@ -13,6 +13,8 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Pair
 import android.view.Menu
 import android.view.MenuItem
@@ -41,6 +43,7 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 import kotlinx.android.synthetic.main.activity_jgdb.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
+import java.lang.NumberFormatException
 import javax.inject.Inject
 
 class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
@@ -155,6 +158,29 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
         adapter= PictureAdapter(this,10,this,this)
         adapter.locals= emptyList()
         jgdb_photo_items_rv.adapter = adapter
+
+        binding.cTnINumEt.setOnFocusChangeListener{ view, b ->
+            if (!b){
+                val tex = binding.cTnINumEt.text.toString()
+                if (tex.contains("<")){
+                    viewModel.lisCr.value?.selectCtniStatus = 1
+                }else if(tex.isNullOrEmpty()){
+                    viewModel.lisCr.value?.selectCtniStatus = 0
+                }else {
+                    try {
+                        val dou = tex.toFloat()
+                        if (dou - 0.5 > 0.5) {
+                            viewModel.lisCr.value?.selectCtniStatus = 2
+                        }else {
+                            viewModel.lisCr.value?.selectCtniStatus = 0
+                        }
+                    } catch (e: Exception){
+                        e.printStackTrace()
+                    }
+                }
+            }
+        }
+
 
     }
 

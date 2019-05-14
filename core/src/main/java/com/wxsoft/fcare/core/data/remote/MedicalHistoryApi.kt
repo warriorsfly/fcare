@@ -26,4 +26,5 @@ interface MedicalHistoryApi {
 
     @GET("MedicalHistory/DeleteImage/{attachmentId}")
     fun deleteImage(@Path("attachmentId")attachmentId:String):Maybe<Response<String>>
+
 }

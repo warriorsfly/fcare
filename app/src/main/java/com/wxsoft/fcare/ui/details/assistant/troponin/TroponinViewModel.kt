@@ -83,8 +83,7 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             .subscribe(::getPoct,::error))
     }
     private fun getPoct(response:Response<LisCr>){
-        loadLisCrResult.value = response.result
-        lisCr.value?.setUpChecked()
+        loadLisCrResult.value = response.result?.apply { setUpChecked() }
     }
 
     /**
