@@ -42,7 +42,12 @@ class ComingByViewModel @Inject constructor(
     init {
         saved=savingResult.map { it.success }
 
-        comingBy=loadComingBy.map { it.result?: ComingBy()}
+        comingBy=loadComingBy.map { it.result?: ComingBy().apply {
+            emergencyDoctor=User().apply {
+                id=account.id
+                trueName=account.trueName
+            }
+        }}
 
         passing=loadPassing.map { it.result?: Passing(patientId=patientId,createrId = account.id)}
     }

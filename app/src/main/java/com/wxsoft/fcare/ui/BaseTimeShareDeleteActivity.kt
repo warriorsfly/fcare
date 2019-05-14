@@ -134,7 +134,7 @@ abstract class BaseTimeShareDeleteActivity: BaseActivity(), IShareOrDelete, OnDa
             .setDayText("")
             .setHourText("")
             .setMinuteText("")
-            .setCyclic(false)
+            .setCyclic(true)
             .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
             .setType(Type.ALL)
             .setWheelItemTextSize(12)
