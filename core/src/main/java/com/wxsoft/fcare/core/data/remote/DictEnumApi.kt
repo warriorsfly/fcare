@@ -45,6 +45,15 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/20")
     fun loadConsciousness(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/238")
+    fun loadloadAdress(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/239")
+    fun loadHandway(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/240")
+    fun loadPatientOutcom(): Maybe<List<Dictionary>>
+
     @GET("EnumDic/enumItems/21")
     fun loadTroponinUnit(): Maybe<List<Dictionary>>
 

@@ -822,7 +822,8 @@
                                 android:layout_height="wrap_content"/>
 
                         <EditText
-                                app:layout_constraintRight_toRightOf="parent"
+                                android:id="@+id/call_text"
+                                app:layout_constraintRight_toLeftOf="@+id/call"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintLeft_toRightOf="@id/title8"
                                 app:layout_constraintBottom_toBottomOf="parent"
@@ -837,6 +838,18 @@
                                 android:layout_marginRight="15dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center_vertical"/>
+
+                        <ImageView
+
+                                android:id="@+id/call"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                android:layout_marginRight="19dp"
+                                android:src="@drawable/ic_tel_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
             <LinearLayout
@@ -880,6 +893,13 @@
                     android:id="@+id/loc"
                     android:src="@drawable/ic_task_gis"
                     android:layout_marginRight="10dp"/>
+                <ImageView
+                        android:padding="10dp"
+                        android:id="@+id/select_loc"
+                        android:src="@drawable/ic_task_gis"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
             </LinearLayout>
 
 
