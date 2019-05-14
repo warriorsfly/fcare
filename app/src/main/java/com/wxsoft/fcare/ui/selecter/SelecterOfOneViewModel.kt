@@ -68,6 +68,18 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadTreatments()
                     clickAlone = true
                 }
+                "Adress" ->{
+                    loadAdress()
+                    clickAlone = true
+                }
+                "selectHandway" ->{
+                    loadHandway()
+                    clickAlone = false
+                }
+                "selectPatientOutcom" ->{
+                    loadPatientOutcom()
+                    clickAlone = true
+                }
             }
         }
 
@@ -88,6 +100,24 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
         submit = loadSubmit.map { it }
     }
 
+    private fun loadPatientOutcom(){
+        disposable.add(enumApi.loadPatientOutcom()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadHandway(){
+        disposable.add(enumApi.loadHandway()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadAdress(){
+        disposable.add(enumApi.loadloadAdress()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
     private fun loadVital(){
         disposable.add(enumApi.loadConsciousness()
             .subscribeOn(Schedulers.io())

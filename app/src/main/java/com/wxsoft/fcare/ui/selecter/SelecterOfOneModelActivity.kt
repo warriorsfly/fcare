@@ -59,6 +59,9 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     "MedicalHistoryAnamnesis" -> firstList.adapter = adapter
                     "ThromSelectPlace" -> firstList.adapter = adapter
                     "Treatment" -> firstList.adapter = adapter
+                    "Adress" -> firstList.adapter = adapter
+                    "selectHandway" -> firstList.adapter = adapter
+                    "selectPatientOutcom" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -74,6 +77,9 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "MedicalHistoryAnamnesis" -> title="选择既往病史"
             "ThromSelectPlace" -> title="选择溶栓地点"
             "Treatment" -> title="选择无再灌注措施原因"
+            "Adress" -> title="选择发病地址"
+            "selectHandway" -> title="选择处置措施"
+            "selectPatientOutcom" -> title="选择患者去向"
         }
 
 
@@ -128,7 +134,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (comFrom.equals("MedicalHistoryAnamnesis")) menuInflater.inflate(R.menu.menu_subject,menu)
+        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("selectHandway")) menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
 

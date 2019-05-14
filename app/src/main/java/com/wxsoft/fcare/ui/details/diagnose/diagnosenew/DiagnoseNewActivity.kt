@@ -69,6 +69,9 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         const val SELECT_NOREFUSHION_RESON = 30
         const val SELECT_ACSDRUG = 40
         const val INFORMED_CONSENT = 50
+        const val SELECT_HANDWAY = 60
+        const val SELECT_PATIENTOUTCOME = 70
+
     }
 
     private lateinit var viewModel: DiagnoseNewViewModel
@@ -138,10 +141,36 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })
+
+
+        select_handWay.apply {
+            setOnClickListener {
+                toSelectHandway()
+            }
+        }
+        select_patientOutcom.apply {
+            setOnClickListener {
+                toSelectPatientOutcom()
+            }
+        }
+
     }
 
 
-
+    fun toSelectHandway(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "selectHandway")
+        }
+        startActivityForResult(intent, SELECT_HANDWAY)
+    }
+    fun toSelectPatientOutcom(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "selectPatientOutcom")
+        }
+        startActivityForResult(intent, SELECT_PATIENTOUTCOME)
+    }
 
 
     fun toSelectSonDiagnose(){
@@ -253,6 +282,22 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                     viewModel.talk.value?.informedConsent?.informedTypeName = data?.getStringExtra("typename")?:""
                     viewModel.talk.value?.judgeTime()
                     viewModel.talkShow.set(true)
+                }
+
+                SELECT_HANDWAY ->{
+                    val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
+                    var anamStr = ""
+                    if (anamnesises.size>1){
+                        anamnesises.map { anamStr = if(anamStr.isNullOrEmpty()) it.itemName else anamStr +"、"+it.itemName  }
+                    }else{
+                        anamnesises.map { anamStr = it.itemName }
+                    }
+                    viewModel.diagnosis.value?.handWay = anamStr
+                }
+
+                SELECT_PATIENTOUTCOME ->{
+                    val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.diagnosis.value?.patientOutcom = conscious.itemName
                 }
 
             }
