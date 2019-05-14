@@ -6,8 +6,6 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.ComingByApi
-import com.wxsoft.fcare.core.data.remote.DictEnumApi
-import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.TimingType
@@ -16,16 +14,11 @@ import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
-                                            private val doctorApi:TaskApi,
+class ComingByViewModel @Inject constructor(
                                             private val comingByApi: ComingByApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
                                             override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon){
 
-
-    val comingType:LiveData<List<Dictionary>>
-    val comingFrom:LiveData<List<Dictionary>>
-    val passingKs:LiveData<List<Dictionary>>
     val comingBy:LiveData<ComingBy>
     val saved:LiveData<Boolean>
     val passing:LiveData<Passing>
@@ -36,16 +29,8 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
         loadData(field)
     }
 
-    /**
-     * id:3
-     */
-    private val loadTypes=MediatorLiveData<List<Dictionary>>()
-    /**
-     * id:18
-     */
-    private val loadFroms=MediatorLiveData<List<Dictionary>>()
+
     private val loadComingBy=MediatorLiveData<Response<ComingBy>>()
-    private val loadPassingType=MediatorLiveData<List<Dictionary>>()
     private val loadPassing=MediatorLiveData<Response<Passing>>()
     private val savingResult=MediatorLiveData<Response<String?>>()
 
@@ -56,9 +41,7 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
 
     init {
         saved=savingResult.map { it.success }
-        passingKs=loadPassingType.map {  it?: emptyList() }
-        comingType=loadTypes.map { it?: emptyList() }
-        comingFrom=loadFroms.map { it?: emptyList() }
+
         comingBy=loadComingBy.map { it.result?: ComingBy()}
 
         passing=loadPassing.map { it.result?: Passing(patientId=patientId,createrId = account.id)}
@@ -98,27 +81,10 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
 
         }
 
-        fun doTypes(response: Pair<List<Dictionary>,List<Dictionary>>){
-            loadTypes.value=response.first
-            loadFroms.value=response.second
-        }
-
-        disposable.add(dictApi.loadDicts("3").zipWith(dictApi.loadDicts("18"))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::doTypes,::error))
-
-        disposable.add(dictApi.loadDicts("5")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({loadPassingType.value=it},::error))
-
         disposable.add(comingByApi.getOne(id).zipWith(comingByApi.getPassing(id))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doComing,::error))
-
-
     }
 
     fun changeTiming(timingType: String){
@@ -233,7 +199,7 @@ class ComingByViewModel @Inject constructor(private val dictApi:DictEnumApi,
             d1?.let(l::add)
             d2?.let(l::add)
             l.addAll(d3)
-//            comingWayStaffs= l
+            comingWayStaffs= l
         }
         comingByApi.save(comingBy.value!!).flatMap {
             comingByApi.savePassing(passing.value!!)

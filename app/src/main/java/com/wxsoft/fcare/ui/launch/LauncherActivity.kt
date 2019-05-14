@@ -8,12 +8,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
+import android.database.DatabaseUtils
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.Settings
 import androidx.core.app.ActivityCompat
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.BuildConfig
@@ -21,13 +23,15 @@ import com.wxsoft.fcare.core.data.entity.version.Version
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ActivityLauncherBinding
 import com.wxsoft.fcare.service.JPushReceiver
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.ui.main.MainActivity
+import io.reactivex.Observable
 import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
 import java.io.File
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 
@@ -51,9 +55,13 @@ class LauncherActivity : BaseActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_launcher)
-
         viewModel = viewModelProvider(factory)
+        DataBindingUtil.setContentView<ActivityLauncherBinding>(this,R.layout.activity_launcher).apply {
+            lifecycleOwner=this@LauncherActivity
+            viewModel=this@LauncherActivity.viewModel
+        }
+
+
         receiver =RegistrationBroadcastReceiver(viewModel)
         val intentFilter = IntentFilter()
         // 2. 设置接收广播的类型
@@ -199,11 +207,25 @@ class LauncherActivity : BaseActivity(){
             setDestinationUri(Uri.fromFile(file))
         }
         downloadId=downloadManager.enqueue(request)
+
+        disposable.add(Observable.interval(2,TimeUnit.SECONDS).subscribe{queryState()})
         completeReceiver = CompleteReceiver()
         registerReceiver(
             completeReceiver,
             IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE)
         )
+    }
+
+    private fun queryState(){
+        downloadManager.query(DownloadManager.Query().apply {
+            setFilterById(downloadId)
+        }).use{
+            if(it.moveToFirst()){
+                viewModel.processPercent.set(it.getInt(it.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR)))
+                viewModel.processTotal.set(it.getInt(it.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES)))
+            }
+        }
+
     }
 
 
@@ -215,6 +237,10 @@ class LauncherActivity : BaseActivity(){
                 if(uri==null){
                     viewModel.messageAction.value=Event("下载失败")
                 }else {
+
+                    disposable.clear()
+                    viewModel.processPercent.set(0)
+                    viewModel.processTotal.set(0)
                     install(uri)
                 }
             }catch (e:Exception){
