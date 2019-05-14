@@ -90,6 +90,9 @@
         <activity
                 android:name=".ui.details.comingby.fragments.ComingByDoctorsActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.details.diagnose.record.DiagnoseRecordActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
                 android:name=".ui.common.ContainerActivity"

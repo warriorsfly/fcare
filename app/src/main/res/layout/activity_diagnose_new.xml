@@ -135,9 +135,8 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line2"
-                            goneUnless="@{viewModel.diagnosis.diagnosisCode2.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2.equals(`4-8`)}"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/line1"
+                            app:layout_constraintTop_toBottomOf="@+id/line5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
@@ -202,7 +201,6 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line3"
-                            goneUnless="@{viewModel.diagnosis.diagnosisCode2.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2.equals(`4-8`)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line2"
                             android:layout_width="match_parent"
@@ -270,7 +268,7 @@
                             android:id="@+id/line4"
                             goneUnless="@{!viewModel.diagnosis.diagnosisCode2.equals(``)}"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/line3"
+                            app:layout_constraintTop_toBottomOf="@+id/line1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
                         <TextView
@@ -390,7 +388,7 @@
                             android:id="@+id/line6"
                             goneUnless="@{!viewModel.diagnosis.diagnosisCode2.equals(``)}"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/line5"
+                            app:layout_constraintTop_toBottomOf="@+id/line3"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 

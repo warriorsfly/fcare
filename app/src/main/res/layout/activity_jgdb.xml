@@ -287,7 +287,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/cTnT_constrain"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cTnI_constrain">
+                app:layout_constraintTop_toBottomOf="@+id/CKMB_constrain">
             <TextView
                     android:id="@+id/cTnT_title"
                     android:layout_width="wrap_content"
@@ -373,7 +373,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/CKMB_constrain"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cTnT_constrain">
+                        app:layout_constraintTop_toBottomOf="@+id/Myo_constrain">
                     <TextView
                             android:id="@+id/CKMB_title"
                             android:layout_width="wrap_content"
@@ -433,7 +433,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/Myo_constrain"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/CKMB_constrain">
+                        app:layout_constraintTop_toBottomOf="@+id/cTnI_constrain">
                     <TextView
                             android:id="@+id/Myo_title"
                             android:layout_width="wrap_content"
@@ -463,7 +463,7 @@
                               app:layout_constraintLeft_toRightOf="@+id/Myo_title"
                               app:layout_constraintTop_toTopOf="parent"
                               app:layout_constraintRight_toLeftOf="@+id/Myo_unit"
-                              tools:text="" />
+                              tools:text="25.0" />
 
                     <TextView
                             android:id="@+id/Myo_unit"
@@ -493,7 +493,7 @@
                 android:background="@color/white"
                 android:id="@+id/cr_constrain"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Myo_constrain">
+                app:layout_constraintTop_toBottomOf="@+id/cTnT_constrain">
             <TextView
                     android:id="@+id/cr_title"
                     android:layout_width="wrap_content"
