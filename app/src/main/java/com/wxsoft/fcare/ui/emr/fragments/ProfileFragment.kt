@@ -45,7 +45,8 @@ import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
 import android.util.Pair
-
+import android.widget.Toast
+import com.wxsoft.fcare.core.result.EventObserver
 
 
 class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
@@ -86,6 +87,9 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
             lifecycleOwner=this@ProfileFragment
         }.root
 
+        profileViewModel.mesAction.observe(this,EventObserver{
+            Toast.makeText(activity,it,Toast.LENGTH_SHORT).show()
+        })
     }
 
     private var mCurrentAnimator: Animator? = null
