@@ -117,13 +117,12 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         loadCommonDiagnoses(patientId)
     }
 
-    fun saveEcg(){
-        val files = bitmaps.map {
-            val file = File(it)
+    fun saveEcg(fs:List<File>){
+        val files = fs.map {
             return@map MultipartBody.Part.createFormData(
                 "images",
-                it.split("/").last(),
-                RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                it.path.split("/").last(),
+                RequestBody.create(MediaType.parse("multipart/form-data"), it)
             )
         }
         val item= ecg.value?.apply {

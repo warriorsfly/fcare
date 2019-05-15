@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.details.medicalhistory
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
+import com.google.gson.FieldAttributes
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.MedicalHistory
@@ -16,6 +17,7 @@ import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
+import id.zelory.compressor.Compressor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
@@ -130,17 +132,16 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
             })
     }
 
-    private fun saveMedicalHistory() {
+    private fun saveMedicalHistory(fs:List<File>) {
         savePatientResult.value= true
         medicalHistory.value?.also {history->
             if (saveAble) {
                 saveAble = false
-                val files = bitmaps.map {
-                    val file = File(it)
+                val files = fs.map {
                     return@map MultipartBody.Part.createFormData(
                         "images",
-                        it.split("/").last(),
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        it.path.split("/").last(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"), it)
                     )
                 }
                 history.drugHistorys = drugHistory.value!!
@@ -181,17 +182,14 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
         }
     }
 
-    fun submit(){
+    fun submit(fs:List<File>){
         providerItems.value?.filter { it.checked }
             ?.map { medicalHistory.value?.provide = it.id }
         historyItems.value?.filter { it.checked }
             ?.map { medicalHistory.value?.ph = it.id }
         medicalHistory.value?.patientId = patientId
-        saveMedicalHistory()
-    }
 
-    fun click(){
-        submit()
+        saveMedicalHistory(fs)
     }
 
 

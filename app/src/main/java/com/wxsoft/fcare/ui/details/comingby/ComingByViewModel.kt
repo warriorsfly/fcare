@@ -44,6 +44,7 @@ class ComingByViewModel @Inject constructor(
 
         comingBy=loadComingBy.map { it.result?: ComingBy().apply {
             emergencyDoctor=User().apply {
+//                if(account.)
                 id=account.id
                 trueName=account.trueName
             }

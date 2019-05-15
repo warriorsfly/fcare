@@ -40,6 +40,7 @@ import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.EcgAdapter
 import com.wxsoft.fcare.ui.details.ecg.fragment.EcgEditFragment
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_ecg.*
 import java.io.File
 import javax.inject.Inject
@@ -67,7 +68,13 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
             R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
         }
-        viewModel.saveEcg()
+        val files=viewModel.bitmaps.map { File(it).apply {
+            Compressor(this@EcgActivity)
+                .setMaxWidth(1280)
+                .setMaxHeight(1280)
+                .setQuality(75).compressToFile(this)
+        } }
+        viewModel.saveEcg(files)
     }
 
     override fun doError(throwable: Throwable) {
@@ -221,7 +228,14 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
                             File(media.path)
                         ))
                     }?: emptyList()
-                    viewModel.saveEcg()
+
+                    val files=viewModel.bitmaps.map { File(it).apply {
+                        Compressor(this@EcgActivity)
+                            .setMaxWidth(1280)
+                            .setMaxHeight(1280)
+                            .setQuality(75).compressToFile(this)
+                    } }
+                    viewModel.saveEcg(files)
                 }
             }
         }

@@ -47,6 +47,7 @@ import java.io.File
 import java.util.*
 import javax.inject.Inject
 import android.util.Pair
+import id.zelory.compressor.Compressor
 
 class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
     override fun localSelected() {
@@ -475,7 +476,13 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
 
         return  when(item?.itemId){
             R.id.submit->{
-                viewModel.click()
+                val files=viewModel.bitmaps.map { File(it).apply {
+                    Compressor(this@AddInformedActivity)
+                        .setMaxWidth(1280)
+                        .setMaxHeight(1280)
+                        .setQuality(75).compressToFile(this)
+                } }
+                viewModel.click(files)
                 true
             }
             else->super.onOptionsItemSelected(item)

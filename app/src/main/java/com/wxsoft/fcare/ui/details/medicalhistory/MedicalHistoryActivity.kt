@@ -49,6 +49,7 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
 import android.util.Pair
+import id.zelory.compressor.Compressor
 
 class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
     override fun localSelected() {
@@ -416,7 +417,13 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
 
         return  when(item?.itemId){
             R.id.submit->{
-                viewModel.click()
+                val files=viewModel.bitmaps.map { File(it).apply {
+                    Compressor(this@MedicalHistoryActivity)
+                        .setMaxWidth(1280)
+                        .setMaxHeight(1280)
+                        .setQuality(75).compressToFile(this)
+                } }
+                viewModel.submit(files)
                 true
             }
             else->super.onOptionsItemSelected(item)

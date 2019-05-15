@@ -40,6 +40,7 @@ import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_jgdb.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
@@ -194,7 +195,13 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
 
         return  when(item?.itemId){
             R.id.submit->{
-                viewModel.submit()
+                val files=viewModel.bitmaps.map { File(it).apply {
+                    Compressor(this@JGDBActivity)
+                        .setMaxWidth(1280)
+                        .setMaxHeight(1280)
+                        .setQuality(75).compressToFile(this)
+                } }
+                viewModel.submit(files)
                 true
             }
             else->super.onOptionsItemSelected(item)

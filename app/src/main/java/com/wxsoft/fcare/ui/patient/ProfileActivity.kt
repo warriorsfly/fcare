@@ -51,6 +51,7 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
@@ -360,7 +361,14 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                                 BuildConfig.APPLICATION_ID + ".fileProvider",
                                 File(localmedia.path)))
                     }?: emptyList()
-                    viewModel.savePic()
+
+                    val files=viewModel.bitmaps.map { File(it).apply {
+                        Compressor(this@ProfileActivity)
+                            .setMaxWidth(1280)
+                            .setMaxHeight(1280)
+                            .setQuality(75).compressToFile(this)
+                    } }
+                    viewModel.savePic(files)
                 }
                 SELECT_ADDRESS ->{
                     val address = data?.getSerializableExtra("SelectOne") as Dictionary

@@ -12,12 +12,12 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -29,10 +29,10 @@ import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EmrImage
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.databinding.ActivityFilesBinding
-import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity.Companion.AUDIO_RECRD_PERMISSION_REQUEST
 import com.wxsoft.fcare.ui.BaseActivity.Companion.CAMERA_PERMISSION_REQUEST
@@ -40,13 +40,11 @@ import com.wxsoft.fcare.ui.BaseShareOrDeleteFragment
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.emr.ProfileViewModel
 import com.wxsoft.fcare.ui.emr.RecordEmrImageAdapter
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_files.*
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Named
-import android.util.Pair
-import android.widget.Toast
-import com.wxsoft.fcare.core.result.EventObserver
 
 
 class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
@@ -74,7 +72,7 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
 
         profileViewModel=activityViewModelProvider(factory)
         profileViewModel.patientId=patientId
-        adapter= RecordEmrImageAdapter(this, context!!,emrImageViewPool,this)
+        adapter= RecordEmrImageAdapter(this, context!!,this)
         profileViewModel.emrs.observe(this, Observer {
             adapter.submitList(it)
         })
@@ -94,11 +92,6 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
 
     private var mCurrentAnimator: Animator? = null
     private var mShortAnimationDuration: Int = 0
-
-
-    @Inject
-    @field:Named("emrImageViewPool")
-    lateinit var emrImageViewPool: RecyclerView.RecycledViewPool
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -292,7 +285,15 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
                     if(adapter.theRecord.currUserId.isNullOrEmpty()) adapter.theRecord.currUserId else profileViewModel.account.id,
                         items = fs.map { EmrImage(createrId=profileViewModel.account.id,createrName=profileViewModel.account.trueName) })
 
-                    profileViewModel.savingRecord(newRecord,fs)
+//                    fs.map{
+//                       Compressor(activity!!).compressToFile(it)
+//                    }
+                    profileViewModel.savingRecord(newRecord, fs.map{
+                        Compressor(activity!!)
+                            .setMaxWidth(1280)
+                            .setMaxHeight(1280)
+                            .setQuality(75).compressToFile(it)
+                    })
                 }
             }
         }

@@ -108,14 +108,13 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-    fun savePic(){
+    fun savePic(fs:List<File>){
         if(preHos && patientSavable) {
-            val files = bitmaps.map {
-                val file = File(it)
+            val files = fs.map {
                 return@map MultipartBody.Part.createFormData(
                     "images",
-                    it.split("/").last(),
-                    RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                    it.path.split("/").last(),
+                    RequestBody.create(MediaType.parse("multipart/form-data"), it)
                 )
             }
 

@@ -117,6 +117,8 @@ dependencies {
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
     // Optional, if you use support library fragments:
     debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
+
+    implementation 'id.zelory:compressor:2.1.0'
     //    coroutines协程，比较下rxjava2和协程对内存泄漏的影响
 
     //    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"

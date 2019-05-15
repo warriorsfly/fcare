@@ -96,19 +96,18 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             }
     }
 
-    fun submit(){
+    fun submit(fs:List<File>){
         if (lisCr.value == null) return
         lisCr.value!!.patientId = patientId
         savePatientResult.value= true
         lisCr.value?.also {lisCr->
             if (saveAble) {
                 saveAble = false
-                val files = bitmaps.map {
-                    val file = File(it)
+                val files = fs.map {
                     return@map MultipartBody.Part.createFormData(
                         "images",
-                        it.split("/").last(),
-                        RequestBody.create(MediaType.parse("multipart/form-data"), file)
+                        it.path.split("/").last(),
+                        RequestBody.create(MediaType.parse("multipart/form-data"), it)
                     )
                 }
                 if (files.isNullOrEmpty()) {

@@ -16,7 +16,6 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 
 class RecordEmrImageAdapter constructor(private val owner:LifecycleOwner,
                                         private val mcontext: Context,
-                                        private val pool: RecyclerView.RecycledViewPool,
                                         private var action: PhotoEventAction?=null) :
     ListAdapter<EmrRecord, RecordEmrImageAdapter.ItemViewHolder>(DiffCallback) {
 
@@ -56,7 +55,7 @@ class RecordEmrImageAdapter constructor(private val owner:LifecycleOwner,
             val acuter=PictureAdapter(owner,10,mcontext,action,::indexing)
             list.adapter=acuter
             adapters.add(acuter)
-            list.setRecycledViewPool(pool)
+//            list.setRecycledViewPool(pool)
         }
         return ItemViewHolder(binding)
     }
