@@ -87,7 +87,7 @@ class ComingByViewModel @Inject constructor(
 
         }
 
-        disposable.add(comingByApi.getOne(id).zipWith(comingByApi.getPassing(id))
+        disposable.add(comingByApi.getOne(id,account.id).zipWith(comingByApi.getPassing(id))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doComing,::error))

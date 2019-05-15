@@ -10,8 +10,8 @@ import retrofit2.http.Path
 interface ComingByApi {
 
 
-    @GET("ComingWay/GetById/{patientId}")
-    fun getOne(@Path("patientId")patientId:String):Maybe<Response<ComingBy>>
+    @GET("ComingWay/GetById/{patientId}/{currUserId}")
+    fun getOne(@Path("patientId")patientId:String,@Path("currUserId")currUserId:String):Maybe<Response<ComingBy>>
 
     @POST("ComingWay/Save")
     fun save(@Body comingBy: ComingBy):Maybe<Response<String?>>
