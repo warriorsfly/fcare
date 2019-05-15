@@ -98,7 +98,7 @@ class VitalSignsActivity : BaseActivity() {
         })
 
         binding.breath.addTextChangedListener(object : TextWatcher {
-            private val max: Int = 40
+            private val max: Int = 100
             private val min: Int = 0
             override fun afterTextChanged(s: Editable) {//输入后的监听
             }
@@ -150,7 +150,7 @@ class VitalSignsActivity : BaseActivity() {
 //            }
 //        }
         binding.mb.addTextChangedListener(object : TextWatcher {
-            private val max: Int = 100
+            private val max: Int = 300
             private val min: Int = 0
             override fun afterTextChanged(s: Editable) {//输入后的监听
             }
@@ -203,7 +203,7 @@ class VitalSignsActivity : BaseActivity() {
 //        }
 
         binding.heart.addTextChangedListener(object : TextWatcher {
-            private val max: Int = 100
+            private val max: Int = 300
             private val min: Int = 0
             override fun afterTextChanged(s: Editable) {//输入后的监听
             }
