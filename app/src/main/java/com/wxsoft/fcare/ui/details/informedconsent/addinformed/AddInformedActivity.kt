@@ -476,11 +476,12 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
 
         return  when(item?.itemId){
             R.id.submit->{
-                val files=viewModel.bitmaps.map { File(it).apply {
+                val files=viewModel.bitmaps.map { File(it).let {
+                    file->
                     Compressor(this@AddInformedActivity)
                         .setMaxWidth(1280)
                         .setMaxHeight(1280)
-                        .setQuality(75).compressToFile(this)
+                        .setQuality(75).compressToFile(file)
                 } }
                 viewModel.click(files)
                 true

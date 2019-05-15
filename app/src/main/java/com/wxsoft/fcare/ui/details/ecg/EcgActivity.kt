@@ -68,11 +68,12 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
             R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
         }
-        val files=viewModel.bitmaps.map { File(it).apply {
+        val files=viewModel.bitmaps.map { File(it).let {
+            file->
             Compressor(this@EcgActivity)
                 .setMaxWidth(1280)
                 .setMaxHeight(1280)
-                .setQuality(75).compressToFile(this)
+                .setQuality(75).compressToFile(file)
         } }
         viewModel.saveEcg(files)
     }
@@ -229,11 +230,12 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
                         ))
                     }?: emptyList()
 
-                    val files=viewModel.bitmaps.map { File(it).apply {
+                    val files=viewModel.bitmaps.map { File(it).let {
+                        file->
                         Compressor(this@EcgActivity)
                             .setMaxWidth(1280)
                             .setMaxHeight(1280)
-                            .setQuality(75).compressToFile(this)
+                            .setQuality(75).compressToFile(file)
                     } }
                     viewModel.saveEcg(files)
                 }

@@ -22,7 +22,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
@@ -44,7 +43,6 @@ import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_files.*
 import java.io.File
 import javax.inject.Inject
-import javax.inject.Named
 
 
 class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
