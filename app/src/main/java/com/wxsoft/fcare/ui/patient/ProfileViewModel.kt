@@ -35,6 +35,7 @@ class ProfileViewModel @Inject constructor(
         set(value) {
             field=value
             loadPatient()
+            getPatientsFromCis()
         }
     val patient:LiveData<Patient>
     val uploading:LiveData<Boolean>
@@ -47,6 +48,9 @@ class ProfileViewModel @Inject constructor(
     val shareClick:LiveData<String>
     private val initShareClick = MediatorLiveData<String>()
 
+    val patientlist:LiveData<List<Patient>>
+    private val loadPatientlist = MediatorLiveData<List<Patient>>()
+
     init {
         shareClick = initShareClick.map { it }
         uploading=savePatientResult.map { it==Resource.Loading }
@@ -55,6 +59,7 @@ class ProfileViewModel @Inject constructor(
                 if (this?.diagnosisName.equals("代码不存在"))this?.diagnosisName = ""
             }?:Patient("")
         }
+        patientlist = loadPatientlist.map { it?: emptyList() }
 
     }
 
@@ -224,6 +229,34 @@ class ProfileViewModel @Inject constructor(
     private fun reloadPatientDetails(response: Response<String>?) {
         if(response?.success==true)
             loadPatient()
+    }
+
+    fun getPatientsFromCis(){
+        disposable.add(
+            patientApi.getPatientsFromCis()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+                    loadPatientlist.value = it.result
+                },{
+
+                })
+        )
+    }
+
+    fun choicePatient(item:Patient){
+        patientlist.value?.filter { it.checked }?.map { it.checked = false }
+        item.checked = true
+        loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
+            this.result= Patient("").apply {
+                idcard = item.idcard
+                name = item.name
+                gender = item.gender
+                age = item.age
+                phone = item.phone
+                outpatientId = item.outpatientId
+            }
+        })
+        initShareClick.value = "choicePatient"
     }
 
 

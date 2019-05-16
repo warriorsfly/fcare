@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -21,6 +22,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.ListAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -43,6 +45,8 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
+import com.wxsoft.fcare.databinding.ItemDialogSelectPatientBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
@@ -147,6 +151,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
     @Inject
     lateinit var factory: ViewModelFactory
 
+    private lateinit var choicePatientAdapter:ChoicePatientAdapter
     private lateinit var adapter:PictureAdapter
     private lateinit var viewModel:ProfileViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -174,6 +179,10 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         })
 
         adapter= PictureAdapter(this,4,this,this)
+        choicePatientAdapter = ChoicePatientAdapter(this,viewModel)
+
+
+
 
         adapter.locals= emptyList()
         attachments.adapter=adapter
@@ -256,6 +265,30 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
             }
         }
+        select_patient.apply {
+            if(handOvered) {
+                visibility=View.GONE
+            }else{
+                setOnClickListener {
+                    val bin= ItemDialogSelectPatientBinding.inflate(layoutInflater).apply {
+                        lifecycleOwner=this@ProfileActivity
+                        list.adapter = this@ProfileActivity.choicePatientAdapter
+                    }
+                    AlertDialog.Builder(this@ProfileActivity)
+                        .setView(bin.root)
+                        .setNeutralButton("确定") { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                        .setNegativeButton("取消") { dialog, _ ->
+                            dialog.dismiss()
+                        }.show()
+                }
+            }
+        }
+
+        viewModel.patientlist.observe(this, Observer {
+            choicePatientAdapter.items = it
+        })
 
     }
 
@@ -604,7 +637,6 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
-
 
 
 

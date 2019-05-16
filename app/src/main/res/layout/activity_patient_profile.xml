@@ -518,9 +518,10 @@
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     android:textSize="14sp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="49dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -556,7 +557,7 @@
                     android:maxLines="1"
                     android:imeOptions="actionNext"
                     android:textSize="14sp"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="49dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -629,9 +630,21 @@
                     android:textSize="14sp"
                     android:maxLines="1"
                     android:imeOptions="actionNext"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="49dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
+
+                <ImageView
+                        android:padding="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:id="@+id/select_patient"
+                        android:src="@drawable/ic_task_gis"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -714,7 +727,7 @@
                     android:maxLines="1"
                     android:maxLength="3"
                     android:imeOptions="actionNext"
-                    android:layout_marginRight="15dp"
+                    android:layout_marginRight="49dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -798,7 +811,7 @@
                                 android:digits="@string/input_type_chars_numbers"
                                 tools:text="34260119650511XXXX"
                                 android:textSize="14sp"
-                                android:layout_marginRight="15dp"
+                                android:layout_marginRight="49dp"
                                 android:layout_height="wrap_content"
                                 android:gravity="right|center_vertical"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -840,15 +853,14 @@
                                 android:gravity="right|center_vertical"/>
 
                         <ImageView
-
                                 android:id="@+id/call"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"
                                 app:layout_constraintRight_toRightOf="parent"
                                 android:layout_marginRight="19dp"
                                 android:src="@drawable/ic_tel_phone"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
+                                android:layout_width="14dp"
+                                android:layout_height="14dp"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

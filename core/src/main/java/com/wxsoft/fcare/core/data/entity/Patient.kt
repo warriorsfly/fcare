@@ -323,4 +323,14 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
 
     @get:Bindable
     var lsh: String=""
+
+
+    @Bindable
+    @Transient
+    var checked:Boolean=false
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.checked)
+        }
+
 }
