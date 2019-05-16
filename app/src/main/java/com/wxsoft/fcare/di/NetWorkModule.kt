@@ -1,7 +1,9 @@
-package com.wxsoft.fcare.core.di
+package com.wxsoft.fcare.di
 
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.BuildConfig
+import com.wxsoft.fcare.BuildConfig
+import com.wxsoft.fcare.core.data.entity.EndPoint
+import com.wxsoft.fcare.core.data.prefs.PreferenceStorage
 import com.wxsoft.fcare.core.data.remote.*
 import com.wxsoft.fcare.core.data.remote.log.LogInterceptor
 import com.wxsoft.fcare.core.data.remote.log.Logger
@@ -26,6 +28,10 @@ import javax.inject.Singleton
 @Module
 class NetWorkModule {
 
+    companion object{
+        var retrofit:Retrofit?=null
+    }
+
     @Provides
     @Reusable
     fun provideGson():Gson{
@@ -35,33 +41,60 @@ class NetWorkModule {
      * 未登陆时候使用
      */
     @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit {
-     
-        val builder= Retrofit.Builder()
+//    @Singleton
+    fun provideRetrofit(storage: PreferenceStorage,endpoints:List<EndPoint>): Retrofit {
 
+        /**
+         * 创建builder
+         */
+        fun createBuilder(url:String):Retrofit.Builder {
+            return Retrofit.Builder()
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl(BuildConfig.API_ENDPOINT)
+                .baseUrl(url).apply {
+                    //测试模式下打log
+                    if (BuildConfig.DEBUG) {
 
+                        val logging = LogInterceptor(Logger())
+                        logging.setLevel(LogInterceptor.Level.BODY)
 
-        //测试模式下打log
-        if(BuildConfig.DEBUG){
+                        val client = OkHttpClient.Builder()
+                            .connectTimeout(50, TimeUnit.SECONDS)
+                            .readTimeout(50, TimeUnit.SECONDS)
+                            .writeTimeout(200, TimeUnit.SECONDS)
+                            .retryOnConnectionFailure(true)
+                            .addInterceptor(logging)
+                            .build()
+                        client(client)
+                    }else{
+                        val logging = LogInterceptor(Logger())
+                        logging.setLevel(LogInterceptor.Level.BODY)
 
-            val logging = LogInterceptor(Logger())
-            logging.setLevel(LogInterceptor.Level.BODY)
-
-            val client= OkHttpClient.Builder()
-                    .connectTimeout(50, TimeUnit.SECONDS)
-                    .readTimeout(50, TimeUnit.SECONDS)
-                    .writeTimeout(200, TimeUnit.SECONDS)
-                    .retryOnConnectionFailure(true)
-                    .addInterceptor(logging)
-                    .build()
-            builder.client(client)
+                        val client = OkHttpClient.Builder()
+                            .connectTimeout(500, TimeUnit.MILLISECONDS)
+//                            .readTimeout(500, TimeUnit.MILLISECONDS)
+//                            .writeTimeout(500, TimeUnit.MILLISECONDS)
+                            .addInterceptor(logging)
+                            .build()
+                        client(client)
+                    }
+                }
         }
 
-        return builder.build()
+        if(retrofit==null){
+            if(storage.endPointIndex>-1) {
+
+                retrofit= createBuilder(endpoints[storage.endPointIndex].url).build()
+                return retrofit!!
+            }else {
+                throw IllegalStateException("index not in the array")
+            }
+        }else{
+            if(storage.endPointChanged){
+                retrofit= createBuilder(endpoints[storage.endPointIndex].url).build()
+            }
+            return retrofit!!
+        }
     }
 
     @Provides

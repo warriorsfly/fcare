@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <array name="end_points">
+<!--        公司ip-->
+        <item>http://112.27.113.252:44390</item>
+<!--        合肥二院-->
+        <item>http://60.166.42.50:7074</item>
+    </array>
+
+    <array name="end_points_name">
+        <!--        公司ip-->
+        <item>合肥五线信息科技有限公司</item>
+        <!--        合肥二院-->
+        <item>合肥市第二人民医院</item>
+    </array>
+
+
     <array name="diagnosis_types">
         <item>胸痛</item>
         <item>卒中</item>

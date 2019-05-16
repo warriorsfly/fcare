@@ -23,6 +23,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         signingConfig signingConfigs.release
+        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:44390"'
+        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:44390/api/"'
+//        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
 
     }
 
@@ -100,7 +104,8 @@ dependencies {
 
     //for  gson
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-
+    implementation "com.squareup.retrofit2:adapter-rxjava2:${retrofit_version}"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     //rxkotlin
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"

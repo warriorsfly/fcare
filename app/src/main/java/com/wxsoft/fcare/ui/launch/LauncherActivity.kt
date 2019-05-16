@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.content.pm.PackageManager
-import android.database.DatabaseUtils
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -18,7 +17,7 @@ import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.BuildConfig
+import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.core.data.entity.version.Version
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.Event

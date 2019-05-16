@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.wifi.WifiManager
 import com.wxsoft.fcare.App
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.EndPoint
 import com.wxsoft.fcare.core.data.prefs.PreferenceStorage
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import dagger.Module
@@ -87,6 +88,16 @@ class AppModule {
     @Named("WorkOperationKey")
     fun providesKeyWorkOperations(context: Context): Array<String> =
         context.resources.getStringArray(R.array.key_work_space_operations)
+
+    @Singleton
+    @Provides
+    fun providesEndPoint(context: Context): List<EndPoint>{
+        val urls=context.resources.getStringArray(R.array.end_points)
+        val names=context.resources.getStringArray(R.array.end_points_name)
+
+        return urls.mapIndexed { index, s -> EndPoint(names[index],s) }
+    }
+
 
 
 

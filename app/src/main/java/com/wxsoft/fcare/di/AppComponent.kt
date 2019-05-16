@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.App
-import com.wxsoft.fcare.core.di.NetWorkModule
 import com.wxsoft.fcare.core.di.ViewModelModule
 import dagger.Component
 import dagger.android.AndroidInjector
