@@ -75,7 +75,7 @@ class DingLikeAdapter(private var timeMillis:Long,private val timeChanged:(Int)-
             }
             is ItemViewHolder.TimeViewHolder->{
                 val hourView=holder.view.findViewById<WheelView>(R.id.hour)
-                hourView.currentItem=calendar.get(Calendar.HOUR)
+                hourView.currentItem=calendar.get(Calendar.HOUR_OF_DAY)
                 val minuteView=holder.view.findViewById<WheelView>(R.id.minute)
                 minuteView.currentItem=calendar.get(Calendar.MINUTE)
             }
