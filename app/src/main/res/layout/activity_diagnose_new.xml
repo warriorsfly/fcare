@@ -706,9 +706,11 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+                <!--goneUnless="@{viewModel.diagnosis.diagnosisCode2.equals(`4-1`)||viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`)||viewModel.diagnosis.diagnosisCode2.equals(`4-5`)||viewModel.diagnosis.diagnosisCode2.equals(`4-6`)}"-->
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model2"
-                        goneUnless="@{viewModel.diagnosis.diagnosisCode2.equals(`4-1`)||viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`)||viewModel.diagnosis.diagnosisCode2.equals(`4-5`)||viewModel.diagnosis.diagnosisCode2.equals(`4-6`)}"
                         app:layout_constraintTop_toBottomOf="@+id/model1"
                         app:layout_constraintLeft_toLeftOf="parent"
                         android:layout_width="match_parent"

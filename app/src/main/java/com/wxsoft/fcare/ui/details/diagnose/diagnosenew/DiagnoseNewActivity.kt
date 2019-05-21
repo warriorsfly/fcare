@@ -219,10 +219,15 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 SELECT_DIAGNOSE_TYPE ->{
+                    val diaisTime = viewModel.diagnosis.value?.diagnosisTime?:DateTimeUtils.getCurrentTime()
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
                     diagnose.patientId = this@DiagnoseNewActivity.patientId
-                    viewModel.loadDiagnosis.value = diagnose
-                    viewModel.diagnosisTreatment.value?.diagnosis = diagnose
+                    viewModel.loadDiagnosis.value = diagnose.apply {
+                        diagnosisTime = diaisTime
+                    }
+                    viewModel.diagnosisTreatment.value?.diagnosis = diagnose.apply {
+                        diagnosisTime = diaisTime
+                    }
                 }
 
                 SELECT_TREATMENT ->{
@@ -283,14 +288,8 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                 }
 
                 SELECT_HANDWAY ->{
-                    val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
-                    var anamStr = ""
-                    if (anamnesises.size>1){
-                        anamnesises.map { anamStr = if(anamStr.isNullOrEmpty()) it.itemName else anamStr +"、"+it.itemName  }
-                    }else{
-                        anamnesises.map { anamStr = it.itemName }
-                    }
-                    viewModel.diagnosis.value?.handWay = anamStr
+                    val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.diagnosis.value?.handWay = conscious.itemName
                 }
 
                 SELECT_PATIENTOUTCOME ->{

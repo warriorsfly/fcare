@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -21,6 +22,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import android.widget.ListAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -36,6 +38,8 @@ import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -43,11 +47,14 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
+import com.wxsoft.fcare.databinding.ItemDialogSelectPatientBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
+import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
@@ -123,6 +130,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         const val IS_PRE = "IS_PRE"
         const val MY_PERMISSIONS_REQUEST_CALL_PHONE = 100
         const val SELECT_ADDRESS = 101
+        const val SELECT_PATIENT = 102
     }
 
     private var mCurrentAnimator: Animator? = null
@@ -174,6 +182,10 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
         adapter= PictureAdapter(this,4,this,this)
 
+        show_big_outpatientId.visibility=View.GONE
+        show_big_inpatientId.visibility=View.GONE
+
+
         adapter.locals= emptyList()
         attachments.adapter=adapter
         viewModel.patient.observe(this, Observer {
@@ -183,13 +195,21 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         })
 
         binding.mzh.setOnFocusChangeListener{ view, b ->
-            if (!b){
+            if (b){
+                show_big_outpatientId.visibility=View.VISIBLE
+            }else{
                 viewModel.getPatientInfos(binding.mzh.text.toString(),0)
+                show_big_outpatientId.visibility=View.GONE
             }
         }
         binding.zyh.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                viewModel.getPatientInfos(binding.zyh.text.toString(),1)
+            if (b){
+                show_big_inpatientId.visibility=View.VISIBLE
+            }else{
+                if (viewModel.patient.value?.outpatientId.isNullOrEmpty()){
+                    viewModel.getPatientInfos(binding.zyh.text.toString(),1)
+                }
+                show_big_inpatientId.visibility=View.GONE
             }
         }
         binding.call.setOnClickListener {
@@ -255,7 +275,25 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
             }
         }
+        select_patient.apply {
+            if(handOvered) {
+                visibility=View.GONE
+            }else{
+                setOnClickListener {
+                    selectPatient()
+                }
+            }
+        }
 
+
+
+    }
+
+    fun selectPatient(){
+        val intent = Intent(this, ChoicePatientActivity::class.java).apply {
+            putExtra(ChoicePatientActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent, SELECT_PATIENT)
     }
 
     fun toSelectAdress(){
@@ -374,6 +412,19 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 SELECT_ADDRESS ->{
                     val address = data?.getSerializableExtra("SelectOne") as Dictionary
                     viewModel.patient.value?.attackPosition = address.itemName
+                }
+                SELECT_PATIENT ->{
+                    val item = data?.getSerializableExtra("SelectPatient") as Patient
+                    viewModel.loadPatientResult.value= Resource.Success(Response<Patient>(true).apply {
+                        this.result= Patient("").apply {
+                            idcard = item.idcard
+                            name = item.name
+                            gender = item.gender
+                            age = item.age
+                            phone = item.phone
+                            outpatientId = item.outpatientId
+                        }
+                    })
                 }
             }
         }
@@ -603,7 +654,6 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         startActivity(intent)
     }
-
 
 
 

@@ -26,6 +26,7 @@ class RatingSubjectActivity : BaseActivity() {
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val OUT_PATIENT_ID = "OUT_PATIENT_ID"
         const val SCENCE_TYPE = "SCENCE_TYPE"
         const val RATING_ID = "RATING_ID"
         const val RATING_NAME = "RATING_NAME"

@@ -78,6 +78,8 @@
     </string>
     <string name="profile_name_title"><font color="red">*</font>患者姓名
     </string>
+    <string name="jgdb_blood_time"><font color="red">*</font>抽血时间
+    </string>
     <string name="appbar_scrolling_view_behavior" translatable="false">
         com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
     </string>

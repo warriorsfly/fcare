@@ -74,7 +74,7 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                 }
                 "selectHandway" ->{
                     loadHandway()
-                    clickAlone = false
+                    clickAlone = true
                 }
                 "selectPatientOutcom" ->{
                     loadPatientOutcom()

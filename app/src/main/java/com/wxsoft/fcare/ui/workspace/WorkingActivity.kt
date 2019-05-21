@@ -49,6 +49,7 @@ import com.wxsoft.fcare.ui.emr.ProfileViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
 import com.wxsoft.fcare.utils.ActionCode
@@ -227,9 +228,11 @@ class WorkingActivity : BaseActivity() {
         when(operation.actionCode){
 
             ActionType.心电图 ->{
+                val outpatientId=viewModel.patient.value!!.outpatientId
                 val intent = Intent(this, EcgActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
+                        putExtra(RatingSubjectActivity.OUT_PATIENT_ID, outpatientId)
                     }
                 startActivityForResult(intent, RATING)
             }

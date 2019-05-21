@@ -54,4 +54,7 @@ interface PatientApi{
     @GET("Message/ReceiverHandleNotice/{msgId}/{currUserId}/{currUserName}/{patientName}")
     fun areadyRead(@Path("msgId")msgId:String,@Path("currUserId")currUserId:String,@Path("currUserName")currUserName:String,@Path("patientName")patientName:String):Single<Response<String>>
 
+    @GET("Patient/GetPatientsFromCis")
+    fun getPatientsFromCis():Maybe<Response<List<Patient>>>
+
 }
