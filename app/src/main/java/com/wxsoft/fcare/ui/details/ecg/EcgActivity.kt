@@ -117,6 +117,9 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
     private val patientId: String by lazyFast {
         intent?.getStringExtra(RatingSubjectActivity.PATIENT_ID)?:""
     }
+    private val outpatientId: String by lazyFast {
+        intent?.getStringExtra(RatingSubjectActivity.OUT_PATIENT_ID)?:""
+    }
 
 
 
@@ -181,11 +184,15 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             }
         })
 
-
-        ss_ecg.setOnClickListener {
-            val intent=Intent(this,ReactiveEcgActivity::class.java)
-            startActivity(intent)
+        noty_title.apply {
+            if (!outpatientId.isNullOrEmpty()){
+                visibility=View.GONE
+            }
         }
+//        ss_ecg.setOnClickListener {
+//            val intent=Intent(this,ReactiveEcgActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun checkPhotoTaking(){

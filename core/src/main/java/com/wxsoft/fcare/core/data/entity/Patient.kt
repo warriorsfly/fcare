@@ -8,9 +8,10 @@ import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
+import java.io.Serializable
 
 @Entity(tableName = "patients")
-data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
+data class Patient(@PrimaryKey val id:String=""):BaseObservable(), Serializable {
 
     var taskId: String?=null
 
@@ -169,6 +170,14 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.attackTime)
+        }
+
+    @SerializedName("arrived_Hospital_Time")
+    @get:Bindable
+    var arrivedHospitalTime: String?=null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.arrivedHospitalTime)
         }
 
     @SerializedName("is_Help")

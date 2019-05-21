@@ -29,27 +29,26 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     var preHos=true
+    var canSaveAble=true
 
     var taskId:String=""
     var patientId=""
         set(value) {
             field=value
             loadPatient()
-            getPatientsFromCis()
         }
     val patient:LiveData<Patient>
     val uploading:LiveData<Boolean>
 
     val bitmaps= mutableListOf<String>()
 
-    private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
+    val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
     val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
 
     val shareClick:LiveData<String>
     private val initShareClick = MediatorLiveData<String>()
 
-    val patientlist:LiveData<List<Patient>>
-    private val loadPatientlist = MediatorLiveData<List<Patient>>()
+
 
     init {
         shareClick = initShareClick.map { it }
@@ -59,7 +58,6 @@ class ProfileViewModel @Inject constructor(
                 if (this?.diagnosisName.equals("代码不存在"))this?.diagnosisName = ""
             }?:Patient("")
         }
-        patientlist = loadPatientlist.map { it?: emptyList() }
 
     }
 
@@ -89,7 +87,8 @@ class ProfileViewModel @Inject constructor(
 //    }
 
     fun save(){
-        if(preHos && patientSavable) {
+        if(preHos && patientSavable && canSaveAble) {
+            canSaveAble = false
             patientApi.save(patient.value!!.apply {
                 createdBy = account.id
                 hospitalId = account.hospitalId
@@ -114,7 +113,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun savePic(fs:List<File>){
-        if(preHos && patientSavable) {
+        if(preHos && patientSavable && canSaveAble) {
+            canSaveAble = false
             val files = fs.map {
                 return@map MultipartBody.Part.createFormData(
                     "images",
@@ -139,6 +139,7 @@ class ProfileViewModel @Inject constructor(
                     }
 
                 }
+                canSaveAble = true
             }
         }
     }
@@ -231,33 +232,6 @@ class ProfileViewModel @Inject constructor(
             loadPatient()
     }
 
-    fun getPatientsFromCis(){
-        disposable.add(
-            patientApi.getPatientsFromCis()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread()).subscribe ({
-                    loadPatientlist.value = it.result
-                },{
-
-                })
-        )
-    }
-
-    fun choicePatient(item:Patient){
-        patientlist.value?.filter { it.checked }?.map { it.checked = false }
-        item.checked = true
-        loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
-            this.result= Patient("").apply {
-                idcard = item.idcard
-                name = item.name
-                gender = item.gender
-                age = item.age
-                phone = item.phone
-                outpatientId = item.outpatientId
-            }
-        })
-        initShareClick.value = "choicePatient"
-    }
 
 
 }

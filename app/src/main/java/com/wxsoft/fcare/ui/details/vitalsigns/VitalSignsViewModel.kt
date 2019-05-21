@@ -41,6 +41,8 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
             field = value
         }
 
+    var canSaveAble=true
+
     var xtShow= ObservableField<Boolean>()
 
     private val _errorToOperationAction = MutableLiveData<Event<String>>()
@@ -67,16 +69,19 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
     }
 
     private fun saveVitalSign() {
-        if (!saveable) return
-        val v = vital.value!!
-        v.sceneType = sceneTypeId
-        if (v.id.isEmpty()) v.patientId = patientId
-        v.createrName = account.trueName
-        disposable.add((if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
-            .subscribe({
-                initbackToLast.value = true
-                messageAction.value = Event( "保存成功")},
-                {error->messageAction.value= Event(error.message?:"") }))
+        if (saveable && canSaveAble) {
+            canSaveAble = false
+            val v = vital.value!!
+            v.sceneType = sceneTypeId
+            if (v.id.isEmpty()) v.patientId = patientId
+            v.createrName = account.trueName
+            disposable.add((if (v.id.isEmpty()) vitalSignApi.insert(v) else vitalSignApi.update(v)).toResource()
+                .subscribe({
+                    initbackToLast.value = true
+                    messageAction.value = Event( "保存成功")},
+                    {error->messageAction.value= Event(error.message?:"") }))
+        }
+
     }
 
     fun loadVitalSign() {

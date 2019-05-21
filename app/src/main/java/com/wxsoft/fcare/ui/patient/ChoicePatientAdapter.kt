@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.databinding.ItemChoicePatientBinding
+import com.wxsoft.fcare.ui.patient.choice.ChoicePatientViewModel
 
-class ChoicePatientAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val viewModel: ProfileViewModel) :
+class ChoicePatientAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val viewModel: ChoicePatientViewModel) :
     RecyclerView.Adapter<ChoicePatientAdapter.ItemViewHolder>() {
 
     private val differ = AsyncListDiffer<Patient>(this, DiffCallback)

@@ -38,6 +38,8 @@ import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -52,6 +54,7 @@ import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
+import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
@@ -128,6 +131,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         const val IS_PRE = "IS_PRE"
         const val MY_PERMISSIONS_REQUEST_CALL_PHONE = 100
         const val SELECT_ADDRESS = 101
+        const val SELECT_PATIENT = 102
     }
 
     private var mCurrentAnimator: Animator? = null
@@ -151,7 +155,6 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
     @Inject
     lateinit var factory: ViewModelFactory
 
-    private lateinit var choicePatientAdapter:ChoicePatientAdapter
     private lateinit var adapter:PictureAdapter
     private lateinit var viewModel:ProfileViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -179,7 +182,6 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         })
 
         adapter= PictureAdapter(this,4,this,this)
-        choicePatientAdapter = ChoicePatientAdapter(this,viewModel)
 
 
 
@@ -270,26 +272,20 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 visibility=View.GONE
             }else{
                 setOnClickListener {
-                    val bin= ItemDialogSelectPatientBinding.inflate(layoutInflater).apply {
-                        lifecycleOwner=this@ProfileActivity
-                        list.adapter = this@ProfileActivity.choicePatientAdapter
-                    }
-                    AlertDialog.Builder(this@ProfileActivity)
-                        .setView(bin.root)
-                        .setNeutralButton("确定") { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        .setNegativeButton("取消") { dialog, _ ->
-                            dialog.dismiss()
-                        }.show()
+                    selectPatient()
                 }
             }
         }
 
-        viewModel.patientlist.observe(this, Observer {
-            choicePatientAdapter.items = it
-        })
 
+
+    }
+
+    fun selectPatient(){
+        val intent = Intent(this, ChoicePatientActivity::class.java).apply {
+            putExtra(ChoicePatientActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent, SELECT_PATIENT)
     }
 
     fun toSelectAdress(){
@@ -408,6 +404,19 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 SELECT_ADDRESS ->{
                     val address = data?.getSerializableExtra("SelectOne") as Dictionary
                     viewModel.patient.value?.attackPosition = address.itemName
+                }
+                SELECT_PATIENT ->{
+                    val item = data?.getSerializableExtra("SelectPatient") as Patient
+                    viewModel.loadPatientResult.value= Resource.Success(Response<Patient>(true).apply {
+                        this.result= Patient("").apply {
+                            idcard = item.idcard
+                            name = item.name
+                            gender = item.gender
+                            age = item.age
+                            phone = item.phone
+                            outpatientId = item.outpatientId
+                        }
+                    })
                 }
             }
         }
