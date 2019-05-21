@@ -484,6 +484,20 @@
                     android:gravity="right|center_vertical"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <TextView
+                            android:id="@+id/show_big_outpatientId"
+                            android:alpha="0.95"
+                            android:textAlignment="textStart"
+                            app:layout_constraintBottom_toTopOf="@+id/line2_1"
+                            app:layout_constraintLeft_toLeftOf="@+id/line2_1"
+                            android:padding="15dp"
+                            android:text="@{viewModel.patient.outpatientId}"
+                            android:background="@color/colorPrimary"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/line2_1"
                     android:layout_marginTop="10dp"
@@ -523,6 +537,21 @@
                     android:gravity="right|center_vertical"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                            android:id="@+id/show_big_inpatientId"
+                            android:alpha="0.95"
+                            android:textAlignment="textStart"
+                            app:layout_constraintBottom_toTopOf="@+id/line2_2"
+                            app:layout_constraintLeft_toLeftOf="@+id/line2_2"
+                            android:padding="15dp"
+                            android:text="@{viewModel.patient.inpatientId}"
+                            android:background="@color/colorPrimary"
+                            android:textColor="@color/white"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/line2_2"

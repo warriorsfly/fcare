@@ -183,7 +183,8 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
         adapter= PictureAdapter(this,4,this,this)
 
-
+        show_big_outpatientId.visibility=View.GONE
+        show_big_inpatientId.visibility=View.GONE
 
 
         adapter.locals= emptyList()
@@ -195,13 +196,21 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         })
 
         binding.mzh.setOnFocusChangeListener{ view, b ->
-            if (!b){
+            if (b){
+                show_big_outpatientId.visibility=View.VISIBLE
+            }else{
                 viewModel.getPatientInfos(binding.mzh.text.toString(),0)
+                show_big_outpatientId.visibility=View.GONE
             }
         }
         binding.zyh.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                viewModel.getPatientInfos(binding.zyh.text.toString(),1)
+            if (b){
+                show_big_inpatientId.visibility=View.VISIBLE
+            }else{
+                if (viewModel.patient.value?.outpatientId.isNullOrEmpty()){
+                    viewModel.getPatientInfos(binding.zyh.text.toString(),1)
+                }
+                show_big_inpatientId.visibility=View.GONE
             }
         }
         binding.call.setOnClickListener {
