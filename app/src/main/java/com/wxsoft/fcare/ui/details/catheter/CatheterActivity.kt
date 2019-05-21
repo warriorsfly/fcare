@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -23,16 +22,13 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CatheterActivity : BaseTimingActivity(){
-
-    private val selectedIndex= mutableListOf<Int>()
-
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-
+    override fun selectTime(mills: Long) {
         dialog?.onDestroy()
         dialog=null
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(mills)
     }
+
+    private val selectedIndex= mutableListOf<Int>()
 
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {

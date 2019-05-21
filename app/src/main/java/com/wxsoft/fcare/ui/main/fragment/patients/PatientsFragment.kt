@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.core.widget.PopupWindowCompat
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -29,14 +28,14 @@ import javax.inject.Inject
 
 
 class PatientsFragment : BaseTimingFragment(){
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+    override fun selectTime(millseconds: Long) {
 
         when(selectedId){
             100 -> viewModel.checkCondition.value?.startDate = DateTimeUtils.formatter.format(millseconds)
             200 -> viewModel.checkCondition.value?.endDate = DateTimeUtils.formatter.format(millseconds)
         }
     }
+
 
     private var selectedId=0
 

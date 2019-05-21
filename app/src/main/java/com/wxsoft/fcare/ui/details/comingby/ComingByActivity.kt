@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.details.comingby
 
 import android.app.Activity
+import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -8,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EntityIdName
 import com.wxsoft.fcare.core.data.entity.User
@@ -25,12 +25,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ComingByActivity : BaseTimingActivity() {
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-
-        val newTime=DateTimeUtils.formatter.format(millseconds)
+    override fun selectTime(mills: Long) {
+        val newTime=DateTimeUtils.formatter.format(mills)
         viewModel.changedTiming(Pair(timingType,newTime))
         timingType=""
     }
+
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"

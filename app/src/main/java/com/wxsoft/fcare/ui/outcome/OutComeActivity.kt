@@ -9,13 +9,11 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.DateTimeUtils
-import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityOutcomeChestBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
@@ -27,7 +25,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
+    override fun selectTime(millseconds: Long) {
 
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+    }
 
 
     override fun onClick(v: View?) {
@@ -42,13 +45,6 @@ class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
             dialog?.show(supportFragmentManager, "all")
         }
 
-    }
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-
-        dialog?.onDestroy()
-        dialog=null
-        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private var selectedId=0

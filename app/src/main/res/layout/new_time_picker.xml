@@ -17,11 +17,13 @@
       app:tabMaxWidth="0dp"
       app:tabGravity="fill"
       app:tabMode="auto"
+      app:tabBackground="@color/transparent"
       android:id="@+id/tab"/>
     <Button
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:text="确定"
+      android:id="@+id/submit"
       android:textSize="15sp"
       android:textColor="@android:color/holo_blue_light"
       android:layout_alignParentRight="true"
@@ -31,5 +33,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
+          android:orientation="vertical"
           android:id="@+id/viewPager"/>
 </LinearLayout>

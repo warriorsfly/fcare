@@ -2,17 +2,11 @@ package com.wxsoft.fcare.ui.workspace
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.TimePoint
 import com.wxsoft.fcare.core.data.entity.TimePointHead
@@ -23,7 +17,6 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityTimePointBinding
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
@@ -35,11 +28,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class TimePointActivity : BaseTimingActivity()  {
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+    override fun selectTime(millseconds: Long) {
         dialog?.onDestroy()
         dialog=null
-       viewModel.newTime(DateTimeUtils.formatter.format(millseconds))
+        viewModel.newTime(DateTimeUtils.formatter.format(millseconds))
     }
+
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"

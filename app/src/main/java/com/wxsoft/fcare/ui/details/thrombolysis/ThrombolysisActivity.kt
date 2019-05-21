@@ -11,7 +11,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.drug.Drug
@@ -30,8 +29,8 @@ import javax.inject.Inject
 
 
 class ThrombolysisActivity : BaseTimingActivity() {
+    override fun selectTime(millseconds: Long) {
 
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
             R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time = DateTimeUtils.formatter.format(millseconds)

@@ -32,7 +32,7 @@ class DingLikeAdapter(private var timeMillis:Long,private val timeChanged:(Int)-
             R.layout.new_picker_calendar->{
                 ItemViewHolder.DateViewHolder(inflater.inflate(viewType,parent,false)).apply {
                     val calendarView=view.findViewById<CalendarView>(R.id.calendar)
-                    calendarView.setOnDateChangeListener{view, year, month, dayOfMonth ->
+                    calendarView.setOnDateChangeListener{ _, year, month, dayOfMonth ->
                         calendar.set(year,month,dayOfMonth)
                         timeChanged(Calendar.DATE)
                     }
@@ -45,8 +45,8 @@ class DingLikeAdapter(private var timeMillis:Long,private val timeChanged:(Int)-
                         adapter= NumericWheelAdapter(0,23)
                         setTextSize(32f)
                         setOnItemSelectedListener{
-                            calendar.set(Calendar.HOUR,it)
-                            timeChanged(Calendar.HOUR)
+                            calendar.set(Calendar.HOUR_OF_DAY,it)
+                            timeChanged(Calendar.HOUR_OF_DAY)
                         }
                     }
                     view.findViewById<WheelView>(R.id.minute).apply {

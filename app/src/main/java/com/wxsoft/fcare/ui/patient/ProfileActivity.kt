@@ -60,6 +60,12 @@ import javax.inject.Named
 
 
 class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,PhotoEventAction ,AMapLocationListener{
+    override fun selectTime(millseconds: Long) {
+
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+    }
 
     var phoneNuber = ""
 
@@ -105,13 +111,6 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
             dialog?.show(supportFragmentManager, "all")
         }
 
-    }
-
-    override fun onDateSet(timePickerView: com.jzxiang.pickerview.TimePickerDialog?, millseconds: Long) {
-
-        dialog?.onDestroy()
-        dialog=null
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private val toast:Toast by  lazy {

@@ -7,16 +7,10 @@ import cn.jiguang.share.android.api.Platform
 import cn.jiguang.share.android.api.ShareParams
 import cn.jiguang.share.wechat.Wechat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.jzxiang.pickerview.listener.OnDateSetListener
-import com.luck.picture.lib.PictureSelector
-import com.luck.picture.lib.config.PictureConfig
-import com.luck.picture.lib.config.PictureMimeType
-import com.luck.picture.lib.entity.LocalMedia
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.utils.IShareOrDelete
-import dagger.android.support.DaggerFragment
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

@@ -12,16 +12,12 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityCureBinding
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
@@ -35,10 +31,8 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CureActivity : BaseTimingActivity() {
+    override fun selectTime(millseconds: Long) {
 
-    private val selectedIndex= mutableListOf<Int>()
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
         dialog?.onDestroy()
         dialog=null
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
@@ -51,6 +45,8 @@ class CureActivity : BaseTimingActivity() {
             R.id.end_cabg_time -> viewModel.cabg.value?.endOperationTime = DateTimeUtils.formatter.format(millseconds)
         }
     }
+
+    private val selectedIndex= mutableListOf<Int>()
 
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {

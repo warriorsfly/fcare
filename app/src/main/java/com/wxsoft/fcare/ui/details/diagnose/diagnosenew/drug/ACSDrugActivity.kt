@@ -8,7 +8,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -20,9 +19,8 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ACSDrugActivity : BaseTimingActivity() {
+    override fun selectTime(millseconds: Long) {
 
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-//        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
             R.id.start_1 -> viewModel.acsDrug.value?.acs_Delivery_Time = DateTimeUtils.formatter.format(millseconds)
             R.id.start_2 -> viewModel.acsDrug.value?.anticoagulation_Date = DateTimeUtils.formatter.format(millseconds)
