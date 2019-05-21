@@ -42,6 +42,7 @@ class DingLikeTimePicker (private val mills:Long,private val timeSelect:(Long)->
     }
 
     private fun timeChanged(field:Int){
+        if(tab==null)return
         when(field){
             Calendar.DATE->{
                 tab.getTabAt(0)?.text="${adapter.calendar.get(Calendar.YEAR)}-${String.format("%02d",adapter.calendar.get(Calendar.MONTH)+1)}-${String.format("%02d",adapter.calendar.get(Calendar.DAY_OF_MONTH))}"
