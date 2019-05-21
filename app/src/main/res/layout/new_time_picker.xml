@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/rv_topbar"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:background="@color/pickerview_bg_topbar">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+    <com.google.android.material.tabs.TabLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:tabMaxWidth="0dp"
+      app:tabGravity="fill"
+      app:tabMode="auto"
+      android:id="@+id/tab"/>
+    <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="确定"
+      android:textSize="15sp"
+      android:textColor="@android:color/holo_blue_light"
+      android:layout_alignParentRight="true"
+      style="@style/Widget.MaterialComponents.Button.TextButton"/>
+    </RelativeLayout>
+        <androidx.viewpager2.widget.ViewPager2
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:id="@+id/viewPager"/>
+</LinearLayout>
