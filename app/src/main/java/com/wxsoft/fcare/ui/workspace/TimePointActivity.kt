@@ -88,17 +88,18 @@ class TimePointActivity : BaseTimingActivity()  {
         title="急救时间轴"
 
         viewModel.liveData.observe(this, Observer {
-            adapter.points=it
+            adapter.differ.submitList(it)
+            adapter.notifyDataSetChanged()
         })
 
-        viewModel.indexData.observe(this, Observer {
-            if(it==0){
-                (adapter.differ.currentList[0] as? TimePointHead)?.excutedAt=adapter.points[0] .excutedAt?.substring(0,10)
-                adapter.notifyItemChanged(it)
-            }
-            adapter.notifyItemChanged(it+1)
-//            adapter.points=adapter.points
-        })
+//        viewModel.indexData.observe(this, Observer {
+//            if(it==0){
+//                (adapter.differ.currentList[0] as? TimePointHead)?.excutedAt=adapter.points[0] .excutedAt?.substring(0,10)
+//                adapter.notifyItemChanged(it)
+//            }
+//            adapter.notifyItemChanged(it)
+////            adapter.points=adapter.points
+//        })
 
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
@@ -184,10 +185,11 @@ class TimePointActivity : BaseTimingActivity()  {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 100 -> {
-                    var arr = adapter.points as ArrayList<TimePoint>
-                    val point = data?.getSerializableExtra("selectedTimePoint") as TimePoint
-                    arr.add(selectedPointIndex+1, point)
-                    adapter.points = arr.toList()
+                    viewModel.loadTimePoints()
+//                    var arr = adapter.differ.currentList
+//                    val point = data?.getSerializableExtra("selectedTimePoint") as TimePoint
+//                    arr.add(selectedPointIndex+1, point)
+//                    adapter.notifyDataSetChanged()
                 }
             }
         }

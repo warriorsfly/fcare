@@ -1,5 +1,7 @@
 package com.wxsoft.fcare.ui
 
+import androidx.fragment.app.DialogFragment
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.ui.common.DingLikeTimePicker
 import com.wxsoft.fcare.ui.common.ITimeSelected
 
