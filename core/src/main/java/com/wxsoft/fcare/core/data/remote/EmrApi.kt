@@ -19,7 +19,7 @@ interface EmrApi{
     /**
      * 获取emr时间轴
      */
-    @GET("Patient/GetEmr/{patientId}/{currUserId}/{isPreHospital}")
+    @GET("Emr/GetEmr/{patientId}/{currUserId}/{isPreHospital}")
     fun getEmrs(@Path("patientId")patientId:String,@Path("currUserId")userId:String,@Path("isPreHospital")pre:Boolean): Single<Response<List<EmrItem>>>
 
     /**
@@ -127,7 +127,7 @@ interface EmrApi{
     /**
      * acs给药
      */
-    @GET("Drug/GetAcsByPatientId/{patientId}")
+    @GET("Drug/GetEmrAcsByPatientId/{patientId}")
     fun getACSDrug(@Path("patientId")patientId:String):Maybe<Response<ACSDrug>>
 
     /**
