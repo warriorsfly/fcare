@@ -21,6 +21,17 @@
         <item name="android:textViewStyle">@style/BlackTextViewStyle</item>
         <item name="android:actionMenuTextAppearance">@style/MenuTextStyle</item>
     </style>
+
+    <style name="AppTheme.NoActionBar.LargeBottomSheet" parent="AppTheme.NoActionBar">
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+    </style>
+    <style name="BottomSheetDialogTheme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Design.BottomSheet.Modal.Wx</item>
+    </style>
+
+    <style name="Widget.Design.BottomSheet.Modal.Wx" parent="Widget.Design.BottomSheet.Modal">
+        <item name="behavior_peekHeight">400dp</item>
+    </style>
     <style name="BlackTextViewStyle" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/lable_font</item>
         <item name="android:textColorHint">#C1C1C1</item>

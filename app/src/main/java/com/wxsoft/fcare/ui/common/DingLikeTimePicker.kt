@@ -1,9 +1,13 @@
 package com.wxsoft.fcare.ui.common
 
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wxsoft.fcare.R
 import kotlinx.android.synthetic.main.new_time_picker.*
@@ -19,12 +23,9 @@ class DingLikeTimePicker (private val mills:Long,private val timeSelect:(Long)->
             savedInstanceState: Bundle?
     ): View? {
 
+
         return inflater.inflate(R.layout.new_time_picker,container).apply {
-
-
             adapter= DingLikeAdapter(if(mills==0L)System.currentTimeMillis() else mills,::timeChanged)
-
-
             viewPager.adapter=adapter
             viewPager.isUserInputEnabled = false
             TabLayoutMediator(tab, viewPager) { tab, position ->
@@ -54,5 +55,9 @@ class DingLikeTimePicker (private val mills:Long,private val timeSelect:(Long)->
             }
 
         }
+    }
+
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        return BottomSheetDialog(context!!, R.style.BottomSheetDialogTheme)
     }
 }
