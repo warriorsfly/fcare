@@ -8,7 +8,7 @@ import com.wxsoft.fcare.core.data.entity.chest.Intervention
 data class Cure (val id:String=""): BaseObservable(){
     //策略
     @Bindable
-    var treatStrategy :Strategy = Strategy("")
+    var treatStrategy :Strategy = Strategy("",0)
         set(value) {
             field = value
             notifyPropertyChanged(BR.treatStrategy)

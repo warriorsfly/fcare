@@ -130,7 +130,7 @@ class CureViewModel @Inject constructor(private val cureApi: CureApi,
     }
 
     private fun loadIntervention(){
-        disposable.add(interventionApi.getIntervention(patientId).zipWith(interventionApi.getInterventionDocs(account.id))
+        disposable.add(interventionApi.getIntervention(patientId).zipWith(interventionApi.getInterventionDocs(account.id,patientId))
             .toResource()
             .subscribe {
                 when(it){

@@ -57,7 +57,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
     init {
         diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("") }
         diagnosis = loadDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
-        selectedTreatment = loadSelectedTreatment.map { it?: Strategy("") }
+        selectedTreatment = loadSelectedTreatment.map { it?: Strategy(patientId,1) }
         acsDrug = loadAcsDrug.map { it?: ACSDrug("") }
         talk = loadTalk.map { it?: Talk("") }
         haveData()

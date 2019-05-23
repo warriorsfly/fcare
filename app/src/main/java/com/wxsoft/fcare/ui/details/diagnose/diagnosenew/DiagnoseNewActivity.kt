@@ -233,7 +233,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                 SELECT_TREATMENT ->{
                     val stegyId = viewModel.selectedTreatment.value?.id!!
                     val dic = data?.getSerializableExtra("SelectOption") as Dictionary
-                    viewModel.loadSelectedTreatment.value = Strategy(stegyId).apply {
+                    viewModel.loadSelectedTreatment.value = Strategy(stegyId,1).apply {
                         strategyCode = dic.id
                         patientId = this@DiagnoseNewActivity.patientId
                         strategyCode_Name = dic.itemName
@@ -254,7 +254,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
 
                 SELECT_NOREFUSHION_RESON ->{
                     val dic = data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.loadSelectedTreatment.value = Strategy("").apply {
+                    viewModel.loadSelectedTreatment.value = Strategy(patientId,1).apply {
                         strategyCode = "14-8"
                         strategyCode_Name = "无再灌注措施"
                         memo = "group3"

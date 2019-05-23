@@ -44,7 +44,7 @@ class StrategyViewModel  @Inject constructor(private val api: PACSApi,
 
     init {
         strategyItems = loadStrategyItemsResult.map { (it as? Resource.Success)?.data?: emptyList()  }
-        strategy = loadStrategy.map { (it as? Resource.Success)?.data?.result?: Strategy("") }
+        strategy = loadStrategy.map { (it as? Resource.Success)?.data?.result?: Strategy(patientId,1) }
         saveResult = loadsaveResult.map { it }
     }
 
