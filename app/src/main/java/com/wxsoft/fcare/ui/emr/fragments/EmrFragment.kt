@@ -17,6 +17,7 @@ import com.wxsoft.fcare.ui.BaseFragment
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
+import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
 import com.wxsoft.fcare.ui.details.complaints.ComplaintsActivity
 import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
@@ -40,6 +41,7 @@ import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
+import com.wxsoft.fcare.utils.ActionCode.Companion.COMEBY
 import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
 import com.wxsoft.fcare.utils.ActionCode.Companion.CT_OPERATION
 import com.wxsoft.fcare.utils.ActionCode.Companion.Catheter
@@ -121,6 +123,7 @@ class EmrFragment : BaseFragment() {
             ActionType.治疗策略 -> Pair(StrategyActivity::class.java, STRATEGY)
             ActionType.心电图 -> Pair(EcgActivity::class.java, ECG)
             ActionType.一键通知 ->Pair(OneTouchCallingActivity::class.java, ONETOUCH)
+            ActionType.来院方式 ->Pair(ComingByActivity::class.java, COMEBY)
 
 
             else -> throw IllegalArgumentException("unknown code $code")

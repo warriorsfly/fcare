@@ -58,13 +58,20 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
     private fun doTimePoints(response:Response<List<List<TimePoint>>>){
 
         val merged = mutableListOf<Any>()
+        var emptyList:List<TimePoint>?=null
         for(list in response.result?: emptyList()){
-            val title=list.firstOrNull { it.excutedAt?.isNotEmpty() ?: false }?.excutedAt ?.substring(0,10)?:""
-            if (title.isNotEmpty()) {
-                merged += TimePointHead(title)
+
+            if(emptyList.isNullOrEmpty() && list.isNotEmpty() && list[0].excutedAt.isNullOrEmpty()){
+                emptyList=list
+            }else {
+                val title = list.firstOrNull { it.excutedAt?.isNotEmpty() ?: false }?.excutedAt?.substring(0, 10) ?: ""
+                if (title.isNotEmpty()) {
+                    merged += TimePointHead(title)
+                }
+                merged.addAll(list)
             }
-            merged.addAll(list)
         }
+        emptyList?.let(merged::addAll)
         loadTimepointsResult.value=merged
     }
 

@@ -278,7 +278,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
         ) : ItemViewHolder(binding,click){
             init {
                 binding.apply {
-                    root.setOnClickListener {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
                         item?.code?.let(click)
                     }
                 }
@@ -291,7 +292,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
         ) : ItemViewHolder(binding,click){
             init {
                 binding.apply {
-                    root.setOnClickListener {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
                         item?.code?.let(click)
                     }
                 }
