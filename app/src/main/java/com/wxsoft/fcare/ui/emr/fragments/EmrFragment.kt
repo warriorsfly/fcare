@@ -15,6 +15,7 @@ import com.wxsoft.fcare.databinding.ActivityWorkingEmrBinding
 import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
 import com.wxsoft.fcare.ui.BaseFragment
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
@@ -124,8 +125,7 @@ class EmrFragment : BaseFragment() {
             ActionType.心电图 -> Pair(EcgActivity::class.java, ECG)
             ActionType.一键通知 ->Pair(OneTouchCallingActivity::class.java, ONETOUCH)
             ActionType.来院方式 ->Pair(ComingByActivity::class.java, COMEBY)
-
-
+            ActionType.肌钙蛋白 ->Pair(JGDBActivity::class.java, ONETOUCH)
             else -> throw IllegalArgumentException("unknown code $code")
         }
         val intent = Intent(activity, act.first).apply {

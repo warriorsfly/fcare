@@ -266,7 +266,6 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line4"
-                            goneUnless="@{!viewModel.diagnosis.diagnosisCode2.equals(``)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line1"
                             android:layout_width="match_parent"
@@ -332,7 +331,6 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line5"
-                            goneUnless="@{!viewModel.diagnosis.diagnosisCode2.equals(``)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line4"
                             android:layout_width="match_parent"
@@ -386,7 +384,6 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line6"
-                            goneUnless="@{!viewModel.diagnosis.diagnosisCode2.equals(``)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line3"
                             android:layout_width="match_parent"

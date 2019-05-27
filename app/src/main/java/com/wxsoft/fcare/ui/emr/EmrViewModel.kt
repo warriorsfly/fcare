@@ -66,7 +66,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      * 获取emr列表
      */
     fun loadEmrs() {
-       disposable.add( api.getEmrs(patientId, account.id, preHos)
+       disposable.add( api.getEmrs(patientId, account.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::loadEmrDetails, ::error))
