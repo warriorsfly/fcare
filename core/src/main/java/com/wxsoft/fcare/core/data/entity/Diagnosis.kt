@@ -7,7 +7,7 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import java.io.Serializable
 
-data class Diagnosis (val id:String="",val createrId:String,val createrName:String): BaseObservable(), Serializable {
+data class Diagnosis (var id:String="",val createrId:String,val createrName:String): BaseObservable(), Serializable {
 
     /// <summary>
     /// 病人id

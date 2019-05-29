@@ -85,4 +85,7 @@
     </string>
     <string name="title_profile_attacktime"><font color="red">*</font>发病时间
     </string>
+    <string name="string_attack_address"><font color="red">*</font>发病地址</string>
+    <string name="string_ecg_create_time"><font color="red">*</font>检查:</string>
+    <string name="string_ecg_d_time"><font color="red">*</font>报告:</string>
 </resources>
