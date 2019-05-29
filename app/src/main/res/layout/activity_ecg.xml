@@ -197,7 +197,7 @@
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/egg_line"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="60dp"
+                    android:layout_marginLeft="45dp"
                     android:layout_marginBottom="10dp"
                     android:layout_marginRight="10dp"
                     android:hint="请选择时间"
@@ -219,10 +219,9 @@
 
                 <TextView
                     app:layout_constraintRight_toLeftOf="@id/ecg"
-                    app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
-                    android:layout_margin="16dp"
-                    android:text="FMC2ECG"
-
+                    app:layout_constraintTop_toTopOf="@id/egg_title"
+                    app:layout_constraintBottom_toBottomOf="@id/egg_title"
+                    android:text="FMC2ECG:"
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:textColor="#525252"
                     android:gravity="right|center_vertical"
@@ -232,7 +231,7 @@
                 <TextView
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
-                    android:layout_margin="16dp"
+                    android:layout_margin="10dp"
                     android:id="@+id/ecg"
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:text="@{FloatConverter.floatToString(viewModel.ecg.fmC2ECG)+`分钟`}"
@@ -257,7 +256,7 @@
                         app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"
                         app:layout_constraintBottom_toBottomOf="parent"
                         android:layout_marginTop="10dp"
-                        android:layout_marginLeft="60dp"
+                        android:layout_marginLeft="45dp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginRight="10dp"
                         android:text="@{viewModel.ecg.diagnosedAt}"
@@ -278,9 +277,9 @@
 
                 <TextView
                         app:layout_constraintRight_toLeftOf="@id/fm2egg"
-                        app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"
-                        android:layout_margin="16dp"
-                        android:text="ECG"
+                        app:layout_constraintTop_toTopOf="@id/fmc2egg_title"
+                        app:layout_constraintBottom_toBottomOf="@id/fmc2egg_title"
+                        android:text="ECG:"
                         android:textColor="#525252"
                         android:gravity="right|center_vertical"
                         android:layout_width="0dp"
@@ -289,7 +288,7 @@
                 <TextView
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"
-                        android:layout_margin="16dp"
+                        android:layout_margin="10dp"
                         android:hint="2分钟"
                         android:id="@+id/fm2egg"
                         android:textColor="#999999"
