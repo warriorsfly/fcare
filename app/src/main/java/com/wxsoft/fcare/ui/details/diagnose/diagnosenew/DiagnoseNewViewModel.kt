@@ -94,6 +94,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         diagnosisTreatment.value?.acs = acsDrug.value!!
         diagnosisTreatment.value?.treatStrategy = selectedTreatment.value!!
         diagnosisTreatment.value?.talk = talk.value!!
+//        diagnosisTreatment.value?.diagnosis = diagnosis.value!!
         diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
         if (saveable){
             disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)

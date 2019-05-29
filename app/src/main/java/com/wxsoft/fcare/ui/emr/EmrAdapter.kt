@@ -15,6 +15,7 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
+import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.rating.RatingResult
 import com.wxsoft.fcare.databinding.*
 import com.wxsoft.fcare.ui.common.EmrImageAdapter
@@ -99,6 +100,18 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             R.layout.item_new_emr_cb_result->{
                 ItemViewHolder.CbViewHolder(
                     ItemNewEmrCbResultBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            R.layout.item_new_emr_comming_by->{
+                ItemViewHolder.CommingViewHolder(
+                    ItemNewEmrCommingByBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            R.layout.item_new_emr_xg->{
+                ItemViewHolder.XGViewHolder(
+                    ItemNewEmrXgBinding.inflate(inflater,parent,false)
                         .apply {lifecycleOwner=owner},itemClick)
             }
 
@@ -245,6 +258,47 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                     executePendingBindings()
                 }
             }
+
+            is ItemViewHolder.XGViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    cr=emr.result as? LisCr
+
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.CommingViewHolder-> {
+                holder.binding.apply {
+                    item = emr
+                    comming = (emr.result as? ComingBy)?.apply {
+
+                        emergencyDoctor = comingWayStaffs.firstOrNull { it.staffType == "1" }?.let {
+                            User().apply {
+                                this.id = it.staffId
+                                trueName = it.staffName
+                            }
+                        } ?: User()
+
+                        emergencyNurse = comingWayStaffs.firstOrNull { it.staffType == "2" }?.let {
+                            User().apply {
+                                this.id = it.staffId
+                                trueName = it.staffName
+                            }
+                        } ?: User()
+                        var cdoctors = comingWayStaffs.filter { it.staffType == "3" }?.map {
+                            User().apply {
+                                this.id = it.staffId
+                                trueName = it.staffName
+                            }
+                        }
+                        consultantDoctors = cdoctors.joinToString(separator = ",") { it.trueName }
+                    }
+
+
+                    executePendingBindings()
+                }
+            }
         }
     }
 
@@ -264,6 +318,8 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 ActionType.心电图-> R.layout.item_new_emr_ecg
                 ActionType.PhysicalExamination-> R.layout.item_new_emr_cb_result
                 ActionType.ACS给药-> R.layout.item_new_emr_acs_medicine
+                ActionType.来院方式-> R.layout.item_new_emr_comming_by
+                ActionType.肌钙蛋白-> R.layout.item_new_emr_xg
                 else -> R.layout.item_new_emr_none
             }
         }
@@ -416,6 +472,34 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
         class CbViewHolder(
             override val binding: ItemNewEmrCbResultBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class CommingViewHolder(
+            override val binding: ItemNewEmrCommingByBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class XGViewHolder(
+            override val binding: ItemNewEmrXgBinding,
             override val click:(String)->Unit
         ) : ItemViewHolder(binding,click){
             init {

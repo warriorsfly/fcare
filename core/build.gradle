@@ -26,7 +26,6 @@ android {
         buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
         buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
 
-
         sourceSets {
             main {
                 jniLibs.srcDir 'libs'

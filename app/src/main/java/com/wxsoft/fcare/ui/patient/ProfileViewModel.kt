@@ -56,7 +56,7 @@ class ProfileViewModel @Inject constructor(
         patient=loadPatientResult.map {
             (it as? Resource.Success)?.data?.result.apply {
                 if (this?.diagnosisName.equals("代码不存在"))this?.diagnosisName = ""
-            }?:Patient("")
+            }?:Patient("").apply { createdBy=account.id }
         }
 
     }
@@ -71,7 +71,7 @@ class ProfileViewModel @Inject constructor(
     private fun loadPatient(){
         if(patientId.isEmpty()){
             loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
-                this.result= Patient("")
+                this.result= Patient("").apply { createdBy=account.id }
             })
         }else {
             patientApi.getOne(patientId).toResource().subscribe { inf ->

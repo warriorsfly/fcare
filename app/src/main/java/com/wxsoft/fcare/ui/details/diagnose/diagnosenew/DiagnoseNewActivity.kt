@@ -222,6 +222,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                     val diaisTime = viewModel.diagnosis.value?.diagnosisTime?:DateTimeUtils.getCurrentTime()
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
                     diagnose.patientId = this@DiagnoseNewActivity.patientId
+                    diagnose.id = this@DiagnoseNewActivity.viewModel.diagnosis.value?.id?:""
                     viewModel.loadDiagnosis.value = diagnose.apply {
                         diagnosisTime = diaisTime
                     }
