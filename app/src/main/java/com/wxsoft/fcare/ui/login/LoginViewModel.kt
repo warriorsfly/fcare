@@ -39,7 +39,6 @@ class LoginViewModel @Inject constructor(
     val account: LiveData<Response<Account>>
     val logined: LiveData<Boolean>
 
-
     /**
      * 需要传递出去的toast消息
      */
