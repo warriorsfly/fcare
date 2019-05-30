@@ -22,7 +22,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
@@ -46,6 +45,22 @@ import java.io.File
 import javax.inject.Inject
 
 class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
+    override fun selectTime(millseconds: Long) {
+
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        when(selectedId){
+            R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
+            R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
+        }
+        val files=viewModel.bitmaps.map { File(it).let {
+                file->
+            Compressor(this@EcgActivity)
+                .setMaxWidth(1280)
+                .setMaxHeight(1280)
+                .setQuality(75).compressToFile(file)
+        } }
+        viewModel.saveEcg(files)
+    }
 
     private var selectedId=0
 
@@ -60,22 +75,6 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             dialog = createDialog(currentTime)
             dialog?.show(supportFragmentManager, "all")
         }
-    }
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
-        when(selectedId){
-            R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
-            R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
-        }
-        val files=viewModel.bitmaps.map { File(it).let {
-            file->
-            Compressor(this@EcgActivity)
-                .setMaxWidth(1280)
-                .setMaxHeight(1280)
-                .setQuality(75).compressToFile(file)
-        } }
-        viewModel.saveEcg(files)
     }
 
     override fun doError(throwable: Throwable) {
@@ -116,6 +115,9 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
 
     private val patientId: String by lazyFast {
         intent?.getStringExtra(RatingSubjectActivity.PATIENT_ID)?:""
+    }
+    private val outpatientId: String by lazyFast {
+        intent?.getStringExtra(RatingSubjectActivity.OUT_PATIENT_ID)?:""
     }
 
 
@@ -181,11 +183,15 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             }
         })
 
-
-        ss_ecg.setOnClickListener {
-            val intent=Intent(this,ReactiveEcgActivity::class.java)
-            startActivity(intent)
+        noty_title.apply {
+            if (!outpatientId.isNullOrEmpty()){
+                visibility=View.GONE
+            }
         }
+//        ss_ecg.setOnClickListener {
+//            val intent=Intent(this,ReactiveEcgActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun checkPhotoTaking(){

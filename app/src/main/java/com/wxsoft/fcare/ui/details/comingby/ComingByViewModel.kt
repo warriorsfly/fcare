@@ -29,7 +29,6 @@ class ComingByViewModel @Inject constructor(
         loadData(field)
     }
 
-
     private val loadComingBy=MediatorLiveData<Response<ComingBy>>()
     private val loadPassing=MediatorLiveData<Response<Passing>>()
     private val savingResult=MediatorLiveData<Response<String?>>()
@@ -118,7 +117,7 @@ class ComingByViewModel @Inject constructor(
                     TimingType.InHospitalAdmission -> it.inhospital_Admission_Time
                     TimingType.LeaveDepartment -> it.leave_Department_Time
                     TimingType.ArriveScene -> it.arrived_Scene_Time
-                    TimingType.Consultation -> it.consultation_Time
+                    TimingType.Consultation -> it.consultation_Time?:""
                     TimingType.LeaveDepartment -> it.leave_Department_Time
                     else -> throw IllegalArgumentException("error timing type $timingType")
                 }
@@ -170,6 +169,10 @@ class ComingByViewModel @Inject constructor(
 
     fun doSaving(result:Response<String?>){
         savingResult.value=result
+    }
+
+    fun clearConsultationTime(){
+        comingBy.value?.consultation_Time=null
     }
 
 

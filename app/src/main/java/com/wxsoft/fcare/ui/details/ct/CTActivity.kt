@@ -1,35 +1,32 @@
 package com.wxsoft.fcare.ui.details.ct
 
-import androidx.lifecycle.Observer
+import android.app.TimePickerDialog
 import android.content.Intent
-import android.graphics.Color
-import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
-import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
-import com.wxsoft.fcare.databinding.ActivityCtBinding
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ActivityCtBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import kotlinx.android.synthetic.main.activity_ct.*
-
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CTActivity : BaseTimingActivity(), View.OnClickListener {
+    override fun selectTime(mills: Long) {
+        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(mills)
+    }
 
-    private val selectedIndex= mutableListOf<Int>()
     override fun onClick(v: View?) {
 
 
@@ -43,11 +40,6 @@ class CTActivity : BaseTimingActivity(), View.OnClickListener {
                     dialog?.show(supportFragmentManager, "all")
                 }
 
-    }
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-
-        (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
     }
 
     private var selectedId=0

@@ -57,7 +57,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
     init {
         diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("") }
         diagnosis = loadDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
-        selectedTreatment = loadSelectedTreatment.map { it?: Strategy("") }
+        selectedTreatment = loadSelectedTreatment.map { it?: Strategy(patientId,1) }
         acsDrug = loadAcsDrug.map { it?: ACSDrug("") }
         talk = loadTalk.map { it?: Talk("") }
         haveData()
@@ -94,6 +94,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         diagnosisTreatment.value?.acs = acsDrug.value!!
         diagnosisTreatment.value?.treatStrategy = selectedTreatment.value!!
         diagnosisTreatment.value?.talk = talk.value!!
+//        diagnosisTreatment.value?.diagnosis = diagnosis.value!!
         diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
         if (saveable){
             disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)
@@ -113,14 +114,15 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
                     messageAction.value= Event("请选择诊断类型")
                     return@let false
                 }else if(it.diagnosis?.diagnosisCode2.equals("4-1")||it.diagnosis?.diagnosisCode2.equals("4-2")||it.diagnosis?.diagnosisCode2.equals("4-3")||it.diagnosis?.diagnosisCode2.equals("4-4")||it.diagnosis?.diagnosisCode2.equals("4-5")||it.diagnosis?.diagnosisCode2.equals("4-6")){
-                    when{
-                        it.treatStrategy?.strategyCode.isNullOrEmpty()->{
-                            messageAction.value= Event("请选择治疗策略")
-                            return@let false
-                        }
-                        else->
-                            return@let true
-                    }
+//                    when{
+//                        it.treatStrategy?.strategyCode.isNullOrEmpty()->{
+//                            messageAction.value= Event("请选择治疗策略")
+//                            return@let false
+//                        }
+//                        else->
+//                            return@let true
+//                    }
+                    return@let true
                 } else{
                     return@let true
                 }

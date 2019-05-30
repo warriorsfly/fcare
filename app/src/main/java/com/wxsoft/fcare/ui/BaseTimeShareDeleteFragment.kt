@@ -8,40 +8,24 @@ import cn.jiguang.share.android.api.Platform
 import cn.jiguang.share.android.api.ShareParams
 import cn.jiguang.share.wechat.Wechat
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.di.GlideApp
+import com.wxsoft.fcare.ui.common.DingLikeTimePicker
+import com.wxsoft.fcare.ui.common.ITimeSelected
 import com.wxsoft.fcare.utils.IShareOrDelete
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.io.File
 
-abstract class BaseTimeShareDeleteFragment: BaseFragment(), IShareOrDelete , OnDateSetListener {
+abstract class BaseTimeShareDeleteFragment: BaseFragment(), IShareOrDelete , ITimeSelected {
 
-    protected var dialog: TimePickerDialog?=null
+    protected var dialog: DingLikeTimePicker?=null
 
-    protected fun createDialog(time:Long): TimePickerDialog {
+    protected fun createDialog(time:Long): DingLikeTimePicker {
 
-        return TimePickerDialog.Builder()
-            .setThemeColor(resources.getColor(R.color.colorPrimary))
-            .setCallBack(this)
-            .setCancelStringId("取消")
-            .setSureStringId("确定")
-            .setTitleStringId("选择时间")
-            .setYearText("")
-            .setMonthText("")
-            .setDayText("")
-            .setHourText("")
-            .setMinuteText("")
-            .setCyclic(true)
-            .setCurrentMillseconds(if(time==0L)System.currentTimeMillis() else time)
-            .setType(Type.ALL)
-            .setWheelItemTextSize(12)
-            .build().apply {  setStyle(DialogFragment.STYLE_NORMAL, R.style.Theme_FCare_Dialog)}
+        return DingLikeTimePicker(time,::selectTime)
     }
 
     protected val listener = object : PlatActionListener {

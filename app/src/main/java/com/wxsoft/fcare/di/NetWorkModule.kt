@@ -80,13 +80,12 @@ class NetWorkModule {
         }
 
         if(retrofit==null){
-            if(storage.endPointIndex>-1) {
+            if(storage.endPointIndex<0) {
 
-                retrofit= createBuilder(endpoints[storage.endPointIndex].url).build()
-                return retrofit!!
-            }else {
-                throw IllegalStateException("index not in the array")
+               storage.endPointIndex=0
             }
+            retrofit= createBuilder(endpoints[storage.endPointIndex].url).build()
+            return retrofit!!
         }else{
             if(storage.endPointChanged){
                 retrofit= createBuilder(endpoints[storage.endPointIndex].url).build()

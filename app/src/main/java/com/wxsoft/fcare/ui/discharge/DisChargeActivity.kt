@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -21,13 +20,13 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDischargeBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
-import kotlinx.android.synthetic.main.activity_discharge.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DisChargeActivity : BaseTimingActivity(){
 
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+    override fun selectTime(millseconds: Long) {
+
         dialog?.onDestroy()
         dialog=null
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)

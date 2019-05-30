@@ -67,11 +67,15 @@ import javax.inject.Inject
 
 class EmrActivity : BaseActivity() {
 
+    private val pre: Boolean by lazyFast {
+        intent?.getBooleanExtra("PRE",false)?:false
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         emrViewModel=viewModelProvider(factory)
         emrPageViewModel=viewModelProvider(factory)
+        emrViewModel.preHos=pre
         emrViewModel.patientId=patientId
         adapter= EmrAdapter(this,::clickItem)
         DataBindingUtil.setContentView<ActivityEmrBinding>(this, R.layout.activity_emr).apply {

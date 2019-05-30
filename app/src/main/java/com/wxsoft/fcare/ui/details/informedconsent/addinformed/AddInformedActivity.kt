@@ -5,7 +5,6 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
@@ -26,7 +25,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
@@ -40,16 +38,25 @@ import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_add_informed.*
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import java.util.*
 import javax.inject.Inject
-import android.util.Pair
-import id.zelory.compressor.Compressor
 
 class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
+    override fun selectTime(millseconds: Long) {
+
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        when(selectedId){
+            R.id.start_informed_time -> viewModel.talk.value?.startTime = DateTimeUtils.formatter.format(millseconds)
+            R.id.end_informed_time -> viewModel.talk.value?.endTime = DateTimeUtils.formatter.format(millseconds)
+        }
+        viewModel.talk.value?.judgeTime()
+    }
+
     override fun localSelected() {
         checkPhotoTaking()
     }
@@ -75,16 +82,6 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
     }
 
     private var selectedId=0
-//    private var recorder:? =null
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
-        when(selectedId){
-            R.id.start_informed_time -> viewModel.talk.value?.startTime = DateTimeUtils.formatter.format(millseconds)
-            R.id.end_informed_time -> viewModel.talk.value?.endTime = DateTimeUtils.formatter.format(millseconds)
-        }
-        viewModel.talk.value?.judgeTime()
-    }
 
     private fun showDatePicker(v: View?){
         (v as? TextView)?.let {

@@ -38,7 +38,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/line1"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/list"
+                        app:layout_constraintTop_toBottomOf="@+id/line2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <TextView
@@ -75,7 +75,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/line2"
                         app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/line1"
+                        app:layout_constraintTop_toBottomOf="@+id/list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
                     <TextView

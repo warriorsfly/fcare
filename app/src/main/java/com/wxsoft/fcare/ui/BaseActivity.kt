@@ -1,14 +1,10 @@
 package com.wxsoft.fcare.ui
 
 import android.view.MenuItem
-import androidx.fragment.app.DialogFragment
-import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
 import com.luck.picture.lib.entity.LocalMedia
-import com.wxsoft.fcare.R
 import dagger.android.support.DaggerAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 

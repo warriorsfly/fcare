@@ -67,36 +67,58 @@
 <!--                app:layout_constraintLeft_toLeftOf="parent"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="wrap_content"/>-->
+        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--android:id="@+id/ss_ecg"-->
+                <!--android:background="@color/white"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/title"-->
+                <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content">-->
+            <!--<TextView-->
+                    <!--android:id="@+id/wave_title"-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--android:layout_margin="16dp"-->
+                    <!--android:textSize="16sp"-->
+                    <!--android:text="实时心电曲线"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"/>-->
+
+            <!--<TextView-->
+                    <!--app:layout_constraintLeft_toRightOf="@id/wave_title"-->
+                    <!--app:layout_constraintRight_toRightOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--android:layout_margin="16dp"-->
+                    <!--android:hint="查看"-->
+                    <!--android:id="@+id/see_reactive"-->
+                    <!--android:textColorHint="@color/colorPrimary"-->
+                    <!--android:gravity="right|center_vertical"-->
+                    <!--android:drawableRight="@drawable/ic_right_arrow"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"/>-->
+
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ss_ecg"
-                android:background="@color/white"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/title"
+                android:id="@+id/noty_title"
                 app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-            <TextView
-                    android:id="@+id/wave_title"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="16dp"
-                    android:textSize="16sp"
-                    android:text="实时心电曲线"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
 
             <TextView
-                    app:layout_constraintLeft_toRightOf="@id/wave_title"
-                    app:layout_constraintRight_toRightOf="parent"
+                    android:id="@+id/tt"
+                    android:textSize="14sp"
+                    android:padding="8dp"
+                    android:textAlignment="center"
+                    android:text="无门诊号病人需要填写心电检查和报告时间"
+                    android:textColor="@color/white"
+                    android:background="@color/diagnose_light_yellow"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_margin="16dp"
-                    android:hint="查看"
-                    android:id="@+id/see_reactive"
-                    android:textColorHint="@color/colorPrimary"
-                    android:gravity="right|center_vertical"
-                    android:drawableRight="@drawable/ic_right_arrow"
-                    android:layout_width="0dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,7 +126,7 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/ss_ecg"
+            app:layout_constraintTop_toBottomOf="@id/noty_title"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent">
 
@@ -174,21 +196,32 @@
                     android:id="@+id/egg_title"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/egg_line"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="45dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="请选择时间"
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:text="@{viewModel.ecg.time}"
                     android:textColor="#999999"
-                    android:drawablePadding="6dp"
-                    android:drawableLeft="@drawable/ic_common_clock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+                <TextView
+                        app:goneUnless="@{viewModel.ecg.time!=null}"
+                        app:layout_constraintTop_toTopOf="@+id/egg_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/egg_title"
+                        app:layout_constraintRight_toLeftOf="@+id/egg_title"
+                        android:text="@string/string_ecg_create_time"
+                        android:layout_marginRight="5dp"
+                        android:textColor="#999999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
 
                 <TextView
                     app:layout_constraintRight_toLeftOf="@id/ecg"
-                    app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
-                    android:layout_margin="16dp"
-                    android:text="FMC2ECG"
+                    app:layout_constraintTop_toTopOf="@id/egg_title"
+                    app:layout_constraintBottom_toBottomOf="@id/egg_title"
+                    android:text="FMC2ECG:"
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:textColor="#525252"
                     android:gravity="right|center_vertical"
@@ -198,7 +231,7 @@
                 <TextView
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
-                    android:layout_margin="16dp"
+                    android:layout_margin="10dp"
                     android:id="@+id/ecg"
                     app:goneUnless="@{viewModel.ecg.time!=null}"
                     android:text="@{FloatConverter.floatToString(viewModel.ecg.fmC2ECG)+`分钟`}"
@@ -207,6 +240,64 @@
                     android:gravity="right|center_vertical"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
+
+                <View
+                        android:id="@+id/fmc2egg_line"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/egg_title"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/line_gray"
+                        android:layout_height="0.5dp"/>
+
+                <TextView
+                        android:id="@+id/fmc2egg_title"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="45dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginRight="10dp"
+                        android:text="@{viewModel.ecg.diagnosedAt}"
+                        android:hint="请选择时间"
+                        android:textColor="#999999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        app:layout_constraintTop_toTopOf="@+id/fmc2egg_title"
+                        app:layout_constraintBottom_toBottomOf="@+id/fmc2egg_title"
+                        app:layout_constraintRight_toLeftOf="@+id/fmc2egg_title"
+                        android:text="@string/string_ecg_d_time"
+                        android:layout_marginRight="5dp"
+                        android:textColor="#999999"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        app:layout_constraintRight_toLeftOf="@id/fm2egg"
+                        app:layout_constraintTop_toTopOf="@id/fmc2egg_title"
+                        app:layout_constraintBottom_toBottomOf="@id/fmc2egg_title"
+                        android:text="ECG:"
+                        android:textColor="#525252"
+                        android:gravity="right|center_vertical"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"
+                        android:layout_margin="10dp"
+                        android:hint="2分钟"
+                        android:id="@+id/fm2egg"
+                        android:textColor="#999999"
+                        android:text="@{FloatConverter.floatToString(viewModel.ecg.ecg)+`分钟`}"
+                        android:gravity="right|center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -309,74 +400,103 @@
                 android:background="@null"
                 android:layout_height="wrap_content"/>
 
-                <View
-                    android:id="@+id/fmc2egg_line"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/memo"
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="16dp"
-                    app:goneUnless="@{viewModel.ecg.diagnosedAt!=null}"
-                    android:background="@color/line_gray"
-                    android:layout_height="0.5dp"/>
-
-                <TextView
-                    android:id="@+id/fmc2egg_title"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_margin="16dp"
-                    android:text="@{viewModel.ecg.diagnosedAt}"
-                    app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
-                    android:drawablePadding="6dp"
-
-                    android:textColor="#999999"
-                    android:drawableLeft="@drawable/ic_common_clock"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    app:layout_constraintRight_toLeftOf="@id/fm2egg"
-                    app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"
-                    android:layout_margin="16dp"
-                    android:text="ECG"
-                    app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
-                    android:textColor="#525252"
-                    android:gravity="right|center_vertical"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"
-                    android:layout_margin="16dp"
-                    android:hint="2分钟"
-                    android:id="@+id/fm2egg"
-                    android:textColor="#999999"
-                    app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
-                    android:text="@{FloatConverter.floatToString(viewModel.ecg.ecg)+`分钟`}"
-                    android:gravity="right|center_vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                
                 <ImageView
-                    app:goneUnless="@{viewModel.ecg.diagnosedAt==null}"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    android:id="@+id/empty_image"
-                    android:src="@drawable/ic_empty_ecg"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="149dp" android:layout_height="93.5dp"/>
+                        app:goneUnless="@{viewModel.ecg.diagnosedAt==null}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:id="@+id/empty_image"
+                        android:src="@drawable/ic_empty_ecg"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="149dp" android:layout_height="93.5dp"/>
 
                 <TextView
-                    app:goneUnless="@{viewModel.ecg.diagnosedAt==null}"
-                    app:layout_constraintTop_toBottomOf="@id/empty_image"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.ecg.id.length>0?`未添加判读信息`:`未上传心电图，无法判读`}"
+                        app:goneUnless="@{viewModel.ecg.diagnosedAt==null}"
+                        app:layout_constraintTop_toBottomOf="@id/empty_image"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{viewModel.ecg.id.length>0?`未添加判读信息`:`未上传心电图，无法判读`}"
                 />
+
+<!--                <View-->
+<!--                    android:id="@+id/fmc2egg_line"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/memo"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    app:goneUnless="@{viewModel.ecg.diagnosedAt!=null}"-->
+<!--                    android:background="@color/line_gray"-->
+<!--                    android:layout_height="0.5dp"/>-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/fmc2egg_title"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:layout_marginTop="10dp"-->
+<!--                    android:layout_marginLeft="35dp"-->
+<!--                    android:layout_marginBottom="10dp"-->
+<!--                    android:layout_marginRight="10dp"-->
+<!--                    android:text="@{viewModel.ecg.diagnosedAt}"-->
+<!--                    android:hint="判读时间"-->
+<!--                    android:textColor="#999999"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"/>-->
+
+<!--                <TextView-->
+<!--                        app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/fmc2egg_title"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/fmc2egg_title"-->
+<!--                        app:layout_constraintRight_toLeftOf="@+id/fmc2egg_title"-->
+<!--                        android:text="报告"-->
+<!--                        android:layout_marginRight="5dp"-->
+<!--                        android:textColor="#999999"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"/>-->
+
+<!--                <TextView-->
+<!--                    app:layout_constraintRight_toLeftOf="@id/fm2egg"-->
+<!--                    app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:text="ECG"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:gravity="right|center_vertical"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"/>-->
+
+<!--                <TextView-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"-->
+<!--                    android:layout_margin="16dp"-->
+<!--                    android:hint="2分钟"-->
+<!--                    android:id="@+id/fm2egg"-->
+<!--                    android:textColor="#999999"-->
+<!--                    android:text="@{FloatConverter.floatToString(viewModel.ecg.ecg)+`分钟`}"-->
+<!--                    android:gravity="right|center_vertical"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"/>-->
+<!--                -->
+<!--                <ImageView-->
+<!--                    app:goneUnless="@{viewModel.ecg.diagnosedAt==null}"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    android:id="@+id/empty_image"-->
+<!--                    android:src="@drawable/ic_empty_ecg"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    android:layout_width="149dp" android:layout_height="93.5dp"/>-->
+
+<!--                <TextView-->
+<!--                    app:goneUnless="@{viewModel.ecg.diagnosedAt==null}"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/empty_image"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintRight_toRightOf="parent"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@{viewModel.ecg.id.length>0?`未添加判读信息`:`未上传心电图，无法判读`}"-->
+<!--                />-->
         </androidx.constraintlayout.widget.ConstraintLayout>
         </com.google.android.material.card.MaterialCardView>
             </androidx.constraintlayout.widget.ConstraintLayout>

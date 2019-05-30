@@ -93,6 +93,7 @@ import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.outcome.OutComeModule
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
+import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingModule
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
@@ -361,6 +362,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ComingByModule::class])
     internal abstract fun comingByItemListActivity(): ComingByItemListActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ProfileModule::class])
+    internal abstract fun choicePatientActivity(): ChoicePatientActivity
 
 
 }

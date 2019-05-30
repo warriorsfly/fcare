@@ -66,7 +66,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      * 获取emr列表
      */
     fun loadEmrs() {
-       disposable.add( api.getEmrs(patientId, account.id, preHos)
+       disposable.add( api.getEmrs(patientId, account.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::loadEmrDetails, ::error))
@@ -99,6 +99,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionType.心电图-> loadEcgs(pair.first)
             ActionType.ACS给药-> loadAcs(pair.first)
             ActionType.来院方式-> loadComingBy(pair.first)
+            ActionType.肌钙蛋白-> loadXG(pair.first)
         }
     }
 
@@ -129,6 +130,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             ActionCode.OUTCOME ->ActionType.患者转归
             ActionCode.ACS ->ActionType.ACS给药
             ActionCode.COMEBY ->ActionType.来院方式
+            ActionCode.ONETOUCH ->ActionType.肌钙蛋白
             else->null
         }
         actionType?.let(::indexOf)?.let(::loadDetail)
@@ -348,11 +350,19 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
     }
 
     private fun loadComingBy(index:Int){
-        disposable.add(api.getComing(patientId)
+        disposable.add(api.getComing(patientId,account.id)
                 .map {Pair(index,it)}
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(::setResultAtIndex,::error))
+    }
+
+    private fun loadXG(index:Int){
+        disposable.add(api.getPoct(patientId)
+            .map {Pair(index,it)}
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::setResultAtIndex,::error))
     }
 
 

@@ -13,9 +13,6 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Pair
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -27,7 +24,6 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
@@ -44,10 +40,19 @@ import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_jgdb.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
-import java.lang.NumberFormatException
 import javax.inject.Inject
 
 class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
+    override fun selectTime(mills: Long) {
+
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(mills)
+        when(selectedId){
+            R.id.draw_blood_time -> viewModel.lisCr.value?.samplingTime = DateTimeUtils.formatter.format(mills)
+            R.id.draw_blood_report_time -> viewModel.lisCr.value?.reportTime = DateTimeUtils.formatter.format(mills)
+        }
+    }
 
     override fun doError(throwable: Throwable) {
 
@@ -67,17 +72,6 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
 
     override fun deleteRemote(url: String) {
         showImageDialog(url)
-    }
-
-
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-        dialog?.onDestroy()
-        dialog=null
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
-        when(selectedId){
-            R.id.draw_blood_time -> viewModel.lisCr.value?.samplingTime = DateTimeUtils.formatter.format(millseconds)
-            R.id.draw_blood_report_time -> viewModel.lisCr.value?.reportTime = DateTimeUtils.formatter.format(millseconds)
-        }
     }
 
     private fun showDatePicker(v: View?){

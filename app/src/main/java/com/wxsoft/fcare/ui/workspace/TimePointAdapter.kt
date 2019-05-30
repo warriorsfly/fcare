@@ -24,14 +24,14 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
         return differ.currentList.size
     }
 
-    var points: List<TimePoint> = emptyList()
-        set(value) {
-            field = value
-            val merged = mutableListOf<Any>()
-            merged += TimePointHead(field.firstOrNull { it.excutedAt?.isNotEmpty() ?: false }?.excutedAt ?.substring(0,10))
-            merged.addAll(field)
-            differ.submitList(merged)
-        }
+//    var points: List<Any> = emptyList()
+//        set(value) {
+//            field = value
+//            val merged = mutableListOf<Any>()
+//            merged += TimePointHead(field.firstOrNull { it.excutedAt?.isNotEmpty() ?: false }?.excutedAt ?.substring(0,10))
+//            merged.addAll(field)
+//            differ.submitList(merged)
+//        }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
@@ -70,7 +70,7 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
                         root.setOnLongClickListener {
                             item?.let {
                                 if (it.editable) {
-                                    itemLongClick(it,points.indexOf(it))
+//                                    itemLongClick(it,differ.currentList.indexOf(it))
                                 }
                             }
                             true
@@ -116,7 +116,9 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
             return when{
                 oldItem is TimePointHead && newItem is TimePointHead->oldItem.excutedAt==newItem.excutedAt
                 oldItem is TimePoint && newItem is TimePoint -> oldItem.id==newItem.id
-                else-> throw IllegalArgumentException("unKnown type]")
+                (oldItem is TimePointHead && newItem is TimePoint ) ||
+                        (oldItem is TimePoint && newItem is TimePointHead)->false
+                else-> throw IllegalArgumentException("unKnown type")
             }
         }
 
@@ -127,6 +129,9 @@ class TimePointAdapter constructor(private val owner:LifecycleOwner,private val 
                     oldItem.excutedAt==newItem.excutedAt
                 oldItem is TimePoint && newItem is TimePoint ->
                     oldItem.eventName == newItem.eventName  && oldItem.excutedAt == newItem.excutedAt
+
+                (oldItem is TimePointHead && newItem is TimePoint ) ||
+                        (oldItem is TimePoint && newItem is TimePointHead)->false
                 else-> throw IllegalArgumentException("unKnown type]")
             }
         }

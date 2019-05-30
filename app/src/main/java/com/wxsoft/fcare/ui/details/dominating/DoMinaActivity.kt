@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Patient
@@ -34,10 +33,8 @@ import java.util.*
 import javax.inject.Inject
 
 class DoMinaActivity : BaseTimingActivity() {
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-
+    override fun selectTime(millseconds: Long) {
         viewModel.changing(changingStatus,DateTimeUtils.formatter.format(millseconds),millseconds)
-        dialog
     }
 
     private val dictFragment by lazy{

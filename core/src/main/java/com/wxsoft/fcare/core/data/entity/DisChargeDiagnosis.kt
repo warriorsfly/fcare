@@ -107,6 +107,33 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.leave)
         }
 
+    //入院日期
+    @Bindable
+    @SerializedName("in_Time")
+    var inTime: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.inTime)
+        }
+
+    //HIS出院诊断名称
+    @Bindable
+    @SerializedName("his_Diagnosis_Name")
+    var hisDiagnosisName: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.hisDiagnosisName)
+        }
+
+    //HIS治疗结果
+    @Bindable
+    @SerializedName("his_Treatment_Result")
+    var hisTreatmentResult: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.hisTreatmentResult)
+        }
+
 
     @Bindable
     var createdDate:String="2019-01-19 12:00:00"
@@ -121,7 +148,7 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
         if (days != null) daysStr = days.toString()
         if (cost != null) costStr = cost.toString()
         if (diagnosis != null){
-            if (diagnosis.diagnosisCode3Name.equals("代码不存在")){
+            if (diagnosis.diagnosisCode3Name.equals(other = "代码不存在")){
                 diagnosis.diagnosisCode3Name = ""
             }
             if (diagnosis.diagnosisCode2Name.isNullOrEmpty()) diagnosis.diagnosisCode2Name = ""

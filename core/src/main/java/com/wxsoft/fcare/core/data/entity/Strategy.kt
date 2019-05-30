@@ -5,13 +5,16 @@ import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
-data class Strategy (val id:String=""): BaseObservable() {
-    @Bindable
-    var patientId: String = ""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.patientId)
-        }
+/**
+ * type 1 介入2溶栓
+ */
+data class Strategy (
+  var patientId: String = "",
+  @SerializedName("treatStrategyType")
+  val type:Int): BaseObservable() {
+
+    var id:String=""
+    
     @Bindable
     var strategyCode: String = ""
         set(value) {

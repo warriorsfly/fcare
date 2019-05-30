@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable name="item" type="com.wxsoft.fcare.core.data.entity.EmrItem"/>
+        <variable name="comming" type="com.wxsoft.fcare.core.data.entity.chest.OutCome"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include
+            layout="@layout/item_emr_common_head"
+            android:id="@+id/head"
+            app:item="@{item}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:id="@+id/container"
+                goneUnless="@{item.result!=null}"
+                app:layout_constraintTop_toBottomOf="@+id/head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            <TextView
+                    android:id="@+id/patient_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="@dimen/spacing_normal"
+                    android:textColor="@color/small_title_text_gray"
+                    tools:text="老王"
+                    android:text="@{comming.outcomeName}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+        </LinearLayout>
+        <View
+                app:layout_constraintTop_toBottomOf="@id/container"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@mipmap/bg_bottom_waving"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

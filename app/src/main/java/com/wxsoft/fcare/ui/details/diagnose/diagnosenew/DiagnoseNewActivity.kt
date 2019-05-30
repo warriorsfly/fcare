@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Diagnosis
 import com.wxsoft.fcare.core.data.entity.Dictionary
@@ -35,9 +34,8 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DiagnoseNewActivity : BaseTimingActivity() {
+    override fun selectTime(millseconds: Long) {
 
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
-//        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
             R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = DateTimeUtils.formatter.format(millseconds)
             R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = DateTimeUtils.formatter.format(millseconds)
@@ -221,16 +219,22 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 SELECT_DIAGNOSE_TYPE ->{
+                    val diaisTime = viewModel.diagnosis.value?.diagnosisTime?:DateTimeUtils.getCurrentTime()
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
                     diagnose.patientId = this@DiagnoseNewActivity.patientId
-                    viewModel.loadDiagnosis.value = diagnose
-                    viewModel.diagnosisTreatment.value?.diagnosis = diagnose
+                    diagnose.id = this@DiagnoseNewActivity.viewModel.diagnosis.value?.id?:""
+                    viewModel.loadDiagnosis.value = diagnose.apply {
+                        diagnosisTime = diaisTime
+                    }
+                    viewModel.diagnosisTreatment.value?.diagnosis = diagnose.apply {
+                        diagnosisTime = diaisTime
+                    }
                 }
 
                 SELECT_TREATMENT ->{
                     val stegyId = viewModel.selectedTreatment.value?.id!!
                     val dic = data?.getSerializableExtra("SelectOption") as Dictionary
-                    viewModel.loadSelectedTreatment.value = Strategy(stegyId).apply {
+                    viewModel.loadSelectedTreatment.value = Strategy(stegyId,1).apply {
                         strategyCode = dic.id
                         patientId = this@DiagnoseNewActivity.patientId
                         strategyCode_Name = dic.itemName
@@ -251,7 +255,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
 
                 SELECT_NOREFUSHION_RESON ->{
                     val dic = data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.loadSelectedTreatment.value = Strategy("").apply {
+                    viewModel.loadSelectedTreatment.value = Strategy(patientId,1).apply {
                         strategyCode = "14-8"
                         strategyCode_Name = "无再灌注措施"
                         memo = "group3"
@@ -285,14 +289,8 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                 }
 
                 SELECT_HANDWAY ->{
-                    val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
-                    var anamStr = ""
-                    if (anamnesises.size>1){
-                        anamnesises.map { anamStr = if(anamStr.isNullOrEmpty()) it.itemName else anamStr +"、"+it.itemName  }
-                    }else{
-                        anamnesises.map { anamStr = it.itemName }
-                    }
-                    viewModel.diagnosis.value?.handWay = anamStr
+                    val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.diagnosis.value?.handWay = conscious.itemName
                 }
 
                 SELECT_PATIENTOUTCOME ->{

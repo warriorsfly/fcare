@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/rv_topbar"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  android:background="@color/pickerview_bg_topbar">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+    <com.google.android.material.tabs.TabLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:tabMaxWidth="0dp"
+      app:tabGravity="fill"
+      app:tabMode="auto"
+      app:tabSelectedTextColor="@color/colorPrimary"
+      app:tabBackground="@color/transparent"
+      android:id="@+id/tab"/>
+    <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="确定"
+      android:id="@+id/submit"
+      android:textSize="15sp"
+      android:textColor="@color/colorPrimary"
+      android:layout_alignParentRight="true"
+      style="@style/Widget.MaterialComponents.Button.TextButton"/>
+    </RelativeLayout>
+        <androidx.viewpager2.widget.ViewPager2
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:orientation="vertical"
+          android:id="@+id/viewPager"/>
+</LinearLayout>

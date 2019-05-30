@@ -5,6 +5,7 @@ import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
+import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 import com.wxsoft.fcare.core.data.entity.rating.ScencelyRatingResult
 import io.reactivex.Maybe
@@ -19,8 +20,8 @@ interface EmrApi{
     /**
      * 获取emr时间轴
      */
-    @GET("Patient/GetEmr/{patientId}/{currUserId}/{isPreHospital}")
-    fun getEmrs(@Path("patientId")patientId:String,@Path("currUserId")userId:String,@Path("isPreHospital")pre:Boolean): Single<Response<List<EmrItem>>>
+    @GET("Emr/GetEmrModules/{patientId}/{currUserId}")
+    fun getEmrs(@Path("patientId")patientId:String,@Path("currUserId")userId:String): Single<Response<List<EmrItem>>>
 
     /**
      * 获取个人信息
@@ -127,14 +128,14 @@ interface EmrApi{
     /**
      * acs给药
      */
-    @GET("Drug/GetAcsByPatientId/{patientId}")
+    @GET("Drug/GetEmrAcsByPatientId/{patientId}")
     fun getACSDrug(@Path("patientId")patientId:String):Maybe<Response<ACSDrug>>
 
     /**
      * 来院方式
      */
-    @GET("ComingWay/GetById/{patientId}")
-    fun getComing(@Path("patientId")patientId:String):Maybe<Response<ComingBy>>
+    @GET("ComingWay/GetById/{patientId}/{accoutId}")
+    fun getComing(@Path("patientId")patientId:String,@Path("accoutId")accountId:String):Maybe<Response<ComingBy>>
 
     /**
      * 获取资料图片信息
@@ -153,4 +154,7 @@ interface EmrApi{
     @Multipart
     @POST("Emr/SaveEmrImages")
     fun savingImages(@Part("eimage")image: EmrRecord, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
+
+    @GET("POCT/GetTroponin/{patientId}")
+    fun getPoct(@Path("patientId")patientId:String): Maybe<Response<LisCr>>
 }

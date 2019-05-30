@@ -1,10 +1,10 @@
 package com.wxsoft.fcare.ui.workspace
 
+//import kotlinx.android.synthetic.main.activity_working.*
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -45,10 +45,10 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity.C
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.emr.EmrActivity
 import com.wxsoft.fcare.ui.emr.EmrViewModel
-import com.wxsoft.fcare.ui.emr.ProfileViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
+import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
 import com.wxsoft.fcare.utils.ActionCode
@@ -76,8 +76,6 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.activity_working.*
 import kotlinx.android.synthetic.main.layout_working_title.*
-//import kotlinx.android.synthetic.main.activity_working.*
-import java.lang.ref.WeakReference
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -114,6 +112,7 @@ class WorkingActivity : BaseActivity() {
                 val intent = Intent(this, EmrActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
+                        putExtra("PRE", pre)
                     }
                 startActivityForResult(intent, EMR)
                 return@OnNavigationItemSelectedListener true
@@ -161,8 +160,9 @@ class WorkingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
         emrViewModel=viewModelProvider(factory)
-        emrViewModel.patientId=patientId
+
         emrViewModel.preHos=pre
+        emrViewModel.patientId=patientId
 
         DataBindingUtil.setContentView<ActivityWorkingBinding>(this,R.layout.activity_working)
             .apply {
@@ -227,9 +227,11 @@ class WorkingActivity : BaseActivity() {
         when(operation.actionCode){
 
             ActionType.心电图 ->{
+                val outpatientId=viewModel.patient.value!!.outpatientId
                 val intent = Intent(this, EcgActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
+                        putExtra(RatingSubjectActivity.OUT_PATIENT_ID, outpatientId)
                     }
                 startActivityForResult(intent, RATING)
             }

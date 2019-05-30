@@ -29,6 +29,7 @@ class ProfileViewModel @Inject constructor(
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     var preHos=true
+    var canSaveAble=true
 
     var taskId:String=""
     var patientId=""
@@ -41,11 +42,13 @@ class ProfileViewModel @Inject constructor(
 
     val bitmaps= mutableListOf<String>()
 
-    private val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
+    val loadPatientResult =MediatorLiveData<Resource<Response<Patient>>>()
     val savePatientResult =MediatorLiveData<Resource<Response<String>>>()
 
     val shareClick:LiveData<String>
     private val initShareClick = MediatorLiveData<String>()
+
+
 
     init {
         shareClick = initShareClick.map { it }
@@ -53,7 +56,7 @@ class ProfileViewModel @Inject constructor(
         patient=loadPatientResult.map {
             (it as? Resource.Success)?.data?.result.apply {
                 if (this?.diagnosisName.equals("代码不存在"))this?.diagnosisName = ""
-            }?:Patient("")
+            }?:Patient("").apply { createdBy=account.id }
         }
 
     }
@@ -68,7 +71,7 @@ class ProfileViewModel @Inject constructor(
     private fun loadPatient(){
         if(patientId.isEmpty()){
             loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
-                this.result= Patient("")
+                this.result= Patient("").apply { createdBy=account.id }
             })
         }else {
             patientApi.getOne(patientId).toResource().subscribe { inf ->
@@ -84,7 +87,8 @@ class ProfileViewModel @Inject constructor(
 //    }
 
     fun save(){
-        if(preHos && patientSavable) {
+        if(preHos && patientSavable && canSaveAble) {
+            canSaveAble = false
             patientApi.save(patient.value!!.apply {
                 createdBy = account.id
                 hospitalId = account.hospitalId
@@ -109,7 +113,8 @@ class ProfileViewModel @Inject constructor(
     }
 
     fun savePic(fs:List<File>){
-        if(preHos && patientSavable) {
+        if(preHos && patientSavable && canSaveAble) {
+            canSaveAble = false
             val files = fs.map {
                 return@map MultipartBody.Part.createFormData(
                     "images",
@@ -134,6 +139,7 @@ class ProfileViewModel @Inject constructor(
                     }
 
                 }
+                canSaveAble = true
             }
         }
     }
@@ -225,6 +231,7 @@ class ProfileViewModel @Inject constructor(
         if(response?.success==true)
             loadPatient()
     }
+
 
 
 }

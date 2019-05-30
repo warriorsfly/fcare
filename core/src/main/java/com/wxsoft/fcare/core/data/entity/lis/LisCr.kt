@@ -240,6 +240,8 @@ data class LisCr (val id:String) : BaseObservable() {
 
         crValueStr = if(crValue!=0.0f) crValue.toString() else ""
 
+        if (ctniValue.isNullOrEmpty()) return
+
         if (ctniValue.contains("<")){
             selectCtniStatus = 1
         }else if(ctniValue.isNullOrEmpty()){

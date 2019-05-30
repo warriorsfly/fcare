@@ -124,7 +124,7 @@ data class ComingBy(val id:String=""): BaseObservable() {
            notifyPropertyChanged(BR.attack_Department)
        }
    @Bindable
-   var consultation_Time: String = ""
+   var consultation_Time: String? = null
        set(value) {
            field = value
            notifyPropertyChanged(BR.consultation_Time)

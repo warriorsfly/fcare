@@ -26,14 +26,14 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
     /**
      * 病人信息
      */
-    val liveData:LiveData<List<TimePoint>>
-    private val loadTimepointsResult=MediatorLiveData<Response<List<TimePoint>>>()
+    val liveData:LiveData<List<Any>>
+    private val loadTimepointsResult=MediatorLiveData<List<Any>>()
 
     val indexData:LiveData<Int>
     private val saveTimepointsResult=MediatorLiveData<Int>()
 
     init {
-        liveData=loadTimepointsResult.map { it.result?: emptyList() }
+        liveData=loadTimepointsResult.map { it }
         indexData=saveTimepointsResult.map { it }
     }
 
@@ -44,6 +44,10 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
             .subscribe (::doTimePoints,::error))
     }
 
+    fun loadTimePoints(){
+        loadTimePoints(patientId)
+    }
+
     private fun saveTimePoint(point: TimePoint){
         disposable.add(qualityControlApi.saveTimePoints(TimePointChange(patientId,point.excutedAt,point.tableName,point.fieldName))
             .subscribeOn(Schedulers.io())
@@ -51,19 +55,38 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
             .subscribe (::saveTimePoints,::error))
     }
 
-    private fun doTimePoints(response:Response<List<TimePoint>>){
-        loadTimepointsResult.value=response
+    private fun doTimePoints(response:Response<List<List<TimePoint>>>){
+
+        val merged = mutableListOf<Any>()
+        var emptyList:List<TimePoint>?=null
+        for(list in response.result?: emptyList()){
+
+            if(emptyList.isNullOrEmpty() && list.isNotEmpty() && list[0].excutedAt.isNullOrEmpty()){
+                emptyList=list
+            }else {
+                val title = list.firstOrNull { it.excutedAt?.isNotEmpty() ?: false }?.excutedAt?.substring(0, 10) ?: ""
+                if (title.isNotEmpty()) {
+                    merged += TimePointHead(title)
+                }
+                merged.addAll(list)
+            }
+        }
+        emptyList?.let(merged::addAll)
+        loadTimepointsResult.value=merged
     }
 
     private fun saveTimePoints(response:Response<String>) = if(response.success) {
-        liveData.value?.apply {
-            val firstOne=first { it.id == currentPoint?.id }?.apply {
-                excutedAt = currentPoint?.excutedAt
-                currentPoint = null
-            }
-
-            saveTimepointsResult.value=indexOf(firstOne)
-        }
+        loadTimePoints(patientId)
+//        liveData.value?.apply {
+//            val firstOne=
+//
+//                (firstOrNull { it is TimePoint && it.id == currentPoint?.id } as TimePoint).apply {
+//                excutedAt = currentPoint?.excutedAt
+//                currentPoint = null
+//            }
+//
+//            saveTimepointsResult.value=this.indexOf(firstOne)
+//        }
 
         messageAction.value = Event(if (response.success) "保存成功" else response.msg)
     }else{

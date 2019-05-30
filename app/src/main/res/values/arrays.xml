@@ -3,9 +3,9 @@
 
     <array name="end_points">
 <!--        公司ip-->
-        <item>http://112.27.113.252:44390</item>
+        <item>http://112.27.113.252:7076/api/</item>
 <!--        合肥二院-->
-        <item>http://60.166.42.50:7074</item>
+        <item>http://60.166.42.50:7074/api/</item>
     </array>
 
     <array name="end_points_name">

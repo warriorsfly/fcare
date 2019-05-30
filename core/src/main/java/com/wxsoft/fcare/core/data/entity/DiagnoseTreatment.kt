@@ -4,8 +4,6 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
-import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
-import com.wxsoft.fcare.core.data.entity.rating.Rating
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 
 data class DiagnoseTreatment (val id:String=""): BaseObservable(){
@@ -20,7 +18,7 @@ data class DiagnoseTreatment (val id:String=""): BaseObservable(){
 
     //策略
     @Bindable
-    var treatStrategy :Strategy = Strategy("")
+    var treatStrategy :Strategy = Strategy("",1)
         set(value) {
             field = value
             notifyPropertyChanged(BR.treatStrategy)

@@ -15,8 +15,8 @@ interface InterventionApi{
     fun getIntervention(@Path("patientId")id:String):Maybe<Response<Intervention>>
 
 
-    @GET("User/intervention-doctors/{accountId}")
-    fun getInterventionDocs(@Path("accountId")accountId:String): Maybe<Response<List<User>>>
+    @GET("User/intervention-doctors/{accountId}/{patientId}")
+    fun getInterventionDocs(@Path("accountId")accountId:String,@Path("patientId")patientId:String): Maybe<Response<List<User>>>
 
     @POST("Intervention/Save")
     fun save(@Body intervention: Intervention):Maybe<Response<String>>

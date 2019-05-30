@@ -668,6 +668,243 @@
                                 android:layout_height="1dp"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/container1"
+                            android:background="@color/white"
+                            android:layout_marginTop="15dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/model3_11"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/title1_1"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:textSize="16sp"
+                                android:textColor="@color/small_title_text_gray"
+                                android:text="24小时强化他汀治疗"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="24小时强化他汀治疗"/>
+                        <Switch
+                                android:id="@+id/swich_1"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintBottom_toTopOf="@+id/line1"
+                                android:checked="@={viewModel.strategy.intensify_Statins_Treat}"
+                                android:layout_marginRight="19dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+                        <View
+                                android:id="@+id/line1"
+                                android:background="@color/line_gray"
+                                app:layout_constraintTop_toBottomOf="@+id/title1_1"
+                                android:layout_marginTop="15dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"/>
+
+                        <TextView
+                                android:id="@+id/title1_2"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/line1"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="16sp"
+                                android:textColor="@color/small_title_text_gray"
+                                android:text="β受体阻滞剂使用"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:text="β受体阻滞剂使用"/>
+                        <Switch
+                                android:id="@+id/swich_2"
+                                app:layout_constraintTop_toBottomOf="@+id/line1"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                android:checked="@={viewModel.strategy.receptor_Retardant_Using}"
+                                android:layout_marginRight="19dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <TextView
+                            android:id="@+id/title2"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/container1"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:textSize="16sp"
+                            android:textColor="@color/small_title_text_gray"
+                            android:text="TIMI等级"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="TIMI等级"/>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/container2"
+                            android:background="@color/white"
+                            android:layout_marginTop="15dp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/title2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/title2_1"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:textSize="16sp"
+                                android:textColor="@color/small_title_text_gray"
+                                android:text="手术前"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                        />
+                        <TextView
+                                android:id="@+id/tv2_3"
+                                android:text="3"
+                                android:onClick="@{()->viewModel.seletedNum1(`3`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num1.equals(`3`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num1.equals(`3`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toTopOf="@+id/line2"
+                                app:layout_constraintRight_toRightOf="parent"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+                        <TextView
+                                android:id="@+id/tv2_2"
+                                android:text="2"
+                                android:onClick="@{()->viewModel.seletedNum1(`2`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="13.5dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num1.equals(`2`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num1.equals(`2`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toTopOf="@+id/line2"
+                                app:layout_constraintRight_toLeftOf="@+id/tv2_3"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+
+                        <TextView
+                                android:id="@+id/tv2_1"
+                                android:text="1"
+                                android:onClick="@{()->viewModel.seletedNum1(`1`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="13.5dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num1.equals(`1`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num1.equals(`1`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toTopOf="@+id/line2"
+                                app:layout_constraintRight_toLeftOf="@+id/tv2_2"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+
+                        <TextView
+                                android:id="@+id/tv2_0"
+                                android:text="0"
+                                android:onClick="@{()->viewModel.seletedNum1(`0`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="13.5dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num1.equals(`0`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num1.equals(`0`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toTopOf="@+id/line2"
+                                app:layout_constraintRight_toLeftOf="@+id/tv2_1"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+
+                        <View
+                                android:id="@+id/line2"
+                                android:background="@color/line_gray"
+                                app:layout_constraintTop_toBottomOf="@+id/title2_1"
+                                android:layout_marginTop="15dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"/>
+
+                        <TextView
+                                android:id="@+id/title3_1"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/line2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="15dp"
+                                android:textSize="16sp"
+                                android:textColor="@color/small_title_text_gray"
+                                android:text="手术后"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                        />
+                        <TextView
+                                android:id="@+id/tv3_3"
+                                android:text="3"
+                                android:onClick="@{()->viewModel.seletedNum2(`3`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="15dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num2.equals(`3`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num2.equals(`3`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toBottomOf="@+id/line2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+                        <TextView
+                                android:id="@+id/tv3_2"
+                                android:text="2"
+                                android:onClick="@{()->viewModel.seletedNum2(`2`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="13.5dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num2.equals(`2`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num2.equals(`2`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toBottomOf="@+id/line2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/tv2_3"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+
+                        <TextView
+                                android:id="@+id/tv3_1"
+                                android:text="1"
+                                android:onClick="@{()->viewModel.seletedNum2(`1`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="13.5dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num2.equals(`1`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num2.equals(`1`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toBottomOf="@+id/line2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/tv2_2"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+
+                        <TextView
+                                android:id="@+id/tv3_0"
+                                android:text="0"
+                                android:onClick="@{()->viewModel.seletedNum2(`0`)}"
+                                android:gravity="center"
+                                android:layout_marginRight="13.5dp"
+                                android:background="@drawable/bg_cure_num_gray"
+                                android:backgroundTint="@{viewModel.num2.equals(`0`)? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
+                                android:textColor="@{viewModel.num2.equals(`0`)? @color/tint_rating_option_text_selected:@color/small_title_text_gray}"
+                                app:layout_constraintTop_toBottomOf="@+id/line2"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/tv2_1"
+                                android:layout_width="33dp"
+                                android:layout_height="33dp"/>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

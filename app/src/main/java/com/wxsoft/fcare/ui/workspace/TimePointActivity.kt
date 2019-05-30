@@ -2,17 +2,11 @@ package com.wxsoft.fcare.ui.workspace
 
 import android.app.Activity
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import com.jzxiang.pickerview.TimePickerDialog
-import com.jzxiang.pickerview.data.Type
-import com.jzxiang.pickerview.listener.OnDateSetListener
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.TimePoint
 import com.wxsoft.fcare.core.data.entity.TimePointHead
@@ -23,7 +17,6 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityTimePointBinding
-import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
@@ -35,11 +28,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class TimePointActivity : BaseTimingActivity()  {
-    override fun onDateSet(timePickerView: TimePickerDialog?, millseconds: Long) {
+    override fun selectTime(millseconds: Long) {
         dialog?.onDestroy()
         dialog=null
-       viewModel.newTime(DateTimeUtils.formatter.format(millseconds))
+        viewModel.newTime(DateTimeUtils.formatter.format(millseconds))
     }
+
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
@@ -94,17 +88,18 @@ class TimePointActivity : BaseTimingActivity()  {
         title="急救时间轴"
 
         viewModel.liveData.observe(this, Observer {
-            adapter.points=it
+            adapter.differ.submitList(it)
+            adapter.notifyDataSetChanged()
         })
 
-        viewModel.indexData.observe(this, Observer {
-            if(it==0){
-                (adapter.differ.currentList[0] as? TimePointHead)?.excutedAt=adapter.points[0] .excutedAt?.substring(0,10)
-                adapter.notifyItemChanged(it)
-            }
-            adapter.notifyItemChanged(it+1)
-//            adapter.points=adapter.points
-        })
+//        viewModel.indexData.observe(this, Observer {
+//            if(it==0){
+//                (adapter.differ.currentList[0] as? TimePointHead)?.excutedAt=adapter.points[0] .excutedAt?.substring(0,10)
+//                adapter.notifyItemChanged(it)
+//            }
+//            adapter.notifyItemChanged(it)
+////            adapter.points=adapter.points
+//        })
 
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
@@ -190,10 +185,11 @@ class TimePointActivity : BaseTimingActivity()  {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 100 -> {
-                    var arr = adapter.points as ArrayList<TimePoint>
-                    val point = data?.getSerializableExtra("selectedTimePoint") as TimePoint
-                    arr.add(selectedPointIndex+1, point)
-                    adapter.points = arr.toList()
+                    viewModel.loadTimePoints()
+//                    var arr = adapter.differ.currentList
+//                    val point = data?.getSerializableExtra("selectedTimePoint") as TimePoint
+//                    arr.add(selectedPointIndex+1, point)
+//                    adapter.notifyDataSetChanged()
                 }
             }
         }

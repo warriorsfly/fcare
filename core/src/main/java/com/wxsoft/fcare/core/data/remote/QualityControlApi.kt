@@ -10,10 +10,7 @@ import retrofit2.http.Path
 interface QualityControlApi {
 
     @GET("QualityControl/GetTimeLineByPatientId/{patientId}")
-    fun getTimeLines(@Path("patientId")id:String): Maybe<Response<List<NewTimeLine>>>
-
-    @GET("QualityControl/GetTimeLineByPatientId/{patientId}")
-    fun getTimePoints(@Path("patientId")id:String): Maybe<Response<List<TimePoint>>>
+    fun getTimePoints(@Path("patientId")id:String): Maybe<Response<List<List<TimePoint>>>>
 
     @GET("QualityControl/GetCanAddTimePointByPatientId/{patientId}")
     fun getAddTimePoints(@Path("patientId")id:String): Maybe<Response<List<TimePoint>>>
