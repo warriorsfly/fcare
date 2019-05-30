@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.*
+import com.wxsoft.fcare.core.data.entity.chest.Intervention
+import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
@@ -115,6 +117,30 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                         .apply {lifecycleOwner=owner},itemClick)
             }
 
+            R.layout.item_new_emr_ct_op->{
+                ItemViewHolder.CtViewHolder(
+                    ItemNewEmrCtOpBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            R.layout.item_new_emr_dgs_op->{
+                ItemViewHolder.DGSViewHolder(
+                    ItemNewEmrDgsOpBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            R.layout.item_new_emr_out_come->{
+                ItemViewHolder.OutComeViewHolder(
+                    ItemNewEmrOutComeBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
+            R.layout.item_new_emr_cy->{
+                ItemViewHolder.CyViewHolder(
+                    ItemNewEmrCyBinding.inflate(inflater,parent,false)
+                        .apply {lifecycleOwner=owner},itemClick)
+            }
+
             else->{
                 ItemViewHolder.NoneViewHolder(
                     ItemNewEmrNoneBinding.inflate(inflater,parent,false)
@@ -182,6 +208,30 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 holder.binding.apply {
                     item=emr
                     diag=item?.result  as? Diagnosis
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.CtViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    cr=item?.result  as? Pacs
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.OutComeViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    comming=item?.result  as? OutCome
+                    executePendingBindings()
+                }
+            }
+
+            is ItemViewHolder.DGSViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    cr=item?.result  as? Intervention
                     executePendingBindings()
                 }
             }
@@ -268,6 +318,15 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 }
             }
 
+            is ItemViewHolder.CyViewHolder->{
+                holder.binding.apply {
+                    item=emr
+                    cy=emr.result as? DisChargeDiagnosis
+
+                    executePendingBindings()
+                }
+            }
+
             is ItemViewHolder.CommingViewHolder-> {
                 holder.binding.apply {
                     item = emr
@@ -308,6 +367,7 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             else {
             when (getItem(position).code) {
                 ActionType.患者信息录入 -> R.layout.item_new_emr_patient_info
+                ActionType.CT_OPERATION -> R.layout.item_new_emr_ct_op
                 ActionType.生命体征 -> R.layout.item_new_emr_vital_list
                 ActionType.GRACE -> R.layout.item_new_emr_rating_list
                 ActionType.DispostionMeasures -> R.layout.item_new_emr_measure_list
@@ -320,6 +380,9 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
                 ActionType.ACS给药-> R.layout.item_new_emr_acs_medicine
                 ActionType.来院方式-> R.layout.item_new_emr_comming_by
                 ActionType.肌钙蛋白-> R.layout.item_new_emr_xg
+                ActionType.Catheter-> R.layout.item_new_emr_dgs_op
+                ActionType.患者转归-> R.layout.item_new_emr_out_come
+                ActionType.出院诊断-> R.layout.item_new_emr_cy
                 else -> R.layout.item_new_emr_none
             }
         }
@@ -470,6 +533,48 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
             }
         }
 
+        class CtViewHolder(
+            override val binding: ItemNewEmrCtOpBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class OutComeViewHolder(
+            override val binding: ItemNewEmrOutComeBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class DGSViewHolder(
+            override val binding: ItemNewEmrDgsOpBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
         class CbViewHolder(
             override val binding: ItemNewEmrCbResultBinding,
             override val click:(String)->Unit
@@ -486,6 +591,20 @@ class EmrAdapter constructor(private val owner: LifecycleOwner,private val itemC
 
         class CommingViewHolder(
             override val binding: ItemNewEmrCommingByBinding,
+            override val click:(String)->Unit
+        ) : ItemViewHolder(binding,click){
+            init {
+                binding.apply {
+                    root.findViewById<ImageButton>(R.id.edit)
+                        .setOnClickListener {
+                            item?.code?.let(click)
+                        }
+                }
+            }
+        }
+
+        class CyViewHolder(
+            override val binding: ItemNewEmrCyBinding,
             override val click:(String)->Unit
         ) : ItemViewHolder(binding,click){
             init {
