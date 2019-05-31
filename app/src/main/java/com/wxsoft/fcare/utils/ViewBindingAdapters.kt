@@ -235,7 +235,7 @@ fun setEventStatus(imageView: ImageView, status: String?) {
                 it.setPadding(0, 6, 0, 6)
             }
         }
-        "success" -> {
+        "ok" -> {
             imageView.let {
                 it.setImageResource(R.drawable.ic_work_space_operation_done)
                 it.setPadding(0, 6, 0, 6)
