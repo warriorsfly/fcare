@@ -1,10 +1,8 @@
 package com.wxsoft.fcare.ui.login
 
+import android.app.AlertDialog
+import android.content.*
 import androidx.lifecycle.Observer
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import androidx.databinding.DataBindingUtil
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -33,14 +31,16 @@ class LoginActivity : BaseActivity() {
     private lateinit var viewModel: LoginViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel = viewModelProvider(factory)
         val binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
             this,
             R.layout.activity_login
         ).apply {
             lifecycleOwner = this@LoginActivity
+            hosSelector.setOnClickListener { changeHospital(viewModel?.endpoint?:0) }
         }
 
-        viewModel = viewModelProvider(factory)
+
 
         receiver = RegistrationBroadcastReceiver(viewModel)
         val intentFilter = IntentFilter()
@@ -92,5 +92,13 @@ class LoginActivity : BaseActivity() {
             unregisterReceiver(receiver)
             receiver?.vm = null
         }
+    }
+
+    private fun changeHospital(pos:Int){
+        AlertDialog.Builder(this).setSingleChoiceItems(viewModel.endpoints.map { it.hospital }.toTypedArray(),pos
+        ) { dialog, which ->
+            viewModel.endpoint=which
+            dialog.dismiss()
+        }.show()
     }
 }

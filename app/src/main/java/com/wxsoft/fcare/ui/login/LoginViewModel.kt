@@ -1,11 +1,13 @@
 package com.wxsoft.fcare.ui.login
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Account
+import com.wxsoft.fcare.core.data.entity.EndPoint
 import com.wxsoft.fcare.core.data.entity.LoginInfo
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
@@ -20,7 +22,8 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val sharedPreferenceStorage: SharedPreferenceStorage,
     private val accountApi: AccountApi,
-    private val gson: Gson
+    private val gson: Gson,
+    val endpoints:List<EndPoint>
 ) : ViewModel() {
 
     private val disposable= CompositeDisposable()
@@ -38,6 +41,16 @@ class LoginViewModel @Inject constructor(
 
     val account: LiveData<Response<Account>>
     val logined: LiveData<Boolean>
+    val hosName=ObservableField<String>()
+    var endpoint=0
+    set(value){
+        field=value
+        hosName.set(endpoints[field].hospital)
+        if(field!=sharedPreferenceStorage.endPointIndex) {
+            sharedPreferenceStorage.endPointIndex = field
+            sharedPreferenceStorage.endPointChanged = true
+        }
+    }
 
     /**
      * 需要传递出去的toast消息
@@ -48,6 +61,7 @@ class LoginViewModel @Inject constructor(
 
 
     init {
+        endpoint=if(sharedPreferenceStorage.endPointIndex<0)1 else sharedPreferenceStorage.endPointIndex
         attemptLogin()
         account = loadAccountResult.map {
 
