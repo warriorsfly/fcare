@@ -227,7 +227,7 @@ class WorkingActivity : BaseActivity() {
         when(operation.actionCode){
 
             ActionType.心电图 ->{
-                val outpatientId=viewModel.patient.value!!.outpatientId
+                val outpatientId=viewModel.patient.value?.outpatientId
                 val intent = Intent(this, EcgActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)

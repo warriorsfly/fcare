@@ -92,6 +92,7 @@ class ProfileViewModel @Inject constructor(
             patientApi.save(patient.value!!.apply {
                 createdBy = account.id
                 hospitalId = account.hospitalId
+                createrId = account.id
                 if(this@ProfileViewModel.taskId.isNotEmpty()) {
                     taskId = this@ProfileViewModel.taskId
                 }
@@ -126,6 +127,7 @@ class ProfileViewModel @Inject constructor(
             patientApi.save(patient.value!!.apply {
                 createdBy = account.id
                 hospitalId = account.hospitalId
+                createrId = account.id
                 if (this@ProfileViewModel.taskId.isNotEmpty()) {
                     taskId = this@ProfileViewModel.taskId
                 }
