@@ -25,6 +25,8 @@ android {
         buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:7076/api/"'
 //        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
 //        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
+//        buildConfigField 'String', 'ENDPOINT', '"http://192.168.0.153:5001"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.0.153:5001/api/"'
 
         sourceSets {
             main {

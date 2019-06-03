@@ -303,6 +303,12 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(), Serializable 
             field = value
             notifyPropertyChanged(BR.createdDate)
         }
+    @get:Bindable
+    var createrId: String?=null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.createrId)
+        }
 
 //    @Embedded
     @Ignore

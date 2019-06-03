@@ -16,7 +16,6 @@ interface ECGApi {
     @GET("ECG/DeleteEcgImage/{id}")
     fun deleteImage(@Path("id")id:String):Maybe<Response<Ecg>>
 
-
     @Multipart
     @POST("ECG/SaveElectroCardiogram")
     fun save(@Part("diogram")diogram: Ecg, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>
