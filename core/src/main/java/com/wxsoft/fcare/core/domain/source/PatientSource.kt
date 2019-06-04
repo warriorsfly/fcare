@@ -14,8 +14,10 @@ import com.wxsoft.fcare.core.utils.map
 
 class PatientSource constructor(
     private val api:PatientApi,
-    private val requestitem: PatientsCondition
+    private val requestItem: PatientsCondition
 ) : PageKeyedDataSource<Int, Patient>() {
+
+    val totalCount=MediatorLiveData<Int>()
     override fun loadBefore(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
         //ignore
     }
@@ -23,26 +25,28 @@ class PatientSource constructor(
     override fun loadAfter(params: LoadParams<Int>, callback: LoadCallback<Int, Patient>) {
 
 //        if(params.key==null) return
-        requestitem.pageIndex = params.key
-        api.getPatients(requestitem)
+        requestItem.pageIndex = params.key
+        api.getPatients(requestItem)
             .toResource()
             .subscribe {
                 when(it){
                     is Resource.Success->{
                         callback.onResult(it.data.items,if(it.data.hasNextPage)params.key+1 else null)
+                        totalCount.value=it.data.totalCount
                     }
                 }
             }
     }
 
     override fun loadInitial(params: LoadInitialParams<Int>, callback: LoadInitialCallback<Int, Patient>) {
-        requestitem.pageIndex = 1
-        api.getPatients(requestitem)
+        requestItem.pageIndex = 1
+        api.getPatients(requestItem)
             .toResource()
             .subscribe {
                 when(it){
                     is Resource.Success->{
                         callback.onResult(it.data.items,null,if(it.data.hasNextPage)  it.data.pageIndex+3 else null)
+                        totalCount.value=it.data.totalCount
                     }
                 }
             }
@@ -55,6 +59,7 @@ class PatientSource constructor(
     init {
         networkState=loadPatientResult.map {
             it==Resource.Loading
+
         }
     }
 

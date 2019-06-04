@@ -67,6 +67,12 @@ interface TaskApi {
     @POST("Task/GetPaged")
     fun getTasks(@Body item: PatientsCondition):Maybe<Page<Task>>
 
+    @GET("Task/ChoosePatient/{accountId}")
+    fun getPatientsForChoose(@Path("accountId")id:String): Maybe<Response<List<Patient>>>
+
+    @GET("Task/SetPatientToTask/{taskId}/{patientId}")
+    fun taskChoosePatient(@Path("taskId")taskId: String,patientId: String): Maybe<Response<String>>
+
     @GET("EnumDic/enumItems/226/{patientId}")
     fun getDicts(@Path("patientId")id:String): Maybe<List<Dictionary>>
 

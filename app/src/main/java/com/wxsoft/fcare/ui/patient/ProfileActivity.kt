@@ -292,6 +292,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
     fun selectPatient(){
         val intent = Intent(this, ChoicePatientActivity::class.java).apply {
             putExtra(ChoicePatientActivity.PATIENT_ID, patientId)
+            putExtra(ChoicePatientActivity.FOR_TASK_CHOOSE, false)
         }
         startActivityForResult(intent, SELECT_PATIENT)
     }
@@ -415,16 +416,24 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
                 SELECT_PATIENT ->{
                     val item = data?.getSerializableExtra("SelectPatient") as Patient
-                    viewModel.loadPatientResult.value= Resource.Success(Response<Patient>(true).apply {
-                        this.result= Patient("").apply {
-                            idcard = item.idcard
-                            name = item.name
-                            gender = item.gender
-                            age = item.age
-                            phone = item.phone
-                            outpatientId = item.outpatientId
-                        }
-                    })
+                    (viewModel.loadPatientResult.value as? Resource.Success)?.data?.result?.apply {
+                        idcard = item.idcard
+                        name = item.name
+                        gender = item.gender
+                        age = item.age
+                        phone = item.phone
+                        outpatientId = item.outpatientId
+                    }
+//                    = Resource.Success(Response<Patient>(true).apply {
+//                        this.result= Patient("").apply {
+//                            idcard = item.idcard
+//                            name = item.name
+//                            gender = item.gender
+//                            age = item.age
+//                            phone = item.phone
+//                            outpatientId = item.outpatientId
+//                        }
+//                    })
                 }
             }
         }
@@ -623,8 +632,8 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
                     // 帮跳转到该应用的设置界面，让用户手动授权
                     val intent =  Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                    val uri = Uri.fromParts("package", getPackageName(), null);
-                    intent.setData(uri);
+                    val uri = Uri.fromParts("package", packageName, null);
+                    intent.data = uri;
                     startActivity(intent);
                 } else {
                     // 不需要解释为何需要该权限，直接请求授权

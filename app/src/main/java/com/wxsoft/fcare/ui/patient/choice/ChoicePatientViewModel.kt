@@ -7,6 +7,7 @@ import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.PatientApi
+import com.wxsoft.fcare.core.data.remote.TaskApi
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
@@ -16,6 +17,7 @@ import javax.inject.Inject
 
 class ChoicePatientViewModel @Inject constructor(
     private val patientApi: PatientApi,
+    private val taskApi: TaskApi,
     override val sharedPreferenceStorage: SharedPreferenceStorage,
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
@@ -39,9 +41,17 @@ class ChoicePatientViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe ({
                     loadPatientlist.value = it.result
-                },{
+                },::error)
+        )
+    }
 
-                })
+    fun getPatientsForChoose(){
+        disposable.add(
+            taskApi.getPatientsForChoose(account.id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe ({
+                    loadPatientlist.value = it.result
+                },::error)
         )
     }
 

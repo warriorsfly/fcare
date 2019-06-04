@@ -25,6 +25,7 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.PatientInTaskAdapter
 import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessActivity
 import com.wxsoft.fcare.ui.details.dominating.fragment.TaskSheetFragment
 import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
 import kotlinx.android.synthetic.main.layout_task_process_title.*
@@ -73,6 +74,10 @@ class DoMinaActivity : BaseTimingActivity() {
                 }
                 startActivityForResult(intent, NEW_PATIENT_REQUEST)
 
+            }
+
+            choose.setOnClickListener {
+                selectPatient()
             }
             lifecycleOwner = this@DoMinaActivity
 
@@ -188,6 +193,12 @@ class DoMinaActivity : BaseTimingActivity() {
                     viewModel.loadTask()
                     setResult(RESULT_OK)
                 }
+
+                ProfileActivity.SELECT_PATIENT -> {
+                    val item = data?.getSerializableExtra("SelectPatient") as Patient
+                    viewModel.choosingPatient(item.id)
+                    setResult(RESULT_OK)
+                }
             }
         }
     }
@@ -228,5 +239,12 @@ class DoMinaActivity : BaseTimingActivity() {
             it.putExtra("HandOver",viewModel.task.value?.handOvered?:false)
             startActivityForResult(it, NEW_PATIENT_REQUEST)
         }
+    }
+
+    fun selectPatient(){
+        val intent = Intent(this, ChoicePatientActivity::class.java).apply {
+            putExtra(ChoicePatientActivity.FOR_TASK_CHOOSE, true)
+        }
+        startActivityForResult(intent, ProfileActivity.SELECT_PATIENT)
     }
 }

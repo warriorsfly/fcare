@@ -105,6 +105,11 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         it.networkState
     }
 
+    val totalDataCount = patientResult.switchMap {
+        it.totalCount
+    }
+
+
     fun showPatients(name: String): Boolean {
         patientName.value = name
         return true

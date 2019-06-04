@@ -367,7 +367,7 @@
                                     app:invisibleUnless="@{viewModel.comingBy.consultation_Time!=null}"
                                     android:src="@drawable/ic_delete_white"
                                     android:elevation="2dp"
-                                    android:tint="@color/colorPrimary"
+                                    android:tint="#C6C7C6"
                                     android:onClick="@{()->viewModel.clearConsultationTime()}"
                                     app:layout_constraintTop_toTopOf="@id/start_cabg_time30"
                                     app:layout_constraintBottom_toBottomOf="@id/start_cabg_time30"

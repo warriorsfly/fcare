@@ -7,15 +7,13 @@ import com.wxsoft.fcare.core.data.entity.Task
 import com.wxsoft.fcare.core.data.remote.TaskApi
 
 class TaskSourceFactory (
-    private val api: TaskApi,
-    private val item: PatientsCondition
+    api: TaskApi,
+    item: PatientsCondition
 ) : DataSource.Factory<Int, Task>() {
 
-    val sourceLiveData = MutableLiveData<TaskSource>()
-
+    val source = TaskSource(api,item)
     override fun create(): DataSource<Int, Task> {
-        val source = TaskSource(api,item)
-        sourceLiveData.postValue(source)
+
         return source
     }
 }

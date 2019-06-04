@@ -6,16 +6,12 @@ import com.wxsoft.fcare.core.data.entity.Message
 import com.wxsoft.fcare.core.data.remote.MessageApi
 
 class MessageSourceFactory (
-    private val api: MessageApi,
-    private val id:String,
-    private val size:Int
+    api: MessageApi,
+    id:String,
+    size:Int
 ) : DataSource.Factory<Int, Message>() {
-
-    val sourceLiveData = MutableLiveData<MessageSource>()
-
+    val source = MessageSource(api,id,size)
     override fun create(): DataSource<Int, Message> {
-        val source = MessageSource(api,id,size)
-        sourceLiveData.postValue(source)
         return source
     }
 }

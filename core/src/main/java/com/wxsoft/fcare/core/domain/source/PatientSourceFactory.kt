@@ -7,15 +7,15 @@ import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.remote.PatientApi
 
 class PatientSourceFactory (
-    private val api: PatientApi,
-    private val item:PatientsCondition
+    api: PatientApi,
+    item:PatientsCondition
 ) : DataSource.Factory<Int, Patient>() {
 
-    val sourceLiveData = MutableLiveData<PatientSource>()
-
+//    val sourceLiveData = MutableLiveData<PatientSource>()
+    val source = PatientSource(api,item)
     override fun create(): DataSource<Int, Patient> {
-        val source = PatientSource(api,item)
-        sourceLiveData.postValue(source)
+
+//        sourceLiveData.postValue(source)
         return source
     }
 }

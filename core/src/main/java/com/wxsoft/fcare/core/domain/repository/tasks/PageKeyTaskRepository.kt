@@ -24,15 +24,14 @@ class PageKeyTaskRepository constructor(private val api: TaskApi):
 
         return Listing(
             pagedList = livePagedList,
-            networkState = factory.sourceLiveData.map {
-                it.networkState.value?:false
-            },
+            networkState = factory.source.networkState,
             retry = {
                 //                factory.sourceLiveData.value?.retryAllFailed()
             },
             refresh = {
-                factory.sourceLiveData.value?.invalidate()
-            }
+                factory.source.invalidate()
+            },
+            totalCount = factory.source.totalCount
         )
     }
 

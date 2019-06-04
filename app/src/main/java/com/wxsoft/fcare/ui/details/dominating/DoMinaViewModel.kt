@@ -563,7 +563,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 }
                 loadSpendResult.value=task.value?.spends
             }
-        ,{error->messageAction.value= Event(error.message?:"")}))
+        ,::error))
     }
 
     fun cancel(reason:String){
@@ -572,7 +572,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 cancelResult.value=it.success
-            },{error->messageAction.value= Event(error.message?:"")}))
+            },::error))
     }
 
     private fun getText(){
@@ -585,6 +585,16 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 else->""//throw IllegalArgumentException("error status $it")
             })
         }
+    }
+
+    fun choosingPatient(patientId:String){
+        disposable.add(taskApi.taskChoosePatient(taskId,patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                loadTask()
+                loadDict()
+            },::error))
     }
 }
 

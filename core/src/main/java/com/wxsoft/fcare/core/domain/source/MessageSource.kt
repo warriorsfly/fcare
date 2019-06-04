@@ -30,6 +30,7 @@ class MessageSource constructor(
                 when(it){
                     is Resource.Success->{
                         callback.onResult(it.data.items,if(it.data.hasNextPage)params.key+1 else null)
+                        totalCount.value=it.data.totalCount
                     }
                 }
             }
@@ -42,13 +43,14 @@ class MessageSource constructor(
                 when(it){
                     is Resource.Success->{
                         callback.onResult(it.data.items,null,if(it.data.hasNextPage)  it.data.pageIndex+1 else null)
+                        totalCount.value=it.data.totalCount
                     }
                 }
             }
     }
 
     val networkState : LiveData<Boolean>
-
+    val totalCount=MediatorLiveData<Int>()
     private val loadPatientResult= MediatorLiveData<Response<PagedList<Message>>>()
 
     init {

@@ -19,8 +19,10 @@ import javax.inject.Inject
 class ChoicePatientActivity : BaseActivity() {
 
     private lateinit var patientId:String
+    private var choosing:Boolean = false
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val FOR_TASK_CHOOSE = "FOR_TASK_CHOOSE"
     }
 
     private lateinit var viewModel: ChoicePatientViewModel
@@ -33,7 +35,8 @@ class ChoicePatientActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        patientId=intent.getStringExtra(SelecterOfOneModelActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(PATIENT_ID)?:""
+        choosing=intent.getBooleanExtra(FOR_TASK_CHOOSE,false)
 
         DataBindingUtil.setContentView<ActivityChoicePatientBinding>(this, R.layout.activity_choice_patient)
             .apply {
@@ -50,7 +53,7 @@ class ChoicePatientActivity : BaseActivity() {
             adapter.items = it
         })
 
-        viewModel.getPatientsFromCis()
+        if(choosing)viewModel.getPatientsForChoose() else viewModel.getPatientsFromCis()
 
         viewModel.choiceSome.observe(this, Observer {
             when(it) {
