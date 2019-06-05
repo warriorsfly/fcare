@@ -11,6 +11,7 @@ data class RatingRecord(val id:String="",
                         val ratingName:String,
                         val sceneType:String,
                         val createrId:String,
+                        val createrName:String,
                         /**
                          * 1低危2中危3高危
                          */

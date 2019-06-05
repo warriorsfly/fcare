@@ -26,7 +26,7 @@ data class DiagnoseTreatment (val id:String=""): BaseObservable(){
 
     //Grace评分
     @Bindable
-    var graceRating : RatingRecord = RatingRecord("","","","","","")
+    var graceRating : RatingRecord = RatingRecord("","","","","","","")
         set(value) {
             field = value
             notifyPropertyChanged(BR.graceRating)

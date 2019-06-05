@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.ui.rating
 
-import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -11,8 +10,8 @@ import com.wxsoft.fcare.core.data.entity.rating.SubjectRecord
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.RatingApi
 import com.wxsoft.fcare.core.result.Event
-import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.core.utils.map
+import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -132,6 +131,7 @@ class RatingSubjectViewModel @Inject constructor(
             val ratingRecord = if(recordId.isEmpty()) RatingRecord(
                 id = recordId,
                 createrId = account.id,
+                createrName = account.trueName,
                 patientId = patientId,
                 sceneType = scenceType,
                 ratingId = rating.value!!.id,

@@ -654,37 +654,69 @@
                                 android:layout_marginRight="5dp"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
+
                             <TextView
-                                    android:id="@+id/line8_content_title1"
-                                    app:layout_constraintLeft_toLeftOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    android:text="GRACE分值"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_marginTop="15dp"
-                                    android:layout_marginBottom="15dp"
-                                    android:textColor="@color/small_title_text_gray"
+                                    android:layout_marginStart="21.5dp"
+                                    android:id="@+id/content"
+                                    tools:text="GRACE评分"
+                                    android:layout_marginTop="11dp"
+                                    android:text="GRACE评分"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    android:layout_width="0dp"
                                     android:textSize="16sp"
+                                    android:textColor="@color/black"
+                                    android:layout_height="wrap_content"/>
+
+                            <TextView
+                                    app:layout_constraintLeft_toLeftOf="@id/content"
+                                    app:layout_constraintTop_toBottomOf="@id/content"
+                                    android:id="@+id/patient"
+                                    tools:text="王丽"
+                                    android:text="@{viewModel.diagnosisTreatment.graceRating.createrName}"
+                                    android:drawablePadding="4dp"
+                                    android:textColor="#999999"
+                                    android:textSize="12sp"
+                                    android:layout_marginTop="4dp"
+                                    android:layout_marginBottom="11dp"
+                                    android:drawableLeft="@drawable/ic_doctor"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            <TextView
+                                    app:layout_constraintLeft_toRightOf="@id/patient"
+                                    app:layout_constraintTop_toBottomOf="@id/content"
+                                    android:id="@+id/time"
+                                    android:layout_marginStart="13dp"
+                                    tools:text="09:10"
+                                    android:layout_marginBottom="11dp"
+                                    android:text="@{viewModel.diagnosisTreatment.graceRating.createdDate.substring(11,16)}"
+                                    android:drawablePadding="4dp"
+                                    android:textColor="#999999"
+                                    android:textSize="12sp"
+                                    android:layout_marginTop="4dp"
+                                    android:drawableLeft="@drawable/ic_common_clock"
+                                    app:layout_constraintBottom_toBottomOf="parent"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
 
+
                             <TextView
-                                    android:id="@+id/line8_content_1"
-                                    app:layout_constraintLeft_toRightOf="@+id/line8_content_title1"
-                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="@id/time"
+                                    app:layout_constraintTop_toTopOf="@id/content"
                                     app:layout_constraintRight_toRightOf="parent"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    android:gravity="right"
+                                    android:id="@+id/score"
+                                    android:layout_marginRight="16dp"
+                                    tools:text="86"
+                                    android:text="@{Converter.intToString(viewModel.diagnosisTreatment.graceRating.score)}"
+                                    android:drawablePadding="10dp"
                                     android:textColor="@color/small_title_text_gray"
-                                    android:textSize="16sp"
-                                    android:layout_marginRight="52dp"
-                                    android:text="@{Converter.intToString(viewModel.graceScore)}"
-                                    tools:text="100"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"/>
-
-
-
+                                    android:textSize="28sp"
+                                    android:layout_marginTop="4dp"
+                                    android:drawableRight="@drawable/ic_right_arrow"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="0dp"/>
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
 

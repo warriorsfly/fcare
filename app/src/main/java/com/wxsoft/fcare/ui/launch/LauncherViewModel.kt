@@ -13,7 +13,6 @@ import com.wxsoft.fcare.core.data.remote.AccountApi
 import com.wxsoft.fcare.core.data.remote.version.VersionApi
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
-import io.reactivex.Observable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

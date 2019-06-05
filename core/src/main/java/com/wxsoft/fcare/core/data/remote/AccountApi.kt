@@ -17,4 +17,7 @@ interface AccountApi {
 
     @GET("Security/AddOrUpdateJPushAccount/{user}/{pushId}")
     fun jPush(@Path("user")id:String, @Path("pushId")pushId:String): Maybe<Response<String>>
+
+    @GET("Security/UpdateAccountPwd/{accountId}/{oldPwd}/{newPwd}")
+    fun changePassWord(@Path("accountId")id:String, @Path("oldPwd")oldPwd:String, @Path("newPwd")newPwd:String): Maybe<Response<String>>
 }

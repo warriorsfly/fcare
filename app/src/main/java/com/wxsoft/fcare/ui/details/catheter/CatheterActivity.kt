@@ -69,6 +69,24 @@ class CatheterActivity : BaseTimingActivity(){
         }.show()
     }
 
+    private fun selectDoc(){
+        val list= viewModel.docs.map { it.trueName }.toTypedArray()
+
+        val selectedPos= viewModel.docs.indexOfFirst { user ->
+
+            viewModel.intervention.value?.doctorId==user.id
+        }
+
+        AlertDialog.Builder(this).setSingleChoiceItems(list,selectedPos){
+            dialog,which->
+            dialog.dismiss()
+            viewModel.intervention.value?.apply {
+                doctorId=viewModel.docs[which].id
+                doctorName=viewModel.docs[which].trueName
+            }
+        }.show()
+    }
+
     private var selectedId=0
 
     private lateinit var patientId:String
@@ -114,9 +132,13 @@ class CatheterActivity : BaseTimingActivity(){
 
         viewModel.modifySome.observe(this, Observer {
             when(it){
+                "-2"->showDatePicker(findViewById(R.id.doc_1))
+                "-1"->selectDoc()
                 "0"->selectPlace()
                 "1"->showDatePicker(findViewById(R.id.start))
+                "1"->showDatePicker(findViewById(R.id.start))
                 "2"->showDatePicker(findViewById(R.id.end_thromboly_time))
+
                 "3"->showDatePicker(findViewById(R.id.patient_arrive))
                 "4"->showDatePicker(findViewById(R.id.start_puncture))
                 "5"->showDatePicker(findViewById(R.id.punctured))

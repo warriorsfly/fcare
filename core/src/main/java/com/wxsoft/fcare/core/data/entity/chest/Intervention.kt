@@ -10,15 +10,8 @@ data class Intervention(val id:String="",
                         /**
                          * 决定 医生Id
                          */
-                        @SerializedName("doctor_Id")
-                        var doctorId	:String="",
-                        /**
-                         * 决定 医生Id
-                         */
-                        @SerializedName("doctor_Name")
-                        var doctorName	:String="",
-
-                        var decision_Operation_Time	:String?=null,
+                     
+                     
                         var informedConsentId	:String="",
                         /**
                          * 启动 导管室
@@ -80,5 +73,22 @@ data class Intervention(val id:String="",
             field=value
             notifyPropertyChanged(BR.interventionMates)
         }
-
+   @SerializedName("doctor_Id")
+    var doctorId	:String=""
+    /**
+      * 决定 医生Id
+      */
+    @Bindable
+    @SerializedName("doctor_Name")
+    var doctorName	:String=""
+      set(value) {
+          field=value
+          notifyPropertyChanged(BR.doctorName)
+      }
+      @Bindable
+      var decision_Operation_Time	:String?=null
+        set(value) {
+          field=value
+          notifyPropertyChanged(BR.decision_Operation_Time)
+          }
 }
