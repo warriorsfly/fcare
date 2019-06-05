@@ -36,6 +36,10 @@ class UserProfileFragment : DaggerFragment() {
                 startActivity(intent)
                 activity?.finish()
             }
+            changePass.setOnClickListener {
+                val dialog=PasswordFragment()
+                dialog.show(childFragmentManager,"all")
+            }
             lifecycleOwner = this@UserProfileFragment
         }
 
