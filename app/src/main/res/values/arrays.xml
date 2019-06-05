@@ -10,7 +10,7 @@
     </array>
 
     <array name="troponin_character">
-        <item>正常</item>
+<!--        <item>正常</item>-->
         <item>阴性</item>
         <item>阳性</item>
     </array>

@@ -57,7 +57,7 @@ data class LisCr (val id:String) : BaseObservable() {
     var selectCtniUnit:Int=0
         set(value){
             field=value
-            ctniUnit = (value +1).toString()
+            ctniUnit = value.toString()
             notifyPropertyChanged(BR.selectCtniUnit)
         }
 
@@ -65,24 +65,12 @@ data class LisCr (val id:String) : BaseObservable() {
      * CTNI状态
      * 选填(阴性，阳性或空值)
      */
-    @Bindable
-    @SerializedName("ctni_Status")
+    @get:Bindable
+    @Transient
     var ctniStatus: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.ctniStatus)
-        }
-    @Transient
-    @Bindable
-    var selectCtniStatus:Int=0
-        set(value){
-            field=value
-            when(value){
-                0->ctniStatus = "正常"
-                1->ctniStatus = "阴性"
-                2->ctniStatus = "阳性"
-            }
-            notifyPropertyChanged(BR.selectCtniStatus)
         }
 
     /**
@@ -113,7 +101,7 @@ data class LisCr (val id:String) : BaseObservable() {
     var selectCtntUnit:Int=0
         set(value){
             field=value
-            ctntUnit = (value+1).toString()
+            ctntUnit = value.toString()
             notifyPropertyChanged(BR.selectCtntUnit)
         }
     /**
@@ -121,24 +109,13 @@ data class LisCr (val id:String) : BaseObservable() {
      * 选填(阴性，阳性或空值)
      */
     @Bindable
-    @SerializedName("ctnt_Status")
+    @Transient
     var ctntStatus: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.ctntStatus)
         }
-    @Transient
-    @Bindable
-    var selectCtntStatus:Int=0
-        set(value){
-            field=value
-            when(value){
-                0->ctntStatus = ""
-                1->ctntStatus = "阴性"
-                2->ctntStatus = "阳性"
-            }
-            notifyPropertyChanged(BR.selectCtntStatus)
-        }
+
 
     /**
      * 血清肌酐（Cr)
@@ -175,8 +152,8 @@ data class LisCr (val id:String) : BaseObservable() {
         set(value){
             field=value
             when(value){
-                0->crUnit = "1"
-                1->crUnit = "0"
+                0->crUnit = "0"
+                1->crUnit = "1"
             }
             notifyPropertyChanged(BR.selectCrUnit)
         }
@@ -219,22 +196,11 @@ data class LisCr (val id:String) : BaseObservable() {
     fun setUpChecked(){
         if (!crUnit.isNullOrEmpty()){
             when(crUnit){
-                "1"-> selectCrUnit = 0
-                "0"-> selectCrUnit = 1
+                "1"-> selectCrUnit = 1
+                "0"-> selectCrUnit = 0
             }
         }
-        if (!ctntStatus.isNullOrEmpty()){
-            when(ctntStatus){
-                "阴性"->selectCtntStatus = 1
-                "阳性"->selectCtntStatus = 2
-            }
-        }
-        if (!ctniStatus.isNullOrEmpty()){
-            when(ctniStatus){
-                "阴性"->selectCtniStatus = 1
-                "阳性"->selectCtniStatus = 2
-            }
-        }
+    
         if (!ctniUnit.isNullOrEmpty()) selectCtniUnit = ctniUnit.split("-").last().toInt()-1
         if (!ctntUnit.isNullOrEmpty()) selectCtntUnit = ctntUnit.split("-").last().toInt()-1
 
@@ -243,16 +209,16 @@ data class LisCr (val id:String) : BaseObservable() {
         if (ctniValue.isNullOrEmpty()) return
 
         if (ctniValue.contains("<")){
-            selectCtniStatus = 1
+            ctniStatus = "阳性"
         }else if(ctniValue.isNullOrEmpty()){
-            selectCtniStatus = 0
+            ctniStatus = "阴性"
         }else {
             try {
                 val dou = ctniValue.toFloat()
-                if (dou - 0.5 > 0.5) {
-                    selectCtniStatus = 2
+                if (dou > 1f) {
+                    ctniStatus = "阳性"
                 }else {
-                    selectCtniStatus = 0
+                    ctniStatus = "阴性"
                 }
             } catch (_: Exception){
 

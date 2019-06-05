@@ -99,12 +99,11 @@
             <TextView
                     android:id="@+id/fmc2egg_title"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/memo"
+                    app:layout_constraintTop_toBottomOf="@id/egg_title"
                     android:layout_margin="6dp"
-                    android:text="@{ecg.diagnosedAt==null?``:ecg.diagnosedAt.substring(0,16)}"
+                    android:text="@{`报告：`+(ecg.diagnosedAt==null?``:ecg.diagnosedAt.substring(0,16))}"
                     app:goneUnless="@{ecg.diagnosedAt!=null}"
                     android:drawablePadding="6dp"
-                    android:drawableLeft="@drawable/ic_common_clock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
@@ -134,14 +133,13 @@
             <TextView
                     android:id="@+id/egg_title"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/fmc2egg_title"
+                    app:layout_constraintTop_toBottomOf="@id/memo"
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_margin="6dp"
 
                     android:drawablePadding="6dp"
-                    android:drawableLeft="@drawable/ic_common_clock"
                     app:goneUnless="@{ecg.time!=null}"
-                    android:text="@{ecg.time==null?``:ecg.time.substring(0,16)}"
+                    android:text="@{`检查：`+(ecg.time==null?``:ecg.time.substring(0,16))}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 

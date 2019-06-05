@@ -238,13 +238,13 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(), Serializable 
             field = value
             notifyPropertyChanged(BR.memo)
         }
-    @SerializedName("register_Id")
-    @get:Bindable
-    var registerId: String=""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.registerId)
-        }
+//    @SerializedName("register_Id")
+//    @get:Bindable
+//    var registerId: String=""
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.registerId)
+//        }
 
     @SerializedName("statu")
     @get:Bindable
