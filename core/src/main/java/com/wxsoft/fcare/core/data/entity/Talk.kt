@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.core.data.entity
 
-import androidx.room.Ignore
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
@@ -66,7 +65,7 @@ data class Talk (val id:String) : BaseObservable() {
             notifyPropertyChanged(BR.patientInfo)
         }
 
-    @Ignore
+    @Transient
     var attachments:List<Attachment> = emptyList()
 
     @Bindable

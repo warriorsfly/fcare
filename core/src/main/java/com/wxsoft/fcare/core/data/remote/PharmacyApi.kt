@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.core.data.remote
 
-import androidx.room.Delete
 import com.wxsoft.fcare.core.data.entity.CABG
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.drug.*

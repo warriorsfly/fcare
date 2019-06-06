@@ -1,8 +1,5 @@
 package com.wxsoft.fcare.core.data.entity
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
@@ -10,8 +7,7 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import java.io.Serializable
 
-@Entity(tableName = "patients")
-data class Patient(@PrimaryKey val id:String=""):BaseObservable(), Serializable {
+data class Patient(val id:String=""):BaseObservable(), Serializable {
 
     var taskId: String?=null
 
@@ -311,7 +307,7 @@ data class Patient(@PrimaryKey val id:String=""):BaseObservable(), Serializable 
         }
 
 //    @Embedded
-    @Ignore
+    @Transient
     var attachments:List<Attachment> = emptyList()
 
     @get:Bindable
