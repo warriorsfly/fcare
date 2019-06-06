@@ -50,10 +50,8 @@ class WxDimDialog(context: Context?) : AppCompatDialog(context, R.style.Theme_FC
         }
     }
 
-    override fun setContentView(view: View?) {
-        if (view != null) {
-            super.setContentView(wrapHeight(view))
-        }
+    override fun setContentView(view: View) {
+        super.setContentView(wrapHeight(view))
     }
 
     private fun wrapHeight(content: View): View {

@@ -286,6 +286,7 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
 //                    fs.map{
 //                       Compressor(activity!!).compressToFile(it)
 //                    }
+                    adapter.theOne.locals= emptyList()
                     profileViewModel.savingRecord(newRecord, fs.map{
                         Compressor(activity!!)
                             .setMaxWidth(1280)

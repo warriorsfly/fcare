@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.paging.PageKeyedDataSource
 import androidx.paging.PagedList
+import com.wxsoft.fcare.core.data.entity.Page
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.entity.Response
@@ -29,8 +30,10 @@ class PatientSource constructor(
         api.getPatients(requestItem)
             .toResource()
             .subscribe {
+                loadPatientResult.value=it
                 when(it){
                     is Resource.Success->{
+
                         callback.onResult(it.data.items,if(it.data.hasNextPage)params.key+1 else null)
                         totalCount.value=it.data.totalCount
                     }
@@ -43,6 +46,7 @@ class PatientSource constructor(
         api.getPatients(requestItem)
             .toResource()
             .subscribe {
+                loadPatientResult.value=it
                 when(it){
                     is Resource.Success->{
                         callback.onResult(it.data.items,null,if(it.data.hasNextPage)  it.data.pageIndex+3 else null)
@@ -54,7 +58,7 @@ class PatientSource constructor(
 
     val networkState : LiveData<Boolean>
 
-    private val loadPatientResult= MediatorLiveData<Resource<Response<PagedList<Patient>>>>()
+    private val loadPatientResult= MediatorLiveData<Resource<Page<Patient>>>()
 
     init {
         networkState=loadPatientResult.map {

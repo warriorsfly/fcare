@@ -51,10 +51,8 @@ class TransparentDimDialog(context: Context?) : AppCompatDialog(context, R.style
         }
     }
 
-    override fun setContentView(view: View?) {
-        if (view != null) {
-            super.setContentView(wrap(view))
-        }
+    override fun setContentView(view: View) {
+        super.setContentView(wrap(view))
     }
 
     private fun wrap(content: View): View {

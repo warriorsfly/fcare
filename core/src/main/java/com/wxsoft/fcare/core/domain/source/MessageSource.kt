@@ -3,9 +3,8 @@ package com.wxsoft.fcare.core.domain.source
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.paging.PageKeyedDataSource
-import androidx.paging.PagedList
 import com.wxsoft.fcare.core.data.entity.Message
-import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.Page
 import com.wxsoft.fcare.core.data.remote.MessageApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Resource
@@ -27,6 +26,7 @@ class MessageSource constructor(
         api.loadMeasure(id,pageIndex,size)
             .toResource()
             .subscribe {
+                loadPatientResult.value=it
                 when(it){
                     is Resource.Success->{
                         callback.onResult(it.data.items,if(it.data.hasNextPage)params.key+1 else null)
@@ -40,6 +40,7 @@ class MessageSource constructor(
         api.loadMeasure(id,1,size)
             .toResource()
             .subscribe {
+                loadPatientResult.value=it
                 when(it){
                     is Resource.Success->{
                         callback.onResult(it.data.items,null,if(it.data.hasNextPage)  it.data.pageIndex+1 else null)
@@ -51,11 +52,11 @@ class MessageSource constructor(
 
     val networkState : LiveData<Boolean>
     val totalCount=MediatorLiveData<Int>()
-    private val loadPatientResult= MediatorLiveData<Response<PagedList<Message>>>()
+    private val loadPatientResult= MediatorLiveData<Resource<Page<Message>>>()
 
     init {
         networkState=loadPatientResult.map {
-            it.success
+            it==Resource.Loading
         }
     }
 

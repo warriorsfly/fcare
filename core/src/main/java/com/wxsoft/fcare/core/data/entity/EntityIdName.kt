@@ -6,8 +6,8 @@ import android.os.Parcelable
 data class EntityIdName(var id:String,
                var name:String): Parcelable{
     constructor(parcel: Parcel) : this(
-        parcel.readString(),
-        parcel.readString()
+        parcel.readString()?:"",
+        parcel.readString()?:""
     ) {
     }
 

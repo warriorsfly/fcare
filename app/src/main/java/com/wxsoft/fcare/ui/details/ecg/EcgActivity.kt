@@ -236,13 +236,15 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
                         ))
                     }?: emptyList()
 
-                    val files=viewModel.bitmaps.map { File(it).let {
-                        file->
-                        Compressor(this@EcgActivity)
-                            .setMaxWidth(1280)
-                            .setMaxHeight(1280)
-                            .setQuality(75).compressToFile(file)
-                    } }
+                    val files=viewModel.bitmaps.map {
+                        File(it).let { file ->
+                            Compressor(this@EcgActivity)
+                                .setMaxWidth(1280)
+                                .setMaxHeight(1280)
+                                .setQuality(75).compressToFile(file)
+                        }
+                    }
+                    adapter.locals= emptyList()
                     viewModel.saveEcg(files)
                 }
             }

@@ -25,7 +25,7 @@ class PhotoActivity : AppCompatActivity() {
 
 
     private fun initview() {
-        var list = intent.extras.getStringArray(STRLIST)
+        var list = intent.extras?.getStringArray(STRLIST)?: emptyArray()
         viewpage.transitionName = "img" + intent.getIntExtra(IMGPOS, 0)
         adapter = PopAdapter(list)
         viewpage.adapter = adapter
