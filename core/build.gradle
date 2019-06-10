@@ -13,18 +13,18 @@ android {
         }
     }
     dataBinding { enabled = true }
-    compileSdkVersion 'android-Q'
+    compileSdkVersion 29
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:7076"'
-        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:7076/api/"'
-//        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
-//        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
+//        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:7076"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:7076/api/"'
+        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
+        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
 
         sourceSets {
             main {
@@ -56,7 +56,7 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    buildToolsVersion = '29.0.0 rc3'
+    buildToolsVersion = '29.0.0'
 
 }
 

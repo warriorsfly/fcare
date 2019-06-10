@@ -5,7 +5,6 @@ import com.baidu.location.LocationClient
 import com.baidu.location.LocationClientOption
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 
 @Module

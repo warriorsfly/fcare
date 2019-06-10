@@ -1,537 +1,537 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.assistant.troponin.TroponinViewModel"/>
-    </data>
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable name="viewModel" type="com.wxsoft.fcare.ui.details.assistant.troponin.TroponinViewModel"/>
+	</data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#E7E4F2"
-            tools:context=".ui.details.assistant.troponin.JGDBActivity">
+	<androidx.constraintlayout.widget.ConstraintLayout
+		android:id="@+id/container"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="#E7E4F2"
+		tools:context=".ui.details.assistant.troponin.JGDBActivity">
 
-        <include layout="@layout/layout_new_title"
-                 android:id="@+id/title"
-        />
-        <ProgressBar
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:id="@+id/login_progress"
-                android:elevation="8dp"
-                style="?android:attr/progressBarStyleLarge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                app:goneUnless="@{viewModel.uploading}"/>
-        <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="parent">
+		<include layout="@layout/layout_new_title"
+		         android:id="@+id/title"
+		/>
+		<ProgressBar
+			app:layout_constraintLeft_toLeftOf="parent"
+			app:layout_constraintTop_toTopOf="parent"
+			app:layout_constraintBottom_toBottomOf="parent"
+			app:layout_constraintRight_toRightOf="parent"
+			android:id="@+id/login_progress"
+			android:elevation="8dp"
+			style="?android:attr/progressBarStyleLarge"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			app:goneUnless="@{viewModel.uploading}"/>
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			app:layout_constraintTop_toBottomOf="@+id/title"
+			app:layout_constraintBottom_toBottomOf="parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/line1"
-                android:layout_marginTop="15dp"
-                android:background="@color/white"
-                android:onClick="@{()->viewModel.clickTime(`1`)}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <TextView
-                    android:id="@+id/title1_1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginTop="17.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="17.5dp"
-                    android:text="@string/jgdb_blood_time"
-                    android:textSize="16sp"
-                    android:textColor="@color/small_title_text_gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:hint="抽血时间"
-                    android:text="@{viewModel.lisCr.samplingTime}"
-                    android:id="@+id/draw_blood_time"
-                    android:layout_marginRight="19dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/small_title_text_gray"
-                    android:gravity="right"
-                    android:minWidth="90dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/rowe1_1"
-                    app:layout_constraintLeft_toRightOf="@+id/title1_1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="2019-04-12 12:38:40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:id="@+id/rowe1_1"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/title1_1"
-                    android:layout_width="14dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@drawable/ic_right_arrow"/>
-            <View
-                    android:background="#EDEDED"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/line2"
-                android:background="@color/white"
-                android:onClick="@{()->viewModel.clickTime(`2`)}"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-            <TextView
-                    android:id="@+id/title2_1"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginTop="17.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="17.5dp"
-                    android:text="报告时间"
-                    android:textSize="16sp"
-                    android:textColor="@color/small_title_text_gray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:hint="报告时间"
-                    android:text="@{viewModel.lisCr.reportTime}"
-                    android:id="@+id/draw_blood_report_time"
-                    android:layout_marginRight="19dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:textSize="16sp"
-                    android:textColor="@color/small_title_text_gray"
-                    android:gravity="right"
-                    android:minWidth="90dp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/rowe2_1"
-                    app:layout_constraintLeft_toRightOf="@+id/title2_1"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    tools:text="2019-04-12 12:38:40"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-            <TextView
-                    android:id="@+id/rowe2_1"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/title2_1"
-                    android:layout_width="14dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@drawable/ic_right_arrow"/>
-            <View
-                    android:background="#EDEDED"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:id="@+id/cTnI_constrain"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/line2">
-            <TextView
-                    android:id="@+id/cTnI_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="17.5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="cTnI" />
-            <EditText android:selectAllOnFocus="true"
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="8dp"
-                      android:layout_marginEnd="8dp"
-                      android:minWidth="50dp"
-                      android:id="@+id/cTnI_num_et"
-                      android:text="@={viewModel.lisCr.ctniValue}"
-                      android:textSize="12sp"
-                      android:gravity="center"
-                      android:imeOptions="actionNext"
-                      android:inputType="number|numberDecimal"
-                      android:digits="@string/input_type_numbers_delow"
-                      android:maxLines="1"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toRightOf="@+id/cTnI_title"
-                      app:layout_constraintTop_toTopOf="parent"
-                      app:layout_constraintRight_toLeftOf="@+id/cTnI_unit"
-                      tools:text="" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/cTnI_unit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_marginRight="10dp"
-                    android:selectedItemPosition="@={viewModel.lisCr.selectCtniUnit}"
-                    android:entries="@{viewModel.troponinUnitsItems}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/cTnI_character"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:gravity="right"/>
-
-            <TextView
-                    android:id="@+id/cTnI_character"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:spinnerMode="dropdown"
-                    android:layout_marginRight="19dp"
-                    android:text="@{viewModel.lisCr.ctniStatus}"
-                    android:entries="@array/troponin_character"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:gravity="right"/>
-            <View
-                    android:background="#EDEDED"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/cTnT_constrain"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CKMB_constrain">
-            <TextView
-                    android:id="@+id/cTnT_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="17.5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="cTnT" />
-            <EditText android:selectAllOnFocus="true"
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="8dp"
-                      android:layout_marginEnd="8dp"
-                      android:minWidth="50dp"
-                      android:text="@={viewModel.lisCr.ctntValue}"
-                      android:id="@+id/cTnT_num_et"
-                      android:textSize="12sp"
-                      android:gravity="center"
-                      android:imeOptions="actionNext"
-                      android:inputType="number|numberDecimal"
-                      android:digits="@string/input_type_numbers_delow"
-                      android:maxLines="1"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toRightOf="@+id/cTnT_title"
-                      app:layout_constraintTop_toTopOf="parent"
-                      app:layout_constraintRight_toLeftOf="@+id/cTnT_unit"
-                      tools:text="" />
-
-            <!--<androidx.appcompat.widget.AppCompatSpinner-->
-                    <!--android:id="@+id/cTnT_unit"-->
-                    <!--android:background="@color/white"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:textSize="12sp"-->
-                    <!--android:layout_marginRight="10dp"-->
-                    <!--android:selectedItemPosition="@={viewModel.lisCr.selectCtntUnit}"-->
-                    <!--android:entries="@{viewModel.troponinUnitsItems}"-->
-                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                    <!--app:layout_constraintRight_toLeftOf="@+id/cTnT_character"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:gravity="right"/>-->
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/cTnT_unit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:layout_marginRight="10dp"
-                    android:selectedItemPosition="@={viewModel.lisCr.selectCtntUnit}"
-                    android:entries="@{viewModel.troponinUnitsItems}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/cTnT_character"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:gravity="right"/>
-
-            <TextView
-                    android:id="@+id/cTnT_character"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="@{viewModel.lisCr.ctntStatus}"
-                    android:layout_marginRight="19dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:gravity="right"/>
-            <View
-                    android:background="#EDEDED"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:background="@color/white"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/CKMB_constrain"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/Myo_constrain">
-                    <TextView
-                            android:id="@+id/CKMB_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="17.5dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="17.5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:text="CK-MB" />
-                    <EditText android:selectAllOnFocus="true"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_marginStart="8dp"
-                              android:layout_marginEnd="8dp"
-                              android:minWidth="50dp"
-                              android:id="@+id/CKMB_num_et"
-                              android:textSize="12sp"
-                              android:gravity="center"
-                              android:imeOptions="actionNext"
-                              android:maxLines="1"
-                              android:inputType="number|numberDecimal"
-                              android:digits="@string/input_type_numbers_delow"
-                              android:text="@={viewModel.lisCr.ckmb}"
-                              app:layout_constraintBottom_toBottomOf="parent"
-                              app:layout_constraintLeft_toRightOf="@+id/CKMB_title"
-                              app:layout_constraintTop_toTopOf="parent"
-                              app:layout_constraintRight_toLeftOf="@+id/CKMB_unit"
-                              tools:text="" />
-
-                    <TextView
-                            android:id="@+id/CKMB_unit"
-                            android:background="@color/white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="ng/ml"
-                            android:textSize="12sp"
-                            android:layout_marginRight="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:gravity="right"/>
-
-                    <View
-                            android:background="#EDEDED"
-                            android:layout_marginBottom="1dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:background="@color/white"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/Myo_constrain"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/cTnI_constrain">
-                    <TextView
-                            android:id="@+id/Myo_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="17.5dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="17.5dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:text="Myo" />
-                    <EditText android:selectAllOnFocus="true"
-                              android:layout_width="0dp"
-                              android:layout_height="wrap_content"
-                              android:layout_marginStart="8dp"
-                              android:layout_marginEnd="8dp"
-                              android:minWidth="50dp"
-                              android:id="@+id/Myo_num_et"
-                              android:textSize="12sp"
-                              android:gravity="center"
-                              android:imeOptions="actionNext"
-                              android:text="@={viewModel.lisCr.myo}"
-                              android:inputType="number|numberDecimal"
-                              android:digits="@string/input_type_numbers_delow"
-                              android:maxLines="1"
-                              app:layout_constraintBottom_toBottomOf="parent"
-                              app:layout_constraintLeft_toRightOf="@+id/Myo_title"
-                              app:layout_constraintTop_toTopOf="parent"
-                              app:layout_constraintRight_toLeftOf="@+id/Myo_unit"
-                              tools:text="25.0" />
-
-                    <TextView
-                            android:id="@+id/Myo_unit"
-                            android:background="@color/white"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="ng/ml"
-                            android:textSize="12sp"
-                            android:layout_marginRight="10dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:gravity="right"/>
-
-                    <View
-                            android:background="#EDEDED"
-                            android:layout_marginBottom="1dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:id="@+id/cr_constrain"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cTnT_constrain">
-            <TextView
-                    android:id="@+id/cr_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="17.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="17.5dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="血清肌酐(cr)" />
-            <EditText android:selectAllOnFocus="true"
-                      android:layout_width="0dp"
-                      android:layout_height="wrap_content"
-                      android:layout_marginStart="8dp"
-                      android:layout_marginEnd="8dp"
-                      android:minWidth="50dp"
-                      android:id="@+id/cr_num_et"
-                      android:text="@={viewModel.lisCr.crValueStr}"
-                      android:textSize="12sp"
-                      android:gravity="center"
-                      android:imeOptions="actionNext"
-                      android:inputType="number|numberDecimal"
-                      android:digits="1234567890."
-                      android:maxLines="1"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toRightOf="@+id/cr_title"
-                      app:layout_constraintTop_toTopOf="parent"
-                      app:layout_constraintRight_toLeftOf="@+id/cr_unit"
-                      tools:text="" />
-
-            <androidx.appcompat.widget.AppCompatSpinner
-                    android:id="@+id/cr_unit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:selectedItemPosition="@={viewModel.lisCr.selectCrUnit}"
-                    android:entries="@array/cr_unit"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:gravity="right"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:background="@color/white"
-                        android:id="@+id/item5"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/cr_constrain"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <TextView
-                            android:id="@+id/title_name"
-                            android:background="#FFFFFF"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:textColor="#525252"
-                            android:text="附件"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                            android:background="#FFFFFF"
-                            android:layout_marginBottom="10dp"
-                            android:layout_marginLeft="10dp"
-                            android:id="@+id/jgdb_photo_items_rv"
-                            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                            app:spanCount="4"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toBottomOf="@id/title_name"
-                            app:layout_constraintLeft_toLeftOf="@id/title_name"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"/>
+			<androidx.constraintlayout.widget.ConstraintLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/line1"
+					android:layout_marginTop="15dp"
+					android:background="@color/white"
+					android:onClick="@{()->viewModel.clickTime(`1`)}"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					<TextView
+						android:id="@+id/title1_1"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_marginTop="17.5dp"
+						android:layout_marginLeft="15dp"
+						android:layout_marginBottom="17.5dp"
+						android:text="@string/jgdb_blood_time"
+						android:textSize="16sp"
+						android:textColor="@color/small_title_text_gray"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"/>
 
-      </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+					<TextView
+						android:hint="抽血时间"
+						android:text="@{viewModel.lisCr.samplingTime}"
+						android:id="@+id/draw_blood_time"
+						android:layout_marginRight="19dp"
+						android:layout_marginTop="15dp"
+						android:layout_marginBottom="15dp"
+						android:layout_marginLeft="15dp"
+						android:textSize="16sp"
+						android:textColor="@color/small_title_text_gray"
+						android:gravity="right"
+						android:minWidth="90dp"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintRight_toLeftOf="@+id/rowe1_1"
+						app:layout_constraintLeft_toRightOf="@+id/title1_1"
+						app:layout_constraintBottom_toBottomOf="parent"
+						tools:text="2019-04-12 12:38:40"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"/>
 
-        <ImageView
-                android:id="@+id/enlarged"
-                android:background="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="invisible"/>
-  </androidx.constraintlayout.widget.ConstraintLayout>
+					<TextView
+						android:id="@+id/rowe1_1"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintBottom_toBottomOf="@id/title1_1"
+						android:layout_width="14dp"
+						android:layout_height="24dp"
+						android:layout_marginRight="19dp"
+						android:background="@drawable/ic_right_arrow"/>
+					<View
+						android:background="#EDEDED"
+						android:layout_marginBottom="1dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/line2"
+					android:background="@color/white"
+					android:onClick="@{()->viewModel.clickTime(`2`)}"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/line1"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					<TextView
+						android:id="@+id/title2_1"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_marginTop="17.5dp"
+						android:layout_marginLeft="15dp"
+						android:layout_marginBottom="17.5dp"
+						android:text="报告时间"
+						android:textSize="16sp"
+						android:textColor="@color/small_title_text_gray"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"/>
+
+					<TextView
+						android:hint="报告时间"
+						android:text="@{viewModel.lisCr.reportTime}"
+						android:id="@+id/draw_blood_report_time"
+						android:layout_marginRight="19dp"
+						android:layout_marginTop="15dp"
+						android:layout_marginBottom="15dp"
+						android:layout_marginLeft="15dp"
+						android:textSize="16sp"
+						android:textColor="@color/small_title_text_gray"
+						android:gravity="right"
+						android:minWidth="90dp"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintRight_toLeftOf="@+id/rowe2_1"
+						app:layout_constraintLeft_toRightOf="@+id/title2_1"
+						app:layout_constraintBottom_toBottomOf="parent"
+						tools:text="2019-04-12 12:38:40"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"/>
+
+					<TextView
+						android:id="@+id/rowe2_1"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintBottom_toBottomOf="@id/title2_1"
+						android:layout_width="14dp"
+						android:layout_height="24dp"
+						android:layout_marginRight="19dp"
+						android:background="@drawable/ic_right_arrow"/>
+					<View
+						android:background="#EDEDED"
+						android:layout_marginBottom="1dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@color/white"
+					android:id="@+id/cTnI_constrain"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/line2">
+					<TextView
+						android:id="@+id/cTnI_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="17.5dp"
+						android:layout_marginLeft="15dp"
+						android:layout_marginBottom="17.5dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:text="cTnI" />
+					<EditText android:selectAllOnFocus="true"
+					          android:layout_width="0dp"
+					          android:layout_height="wrap_content"
+					          android:layout_marginStart="8dp"
+					          android:layout_marginEnd="8dp"
+					          android:minWidth="50dp"
+					          android:id="@+id/cTnI_num_et"
+					          android:text="@={viewModel.lisCr.ctniValue}"
+					          android:textSize="12sp"
+					          android:gravity="center"
+					          android:imeOptions="actionNext"
+					          android:inputType="number|numberDecimal"
+					          android:digits="@string/input_type_numbers_delow"
+					          android:maxLines="1"
+					          app:layout_constraintBottom_toBottomOf="parent"
+					          app:layout_constraintLeft_toRightOf="@+id/cTnI_title"
+					          app:layout_constraintTop_toTopOf="parent"
+					          app:layout_constraintRight_toLeftOf="@+id/cTnI_unit"
+					          tools:text="" />
+
+					<androidx.appcompat.widget.AppCompatSpinner
+						android:id="@+id/cTnI_unit"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textSize="12sp"
+						android:layout_marginRight="10dp"
+						android:selectedItemPosition="@={viewModel.lisCr.selectCtniUnit}"
+						android:entries="@{viewModel.troponinUnitsItems}"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toLeftOf="@+id/cTnI_character"
+						app:layout_constraintTop_toTopOf="parent"
+						android:gravity="right"/>
+
+					<TextView
+						android:id="@+id/cTnI_character"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:spinnerMode="dropdown"
+						android:layout_marginRight="19dp"
+						android:text="@{viewModel.lisCr.ctniStatus}"
+						android:entries="@array/troponin_character"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:gravity="right"/>
+					<View
+						android:background="#EDEDED"
+						android:layout_marginBottom="1dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"/>
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:background="@color/white"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/cTnT_constrain"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/CKMB_constrain">
+					<TextView
+						android:id="@+id/cTnT_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="17.5dp"
+						android:layout_marginLeft="15dp"
+						android:layout_marginBottom="17.5dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:text="cTnT" />
+					<EditText android:selectAllOnFocus="true"
+					          android:layout_width="0dp"
+					          android:layout_height="wrap_content"
+					          android:layout_marginStart="8dp"
+					          android:layout_marginEnd="8dp"
+					          android:minWidth="50dp"
+					          android:text="@={viewModel.lisCr.ctntValue}"
+					          android:id="@+id/cTnT_num_et"
+					          android:textSize="12sp"
+					          android:gravity="center"
+					          android:imeOptions="actionNext"
+					          android:inputType="number|numberDecimal"
+					          android:digits="@string/input_type_numbers_delow"
+					          android:maxLines="1"
+					          app:layout_constraintBottom_toBottomOf="parent"
+					          app:layout_constraintLeft_toRightOf="@+id/cTnT_title"
+					          app:layout_constraintTop_toTopOf="parent"
+					          app:layout_constraintRight_toLeftOf="@+id/cTnT_unit"
+					          tools:text="" />
+
+					<!--<androidx.appcompat.widget.AppCompatSpinner-->
+					<!--android:id="@+id/cTnT_unit"-->
+					<!--android:background="@color/white"-->
+					<!--android:layout_width="wrap_content"-->
+					<!--android:layout_height="wrap_content"-->
+					<!--android:textSize="12sp"-->
+					<!--android:layout_marginRight="10dp"-->
+					<!--android:selectedItemPosition="@={viewModel.lisCr.selectCtntUnit}"-->
+					<!--android:entries="@{viewModel.troponinUnitsItems}"-->
+					<!--app:layout_constraintBottom_toBottomOf="parent"-->
+					<!--app:layout_constraintRight_toLeftOf="@+id/cTnT_character"-->
+					<!--app:layout_constraintTop_toTopOf="parent"-->
+					<!--android:gravity="right"/>-->
+
+					<androidx.appcompat.widget.AppCompatSpinner
+						android:id="@+id/cTnT_unit"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textSize="12sp"
+						android:layout_marginRight="10dp"
+						android:selectedItemPosition="@={viewModel.lisCr.selectCtntUnit}"
+						android:entries="@{viewModel.troponinUnitsItems}"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toLeftOf="@+id/cTnT_character"
+						app:layout_constraintTop_toTopOf="parent"
+						android:gravity="right"/>
+
+					<TextView
+						android:id="@+id/cTnT_character"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"
+						android:text="@{viewModel.lisCr.ctntStatus}"
+						android:layout_marginRight="19dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:gravity="right"/>
+					<View
+						android:background="#EDEDED"
+						android:layout_marginBottom="1dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:background="@color/white"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/CKMB_constrain"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/Myo_constrain">
+					<TextView
+						android:id="@+id/CKMB_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="17.5dp"
+						android:layout_marginLeft="15dp"
+						android:layout_marginBottom="17.5dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:text="CK-MB" />
+					<EditText android:selectAllOnFocus="true"
+					          android:layout_width="0dp"
+					          android:layout_height="wrap_content"
+					          android:layout_marginStart="8dp"
+					          android:layout_marginEnd="8dp"
+					          android:minWidth="50dp"
+					          android:id="@+id/CKMB_num_et"
+					          android:textSize="12sp"
+					          android:gravity="center"
+					          android:imeOptions="actionNext"
+					          android:maxLines="1"
+					          android:inputType="number|numberDecimal"
+					          android:digits="@string/input_type_numbers_delow"
+					          android:text="@={viewModel.lisCr.ckmb}"
+					          app:layout_constraintBottom_toBottomOf="parent"
+					          app:layout_constraintLeft_toRightOf="@+id/CKMB_title"
+					          app:layout_constraintTop_toTopOf="parent"
+					          app:layout_constraintRight_toLeftOf="@+id/CKMB_unit"
+					          tools:text="" />
+
+					<TextView
+						android:id="@+id/CKMB_unit"
+						android:background="@color/white"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="ng/ml"
+						android:textSize="12sp"
+						android:layout_marginRight="10dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:gravity="right"/>
+
+					<View
+						android:background="#EDEDED"
+						android:layout_marginBottom="1dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:background="@color/white"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/Myo_constrain"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/cTnI_constrain">
+					<TextView
+						android:id="@+id/Myo_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="17.5dp"
+						android:layout_marginLeft="15dp"
+						android:layout_marginBottom="17.5dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:text="Myo" />
+					<EditText android:selectAllOnFocus="true"
+					          android:layout_width="0dp"
+					          android:layout_height="wrap_content"
+					          android:layout_marginStart="8dp"
+					          android:layout_marginEnd="8dp"
+					          android:minWidth="50dp"
+					          android:id="@+id/Myo_num_et"
+					          android:textSize="12sp"
+					          android:gravity="center"
+					          android:imeOptions="actionNext"
+					          android:text="@={viewModel.lisCr.myo}"
+					          android:inputType="number|numberDecimal"
+					          android:digits="@string/input_type_numbers_delow"
+					          android:maxLines="1"
+					          app:layout_constraintBottom_toBottomOf="parent"
+					          app:layout_constraintLeft_toRightOf="@+id/Myo_title"
+					          app:layout_constraintTop_toTopOf="parent"
+					          app:layout_constraintRight_toLeftOf="@+id/Myo_unit"
+					          tools:text="25.0" />
+
+					<TextView
+						android:id="@+id/Myo_unit"
+						android:background="@color/white"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:text="ng/ml"
+						android:textSize="12sp"
+						android:layout_marginRight="10dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:gravity="right"/>
+
+					<View
+						android:background="#EDEDED"
+						android:layout_marginBottom="1dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_width="match_parent"
+						android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:background="@color/white"
+					android:id="@+id/cr_constrain"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/cTnT_constrain">
+					<TextView
+						android:id="@+id/cr_title"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="17.5dp"
+						android:layout_marginLeft="15dp"
+						android:layout_marginBottom="17.5dp"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:text="血清肌酐(cr)" />
+					<EditText android:selectAllOnFocus="true"
+					          android:layout_width="0dp"
+					          android:layout_height="wrap_content"
+					          android:layout_marginStart="8dp"
+					          android:layout_marginEnd="8dp"
+					          android:minWidth="50dp"
+					          android:id="@+id/cr_num_et"
+					          android:text="@={viewModel.lisCr.crValueStr}"
+					          android:textSize="12sp"
+					          android:gravity="center"
+					          android:imeOptions="actionNext"
+					          android:inputType="number|numberDecimal"
+					          android:digits="1234567890."
+					          android:maxLines="1"
+					          app:layout_constraintBottom_toBottomOf="parent"
+					          app:layout_constraintLeft_toRightOf="@+id/cr_title"
+					          app:layout_constraintTop_toTopOf="parent"
+					          app:layout_constraintRight_toLeftOf="@+id/cr_unit"
+					          tools:text="" />
+
+					<androidx.appcompat.widget.AppCompatSpinner
+						android:id="@+id/cr_unit"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:textSize="12sp"
+						android:selectedItemPosition="@={viewModel.lisCr.selectCrUnit}"
+						android:entries="@array/cr_unit"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:gravity="right"/>
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+					android:background="@color/white"
+					android:id="@+id/item5"
+					android:layout_marginTop="10dp"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@id/cr_constrain"
+					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+					<TextView
+						android:id="@+id/title_name"
+						android:background="#FFFFFF"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:padding="10dp"
+						android:textSize="16sp"
+						android:textColor="#525252"
+						android:text="附件"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
+
+					<androidx.recyclerview.widget.RecyclerView
+						android:background="#FFFFFF"
+						android:layout_marginBottom="10dp"
+						android:layout_marginLeft="10dp"
+						android:id="@+id/jgdb_photo_items_rv"
+						app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+						app:spanCount="4"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintTop_toBottomOf="@id/title_name"
+						app:layout_constraintLeft_toLeftOf="@id/title_name"
+						app:layout_constraintBottom_toBottomOf="parent"
+						android:layout_width="0dp"
+						android:layout_height="wrap_content"/>
+
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+		</ScrollView>
+
+		<ImageView
+			android:id="@+id/enlarged"
+			android:background="@color/white"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:visibility="invisible"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

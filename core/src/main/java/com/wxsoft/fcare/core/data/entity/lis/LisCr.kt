@@ -132,7 +132,7 @@ data class LisCr (val id:String) : BaseObservable() {
     var crValueStr: String = ""
         set(value) {
             field = value
-            if (!value.isEmpty()) crValue = value.toFloat()
+            if (value.isNotEmpty()) crValue = value.toFloat()
             notifyPropertyChanged(BR.crValueStr)
         }
     /**
@@ -194,23 +194,18 @@ data class LisCr (val id:String) : BaseObservable() {
 
 
     fun setUpChecked(){
-        if (!crUnit.isNullOrEmpty()){
+        if (crUnit.isNotEmpty()){
             when(crUnit){
                 "1"-> selectCrUnit = 1
                 "0"-> selectCrUnit = 0
             }
         }
     
-        if (!ctniUnit.isNullOrEmpty()) selectCtniUnit = ctniUnit.split("-").last().toInt()-1
-        if (!ctntUnit.isNullOrEmpty()) selectCtntUnit = ctntUnit.split("-").last().toInt()-1
+        if (ctniUnit.isNotEmpty()) selectCtniUnit = ctniUnit.split("-").last().toInt()-1
 
         crValueStr = if(crValue!=0.0f) crValue.toString() else ""
 
-        if (ctniValue.isNullOrEmpty()) return
-
-        if (ctniValue.contains("<")){
-            ctniStatus = "阳性"
-        }else if(ctniValue.isNullOrEmpty()){
+        if (ctniValue.isNullOrEmpty()||ctniValue.contains("<")){
             ctniStatus = "阴性"
         }else {
             try {
