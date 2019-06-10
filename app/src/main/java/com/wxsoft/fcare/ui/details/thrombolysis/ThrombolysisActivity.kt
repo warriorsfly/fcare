@@ -204,7 +204,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
             putExtra(ComplicationActivity.PATIENT_ID,patientId)
             putExtra(ComplicationActivity.SEN_TYPE,"223-4")//治疗中场景
         }
-        startActivityForResult(intent, ThrombolysisActivity.COMPLICATION)
+        startActivityForResult(intent, COMPLICATION)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -232,7 +232,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
                     viewModel.drugs = dlist
                     drugAdapter.submitList(dlist)
                 }
-                ThrombolysisActivity.COMPLICATION ->{//并发症
+                COMPLICATION ->{//并发症
                     val otherIlls = data?.getStringExtra("otherIlls")
                     binding.ohterIll.setText(otherIlls)
                 }

@@ -94,7 +94,7 @@ class InformedConsentDetailsActivity : BaseActivity() {
 //
         viewModel.talk.observe(this, Observer {
             if (it != null){
-                adapter.remotes = it.attachments
+                adapter.remotes = it.attachments?: emptyList()
                 viewModel.getInformedConsentById(it.informedConsentId)
                 title = it.informedConsentName
             }

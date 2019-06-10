@@ -15,14 +15,14 @@ data class Talk (val id:String) : BaseObservable() {
         }
 
     @Bindable
-    var startTime: String = ""
+    var startTime: String? = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.startTime)
         }
 
     @Bindable
-    var endTime: String = ""
+    var endTime: String? = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.endTime)
@@ -59,17 +59,17 @@ data class Talk (val id:String) : BaseObservable() {
 
     @Bindable
     @Transient
-    var patientInfo: Patient = Patient("")
+    var patientInfo: Patient? = Patient("")
         set(value) {
             field = value
             notifyPropertyChanged(BR.patientInfo)
         }
 
     @Transient
-    var attachments:List<Attachment> = emptyList()
+    var attachments:List<Attachment>? = emptyList()
 
     @Bindable
-    var informedConsent: InformedConsent = InformedConsent("")
+    var informedConsent: InformedConsent? = InformedConsent("")
         set(value) {
             field = value
             notifyPropertyChanged(BR.informedConsent)
@@ -91,7 +91,7 @@ data class Talk (val id:String) : BaseObservable() {
 
     fun judgeTime(){
         if(startTime.isNullOrEmpty()|| endTime.isNullOrEmpty()) return
-        allTime = DateTimeUtils.getAAfromBBMinutes(startTime,endTime)
+        allTime = DateTimeUtils.getAAfromBBMinutes(startTime?:"",endTime?:"")
     }
 
 }

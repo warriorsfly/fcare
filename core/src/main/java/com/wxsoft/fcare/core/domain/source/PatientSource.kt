@@ -49,7 +49,7 @@ class PatientSource constructor(
                 loadPatientResult.value=it
                 when(it){
                     is Resource.Success->{
-                        callback.onResult(it.data.items,null,if(it.data.hasNextPage)  it.data.pageIndex+3 else null)
+                        callback.onResult(it.data.items,null,if(it.data.hasNextPage)  it.data.pageIndex+1 else null)
                         totalCount.value=it.data.totalCount
                     }
                 }

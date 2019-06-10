@@ -81,7 +81,7 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
         set(value) {
             field = value
             notifyPropertyChanged(BR.idcard)
-            if(field.length==18) {
+            if(field.trim().length==18) {
                 age= DateTimeUtils.getAgeByCertId(field)
             }
 

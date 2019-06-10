@@ -204,7 +204,7 @@ class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
 
         viewModel.talk.observe(this, Observer {
             if (it != null){
-                adapter.remotes = it.attachments.map { it.httpUrl }
+                adapter.remotes = it.attachments?.map { it.httpUrl }?: emptyList()
                 if (!it.informedConsentName.isNullOrEmpty()) title = it.informedConsentName
             }
         })

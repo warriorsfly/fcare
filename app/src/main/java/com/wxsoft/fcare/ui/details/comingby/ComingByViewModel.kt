@@ -179,6 +179,8 @@ class ComingByViewModel @Inject constructor(
     fun save(){
         if(comingBy.value==null || passing.value==null)return
         comingBy.value?.apply {
+
+//            if(arrived_Hospital_Time>)
             var d1=comingWayStaffs.firstOrNull { it.staffType=="1" }
 
             if(d1==null){

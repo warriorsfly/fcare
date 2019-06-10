@@ -13,7 +13,7 @@ class DateTimeUtils {
         @JvmStatic
         fun getAgeByCertId(certId: String): Int {
             var birthday = ""
-            if (certId.length == 18) {
+            if (certId.trim().length == 18) {
                 birthday = (certId.substring(6, 10) + "-"
                         + certId.substring(10, 12) + "-"
                         + certId.substring(12, 14))

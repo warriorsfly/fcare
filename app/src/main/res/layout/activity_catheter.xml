@@ -117,7 +117,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_marginBottom="15dp"
                             android:textSize="13sp"
-                            android:text="@{viewModel.intervention.decision_Operation_Time}"
+                            android:text="@={viewModel.intervention.decision_Operation_Time}"
                             android:gravity="right"
                             android:background="?attr/selectableItemBackground"
                             android:textColor="#7D7D7D"

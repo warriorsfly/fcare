@@ -190,6 +190,10 @@
         <activity
                 android:name=".ui.details.thrombolysis.ThrombolysisActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
+
+        <activity
+                android:name=".ui.details.complication.ComplicationActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.informedconsent.informeddetails.InformedConsentDetailsActivity"
                 android:theme="@style/AppTheme.NoActionBar">
