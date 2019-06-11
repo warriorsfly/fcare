@@ -55,7 +55,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
     init {
         strategy = loadStrategy.map { (it as? Resource.Success)?.data?.result?: Strategy(patientId,1) }
         modifySome = initModifySome.map { it }
-        intervention = loadInterventionResult.map { it?.result ?: Intervention("")  }
+        intervention = loadInterventionResult.map { it?.result ?: Intervention("",createrId = account.id)  }
     }
 
     fun getStrategy(){

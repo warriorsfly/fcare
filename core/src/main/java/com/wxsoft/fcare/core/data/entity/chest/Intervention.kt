@@ -5,7 +5,8 @@ import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
-data class Intervention(val id:String="",
+data class Intervention(
+                        val id:String="",
                         var patientId:String="",
                         /**
                          * 决定 医生Id
@@ -57,7 +58,8 @@ data class Intervention(val id:String="",
                          * 大门到球囊扩张
                          */
                         var d2B	:String?=null,
-                        var createdDate	:String?=null
+                        var createdDate	:String?=null,
+                        val createrId:String
                         ):BaseObservable(){
     @get:Bindable
     @SerializedName("intervention_Person_Id")

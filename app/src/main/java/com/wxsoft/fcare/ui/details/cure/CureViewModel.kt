@@ -71,10 +71,10 @@ class CureViewModel @Inject constructor(private val cureApi: CureApi,
     init {
         cure = loadCure.map { it?:Cure("") }
         modifySome = initModifySome.map { it }
-        intervention = loadInterventionResult.map { it?: Intervention("").apply { patientId = this@CureViewModel.patientId }  }
+        intervention = loadInterventionResult.map { it?: Intervention("",createrId = account.id).apply { patientId = this@CureViewModel.patientId }  }
         talk = loadTalk.map { it?:Talk("") }
 
-        thrombolysis = loadThrombolysis.map { it?: Thrombolysis("").apply { patientId = this@CureViewModel.patientId } }
+        thrombolysis = loadThrombolysis.map { it?: Thrombolysis("",account.id).apply { patientId = this@CureViewModel.patientId } }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("").apply { patientId = this@CureViewModel.patientId } }
         cabg = loadCABG.map { it?:CABG("").apply { patientId = this@CureViewModel.patientId }}

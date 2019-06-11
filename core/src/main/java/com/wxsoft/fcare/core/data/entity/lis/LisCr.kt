@@ -52,14 +52,14 @@ data class LisCr (val id:String) : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.ctniUnit)
         }
-    @Transient
-    @Bindable
-    var selectCtniUnit:Int=0
-        set(value){
-            field=value
-            ctniUnit = value.toString()
-            notifyPropertyChanged(BR.selectCtniUnit)
-        }
+//    @Transient
+//    @Bindable
+//    var selectCtniUnit:Int=0
+//        set(value){
+//            field=value
+////            ctniUnit = value.toString()
+//            notifyPropertyChanged(BR.selectCtniUnit)
+//        }
 
     /**
      * CTNI状态
@@ -96,14 +96,14 @@ data class LisCr (val id:String) : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.ctntUnit)
         }
-    @Transient
-    @Bindable
-    var selectCtntUnit:Int=0
-        set(value){
-            field=value
-            ctntUnit = value.toString()
-            notifyPropertyChanged(BR.selectCtntUnit)
-        }
+//    @Transient
+//    @Bindable
+//    var selectCtntUnit:Int=0
+//        set(value){
+//            field=value
+//            ctntUnit = value.toString()
+//            notifyPropertyChanged(BR.selectCtntUnit)
+//        }
     /**
      * CTNT状态
      * 选填(阴性，阳性或空值)
@@ -132,7 +132,7 @@ data class LisCr (val id:String) : BaseObservable() {
     var crValueStr: String = ""
         set(value) {
             field = value
-            if (value.isNotEmpty()) crValue = value.toFloat()
+            if (!value.isNullOrEmpty()) crValue = value.toFloat()
             notifyPropertyChanged(BR.crValueStr)
         }
     /**
@@ -194,14 +194,17 @@ data class LisCr (val id:String) : BaseObservable() {
 
 
     fun setUpChecked(){
-        if (crUnit.isNotEmpty()){
-            when(crUnit){
-                "1"-> selectCrUnit = 1
-                "0"-> selectCrUnit = 0
+        if(crUnit==null)selectCrUnit = 0
+        else {
+            when (crUnit) {
+
+                "1" -> selectCrUnit = 1
+                "0" -> selectCrUnit = 0
+                else -> 0
             }
         }
     
-        if (ctniUnit.isNotEmpty()) selectCtniUnit = ctniUnit.split("-").last().toInt()-1
+//        if (ctniUnit.isNotEmpty()) selectCtniUnit = ctniUnit.split("-").last().toInt()-1
 
         crValueStr = if(crValue!=0.0f) crValue.toString() else ""
 

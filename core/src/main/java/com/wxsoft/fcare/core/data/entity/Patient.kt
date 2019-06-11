@@ -286,12 +286,12 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
             field = value
             notifyPropertyChanged(BR.comingWay)
         }
-    @get:Bindable
-    var createdBy: String=""
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.createdBy)
-        }
+//    @get:Bindable
+//    var createdBy: String=""
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.createdBy)
+//        }
 
     @get:Bindable
     var createdDate: String?=null

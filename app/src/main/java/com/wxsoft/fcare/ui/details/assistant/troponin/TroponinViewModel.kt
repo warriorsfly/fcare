@@ -1,15 +1,14 @@
 package com.wxsoft.fcare.ui.details.assistant.troponin
 
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.hardware.LepuDetection
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
-import com.wxsoft.fcare.core.data.remote.HardwareApi
 import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
@@ -17,6 +16,7 @@ import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
 import okhttp3.MultipartBody
@@ -26,8 +26,8 @@ import javax.inject.Inject
 
 class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
                                             private var dictEnumApi:DictEnumApi,
-                                           override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                           override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
+                                            override val sharedPreferenceStorage: SharedPreferenceStorage,
+                                            override val gon: Gson) : BaseViewModel(sharedPreferenceStorage,gon) {
 
     val lisCr:LiveData<LisCr>
     private val loadLisCrResult = MediatorLiveData<LisCr>()
@@ -49,12 +49,15 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     /**
      * 肌酐蛋白单位
      */
+
+    val ctniIndex=ObservableInt()
+    val ctntIndex=ObservableInt()
     val troponinUnitsItems: LiveData<List<String>>
     private lateinit var troponinUnits: List<Dictionary>
     /**
      *获取肌酐蛋白单位字典
      */
-    private val loadTroponinDictEnumResult = MediatorLiveData<Resource<List<Dictionary>>>()
+    private val loadTroponinDictEnumResult = MediatorLiveData<List<Dictionary>>()
 
     val clickEdit:LiveData<String>
     private val loadClickEdit = MediatorLiveData<String>()
@@ -62,39 +65,54 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
 
     init {
         clickEdit = loadClickEdit.map { it }
-        lisCr = loadLisCrResult.map { it?: LisCr("") }
+        lisCr = loadLisCrResult.map { it?:LisCr("") }
         troponinUnitsItems= loadTroponinDictEnumResult.map {
-            val cos=(it as? Resource.Success)?.data?: emptyList()
+            val cos=it?: emptyList()
             troponinUnits=cos
             return@map troponinUnits.map { item -> item.itemName }
         }
         uploading = savePatientResult.map { it }
-        loadTroponin()
+//        loadTroponin()
     }
 
-    fun getCrById(id:String){
-        if (id.isEmpty()){
+    fun getCrById(id:String) {
+        if (id.isEmpty()) {
             loadLisCrResult.value = null
             return
         }
-        disposable.add(lisApi.getPoct(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::getPoct,::error))
+        disposable.add(
+
+            dictEnumApi.loadTroponinUnit()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        loadTroponinDictEnumResult.value = it
+                        disposable.add(
+                            lisApi.getPoct(id)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(::getPoct, ::error)
+                        )
+
+                    }, ::error)
+        )
+
     }
-    private fun getPoct(response:Response<LisCr>){
-        loadLisCrResult.value = response.result?.apply { setUpChecked() }
+    private fun getPoct(response:Response<LisCr>) {
+
+        loadLisCrResult.value = response.result?.apply {
+            setUpChecked()
+            ctniIndex.set(troponinUnits.indexOfFirst {
+                it.id == ctniUnit
+            })
+
+            ctntIndex.set(troponinUnits.indexOfFirst {
+                it.id == ctntUnit
+            })
+        }
     }
 
-    /**
-     * 获取肌酐蛋白单位字典信息
-     */
-    private fun loadTroponin() {
-        dictEnumApi.loadTroponinUnit().toResource()
-            .subscribe {
-                loadTroponinDictEnumResult.value = it
-            }
-    }
 
     fun submit(fs:List<File>){
         if (lisCr.value == null) return
@@ -111,7 +129,11 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
                     )
                 }
                 if (files.isNullOrEmpty()) {
-                    lisApi.savePoct(lisCr).toResource().subscribe {
+                    lisApi.savePoct(lisCr.apply {
+                        ctniUnit=troponinUnits[ctniIndex.get()].id
+                        ctntUnit=troponinUnits[ctntIndex.get()].id
+                    }
+                    ).toResource().subscribe {
                         savePatientResult.value= false
                         when (it) {
                             is Resource.Success -> {

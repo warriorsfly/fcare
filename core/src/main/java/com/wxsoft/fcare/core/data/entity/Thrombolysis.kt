@@ -7,7 +7,7 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 
-class Thrombolysis constructor(@Bindable var id:String=""): BaseObservable(){
+class Thrombolysis constructor(@Bindable var id:String="",var createrId:String): BaseObservable(){
     /**
      * 是否溶栓治疗
      * 选填（1 有 0 无，传1,0或空值）

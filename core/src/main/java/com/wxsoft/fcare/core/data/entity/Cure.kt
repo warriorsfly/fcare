@@ -15,14 +15,14 @@ data class Cure (val id:String=""): BaseObservable(){
         }
     //pci
     @Bindable
-    var intervention :Intervention = Intervention("")
+    var intervention :Intervention? = null//Intervention("")
         set(value) {
             field = value
             notifyPropertyChanged(BR.intervention)
         }
     //溶栓
     @Bindable
-    var throm :Thrombolysis = Thrombolysis("")
+    var throm :Thrombolysis? =null
         set(value) {
             field = value
             notifyPropertyChanged(BR.throm)

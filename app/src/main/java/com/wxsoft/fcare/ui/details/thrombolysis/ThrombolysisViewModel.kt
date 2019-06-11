@@ -68,7 +68,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     init {
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
-        thrombolysis = loadThrombolysis.map { it?: Thrombolysis("") }
+        thrombolysis = loadThrombolysis.map { it?: Thrombolysis("",account.id) }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
 //        loadPlaces()

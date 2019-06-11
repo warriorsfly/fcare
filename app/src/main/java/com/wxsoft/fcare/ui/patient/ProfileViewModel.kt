@@ -56,7 +56,7 @@ class ProfileViewModel @Inject constructor(
         patient=loadPatientResult.map {
             (it as? Resource.Success)?.data?.result.apply {
                 if (this?.diagnosisName.equals("代码不存在"))this?.diagnosisName = ""
-            }?:Patient("").apply { createdBy=account.id }
+            }?:Patient("").apply { createrId=account.id }
         }
 
     }
@@ -71,7 +71,7 @@ class ProfileViewModel @Inject constructor(
     private fun loadPatient(){
         if(patientId.isEmpty()){
             loadPatientResult.value=Resource.Success(Response<Patient>(true).apply {
-                this.result= Patient("").apply { createdBy=account.id }
+                this.result= Patient("").apply { createrId=account.id }
             })
         }else {
             patientApi.getOne(patientId).toResource().subscribe { inf ->
@@ -90,9 +90,9 @@ class ProfileViewModel @Inject constructor(
         if(preHos && patientSavable && canSaveAble) {
             canSaveAble = false
             patientApi.save(patient.value!!.apply {
-                createdBy = account.id
                 hospitalId = account.hospitalId
-                createrId = account.id
+                if(createrId.isNullOrEmpty())
+                    createrId = account.id
                 if(this@ProfileViewModel.taskId.isNotEmpty()) {
                     taskId = this@ProfileViewModel.taskId
                 }
@@ -125,9 +125,9 @@ class ProfileViewModel @Inject constructor(
             }
 
             patientApi.save(patient.value!!.apply {
-                createdBy = account.id
                 hospitalId = account.hospitalId
-                createrId = account.id
+                if(createrId.isNullOrEmpty())
+                    createrId = account.id
                 if (this@ProfileViewModel.taskId.isNotEmpty()) {
                     taskId = this@ProfileViewModel.taskId
                 }

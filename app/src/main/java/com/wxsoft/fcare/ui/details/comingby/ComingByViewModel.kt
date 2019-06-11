@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.ComingByApi
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import com.wxsoft.fcare.utils.TimingType
@@ -176,46 +177,55 @@ class ComingByViewModel @Inject constructor(
     }
 
 
-    fun save(){
-        if(comingBy.value==null || passing.value==null)return
+    fun save() {
+        if (comingBy.value == null || passing.value == null) return
+
         comingBy.value?.apply {
 
-//            if(arrived_Hospital_Time>)
-            var d1=comingWayStaffs.firstOrNull { it.staffType=="1" }
 
-            if(d1==null){
-                if(emergencyDoctor.id.isNotEmpty())
-                    d1= ComingByStaff(comingWayId = id,staffType = "1")
-            }
-            if(d1?.staffId!=emergencyDoctor.id){
-                d1?.staffId=emergencyDoctor.id
-                d1?.staffName=emergencyDoctor.trueName
-            }
+            var d1 = comingWayStaffs.firstOrNull { it.staffType == "1" }
 
-            var d2=comingWayStaffs.firstOrNull { it.staffType=="2" }
-
-            if(d2==null){
-                if(emergencyDoctor.id.isNotEmpty())
-                    d2= ComingByStaff(comingWayId = id,staffType = "2")
+            if (d1 == null) {
+                if (emergencyDoctor.id.isNotEmpty())
+                    d1 = ComingByStaff(comingWayId = id, staffType = "1")
             }
-            if(d2?.staffId!=emergencyNurse.id){
-                d2?.staffId=emergencyNurse.id
-                d2?.staffName=emergencyNurse.trueName
+            if (d1?.staffId != emergencyDoctor.id) {
+                d1?.staffId = emergencyDoctor.id
+                d1?.staffName = emergencyDoctor.trueName
             }
 
-            val d3= this@ComingByViewModel.cdoctors.map {
-                ComingByStaff(comingWayId = id,staffType = "3",staffId = it.id,staffName = it.trueName)
+            var d2 = comingWayStaffs.firstOrNull { it.staffType == "2" }
+
+            if (d2 == null) {
+                if (emergencyDoctor.id.isNotEmpty())
+                    d2 = ComingByStaff(comingWayId = id, staffType = "2")
             }
-            val l= mutableListOf<ComingByStaff>()
+            if (d2?.staffId != emergencyNurse.id) {
+                d2?.staffId = emergencyNurse.id
+                d2?.staffName = emergencyNurse.trueName
+            }
+
+            val d3 = this@ComingByViewModel.cdoctors.map {
+                ComingByStaff(comingWayId = id, staffType = "3", staffId = it.id, staffName = it.trueName)
+            }
+            val l = mutableListOf<ComingByStaff>()
             d1?.let(l::add)
             d2?.let(l::add)
             l.addAll(d3)
-            comingWayStaffs= l
+            comingWayStaffs = l
+        }
+
+        if (comingBy.value?.consultation_Time != null && comingBy.value?.comingWayStaffs?.any { it.staffType == "3" } != true) {
+            messageAction.value = Event("会诊医生不能为空")
+            return
+        } else if (comingBy.value?.comingWayStaffs?.any { it.staffType == "3" } == true && comingBy.value?.consultation_Time == null) {
+            messageAction.value = Event("会诊时间不能为空")
+            return
         }
         comingByApi.save(comingBy.value!!).flatMap {
             comingByApi.savePassing(passing.value!!)
-        } .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(::doSaving,::error)
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::doSaving, ::error)
     }
 }

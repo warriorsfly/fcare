@@ -157,14 +157,12 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
         binding.cTnINumEt.setOnFocusChangeListener{ view, b ->
             if (!b){
                 val tex = binding.cTnINumEt.text.toString()
-                if (tex.contains("<")){
-                    viewModel.lisCr.value?.ctniStatus = "阳性"
-                }else if(tex.isNullOrEmpty()){
+                if (tex.contains("<")|| tex.isNullOrEmpty()){
                     viewModel.lisCr.value?.ctniStatus = "阴性"
                 }else {
                     try {
                         val dou = tex.toFloat()
-                        if (dou - 0.5 > 0.5) {
+                        if (dou  > 0.5) {
                             viewModel.lisCr.value?.ctniStatus = "阳性"
                         }else {
                             viewModel.lisCr.value?.ctniStatus = "阴性"
