@@ -6,7 +6,8 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.entity.rating.RatingRecord
 
-data class DiagnoseTreatment (val id:String=""): BaseObservable(){
+data class DiagnoseTreatment (val id:String="" ,var createrId:String? = null,
+                        var createrName:String? = null): BaseObservable(){
 
     //诊断
     @Bindable
@@ -34,7 +35,7 @@ data class DiagnoseTreatment (val id:String=""): BaseObservable(){
 
     //ACS
     @Bindable
-    var acs :ACSDrug = ACSDrug("")
+    var acs :ACSDrug = ACSDrug("",createrId,createrName)
         set(value) {
             field = value
             notifyPropertyChanged(BR.acs)

@@ -45,7 +45,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
 
 
     init {
-        acsDrug = loadAcsDrug.map { it?: ACSDrug("") }
+        acsDrug = loadAcsDrug.map { it?: ACSDrug("",createrId = account.id,createrName = account.createrName) }
         clickSomething = loadClickSomething.map { it }
         drugs1 = loadDrugs1.map { it?: emptyList() }
         drugs2 = loadDrugs2.map { it?: emptyList() }

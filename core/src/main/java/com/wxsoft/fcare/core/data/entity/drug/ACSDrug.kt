@@ -7,7 +7,8 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import java.io.Serializable
 
-data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializable {
+data class ACSDrug constructor( var id:String="",  var createrId:String?=null,
+                                var createrName:String?=null): BaseObservable() , Serializable {
 
     @Transient
     @Bindable var haveData:Boolean=false
@@ -75,7 +76,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 阿司匹林用量
      */
-    @Bindable var aspirin_Dose:Double=0.0
+    @Bindable var aspirin_Dose:Int=0
         set(value) {
             field=value
             notifyPropertyChanged(BR.aspirin_Dose)
@@ -85,7 +86,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     @Bindable var aspirin_Dose_str:String=""
         set(value) {
             field=value
-            if (!value.isNullOrEmpty()) aspirin_Dose = value.toDouble()
+            if (!value.isNullOrEmpty()) aspirin_Dose = value.toInt()
             notifyPropertyChanged(BR.aspirin_Dose_str)
         }
 
@@ -94,7 +95,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     /**
      * 氯吡格雷 或者 替格瑞洛 用量
      */
-    @Bindable var acs_Drug_Dose:Double=0.0
+    @Bindable var acs_Drug_Dose:Int=0
         set(value) {
             field=value
             notifyPropertyChanged(BR.acs_Drug_Dose)
@@ -104,7 +105,7 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
     @Bindable var acs_Drug_Dose_str:String=""
         set(value) {
             field=value
-            if (!value.isNullOrEmpty()) acs_Drug_Dose = value.toDouble()
+            if (!value.isNullOrEmpty()) acs_Drug_Dose = value.toInt()
             notifyPropertyChanged(BR.acs_Drug_Dose_str)
         }
 
@@ -155,8 +156,8 @@ data class ACSDrug constructor( var id:String=""): BaseObservable() , Serializab
         }
 
     fun haveDrugs(){
-        drugsStr =  "阿司匹林"+aspirin_Dose+"mg" + (if (acs_Drug_Dose==0.0) ""  else acsDrugTypeName +acs_Drug_Dose+"mg")
-        if (aspirin_Dose==0.0) haveData = false else haveData = true
+        drugsStr =  "阿司匹林"+aspirin_Dose+"mg" + (if (acs_Drug_Dose==0) ""  else acsDrugTypeName +acs_Drug_Dose+"mg")
+        haveData = aspirin_Dose != 0
         acs_Drug_Dose_str = acs_Drug_Dose.toString()
         aspirin_Dose_str = aspirin_Dose.toString()
     }

@@ -31,6 +31,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
             getTreaatment()
         }
 
+    var doctorId=ObservableField<String>()
     var doctorName=ObservableField<String>()
     var graceScore=ObservableField<Int>()
     var talkShow=ObservableField<Boolean>()
@@ -55,10 +56,15 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
     val loadSaveResult= MediatorLiveData<String>()
 
     init {
-        diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("") }
+        diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("",createrId = account.id,createrName = account.createrName) }
         diagnosis = loadDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
         selectedTreatment = loadSelectedTreatment.map { it?: Strategy(patientId,1) }
-        acsDrug = loadAcsDrug.map { it?: ACSDrug("") }
+        acsDrug = loadAcsDrug.map { it?.apply {
+            if(createrId==null){
+                createrId=account.id
+                createrName=account.trueName
+            }
+        }?: ACSDrug("",createrId = account.id,createrName = account.createrName) }
         talk = loadTalk.map { it?: Talk("") }
         haveData()
         saveResult = loadSaveResult.map { it }
@@ -78,7 +84,12 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
     fun haveData(){
         loadSelectedTreatment.value = diagnosisTreatment.value?.treatStrategy
         loadDiagnosis.value = diagnosisTreatment.value?.diagnosis
-        if (diagnosis.value?.doctorName.isNullOrEmpty()) doctorName.set(account.trueName) else doctorName.set(diagnosis.value?.doctorName)
+        if (diagnosis.value?.doctorId.isNullOrEmpty())
+        {
+
+            doctorId.set(account.id)
+            doctorName.set(account.trueName)
+        }
         loadAcsDrug.value = diagnosisTreatment.value?.acs?.apply {
             haveDrugs()
         }
@@ -95,6 +106,8 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         diagnosisTreatment.value?.treatStrategy = selectedTreatment.value!!
         diagnosisTreatment.value?.talk = talk.value!!
 //        diagnosisTreatment.value?.diagnosis = diagnosis.value!!
+        doctorId.get()?.let { diagnosisTreatment.value?.diagnosis?.doctorId=it }
+        diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
         diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
         if (saveable){
             disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)
