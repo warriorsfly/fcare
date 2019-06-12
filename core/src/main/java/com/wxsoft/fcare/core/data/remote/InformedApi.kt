@@ -21,6 +21,9 @@ interface InformedApi {
     @GET("InformedConsent/GetInformedConsentById/{id}")
     fun getInformedConsentById(@Path("id")id:String): Maybe<Response<InformedConsent>>
 
+    @GET("InformedConsent/DeleteTalk/{id}")
+    fun delete(@Path("id")id:String): Maybe<Response<String>>
+
     @Multipart
     @POST("InformedConsent/SaveTalk")
     fun save(@Part("talk")talk: Talk, @Part files: List<MultipartBody.Part>):Maybe<Response<String>>

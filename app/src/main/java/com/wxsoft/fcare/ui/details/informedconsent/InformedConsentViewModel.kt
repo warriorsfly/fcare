@@ -68,10 +68,21 @@ class InformedConsentViewModel @Inject constructor(private val informedApi: Info
     }
 
     fun getInformedConsents(){
-        informedApi.getInformedConsents().toResource()
-            .subscribe {
+        disposable.add(informedApi.getInformedConsents().toResource()
+            .subscribe( {
                 loadInformedsResult.value = it
-            }
+            },::error))
+    }
+
+    fun delete (id:String) {
+       disposable.add( informedApi.delete(id).flatMap {
+            informedApi.getTalkRecords(patientId)
+        }.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe( {
+                loadTalkRecordsResult.value = it
+            },::error))
+
     }
 
     fun click() {

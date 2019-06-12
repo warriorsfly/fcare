@@ -11,7 +11,7 @@ import com.wxsoft.fcare.core.BR
 import com.wxsoft.fcare.core.data.entity.Talk
 import com.wxsoft.fcare.databinding.ItemInformedConsentBinding
 
-class InformedConsentAdapter constructor(private val lifecycleOwner: LifecycleOwner, val viewModel: InformedConsentViewModel) :
+class InformedConsentAdapter constructor(private val owner: LifecycleOwner, val viewModel: InformedConsentViewModel,private val longClick:(String)->Unit) :
     RecyclerView.Adapter<InformedConsentAdapter.ItemViewHolder>(){
 
     private val differ = AsyncListDiffer<Talk>(this, DiffCallback)
@@ -31,22 +31,28 @@ class InformedConsentAdapter constructor(private val lifecycleOwner: LifecycleOw
         holder.binding.apply {
             val ii = differ.currentList[position]
             ii.judgeTime()
-            setVariable(BR.item, ii)
-            setVariable(BR.viewmodel, viewModel)
-            lifecycleOwner = lifecycleOwner
+            item=ii
+            viewmodel=viewModel
+            lifecycleOwner = owner
             executePendingBindings()
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
 
-        val binding: ViewDataBinding =
-            ItemInformedConsentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding =
+            ItemInformedConsentBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
+                root.setOnLongClickListener {
+                    item?.id?.let(longClick)
+                    return@setOnLongClickListener true
+                }
+
+            }
         return ItemViewHolder(binding)
     }
 
-    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
-        var binding: ViewDataBinding
+    class ItemViewHolder(binding: ItemInformedConsentBinding) : RecyclerView.ViewHolder(binding.root) {
+        var binding: ItemInformedConsentBinding
             private set
         init {
             this.binding = binding

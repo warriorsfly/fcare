@@ -47,7 +47,7 @@ class InformedConsentActivity : BaseActivity()  {
         binding.viewModel = viewModel
 //        back.setOnClickListener { onBackPressed() }
 
-        val adapter = InformedConsentAdapter(this,viewModel)
+        val adapter = InformedConsentAdapter(this,viewModel,::longClick)
         binding.informedList.adapter = adapter
 
         viewModel.getTalkRecords(patientId)
@@ -105,6 +105,19 @@ class InformedConsentActivity : BaseActivity()  {
                 }
             }
         }
+    }
+
+    private fun longClick(id:String){
+
+        AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+            .setMessage("是否删除？")
+            .setPositiveButton("删除") { _, _ ->
+
+                viewModel.delete(id)
+            }
+            .setNegativeButton("取消") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
