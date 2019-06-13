@@ -38,11 +38,13 @@
 			android:layout_width="match_parent"
 			android:layout_height="match_parent"
 			android:elevation="8dp"
+			android:clickable="true"
 			android:background="@color/white"
 			app:goneUnless="@{viewModel.uploading}">
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
+				android:layout_gravity="center"
 				android:text="上传中"/>
 			<ProgressBar
 				android:id="@+id/login_progress"

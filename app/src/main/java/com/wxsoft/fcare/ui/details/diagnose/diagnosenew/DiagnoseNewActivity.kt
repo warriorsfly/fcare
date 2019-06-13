@@ -225,6 +225,9 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                     diagnose.id = this@DiagnoseNewActivity.viewModel.diagnosis.value?.id?:""
                     viewModel.loadDiagnosis.value = diagnose.apply {
                         diagnosisTime = diaisTime
+                        handWay=viewModel.loadDiagnosis.value?.handWay?:""
+                        patientOutcom=viewModel.loadDiagnosis.value?.patientOutcom?:""
+                        memo=viewModel.loadDiagnosis.value?.memo?:""
                     }
                     viewModel.diagnosisTreatment.value?.diagnosis = diagnose.apply {
                         diagnosisTime = diaisTime

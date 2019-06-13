@@ -103,13 +103,15 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
 
         loadLisCrResult.value = response.result?.apply {
             setUpChecked()
-            ctniIndex.set(troponinUnits.indexOfFirst {
+            val indexCtniUnit=troponinUnits.indexOfFirst {
                 it.id == ctniUnit
-            })
+            }
+            ctniIndex.set(if(indexCtniUnit<0)0 else indexCtniUnit)
 
-            ctntIndex.set(troponinUnits.indexOfFirst {
+            val indexCtntUnit=troponinUnits.indexOfFirst {
                 it.id == ctntUnit
-            })
+            }
+            ctntIndex.set(if(indexCtntUnit<0)0 else indexCtntUnit)
         }
     }
 
