@@ -45,8 +45,8 @@ class SelectDiagnoseActivity : BaseActivity() {
                 viewModel = this@SelectDiagnoseActivity.viewModel
                 lifecycleOwner = this@SelectDiagnoseActivity
             }
-        patientId=intent.getStringExtra(SelectDiagnoseActivity.PATIENT_ID)?:""
-        comefrom=intent.getStringExtra(SelectDiagnoseActivity.COME_FROM)?:""
+        patientId=intent.getStringExtra(PATIENT_ID)?:""
+        comefrom=intent.getStringExtra(COME_FROM)?:""
         viewModel.patientId = patientId
         viewModel.activityType = "SelectDiagnose"
         setSupportActionBar(toolbar)
@@ -81,4 +81,20 @@ class SelectDiagnoseActivity : BaseActivity() {
 
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+                viewModel.click()
+                true
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
 }

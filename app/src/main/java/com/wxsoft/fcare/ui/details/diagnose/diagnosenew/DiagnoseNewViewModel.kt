@@ -128,17 +128,19 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
                 if(it.diagnosis?.diagnosisCode2.isNullOrEmpty()){
                     messageAction.value= Event("请选择诊断类型")
                     return@let false
-                }else if(it.diagnosis?.diagnosisCode2.equals("4-1")||it.diagnosis?.diagnosisCode2.equals("4-2")||it.diagnosis?.diagnosisCode2.equals("4-3")||it.diagnosis?.diagnosisCode2.equals("4-4")||it.diagnosis?.diagnosisCode2.equals("4-5")||it.diagnosis?.diagnosisCode2.equals("4-6")){
-//                    when{
-//                        it.treatStrategy?.strategyCode.isNullOrEmpty()->{
-//                            messageAction.value= Event("请选择治疗策略")
-//                            return@let false
-//                        }
-//                        else->
-//                            return@let true
-//                    }
-                    return@let true
-                } else{
+                }
+//                else if(it.diagnosis?.diagnosisCode2.equals("4-1")||it.diagnosis?.diagnosisCode2.equals("4-2")||it.diagnosis?.diagnosisCode2.equals("4-3")||it.diagnosis?.diagnosisCode2.equals("4-4")||it.diagnosis?.diagnosisCode2.equals("4-5")||it.diagnosis?.diagnosisCode2.equals("4-6")){
+////                    when{
+////                        it.treatStrategy?.strategyCode.isNullOrEmpty()->{
+////                            messageAction.value= Event("请选择治疗策略")
+////                            return@let false
+////                        }
+////                        else->
+////                            return@let true
+////                    }
+//                    return@let true
+//                }
+                else{
                     return@let true
                 }
 

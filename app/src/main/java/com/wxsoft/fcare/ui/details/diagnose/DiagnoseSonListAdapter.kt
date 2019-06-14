@@ -83,7 +83,7 @@ class DiagnoseSonListAdapter constructor(private val lifecycleOwner: LifecycleOw
         }
     }
 
-    class ItemViewHolder(binding: ViewDataBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root) {
+    class ItemViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
         var binding: ViewDataBinding
             private set
         init {
