@@ -396,7 +396,7 @@
                     android:layout_marginTop="12dp"
                     android:layout_marginLeft="14dp"
                     android:layout_marginBottom="20dp"
-                    android:text="地址不正确或者呼救电话无法联系"
+                    android:text="@{task.cancelReasonCode_Name}"
                     android:textSize="16sp"
                     android:textColor="#C1C1C1"
                     android:gravity="center"

@@ -51,7 +51,6 @@ data class Task (val id:String): BaseObservable(){
         }
     @get:Bindable
     var carId: String? = ""
-    var canceled: String? = ""
     var taskStaffs: Array<TaskStaff> = emptyArray()
 
     var patients: List<Patient> = emptyList()
@@ -73,7 +72,12 @@ data class Task (val id:String): BaseObservable(){
             process=if(field==5)8 else 2*field-1
             notifyPropertyChanged(BR.status)
         }
-
+    @Bindable
+    var cancelReasonCode_Name:String?=null
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.cancelReasonCode_Name)
+        }
     @Transient
     var spends = mutableListOf<TaskSpend>()
 

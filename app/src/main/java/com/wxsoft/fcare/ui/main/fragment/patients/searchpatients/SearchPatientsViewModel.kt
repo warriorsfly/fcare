@@ -36,7 +36,7 @@ class SearchPatientsViewModel  @Inject constructor(private val patientApi: Patie
     }
 
     fun showPatients(name: String): Boolean {
-        patientApi.searchPatients(name).toResource()
+        patientApi.searchPatients(name,account.id).toResource()
             .subscribe {
                 loadPatientsResult.value = it
             }

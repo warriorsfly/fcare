@@ -87,6 +87,7 @@ class OtherOperationFragment : DaggerFragment() {
                 val intent = Intent(activity, EcgActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, viewModel.patientId)
+                        putExtra("PRE",viewModel.pre)
                     }
                 activity?.startActivityForResult(intent, RATING)
             }

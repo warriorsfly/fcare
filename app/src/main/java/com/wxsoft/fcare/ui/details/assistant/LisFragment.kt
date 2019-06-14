@@ -18,7 +18,7 @@ class LisFragment(val position:Int) : DaggerFragment(){
     lateinit var factory: ViewModelFactory
 
     lateinit var binding: FragmentLisBinding
-    lateinit var adapter: LisAdapter
+    lateinit var adapter: LisRecordAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +35,11 @@ class LisFragment(val position:Int) : DaggerFragment(){
             viewModel=this@LisFragment.viewModel
         }
         val datas = viewModel.lisRecords.value?.get(position)
-        adapter = LisAdapter(this,viewModel)
+        adapter = LisRecordAdapter(this,viewModel)
         binding.list.adapter = adapter
         if (datas != null){
             binding.item = datas
-            adapter.submitList(datas!!.lisReoprtaRecordDetails)
+            adapter.submitList(datas!!.lisReoprtaRecordDates)
         }
 
         return binding.root

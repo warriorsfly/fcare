@@ -33,6 +33,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     val bitmaps= mutableListOf<String>()
     val seleted= mutableListOf<String>()
 
+    var pre=false
     val selectedEcgDiagnosis = mutableListOf<Dictionary>()
 
     /**
@@ -60,7 +61,9 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
 
         uploading = uploadResult.map { it}
         ecg = loadEcgResult.map {
-            it?.result ?: Ecg(createrId = account.id)
+            it?.result ?: Ecg(createrId = account.id).apply {
+                location=if(pre)1 else 2
+            }
         }
         diagnoses = loadDiagnoseResult.map { it }
     }

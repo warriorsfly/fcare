@@ -121,7 +121,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
 
 
 
-                    if(stat<5){
+                    if(stat<5 && task.value?.hasCanceled==false){
                         timedispose?.dispose()
                         timedispose = Observable.interval(1, TimeUnit.SECONDS)
                             .subscribe {
@@ -285,7 +285,7 @@ class DoMinaViewModel @Inject constructor(private val taskApi: TaskApi,
                 }
 
 
-                if( task.value?.status?:0<5) {
+                if( task.value?.status?:0<5 && task.value?.hasCanceled==false) {
                    timedispose = Observable.interval(1, TimeUnit.SECONDS)
                        .subscribe {
                            fireAt++

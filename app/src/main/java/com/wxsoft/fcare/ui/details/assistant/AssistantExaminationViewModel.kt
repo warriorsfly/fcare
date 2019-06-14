@@ -1,14 +1,12 @@
 package com.wxsoft.fcare.ui.details.assistant
 
-import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.lis.LisJCRecord
-import com.wxsoft.fcare.core.data.entity.lis.LisRecord
+import com.wxsoft.fcare.core.data.entity.lis.LisType
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
-import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
@@ -37,8 +35,8 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
     val jcjyShow: LiveData<Boolean>
     val loadJcjyShow = MediatorLiveData<Boolean>()
 
-    val lisRecords: LiveData<List<LisRecord>>
-    private val loadLisRecordsResult = MediatorLiveData<List<LisRecord>>()
+    val lisRecords: LiveData<List<LisType>>
+    private val loadLisRecordsResult = MediatorLiveData<List<LisType>>()
 
     val lisJCRecords: LiveData<List<LisJCRecord>>
     private val loadLisJCRecordsResult = MediatorLiveData<List<LisJCRecord>>()
@@ -58,7 +56,7 @@ class AssistantExaminationViewModel @Inject constructor(private val lisApi: LISA
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::getYJresult,::error))
     }
-    private fun getYJresult(response:Response<List<LisRecord>>){
+    private fun getYJresult(response:Response<List<LisType>>){
         loadLisRecordsResult.value = response.result
     }
 

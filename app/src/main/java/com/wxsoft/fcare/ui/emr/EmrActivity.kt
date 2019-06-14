@@ -161,8 +161,10 @@ class EmrActivity : BaseActivity() {
         }
         val intent = Intent(this, act.first).apply {
             putExtra("PATIENT_ID", emrViewModel.patientId)
+
             when(code){
                 ActionType.溶栓处置->putExtra(ThrombolysisActivity.COME_FROM, "1")
+                ActionType.心电图->putExtra("PRE", emrViewModel.preHos)
             }
         }
         startActivityForResult(intent, act.second)

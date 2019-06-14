@@ -60,12 +60,12 @@ class LisJYAdapter(fm: FragmentManager, count:Int, val arr:List<String>) :
     FragmentPagerAdapter(fm) {
 
     private val statusFragments:List<Fragment> by lazyFast {
-        (0..(count-1)).map {
+        (0 until count).map {
             LisFragment(it)
         }
     }
 
-    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+    override fun getItem(position: Int): Fragment {
 
         return statusFragments[position]
     }

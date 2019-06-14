@@ -4,7 +4,7 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.lis.LisCr
 import com.wxsoft.fcare.core.data.entity.lis.LisItem
 import com.wxsoft.fcare.core.data.entity.lis.LisJCRecord
-import com.wxsoft.fcare.core.data.entity.lis.LisRecord
+import com.wxsoft.fcare.core.data.entity.lis.LisType
 import io.reactivex.Maybe
 import okhttp3.MultipartBody
 import retrofit2.http.*
@@ -32,10 +32,10 @@ interface LISApi {
     fun savePoct(@Part("lisCr")lisCr: LisCr, @Part files: List<MultipartBody.Part>): Maybe<Response<String>>
 
     @GET("LIS/GetPatientLisRecords/{patientId}/{lisItemId}")
-    fun getPatientLisRecords(@Path("patientId")patientId:String,@Path("lisItemId")lisItemId:String): Maybe<Response<List<LisRecord>>>
+    fun getPatientLisRecords(@Path("patientId")patientId:String,@Path("lisItemId")lisItemId:String): Maybe<Response<List<LisType>>>
 
     @GET("YJReport/GetJYResults/{patientId}")
-    fun getJYResults(@Path("patientId")patientId:String): Maybe<Response<List<LisRecord>>>
+    fun getJYResults(@Path("patientId")patientId:String): Maybe<Response<List<LisType>>>
 
     @GET("YJReport/GetJCResults/{patientId}")
     fun getJCResults(@Path("patientId")patientId:String): Maybe<Response<List<LisJCRecord>>>

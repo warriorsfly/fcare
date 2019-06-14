@@ -120,11 +120,15 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
         intent?.getStringExtra(RatingSubjectActivity.OUT_PATIENT_ID)?:""
     }
 
+    private val pre: Boolean by lazyFast {
+        intent?.getBooleanExtra("PRE",false)?:false
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
+        viewModel.pre=pre
         viewModel.patientId=patientId
         adapter= EcgAdapter(this,PHOTO_COUNT,this,this)
         DataBindingUtil.setContentView<ActivityEcgBinding>(

@@ -89,6 +89,8 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
 
             doctorId.set(account.id)
             doctorName.set(account.trueName)
+        }else{
+            doctorName.set(diagnosis.value?.doctorName?:"")
         }
         loadAcsDrug.value = diagnosisTreatment.value?.acs?.apply {
             haveDrugs()

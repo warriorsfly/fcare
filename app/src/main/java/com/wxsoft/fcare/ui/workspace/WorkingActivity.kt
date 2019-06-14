@@ -232,6 +232,7 @@ class WorkingActivity : BaseActivity() {
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                         putExtra(RatingSubjectActivity.OUT_PATIENT_ID, outpatientId)
+                        putExtra("PRE", pre)
                     }
                 startActivityForResult(intent, RATING)
             }

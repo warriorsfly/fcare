@@ -152,8 +152,8 @@ data class LisCr (val id:String) : BaseObservable() {
         set(value){
             field=value
             when(value){
-                0->crUnit = "0"
-                1->crUnit = "1"
+                0->crUnit = "1"
+                1->crUnit = "0"
             }
             notifyPropertyChanged(BR.selectCrUnit)
         }
@@ -198,8 +198,8 @@ data class LisCr (val id:String) : BaseObservable() {
         else {
             when (crUnit) {
 
-                "1" -> selectCrUnit = 1
-                "0" -> selectCrUnit = 0
+                "1" -> selectCrUnit = 0
+                "0" -> selectCrUnit = 1
                 else -> 0
             }
         }
