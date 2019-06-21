@@ -55,7 +55,7 @@ class RatingSubjectViewModel @Inject constructor(
 
     private fun loadRecord(){
 
-        disposable.add(ratingApi.getOneRecord(recordId)
+        disposable.add(ratingApi.getOneRecord(recordId,ratingId,patientId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::doRecord,::error))
@@ -128,8 +128,8 @@ class RatingSubjectViewModel @Inject constructor(
     fun saveRecord(){
         if(checkSavable()) {
             //前面对rating.value进行判空
-            val ratingRecord = if(recordId.isEmpty()) RatingRecord(
-                id = recordId,
+            val ratingRecord = if(recordId=="-1") RatingRecord(
+                id = "",
                 createrId = account.id,
                 createrName = account.trueName,
                 patientId = patientId,

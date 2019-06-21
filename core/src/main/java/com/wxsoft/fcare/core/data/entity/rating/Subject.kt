@@ -23,12 +23,13 @@ data class Subject(val id:String,
             }else {
                 if (!option.checked) {
                     options.firstOrNull { it.checked }?.checked=false
-                    option.checked = !option.checked
+                    options.firstOrNull { it.id==option.id }?.checked=true
+//                    option.checked = !option.checked
                 }
             }
 
         }else {
-            option.checked = !option.checked
+            options.firstOrNull { it.id==option.id }?.checked = !option.checked
         }
     }
 }

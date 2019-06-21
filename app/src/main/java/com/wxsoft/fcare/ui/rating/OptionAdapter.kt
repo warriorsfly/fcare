@@ -33,9 +33,10 @@ class OptionAdapter constructor(private val owner: LifecycleOwner,
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
             holder.binding.apply {
                 rat=rating
+                subject=this@OptionAdapter.subject
                 item=getItem(position)
                 index=(position+1).toString()
-                subject=this@OptionAdapter.subject
+
                 executePendingBindings()
             }
     }

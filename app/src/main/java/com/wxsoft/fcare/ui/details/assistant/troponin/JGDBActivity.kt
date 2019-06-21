@@ -19,6 +19,7 @@ import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
@@ -29,6 +30,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityJgdbBinding
@@ -148,6 +150,10 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
                     }
                 }
             }
+        })
+
+        viewModel.mesAction.observe(this,EventObserver{
+            Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
 
         adapter= PictureAdapter(this,10,this,this)

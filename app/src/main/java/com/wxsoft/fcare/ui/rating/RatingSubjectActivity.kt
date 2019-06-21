@@ -63,7 +63,7 @@ class RatingSubjectActivity : BaseActivity() {
     }
 
     private val recordId: String by lazyFast {
-        intent?.getStringExtra(RECORD_ID)?:""
+        intent?.getStringExtra(RECORD_ID)?:"-1"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -81,13 +81,14 @@ class RatingSubjectActivity : BaseActivity() {
         viewModel.patientId=patientId
         viewModel.scenceType=scenceType
 
-        adapter=SubjectAdapter(this,optionViewPool)
 
-        binding.list.adapter=adapter
 
         viewModel.rating.observe(this, Observer {
             it ?: return@Observer
-            adapter.setRat(it)
+
+            adapter=SubjectAdapter(this,optionViewPool,it)
+
+            binding.list.adapter=adapter
             adapter.submitList(it.subjects)
             title=it.name
         })

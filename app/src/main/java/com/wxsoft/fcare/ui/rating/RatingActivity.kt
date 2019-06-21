@@ -83,6 +83,7 @@ class RatingActivity : BaseActivity() {
             putExtra(RatingSubjectActivity.RATING_NAME, result.ratingName)
 //            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
             putExtra(RatingSubjectActivity.RECORD_ID, result.id)
+            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
         }
         startActivityForResult(intent, ARG_NEW_ITEM_CODE)
     }

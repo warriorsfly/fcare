@@ -16,14 +16,15 @@ class SubjectAdapter constructor(private val owner: LifecycleOwner,
                                  private var rat:Rating?=null):
     ListAdapter<Subject,SubjectAdapter.ItemViewHolder>(DiffCallback) {
 
-    fun setRat(rating:Rating){
-        rat=rating
-    }
+//    fun setRat(rating:Rating){
+//        rat=rating
+//    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return ItemViewHolder(
             ItemRatingSubjectBinding.inflate(inflater, parent, false).apply {
                 optionList.setRecycledViewPool(pool)
+                optionList.adapter=OptionAdapter(owner,rat)
                 lifecycleOwner=owner
             }
         )
@@ -33,9 +34,6 @@ class SubjectAdapter constructor(private val owner: LifecycleOwner,
         holder.binding.apply {
             val sub=getItem(position)
             item=sub
-            if(optionList.adapter==null){
-                optionList.adapter=OptionAdapter(owner,rat)
-            }
             (optionList.adapter as? OptionAdapter)?.apply {
                 subject=sub
                 submitList(sub.options)

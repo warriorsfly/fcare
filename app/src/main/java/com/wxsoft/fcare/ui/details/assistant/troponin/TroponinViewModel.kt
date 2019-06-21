@@ -117,7 +117,13 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
 
 
     fun submit(fs:List<File>){
+
+
         if (lisCr.value == null) return
+        if(lisCr.value?.samplingTime.isNullOrEmpty()){
+            messageAction.value=Event("抽血时间不能为空")
+            return
+        }
         lisCr.value!!.patientId = patientId
         savePatientResult.value= true
         lisCr.value?.also {lisCr->

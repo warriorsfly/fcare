@@ -121,7 +121,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                 putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
                 putExtra(RatingSubjectActivity.RATING_NAME, "GRACE评分")
                 putExtra(RatingSubjectActivity.RATING_ID, "5")
-                putExtra(RatingSubjectActivity.RECORD_ID, viewModel.diagnosisTreatment.value?.graceRating?.id?:"")
+                putExtra(RatingSubjectActivity.RECORD_ID, viewModel.diagnosisTreatment.value?.graceRating?.id)
             }
             startActivityForResult(intent, ActionCode.RATING)
         }
@@ -234,20 +234,26 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                     }
                 }
 
-                SELECT_TREATMENT ->{
-                    val stegyId = viewModel.selectedTreatment.value?.id!!
+                SELECT_TREATMENT -> {
                     val dic = data?.getSerializableExtra("SelectOption") as Dictionary
-                    viewModel.loadSelectedTreatment.value = Strategy(stegyId,1).apply {
-                        strategyCode = dic.id
-                        patientId = this@DiagnoseNewActivity.patientId
-                        strategyCode_Name = dic.itemName
-                        memo = dic.memo
+
+
+                    if (viewModel.loadSelectedTreatment.value == null) {
+                        viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
+                            patientId = this@DiagnoseNewActivity.patientId
+                            strategyCode = dic.id
+                            strategyCode_Name = dic.itemName
+                            memo = dic.memo
+                        }
+                    } else {
+                        viewModel.loadSelectedTreatment.value?.apply {
+                            patientId = this@DiagnoseNewActivity.patientId
+                            strategyCode_Name = dic.itemName
+                            strategyCode = dic.id
+                            memo = dic.memo
+                        }
                     }
-//                    viewModel.diagnosisTreatment.value?.treatStrategy = Strategy("").apply {
-//                        strategyCode = dic.id
-//                        strategyCode_Name = dic.itemName
-//                        memo = dic.memo
-//                    }
+
                 }
 
                 ActionCode.RATING->{
@@ -258,14 +264,34 @@ class DiagnoseNewActivity : BaseTimingActivity() {
 
                 SELECT_NOREFUSHION_RESON ->{
                     val dic = data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.loadSelectedTreatment.value = Strategy(patientId,1).apply {
-                        strategyCode = "14-8"
-                        strategyCode_Name = "无再灌注措施"
-                        memo = "group3"
-                        noReperfusionCode = dic.id
-                        noReperfusionCodeName = dic.itemName
-                        patientId = this@DiagnoseNewActivity.patientId
+                    if(viewModel.loadSelectedTreatment.value==null){
+                        viewModel.loadSelectedTreatment.value = Strategy(patientId,1).apply {
+                            //                        strategyCode = "14-8"
+                            strategyCode_Name = "无再灌注措施"
+                            memo = "group3"
+                            noReperfusionCode = dic.id
+                            noReperfusionCodeName = dic.itemName
+                            patientId = this@DiagnoseNewActivity.patientId
+                        }
+                    }else{
+                        viewModel.loadSelectedTreatment.value ?.apply {
+                            strategyCode = "14-8"
+                            strategyCode_Name = "无再灌注措施"
+                            memo = "group3"
+                            noReperfusionCode = dic.id
+                            noReperfusionCodeName = dic.itemName
+                            patientId = this@DiagnoseNewActivity.patientId
+                        }
                     }
+
+//                    = Strategy(patientId,1).apply {
+//                        strategyCode = "14-8"
+//                        strategyCode_Name = "无再灌注措施"
+//                        memo = "group3"
+//                        noReperfusionCode = dic.id
+//                        noReperfusionCodeName = dic.itemName
+//                        patientId = this@DiagnoseNewActivity.patientId
+//                    }
 //                    viewModel.diagnosisTreatment.value?.treatStrategy = Strategy("").apply {
 //                        strategyCode = "14-8"
 //                        strategyCode_Name = "无再灌注措施"
