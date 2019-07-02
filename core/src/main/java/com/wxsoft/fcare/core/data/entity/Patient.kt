@@ -334,7 +334,8 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
 
     @get:Bindable
     var lsh: String=""
-
+    // 卒中fast评分
+    var stroke120Id: String=""
 
     @Bindable
     @Transient

@@ -4,9 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Pacs
+import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.PACSApi
+import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
@@ -15,8 +17,9 @@ import com.wxsoft.fcare.ui.BaseViewModel
 import javax.inject.Inject
 
 class CTViewModel @Inject constructor(private val api: PACSApi,
-                                                override val sharedPreferenceStorage: SharedPreferenceStorage,
-                                                override val gon: Gson
+                                      private val patientApi: PatientApi,
+                                      override val sharedPreferenceStorage: SharedPreferenceStorage,
+                                      override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon)  {
 
     /**
@@ -27,14 +30,19 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
             if (value == "") return
             field = value
             loadPacs()
+            loadPatient()
         }
 
     val intervention:LiveData<Pacs>
+    val patient:LiveData<Patient>
+
     private val loadInterventionResult = MediatorLiveData<Response<Pacs>>()
+    private val loadPatientResult = MediatorLiveData<Response<Patient>>()
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
         intervention = loadInterventionResult.map { it?.result ?: Pacs()  }
+        patient = loadPatientResult.map { it?.result ?: Patient()  }
     }
 
     private fun loadPacs(){
@@ -47,6 +55,19 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
                     }
                 }
             })
+
+    }
+
+    private fun loadPatient(){
+        disposable.add(patientApi.getOne(patientId)
+            .toResource()
+            .subscribe ({
+                when(it){
+                    is Resource.Success->{
+                        loadPatientResult.value= it.data
+                    }
+                }
+            },::error))
 
     }
 

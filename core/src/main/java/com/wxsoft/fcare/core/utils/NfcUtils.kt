@@ -1,9 +1,13 @@
 package com.wxsoft.fcare.core.utils
 
+import android.util.Xml
+import java.lang.StringBuilder
+
 class NfcUtils{
 
     companion object {
 
+        @JvmStatic
          fun toHexString(bytes: ByteArray): String {
             var i: Int
             var j = 0
@@ -22,6 +26,18 @@ class NfcUtils{
             }
             return out
         }
+
+        @JvmStatic
+        fun toString(bytes: ByteArray):String{
+
+            val builder=StringBuilder()
+            for(b in bytes){
+                builder.append(b.toString())
+            }
+            return builder.toString()
+//            return String(bytes,Charsets.US_ASCII)
+        }
+
     }
 
 }

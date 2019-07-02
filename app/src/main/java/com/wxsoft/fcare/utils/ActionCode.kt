@@ -114,5 +114,6 @@ annotation class ActionCode {
         const val ONETOUCH = 47
         const val ACS = 48
         const val COMEBY = 49
+        const val FAST = 50
     }
 }

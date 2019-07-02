@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
-import com.wxsoft.fcare.ui.ContainerActivity
 import com.wxsoft.fcare.ui.ViewPoolModule
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
@@ -64,7 +63,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsModule
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionModule
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
-import com.wxsoft.fcare.ui.details.strategy.StrategyModule
+import com.wxsoft.fcare.ui.details.strategy.FastModule
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
@@ -244,7 +243,7 @@ abstract class ActivityBindingModule {
     internal abstract fun complaintsActivity(): ComplaintsActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [StrategyModule::class])
+    @ContributesAndroidInjector(modules = [FastModule::class])
     internal abstract fun strategyActivity(): StrategyActivity
 
     @ActivityScoped
@@ -348,10 +347,6 @@ abstract class ActivityBindingModule {
     internal abstract fun hardwareDataActivity(): HardwareDataActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [])
-    internal abstract fun fastActivity(): FastActivity
-
-    @ActivityScoped
     @ContributesAndroidInjector(modules = [ComingByModule::class])
     internal abstract fun comingByActivity(): ComingByActivity
 
@@ -366,6 +361,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ProfileModule::class])
     internal abstract fun choicePatientActivity(): ChoicePatientActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [FastModule::class])
+    internal abstract fun fastActivity(): FastActivity
 
 
 }

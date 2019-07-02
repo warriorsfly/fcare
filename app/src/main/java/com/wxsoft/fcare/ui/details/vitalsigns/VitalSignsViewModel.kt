@@ -115,7 +115,8 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
         }else{
             disposable.add(dictEnumApi.loadConsciousness().toResource()
                 .doOnSuccess { loadConsciousnessResult.value = it }
-                .flatMap { vitalSignApi.getOne(id).toResource() }
+                .flatMap {
+                    vitalSignApi.getOne(id).toResource() }
                 .subscribe { vi ->
 
                     when (vi) {

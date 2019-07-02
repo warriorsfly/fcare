@@ -53,11 +53,14 @@ import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
+import com.wxsoft.fcare.ui.details.fast.FastActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
+import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
+import com.wxsoft.fcare.utils.ActionCode.Companion.FAST
 import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_patient_profile.*
 import kotlinx.android.synthetic.main.layout_new_title.*
@@ -216,6 +219,12 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
             startCallPhone(binding.callText.text.toString())
         }
 
+        viewModel.startFasting.observe(this, Observer {
+            if(viewModel.patient.value?.diagnosisCode=="215-2") {
+                val intent = Intent(this@ProfileActivity, FastActivity::class.java)
+                startActivityForResult(intent, FAST)
+            }
+        })
 
         viewModel.savePatientResult.observe(this, Observer {
 
@@ -434,6 +443,13 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 //                            outpatientId = item.outpatientId
 //                        }
 //                    })
+                }
+
+                FAST->{
+                    val id=data?.getStringExtra("id")
+                    viewModel.patient.value?.let{
+                        it.stroke120Id=id?:""
+                    }
                 }
             }
         }

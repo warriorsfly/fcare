@@ -1,6 +1,5 @@
 package com.wxsoft.fcare.ui.details.ct
 
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -66,16 +65,23 @@ class CTActivity : BaseTimingActivity(), View.OnClickListener {
 
 //        back.setOnClickListener { onBackPressed() }
 
+        bill.setOnClickListener  (this)
         start.setOnClickListener  (this)
         end_thromboly_time.setOnClickListener  (this)
         patient_arrive.setOnClickListener  (this)
         start_puncture.setOnClickListener  (this)
         punctured.setOnClickListener  (this)
         start_angiography.setOnClickListener  (this)
+        end.setOnClickListener  (this)
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
         })
+
+//        viewModel.patient.observe(this, Observer {
+//            if(it.diagnosisCode=="")
+//                model3_3.visibility=View.GONE
+//        })
 
         viewModel.commitResult .observe(this, Observer {
             when(it) {

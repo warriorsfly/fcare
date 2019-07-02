@@ -6,6 +6,8 @@ data class Pacs(val id:String="",
                 var patientId:String="",
                 var applyNo:String="",
 
+                @SerializedName("apply_Time")
+                var applyTime	:String?=null,
                 @SerializedName("notice_Time")
                 var noticeTime	:String?=null,
                 @SerializedName("finish_Time")

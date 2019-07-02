@@ -37,7 +37,7 @@ class ChoicePatientViewModel @Inject constructor(
 
     fun getPatientsFromCis(){
         disposable.add(
-            patientApi.getPatientsFromCis()
+            patientApi.getPatientsFromCis(account.id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe ({
                     loadPatientlist.value = it.result

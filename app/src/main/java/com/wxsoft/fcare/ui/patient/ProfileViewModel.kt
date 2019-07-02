@@ -47,6 +47,7 @@ class ProfileViewModel @Inject constructor(
 
     val shareClick:LiveData<String>
     private val initShareClick = MediatorLiveData<String>()
+    val startFasting = MediatorLiveData<Boolean>()
 
 
 
@@ -64,6 +65,9 @@ class ProfileViewModel @Inject constructor(
     fun changeCode(dCode:String){
         if(patient.value?.id!!.isEmpty()) {
             patient.value?.diagnosisCode=dCode
+        }
+        if(dCode=="215-2"){
+            startFasting.value=true
         }
     }
 
