@@ -144,7 +144,7 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .subscribe (::getNotify,::error))
     }
     private fun loadThromPlace(){
-        disposable.add(enumApi.loadThromPlaces()
+        disposable.add(enumApi.loadDictsByPatient("16",patientId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

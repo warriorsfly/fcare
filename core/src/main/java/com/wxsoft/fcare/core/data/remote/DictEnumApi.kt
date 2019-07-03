@@ -169,6 +169,9 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/{id}")
     fun loadDicts(@Path("id")id:String): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/{id}/{patientId}")
+    fun loadDictsByPatient(@Path("id")id:String,@Path("patientId")patientId:String): Maybe<List<Dictionary>>
+
     /**
      * 发送通知类型
      */

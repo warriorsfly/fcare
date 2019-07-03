@@ -7,10 +7,8 @@ import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
 import android.app.AlertDialog
-import androidx.lifecycle.Observer
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.databinding.DataBindingUtil
 import android.graphics.Point
 import android.graphics.Rect
 import android.graphics.RectF
@@ -18,38 +16,37 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
 import android.view.MenuItem
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.FileProvider
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.drug.Drug
-import com.wxsoft.fcare.core.data.entity.drug.DrugHistory
 import com.wxsoft.fcare.core.data.entity.previoushistory.History1
 import com.wxsoft.fcare.core.data.entity.previoushistory.History2
-import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
+import com.wxsoft.fcare.databinding.ItemDialogImageBinding
+import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
 import com.wxsoft.fcare.ui.common.PictureAdapter
-import com.wxsoft.fcare.core.utils.viewModelProvider
-import com.wxsoft.fcare.databinding.ItemDialogImageBinding
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
+import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_medical_history.*
-
 import kotlinx.android.synthetic.main.layout_new_title.*
 import java.io.File
 import javax.inject.Inject
-import android.util.Pair
-import id.zelory.compressor.Compressor
 
 class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
     override fun localSelected() {

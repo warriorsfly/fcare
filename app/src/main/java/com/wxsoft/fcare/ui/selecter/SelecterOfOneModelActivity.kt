@@ -38,10 +38,10 @@ class SelecterOfOneModelActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        patientId=intent.getStringExtra(SelecterOfOneModelActivity.PATIENT_ID)?:""
-        comFrom=intent.getStringExtra(SelecterOfOneModelActivity.COME_FROM)?:""
-        idStr=intent.getStringExtra(SelecterOfOneModelActivity.ID)?:""
-        ids=intent.getStringArrayListExtra(SelecterOfOneModelActivity.IDS)?: emptyList()
+        patientId=intent.getStringExtra(PATIENT_ID)?:""
+        comFrom=intent.getStringExtra(COME_FROM)?:""
+        idStr=intent.getStringExtra(ID)?:""
+        ids=intent.getStringArrayListExtra(IDS)?: emptyList()
         viewModel.haveSelectedId = idStr
         viewModel.haveSelectedIds = ids
         viewModel.patientId = patientId

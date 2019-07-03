@@ -14,8 +14,6 @@ import com.wxsoft.fcare.databinding.ItemDrugHistoryBinding
 class DrugHistoryItemAdapter constructor(private val owner: LifecycleOwner, val viewModel: MedicalHistoryViewModel) :
     ListAdapter<History2,DrugHistoryItemAdapter.ItemViewHolder>(DiffCallback) {
 
-
-
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {

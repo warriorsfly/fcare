@@ -76,7 +76,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
     private fun loadPlaces(){
-        dictEnumApi.loadThromPlaces().toResource()
+        dictEnumApi.loadDictsByPatient("16",patientId).toResource()
             .subscribe {
                 loadThromPlaces.value = it
                 thrombolysis.value?.setPlaceCheck(comefrom)

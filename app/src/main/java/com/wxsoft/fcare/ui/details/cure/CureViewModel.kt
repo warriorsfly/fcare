@@ -182,7 +182,7 @@ class CureViewModel @Inject constructor(private val cureApi: CureApi,
             }
     }
     private fun loadPlaces(){
-        dictEnumApi.loadThromPlaces().toResource()
+        dictEnumApi.loadDictsByPatient("16",patientId).toResource()
             .subscribe {
                 loadThromPlaces.value = it
             }
