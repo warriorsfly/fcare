@@ -104,7 +104,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         }
 
 //        diagnoses.value?.filter {
-//            seleted.contains(it.id)
+//            seleted.contains(it.drugId)
 //        }?.map { it.checked = true }
     }
 

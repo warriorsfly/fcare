@@ -12,7 +12,7 @@
     android:layout_height="wrap_content">
 
 <!--    <TextView-->
-<!--        android:id="@+id/patient_name"-->
+<!--        android:drugId="@+drugId/patient_name"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:layout_marginStart="@dimen/activity_horizontal_margin"-->
@@ -21,17 +21,17 @@
 <!--        android:textSize="17dp"-->
 <!--        android:textColor="@color/small_title_text_gray"-->
 <!--        tools:text="老王"-->
-<!--        android:text="@{patient.name}"-->
+<!--        android:text="@{patient.drugName}"-->
 <!--        android:textStyle="bold"-->
 <!--        app:layout_constraintLeft_toLeftOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent" />-->
 
 <!--    <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--        android:id="@+id/sex_age_container"-->
+<!--        android:drugId="@+drugId/sex_age_container"-->
 <!--        android:background="@{patient.gender==1?@drawable/bg_conor_green:@drawable/bg_conor_blue}"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/patient_name"-->
-<!--        app:layout_constraintLeft_toRightOf="@+id/patient_name"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/patient_name"-->
+<!--        app:layout_constraintTop_toTopOf="@+drugId/patient_name"-->
+<!--        app:layout_constraintLeft_toRightOf="@+drugId/patient_name"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+drugId/patient_name"-->
 <!--        android:layout_marginLeft="@dimen/activity_horizontal_margin"-->
 <!--        android:padding="1dp"-->
 <!--        android:layout_width="wrap_content"-->
@@ -41,7 +41,7 @@
 <!--        android:layout_width="12dp"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:background="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"-->
-<!--        android:id="@+id/gender"-->
+<!--        android:drugId="@+drugId/gender"-->
 <!--        android:textSize="12dp"-->
 <!--        android:src="@{patient.gender==1 ?@drawable/ic_man:@drawable/ic_woman}"-->
 <!--        app:layout_constraintLeft_toLeftOf="parent"-->
@@ -52,14 +52,14 @@
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:background="@color/white"-->
-<!--        android:id="@+id/age"-->
+<!--        android:drugId="@+drugId/age"-->
 <!--        android:textSize="12dp"-->
 <!--        android:paddingLeft="2dp"-->
 <!--        tools:text="24"-->
 <!--        android:textColor="@{patient.gender==1?@color/tint_work_space_lapse:@color/sex_wuman}"-->
 <!--        android:layout_marginLeft="4dp"-->
 <!--        android:text="@{ String.valueOf(patient.age)+`岁`}"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/gender"-->
+<!--        app:layout_constraintLeft_toRightOf="@drugId/gender"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"-->
 <!--        app:layout_constraintRight_toRightOf="parent"-->
 <!--        app:layout_constraintTop_toTopOf="parent"/>-->
@@ -70,7 +70,7 @@
 
 
 <!--<TextView-->
-<!--    android:id="@+id/patient_state"-->
+<!--    android:drugId="@+drugId/patient_state"-->
 <!--    android:layout_width="wrap_content"-->
 <!--    android:layout_height="wrap_content"-->
 <!--    android:layout_marginEnd="@dimen/activity_horizontal_margin"-->
@@ -88,16 +88,16 @@
 <!--    app:layout_constraintRight_toRightOf="parent"/>-->
 
 <!--    <ImageView-->
-<!--        android:id="@+id/ic_1"-->
+<!--        android:drugId="@+drugId/ic_1"-->
 <!--        android:layout_width="13dp"-->
 <!--        android:layout_height="13dp"-->
 <!--        android:src="@drawable/ic_time_record"-->
 <!--        android:layout_marginTop="8dp"-->
-<!--        app:layout_constraintLeft_toLeftOf="@id/patient_name"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/patient_name" />-->
+<!--        app:layout_constraintLeft_toLeftOf="@drugId/patient_name"-->
+<!--        app:layout_constraintTop_toBottomOf="@drugId/patient_name" />-->
 
 <!--    <TextView-->
-<!--        android:id="@+id/attack_time"-->
+<!--        android:drugId="@+drugId/attack_time"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:textSize="12dp"-->
@@ -105,21 +105,21 @@
 <!--        android:text="@{patient.attackTime.substring(11,16)}"-->
 <!--        tools:text="18:33"-->
 <!--        android:layout_marginLeft="4dp"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/ic_1"-->
-<!--        app:layout_constraintBottom_toBottomOf="@+id/ic_1"-->
-<!--        app:layout_constraintTop_toTopOf="@id/ic_1" />-->
+<!--        app:layout_constraintLeft_toRightOf="@drugId/ic_1"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+drugId/ic_1"-->
+<!--        app:layout_constraintTop_toTopOf="@drugId/ic_1" />-->
 
 <!--    <ImageView-->
-<!--        android:id="@+id/ic_2"-->
+<!--        android:drugId="@+drugId/ic_2"-->
 <!--        android:layout_width="13dp"-->
 <!--        android:layout_height="13dp"-->
 <!--        android:layout_marginLeft="10dp"-->
 <!--        android:src="@drawable/ic_tel_phone"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/attack_time"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/ic_1" />-->
+<!--        app:layout_constraintLeft_toRightOf="@drugId/attack_time"-->
+<!--        app:layout_constraintBottom_toBottomOf="@drugId/ic_1" />-->
 
 <!--    <TextView-->
-<!--        android:id="@+id/patient_phone"-->
+<!--        android:drugId="@+drugId/patient_phone"-->
 <!--        android:layout_width="wrap_content"-->
 <!--        android:layout_height="wrap_content"-->
 <!--        android:layout_marginLeft="4dp"-->
@@ -127,19 +127,19 @@
 <!--        tools:text="13699663569"-->
 <!--        android:text="@{String.valueOf(patient.phone)}"-->
 <!--        android:textColor="@color/small_text_gray"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/ic_2"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/attack_time"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/attack_time" />-->
+<!--        app:layout_constraintLeft_toRightOf="@drugId/ic_2"-->
+<!--        app:layout_constraintTop_toTopOf="@+drugId/attack_time"-->
+<!--        app:layout_constraintBottom_toBottomOf="@drugId/attack_time" />-->
 
 <!--    <ImageView-->
-<!--        android:id="@+id/ic_3"-->
+<!--        android:drugId="@+drugId/ic_3"-->
 <!--        android:layout_width="13dp"-->
 <!--        android:layout_height="13dp"-->
 <!--        android:layout_marginTop="8dp"-->
 <!--        android:layout_marginBottom="8dp"-->
 <!--        android:src="@drawable/ic_location"-->
-<!--        app:layout_constraintLeft_toLeftOf="@+id/ic_1"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/ic_1"-->
+<!--        app:layout_constraintLeft_toLeftOf="@+drugId/ic_1"-->
+<!--        app:layout_constraintTop_toBottomOf="@+drugId/ic_1"-->
 <!--        app:layout_constraintBottom_toBottomOf="parent"/>-->
 
 <!--    <TextView-->
@@ -150,9 +150,9 @@
 <!--        android:textSize="12dp"-->
 <!--        tools:text="黄山路国家大学科技园"-->
 <!--        android:layout_marginLeft="4dp"-->
-<!--        app:layout_constraintLeft_toRightOf="@id/ic_3"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/ic_3"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/ic_3" />-->
+<!--        app:layout_constraintLeft_toRightOf="@drugId/ic_3"-->
+<!--        app:layout_constraintBottom_toBottomOf="@drugId/ic_3"-->
+<!--        app:layout_constraintTop_toTopOf="@+drugId/ic_3" />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

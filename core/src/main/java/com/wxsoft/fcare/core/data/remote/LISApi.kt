@@ -14,8 +14,8 @@ interface LISApi {
     @GET("LIS/GetLisItems")
     fun getLisItems(): Maybe<Response<List<LisItem>>>
 
-    @GET("LIS/GetCrById/{id}")
-    fun getCrById(@Path("id")id:String): Maybe<Response<LisCr>>
+    @GET("LIS/GetCrById/{drugId}")
+    fun getCrById(@Path("drugId")id:String): Maybe<Response<LisCr>>
 
     @GET("POCT/GetTroponin/{patientId}")
     fun getPoct(@Path("patientId")patientId:String): Maybe<Response<LisCr>>

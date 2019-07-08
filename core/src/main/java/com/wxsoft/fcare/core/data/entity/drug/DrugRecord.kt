@@ -3,16 +3,29 @@ package com.wxsoft.fcare.core.data.entity.drug
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.wxsoft.fcare.core.BR
-import com.wxsoft.fcare.core.utils.DateTimeUtils
 import java.io.Serializable
 
 data class DrugRecord (val id:String) : BaseObservable() , Serializable {
+
+
+    var actionCode:String = ""
+
+    var excuteTime: String? = null
+    var staffId: String? = null
+    var staffName: String? = null
 
     @Bindable
     var patientId: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.patientId)
+        }
+
+    @Bindable
+    var selected: Boolean = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.selected)
         }
 
     @Bindable
@@ -30,10 +43,19 @@ data class DrugRecord (val id:String) : BaseObservable() , Serializable {
         }
 
     @Bindable
-    var dose: Int = 0
+    var dose: Float = 0f
         set(value) {
             field = value
             notifyPropertyChanged(BR.dose)
+        }
+
+    @Transient
+    @Bindable
+    var doseString: String? = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.doseString)
+            dose = field?.toFloat() ?: 0f
         }
 
     @Bindable
@@ -64,10 +86,9 @@ data class DrugRecord (val id:String) : BaseObservable() , Serializable {
         }
 
 
-
-
     @Bindable
-    var createdDate: String = DateTimeUtils.getCurrentTime()
+
+    var createdDate: String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.createdDate)
@@ -79,21 +100,4 @@ data class DrugRecord (val id:String) : BaseObservable() , Serializable {
             field = value
             notifyPropertyChanged(BR.createrName)
         }
-
-
-//    @Bindable
-//    var drug: Drug = Drug("")
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.drug)
-//        }
-//
-//    @Bindable
-//    var drugPackage: DrugPackage = DrugPackage("")
-//        set(value) {
-//            field = value
-//            notifyPropertyChanged(BR.drugPackage)
-//        }
-
-
 }

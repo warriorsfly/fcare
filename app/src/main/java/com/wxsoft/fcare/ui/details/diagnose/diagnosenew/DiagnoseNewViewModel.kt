@@ -9,7 +9,10 @@ import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DiagnoseApi
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
+import com.wxsoft.fcare.core.data.remote.PatientApi
+import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
+import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,6 +20,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: DiagnoseApi,
+                                               private val patientApi: PatientApi,
                                                override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
@@ -29,6 +33,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
             if (value == "") return
             field = value
             getTreaatment()
+            loadPatient()
         }
 
     var doctorId=ObservableField<String>()
@@ -54,8 +59,11 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
 
     val saveResult: LiveData<String>
     val loadSaveResult= MediatorLiveData<String>()
+    val patient:LiveData<Patient>
 
+    private val loadPatientResult = MediatorLiveData<Response<Patient>>()
     init {
+        patient = loadPatientResult.map { it?.result ?: Patient()  }
         diagnosisTreatment = loadDiagnosisTreatment.map { it?:DiagnoseTreatment("",createrId = account.id,createrName = account.createrName) }
         diagnosis = loadDiagnosis.map { it?:Diagnosis(createrId = account.id,createrName = account.trueName) }
         selectedTreatment = loadSelectedTreatment.map { it?: Strategy(patientId,1) }
@@ -147,5 +155,18 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
             }?:false
 
         }
+
+    private fun loadPatient(){
+        disposable.add(patientApi.getOne(patientId)
+            .toResource()
+            .subscribe ({
+                when(it){
+                    is Resource.Success->{
+                        loadPatientResult.value= it.data
+                    }
+                }
+            },::error))
+
+    }
 
 }

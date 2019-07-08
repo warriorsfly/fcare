@@ -28,7 +28,7 @@ data class History2(val id:String)
 //        }
 
     @Bindable
-    var dose: Int = 0
+    var dose: Float = 0f
         set(value) {
             field = value
             notifyPropertyChanged(BR.dose)

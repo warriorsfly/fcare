@@ -3,7 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.emr.EmrViewModel"/>
-<!--        <variable name="workModel" type="com.wxsoft.fcare.ui.workspace.WorkingViewModel"/>-->
+<!--        <variable drugName="workModel" type="com.wxsoft.fcare.ui.workspace.WorkingViewModel"/>-->
     </data>
 
     <LinearLayout

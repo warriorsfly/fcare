@@ -136,7 +136,7 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
 
 
     @Bindable
-    var createdDate:String="2019-01-19 12:00:00"
+    var createdDate:String?=null
         set(value) {
             field=value
             notifyPropertyChanged(BR.createdDate)

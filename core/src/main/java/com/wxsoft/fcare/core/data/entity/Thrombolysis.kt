@@ -220,7 +220,7 @@ class Thrombolysis constructor(@Bindable var id:String="",var createrId:String):
      *  并发症
      */
     @Bindable
-    var complications:List<Complication> = emptyList()
+    var complications:List<Complication>? = emptyList()
         set(value) {
             field=value
             notifyPropertyChanged(BR.complications)
@@ -287,7 +287,7 @@ class Thrombolysis constructor(@Bindable var id:String="",var createrId:String):
 
 
     @Bindable
-    var createdDate:String="2019-01-19 18:32:00"
+    var createdDate:String?=null
         set(value) {
             field=value
             notifyPropertyChanged(BR.createdDate)
@@ -304,7 +304,7 @@ class Thrombolysis constructor(@Bindable var id:String="",var createrId:String):
         getComplicationStr()
     }
     fun getComplicationStr(){
-        complications.map {
+        complications?.map {
            if (complication.isNullOrEmpty()){
                complication = it.complicationCode_Name
            }else{

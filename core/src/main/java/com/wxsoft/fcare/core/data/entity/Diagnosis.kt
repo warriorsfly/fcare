@@ -149,7 +149,7 @@ data class Diagnosis (var id:String="",val createrId:String,val createrName:Stri
         }
 
     @Bindable
-    var createdDate:String= DateTimeUtils.getCurrentTime()
+    var createdDate:String?= null
         set(value) {
             field=value
             notifyPropertyChanged(BR.createdDate)

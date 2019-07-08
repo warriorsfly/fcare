@@ -37,8 +37,8 @@ interface PharmacyApi {
     @POST("CABG/Save")
     fun saveCABG(@Body cabg: CABG):Maybe<Response<String>>
 
-    @DELETE("Drug/DeleteDrugRecordById/{id}")
-    fun deleteDrug(@Path("id")id:String):Maybe<Response<String>>
+    @DELETE("Drug/DeleteDrugRecordById/{drugId}")
+    fun deleteDrug(@Path("drugId")id:String):Maybe<Response<String>>
 
 
 }

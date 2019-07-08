@@ -288,7 +288,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
 //                        strategyCode = "14-8"
 //                        strategyCode_Name = "无再灌注措施"
 //                        memo = "group3"
-//                        noReperfusionCode = dic.id
+//                        noReperfusionCode = dic.drugId
 //                        noReperfusionCodeName = dic.itemName
 //                        patientId = this@DiagnoseNewActivity.patientId
 //                    }
@@ -296,7 +296,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
 //                        strategyCode = "14-8"
 //                        strategyCode_Name = "无再灌注措施"
 //                        memo = "group3"
-//                        noReperfusionCode = dic.id
+//                        noReperfusionCode = dic.drugId
 //                        noReperfusionCodeName = dic.itemName
 //                    }
                 }

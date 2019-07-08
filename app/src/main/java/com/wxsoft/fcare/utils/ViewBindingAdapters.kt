@@ -132,10 +132,10 @@ fun goneUnless(view: View, visible: Boolean) {
     view.visibility = if (visible) View.VISIBLE else View.GONE
 }
 
-@BindingAdapter("pageMargin")
-fun pageMargin(viewPager: androidx.viewpager.widget.ViewPager, pageMargin: Float) {
-    viewPager.pageMargin = pageMargin.toInt()
-}
+//@BindingAdapter("pageMargin")
+//fun pageMargin(viewPager: androidx.viewpager.widget.ViewPager, pageMargin: Float) {
+//    viewPager.pageMargin = pageMargin.toInt()
+//}
 
 @BindingAdapter("diagnosisCode")
 fun diagnosisCode(textView: TextView, diagnosisCode: String?) {
@@ -150,34 +150,34 @@ fun diagnosisCode(textView: TextView, diagnosisCode: String?) {
     }
 }
 
-@SuppressLint("ResourceAsColor")
-@BindingAdapter("patientStatus")
-fun patientStatus(textView: TextView, patientStatus: String?) {
-    when(patientStatus){
-        "223-1"->{
-            textView.setBackgroundResource(R.drawable.bg_conor_status_1)//院前
-            textView.setTextColor(Color.parseColor("#796EF4"))
-        }
-        "223-2"->{
-            textView.setBackgroundResource(R.drawable.bg_conor_status_2)//初诊
-            textView.setTextColor(Color.parseColor("#FAB131"))
-        }
-        "223-3"->{
-            textView.setBackgroundResource(R.drawable.bg_conor_status_3)//治疗前检查
-            textView.setTextColor(Color.parseColor("#FF885D"))
-        }
-        "223-4"->{
-            textView.setBackgroundResource(R.drawable.bg_conor_status_4)//治疗
-            textView.setTextColor(textView.context.resources.getColor(R.color.colorPrimary))
-        }
-        "223-5"->{
-            textView.setBackgroundResource(R.drawable.bg_conor_status_5)//转归
-            textView.setTextColor(Color.parseColor("#0FCEC6"))
-        }
-        //不在上述代码中则清空textView的背景
-        else->textView.setBackgroundResource(0)
-    }
-}
+//@SuppressLint("ResourceAsColor")
+//@BindingAdapter("patientStatus")
+//fun patientStatus(textView: TextView, patientStatus: String?) {
+//    when(patientStatus){
+//        "223-1"->{
+//            textView.setBackgroundResource(R.drawable.bg_conor_status_1)//院前
+//            textView.setTextColor(Color.parseColor("#796EF4"))
+//        }
+//        "223-2"->{
+//            textView.setBackgroundResource(R.drawable.bg_conor_status_2)//初诊
+//            textView.setTextColor(Color.parseColor("#FAB131"))
+//        }
+//        "223-3"->{
+//            textView.setBackgroundResource(R.drawable.bg_conor_status_3)//治疗前检查
+//            textView.setTextColor(Color.parseColor("#FF885D"))
+//        }
+//        "223-4"->{
+//            textView.setBackgroundResource(R.drawable.bg_conor_status_4)//治疗
+//            textView.setTextColor(textView.context.resources.getColor(R.color.colorPrimary))
+//        }
+//        "223-5"->{
+//            textView.setBackgroundResource(R.drawable.bg_conor_status_5)//转归
+//            textView.setTextColor(Color.parseColor("#0FCEC6"))
+//        }
+//        //不在上述代码中则清空textView的背景
+//        else->textView.setBackgroundResource(0)
+//    }
+//}
 
 @SuppressLint("ResourceAsColor")
 @BindingAdapter("taskStatus")
@@ -281,6 +281,17 @@ object Converter{
     }
 }
 
+object NullableConverter{
+    @InverseMethod("stringToInt")
+    @JvmStatic fun intToString(value: Int?): String {
+        return if(value==null)"" else value.toString()
+    }
+
+    @JvmStatic fun stringToInt(value:String): Int? {
+        return if(value.isEmpty()) null else value.toInt()
+    }
+}
+
 object QualityScoreConverter{
     @InverseMethod("stringToInt")
     @JvmStatic fun intToString(value: Int): String {
@@ -306,7 +317,7 @@ object LongConverter{
 object FloatConverter{
     @InverseMethod("stringToFloat")
     @JvmStatic fun floatToString(value: Float?):String  {
-        return if(value==null) "-"  else value.toString()
+        return value?.toString() ?: "-"
 
     }
 
@@ -317,7 +328,7 @@ object FloatConverter{
 object DoubleConverter{
     @InverseMethod("stringToDouble")
     @JvmStatic fun doubleToString(value: Double?):String  {
-        return if(value==null) ""  else value.toString()
+        return value?.toString() ?: ""
 
     }
 

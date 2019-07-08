@@ -18,11 +18,11 @@ interface InformedApi {
     @GET("InformedConsent/GetTalkById/{talkId}")
     fun getTalkById(@Path("talkId")talkId:String): Maybe<Response<Talk>>
 
-    @GET("InformedConsent/GetInformedConsentById/{id}")
-    fun getInformedConsentById(@Path("id")id:String): Maybe<Response<InformedConsent>>
+    @GET("InformedConsent/GetInformedConsentById/{drugId}")
+    fun getInformedConsentById(@Path("drugId")id:String): Maybe<Response<InformedConsent>>
 
-    @GET("InformedConsent/DeleteTalk/{id}")
-    fun delete(@Path("id")id:String): Maybe<Response<String>>
+    @GET("InformedConsent/DeleteTalk/{drugId}")
+    fun delete(@Path("drugId")id:String): Maybe<Response<String>>
 
     @Multipart
     @POST("InformedConsent/SaveTalk")

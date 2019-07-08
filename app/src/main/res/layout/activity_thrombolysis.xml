@@ -214,21 +214,21 @@
                         <!---->
 
                         <!--<TextView-->
-                                <!--android:id="@+id/title3_1_2"-->
+                                <!--android:drugId="@+drugId/title3_1_2"-->
                                 <!--android:layout_marginTop="15dp"-->
                                 <!--android:layout_marginBottom="15dp"-->
                                 <!--android:textColor="#7D7D7D"-->
-                                <!--app:layout_constraintTop_toBottomOf="@+id/title3_1_1"-->
-                                <!--app:layout_constraintLeft_toLeftOf="@id/title3_1_1"-->
+                                <!--app:layout_constraintTop_toBottomOf="@+drugId/title3_1_1"-->
+                                <!--app:layout_constraintLeft_toLeftOf="@drugId/title3_1_1"-->
                                 <!--app:layout_constraintBottom_toBottomOf="parent"-->
                                 <!--android:textSize="13sp"-->
                                 <!--android:text="签署知情同意书时间"-->
                                 <!--android:layout_width="wrap_content"-->
                                 <!--android:layout_height="wrap_content"/>-->
                         <!--<TextView-->
-                                <!--android:id="@+id/end_informed_time"-->
-                                <!--app:layout_constraintRight_toRightOf="@+id/modify_end_time_icon"-->
-                                <!--app:layout_constraintBottom_toBottomOf="@+id/title3_1_2"-->
+                                <!--android:drugId="@+drugId/end_informed_time"-->
+                                <!--app:layout_constraintRight_toRightOf="@+drugId/modify_end_time_icon"-->
+                                <!--app:layout_constraintBottom_toBottomOf="@+drugId/title3_1_2"-->
                                 <!--android:layout_marginRight="29dp"-->
                                 <!--android:textSize="13sp"-->
                                 <!--android:text="@{viewModel.thrombolysis.sign_Agree_Time}"-->
@@ -236,11 +236,11 @@
                                 <!--android:layout_width="wrap_content"-->
                                 <!--android:layout_height="wrap_content"/>-->
                         <!--<ImageView-->
-                                <!--android:id="@+id/modify_end_time_icon"-->
+                                <!--android:drugId="@+drugId/modify_end_time_icon"-->
                                 <!--goneUnless="@{viewModel.thrombolysis.sign_Agree_Time != null}"-->
                                 <!--android:src="@drawable/ic_time_edit"-->
-                                <!--app:layout_constraintRight_toRightOf="@+id/rown3_1"-->
-                                <!--app:layout_constraintBottom_toBottomOf="@+id/end_informed_time"-->
+                                <!--app:layout_constraintRight_toRightOf="@+drugId/rown3_1"-->
+                                <!--app:layout_constraintBottom_toBottomOf="@+drugId/end_informed_time"-->
                                 <!--android:onClick="@{()-> viewModel.modifyInformedTime(2)}"-->
                                 <!--android:layout_width="22dp"-->
                                 <!--android:layout_height="22dp"/>-->
@@ -426,17 +426,17 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                        <!--android:id="@+id/model4"-->
+                        <!--android:drugId="@+drugId/model4"-->
                         <!--android:background="@color/white"-->
                         <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                        <!--app:layout_constraintTop_toBottomOf="@+id/model3"-->
+                        <!--app:layout_constraintTop_toBottomOf="@+drugId/model3"-->
                         <!--android:layout_marginTop="10dp"-->
                         <!--android:onClick="@{() -> viewModel.toDrugs()}"-->
                         <!--android:layout_width="match_parent"-->
                         <!--android:layout_height="wrap_content">-->
 
                     <!--<TextView-->
-                            <!--android:id="@+id/title4"-->
+                            <!--android:drugId="@+drugId/title4"-->
                             <!--app:layout_constraintLeft_toLeftOf="parent"-->
                             <!--app:layout_constraintTop_toTopOf="parent"-->
                             <!--android:layout_marginTop="15dp"-->
@@ -449,33 +449,33 @@
                             <!--android:layout_height="wrap_content"/>-->
 
                     <!--<TextView-->
-                            <!--android:id="@+id/rowe4"-->
+                            <!--android:drugId="@+drugId/rowe4"-->
                             <!--app:layout_constraintRight_toRightOf="parent"-->
-                            <!--app:layout_constraintBottom_toBottomOf="@id/title4"-->
+                            <!--app:layout_constraintBottom_toBottomOf="@drugId/title4"-->
                             <!--android:layout_width="14dp"-->
                             <!--android:layout_height="24dp"-->
                             <!--android:layout_marginRight="19dp"-->
                             <!--android:background="@drawable/ic_right_arrow"/>-->
 
                     <!--<TextView-->
-                            <!--android:id="@+id/title4_1"-->
+                            <!--android:drugId="@+drugId/title4_1"-->
                             <!--android:layout_marginTop="15dp"-->
                             <!--android:layout_marginLeft="10dp"-->
                             <!--android:textSize="13sp"-->
                             <!--android:textColor="#7D7D7D"-->
-                            <!--app:layout_constraintTop_toBottomOf="@+id/title4"-->
-                            <!--app:layout_constraintLeft_toLeftOf="@id/title4"-->
+                            <!--app:layout_constraintTop_toBottomOf="@+drugId/title4"-->
+                            <!--app:layout_constraintLeft_toLeftOf="@drugId/title4"-->
                             <!--android:text="药物"-->
                             <!--android:layout_width="wrap_content"-->
                             <!--android:layout_height="wrap_content"/>-->
                     <!--<TextView-->
-                            <!--android:id="@+id/thromboly_drugs"-->
-                            <!--app:layout_constraintRight_toLeftOf="@+id/rowe4"-->
-                            <!--app:layout_constraintTop_toTopOf="@+id/title4_1"-->
-                            <!--app:layout_constraintBottom_toTopOf="@+id/title4_2"-->
+                            <!--android:drugId="@+drugId/thromboly_drugs"-->
+                            <!--app:layout_constraintRight_toLeftOf="@+drugId/rowe4"-->
+                            <!--app:layout_constraintTop_toTopOf="@+drugId/title4_1"-->
+                            <!--app:layout_constraintBottom_toTopOf="@+drugId/title4_2"-->
                             <!--android:layout_marginLeft="20dp"-->
                             <!--android:gravity="right"-->
-                            <!--app:layout_constraintLeft_toRightOf="@+id/title4_1"-->
+                            <!--app:layout_constraintLeft_toRightOf="@+drugId/title4_1"-->
                             <!--android:textSize="13sp"-->
                             <!--android:text="@{viewModel.thrombolysis.throm_Drug_Name}"-->
                             <!--tools:text="阿司匹林阿司匹林阿司阿司匹林"-->
@@ -483,23 +483,23 @@
                             <!--android:layout_height="wrap_content"/>-->
 
                     <!--<TextView-->
-                            <!--android:id="@+id/title4_2"-->
+                            <!--android:drugId="@+drugId/title4_2"-->
                             <!--android:layout_marginTop="15dp"-->
                             <!--android:layout_marginBottom="15dp"-->
                             <!--android:textSize="13sp"-->
                             <!--android:textColor="#7D7D7D"-->
-                            <!--app:layout_constraintTop_toBottomOf="@+id/thromboly_drugs"-->
-                            <!--app:layout_constraintLeft_toLeftOf="@id/title4_1"-->
+                            <!--app:layout_constraintTop_toBottomOf="@+drugId/thromboly_drugs"-->
+                            <!--app:layout_constraintLeft_toLeftOf="@drugId/title4_1"-->
                             <!--app:layout_constraintBottom_toBottomOf="parent"-->
                             <!--android:text="剂量"-->
                             <!--tools:text="剂量"-->
                             <!--android:layout_width="wrap_content"-->
                             <!--android:layout_height="wrap_content"/>-->
                     <!--<TextView-->
-                            <!--android:id="@+id/thromboly_drugs_unit"-->
-                            <!--app:layout_constraintRight_toLeftOf="@+id/rowe4"-->
-                            <!--app:layout_constraintTop_toTopOf="@+id/title4_2"-->
-                            <!--app:layout_constraintBottom_toBottomOf="@+id/title4_2"-->
+                            <!--android:drugId="@+drugId/thromboly_drugs_unit"-->
+                            <!--app:layout_constraintRight_toLeftOf="@+drugId/rowe4"-->
+                            <!--app:layout_constraintTop_toTopOf="@+drugId/title4_2"-->
+                            <!--app:layout_constraintBottom_toBottomOf="@+drugId/title4_2"-->
                             <!--android:textSize="13sp"-->
                             <!--android:text="@{viewModel.thrombolysis.throm_Drug_Dose}"-->
                             <!--tools:text="半量"-->

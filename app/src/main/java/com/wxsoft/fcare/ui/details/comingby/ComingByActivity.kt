@@ -187,7 +187,7 @@ class ComingByActivity : BaseTimingActivity() {
                 COMING_WAY_TYPES->{
                     val returnType=data?.getIntExtra("type",3)?:3
                     val id=data?.getStringExtra("id")?:""
-                    val name=data?.getStringExtra("name")?:""
+                    val name=data?.getStringExtra("drugName")?:""
 
                     viewModel.comingBy.value?.let {
                         when(returnType){

@@ -251,7 +251,7 @@ class TaskViewModel @Inject constructor(private val taskApi: TaskApi,
     // 获得本月第一天0点时间
     fun getTimesMonthmorning(): String {
         val cal = Calendar.getInstance()
-        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONDAY), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0)
+        cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0)
         cal.set(Calendar.DAY_OF_MONTH, cal.getActualMinimum(Calendar.DAY_OF_MONTH))
         return SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cal.time)
     }

@@ -43,7 +43,7 @@
                 android:layout_marginLeft="104dp"
                 app:layout_constraintBottom_toBottomOf="@+id/drug_name"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:text="@{String.valueOf(item.dose)+item.doseUnit}"
+                android:text="@{item.doseString+item.doseUnit}"
                 android:textSize="14sp"
                 android:textColor="#9399A4"
                 android:layout_width="wrap_content"

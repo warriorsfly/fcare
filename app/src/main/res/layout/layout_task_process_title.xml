@@ -154,7 +154,7 @@
                 android:layout_marginRight="16dp"
                 app:cardUseCompatPadding="true"
                 app:layout_constraintTop_toBottomOf="@id/time_spend"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 app:cardBackgroundColor="@color/white"
                 android:layout_height="wrap_content">
 

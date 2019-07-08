@@ -126,7 +126,7 @@ class MainActivity : BaseActivity() {
                 NfcAdapter.ACTION_TAG_DISCOVERED->{
                     val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
                     val cardId=NfcUtils.toHexString(tag.id)
-//                String(tag.id,Charsets.US_ASCII)//tag.id.toString()
+//                String(tag.drugId,Charsets.US_ASCII)//tag.drugId.toString()
                     AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
                         .setTitle("查询到NFC")
                         .setMessage(cardId)
@@ -135,7 +135,7 @@ class MainActivity : BaseActivity() {
 
                 NfcAdapter.ACTION_NDEF_DISCOVERED->{
                     val cardId = intent.dataString
-//                    val cardId=NfcUtils.toHexString(tag.id)
+//                    val cardId=NfcUtils.toHexString(tag.drugId)
                     AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
                         .setTitle("查询到NFC")
                         .setMessage(cardId)

@@ -22,7 +22,7 @@ data class User (
     var memo: String ="",
     var jgAccount: String ="",
     var userRoles: Array<UserRole> = emptyArray(),
-    var createdDate: String ="",
+    var createdDate: String? =null,
     var modifiedDate: String ="",
     var createrId: String ="",
     var createrName: String ="",
@@ -93,28 +93,28 @@ var trueName: String =""
 
     override fun hashCode(): Int {
         var result = id.hashCode()
-        result = 31 * result + userName.hashCode()
-        result = 31 * result + password.hashCode()
-        result = 31 * result + trueName.hashCode()
-        result = 31 * result + tel.hashCode()
-        result = 31 * result + email.hashCode()
-        result = 31 * result + weiXin.hashCode()
-        result = 31 * result + deptId.hashCode()
-        result = 31 * result + deptName.hashCode()
-        result = 31 * result + postId.hashCode()
-        result = 31 * result + isActive.hashCode()
-        result = 31 * result + postName.hashCode()
-        result = 31 * result + hospitalId.hashCode()
-        result = 31 * result + hospitalName.hashCode()
-        result = 31 * result + memo.hashCode()
-        result = 31 * result + jgAccount.hashCode()
-        result = 31 * result + userRoles.contentHashCode()
-        result = 31 * result + createdDate.hashCode()
-        result = 31 * result + modifiedDate.hashCode()
-        result = 31 * result + createrId.hashCode()
-        result = 31 * result + createrName.hashCode()
-        result = 31 * result + modifierId.hashCode()
-        result = 31 * result + modifierName.hashCode()
+        result += userName.hashCode()
+        result += password.hashCode()
+        result += trueName.hashCode()
+        result += tel.hashCode()
+        result += email.hashCode()
+        result += weiXin.hashCode()
+        result += deptId.hashCode()
+        result += deptName.hashCode()
+        result += postId.hashCode()
+        result += isActive.hashCode()
+        result += postName.hashCode()
+        result += hospitalId.hashCode()
+        result += hospitalName.hashCode()
+        result += memo.hashCode()
+        result += jgAccount.hashCode()
+        result += userRoles.contentHashCode()
+        result += createdDate.hashCode()
+        result += modifiedDate.hashCode()
+        result += createrId.hashCode()
+        result += createrName.hashCode()
+        result += modifierId.hashCode()
+        result += modifierName.hashCode()
         return result
     }
 }

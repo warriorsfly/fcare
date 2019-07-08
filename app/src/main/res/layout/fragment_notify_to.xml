@@ -11,7 +11,7 @@
             android:layout_height="match_parent"
             tools:context=".ui.rating.RatingActivity">
         <!--<include layout="@layout/layout_common_title"-->
-                 <!--android:id="@+id/title"-->
+                 <!--android:drugId="@+drugId/title"-->
                  <!--app:presenter="@{viewModel}"-->
                  <!--android:layout_width="match_parent"-->
                  <!--android:layout_height="wrap_content"/>-->

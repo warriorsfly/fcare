@@ -16,6 +16,7 @@ import com.wxsoft.fcare.databinding.FragmentWorkingEmrBinding
 import com.wxsoft.fcare.ui.BaseFragment
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
+import com.wxsoft.fcare.ui.details.blood.BloodActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
@@ -40,6 +41,7 @@ import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
+import com.wxsoft.fcare.utils.ActionCode.Companion.BLOOD
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
 import com.wxsoft.fcare.utils.ActionCode.Companion.COMEBY
@@ -126,6 +128,7 @@ class EmrFragment : BaseFragment() {
             ActionType.一键通知 ->Pair(OneTouchCallingActivity::class.java, ONETOUCH)
             ActionType.来院方式 ->Pair(ComingByActivity::class.java, COMEBY)
             ActionType.肌钙蛋白 ->Pair(JGDBActivity::class.java, ONETOUCH)
+            ActionType.BLOOD ->Pair(BloodActivity::class.java, BLOOD)
             else -> throw IllegalArgumentException("unknown code $code")
         }
         val intent = Intent(activity, act.first).apply {

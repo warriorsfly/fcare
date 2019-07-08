@@ -99,9 +99,9 @@ class MeasuresActivity : BaseActivity()  {
 //            .setTitle(item.itemName)
 //            .setPositiveButton("是"){ _, _ ->
 //                item.checked = true
-//                if (item.id.equals("212-5")){//用药
+//                if (item.drugId.equals("212-5")){//用药
 //                    toPharmacy()
-//                }else if(item.id.equals("212-6")){//溶栓
+//                }else if(item.drugId.equals("212-6")){//溶栓
 //                    toThrombolysis()
 //                }
 //            }

@@ -65,7 +65,7 @@ class CheckBodyViewModel @Inject constructor(private val checkBodyApi:CheckBodyA
     }
 
 //    private fun haveData(){
-//        if (checkBody.value?.id.isNullOrEmpty()){
+//        if (checkBody.value?.drugId.isNullOrEmpty()){
 //            coordinationItems.value?.first()?.checked = true
 //            skinItems.value?.first()?.checked = true
 //            leftPupilsItems.value?.first()?.checked = true
@@ -79,12 +79,12 @@ class CheckBodyViewModel @Inject constructor(private val checkBodyApi:CheckBodyA
 //            leftResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
 //            rightPupilsItems.value?.filter { it.checked }?.map { it.checked = false }
 //            rightResponseLightItems.value?.filter { it.checked }?.map { it.checked = false }
-//            coordinationItems.value?.filter { it.id == checkBody.value?.coordination }?.map {it.checked = true }
-//            skinItems.value?.filter { it.id == checkBody.value?.skin }?.map {it.checked = true }
-//            leftPupilsItems.value?.filter { it.id == this.checkBody.value?.leftPupils }?.map {it.checked = true }
-//            leftResponseLightItems.value?.filter { it.id == checkBody.value?.leftResponseLight }?.map {it.checked = true }
-//            rightPupilsItems.value?.filter { it.id == checkBody.value?.rightPupils }?.map {it.checked = true }
-//            rightResponseLightItems.value?.filter { it.id == checkBody.value?.rightResponseLight }?.map {it.checked = true }
+//            coordinationItems.value?.filter { it.drugId == checkBody.value?.coordination }?.map {it.checked = true }
+//            skinItems.value?.filter { it.drugId == checkBody.value?.skin }?.map {it.checked = true }
+//            leftPupilsItems.value?.filter { it.drugId == this.checkBody.value?.leftPupils }?.map {it.checked = true }
+//            leftResponseLightItems.value?.filter { it.drugId == checkBody.value?.leftResponseLight }?.map {it.checked = true }
+//            rightPupilsItems.value?.filter { it.drugId == checkBody.value?.rightPupils }?.map {it.checked = true }
+//            rightResponseLightItems.value?.filter { it.drugId == checkBody.value?.rightResponseLight }?.map {it.checked = true }
 //        }
 //
 //    }
@@ -105,19 +105,19 @@ class CheckBodyViewModel @Inject constructor(private val checkBodyApi:CheckBodyA
 
 //
 //        skinItems.value?.filter { it.checked }
-//            ?.map { checkBody.value?.skin = it.id }
+//            ?.map { checkBody.value?.skin = it.drugId }
 //
 //        leftPupilsItems.value?.filter { it.checked }
-//            ?.map { checkBody.value?.leftPupils = it.id }
+//            ?.map { checkBody.value?.leftPupils = it.drugId }
 //
 //        leftResponseLightItems.value?.filter { it.checked }
-//            ?.map { checkBody.value?.leftResponseLight = it.id }
+//            ?.map { checkBody.value?.leftResponseLight = it.drugId }
 //
 //        rightPupilsItems.value?.filter { it.checked }
-//            ?.map { checkBody.value?.rightPupils = it.id }
+//            ?.map { checkBody.value?.rightPupils = it.drugId }
 //
 //        rightResponseLightItems.value?.filter { it.checked }
-//            ?.map { checkBody.value?.rightResponseLight = it.id }
+//            ?.map { checkBody.value?.rightResponseLight = it.drugId }
 
         checkBody.value?.patientId = patientId
 

@@ -4,6 +4,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="com.wxsoft.fcare.utils.NullableConverter"/>
         <import type="com.wxsoft.fcare.utils.Converter"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.patient.ProfileViewModel"/>
     </data>
@@ -65,7 +66,7 @@
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
-                            android:clickable="@{viewModel.patient.id.isEmpty()}"
+                            
                             taskSelectUser="@{viewModel.patient.diagnosisCode.equals(`215-99`)}"
                             android:onClick="@{()->viewModel.changeCode(`215-99`)}"
                             android:elevation="2dp"
@@ -122,7 +123,7 @@
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
-                            android:clickable="@{viewModel.patient.id.isEmpty()}"
+                            
                             taskSelectUser="@{viewModel.patient.diagnosisCode.equals(`215-2`)}"
                             android:onClick="@{()->viewModel.changeCode(`215-2`)}"
                             android:elevation="2dp"
@@ -178,7 +179,7 @@
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
-                            android:clickable="@{viewModel.patient.id.isEmpty()}"
+                            
                             taskSelectUser="@{viewModel.patient.diagnosisCode.equals(`215-3`)}"
                             android:onClick="@{()->viewModel.changeCode(`215-3`)}"
                             android:elevation="2dp"
@@ -234,7 +235,7 @@
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
-                            android:clickable="@{viewModel.patient.id.isEmpty()}"
+                            
                             taskSelectUser="@{viewModel.patient.diagnosisCode.equals(`215-1`)}"
                             android:onClick="@{()->viewModel.changeCode(`215-1`)}"
                             android:elevation="2dp"
@@ -290,7 +291,7 @@
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
-                            android:clickable="@{viewModel.patient.id.isEmpty()}"
+                            
                             taskSelectUser="@{viewModel.patient.diagnosisCode.equals(`215-4`)}"
                             android:onClick="@{()->viewModel.changeCode(`215-4`)}"
                             android:elevation="2dp"
@@ -349,7 +350,7 @@
                             android:layout_marginRight="12dp"
                             android:layout_marginTop="6dp"
                             android:layout_marginBottom="6dp"
-                            android:clickable="@{viewModel.patient.id.isEmpty()}"
+                            
                             taskSelectUser="@{viewModel.patient.diagnosisCode.equals(`215-5`)}"
                             android:onClick="@{()->viewModel.changeCode(`215-5`)}"
                             android:elevation="2dp"
@@ -409,7 +410,7 @@
                     <!--android:onClick="@{()->viewModel.patientIsUnkown()}"-->
                     <!--android:layout_marginLeft="15dp"-->
                     <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                    <!--app:layout_constraintTop_toBottomOf="@id/ill_type"-->
+                    <!--app:layout_constraintTop_toBottomOf="@drugId/ill_type"-->
                     <!--app:layout_constraintBottom_toBottomOf="parent"-->
                     <!--android:text="三无患者"/>-->
                 <!--/>-->
@@ -592,8 +593,8 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                    <!--android:id="@+id/line3"-->
-                    <!--app:layout_constraintTop_toBottomOf="@id/line2_2"-->
+                    <!--android:drugId="@+drugId/line3"-->
+                    <!--app:layout_constraintTop_toBottomOf="@drugId/line2_2"-->
                     <!--app:layout_constraintLeft_toLeftOf="parent"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="50dp"-->
@@ -605,7 +606,7 @@
                     <!--android:layout_width="wrap_content"-->
                     <!--android:text="病历编号"-->
                     <!--android:textSize="15sp"-->
-                    <!--android:id="@+id/title2"-->
+                    <!--android:drugId="@+drugId/title2"-->
                     <!--android:textColor="@color/edit_text_title"-->
                     <!--android:layout_marginLeft="15dp"-->
                     <!--android:layout_height="wrap_content"/>-->
@@ -613,7 +614,7 @@
                 <!--<EditText-->
                     <!--app:layout_constraintRight_toRightOf="parent"-->
                     <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--app:layout_constraintLeft_toRightOf="@id/title2"-->
+                    <!--app:layout_constraintLeft_toRightOf="@drugId/title2"-->
                     <!--app:layout_constraintBottom_toBottomOf="parent"-->
                     <!--android:layout_width="0dp"-->
                     <!--android:hint="请输入编号"-->
@@ -854,95 +855,142 @@
                         android:id="@+id/female"/>
                 </RadioGroup>
             </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/line5"
-                            app:layout_constraintTop_toBottomOf="@id/line7"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@color/white">
-                        <TextView
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="wrap_content"
-                                android:text="身份证号"
-                                android:textSize="15sp"
-                                android:id="@+id/title4"
-                                android:textColor="@color/edit_text_title"
-                                android:layout_marginLeft="15dp"
-                                android:layout_height="wrap_content"/>
 
-                        <EditText
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintLeft_toRightOf="@id/title4"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="0dp"
-                                android:hint="请输入身份证号"
-                                android:background="@null"
-                                android:inputType="phone"
-                                android:maxLines="1"
-                                android:text="@={viewModel.patient.idcard}"
-                                android:maxLength="18"
-                                android:imeOptions="actionNext"
-                                android:digits="@string/input_type_chars_numbers"
-                                tools:text="34260119650511XXXX"
-                                android:textSize="14sp"
-                                android:layout_marginRight="49dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="right|center_vertical"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/line9"
-                            app:layout_constraintTop_toBottomOf="@id/line5"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@color/white">
-                        <TextView
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="wrap_content"
-                                android:text="联系电话"
-                                android:textSize="15sp"
-                                android:id="@+id/title8"
-                                android:textColor="@color/edit_text_title"
-                                android:layout_marginLeft="15dp"
-                                android:layout_height="wrap_content"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/line_height"
+                app:goneUnless="@{viewModel.patient.diagnosisCode.equals(`215-2`)}"
+                app:layout_constraintTop_toBottomOf="@id/line6"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white">
+                <TextView
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="wrap_content"
+                    android:text="身         高"
 
-                        <EditText
-                                android:id="@+id/call_text"
-                                app:layout_constraintRight_toLeftOf="@+id/call"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintLeft_toRightOf="@id/title8"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="0dp"
-                                android:hint="请输入联系电话"
-                                android:background="@null"
-                                android:textSize="14sp"
-                                android:inputType="phone"
-                                android:maxLines="1"
-                                android:maxLength="12"
-                                android:text="@={viewModel.patient.phone}"
-                                android:imeOptions="actionNext"
-                                android:layout_marginRight="15dp"
-                                android:layout_height="wrap_content"
-                                android:gravity="right|center_vertical"/>
+                    android:textSize="15sp"
+                    android:id="@+id/title6_height"
+                    android:textColor="@color/edit_text_title"
+                    android:layout_marginLeft="15dp"
+                    android:layout_height="wrap_content"/>
 
-                        <ImageView
-                                android:id="@+id/call"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                android:layout_marginRight="19dp"
-                                android:src="@drawable/ic_tel_phone"
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"/>
+                <EditText
+                    app:layout_constraintRight_toLeftOf="@id/rowe4_height"
+                    app:layout_constraintLeft_toRightOf="@id/title6_height"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="0dp"
+                    android:digits="@string/input_type_numbers"
+                    android:text="@={NullableConverter.intToString(viewModel.patient.height)}"
+                    android:gravity="right"
+                    android:hint="请选择病人身高"
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:orientation="horizontal"
+                    android:textSize="14sp"
+                    android:layout_marginRight="15dp"
+                    android:layout_height="wrap_content"/>
 
+                <TextView
+                    android:id="@+id/rowe4_height"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="wrap_content"
+                    android:text="cm"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="19dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line5"
+                    app:layout_constraintTop_toBottomOf="@id/line_height"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white">
+                <TextView
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:text="身份证号"
+                        android:textSize="15sp"
+                        android:id="@+id/title4"
+                        android:textColor="@color/edit_text_title"
+                        android:layout_marginLeft="15dp"
+                        android:layout_height="wrap_content"/>
+
+                <EditText
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/title4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="0dp"
+                        android:hint="请输入身份证号"
+                        android:background="@null"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:text="@={viewModel.patient.idcard}"
+                        android:maxLength="18"
+                        android:imeOptions="actionNext"
+                        android:digits="@string/input_type_chars_numbers"
+                        tools:text="34260119650511XXXX"
+                        android:textSize="14sp"
+                        android:layout_marginRight="49dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/line9"
+                    app:layout_constraintTop_toBottomOf="@id/line5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@color/white">
+                <TextView
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="wrap_content"
+                        android:text="联系电话"
+                        android:textSize="15sp"
+                        android:id="@+id/title8"
+                        android:textColor="@color/edit_text_title"
+                        android:layout_marginLeft="15dp"
+                        android:layout_height="wrap_content"/>
+
+                <EditText
+                        android:id="@+id/call_text"
+                        app:layout_constraintRight_toLeftOf="@+id/call"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintLeft_toRightOf="@id/title8"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        android:layout_width="0dp"
+                        android:hint="请输入联系电话"
+                        android:background="@null"
+                        android:textSize="14sp"
+                        android:inputType="phone"
+                        android:maxLines="1"
+                        android:maxLength="12"
+                        android:text="@={viewModel.patient.phone}"
+                        android:imeOptions="actionNext"
+                        android:layout_marginRight="15dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="right|center_vertical"/>
+
+                <ImageView
+                        android:id="@+id/call"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_marginRight="19dp"
+                        android:src="@drawable/ic_tel_phone"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/line11"
                 android:layout_marginTop="10dp"

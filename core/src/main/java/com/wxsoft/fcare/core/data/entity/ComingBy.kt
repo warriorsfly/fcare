@@ -155,7 +155,7 @@ data class ComingBy(val id:String=""): BaseObservable() {
            notifyPropertyChanged(BR.createrName)
        }
    @Bindable
-   var createdDate: String = ""
+   var createdDate: String? = null
        set(value) {
            field = value
            notifyPropertyChanged(BR.createdDate)

@@ -39,7 +39,9 @@ class DrugRecordsViewModel  @Inject constructor(private val pharmacyApi: Pharmac
 
     init {
         clikSomething = initClikSomething.map { it }
-        drugrecords = initDrugrecords.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
+        drugrecords = initDrugrecords.map { (it as? Resource.Success)?.data?.result?.apply {
+            forEach { item->item.doseString=item.dose.toString() }
+        } ?: emptyList() }
     }
 
     fun click(){

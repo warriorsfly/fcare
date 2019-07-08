@@ -6,7 +6,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -16,13 +15,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Pair
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.ImageView
-import android.widget.ListAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
@@ -39,7 +36,6 @@ import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -47,8 +43,6 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityPatientProfileBinding
-import com.wxsoft.fcare.databinding.ItemDialogImageBinding
-import com.wxsoft.fcare.databinding.ItemDialogSelectPatientBinding
 import com.wxsoft.fcare.di.GlideApp
 import com.wxsoft.fcare.ui.BaseTimeShareDeleteActivity
 import com.wxsoft.fcare.ui.PhotoEventAction
@@ -58,8 +52,6 @@ import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
-import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
-import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
 import com.wxsoft.fcare.utils.ActionCode.Companion.FAST
 import id.zelory.compressor.Compressor
 import kotlinx.android.synthetic.main.activity_patient_profile.*
@@ -221,7 +213,9 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
         viewModel.startFasting.observe(this, Observer {
             if(viewModel.patient.value?.diagnosisCode=="215-2") {
-                val intent = Intent(this@ProfileActivity, FastActivity::class.java)
+                val intent = Intent(this@ProfileActivity, FastActivity::class.java).apply {
+                    putExtra("id",viewModel.patient.value?.stroke120Id)
+                }
                 startActivityForResult(intent, FAST)
             }
         })
@@ -436,7 +430,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 //                    = Resource.Success(Response<Patient>(true).apply {
 //                        this.result= Patient("").apply {
 //                            idcard = item.idcard
-//                            name = item.name
+//                            drugName = item.drugName
 //                            gender = item.gender
 //                            age = item.age
 //                            phone = item.phone

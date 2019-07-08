@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityFastBinding
 import com.wxsoft.fcare.databinding.ActivityMessageBinding
@@ -30,10 +31,13 @@ class FastActivity : BaseActivity()  {
     @Inject
     lateinit var factory: ViewModelFactory
     lateinit var binding: ActivityFastBinding
-
+    private val fid: String by lazyFast {
+        intent?.getStringExtra("id")?:""
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
+        viewModel.id=fid
         binding = DataBindingUtil.setContentView<ActivityFastBinding>(this, R.layout.activity_fast)
             .apply {
                 viewModel=this@FastActivity.viewModel

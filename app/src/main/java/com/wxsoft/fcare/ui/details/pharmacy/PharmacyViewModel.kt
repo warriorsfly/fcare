@@ -57,7 +57,9 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
 
         backToLast = initbackToLast.map { it }
         pharmacy = initPharmacy.map { (it as? Resource.Success)?.data?.result ?: Pharmacy("") }
-        drugRecords = initDrugRecords.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
+        drugRecords = initDrugRecords.map { (it as? Resource.Success)?.data?.result?.apply {
+            forEach { item->item.doseString=item.dose.toString() }
+        } ?: emptyList() }
         drugs = loadDrugsResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         drugPackages = loaddrugPackagesResult.map { (it as? Resource.Success)?.data?.result ?: emptyList() }
         selectedDrugs = loadSelectedDrugsResult.map { it }
@@ -176,7 +178,7 @@ class PharmacyViewModel @Inject constructor(private val pharmacyApi: PharmacyApi
             ?.map {DrugRecord("").apply {
                 drugId = it.id
                 drugName = it.name
-                dose = it.dose
+                doseString=it.dose.toString()
             } }?: emptyList()
         asg.addAll(bf)
         pharmacy.value?.drugRecordDetails = asg

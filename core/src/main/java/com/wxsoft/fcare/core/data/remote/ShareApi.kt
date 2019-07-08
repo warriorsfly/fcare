@@ -13,7 +13,7 @@ import retrofit2.http.Path
 interface ShareApi{
 
 //    @GET("Patient/ShareItems/{patientId}")
-//    fun getShareItems(@Path("patientId")id:String): Maybe<List<VitalSign>>
+//    fun getShareItems(@Path("patientId")drugId:String): Maybe<List<VitalSign>>
 
     /**
      * 胸痛大诊断

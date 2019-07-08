@@ -36,7 +36,7 @@
             <!--android:layout_height="wrap_content"-->
             <!--android:gravity="center"-->
             <!--android:padding="6dp"-->
-            <!--android:id="@+id/time"-->
+            <!--android:drugId="@+drugId/time"-->
             <!--android:textColor="@color/rating_red"-->
             <!--android:textSize="22sp"/>-->
 

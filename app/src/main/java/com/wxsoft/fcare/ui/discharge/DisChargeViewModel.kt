@@ -109,7 +109,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
 //        }else {
 //            dictionary.checked = true
 //
-//            data.value?.diagnosisCode= dictionary.id
+//            data.value?.diagnosisCode= dictionary.drugId
 //            data.value?.diagnosisName=dictionary.itemName
 //        }
 //    }

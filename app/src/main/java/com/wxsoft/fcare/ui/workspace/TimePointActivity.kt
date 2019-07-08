@@ -161,7 +161,7 @@ class TimePointActivity : BaseTimingActivity()  {
 //    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 //
 //        return  when(item?.itemId){
-//            R.id.new_item->{
+//            R.drugId.new_item->{
 //                toAddpoint()
 //                true
 //            }

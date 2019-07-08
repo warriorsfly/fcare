@@ -5,6 +5,8 @@ import com.wxsoft.fcare.ui.ViewPoolModule
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
+import com.wxsoft.fcare.ui.details.blood.BloodActivity
+import com.wxsoft.fcare.ui.details.blood.BloodModule
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -365,6 +367,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [FastModule::class])
     internal abstract fun fastActivity(): FastActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [BloodModule::class])
+    internal abstract fun bloodActivity(): BloodActivity
 
 
 }

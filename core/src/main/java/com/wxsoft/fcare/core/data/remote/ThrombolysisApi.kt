@@ -11,14 +11,14 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface ThrombolysisApi {
-    @GET("Throm/GetThromById/{id}")
-    fun loadThrombolysis(@Path("id")patientId:String): Maybe<Response<Thrombolysis>>
+    @GET("Throm/GetThromById/{drugId}")
+    fun loadThrombolysis(@Path("drugId")patientId:String): Maybe<Response<Thrombolysis>>
 
     @GET("Throm/GetByPatientId/{patientId}")
     fun loadThrom(@Path("patientId")patientId:String): Maybe<Response<List<Thrombolysis>>>
 
-    @GET("InformedConsent/GetInformedConsentById/{id}")
-    fun getInformedConsentById(@Path("id")id:String): Maybe<Response<InformedConsent>>
+    @GET("InformedConsent/GetInformedConsentById/{drugId}")
+    fun getInformedConsentById(@Path("drugId")id:String): Maybe<Response<InformedConsent>>
 
     @POST("Throm/Save")
     fun save(@Body thrombolysis: Thrombolysis):Maybe<Response<String>>

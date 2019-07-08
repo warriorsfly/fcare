@@ -80,7 +80,7 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
 //        liveData.value?.apply {
 //            val firstOne=
 //
-//                (firstOrNull { it is TimePoint && it.id == currentPoint?.id } as TimePoint).apply {
+//                (firstOrNull { it is TimePoint && it.drugId == currentPoint?.drugId } as TimePoint).apply {
 //                excutedAt = currentPoint?.excutedAt
 //                currentPoint = null
 //            }

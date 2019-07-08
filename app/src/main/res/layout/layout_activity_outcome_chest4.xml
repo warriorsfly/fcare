@@ -104,9 +104,9 @@
 
         <!--<RadioGroup-->
                 <!--android:layout_marginTop="10dp"-->
-                <!--android:id="@+id/to_somewhere"-->
-                <!--app:layout_constraintLeft_toRightOf="@id/to_somewhere_title"-->
-                <!--app:layout_constraintTop_toBottomOf="@id/model1"-->
+                <!--android:drugId="@+drugId/to_somewhere"-->
+                <!--app:layout_constraintLeft_toRightOf="@drugId/to_somewhere_title"-->
+                <!--app:layout_constraintTop_toBottomOf="@drugId/model1"-->
                 <!--app:layout_constraintRight_toRightOf="parent"-->
                 <!--android:layout_width="0dp"-->
                 <!--android:orientation="horizontal"-->
@@ -114,7 +114,7 @@
             <!--<RadioButton-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/to_somewhered"-->
+                    <!--android:drugId="@+drugId/to_somewhered"-->
                     <!--android:checked="@={viewModel.data.deathCauseBy}"-->
                     <!--android:text="心源性"/>-->
 
@@ -122,7 +122,7 @@
             <!--<RadioButton-->
                     <!--android:layout_width="wrap_content"-->
                     <!--android:layout_height="wrap_content"-->
-                    <!--android:id="@+id/noneto_somewhered"-->
+                    <!--android:drugId="@+drugId/noneto_somewhered"-->
 
                     <!--android:checked="@={!viewModel.data.deathCauseBy}"-->
                     <!--android:text="非心源性"/>-->

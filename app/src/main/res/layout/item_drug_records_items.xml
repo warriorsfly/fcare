@@ -4,7 +4,7 @@
         xmlns:tool="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.wxsoft.fcare.utils.Converter"/>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.DrugRecord"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsViewModel"/>
     </data>
@@ -43,7 +43,7 @@
                     android:layout_marginLeft="20dp"
                     android:textSize="12sp"
                     android:textColor="#999999"
-                    android:text="@{`用量：` + Converter.intToString(item.dose) + item.doseUnit}"
+                    android:text="@{`用量：` + item.doseString + item.doseUnit}"
                     tool:text="用量：200mg"
                     app:layout_constraintLeft_toRightOf="@+id/drug_name"
                     app:layout_constraintBottom_toBottomOf="@+id/drug_name"/>

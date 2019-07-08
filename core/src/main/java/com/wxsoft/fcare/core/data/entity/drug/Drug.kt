@@ -30,7 +30,7 @@ data class Drug (val id:String): BaseObservable() , Serializable {
         }
 
     @Bindable
-    var dose: Int = 0
+    var dose: Float = 0f
         set(value) {
             field = value
             notifyPropertyChanged(BR.dose)
@@ -40,7 +40,7 @@ data class Drug (val id:String): BaseObservable() , Serializable {
     var doseNum: String = ""
         set(value) {
             field = value
-            dose = if(value != "") value.toInt() else 0
+            dose = if(value != "") value.toFloat() else 0f
             notifyPropertyChanged(BR.doseNum)
         }
 

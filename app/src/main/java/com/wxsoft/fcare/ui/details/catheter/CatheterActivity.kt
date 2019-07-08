@@ -135,7 +135,7 @@ class CatheterActivity : BaseTimingActivity(){
                 "-2"->showDatePicker(findViewById(R.id.doc_1))
                 "-1"->selectDoc()
                 "0"->selectPlace()
-//                "1"->showDatePicker(findViewById(R.id.start))
+//                "1"->showDatePicker(findViewById(R.drugId.start))
                 "1"->showDatePicker(findViewById(R.id.start))
                 "2"->showDatePicker(findViewById(R.id.end_thromboly_time))
 

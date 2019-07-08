@@ -4,49 +4,48 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.previoushistory.History1
-import com.wxsoft.fcare.core.data.entity.previoushistory.History2
-import com.wxsoft.fcare.core.utils.DateTimeUtils
 
-data class MedicalHistory(val createrId:String,val id:String=""): BaseObservable() {
+data class MedicalHistory(var createrId:String?,var id:String?=""): BaseObservable() {
 
     @Bindable
-    var patientId:String=""
+    var patientId:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.patientId)
         }
 
     @Bindable
-    var provide:String=""
+    var provide:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.provide)
         }
     @Bindable
     @SerializedName("provide_Name")
-    var provideName:String=""
+    var provideName:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.provideName)
         }
 
     @Bindable
-    var cc:String=""
+    var cc:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.cc)
         }
 
     @Bindable
-    var hpi:String=""
+    var hpi:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.hpi)
         }
 
     @Bindable
-    var ph:String=""
+    var ph:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.ph)
@@ -54,7 +53,7 @@ data class MedicalHistory(val createrId:String,val id:String=""): BaseObservable
 
     @Bindable
     @SerializedName("pH_Name")
-    var phName:String=""
+    var phName:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.phName)
@@ -62,27 +61,27 @@ data class MedicalHistory(val createrId:String,val id:String=""): BaseObservable
 
     //过敏史
     @Bindable
-    var ah:String=""
+    var ah:String?=""
         set(value) {
             field=value
             notifyPropertyChanged(BR.ah)
         }
 
     @Bindable
-    var attachments:List<Attachment>  = emptyList()
+    var attachments:List<Attachment>?  = emptyList()
         set(value) {
             field=value
             notifyPropertyChanged(BR.attachments)
         }
     @Bindable
-    var createdDate:String= DateTimeUtils.getCurrentTime()
+    var createdDate:String?= null
         set(value) {
             field=value
             notifyPropertyChanged(BR.createdDate)
         }
 
 
-    var drugHistorys:List<History2> = emptyList()
+    var drugRecords:List<DrugRecord> = emptyList()
     var pastHistorys:List<History1> = emptyList()
 
     @Bindable

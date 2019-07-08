@@ -4,11 +4,11 @@
     <color name="colorPrimary">#63B0F8</color>
     <color name="colorPrimaryDark">#63B0F8</color>
     <color name="colorAccent">#63B0F8</color>
-    <!--<color name="colorPrimary">#FFFFFF</color>-->
-    <!--<color name="colorPrimaryDark">#FFE0E0</color>-->
-    <!--<color name="colorAccent">#FFA8A2</color>-->
+    <!--<color drugName="colorPrimary">#FFFFFF</color>-->
+    <!--<color drugName="colorPrimaryDark">#FFE0E0</color>-->
+    <!--<color drugName="colorAccent">#FFA8A2</color>-->
     <color name="colorLoginButtonBackground">#ffeb523c</color>
-    <!--<color name="colorAccent">#ffeb523c</color>-->
+    <!--<color drugName="colorAccent">#ffeb523c</color>-->
     <color name="light_gray">#F3F2F7</color>
     <color name="scrim">#33000000</color>
     <color name="highlight_light">#33ffffff</color> <!-- 20% white -->

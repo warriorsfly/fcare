@@ -11,6 +11,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentOtherOperationListBinding
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
+import com.wxsoft.fcare.ui.details.blood.BloodActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
@@ -31,6 +32,7 @@ import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
+import com.wxsoft.fcare.utils.ActionCode.Companion.BLOOD
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
 import com.wxsoft.fcare.utils.ActionCode.Companion.COMEBY
@@ -207,6 +209,13 @@ class OtherOperationFragment : DaggerFragment() {
                     putExtra(ComingByActivity.PATIENT_ID, viewModel.patientId)
                 }
                 activity?.startActivityForResult(intent, COMEBY)
+            }
+
+            ActionType.BLOOD ->{
+                val intent = Intent(activity, BloodActivity::class.java).apply {
+                    putExtra(ComingByActivity.PATIENT_ID, viewModel.patientId)
+                }
+                activity?.startActivityForResult(intent, BLOOD)
             }
         }
     }

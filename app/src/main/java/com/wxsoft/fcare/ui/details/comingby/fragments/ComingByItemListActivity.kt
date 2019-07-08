@@ -75,7 +75,7 @@ class ComingByItemListActivity : BaseActivity() {
     private fun select(dictionary: Dictionary) {
         iten.putExtra("type",type)
         iten.putExtra("id",dictionary.id)
-        iten.putExtra("name",dictionary.itemName)
+        iten.putExtra("drugName",dictionary.itemName)
         setResult(Activity.RESULT_OK,iten)
         finish()
     }

@@ -182,8 +182,8 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
     }
 
     //从机器获取数据
-//    fun loadJGDB(id:String){
-//        disposable.add(hardwareApi.getJGDB(id)
+//    fun loadJGDB(drugId:String){
+//        disposable.add(hardwareApi.getJGDB(drugId)
 //            .subscribeOn(Schedulers.io())
 //            .observeOn(AndroidSchedulers.mainThread())
 //            .subscribe(::getJGDB,::error))

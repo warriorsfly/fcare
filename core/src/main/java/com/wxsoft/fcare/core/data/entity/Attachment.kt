@@ -10,4 +10,4 @@ data class Attachment(var id:String=""){
 //    fileSize	integer($int64)
 //    physicalRelativePath	string
 //    thumbnailId	string
-//    id	string
+//    drugId	string

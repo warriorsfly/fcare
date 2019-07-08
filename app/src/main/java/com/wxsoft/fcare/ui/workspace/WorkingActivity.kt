@@ -21,6 +21,7 @@ import com.wxsoft.fcare.databinding.ActivityWorkingBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
+import com.wxsoft.fcare.ui.details.blood.BloodActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
@@ -305,7 +306,7 @@ class WorkingActivity : BaseActivity() {
             }
             ActionType.诊断 ->{
                 val cz=viewModel.patient.value?.diagnosisCode=="215-1"
-                val intent = Intent(this@WorkingActivity, if(cz)DiagnoseNewActivity::class.java else DiagnoseRecordActivity::class.java).apply {
+                val intent = Intent(this@WorkingActivity, DiagnoseNewActivity::class.java).apply {
                     putExtra(DiagnoseNewActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DIAGNOSE)
@@ -392,54 +393,16 @@ class WorkingActivity : BaseActivity() {
                 }
                 startActivityForResult(intent, ActionCode.COMEBY)
             }
+
+
+            ActionType.BLOOD ->{
+                val intent = Intent(this, BloodActivity::class.java).apply {
+                    putExtra(ComingByActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, ActionCode.BLOOD)
+            }
         }
     }
-
-
-//    class CallBack( context: WorkingActivity):BottomSheetBehavior.BottomSheetCallback() {
-//        private val activity = WeakReference(context)
-//        private var translated:Boolean=false
-//        private var lastState: Int = BottomSheetBehavior.STATE_COLLAPSED
-//        override fun onSlide(bottomSheet: View, slideOffset: Float) {
-//            if(!translated){
-//
-//                when(lastState){
-//                    BottomSheetBehavior.STATE_COLLAPSED -> {
-//                        translated=true
-////                        activity.get()?.transition?.startTransition(500)
-//                    }
-//                    BottomSheetBehavior.STATE_EXPANDED -> {
-//                        translated=true
-////                        activity.get()?.transition?.reverseTransition(500)
-//                    }
-//                }
-//            }
-//        }
-//
-//        override fun onStateChanged(bottomSheet: View, newState: Int) {
-//
-//            when (newState) {
-//                BottomSheetBehavior.STATE_COLLAPSED -> {
-//                    if(lastState==newState){
-////                        activity.get()?.transition?.reverseTransition(250)
-//                    }else {
-//                        lastState = newState
-//                    }
-//                    translated=false
-//                    activity.get()?.viewModel?.emrFullScreen?.set(false)
-//                }
-//                BottomSheetBehavior.STATE_EXPANDED -> {
-//                    if(lastState==newState){
-////                        activity.get()?.transition?.startTransition(250)
-//                    }else {
-//                        lastState = newState
-//                    }
-//                    translated=false
-//                    activity.get()?.viewModel?.emrFullScreen?.set(true)
-//                }
-//            }
-//        }
-//    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {
@@ -451,17 +414,4 @@ class WorkingActivity : BaseActivity() {
         }
     }
 
-    fun showDialog(message:String,type:String){
-        AlertDialog.Builder(this@WorkingActivity,R.style.Theme_FCare_Dialog)
-            .setMessage(message)
-            .setPositiveButton("确定") { _, _ ->
-                when(type){
-                    "导管室" -> viewModel.commitNoticeInv()
-                    "CT室" -> viewModel.commitNoticePacs()
-                }
-            }
-            .setNegativeButton("取消") { _, _ ->
-
-            }.show()
-    }
 }

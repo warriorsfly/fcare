@@ -27,8 +27,8 @@ interface PatientApi{
     @GET("Patient/GetPatientFromHisByBlh/{blh}/{type}")
         fun getPatientInfo(@Path("blh") blh:String, @Path("type")type:Int):Maybe<Response<Patient>>
 
-    @GET("Patient/GetById/{id}")
-    fun getOne(@Path("id")id:String):Single<Response<Patient>>
+    @GET("Patient/GetById/{drugId}")
+    fun getOne(@Path("drugId")id:String):Single<Response<Patient>>
 
     @GET("Patient/GetByWristband/{rFid}")
     fun getPatientByRFID(@Path("rFid")rFid:String):Maybe<Response<Patient>>
@@ -60,5 +60,8 @@ interface PatientApi{
 //    @POST("Patient/GetPatientsFromCis")
     @POST("Patient/SaveStrock120")
     fun saveStrock120(@Body strock:Strock120):Maybe<Response<String>>
+
+    @GET("Patient/GetStroke120ById/{drugId}")
+    fun getStrock120(@Path("drugId")id:String):Maybe<Response<Strock120>>
 
 }

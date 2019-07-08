@@ -175,8 +175,8 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         }
 
 
-//        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.id }
-//        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.id }
+//        thoracalgiaItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode2 = it.drugId }
+//        sonItems.value?.filter { it.checked }?.map { diagnosis.value?.diagnosisCode3 = it.drugId }
 
 
     }

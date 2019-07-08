@@ -12,7 +12,7 @@ class BodyCheck(
     @SerializedName("rightResponseLight")var rightEyeLight:String,
     @SerializedName("checkMemo")var memo:String,
     var createdBy: String,
-    var createdDate: String,
+    var createdDate: String?,
     var modifiedBy: String,
     var modifiedDate: String
 )

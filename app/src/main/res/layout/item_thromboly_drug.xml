@@ -4,7 +4,7 @@
         xmlns:tool="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.wxsoft.fcare.utils.Converter"/>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.DrugRecord"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisViewModel"/>
     </data>
@@ -61,7 +61,7 @@
                     android:textSize="14sp"
                     android:layout_marginLeft="10dp"
                     android:textColor="#9399A4"
-                    android:text="@={Converter.intToString(item.dose)}"
+                    android:text="@={item.doseString}"
                     android:gravity="center"
                     android:maxLines="1"
                     android:maxLength="4"

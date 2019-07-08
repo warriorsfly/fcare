@@ -12,7 +12,7 @@
             android:title="@string/title_dashboard"/>
 
 <!--    <item-->
-<!--            android:id="@+id/add"-->
+<!--            android:drugId="@+drugId/add"-->
 <!--            android:icon="@drawable/ic_big_add"-->
 <!--            android:actionLayout="@layout/layout_new_title"-->
 <!--            android:title=""-->

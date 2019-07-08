@@ -136,6 +136,13 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
             notifyPropertyChanged(BR.phone)
         }
 
+    @get:Bindable
+    var height:Int?=null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.height)
+        }
+
     @SerializedName("attack_Address")
     @get:Bindable
     var attackPosition:String=""

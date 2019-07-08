@@ -7,7 +7,7 @@ import java.io.Serializable
 
 /**
  * modified by warriorsfly 2019-02-20
- * 依据api变动，移除itemcode属性，原itemcode->id
+ * 依据api变动，移除itemcode属性，原itemcode->drugId
  */
 data class Dictionary(val id:String, val itemName:String): BaseObservable(), Serializable {
 

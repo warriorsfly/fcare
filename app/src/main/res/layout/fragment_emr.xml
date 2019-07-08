@@ -2,7 +2,7 @@
 <layout>
 
     <!--<data>-->
-        <!--<variable name="viewModel" type="com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel"/>-->
+        <!--<variable drugName="viewModel" type="com.wxsoft.fcare.ui.details.dominating.fragment.emr.EmrViewModel"/>-->
     <!--</data>-->
 
     <FrameLayout

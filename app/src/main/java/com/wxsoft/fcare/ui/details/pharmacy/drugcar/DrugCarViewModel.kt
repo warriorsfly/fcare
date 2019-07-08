@@ -112,7 +112,7 @@ class DrugCarViewModel @Inject constructor(private val pharmacyApi: PharmacyApi,
             patientId = this@DrugCarViewModel.patientId
             drugId = it.id
             drugName = it.name
-            dose = it.dose
+            doseString = it.dose.toString()
             doseUnit = it.doseUnit
             createdDate = DateTimeUtils.getCurrentTime()
             createrName = account.trueName

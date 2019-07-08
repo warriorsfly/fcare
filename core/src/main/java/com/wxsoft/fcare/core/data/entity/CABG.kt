@@ -40,7 +40,7 @@ data class CABG (val id:String): BaseObservable() {
         }
 
     @Bindable
-    var createdDate: String = DateTimeUtils.getCurrentTime()
+    var createdDate: String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.createdDate)

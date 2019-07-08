@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO"/> <!-- 录音权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/> <!-- 安装程序权限 -->
     <uses-feature  android:name="android.hardware.nfc" android:required="true"/>
-    <!-- android:name="android.hardware.nfc.hce" -->
+    <!-- android:drugName="android.hardware.nfc.hce" -->
     <!-- android:required="true"/> &lt;!&ndash; end 扫描射频 &ndash;&gt; -->
     <!-- 百度地图 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
@@ -177,6 +177,9 @@
         <activity
                 android:name=".ui.details.assistant.AssistantExaminationActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.details.blood.BloodActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.message.MessageActivity"
                 android:label="@string/title_activity_message"
@@ -364,8 +367,8 @@
                 android:exported="false">
 
             <!-- <intent-filter android:priority="1000"> -->
-            <!-- <action android:name="cn.jPush.android.intent.NOTIFICATION_RECEIVED_PROXY"/> &lt;!&ndash; Required  显示通知栏 &ndash;&gt; -->
-            <!-- <category android:name="${applicationId}"/> -->
+            <!-- <action android:drugName="cn.jPush.android.intent.NOTIFICATION_RECEIVED_PROXY"/> &lt;!&ndash; Required  显示通知栏 &ndash;&gt; -->
+            <!-- <category android:drugName="${applicationId}"/> -->
             <!-- </intent-filter> -->
             <intent-filter>
                 <action android:name="android.intent.action.USER_PRESENT"/>
@@ -409,7 +412,7 @@
         <meta-data
                 android:name="JPUSH_APPKEY"
                 android:value="ed68c08860ca1c894e6c038d"/> <!-- <activity -->
-        <!-- android:name=".ui.calling.CallingActivity" -->
+        <!-- android:drugName=".ui.calling.CallingActivity" -->
         <!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
         <!-- android:label="@string/title_activity_calling" -->
         <!-- android:theme="@style/AppTheme.NoActionBar"> -->

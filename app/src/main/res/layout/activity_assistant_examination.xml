@@ -17,12 +17,12 @@
                  app:viewModel="@{viewModel}"
         />
         <!--<com.wxsoft.fcare.ui.details.dominating.fragment.NoScrollViewPager-->
-                <!--android:id="@+id/viewPager"-->
+                <!--android:drugId="@+drugId/viewPager"-->
                 <!--android:layout_width="match_parent"-->
                 <!--android:layout_height="0dp"-->
                 <!--app:layout_constraintBottom_toBottomOf="parent"-->
                 <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                <!--app:layout_constraintTop_toBottomOf="@+id/title"-->
+                <!--app:layout_constraintTop_toBottomOf="@+drugId/title"-->
                 <!--android:background="@color/white">-->
         <!--</com.wxsoft.fcare.ui.details.dominating.fragment.NoScrollViewPager>-->
         <androidx.viewpager.widget.ViewPager

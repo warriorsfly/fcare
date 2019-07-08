@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.Complain
-import com.wxsoft.fcare.core.data.entity.Pacs
-import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.Strategy
+import com.wxsoft.fcare.core.data.entity.*
 import io.reactivex.Maybe
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -38,5 +35,11 @@ interface PACSApi {
 
     @POST("TreatStrategy/Save")
     fun saveStrategy(@Body ccs : Strategy): Maybe<Response<String>>
+
+    @GET("PACS/GetBloodRecordByPatientId/{patientId}")
+    fun getBlood(@Path("patientId")patientId:String): Maybe<Response<Blood>>
+
+    @POST("PACS/SaveBlood")
+    fun saveBlood(@Body pacs : Blood): Maybe<Response<String>>
 
 }

@@ -13,6 +13,8 @@
             tools:context=".ui.details.notification.NotificationActivity">
 
         <com.google.android.material.appbar.AppBarLayout
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
                 android:id="@+id/appbar"
                 style="@style/Widget.AppBar"
                 android:layout_width="match_parent"

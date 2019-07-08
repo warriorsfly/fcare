@@ -28,7 +28,7 @@ class ComingByTypeViewModel @Inject constructor(private val dictApi:DictEnumApi,
         }
 
     /**
-     * id:3
+     * drugId:3
      */
     private val loadTypes=MediatorLiveData<List<Dictionary>>()
 

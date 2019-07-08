@@ -4,7 +4,7 @@
         xmlns:tool="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.wxsoft.fcare.utils.Converter"/>
+        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
         <variable name="item" type="com.wxsoft.fcare.core.data.entity.drug.Drug"/>
         <variable name="listener" type="com.wxsoft.fcare.ui.details.pharmacy.PharmacyViewModel"/>
     </data>
@@ -44,7 +44,7 @@
                     android:minWidth="50dp"
                     android:textSize="14sp"
                     android:textColor="#FFFFFF"
-                    android:text="@{Converter.intToString(item.dose)}"
+                    android:text="@{FloatConverter.floatToString(item.dose)}"
                     tool:text="300"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>

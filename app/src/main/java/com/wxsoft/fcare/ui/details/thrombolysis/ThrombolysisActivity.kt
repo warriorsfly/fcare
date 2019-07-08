@@ -151,7 +151,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
 //        val view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_thrombolysis_places, null)
 //        placeDialog.setContentView(view)
 //        viewModel.thromPlaces.observe(this, Observer { adapter.items = it ?: emptyList() })
-//        view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.place_list).adapter = adapter
+//        view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.drugId.place_list).adapter = adapter
 //        val attributes = placeDialog.window?.attributes
 //        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
 //        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT
@@ -223,7 +223,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
                     val drugs = data?.getSerializableExtra("selectedDrugs") as ArrayList<Drug>
                     val dlist = drugs.map { DrugRecord(it.id).apply {
                         drugName = it.name
-                        dose = it.dose
+                        doseString = it.dose.toString()
                         doseUnit = it.doseUnit
                         drugId = it.id
                     } }as ArrayList<DrugRecord>

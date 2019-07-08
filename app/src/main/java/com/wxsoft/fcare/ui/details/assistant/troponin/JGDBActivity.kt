@@ -61,7 +61,7 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
     }
 
     override fun delete(id: String) {
-//        viewModel.delete(id)
+//        viewModel.delete(drugId)
     }
 
     override fun localSelected() {

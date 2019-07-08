@@ -16,7 +16,7 @@ data class Pharmacy (val id:String): BaseObservable(), Serializable {
         }
 
     @Bindable
-    var createdDate: String = "2019-01-28 14:27:00"
+    var createdDate: String?=null
         set(value) {
             field = value
             notifyPropertyChanged(BR.createdDate)

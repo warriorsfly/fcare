@@ -26,17 +26,17 @@ interface EmrApi{
     /**
      * 获取个人信息
      */
-    @GET("Patient/GetById/{id}")
-    fun getBaseInfo(@Path("id")id:String):Single<Response<Patient>>
+    @GET("Patient/GetById/{drugId}")
+    fun getBaseInfo(@Path("drugId")id:String):Single<Response<Patient>>
 
     /**
      * 获取生命体征列表
      */
-    @GET("VitalSigns/GetByPatientId/{id}")
-    fun getVitals(@Path("id")id:String): Maybe<Response<List<VitalSign>>>
+    @GET("VitalSigns/GetByPatientId/{drugId}")
+    fun getVitals(@Path("drugId")id:String): Maybe<Response<List<VitalSign>>>
 
-    @GET("VitalSigns/GetById/{id}")
-    fun getVital(@Path("id")id:String): Maybe<Response<VitalSign>>
+    @GET("VitalSigns/GetById/{drugId}")
+    fun getVital(@Path("drugId")id:String): Maybe<Response<VitalSign>>
 
     /**
      * 体格检查

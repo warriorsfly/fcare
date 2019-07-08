@@ -30,8 +30,8 @@ import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.drug.Drug
+import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.data.entity.previoushistory.History1
-import com.wxsoft.fcare.core.data.entity.previoushistory.History2
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityMedicalHistoryBinding
@@ -125,7 +125,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
         })
         viewModel.medicalHistory.observe(this, Observer {
             if (it != null) {
-                this@MedicalHistoryActivity.adapter.remotes = it.attachments.map { it.httpUrl }
+                this@MedicalHistoryActivity.adapter.remotes = it.attachments?.map { it.httpUrl }?: emptyList()
             }
         })
 
@@ -224,7 +224,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                         anamnesises.map { anamStr = it.itemName }
                     }
                     viewModel.medicalHistory.value?.pastHistorysString = anamStr
-                    viewModel.medicalHistory.value?.pastHistorys = anamnesises?.map { History1(it.id,it.itemName,viewModel.medicalHistory.value!!.id) }
+                    viewModel.medicalHistory.value?.pastHistorys = anamnesises?.map { History1(it.id,it.itemName,viewModel.medicalHistory.value?.id?:"") }
                 }
                 AddDrugs ->{
                     var arr =  viewModel.drugHistory.value?.map { it }?: emptyList()
@@ -233,12 +233,14 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                     val dlist = drugs.filter {
                         !drugIds.contains(it.id)
                     }?.map {
-                        History2("").apply {
-                        drugId = it.id
-                        drugName = it.name
-                        dose = it.dose
-                        doseUnit = it.doseUnit
-                    } }as ArrayList<History2>
+                        DrugRecord("").apply {
+                            drugId = it.id
+                            drugName = it.name
+                            doseUnit = it.doseUnit
+
+                            doseString=it.dose.toString()
+                        }
+                    }as ArrayList<DrugRecord>
                     dlist.addAll(arr)
                     viewModel.loadDrugHistoryResult.value = dlist
                 }

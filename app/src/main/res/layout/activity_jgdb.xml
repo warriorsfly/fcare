@@ -269,7 +269,7 @@
 					          tools:text="" />
 
 					<!--<androidx.appcompat.widget.AppCompatSpinner-->
-					<!--android:id="@+id/cTnT_unit"-->
+					<!--android:drugId="@+drugId/cTnT_unit"-->
 					<!--android:background="@color/white"-->
 					<!--android:layout_width="wrap_content"-->
 					<!--android:layout_height="wrap_content"-->
@@ -278,7 +278,7 @@
 					<!--android:selectedItemPosition="@={viewModel.lisCr.selectCtntUnit}"-->
 					<!--android:entries="@{viewModel.troponinUnitsItems}"-->
 					<!--app:layout_constraintBottom_toBottomOf="parent"-->
-					<!--app:layout_constraintRight_toLeftOf="@+id/cTnT_character"-->
+					<!--app:layout_constraintRight_toLeftOf="@+drugId/cTnT_character"-->
 					<!--app:layout_constraintTop_toTopOf="parent"-->
 					<!--android:gravity="right"/>-->
 

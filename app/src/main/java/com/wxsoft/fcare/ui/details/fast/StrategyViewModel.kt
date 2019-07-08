@@ -31,30 +31,49 @@ class FastViewModel  @Inject constructor(private val api: PatientApi,
         set(value) {
             if (value == "") return
             field = value
+//            getStrock()
+        }
+
+    var id: String=""
+
+        set(value) {
+            field = value
+            getStrock()
         }
 
     val strock: LiveData<Strock120>
-    private val strocking = MediatorLiveData<Strock120>().apply {
-        value= Strock120(id="",createrId = account.id,createrName = account.trueName)
-    }
+    private val strocking = MediatorLiveData<Response<Strock120>>()
+
+//        .apply {
+//        value= Strock120(drugId="",createrId = account.drugId,createrName = account.trueName)
+//    }
 
     val result: LiveData<Boolean>
      val savingResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
-        strock = strocking.map {it  }
+        strock = strocking.map {it.result?:Strock120(id="",createrId = account.id,createrName = account.trueName)  }
         result=savingResult.map { (it as? Resource.Success)?.data?.success?:false }
     }
 
     fun saveStrock(){
         strock.value?.let {
-            api.saveStrock120(it).toResource()
+            disposable.add(api.saveStrock120(it).toResource()
                 .subscribe {
                     savingResult.value = it
 
-                }
+                })
         }
 
+    }
+
+
+    fun getStrock(){
+        disposable.add(api.getStrock120(id).toResource()
+            .subscribe {
+                strocking.value = (it  as? Resource.Success)?.data?:Response(false)
+
+            })
     }
 
 }

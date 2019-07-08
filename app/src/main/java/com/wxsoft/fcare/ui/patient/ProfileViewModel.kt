@@ -179,6 +179,15 @@ class ProfileViewModel @Inject constructor(
                             messageAction.value= Event("发病时间需要选择")
                             return@let false
                         }
+                        it.diagnosisCode=="215-2" && it.phone.isNullOrEmpty()->{
+                            messageAction.value= Event("联系方式不能为空")
+                            return@let false
+                        }
+
+                        it.diagnosisCode=="215-2" && it.height==null->{
+                            messageAction.value= Event("身高不能为空")
+                            return@let false
+                        }
                         else->
                             return@let true
                     }

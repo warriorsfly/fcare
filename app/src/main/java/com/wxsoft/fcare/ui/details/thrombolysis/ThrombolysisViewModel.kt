@@ -68,7 +68,12 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     init {
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
-        thrombolysis = loadThrombolysis.map { it?: Thrombolysis("",account.id) }
+        thrombolysis = loadThrombolysis.map { it?.apply {
+            drugRecords?.forEach{
+                item->item.doseString=item.dose.toString()
+                item.selected = !item.id.isNullOrEmpty()
+            }
+        }?: Thrombolysis("",account.id) }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
 //        loadPlaces()
@@ -185,23 +190,19 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
     fun subdelow(item: DrugRecord){
-        if (item.dose ==0){
-            item.dose = 0
+        if (item.dose <=1f){
+            return
         }  else {
-            if (item.dose != 0) item.dose = (item.dose - 1) else item.dose = 0
+            item.doseString = (item.dose - 1).toString()
         }
     }
 
-    fun add(item: DrugRecord){
-        if (item.dose == 0){
-            item.dose = 1
-        }  else {
-            if (item.dose != 0) item.dose = (item.dose + 1) else item.dose = 1
-        }
+    fun add(item: DrugRecord) {
+        item.doseString = (item.dose + 1).toString()
     }
+
 
     fun deleteDrug(item: DrugRecord){
-//        val drus=drugs.filter { it.id!= item.id }
         drugs.remove(item)
         loadClickLine.value = "refreshDrugs"
     }
