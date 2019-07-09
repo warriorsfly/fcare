@@ -29,6 +29,8 @@ data class Dictionary(val id:String, val itemName:String): BaseObservable(), Ser
             notifyPropertyChanged(BR.enumDictId)
         }
 
+    var type:String=""
+
     @Bindable
     var memo:String=""
         set(value) {

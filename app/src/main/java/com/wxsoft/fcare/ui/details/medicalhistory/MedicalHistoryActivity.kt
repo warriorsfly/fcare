@@ -76,6 +76,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val SELECT_PROVIDER = 100
+        const val SELECT_COMPLAINTS = 400
         const val SELECT_ANAMNESIS = 200
         const val AddDrugs = 300
     }
@@ -133,6 +134,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
             when(it){
                 "1" -> toSelectProvider()
                 "2" -> toSelectAnamnesis()
+                "3" -> toComplaints()
             }
         })
 
@@ -214,6 +216,10 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                     val provider = data?.getSerializableExtra("SelectOne") as Dictionary
                     viewModel.medicalHistory.value?.provideName = provider.itemName
                     viewModel.medicalHistory.value?.provide = provider.id
+                }
+                SELECT_COMPLAINTS ->{
+                    val cc = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.medicalHistory.value?.cc = cc.itemName
                 }
                 SELECT_ANAMNESIS ->{
                     val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
@@ -398,6 +404,16 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
             putStringArrayListExtra(SelecterOfOneModelActivity.IDS, ids as java.util.ArrayList<String>)
         }
         startActivityForResult(intent,SELECT_ANAMNESIS)
+    }
+
+    fun toComplaints(){
+        val ids = viewModel.medicalHistory?.value?.pastHistorys?.map { it.phCode }
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "COMPLAINTS")
+            putStringArrayListExtra(SelecterOfOneModelActivity.IDS, ids as java.util.ArrayList<String>)
+        }
+        startActivityForResult(intent,SELECT_COMPLAINTS)
     }
 
     fun toSelectDrug(){

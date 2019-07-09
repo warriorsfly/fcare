@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
+import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.Strategy
 import com.wxsoft.fcare.core.data.entity.User
@@ -11,6 +12,7 @@ import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.InterventionApi
 import com.wxsoft.fcare.core.data.remote.PACSApi
+import com.wxsoft.fcare.core.data.remote.PatientApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
@@ -20,6 +22,7 @@ import io.reactivex.rxkotlin.zipWith
 import javax.inject.Inject
 
 class CatheterViewModel @Inject constructor(private val interventionApi: InterventionApi,
+                                            private val patientApi: PatientApi,
                                             private val api: PACSApi,
                                             override val sharedPreferenceStorage: SharedPreferenceStorage,
                                             override val gon: Gson
@@ -33,9 +36,14 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
         set(value) {
             if (value == "") return
             field = value
+            loadPatient()
             loadIntervention()
             getStrategy()
+
         }
+
+    val patient:LiveData<Patient>
+    private val loadPatientResult = MediatorLiveData<Response<Patient>>()
 
     val strategy: LiveData<Strategy>
     private val loadStrategy = MediatorLiveData<Resource<Response<Strategy>>>()
@@ -56,6 +64,20 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
         strategy = loadStrategy.map { (it as? Resource.Success)?.data?.result?: Strategy(patientId,1) }
         modifySome = initModifySome.map { it }
         intervention = loadInterventionResult.map { it?.result ?: Intervention("",createrId = account.id)  }
+        patient = loadPatientResult.map { it?.result ?: Patient()  }
+    }
+
+    private fun loadPatient(){
+        disposable.add(patientApi.getOne(patientId)
+            .toResource()
+            .subscribe ({
+                when(it){
+                    is Resource.Success->{
+                        loadPatientResult.value= it.data
+                    }
+                }
+            },::error))
+
     }
 
     fun getStrategy(){

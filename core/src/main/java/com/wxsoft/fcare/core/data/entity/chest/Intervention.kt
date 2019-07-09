@@ -52,6 +52,9 @@ data class Intervention(
                         var startPunctureTime	:String?=null,
                         @SerializedName("success_Puncture_Time")
                         var successPunctureTime	:String?=null,
+
+                        @SerializedName("first_Revascularization")
+                        var revascularizationTime	:String?=null,
                         @SerializedName("leave_Conduit_Time")
                         var leave	:String?=null,
                         /**
