@@ -181,6 +181,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
     fun toSelectTreatment(){
         val intent = Intent(this, TreatmentOptionsActivity::class.java).apply {
             putExtra(TreatmentOptionsActivity.TREATMENT_ID, viewModel.selectedTreatment.value?.strategyCode)
+            putExtra(TreatmentOptionsActivity.CODE, viewModel.patient?.value?.diagnosisCode?:"")
         }
         startActivityForResult(intent, SELECT_TREATMENT)
     }
@@ -283,22 +284,6 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                             patientId = this@DiagnoseNewActivity.patientId
                         }
                     }
-
-//                    = Strategy(patientId,1).apply {
-//                        strategyCode = "14-8"
-//                        strategyCode_Name = "无再灌注措施"
-//                        memo = "group3"
-//                        noReperfusionCode = dic.drugId
-//                        noReperfusionCodeName = dic.itemName
-//                        patientId = this@DiagnoseNewActivity.patientId
-//                    }
-//                    viewModel.diagnosisTreatment.value?.treatStrategy = Strategy("").apply {
-//                        strategyCode = "14-8"
-//                        strategyCode_Name = "无再灌注措施"
-//                        memo = "group3"
-//                        noReperfusionCode = dic.drugId
-//                        noReperfusionCodeName = dic.itemName
-//                    }
                 }
                 SELECT_ACSDRUG ->{
                     val acsDrug = data?.getSerializableExtra("SelectedACSDrug") as ACSDrug

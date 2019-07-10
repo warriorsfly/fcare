@@ -54,6 +54,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
                 notiadapter = SelecterOfNotifyTypeAdapter(this@SelecterOfOneModelActivity,this@SelecterOfOneModelActivity.viewModel)
                 when(comFrom){
                     "Vital" -> firstList.adapter = adapter
+                    "COMPLAINTS" -> firstList.adapter = adapter
                     "Notify" -> firstList.adapter = notiadapter
                     "MedicalHistoryProvider" -> firstList.adapter = adapter
                     "MedicalHistoryAnamnesis" -> firstList.adapter = adapter
@@ -80,6 +81,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "Adress" -> title="选择发病地址"
             "selectHandway" -> title="选择处置措施"
             "selectPatientOutcom" -> title="选择患者去向"
+            "COMPLAINTS" -> title="主诉"
         }
 
 

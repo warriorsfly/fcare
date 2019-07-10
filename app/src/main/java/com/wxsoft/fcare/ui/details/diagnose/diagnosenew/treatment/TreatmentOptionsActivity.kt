@@ -2,8 +2,6 @@ package com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
@@ -18,8 +16,10 @@ import javax.inject.Inject
 class TreatmentOptionsActivity : BaseActivity() {
 
     private lateinit var treatmentId:String
+    private lateinit var code:String
     companion object {
         const val TREATMENT_ID = "TREATMENT_ID"
+        const val CODE = "CODE"
     }
 
     private lateinit var viewModel: TreatmentOptionsViewModel
@@ -46,8 +46,10 @@ class TreatmentOptionsActivity : BaseActivity() {
                 lifecycleOwner = this@TreatmentOptionsActivity
             }
         treatmentId=intent.getStringExtra(TreatmentOptionsActivity.TREATMENT_ID)?:""
+        code=intent.getStringExtra(TreatmentOptionsActivity.CODE)?:""
 
         viewModel.treatId = treatmentId
+        viewModel.code.set(code)
 
         setSupportActionBar(toolbar)
         title="治疗方案"
@@ -55,9 +57,19 @@ class TreatmentOptionsActivity : BaseActivity() {
         viewModel.loadTreatments()
 
         viewModel.options.observe(this, Observer {
-            adapter1.submitList(it.filter { it.memo.equals("group1") })
-            adapter2.submitList(it.filter { it.memo.equals("group2") })
-            adapter3.submitList(it.filter { it.memo.equals("group3") })
+
+            when(code){
+                "215-1"->{
+                    adapter1.submitList(it.filter { it.memo.equals("group1") && it.type==code })
+                    adapter2.submitList(it.filter { it.memo.equals("group2")&& it.type==code })
+                    adapter3.submitList(it.filter { it.memo.equals("group3") && it.type==code})
+                }
+                "215-2"->{
+                    adapter1.submitList(it.filter { it.type==code })
+                }
+
+            }
+
         })
 
         viewModel.submitSuccess.observe(this, Observer { haveSelected() })

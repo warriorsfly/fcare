@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -25,6 +26,7 @@ class TreatmentOptionsViewModel @Inject constructor(private val dictEnumApi: Dic
             field = value
         }
 
+    val code= ObservableField<String>()
     val options: LiveData<List<Dictionary>>
     val loadOptions = MediatorLiveData<List<Dictionary>>()
 
@@ -37,10 +39,14 @@ class TreatmentOptionsViewModel @Inject constructor(private val dictEnumApi: Dic
     }
 
     fun loadTreatments(){
-        disposable.add(dictEnumApi.loadTreatments()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (::getData,::error))
+        code.get()?.let {
+            disposable.add(
+                dictEnumApi.loadTreatments()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (::getData,::error))
+        }
+
     }
 
     private fun getData(response: List<Dictionary>){

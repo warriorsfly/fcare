@@ -147,6 +147,7 @@ class CatheterActivity : BaseTimingActivity(){
                 "8"->showDatePicker(findViewById(R.id.wire))
                 "9"->showDatePicker(findViewById(R.id.end))
                 "10"->showDatePicker(findViewById(R.id.leave))
+                "11"->showDatePicker(findViewById(R.id.end_1))
             }
         })
 

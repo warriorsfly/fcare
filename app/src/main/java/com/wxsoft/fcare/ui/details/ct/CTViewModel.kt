@@ -35,9 +35,9 @@ class CTViewModel @Inject constructor(private val api: PACSApi,
 
     val intervention:LiveData<Pacs>
     val patient:LiveData<Patient>
-
-    private val loadInterventionResult = MediatorLiveData<Response<Pacs>>()
     private val loadPatientResult = MediatorLiveData<Response<Patient>>()
+    private val loadInterventionResult = MediatorLiveData<Response<Pacs>>()
+
     val commitResult = MediatorLiveData<Resource<Response<String>>>()
 
     init {
