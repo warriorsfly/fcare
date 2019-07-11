@@ -22,6 +22,7 @@ import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.blood.BloodActivity
+import com.wxsoft.fcare.ui.details.blood.pressure.BloodPressureActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
 import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
@@ -30,7 +31,6 @@ import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.cure.CureActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
-import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
@@ -53,6 +53,7 @@ import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.ui.workspace.notify.OneTouchCallingActivity
 import com.wxsoft.fcare.utils.ActionCode
 import com.wxsoft.fcare.utils.ActionCode.Companion.BASE_INFO
+import com.wxsoft.fcare.utils.ActionCode.Companion.BLOODPRESSURE
 import com.wxsoft.fcare.utils.ActionCode.Companion.CABG
 import com.wxsoft.fcare.utils.ActionCode.Companion.CHECK_BODY
 import com.wxsoft.fcare.utils.ActionCode.Companion.COMPLAINTS
@@ -95,12 +96,6 @@ class WorkingActivity : BaseActivity() {
                 return@OnNavigationItemSelectedListener true
             }
             R.id.rating -> {
-
-//                val intent = Intent(this, com.wxsoft.fcare.ui.emr.ProfileActivity::class.java)
-//                    .apply {
-//                        putExtra(ProfileActivity.PATIENT_ID, patientId)
-//                    }
-//                startActivityForResult(intent, RATING)
                 val intent = Intent(this, RatingActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
@@ -276,15 +271,13 @@ class WorkingActivity : BaseActivity() {
                 }
 
                 startActivityForResult(intent, COMPLAINTS)
-//                if(viewModel.patient.value?.diagnosisCode=="215-2"){
-//                    val intent = Intent(this@WorkingActivity, FastActivity::class.java).apply {
-//                        putExtra(ComplaintsActivity.PATIENT_ID, patientId)
-//                    }
-//
-//                    startActivityForResult(intent, COMPLAINTS)
-//                }else {
-//
-//                }
+            }
+            ActionType.BLOODPRESSURE ->{
+                val intent = Intent(this@WorkingActivity, BloodPressureActivity::class.java).apply {
+                    putExtra(BloodPressureActivity.PATIENT_ID, patientId)
+                }
+
+                startActivityForResult(intent, BLOODPRESSURE)
             }
             ActionType.PhysicalExamination->{
                 val intent = Intent(this@WorkingActivity, CheckBodyActivity::class.java).apply {

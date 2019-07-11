@@ -117,5 +117,6 @@ annotation class ActionCode {
         const val COMEBY = 49
         const val FAST = 50
         const val BLOOD = 51
+        const val BLOODPRESSURE = 52
     }
 }

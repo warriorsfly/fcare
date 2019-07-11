@@ -7,6 +7,8 @@ import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.blood.BloodActivity
 import com.wxsoft.fcare.ui.details.blood.BloodModule
+import com.wxsoft.fcare.ui.details.blood.pressure.BloodPressureActivity
+import com.wxsoft.fcare.ui.details.blood.pressure.BloodPressureModule
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -371,6 +373,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [BloodModule::class])
     internal abstract fun bloodActivity(): BloodActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [BloodPressureModule::class])
+    internal abstract fun bloodPressureActivity(): BloodPressureActivity
 
 
 }
