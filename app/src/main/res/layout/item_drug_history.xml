@@ -100,16 +100,16 @@
                     app:layout_constraintBottom_toBottomOf="parent"
             />
 
-            <ImageView
-                    android:id="@+id/check_ic"
-                    android:onClick="@{()->viewModel.deleteDrug(item)}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:src="@drawable/ic_delete"
-                    android:layout_marginRight="10dp"
-                    android:layout_width="17dp"
-                    android:layout_height="17dp"/>
+            <CheckBox
+                android:id="@+id/check_ic"
+                android:checked="@={item.selected}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                android:src="@drawable/ic_delete"
+                android:layout_marginRight="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
