@@ -6,17 +6,20 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.BloodPressureItem
 import com.wxsoft.fcare.databinding.ItemBloodPressureBinding
 
 class BloodPressureAdapter constructor(private val owner: LifecycleOwner, private val click:(BloodPressureItem)->Unit) :
     ListAdapter<BloodPressureItem,BloodPressureAdapter.ItemViewHolder>(DiffCallback) {
 
+    private var pos = 0
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.binding.apply {
             item=getItem(position)
+            root.setBackgroundResource(if(position==pos) R.color.white else android.R.color.transparent)
             executePendingBindings()
 
         }
@@ -26,10 +29,19 @@ class BloodPressureAdapter constructor(private val owner: LifecycleOwner, privat
 
         val binding =
             ItemBloodPressureBinding.inflate(LayoutInflater.from(parent.context), parent, false).apply {
-                root.setOnClickListener{item?.let(click)}
+//                root.setOnClickListener{item?.let(click)}
                 lifecycleOwner = owner
             }
         return ItemViewHolder(binding)
+            .apply {
+
+                binding.root.setOnClickListener {
+                    pos = adapterPosition
+                    binding.item?.let(click)
+                    notifyDataSetChanged()
+
+                }
+            }
     }
 
     class ItemViewHolder(binding: ItemBloodPressureBinding) : RecyclerView.ViewHolder(binding.root) {

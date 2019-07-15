@@ -45,6 +45,8 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgModule
 import com.wxsoft.fcare.ui.details.ecg.ReactiveEcgActivity
+import com.wxsoft.fcare.ui.details.evaluate.EvaluateActivity
+import com.wxsoft.fcare.ui.details.evaluate.EvaluateModule
 import com.wxsoft.fcare.ui.details.fast.FastActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
@@ -377,6 +379,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [BloodPressureModule::class])
     internal abstract fun bloodPressureActivity(): BloodPressureActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [EvaluateModule::class])
+    internal abstract fun evaluateActivity(): EvaluateActivity
 
 
 }

@@ -33,9 +33,12 @@ class RatingSubjectViewModel @Inject constructor(
             loadRating()
         }
 
+    var therecordId=""
+
     var recordId=""
         set(value) {
             field=value
+            therecordId=field
             if(value.isEmpty())return
             loadRecord()
         }
@@ -45,7 +48,7 @@ class RatingSubjectViewModel @Inject constructor(
 
     val savingResult:LiveData<Boolean>
     private val savingRatingResult =MediatorLiveData<Boolean>()
-    private val loadRecordResult =MediatorLiveData<RatingRecord>()
+    val loadRecordResult =MediatorLiveData<RatingRecord>()
 
     init {
 
@@ -152,6 +155,7 @@ class RatingSubjectViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    therecordId=it.result?.id?:""
                     messageAction.value = Event("保存成功")
                     savingRatingResult.value=true
                 },

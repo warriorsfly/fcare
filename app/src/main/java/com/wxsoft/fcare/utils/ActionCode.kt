@@ -8,7 +8,7 @@ import androidx.annotation.IntDef
     ActionCode.DISCHARGE, ActionCode.OUTCOME, ActionCode.INFORMEDCONSENT, ActionCode.THROMBOLYSIS, ActionCode.DRUGRECORD,
     ActionCode.OTDIAGNOSE, ActionCode.CT_OPERATION, ActionCode.RATING, ActionCode.CABG, ActionCode.BASE_INFO, ActionCode.COMPLAINTS,
     ActionCode.STRATEGY, ActionCode.NOTIFICATION, ActionCode.RIS_LIS,ActionCode.ECG,ActionCode.EMR,ActionCode.SHARE,
-    ActionCode.CURE,ActionCode.ONETOUCH,ActionCode.ACS,ActionCode.COMEBY,ActionCode.FAST,ActionCode.BLOOD
+    ActionCode.CURE,ActionCode.ONETOUCH,ActionCode.ACS,ActionCode.COMEBY,ActionCode.FAST,ActionCode.BLOOD,ActionCode.PGB
 )
 
 annotation class ActionCode {
@@ -118,5 +118,6 @@ annotation class ActionCode {
         const val FAST = 50
         const val BLOOD = 51
         const val BLOODPRESSURE = 52
+        const val PGB = 53
     }
 }

@@ -81,7 +81,7 @@ class RatingActivity : BaseActivity() {
             putExtra(RatingSubjectActivity.PATIENT_ID, patientId)
 //            putExtra(RatingSubjectActivity.SCENCE_TYPE, viewModel.scenceId)
             putExtra(RatingSubjectActivity.RATING_NAME, result.ratingName)
-//            putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
+//            putExtra(RatingSubjectActivity.RATING_ID, result.rating)
             putExtra(RatingSubjectActivity.RECORD_ID, result.id)
             putExtra(RatingSubjectActivity.RATING_ID, result.ratingId)
         }

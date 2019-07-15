@@ -315,8 +315,11 @@
                 android:exported="false">
         </activity> <!-- Required SDK核心功能 -->
         <activity
-                android:name=".ui.details.comingby.ComingByActivity"
-                android:theme="@style/AppTheme.NoActionBar"/>
+        android:name=".ui.details.comingby.ComingByActivity"
+        android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.details.evaluate.EvaluateActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
                 android:name=".ui.details.blood.pressure.BloodPressureActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>

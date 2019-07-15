@@ -6,7 +6,7 @@
     <data>
        <variable
            name="item"
-           type="com.wxsoft.fcare.core.data.entity.BloodPressureItem" />
+           type="com.wxsoft.fcare.core.data.entity.EvaluateItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
                     android:textSize="15sp"
                     android:textColor="@color/small_title_text_gray"
                     android:layout_marginLeft="25dp"
-                    android:text="@{item.strTime}"
+                    android:text="@{item.name}"
                     tool:text="阿司匹林"
                     android:layout_marginRight="10dp"
                     app:layout_constraintLeft_toLeftOf="parent"

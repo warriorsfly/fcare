@@ -31,11 +31,19 @@ import javax.inject.Inject
 class ThrombolysisActivity : BaseTimingActivity() {
     override fun selectTime(millseconds: Long) {
 
-        (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
-        when(selectedId){
-            R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time = DateTimeUtils.formatter.format(millseconds)
-            R.id.end_thromboly_time -> viewModel.thrombolysis.value?.throm_End_Time = DateTimeUtils.formatter.format(millseconds)
-            R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time = DateTimeUtils.formatter.format(millseconds)
+        if(viewModel.itemForChangeTime.value==null) {
+            (findViewById<TextView>(selectedId))?.text = DateTimeUtils.formatter.format(millseconds)
+            when (selectedId) {
+                R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time =
+                    DateTimeUtils.formatter.format(millseconds)
+                R.id.end_thromboly_time -> viewModel.thrombolysis.value?.throm_End_Time =
+                    DateTimeUtils.formatter.format(millseconds)
+                R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time =
+                    DateTimeUtils.formatter.format(millseconds)
+            }
+        }else{
+            viewModel.itemForChangeTime.value?.excuteTime=DateTimeUtils.formatter.format(millseconds)
+            viewModel.itemForChangeTime.value=null
         }
     }
 
@@ -49,6 +57,15 @@ class ThrombolysisActivity : BaseTimingActivity() {
             dialog = createDialog(currentTime)
             dialog?.show(supportFragmentManager, "all")
         }
+    }
+
+    private fun showPicker(record:DrugRecord){
+
+            val currentTime= record.excuteTime.let { txt ->
+                if (txt.isNullOrEmpty()) 0L else DateTimeUtils.formatter.parse(txt).time
+            }
+            dialog = createDialog(currentTime)
+            dialog?.show(supportFragmentManager, "all")
     }
 
     private var selectedId=0
@@ -144,24 +161,16 @@ class ThrombolysisActivity : BaseTimingActivity() {
             }
         })
 
+        viewModel.itemForChangeTime.observe(this, Observer {
+            it ?: return@Observer
+
+            showPicker(it)
+
+        })
+
     }
 
     private fun selectPlace(){
-//        val adapter = ThromPlaceAdapter(this,viewModel)
-//        val view = LayoutInflater.from(this).inflate(R.layout.dialog_bottom_thrombolysis_places, null)
-//        placeDialog.setContentView(view)
-//        viewModel.thromPlaces.observe(this, Observer { adapter.items = it ?: emptyList() })
-//        view.findViewById<androidx.recyclerview.widget.RecyclerView>(R.drugId.place_list).adapter = adapter
-//        val attributes = placeDialog.window?.attributes
-//        attributes?.width = WindowManager.LayoutParams.MATCH_PARENT
-//        attributes?.height = WindowManager.LayoutParams.WRAP_CONTENT
-//        attributes?.gravity = Gravity.BOTTOM
-//        attributes?.windowAnimations = R.style.picture_alert_dialog
-//        placeDialog.window?.attributes = attributes
-//        placeDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-//        placeDialog.show()
-
-
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
             putExtra(SelecterOfOneModelActivity.COME_FROM, "ThromSelectPlace")

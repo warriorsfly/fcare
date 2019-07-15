@@ -32,6 +32,7 @@ import com.wxsoft.fcare.ui.details.cure.CureActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
+import com.wxsoft.fcare.ui.details.evaluate.EvaluateActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
@@ -387,12 +388,18 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, ActionCode.COMEBY)
             }
 
-
             ActionType.BLOOD ->{
                 val intent = Intent(this, BloodActivity::class.java).apply {
                     putExtra(ComingByActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, ActionCode.BLOOD)
+            }
+
+            ActionType.PGB ->{
+                val intent = Intent(this, EvaluateActivity::class.java).apply {
+                    putExtra(ComingByActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, ActionCode.PGB)
             }
         }
     }

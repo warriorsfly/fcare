@@ -75,7 +75,6 @@ class RatingSubjectActivity : BaseActivity() {
         ).apply{
 
             viewModel=this@RatingSubjectActivity.viewModel
-
             lifecycleOwner = this@RatingSubjectActivity
         }
         viewModel.patientId=patientId
@@ -102,6 +101,8 @@ class RatingSubjectActivity : BaseActivity() {
             if(it){
                 setResult(Activity.RESULT_OK,intent)
                 intent.putExtra("SCORE",viewModel.rating.value?.score?:0)
+                intent.putExtra("RATINGID",ratingId)
+                intent.putExtra("ID",viewModel.therecordId)
                 finish()
             }
         })
