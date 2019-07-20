@@ -128,8 +128,8 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
-        viewModel.pre=pre
-        viewModel.patientId=patientId
+
+
         adapter= EcgAdapter(this,PHOTO_COUNT,this,this)
         DataBindingUtil.setContentView<ActivityEcgBinding>(
             this,
@@ -146,6 +146,9 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             }
             lifecycleOwner = this@EcgActivity
         }
+        viewModel.pre.set(pre)
+        viewModel.patientId=patientId
+
         viewModel.ecg.observe(this, Observer {
             adapter.locals= emptyList()
             adapter.remotes=it.attachments?.map { it.httpUrl }?: emptyList()

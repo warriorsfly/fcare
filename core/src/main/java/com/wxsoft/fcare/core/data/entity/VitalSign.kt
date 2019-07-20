@@ -149,6 +149,13 @@ data class VitalSign(val id:String=""): BaseObservable() {
 
     }
 
+    @get:Bindable
+    var height:Int?=null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.height)
+        }
+
     fun setUpChecked(){
         when(killip_Level){
             ""-> killip_Unit_int = 0

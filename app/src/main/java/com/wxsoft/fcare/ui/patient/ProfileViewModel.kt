@@ -184,10 +184,7 @@ class ProfileViewModel @Inject constructor(
                             return@let false
                         }
 
-                        it.diagnosisCode=="215-2" && it.height==null->{
-                            messageAction.value= Event("身高不能为空")
-                            return@let false
-                        }
+
                         else->
                             return@let true
                     }

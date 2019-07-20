@@ -419,7 +419,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
                 SELECT_PATIENT ->{
                     val item = data?.getSerializableExtra("SelectPatient") as Patient
-                    (viewModel.loadPatientResult.value as? Resource.Success)?.data?.result?.apply {
+                    viewModel.patient.value?.apply {
                         idcard = item.idcard
                         name = item.name
                         gender = item.gender
@@ -427,16 +427,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                         phone = item.phone
                         outpatientId = item.outpatientId
                     }
-//                    = Resource.Success(Response<Patient>(true).apply {
-//                        this.result= Patient("").apply {
-//                            idcard = item.idcard
-//                            drugName = item.drugName
-//                            gender = item.gender
-//                            age = item.age
-//                            phone = item.phone
-//                            outpatientId = item.outpatientId
-//                        }
-//                    })
+//
                 }
 
                 FAST->{

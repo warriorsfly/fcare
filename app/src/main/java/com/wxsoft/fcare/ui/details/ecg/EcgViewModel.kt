@@ -1,5 +1,7 @@
 package com.wxsoft.fcare.ui.details.ecg
 
+import androidx.databinding.Observable
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -33,7 +35,9 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     val bitmaps= mutableListOf<String>()
     val seleted= mutableListOf<String>()
 
-    var pre=false
+    var pre=ObservableBoolean().apply {
+        set(false)
+    }
     val selectedEcgDiagnosis = mutableListOf<Dictionary>()
 
     /**
@@ -43,8 +47,8 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         set(value) {
             if (value == "") return
             field = value
-            loadEcg(field)
             loadCommonDiagnoses(field)
+            loadEcg()
         }
 
     val ecg:LiveData<Ecg>
@@ -62,14 +66,20 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         uploading = uploadResult.map { it}
         ecg = loadEcgResult.map {
             it?.result ?: Ecg(createrId = account.id).apply {
-                location=if(pre)1 else 2
+                location=if(pre.get())1 else 2
             }
         }
         diagnoses = loadDiagnoseResult.map { it }
+        pre.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                loadEcg()
+            }
+
+        })
     }
 
-    private fun loadEcg(patientId:String){
-        disposable.add(api.getPatientEcgs(patientId)
+    private fun loadEcg(){
+        disposable.add(api.getPatientEcgs(patientId,if(pre.get())1 else 2)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doEcg,::error))
@@ -116,7 +126,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     private fun doDiagnosed(response: Response<Ecg>){
 //        response.let(::doEcg)
         diagnosised.value=true
-        loadEcg(patientId)
+        loadEcg()
         loadCommonDiagnoses(patientId)
     }
 
@@ -158,6 +168,10 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(::doSavedEcg,::error)
         }
+    }
+
+    fun changePre(){
+        pre.set(!pre.get())
     }
     fun diagnose(){
 

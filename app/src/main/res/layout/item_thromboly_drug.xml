@@ -101,7 +101,7 @@
 
 			<CheckBox
 					android:id="@+id/check_ic"
-					android:checked="@={item.checked}"
+					android:checked="@={item.selected}"
 					app:layout_constraintTop_toTopOf="parent"
 					app:layout_constraintRight_toRightOf="parent"
 					android:src="@drawable/ic_delete"
@@ -127,6 +127,7 @@
 			<TextView
 					android:id="@+id/excuter"
 					android:text="@{item.staffName}"
+					android:onClick="@{()->viewModel.changeDoctor(item)}"
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
 					app:layout_constraintTop_toTopOf="@id/excuteTime"

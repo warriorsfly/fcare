@@ -8,13 +8,13 @@ import java.io.Serializable
 data class DrugRecord (val id:String) : BaseObservable() , Serializable {
 
 
-    @Bindable
-    @Transient
-    var checked = false
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.checked)
-        }
+//    @Bindable
+//    @Transient
+//    var checked = false
+//        set(value) {
+//            field = value
+//            notifyPropertyChanged(BR.checked)
+//        }
     var actionCode:String = ""
     @Bindable
     var excuteTime: String? = null
@@ -71,7 +71,7 @@ data class DrugRecord (val id:String) : BaseObservable() , Serializable {
         set(value) {
             field = value
             notifyPropertyChanged(BR.doseString)
-            dose = field?.toFloat() ?: 0f
+            dose = if(field.isNullOrEmpty()) 0f else field?.toFloat()?:0f
         }
 
     @Bindable

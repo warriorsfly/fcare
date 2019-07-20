@@ -13,4 +13,9 @@ internal abstract class ThrombolysisModule {
     @ViewModelKey(ThrombolysisViewModel::class)
     abstract fun bindThrombolysisViewModel(viewModel: ThrombolysisViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(SelectDoctorViewModel::class)
+    abstract fun bindSelectDoctorViewModel(viewModel: SelectDoctorViewModel): ViewModel
+
 }

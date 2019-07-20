@@ -121,6 +121,8 @@ class RatingSubjectViewModel @Inject constructor(
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
+                    recordId=""
+                    rating.value?.score=0
                     messageAction.value = Event("删除成功")
                     savingRatingResult.value=true
                 },

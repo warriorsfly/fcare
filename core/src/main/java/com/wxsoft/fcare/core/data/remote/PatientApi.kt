@@ -64,4 +64,7 @@ interface PatientApi{
     @GET("Patient/GetStroke120ById/{drugId}")
     fun getStrock120(@Path("drugId")id:String):Maybe<Response<Strock120>>
 
+    @GET("Nfc/SaveByDeviceHandle/{userId}/{patientId}/{actionCode}")
+    fun nfcInput(@Path("userId")user:String,@Path("patientId")patientId: String,@Path("actionCode")code:String):Maybe<Response<Strock120>>
+
 }

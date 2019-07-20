@@ -1,619 +1,669 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <import type="com.wxsoft.fcare.utils.Converter"/>
-        <import type="com.wxsoft.fcare.utils.FloatConverter"/>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsViewModel"/>
-    </data>
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<import type="com.wxsoft.fcare.utils.Converter"/>
+		<import type="com.wxsoft.fcare.utils.NullableConverter"/>
+		<import type="com.wxsoft.fcare.utils.FloatConverter"/>
+		<variable name="viewModel" type="com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsViewModel"/>
+	</data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F8F8F9"
-            tools:context=".ui.details.vitalsigns.VitalSignsActivity">
-        <include layout="@layout/layout_new_title"
-                 android:id="@+id/title"
-        />
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#F8F8F9"
+			tools:context=".ui.details.vitalsigns.VitalSignsActivity">
+		<include layout="@layout/layout_new_title"
+				android:id="@+id/title"
+				/>
 
-        <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintLeft_toLeftOf="parent">
+		<ScrollView
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				app:layout_constraintTop_toBottomOf="@+id/title"
+				app:layout_constraintBottom_toBottomOf="parent">
+			<androidx.constraintlayout.widget.ConstraintLayout
+					android:layout_width="match_parent"
+					android:layout_height="match_parent"
+					app:layout_constraintLeft_toLeftOf="parent">
 
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toTopOf="parent"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
+				<View android:layout_width="match_parent"
+						android:layout_height="1dp"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"
+						android:background="#EDEDED"/>
 
-            <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                    <!--android:drugId="@+drugId/line0"-->
-                    <!--android:layout_marginTop="15dp"-->
-                    <!--android:background="@color/white"-->
-                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                    <!--app:layout_constraintTop_toTopOf="parent"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content">-->
-                <!--<TextView-->
-                        <!--android:drugId="@+drugId/title0_1"-->
-                        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                        <!--app:layout_constraintTop_toTopOf="parent"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--android:layout_marginTop="17.5dp"-->
-                        <!--android:layout_marginLeft="15dp"-->
-                        <!--android:layout_marginBottom="17.5dp"-->
-                        <!--android:text="链接硬件"-->
-                        <!--android:textSize="16sp"-->
-                        <!--android:textColor="@color/small_title_text_gray"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"/>-->
+				<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+				<!--android:drugId="@+drugId/line0"-->
+				<!--android:layout_marginTop="15dp"-->
+				<!--android:background="@color/white"-->
+				<!--app:layout_constraintLeft_toLeftOf="parent"-->
+				<!--app:layout_constraintTop_toTopOf="parent"-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="wrap_content">-->
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/title0_1"-->
+				<!--app:layout_constraintLeft_toLeftOf="parent"-->
+				<!--app:layout_constraintTop_toTopOf="parent"-->
+				<!--app:layout_constraintBottom_toBottomOf="parent"-->
+				<!--android:layout_marginTop="17.5dp"-->
+				<!--android:layout_marginLeft="15dp"-->
+				<!--android:layout_marginBottom="17.5dp"-->
+				<!--android:text="链接硬件"-->
+				<!--android:textSize="16sp"-->
+				<!--android:textColor="@color/small_title_text_gray"-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="wrap_content"/>-->
 
-                <!--<TextView-->
-                        <!--android:text="获取数据"-->
-                        <!--android:drugId="@+drugId/aa"-->
-                        <!--android:layout_marginRight="19dp"-->
-                        <!--android:layout_marginTop="15dp"-->
-                        <!--android:layout_marginBottom="15dp"-->
-                        <!--android:layout_marginLeft="15dp"-->
-                        <!--android:textSize="16sp"-->
-                        <!--android:textColor="#63B0F8"-->
-                        <!--android:gravity="right"-->
-                        <!--android:minWidth="90dp"-->
-                        <!--app:layout_constraintTop_toTopOf="parent"-->
-                        <!--app:layout_constraintRight_toLeftOf="@+drugId/rowe0_1"-->
-                        <!--app:layout_constraintLeft_toRightOf="@+drugId/title0_1"-->
-                        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"/>-->
+				<!--<TextView-->
+				<!--android:text="获取数据"-->
+				<!--android:drugId="@+drugId/aa"-->
+				<!--android:layout_marginRight="19dp"-->
+				<!--android:layout_marginTop="15dp"-->
+				<!--android:layout_marginBottom="15dp"-->
+				<!--android:layout_marginLeft="15dp"-->
+				<!--android:textSize="16sp"-->
+				<!--android:textColor="#63B0F8"-->
+				<!--android:gravity="right"-->
+				<!--android:minWidth="90dp"-->
+				<!--app:layout_constraintTop_toTopOf="parent"-->
+				<!--app:layout_constraintRight_toLeftOf="@+drugId/rowe0_1"-->
+				<!--app:layout_constraintLeft_toRightOf="@+drugId/title0_1"-->
+				<!--app:layout_constraintBottom_toBottomOf="parent"-->
+				<!--android:layout_width="0dp"-->
+				<!--android:layout_height="wrap_content"/>-->
 
-                <!--<TextView-->
-                        <!--android:drugId="@+drugId/rowe0_1"-->
-                        <!--app:layout_constraintRight_toRightOf="parent"-->
-                        <!--app:layout_constraintBottom_toBottomOf="@drugId/title0_1"-->
-                        <!--android:layout_width="14dp"-->
-                        <!--android:layout_height="24dp"-->
-                        <!--android:layout_marginRight="19dp"-->
-                        <!--android:background="@drawable/ic_right_arrow"/>-->
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/rowe0_1"-->
+				<!--app:layout_constraintRight_toRightOf="parent"-->
+				<!--app:layout_constraintBottom_toBottomOf="@drugId/title0_1"-->
+				<!--android:layout_width="14dp"-->
+				<!--android:layout_height="24dp"-->
+				<!--android:layout_marginRight="19dp"-->
+				<!--android:background="@drawable/ic_right_arrow"/>-->
 
-            <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:background="@color/white"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item1"
-                    android:onClick="@{()->viewModel.selectConscious()}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent">
-                <TextView
-                        android:id="@+id/content"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="意识"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" />
-
-                <TextView
-                        android:hint="选择意识"
-                        android:textColorHint="#999999"
-                        android:id="@+id/start"
-                        android:gravity="right"
-                        android:layout_marginRight="60dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginBottom="15dp"
-                        android:textSize="13sp"
-                        android:textColor="#9399A4"
-                        android:minWidth="90dp"
-                        android:text="@{viewModel.vital.consciousnesTypeName}"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        tools:text="2019-01-18 13:23:15"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                <TextView
-                        android:id="@+id/rowe3_2"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:layout_width="14dp"
-                        android:layout_height="24dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_right_arrow"/>
-
-                <View android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      android:background="@color/line_gray"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item1"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="#EDEDED"/>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item2"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/base_info_item1">
-                <TextView
-                        android:id="@+id/item_title2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="呼吸"/>
-
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="0dp"
-                          android:layout_height="30dp"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:textSize="14sp"
-                          android:layout_marginLeft="6dp"
-                          android:layout_marginRight="60dp"
-                          android:textColor="#9399A4"
-                          android:hint="请填写呼吸次数"
-                          android:gravity="center_vertical|right"
-                          android:text="@={Converter.intToString( viewModel.vital.respiration_Rate)}"
-                          android:maxLines="1"
-                          android:maxLength="3"
-                          android:id="@+id/breath"
-                          android:imeOptions="actionNext"
-                          android:inputType="number"
-                          android:digits="@string/input_type_numbers"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintLeft_toRightOf="@+id/item_title2"
-                          app:layout_constraintTop_toTopOf="parent"
-                          app:layout_constraintRight_toRightOf="parent"
-                          tools:text="70" />
+				<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
-                <TextView
-                        android:id="@+id/item_end2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#9399A4"
-                        android:textSize="14sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:text="次/分钟" />
-                <View android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      android:background="@color/line_gray"/>
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="0dp"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item1"
+						android:onClick="@{()->viewModel.selectConscious()}"
+						app:layout_constraintTop_toTopOf="parent"
+						app:layout_constraintStart_toStartOf="parent"
+						app:layout_constraintEnd_toEndOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent">
+					<TextView
+							android:id="@+id/content"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="意识"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+					<TextView
+							android:hint="选择意识"
+							android:textColorHint="#999999"
+							android:id="@+id/start"
+							android:gravity="right"
+							android:layout_marginRight="60dp"
+							android:layout_marginTop="15dp"
+							android:layout_marginBottom="15dp"
+							android:textSize="13sp"
+							android:textColor="#9399A4"
+							android:minWidth="90dp"
+							android:text="@{viewModel.vital.consciousnesTypeName}"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							tools:text="2019-01-18 13:23:15"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item3"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/base_info_item2">
-                <TextView
-                        android:id="@+id/item_title3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="脉搏" />
+					<TextView
+							android:id="@+id/rowe3_2"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="14dp"
+							android:layout_height="24dp"
+							android:layout_marginRight="5dp"
+							android:background="@drawable/ic_right_arrow"/>
 
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="0dp"
-                          android:layout_height="30dp"
-                          app:layout_constraintLeft_toRightOf="@+id/item_title3"
-                          app:layout_constraintRight_toRightOf="parent"
-                          android:layout_marginRight="60dp"
-                          app:layout_constraintTop_toTopOf="parent"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:hint="请填写脉搏次数"
-                          android:textColor="#9399A4"
-                          android:textSize="14sp"
-                          android:maxLines="1"
-                          android:maxLength="3"
-                          android:id="@+id/mb"
-                          android:imeOptions="actionNext"
-                          android:layout_marginStart="8dp"
-                          android:gravity="center_vertical|right"
-                          android:text="@={Converter.intToString(viewModel.vital.pulse_Rate)}"
-                          android:inputType="number"
-                          android:digits="@string/input_type_numbers"
-                          tools:text="71"/>
-                <TextView
-                        android:id="@+id/item_end3"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#9399A4"
-                        android:textSize="14sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:text="次/分钟" />
-                <View android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      android:background="@color/line_gray"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+					<View android:layout_width="match_parent"
+							android:layout_height="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							android:background="@color/line_gray"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item4"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/base_info_item3">
-                <TextView
-                        android:id="@+id/item_title4"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="心率" />
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="0dp"
-                          android:layout_height="30dp"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintLeft_toRightOf="@+id/item_title4"
-                          app:layout_constraintRight_toRightOf="parent"
-                          android:layout_marginRight="60dp"
-                          app:layout_constraintTop_toTopOf="parent"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:hint="请填写心率次数"
-                          android:textColor="#9399A4"
-                          android:textSize="14sp"
-                          android:gravity="center_vertical|right"
-                          android:layout_marginStart="8dp"
-                          android:maxLines="1"
-                          android:maxLength="3"
-                          android:id="@+id/heart"
-                          android:imeOptions="actionNext"
-                          android:inputType="number"
-                          android:digits="@string/input_type_numbers"
-                          tools:text="67"
-                          android:text="@={Converter.intToString(viewModel.vital.heart_Rate)}"/>
-                <TextView
-                        android:id="@+id/item_end4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#9399A4"
-                        android:textSize="14sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="次/分钟" />
-                <View android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      android:background="@color/line_gray"/>
+				<View android:layout_width="match_parent"
+						android:layout_height="1dp"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item1"
+						app:layout_constraintLeft_toLeftOf="parent"
+						android:background="#EDEDED"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item2"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item1">
+					<TextView
+							android:id="@+id/item_title2"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="呼吸"/>
+
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							android:background="@drawable/bg_edittextview_border"
+							android:textSize="14sp"
+							android:layout_marginLeft="6dp"
+							android:layout_marginRight="60dp"
+							android:textColor="#9399A4"
+							android:hint="请填写呼吸次数"
+							android:gravity="center_vertical|right"
+							android:text="@={Converter.intToString( viewModel.vital.respiration_Rate)}"
+							android:maxLines="1"
+							android:maxLength="3"
+							android:id="@+id/breath"
+							android:imeOptions="actionNext"
+							android:inputType="number"
+							android:digits="@string/input_type_numbers"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/item_title2"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							tools:text="70" />
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item5"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/base_info_item4">
-                <TextView
-                        android:id="@+id/item_title5"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="血压" />
+					<TextView
+							android:id="@+id/item_end2"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							android:text="次/分钟" />
+					<View android:layout_width="match_parent"
+							android:layout_height="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							android:background="@color/line_gray"/>
 
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="140dp"
-                          android:layout_height="30dp"
-                          android:textColor="#9399A4"
-                          android:textSize="14sp"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:hint="请填收缩压"
-                          tools:text="76"
-                          android:maxLines="1"
-                          android:maxLength="3"
-                          android:gravity="center"
-                          android:imeOptions="actionNext"
-                          android:id="@+id/dbp"
-                          android:inputType="number"
-                          android:text="@={viewModel.vital.sbp}"
-                          android:digits="@string/input_type_numbers"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintTop_toTopOf="parent"
-                          app:layout_constraintLeft_toRightOf="@+id/item_title5"/>
-                <TextView
-                        android:id="@+id/item_mid_51"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="/"
-                        app:layout_constraintLeft_toRightOf="@+id/dbp"
-                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="0dp"
-                          android:layout_height="30dp"
-                          android:textColor="#9399A4"
-                          android:textSize="14sp"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:hint="请填舒张压"
-                          tools:text="76"
-                          android:maxLines="1"
-                          android:maxLength="3"
-                          android:imeOptions="actionNext"
-                          android:id="@+id/sbp"
-                          android:gravity="center"
-                          android:inputType="number"
-                          android:text="@={viewModel.vital.dbp}"
-                          android:digits="@string/input_type_numbers"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintTop_toTopOf="parent"
-                          app:layout_constraintLeft_toRightOf="@+id/item_mid_51"
-                          app:layout_constraintRight_toLeftOf="@+id/item_end51"/>
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                        android:id="@+id/item_end51"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#9399A4"
-                        android:textSize="14sp"
-                        android:layout_marginLeft="3dp"
-                        android:layout_marginRight="3dp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toRightOf="@+id/sbp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:text="mmHg" />
-                <View android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      android:background="@color/line_gray"/>
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item3"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item2">
+					<TextView
+							android:id="@+id/item_title3"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="脉搏" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							app:layout_constraintLeft_toRightOf="@+id/item_title3"
+							app:layout_constraintRight_toRightOf="parent"
+							android:layout_marginRight="60dp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:background="@drawable/bg_edittextview_border"
+							android:hint="请填写脉搏次数"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:maxLines="1"
+							android:maxLength="3"
+							android:id="@+id/mb"
+							android:imeOptions="actionNext"
+							android:layout_marginStart="8dp"
+							android:gravity="center_vertical|right"
+							android:text="@={Converter.intToString(viewModel.vital.pulse_Rate)}"
+							android:inputType="number"
+							android:digits="@string/input_type_numbers"
+							tools:text="71"/>
+					<TextView
+							android:id="@+id/item_end3"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							android:text="次/分钟" />
+					<View android:layout_width="match_parent"
+							android:layout_height="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							android:background="@color/line_gray"/>
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item4"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item3">
+					<TextView
+							android:id="@+id/item_title4"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="心率" />
 
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/item_title4"
+							app:layout_constraintRight_toRightOf="parent"
+							android:layout_marginRight="60dp"
+							app:layout_constraintTop_toTopOf="parent"
+							android:background="@drawable/bg_edittextview_border"
+							android:hint="请填写心率次数"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:gravity="center_vertical|right"
+							android:layout_marginStart="8dp"
+							android:maxLines="1"
+							android:maxLength="3"
+							android:id="@+id/heart"
+							android:imeOptions="actionNext"
+							android:inputType="number"
+							android:digits="@string/input_type_numbers"
+							tools:text="67"
+							android:text="@={Converter.intToString(viewModel.vital.heart_Rate)}"/>
+					<TextView
+							android:id="@+id/item_end4"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="次/分钟" />
+					<View android:layout_width="match_parent"
+							android:layout_height="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							android:background="@color/line_gray"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item6"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/base_info_item5">
-                <TextView
-                        android:id="@+id/item_title6"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="血氧" />
-
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="0dp"
-                          android:layout_height="30dp"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintLeft_toRightOf="@+id/item_title6"
-                          app:layout_constraintRight_toRightOf="parent"
-                          android:layout_marginRight="60dp"
-                          app:layout_constraintTop_toTopOf="parent"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:hint="请填血氧饱和度"
-                          android:textColor="#9399A4"
-                          android:textSize="14sp"
-                          android:gravity="center_vertical|right"
-                          android:layout_marginStart="8dp"
-                          android:maxLines="1"
-                          android:maxLength="3"
-                          android:id="@+id/blood_oxygen"
-                          android:imeOptions="actionNext"
-                          android:inputType="number"
-                          android:digits="@string/input_type_numbers"
-                          tools:text="67"
-                          android:text="@={Converter.intToString(viewModel.vital.spO2)}"/>
-                <TextView
-                        android:id="@+id/item_end6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#9399A4"
-                        android:textSize="14sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="%" />
-                <View android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      android:background="@color/line_gray"/>
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    goneUnless="@{!viewModel.xtShow}"
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item7"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/base_info_item6">
-                <TextView
-                        android:id="@+id/item_title7"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="体温" />
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item5"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item4">
+					<TextView
+							android:id="@+id/item_title5"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="血压" />
 
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="0dp"
-                          android:layout_height="30dp"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintLeft_toRightOf="@+id/item_title7"
-                          app:layout_constraintRight_toRightOf="parent"
-                          android:layout_marginRight="60dp"
-                          app:layout_constraintTop_toTopOf="parent"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:hint="请填体温"
-                          android:textColor="#9399A4"
-                          android:textSize="14sp"
-                          android:maxLength="4"
-                          android:gravity="center_vertical|right"
-                          android:layout_marginStart="8dp"
-                          android:id="@+id/temperature"
-                          android:imeOptions="actionNext"
-                          android:inputType="number|numberDecimal"
-                          android:digits="1234567890."
-                          android:text="@={viewModel.vital.bodyTemperatureStr}"
-                          tools:text="67"
-                          />
-                <TextView
-                        android:id="@+id/item_end7"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#9399A4"
-                        android:textSize="14sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="°C" />
-                <View android:layout_width="match_parent"
-                      android:layout_height="1dp"
-                      app:layout_constraintBottom_toBottomOf="parent"
-                      app:layout_constraintLeft_toLeftOf="parent"
-                      android:background="@color/line_gray"/>
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="140dp"
+							android:layout_height="30dp"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:background="@drawable/bg_edittextview_border"
+							android:hint="请填收缩压"
+							tools:text="76"
+							android:maxLines="1"
+							android:maxLength="3"
+							android:gravity="center"
+							android:imeOptions="actionNext"
+							android:id="@+id/dbp"
+							android:inputType="number"
+							android:text="@={viewModel.vital.sbp}"
+							android:digits="@string/input_type_numbers"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/item_title5"/>
+					<TextView
+							android:id="@+id/item_mid_51"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:text="/"
+							app:layout_constraintLeft_toRightOf="@+id/dbp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"/>
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:background="@drawable/bg_edittextview_border"
+							android:hint="请填舒张压"
+							tools:text="76"
+							android:maxLines="1"
+							android:maxLength="3"
+							android:imeOptions="actionNext"
+							android:id="@+id/sbp"
+							android:gravity="center"
+							android:inputType="number"
+							android:text="@={viewModel.vital.dbp}"
+							android:digits="@string/input_type_numbers"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/item_mid_51"
+							app:layout_constraintRight_toLeftOf="@+id/item_end51"/>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+					<TextView
+							android:id="@+id/item_end51"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:layout_marginLeft="3dp"
+							android:layout_marginRight="3dp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/sbp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							android:text="mmHg" />
+					<View android:layout_width="match_parent"
+							android:layout_height="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							android:background="@color/line_gray"/>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    goneUnless="@{!viewModel.xtShow}"
-                    android:background="@color/white"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:paddingLeft="12dp"
-                    android:paddingRight="12dp"
-                    android:id="@+id/base_info_item8"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/base_info_item7">
-                <TextView
-                        android:id="@+id/item_title8"
-                        android:textSize="15sp"
-                        android:textColor="#131D35"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="体重" />
-
-                <EditText android:selectAllOnFocus="true"
-                          android:layout_width="0dp"
-                          android:layout_height="30dp"
-                          app:layout_constraintBottom_toBottomOf="parent"
-                          app:layout_constraintLeft_toRightOf="@+id/item_title8"
-                          app:layout_constraintRight_toRightOf="parent"
-                          android:layout_marginRight="60dp"
-                          app:layout_constraintTop_toTopOf="parent"
-                          android:background="@drawable/bg_edittextview_border"
-                          android:hint="请填体重"
-                          android:textColor="#9399A4"
-                          android:textSize="14sp"
-                          android:gravity="center_vertical|right"
-                          android:layout_marginStart="8dp"
-                          android:id="@+id/weight"
-                          android:maxLength="4"
-                          android:imeOptions="actionNext"
-                          android:inputType="number"
-                          android:digits="1234567890"
-                          android:text="@={Converter.intToString(viewModel.vital.weight)}"
-                          tools:text="67"
-                />
-                <TextView
-                        android:id="@+id/item_end8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="#9399A4"
-                        android:textSize="14sp"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        android:text="kg" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <View android:layout_width="match_parent"
-                  android:layout_height="1dp"
-                  app:layout_constraintTop_toBottomOf="@+id/base_info_item8"
-                  app:layout_constraintLeft_toLeftOf="parent"
-                  android:background="@color/line_gray"/>
+				</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item6"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item5">
+					<TextView
+							android:id="@+id/item_title6"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="血氧" />
 
-        </ScrollView>
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/item_title6"
+							app:layout_constraintRight_toRightOf="parent"
+							android:layout_marginRight="60dp"
+							app:layout_constraintTop_toTopOf="parent"
+							android:background="@drawable/bg_edittextview_border"
+							android:hint="请填血氧饱和度"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:gravity="center_vertical|right"
+							android:layout_marginStart="8dp"
+							android:maxLines="1"
+							android:maxLength="3"
+							android:id="@+id/blood_oxygen"
+							android:imeOptions="actionNext"
+							android:inputType="number"
+							android:digits="@string/input_type_numbers"
+							tools:text="67"
+							android:text="@={Converter.intToString(viewModel.vital.spO2)}"/>
+					<TextView
+							android:id="@+id/item_end6"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="%" />
+					<View android:layout_width="match_parent"
+							android:layout_height="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							android:background="@color/line_gray"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						goneUnless="@{!viewModel.xtShow}"
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item7"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item6">
+					<TextView
+							android:id="@+id/item_title7"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="体温" />
+
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/item_title7"
+							app:layout_constraintRight_toRightOf="parent"
+							android:layout_marginRight="60dp"
+							app:layout_constraintTop_toTopOf="parent"
+							android:background="@drawable/bg_edittextview_border"
+							android:hint="请填体温"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:maxLength="4"
+							android:gravity="center_vertical|right"
+							android:layout_marginStart="8dp"
+							android:id="@+id/temperature"
+							android:imeOptions="actionNext"
+							android:inputType="number|numberDecimal"
+							android:digits="1234567890."
+							android:text="@={viewModel.vital.bodyTemperatureStr}"
+							tools:text="67"
+							/>
+					<TextView
+							android:id="@+id/item_end7"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="°C" />
+					<View android:layout_width="match_parent"
+							android:layout_height="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							android:background="@color/line_gray"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						goneUnless="@{!viewModel.xtShow}"
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:paddingLeft="12dp"
+						android:paddingRight="12dp"
+						android:id="@+id/base_info_item8"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item7">
+					<TextView
+							android:id="@+id/item_title8"
+							android:textSize="15sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="体重" />
+
+					<EditText android:selectAllOnFocus="true"
+							android:layout_width="0dp"
+							android:layout_height="30dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/item_title8"
+							app:layout_constraintRight_toRightOf="parent"
+							android:layout_marginRight="60dp"
+							app:layout_constraintTop_toTopOf="parent"
+							android:background="@drawable/bg_edittextview_border"
+							android:hint="请填体重"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							android:gravity="center_vertical|right"
+							android:layout_marginStart="8dp"
+							android:id="@+id/weight"
+							android:maxLength="4"
+							android:imeOptions="actionNext"
+							android:inputType="number"
+							android:digits="1234567890"
+							android:text="@={Converter.intToString(viewModel.vital.weight)}"
+							tools:text="67"
+							/>
+					<TextView
+							android:id="@+id/item_end8"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="#9399A4"
+							android:textSize="14sp"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:text="kg" />
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<View android:layout_width="match_parent"
+						android:layout_height="1dp"
+						android:id="@+id/base_line_item8"
+						app:layout_constraintTop_toBottomOf="@+id/base_info_item8"
+						app:layout_constraintLeft_toLeftOf="parent"
+						android:background="@color/line_gray"/>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/line_height"
+						app:goneUnless="@{viewModel.patient.diagnosisCode.equals(`215-2`)}"
+						app:layout_constraintTop_toBottomOf="@id/base_line_item8"
+						app:layout_constraintLeft_toLeftOf="parent"
+						android:layout_width="match_parent"
+						android:layout_height="50dp"
+						android:background="@color/white">
+					<TextView
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="wrap_content"
+							android:text="身         高"
+
+							android:textSize="15sp"
+							android:id="@+id/title6_height"
+							android:textColor="@color/edit_text_title"
+							android:layout_marginLeft="15dp"
+							android:layout_height="wrap_content"/>
+
+					<EditText
+							app:layout_constraintRight_toLeftOf="@id/rowe4_height"
+							app:layout_constraintLeft_toRightOf="@id/title6_height"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="0dp"
+							android:digits="@string/input_type_numbers"
+							android:text="@={NullableConverter.intToString(viewModel.vital.height)}"
+							android:gravity="right"
+							android:hint="请选择病人身高"
+
+							android:orientation="horizontal"
+							android:textSize="14sp"
+							android:layout_marginRight="15dp"
+							android:layout_height="wrap_content"/>
+
+					<TextView
+							android:id="@+id/rowe4_height"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="wrap_content"
+							android:text="cm"
+							android:layout_height="24dp"
+							android:layout_marginRight="19dp"/>
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</ScrollView>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
