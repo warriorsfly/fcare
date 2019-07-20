@@ -136,7 +136,7 @@ class MedicalHistoryViewModel @Inject constructor(private val dicEnumApi: DictEn
                         RequestBody.create(MediaType.parse("multipart/form-data"), it)
                     )
                 }
-                history.drugRecords = drugHistory.value!!
+                history.drugRecords = drugHistory.value?.filter { it.selected }?: emptyList()
                 if (files.isNullOrEmpty()) {
                     medicalHistoryApi.save(history).toResource().subscribe {
                         savePatientResult.value= false

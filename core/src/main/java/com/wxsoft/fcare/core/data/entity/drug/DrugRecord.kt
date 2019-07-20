@@ -8,11 +8,27 @@ import java.io.Serializable
 data class DrugRecord (val id:String) : BaseObservable() , Serializable {
 
 
+    @Bindable
+    @Transient
+    var checked = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.checked)
+        }
     var actionCode:String = ""
-
+    @Bindable
     var excuteTime: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.excuteTime)
+        }
     var staffId: String? = null
+    @Bindable
     var staffName: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.staffName)
+        }
 
     @Bindable
     var patientId: String = ""
@@ -87,7 +103,6 @@ data class DrugRecord (val id:String) : BaseObservable() , Serializable {
 
 
     @Bindable
-
     var createdDate: String? = null
         set(value) {
             field = value

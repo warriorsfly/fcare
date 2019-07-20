@@ -58,8 +58,8 @@ class VitalSignsActivity : BaseActivity() {
 //                }
                 lifecycleOwner = this@VitalSignsActivity
             }
-
         setSupportActionBar(toolbar)
+
         title="生命体征信息"
         patientId=intent.getStringExtra(PATIENT_ID)?:""
         id=intent.getStringExtra(ID)?:""

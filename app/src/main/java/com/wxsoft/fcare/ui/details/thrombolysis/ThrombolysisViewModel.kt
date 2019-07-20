@@ -64,6 +64,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
 
     val informed:LiveData<InformedConsent>
     private val loadInformedResult = MediatorLiveData<Resource<Response<InformedConsent>>>()
+    val itemForChangeTime = MediatorLiveData<DrugRecord>()
 
     init {
         modifySome = initModifySome.map { it }
@@ -201,10 +202,12 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         item.doseString = (item.dose + 1).toString()
     }
 
-
     fun deleteDrug(item: DrugRecord){
         drugs.remove(item)
         loadClickLine.value = "refreshDrugs"
     }
 
+    fun changeTime(item: DrugRecord) {
+        itemForChangeTime.value=item
+    }
 }

@@ -2,9 +2,7 @@ package com.wxsoft.fcare.core.data.remote
 
 
 
-import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.VitalSign
-import com.wxsoft.fcare.core.data.entity.VitalSignRecord
+import com.wxsoft.fcare.core.data.entity.*
 import io.reactivex.Maybe
 import retrofit2.http.*
 
@@ -27,4 +25,16 @@ interface VitalSignApi{
 
     @GET("VitalSigns/GetById/{drugId}")
     fun getOne(@Path("drugId")id:String): Maybe<Response<VitalSign>>
+
+    @GET("VitalSignsCollectResult/GetByPatientId/{patientId}")
+    fun getVitalSignList(@Path("patientId")id:String): Maybe<Response<List<BloodPressureItem>>>
+
+    @POST("VitalSignsCollectResult/Save")
+    fun insert(@Body item: BloodPressureItem): Maybe<String>
+
+    @GET("EvaluateResult/GetByPatientId/{patientId}")
+    fun getEvaluates(@Path("patientId")id:String): Maybe<Response<List<EvaluateItem>>>
+
+    @POST("EvaluateResult/Save")
+    fun insert(@Body item: EvaluateItem): Maybe<Response<String>>
 }

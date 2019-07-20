@@ -7,6 +7,8 @@ import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.blood.BloodActivity
 import com.wxsoft.fcare.ui.details.blood.BloodModule
+import com.wxsoft.fcare.ui.details.blood.pressure.BloodPressureActivity
+import com.wxsoft.fcare.ui.details.blood.pressure.BloodPressureModule
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
 import com.wxsoft.fcare.ui.details.catheter.CatheterModule
 import com.wxsoft.fcare.ui.details.checkbody.CheckBodyActivity
@@ -43,6 +45,8 @@ import com.wxsoft.fcare.ui.details.dominating.fragment.ProcessActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgModule
 import com.wxsoft.fcare.ui.details.ecg.ReactiveEcgActivity
+import com.wxsoft.fcare.ui.details.evaluate.EvaluateActivity
+import com.wxsoft.fcare.ui.details.evaluate.EvaluateModule
 import com.wxsoft.fcare.ui.details.fast.FastActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentModule
@@ -371,6 +375,14 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [BloodModule::class])
     internal abstract fun bloodActivity(): BloodActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [BloodPressureModule::class])
+    internal abstract fun bloodPressureActivity(): BloodPressureActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [EvaluateModule::class])
+    internal abstract fun evaluateActivity(): EvaluateActivity
 
 
 }

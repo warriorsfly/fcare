@@ -219,7 +219,9 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                 }
                 SELECT_COMPLAINTS ->{
                     val cc = data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.medicalHistory.value?.cc = cc.itemName
+//                    viewModel.medicalHistory.value?.cc = cc.itemName
+
+                    complaints.editableText.insert(previous_history.selectionStart,cc.itemName)
                 }
                 SELECT_ANAMNESIS ->{
                     val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
@@ -229,6 +231,13 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                     }else{
                         anamnesises.map { anamStr = it.itemName }
                     }
+
+//                    complaints.editableText.insert(previous_history.selectionStart,anamStr)
+//                    viewModel.medicalHistory.value?.pastHistorysString = anamStr
+//                    viewModel.medicalHistory.value?.apply {
+//                        pastHistorys=pastHistorysString?.map {
+//                            History1(it.id,it.itemName,viewModel.medicalHistory.value?.id?:"") }
+//                    }
                     viewModel.medicalHistory.value?.pastHistorysString = anamStr
                     viewModel.medicalHistory.value?.pastHistorys = anamnesises?.map { History1(it.id,it.itemName,viewModel.medicalHistory.value?.id?:"") }
                 }
