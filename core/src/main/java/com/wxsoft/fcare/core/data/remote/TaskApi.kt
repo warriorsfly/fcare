@@ -15,8 +15,8 @@ interface TaskApi {
     @GET("Task/get-by-date/{date}")
     fun tasks(@Path("date")date:String): Maybe<Response<List<Task>>>
 
-    @GET("Task/get-by-drugId/{drugId}")
-    fun task(@Path("drugId")date:String): Single<Response<Task>>
+    @GET("Task/get-by-id/{id}")
+    fun task(@Path("id")id:String): Single<Response<Task>>
 
     @POST("Task/start-new-task")
     fun save(@Body task: Task):Maybe<Response<String>>

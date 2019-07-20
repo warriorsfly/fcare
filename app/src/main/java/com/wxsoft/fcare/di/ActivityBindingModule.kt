@@ -70,6 +70,7 @@ import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionModule
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import com.wxsoft.fcare.ui.details.strategy.FastModule
+import com.wxsoft.fcare.ui.details.thrombolysis.SelectDoctorActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
@@ -383,6 +384,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [EvaluateModule::class])
     internal abstract fun evaluateActivity(): EvaluateActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [ThrombolysisModule::class])
+    internal abstract fun selectDoctorActivity(): SelectDoctorActivity
 
 
 }

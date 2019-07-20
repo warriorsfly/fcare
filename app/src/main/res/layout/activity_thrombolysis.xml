@@ -1,674 +1,673 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
-    <data>
-        <variable name="viewModel" type="com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisViewModel"/>
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#F8F8F9"
-            tools:context=".ui.details.thrombolysis.ThrombolysisActivity">
-        <include layout="@layout/layout_new_title"
-                 android:id="@+id/title"
-        />
-        <androidx.core.widget.NestedScrollView
-                android:id="@+id/baseScroll"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/container"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/model1"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        android:layout_width="match_parent"
-                        android:onClick="@{()-> viewModel.selectPlace(1)}"
-                        android:layout_height="50dp">
-
-                    <TextView
-                            android:id="@+id/title1"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:text="溶栓场所"
-                            android:textSize="16sp"
-                            android:textColor="#131D35"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    <TextView
-                            android:id="@+id/thromboly_place"
-                            android:layout_marginRight="39dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:textSize="13sp"
-                            android:textColor="#C1C1C1"
-                            android:text="@{viewModel.thrombolysis.thromTreatmentPlaceName}"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/rowe1"
-                            tools:text="本院急诊科"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    <TextView
-                            android:id="@+id/rowe1"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintBottom_toBottomOf="@id/title1"
-                            android:layout_width="14dp"
-                            android:layout_height="24dp"
-                            android:layout_marginRight="19dp"
-                            android:background="@drawable/ic_right_arrow"/>
-                    <View
-                            android:background="#EDEDED"
-                            android:layout_marginBottom="1dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/model2"
-                        android:background="@color/white"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/model1"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp">
-
-                    <TextView
-                            android:id="@+id/title2"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:text="是否直达"
-                            android:textSize="16sp"
-                            android:textColor="#131D35"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-
-                  <Switch
-                          android:id="@+id/through"
-                          android:layout_marginRight="19dp"
-                          app:layout_constraintRight_toRightOf="parent"
-                          app:layout_constraintBottom_toBottomOf="@+id/title2"
-                          android:checked="@={viewModel.thrombolysis.hasDirect}"
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/model3"
-                        android:background="@color/white"
-                        android:layout_marginTop="10dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/model2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/model3_1"
-                            android:background="@color/white"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            android:onClick="@{()-> viewModel.toInformedConsent()}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                        <TextView
-                                android:id="@+id/title3_1"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toTopOf="@+id/informed_time"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:text="知情同意书"
-                                android:textSize="16sp"
-                                android:textColor="#131D35"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                        <TextView
-                                android:id="@+id/rown3_1"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="14dp"
-                                android:layout_height="24dp"
-                                android:layout_marginRight="19dp"
-                                android:background="@drawable/ic_right_arrow"/>
-
-                        <ImageView
-                                android:id="@+id/modify_start_time_icon"
-                                goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-                                android:src="@drawable/ic_common_clock"
-                                app:layout_constraintLeft_toLeftOf="@+id/title3_1"
-                                app:layout_constraintTop_toTopOf="@+id/informed_time"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_marginBottom="15dp"
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"/>
-
-                        <TextView
-                                android:id="@+id/informed_time"
-                                goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-                                app:layout_constraintLeft_toRightOf="@+id/modify_start_time_icon"
-                                app:layout_constraintTop_toBottomOf="@+id/title3_1"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_marginLeft="7dp"
-                                android:layout_marginBottom="15dp"
-                                android:textColor="#999999"
-                                android:textSize="16sp"
-                                android:text="@{viewModel.thrombolysis.start_Agree_Time.substring(11,16) + `  ~  ` + viewModel.thrombolysis.sign_Agree_Time.substring(11,16)}"
-                                tools:text="12:04~12:11"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/title3_1_1"
-                                goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="5dp"
-                                android:textColor="#525252"
-                                app:layout_constraintRight_toLeftOf="@+id/time3_1_1"
-                                app:layout_constraintBottom_toBottomOf="@+id/informed_time"
-                                android:textSize="14sp"
-                                android:text="耗时"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/time3_1_1"
-                                goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginRight="5dp"
-                                android:textColor="#EE4E5B"
-                                app:layout_constraintRight_toLeftOf="@+id/rown3_1"
-                                app:layout_constraintBottom_toBottomOf="@+id/informed_time"
-                                android:textSize="14sp"
-                                android:text="@{viewModel.thrombolysis.allTime}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <!---->
-
-                        <!--<TextView-->
-                                <!--android:drugId="@+drugId/title3_1_2"-->
-                                <!--android:layout_marginTop="15dp"-->
-                                <!--android:layout_marginBottom="15dp"-->
-                                <!--android:textColor="#7D7D7D"-->
-                                <!--app:layout_constraintTop_toBottomOf="@+drugId/title3_1_1"-->
-                                <!--app:layout_constraintLeft_toLeftOf="@drugId/title3_1_1"-->
-                                <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                                <!--android:textSize="13sp"-->
-                                <!--android:text="签署知情同意书时间"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"/>-->
-                        <!--<TextView-->
-                                <!--android:drugId="@+drugId/end_informed_time"-->
-                                <!--app:layout_constraintRight_toRightOf="@+drugId/modify_end_time_icon"-->
-                                <!--app:layout_constraintBottom_toBottomOf="@+drugId/title3_1_2"-->
-                                <!--android:layout_marginRight="29dp"-->
-                                <!--android:textSize="13sp"-->
-                                <!--android:text="@{viewModel.thrombolysis.sign_Agree_Time}"-->
-                                <!--tools:text="2019-01-19 14:23:43"-->
-                                <!--android:layout_width="wrap_content"-->
-                                <!--android:layout_height="wrap_content"/>-->
-                        <!--<ImageView-->
-                                <!--android:drugId="@+drugId/modify_end_time_icon"-->
-                                <!--goneUnless="@{viewModel.thrombolysis.sign_Agree_Time != null}"-->
-                                <!--android:src="@drawable/ic_time_edit"-->
-                                <!--app:layout_constraintRight_toRightOf="@+drugId/rown3_1"-->
-                                <!--app:layout_constraintBottom_toBottomOf="@+drugId/end_informed_time"-->
-                                <!--android:onClick="@{()-> viewModel.modifyInformedTime(2)}"-->
-                                <!--android:layout_width="22dp"-->
-                                <!--android:layout_height="22dp"/>-->
-                        <View
-                                android:background="#EDEDED"
-                                android:layout_marginBottom="1dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/model3_2"
-                            android:background="@color/white"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/model3_1"
-                            android:layout_width="match_parent"
-                            android:onClick="@{() -> viewModel.startthromTiem()}"
-                            android:layout_height="50dp">
-
-                        <TextView
-                                android:id="@+id/title3_2"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:text="开始溶栓"
-                                android:textSize="16sp"
-                                android:textColor="#131D35"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/start_thromboly_time"
-                                android:hint="选择时间"
-                                android:layout_marginRight="19dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:textSize="13sp"
-                                android:textColor="#C1C1C1"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
-                                android:text="@{viewModel.thrombolysis.throm_Start_Time}"
-                                tools:text="2019-01-18 13:23:15"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/rowe3_2"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintBottom_toBottomOf="@id/title3_2"
-                                android:layout_width="14dp"
-                                android:layout_height="24dp"
-                                android:layout_marginRight="19dp"
-                                android:background="@drawable/ic_right_arrow"/>
-                        <View
-                                android:background="#EDEDED"
-                                android:layout_marginBottom="1dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/model3_3"
-                            android:background="@color/white"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/model3_2"
-                            android:layout_width="match_parent"
-                            android:onClick="@{() -> viewModel.endthromTime()}"
-                            android:layout_height="50dp">
-
-                        <TextView
-                                android:id="@+id/title3_3"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:text="结束溶栓"
-                                android:textSize="16sp"
-                                android:textColor="#131D35"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/end_thromboly_time"
-                                android:hint="选择时间"
-                                android:layout_marginRight="19dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:textSize="13sp"
-                                android:textColor="#C1C1C1"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
-                                android:text="@{viewModel.thrombolysis.throm_End_Time}"
-                                tools:text="2019-01-18 13:23:15"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/rowe3_3"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintBottom_toBottomOf="@id/title3_3"
-                                android:layout_width="14dp"
-                                android:layout_height="24dp"
-                                android:layout_marginRight="19dp"
-                                android:background="@drawable/ic_right_arrow"/>
-                        <View
-                                android:background="#EDEDED"
-                                android:layout_marginBottom="1dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                            android:id="@+id/model3_4"
-                            android:background="@color/white"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/model3_3"
-                            android:layout_width="match_parent"
-                            android:onClick="@{() -> viewModel.radiographyTime()}"
-                            android:layout_height="50dp">
-
-                        <TextView
-                                android:id="@+id/title3_4"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginLeft="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:text="溶栓后造影"
-                                android:textSize="16sp"
-                                android:textColor="#131D35"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/end_thromboly_radiography_time"
-                                android:hint="选择时间"
-                                android:layout_marginRight="19dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="15dp"
-                                android:textSize="13sp"
-                                android:textColor="#C1C1C1"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toLeftOf="@+id/rowe3_4"
-                                android:text="@{viewModel.thrombolysis.start_Radiography_Time}"
-                                tools:text="2019-01-18 13:23:15"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-
-                        <TextView
-                                android:id="@+id/rowe3_4"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintBottom_toBottomOf="@id/title3_4"
-                                android:layout_width="14dp"
-                                android:layout_height="24dp"
-                                android:layout_marginRight="19dp"
-                                android:background="@drawable/ic_right_arrow"/>
-                        <View
-                                android:background="#EDEDED"
-                                android:layout_marginBottom="1dp"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:layout_width="match_parent"
-                                android:layout_height="1dp"/>
-
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <!--<androidx.constraintlayout.widget.ConstraintLayout-->
-                        <!--android:drugId="@+drugId/model4"-->
-                        <!--android:background="@color/white"-->
-                        <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                        <!--app:layout_constraintTop_toBottomOf="@+drugId/model3"-->
-                        <!--android:layout_marginTop="10dp"-->
-                        <!--android:onClick="@{() -> viewModel.toDrugs()}"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content">-->
-
-                    <!--<TextView-->
-                            <!--android:drugId="@+drugId/title4"-->
-                            <!--app:layout_constraintLeft_toLeftOf="parent"-->
-                            <!--app:layout_constraintTop_toTopOf="parent"-->
-                            <!--android:layout_marginTop="15dp"-->
-                            <!--android:layout_marginLeft="15dp"-->
-                            <!--android:layout_marginBottom="15dp"-->
-                            <!--android:text="溶栓用药"-->
-                            <!--android:textSize="16sp"-->
-                            <!--android:textColor="#131D35"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"/>-->
-
-                    <!--<TextView-->
-                            <!--android:drugId="@+drugId/rowe4"-->
-                            <!--app:layout_constraintRight_toRightOf="parent"-->
-                            <!--app:layout_constraintBottom_toBottomOf="@drugId/title4"-->
-                            <!--android:layout_width="14dp"-->
-                            <!--android:layout_height="24dp"-->
-                            <!--android:layout_marginRight="19dp"-->
-                            <!--android:background="@drawable/ic_right_arrow"/>-->
-
-                    <!--<TextView-->
-                            <!--android:drugId="@+drugId/title4_1"-->
-                            <!--android:layout_marginTop="15dp"-->
-                            <!--android:layout_marginLeft="10dp"-->
-                            <!--android:textSize="13sp"-->
-                            <!--android:textColor="#7D7D7D"-->
-                            <!--app:layout_constraintTop_toBottomOf="@+drugId/title4"-->
-                            <!--app:layout_constraintLeft_toLeftOf="@drugId/title4"-->
-                            <!--android:text="药物"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"/>-->
-                    <!--<TextView-->
-                            <!--android:drugId="@+drugId/thromboly_drugs"-->
-                            <!--app:layout_constraintRight_toLeftOf="@+drugId/rowe4"-->
-                            <!--app:layout_constraintTop_toTopOf="@+drugId/title4_1"-->
-                            <!--app:layout_constraintBottom_toTopOf="@+drugId/title4_2"-->
-                            <!--android:layout_marginLeft="20dp"-->
-                            <!--android:gravity="right"-->
-                            <!--app:layout_constraintLeft_toRightOf="@+drugId/title4_1"-->
-                            <!--android:textSize="13sp"-->
-                            <!--android:text="@{viewModel.thrombolysis.throm_Drug_Name}"-->
-                            <!--tools:text="阿司匹林阿司匹林阿司阿司匹林"-->
-                            <!--android:layout_width="0dp"-->
-                            <!--android:layout_height="wrap_content"/>-->
-
-                    <!--<TextView-->
-                            <!--android:drugId="@+drugId/title4_2"-->
-                            <!--android:layout_marginTop="15dp"-->
-                            <!--android:layout_marginBottom="15dp"-->
-                            <!--android:textSize="13sp"-->
-                            <!--android:textColor="#7D7D7D"-->
-                            <!--app:layout_constraintTop_toBottomOf="@+drugId/thromboly_drugs"-->
-                            <!--app:layout_constraintLeft_toLeftOf="@drugId/title4_1"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--android:text="剂量"-->
-                            <!--tools:text="剂量"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"/>-->
-                    <!--<TextView-->
-                            <!--android:drugId="@+drugId/thromboly_drugs_unit"-->
-                            <!--app:layout_constraintRight_toLeftOf="@+drugId/rowe4"-->
-                            <!--app:layout_constraintTop_toTopOf="@+drugId/title4_2"-->
-                            <!--app:layout_constraintBottom_toBottomOf="@+drugId/title4_2"-->
-                            <!--android:textSize="13sp"-->
-                            <!--android:text="@{viewModel.thrombolysis.throm_Drug_Dose}"-->
-                            <!--tools:text="半量"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"/>-->
-                    <!--<View-->
-                            <!--android:background="#EDEDED"-->
-                            <!--android:layout_marginBottom="1dp"-->
-                            <!--app:layout_constraintBottom_toBottomOf="parent"-->
-                            <!--android:layout_width="match_parent"-->
-                            <!--android:layout_height="1dp"/>-->
-
-                <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/model4"
-                        android:background="@color/white"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/model3"
-                        android:layout_marginTop="10dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    <TextView
-                            android:id="@+id/title4_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="5dp"
-                            android:padding="10dp"
-                            android:textSize="16sp"
-                            android:textColor="#525252"
-                            android:text="溶栓用药"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-
-                    <TextView
-                            android:id="@+id/title6_1"
-                            android:onClick="@{() -> viewModel.toDrugs()}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:padding="10dp"
-                            android:layout_marginRight="10dp"
-                            android:textSize="16sp"
-                            android:textColor="#63B0F8"
-                            android:drawableLeft="@drawable/ic_add_plus_blue"
-                            android:drawablePadding="3dp"
-                            android:text="添加"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
-
-
-
-                    <androidx.recyclerview.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="3dp"
-                            android:id="@+id/medical_list"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/title4_1"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
-
-                    <View
-                            android:background="#EDEDED"
-                            android:layout_marginBottom="1dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/model5"
-                        android:background="@color/white"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/model4"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp">
-
-                    <TextView
-                            android:id="@+id/title5"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:text="溶栓再通"
-                            android:textSize="16sp"
-                            android:textColor="#131D35"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    <Switch
-                            android:id="@+id/throughagain"
-                            android:layout_marginRight="19dp"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintBottom_toBottomOf="@+id/title5"
-                            android:checked="@={viewModel.thrombolysis.repatency}"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    <View
-                            android:background="#EDEDED"
-                            android:layout_marginBottom="1dp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/model6"
-                        android:onClick="@{()->viewModel.toComplication()}"
-                        android:background="@color/white"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/model5"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp">
-
-                    <TextView
-                            android:id="@+id/title6"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:text="并发症"
-                            android:textSize="16sp"
-                            android:textColor="#131D35"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-
-                    <TextView
-                            android:id="@+id/ohter_ill"
-                            android:layout_marginRight="19dp"
-                            android:layout_marginTop="15dp"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginLeft="15dp"
-                            android:gravity="right"
-                            android:textSize="13sp"
-                            android:text="@{viewModel.thrombolysis.complication}"
-                            android:textColor="#C1C1C1"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/rowe6"
-                            app:layout_constraintLeft_toRightOf="@+id/title6"
-                            tools:text="颅内出血、消化道出血"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"/>
-
-
-                    <TextView
-                            android:id="@+id/rowe6"
-                            app:layout_constraintRight_toRightOf="parent"
-                            app:layout_constraintBottom_toBottomOf="@id/title6"
-                            android:layout_width="14dp"
-                            android:layout_height="24dp"
-                            android:layout_marginRight="19dp"
-                            android:background="@drawable/ic_right_arrow"/>
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </androidx.core.widget.NestedScrollView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable name="viewModel" type="com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisViewModel"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#F8F8F9"
+			tools:context=".ui.details.thrombolysis.ThrombolysisActivity">
+		<include layout="@layout/layout_new_title"
+				android:id="@+id/title"
+				/>
+		<androidx.core.widget.NestedScrollView
+				android:id="@+id/baseScroll"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/title"
+				app:layout_constraintBottom_toBottomOf="parent">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/container"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/model1"
+						android:layout_marginTop="10dp"
+						android:background="@color/white"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"
+						android:layout_width="match_parent"
+						android:onClick="@{()-> viewModel.selectPlace(1)}"
+						android:layout_height="50dp">
+
+					<TextView
+							android:id="@+id/title1"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_marginTop="15dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="15dp"
+							android:text="溶栓场所"
+							android:textSize="16sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<TextView
+							android:id="@+id/thromboly_place"
+							android:layout_marginRight="39dp"
+							android:layout_marginTop="15dp"
+							android:layout_marginBottom="15dp"
+							android:textSize="13sp"
+							android:textColor="#C1C1C1"
+							android:text="@{viewModel.thrombolysis.thromTreatmentPlaceName}"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toLeftOf="@+id/rowe1"
+							tools:text="本院急诊科"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<TextView
+							android:id="@+id/rowe1"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="@id/title1"
+							android:layout_width="14dp"
+							android:layout_height="24dp"
+							android:layout_marginRight="19dp"
+							android:background="@drawable/ic_right_arrow"/>
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/model2"
+						android:background="@color/white"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/model1"
+						android:layout_width="match_parent"
+						android:layout_height="50dp">
+
+					<TextView
+							android:id="@+id/title2"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_marginTop="15dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="15dp"
+							android:text="是否直达"
+							android:textSize="16sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+
+					<Switch
+							android:id="@+id/through"
+							android:layout_marginRight="19dp"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="@+id/title2"
+							android:checked="@={viewModel.thrombolysis.hasDirect}"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/model3"
+						android:background="@color/white"
+						android:layout_marginTop="10dp"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/model2"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/model3_1"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:onClick="@{()-> viewModel.toInformedConsent()}"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+
+						<TextView
+								android:id="@+id/title3_1"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toTopOf="@+id/informed_time"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="知情同意书"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+						<TextView
+								android:id="@+id/rown3_1"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+
+						<ImageView
+								android:id="@+id/modify_start_time_icon"
+								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
+								android:src="@drawable/ic_common_clock"
+								app:layout_constraintLeft_toLeftOf="@+id/title3_1"
+								app:layout_constraintTop_toTopOf="@+id/informed_time"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginBottom="15dp"
+								android:layout_width="14dp"
+								android:layout_height="14dp"/>
+
+						<TextView
+								android:id="@+id/informed_time"
+								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
+								app:layout_constraintLeft_toRightOf="@+id/modify_start_time_icon"
+								app:layout_constraintTop_toBottomOf="@+id/title3_1"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginLeft="7dp"
+								android:layout_marginBottom="15dp"
+								android:textColor="#999999"
+								android:textSize="16sp"
+								android:text="@{viewModel.thrombolysis.start_Agree_Time.substring(11,16) + `  ~  ` + viewModel.thrombolysis.sign_Agree_Time.substring(11,16)}"
+								tools:text="12:04~12:11"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/title3_1_1"
+								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
+								android:layout_marginTop="5dp"
+								android:layout_marginRight="5dp"
+								android:textColor="#525252"
+								app:layout_constraintRight_toLeftOf="@+id/time3_1_1"
+								app:layout_constraintBottom_toBottomOf="@+id/informed_time"
+								android:textSize="14sp"
+								android:text="耗时"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/time3_1_1"
+								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
+								android:layout_marginTop="5dp"
+								android:layout_marginRight="5dp"
+								android:textColor="#EE4E5B"
+								app:layout_constraintRight_toLeftOf="@+id/rown3_1"
+								app:layout_constraintBottom_toBottomOf="@+id/informed_time"
+								android:textSize="14sp"
+								android:text="@{viewModel.thrombolysis.allTime}"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<!---->
+
+						<!--<TextView-->
+						<!--android:drugId="@+drugId/title3_1_2"-->
+						<!--android:layout_marginTop="15dp"-->
+						<!--android:layout_marginBottom="15dp"-->
+						<!--android:textColor="#7D7D7D"-->
+						<!--app:layout_constraintTop_toBottomOf="@+drugId/title3_1_1"-->
+						<!--app:layout_constraintLeft_toLeftOf="@drugId/title3_1_1"-->
+						<!--app:layout_constraintBottom_toBottomOf="parent"-->
+						<!--android:textSize="13sp"-->
+						<!--android:text="签署知情同意书时间"-->
+						<!--android:layout_width="wrap_content"-->
+						<!--android:layout_height="wrap_content"/>-->
+						<!--<TextView-->
+						<!--android:drugId="@+drugId/end_informed_time"-->
+						<!--app:layout_constraintRight_toRightOf="@+drugId/modify_end_time_icon"-->
+						<!--app:layout_constraintBottom_toBottomOf="@+drugId/title3_1_2"-->
+						<!--android:layout_marginRight="29dp"-->
+						<!--android:textSize="13sp"-->
+						<!--android:text="@{viewModel.thrombolysis.sign_Agree_Time}"-->
+						<!--tools:text="2019-01-19 14:23:43"-->
+						<!--android:layout_width="wrap_content"-->
+						<!--android:layout_height="wrap_content"/>-->
+						<!--<ImageView-->
+						<!--android:drugId="@+drugId/modify_end_time_icon"-->
+						<!--goneUnless="@{viewModel.thrombolysis.sign_Agree_Time != null}"-->
+						<!--android:src="@drawable/ic_time_edit"-->
+						<!--app:layout_constraintRight_toRightOf="@+drugId/rown3_1"-->
+						<!--app:layout_constraintBottom_toBottomOf="@+drugId/end_informed_time"-->
+						<!--android:onClick="@{()-> viewModel.modifyInformedTime(2)}"-->
+						<!--android:layout_width="22dp"-->
+						<!--android:layout_height="22dp"/>-->
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/model3_2"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/model3_1"
+							android:layout_width="match_parent"
+							android:onClick="@{() -> viewModel.startthromTiem()}"
+							android:layout_height="50dp">
+
+						<TextView
+								android:id="@+id/title3_2"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="开始溶栓"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/start_thromboly_time"
+								android:hint="选择时间"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="13sp"
+								android:textColor="#C1C1C1"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe3_2"
+								android:text="@{viewModel.thrombolysis.throm_Start_Time}"
+								tools:text="2019-01-18 13:23:15"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/rowe3_2"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/title3_2"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/model3_3"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/model3_2"
+							android:layout_width="match_parent"
+							android:onClick="@{() -> viewModel.endthromTime()}"
+							android:layout_height="50dp">
+
+						<TextView
+								android:id="@+id/title3_3"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="结束溶栓"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/end_thromboly_time"
+								android:hint="选择时间"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="13sp"
+								android:textColor="#C1C1C1"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
+								android:text="@{viewModel.thrombolysis.throm_End_Time}"
+								tools:text="2019-01-18 13:23:15"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/rowe3_3"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/title3_3"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/model3_4"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/model3_3"
+							android:layout_width="match_parent"
+							android:onClick="@{() -> viewModel.radiographyTime()}"
+							android:layout_height="50dp">
+
+						<TextView
+								android:id="@+id/title3_4"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="溶栓后造影"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/end_thromboly_radiography_time"
+								android:hint="选择时间"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="13sp"
+								android:textColor="#C1C1C1"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe3_4"
+								android:text="@{viewModel.thrombolysis.start_Radiography_Time}"
+								tools:text="2019-01-18 13:23:15"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/rowe3_4"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/title3_4"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+				<!--android:drugId="@+drugId/model4"-->
+				<!--android:background="@color/white"-->
+				<!--app:layout_constraintLeft_toLeftOf="parent"-->
+				<!--app:layout_constraintTop_toBottomOf="@+drugId/model3"-->
+				<!--android:layout_marginTop="10dp"-->
+				<!--android:onClick="@{() -> viewModel.toDrugs()}"-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="wrap_content">-->
+
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/title4"-->
+				<!--app:layout_constraintLeft_toLeftOf="parent"-->
+				<!--app:layout_constraintTop_toTopOf="parent"-->
+				<!--android:layout_marginTop="15dp"-->
+				<!--android:layout_marginLeft="15dp"-->
+				<!--android:layout_marginBottom="15dp"-->
+				<!--android:text="溶栓用药"-->
+				<!--android:textSize="16sp"-->
+				<!--android:textColor="#131D35"-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="wrap_content"/>-->
+
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/rowe4"-->
+				<!--app:layout_constraintRight_toRightOf="parent"-->
+				<!--app:layout_constraintBottom_toBottomOf="@drugId/title4"-->
+				<!--android:layout_width="14dp"-->
+				<!--android:layout_height="24dp"-->
+				<!--android:layout_marginRight="19dp"-->
+				<!--android:background="@drawable/ic_right_arrow"/>-->
+
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/title4_1"-->
+				<!--android:layout_marginTop="15dp"-->
+				<!--android:layout_marginLeft="10dp"-->
+				<!--android:textSize="13sp"-->
+				<!--android:textColor="#7D7D7D"-->
+				<!--app:layout_constraintTop_toBottomOf="@+drugId/title4"-->
+				<!--app:layout_constraintLeft_toLeftOf="@drugId/title4"-->
+				<!--android:text="药物"-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="wrap_content"/>-->
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/thromboly_drugs"-->
+				<!--app:layout_constraintRight_toLeftOf="@+drugId/rowe4"-->
+				<!--app:layout_constraintTop_toTopOf="@+drugId/title4_1"-->
+				<!--app:layout_constraintBottom_toTopOf="@+drugId/title4_2"-->
+				<!--android:layout_marginLeft="20dp"-->
+				<!--android:gravity="right"-->
+				<!--app:layout_constraintLeft_toRightOf="@+drugId/title4_1"-->
+				<!--android:textSize="13sp"-->
+				<!--android:text="@{viewModel.thrombolysis.throm_Drug_Name}"-->
+				<!--tools:text="阿司匹林阿司匹林阿司阿司匹林"-->
+				<!--android:layout_width="0dp"-->
+				<!--android:layout_height="wrap_content"/>-->
+
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/title4_2"-->
+				<!--android:layout_marginTop="15dp"-->
+				<!--android:layout_marginBottom="15dp"-->
+				<!--android:textSize="13sp"-->
+				<!--android:textColor="#7D7D7D"-->
+				<!--app:layout_constraintTop_toBottomOf="@+drugId/thromboly_drugs"-->
+				<!--app:layout_constraintLeft_toLeftOf="@drugId/title4_1"-->
+				<!--app:layout_constraintBottom_toBottomOf="parent"-->
+				<!--android:text="剂量"-->
+				<!--tools:text="剂量"-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="wrap_content"/>-->
+				<!--<TextView-->
+				<!--android:drugId="@+drugId/thromboly_drugs_unit"-->
+				<!--app:layout_constraintRight_toLeftOf="@+drugId/rowe4"-->
+				<!--app:layout_constraintTop_toTopOf="@+drugId/title4_2"-->
+				<!--app:layout_constraintBottom_toBottomOf="@+drugId/title4_2"-->
+				<!--android:textSize="13sp"-->
+				<!--android:text="@{viewModel.thrombolysis.throm_Drug_Dose}"-->
+				<!--tools:text="半量"-->
+				<!--android:layout_width="wrap_content"-->
+				<!--android:layout_height="wrap_content"/>-->
+				<!--<View-->
+				<!--android:background="#EDEDED"-->
+				<!--android:layout_marginBottom="1dp"-->
+				<!--app:layout_constraintBottom_toBottomOf="parent"-->
+				<!--android:layout_width="match_parent"-->
+				<!--android:layout_height="1dp"/>-->
+
+				<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/model4"
+						android:background="@color/white"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/model3"
+						android:layout_marginTop="10dp"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+					<TextView
+							android:id="@+id/title4_1"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:layout_marginLeft="5dp"
+							android:padding="10dp"
+							android:textSize="16sp"
+							android:textColor="#525252"
+							android:text="溶栓用药"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
+
+					<TextView
+							android:id="@+id/title6_1"
+							android:onClick="@{() -> viewModel.toDrugs()}"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:padding="10dp"
+							android:layout_marginRight="10dp"
+							android:textSize="16sp"
+							android:textColor="#63B0F8"
+							android:drawableLeft="@drawable/ic_add_plus_blue"
+							android:drawablePadding="3dp"
+							android:text="添加"
+							android:visibility="gone"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintTop_toTopOf="parent"/>
+
+					<androidx.recyclerview.widget.RecyclerView
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_marginBottom="3dp"
+							android:id="@+id/medical_list"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/title4_1"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/model5"
+						android:background="@color/white"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/model4"
+						android:layout_width="match_parent"
+						android:layout_height="50dp">
+
+					<TextView
+							android:id="@+id/title5"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_marginTop="15dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="15dp"
+							android:text="溶栓再通"
+							android:textSize="16sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<Switch
+							android:id="@+id/throughagain"
+							android:layout_marginRight="19dp"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="@+id/title5"
+							android:checked="@={viewModel.thrombolysis.repatency}"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/model6"
+						android:onClick="@{()->viewModel.toComplication()}"
+						android:background="@color/white"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/model5"
+						android:layout_width="match_parent"
+						android:layout_height="50dp">
+
+					<TextView
+							android:id="@+id/title6"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_marginTop="15dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="15dp"
+							android:text="并发症"
+							android:textSize="16sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<TextView
+							android:id="@+id/ohter_ill"
+							android:layout_marginRight="19dp"
+							android:layout_marginTop="15dp"
+							android:layout_marginBottom="15dp"
+							android:layout_marginLeft="15dp"
+							android:gravity="right"
+							android:textSize="13sp"
+							android:text="@{viewModel.thrombolysis.complication}"
+							android:textColor="#C1C1C1"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toLeftOf="@+id/rowe6"
+							app:layout_constraintLeft_toRightOf="@+id/title6"
+							tools:text="颅内出血、消化道出血"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"/>
+
+
+					<TextView
+							android:id="@+id/rowe6"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="@id/title6"
+							android:layout_width="14dp"
+							android:layout_height="24dp"
+							android:layout_marginRight="19dp"
+							android:background="@drawable/ic_right_arrow"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+		</androidx.core.widget.NestedScrollView>
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

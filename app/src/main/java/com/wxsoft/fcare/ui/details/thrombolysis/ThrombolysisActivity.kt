@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.EntityIdName
 import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -24,6 +26,7 @@ import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
+import kotlinx.android.synthetic.main.item_share_item.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -83,6 +86,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
         const val DRUG = 30
         const val COMPLICATION = 40
         const val SELECT_PLACE = 50
+        const val SELECT_DOCTOR = 51
     }
     private lateinit var viewModel: ThrombolysisViewModel
     @Inject
@@ -163,8 +167,15 @@ class ThrombolysisActivity : BaseTimingActivity() {
 
         viewModel.itemForChangeTime.observe(this, Observer {
             it ?: return@Observer
-
+//            viewModel.itemForChangeTime.value=null
             showPicker(it)
+
+        })
+
+        viewModel.itemForChangeDoctor.observe(this, Observer {
+            it ?: return@Observer
+//            viewModel.itemForChangeDoctor.value=null
+            selectDoctor()
 
         })
 
@@ -176,6 +187,14 @@ class ThrombolysisActivity : BaseTimingActivity() {
             putExtra(SelecterOfOneModelActivity.COME_FROM, "ThromSelectPlace")
         }
         startActivityForResult(intent,SELECT_PLACE)
+
+    }
+
+    private fun selectDoctor(){
+        val intent = Intent(this, SelectDoctorActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+        }
+        startActivityForResult(intent, SELECT_DOCTOR)
 
     }
 
@@ -220,14 +239,14 @@ class ThrombolysisActivity : BaseTimingActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
-                ThrombolysisActivity.INFORMED_CONSENT ->{//知情同意书
+                INFORMED_CONSENT ->{//知情同意书
                     viewModel.thrombolysis.value?.informedConsentId = data?.getStringExtra("informedConsentId")?:""
                     viewModel.thrombolysis.value?.start_Agree_Time = data?.getStringExtra("startTime")?:""
                     viewModel.thrombolysis.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
 //                    viewModel.thrombolysis.value?.allTime = data?.getStringExtra("allTime")?:""
 
                 }
-                ThrombolysisActivity.DRUG ->{//用药
+                DRUG ->{//用药
                     var arr =  viewModel.thrombolysis.value?.drugRecords?.map { it }?: emptyList()
                     val drugs = data?.getSerializableExtra("selectedDrugs") as ArrayList<Drug>
                     val dlist = drugs.map { DrugRecord(it.id).apply {
@@ -245,10 +264,17 @@ class ThrombolysisActivity : BaseTimingActivity() {
                     val otherIlls = data?.getStringExtra("otherIlls")
                     binding.ohterIll.setText(otherIlls)
                 }
-                ThrombolysisActivity.SELECT_PLACE ->{//溶栓场所
+                SELECT_PLACE ->{//溶栓场所
                     val place = data?.getSerializableExtra("SelectOne") as Dictionary
                     viewModel.thrombolysis.value?.thromTreatmentPlaceName = place.itemName
                     viewModel.thrombolysis.value?.throm_Treatment_Place = place.id
+                }
+
+                SELECT_DOCTOR ->{//溶栓场所
+                    val doctor = data?.getParcelableExtra<EntityIdName>("doctor") //as EntityIdName
+
+                    viewModel.itemForChangeDoctor.value?.staffName = doctor?.name
+                    viewModel.itemForChangeDoctor.value?.staffId = doctor?.id
                 }
 
             }

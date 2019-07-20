@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.workspace
 
+import android.util.Log
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.databinding.ObservableInt
@@ -161,7 +162,12 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             operation.items?.forEach {
                 val index=keys.indexOf(it.actionCode)
                 if(index>=0){
-                    it.ico=icons[index]
+
+                    if(index<icons.size)
+                        it.ico=icons[index]
+                    else{
+                        Log.i("","")
+                    }
                 }
             }
         }
@@ -205,6 +211,18 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                     }
                 }
         )
+    }
+
+    fun nfcInput(code:String?) {
+        code?.let {
+            disposable.add(
+                patientApi.nfcInput(account.id, patientId, it)
+                    .flatMap { qualityControlApi.getOperationGroups(patientId, account.id, pre) }
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({}, ::error)
+            )
+        }
     }
 
 }

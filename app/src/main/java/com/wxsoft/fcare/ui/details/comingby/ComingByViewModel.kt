@@ -34,6 +34,11 @@ class ComingByViewModel @Inject constructor(
     private val loadPassing=MediatorLiveData<Response<Passing>>()
     private val savingResult=MediatorLiveData<Response<String?>>()
 
+//    outhospital_Visit_Time,transfer_Time,
+//    ambulance_Arrived_Time,leave_Outhospital_Time,arrived_Scene_Time,arrived_Hospital_Time,
+//    inhospital_Admission_Time,consultation_Time,leave_Department_Time
+    private val array= arrayOf("转出医院入门时间","决定转院时间","转运救护车到达时间","离开转出医院时间","出诊医生到达现场","到达本院大门",
+    "院内接诊时间","会诊时间","离开科室时间")
     val selectType=MediatorLiveData<Int>()
     val selectDoctor=MediatorLiveData<Int>()
 
@@ -180,8 +185,35 @@ class ComingByViewModel @Inject constructor(
     fun save() {
         if (comingBy.value == null || passing.value == null) return
 
-        comingBy.value?.apply {
 
+        comingBy.value?.apply {
+            val times = arrayOf( outhospital_Visit_Time,transfer_Time,
+                ambulance_Arrived_Time,leave_Outhospital_Time,arrived_Scene_Time,arrived_Hospital_Time,
+                inhospital_Admission_Time,consultation_Time,leave_Department_Time)
+
+                .mapIndexedNotNull { index, s -> if(s.isNullOrEmpty()) null else Pair(index,s) }
+
+            if(times.size>1) {
+                for (index in 0 until times.size-1) {
+                    if (times[index].second > times[index + 1].second){
+                        messageAction.value = Event("${array[times[index].first]}需早于${array[times[index+1].first]}")
+                        return
+                    }
+                }
+            }
+
+            when{
+                consultation_Time != null && !comingWayStaffs?.any { it.staffType == "3" }
+                ->{
+                    messageAction.value = Event("会诊医生不能为空")
+                    return
+                }
+                comingWayStaffs?.any { it.staffType == "3" } && consultation_Time == null
+                ->{
+                    messageAction.value = Event("会诊时间不能为空")
+                    return
+                }
+            }
 
             var d1 = comingWayStaffs.firstOrNull { it.staffType == "1" }
 
@@ -215,13 +247,9 @@ class ComingByViewModel @Inject constructor(
             comingWayStaffs = l
         }
 
-        if (comingBy.value?.consultation_Time != null && comingBy.value?.comingWayStaffs?.any { it.staffType == "3" } != true) {
-            messageAction.value = Event("会诊医生不能为空")
-            return
-        } else if (comingBy.value?.comingWayStaffs?.any { it.staffType == "3" } == true && comingBy.value?.consultation_Time == null) {
-            messageAction.value = Event("会诊时间不能为空")
-            return
-        }
+
+
+
         comingByApi.save(comingBy.value!!).flatMap {
             comingByApi.savePassing(passing.value!!)
         }.subscribeOn(Schedulers.io())

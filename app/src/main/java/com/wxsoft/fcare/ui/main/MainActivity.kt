@@ -40,9 +40,7 @@ class MainActivity : BaseActivity() {
     @Inject
     lateinit var sharedPreferenceStorage: SharedPreferenceStorage
 
-    private var nfcAdapter: NfcAdapter? = null
 
-    private var pi:PendingIntent?=null
 
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
@@ -92,59 +90,6 @@ class MainActivity : BaseActivity() {
                 lifecycleOwner = this@MainActivity
             }
 
-
-
-        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
-        pi = PendingIntent.getActivity(
-            this, 0, Intent(this, javaClass)
-                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0
-        )
-    }
-
-    override fun onResume() {
-        super.onResume();
-        nfcAdapter?.enableForegroundDispatch(this, pi, null, null); //启动
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        nfcAdapter?.disableForegroundDispatch(this); //启动
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        nfcAdapter=null
-
-    }
-
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-
-        intent?.action?.let {
-            when(it){
-                NfcAdapter.ACTION_TAG_DISCOVERED->{
-                    val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
-                    val cardId=NfcUtils.toHexString(tag.id)
-//                String(tag.drugId,Charsets.US_ASCII)//tag.drugId.toString()
-                    AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
-                        .setTitle("查询到NFC")
-                        .setMessage(cardId)
-                        .show()
-                }
-
-                NfcAdapter.ACTION_NDEF_DISCOVERED->{
-                    val cardId = intent.dataString
-//                    val cardId=NfcUtils.toHexString(tag.drugId)
-                    AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
-                        .setTitle("查询到NFC")
-                        .setMessage(cardId)
-                        .show()
-                }
-
-                else->{}
-            }
-        }
     }
 }
 

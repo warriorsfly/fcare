@@ -324,6 +324,9 @@
                 android:name=".ui.details.blood.pressure.BloodPressureActivity"
                 android:theme="@style/AppTheme.NoActionBar"/>
         <activity
+                android:name=".ui.details.thrombolysis.SelectDoctorActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
                 android:name="cn.jpush.android.ui.PushActivity"
                 android:configChanges="orientation|keyboardHidden"
                 android:exported="false"

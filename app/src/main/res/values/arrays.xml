@@ -63,18 +63,36 @@
         <item>@drawable/ic_work_space_complications</item>
         <!--评估结果-->
         <item>@drawable/ic_work_space_rating_result</item>
+        <!--查体-->
+        <item>@drawable/ic_work_space_checkbody</item>
         <!--患者转归-->
         <item>@drawable/ic_work_space_lapse</item>
-        <!--治疗操作-->
+        <!--pci-->
         <item>@drawable/ic_work_space_pci</item>
+        <!--并发症-->
+        <item>@drawable/ic_work_space_complications</item>
+        <!--评估结果-->
+        <item>@drawable/ic_work_space_rating_result</item>
+        <!--查体-->
+        <item>@drawable/ic_work_space_checkbody</item>
+        <!--措施-->
+        <item>@drawable/ic_work_space_measures</item>
+        <!--通知启动导管室-->
+        <item>@drawable/ic_work_space_pci</item>
+        <!--通知启动CT室-->
+        <item>@drawable/ic_work_space_ct_mri</item>
         <!--ACS给药-->
-        <item>@drawable/ic_work_space_pci</item>
+        <item>@drawable/ic_work_space_medication</item>
         <!--一键通知-->
         <item>@drawable/ic_call_phone</item>
         <!--肌钙蛋白-->
         <item>@drawable/ic_work_space_jgdb</item>
         <!--来院方式-->
         <item>@drawable/ic_work_space_lapse</item>
+        <!--血压监测-->
+        <item>@drawable/ic_blood_pressure</item>
+        <!--评估表-->
+        <item>@drawable/ic_blood_test</item>
     </array>
 
     <!--操作台操作背景色-->
@@ -185,7 +203,7 @@
         <item>hzgy</item>
         <!--溶栓时间轴-->
         <item>rscz</item>
-        <!--介入手术-->
+        <!--pci-->
         <item>pci</item>
         <!--并发症-->
         <item>complications</item>
@@ -217,5 +235,11 @@
         <item>jgdb</item>
         <!--来院方式-->
         <item>lyfs</item>
+        <!--血压监测-->
+        <item>xyjc</item>
+        <!--评估表-->
+        <item>pgb</item>
+        <item>ry</item>
+        <item>cx</item>
     </array>
 </resources>

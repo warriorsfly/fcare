@@ -65,6 +65,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     val informed:LiveData<InformedConsent>
     private val loadInformedResult = MediatorLiveData<Resource<Response<InformedConsent>>>()
     val itemForChangeTime = MediatorLiveData<DrugRecord>()
+    val itemForChangeDoctor = MediatorLiveData<DrugRecord>()
 
     init {
         modifySome = initModifySome.map { it }
@@ -177,20 +178,26 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
     }
 
     fun click() {
-        thrombolysis.value?.patientId = patientId
-        thrombolysis.value!!.drugRecords = drugs
-        thrombolysisApi.save(thrombolysis.value!!).toResource()
-            .subscribe {
-                when(it){
-                    is Resource.Success->{
-                        initModifySome.value = "saveSuccess"
-                    }
-                }
+        thrombolysis.value?.let {
+            if(it.patientId.isNullOrEmpty())
+                it.patientId = patientId
 
-            }
+            it.drugRecords=drugs.filter { it.selected }
+
+            thrombolysisApi.save(it).toResource()
+                .subscribe {
+                    when(it){
+                        is Resource.Success->{
+                            initModifySome.value = "saveSuccess"
+                        }
+                    }
+
+                }
+        }
     }
 
     fun subdelow(item: DrugRecord){
+
         if (item.dose <=1f){
             return
         }  else {
@@ -202,12 +209,11 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         item.doseString = (item.dose + 1).toString()
     }
 
-    fun deleteDrug(item: DrugRecord){
-        drugs.remove(item)
-        loadClickLine.value = "refreshDrugs"
-    }
-
     fun changeTime(item: DrugRecord) {
         itemForChangeTime.value=item
+    }
+
+    fun changeDoctor(item: DrugRecord) {
+        itemForChangeDoctor.value=item
     }
 }

@@ -3,7 +3,10 @@ package com.wxsoft.fcare.ui.workspace
 //import kotlinx.android.synthetic.main.activity_working.*
 import android.app.Activity
 import android.app.AlertDialog
+import android.app.PendingIntent
 import android.content.Intent
+import android.nfc.NfcAdapter
+import android.nfc.Tag
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -15,6 +18,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.utils.NfcUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityWorkingBinding
@@ -82,6 +86,10 @@ import javax.inject.Inject
 import javax.inject.Named
 
 class WorkingActivity : BaseActivity() {
+
+    private var nfcAdapter: NfcAdapter? = null
+
+    private var pi: PendingIntent?=null
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
         when(bottomSheetBehavior.state){
@@ -209,6 +217,42 @@ class WorkingActivity : BaseActivity() {
             title=it.name
         })
 
+        nfcAdapter = NfcAdapter.getDefaultAdapter(this)
+        pi = PendingIntent.getActivity(
+            this, 0, Intent(this, javaClass)
+                .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0
+        )
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+
+        intent?.action?.let {
+            when(it){
+                NfcAdapter.ACTION_TAG_DISCOVERED->{
+                    val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
+                    val cardId= NfcUtils.toHexString(tag.id)
+                    viewModel.nfcInput(cardId)
+//                String(tag.drugId,Charsets.US_ASCII)//tag.drugId.toString()
+//                    AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+//                        .setTitle("查询到NFC")
+//                        .setMessage(cardId)
+//                        .show()
+                }
+
+                NfcAdapter.ACTION_NDEF_DISCOVERED->{
+                    val cardId = intent.dataString
+                    viewModel.nfcInput(cardId)
+//                    val cardId=NfcUtils.toHexString(tag.drugId)
+//                    AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+//                        .setTitle("查询到NFC")
+//                        .setMessage(cardId)
+//                        .show()
+                }
+
+                else->{}
+            }
+        }
     }
 
     override fun onPause() {
@@ -216,8 +260,19 @@ class WorkingActivity : BaseActivity() {
             bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
         }
         super.onPause()
+        nfcAdapter?.disableForegroundDispatch(this); //启动
     }
 
+    override fun onResume() {
+        super.onResume();
+        nfcAdapter?.enableForegroundDispatch(this, pi, null, null); //启动
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        nfcAdapter=null
+
+    }
 
     private fun doOperation(operation:WorkOperation){
         when(operation.actionCode){
