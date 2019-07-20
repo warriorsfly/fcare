@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.EntityIdName
+import com.wxsoft.fcare.core.data.entity.ThromboStaff
 import com.wxsoft.fcare.core.data.entity.drug.Drug
 import com.wxsoft.fcare.core.data.entity.drug.DrugRecord
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -87,6 +88,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
         const val COMPLICATION = 40
         const val SELECT_PLACE = 50
         const val SELECT_DOCTOR = 51
+        const val SELECT_DOCTORS = 52
     }
     private lateinit var viewModel: ThrombolysisViewModel
     @Inject
@@ -139,6 +141,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
                     }
                 }
                 "drugs" -> toDrugs()
+                "doctors" -> selectDoctors()
                 "complication" -> toComplication()
                 "refreshDrugs" -> {
                     drugAdapter.notifyDataSetChanged()
@@ -195,6 +198,19 @@ class ThrombolysisActivity : BaseTimingActivity() {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
         }
         startActivityForResult(intent, SELECT_DOCTOR)
+
+    }
+
+    private fun selectDoctors(){
+
+        viewModel.thrombolysis.value?.let {
+            val intent = Intent(this, SelectDoctorActivity::class.java).apply {
+                putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+                putExtra("doctorIds",it.thromStaffs?.map { it.staffId }?.toTypedArray()?: emptyArray())
+                putExtra("single",false)
+            }
+            startActivityForResult(intent, SELECT_DOCTORS)
+        }
 
     }
 
@@ -275,6 +291,14 @@ class ThrombolysisActivity : BaseTimingActivity() {
 
                     viewModel.itemForChangeDoctor.value?.staffName = doctor?.name
                     viewModel.itemForChangeDoctor.value?.staffId = doctor?.id
+                }
+
+                SELECT_DOCTORS ->{//溶栓场所
+                    val doctors = data?.getParcelableArrayListExtra<EntityIdName>("doctors") //as EntityIdName
+
+                    viewModel.thrombolysis.value?.let {
+                        it.thromStaffs = doctors?.map {doc-> ThromboStaff(thromId = it.id?:"",staffId =doc.id,staffName = doc.name ) }
+                    }
                 }
 
             }

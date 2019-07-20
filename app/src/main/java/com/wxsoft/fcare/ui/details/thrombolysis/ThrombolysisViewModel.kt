@@ -71,6 +71,9 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
         thrombolysis = loadThrombolysis.map { it?.apply {
+
+            doctors = thromStaffs?.joinToString ( "," ){ it.staffName }
+
             drugRecords?.forEach{
                 item->item.doseString=item.dose.toString()
                 item.selected = !item.id.isNullOrEmpty()
@@ -125,6 +128,12 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             when(line){
                 1 -> loadClickLine.value = "place"
             }
+        }
+    }
+    //点击选择溶栓场所
+    fun selectDoctors(){
+        thrombolysis.value?.let {
+            loadClickLine.value = "doctors"
         }
     }
 

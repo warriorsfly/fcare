@@ -459,7 +459,6 @@
                         android:layout_height="50dp"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
-                        android:onClick="@{()->viewModel.openRating(`9`,viewModel.selectedItem.nihsS_AnswerRecordId)}"
                         android:id="@+id/base_info_item9"
                         app:goneUnless="@{viewModel.selectedItem.columns.contains(`6`)}"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -475,7 +474,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:text="NIHSS" />
 
-                        <TextView
+                        <EditText
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -484,7 +483,7 @@
                             android:layout_marginRight="60dp"
                             app:layout_constraintTop_toTopOf="parent"
                             android:background="@drawable/bg_edittextview_border"
-                            android:hint="点击NIHSS评分"
+                            android:hint="点击评分"
                             android:textColor="#9399A4"
                             android:textSize="14sp"
                             android:text="@={NullableConverter.intToString(viewModel.selectedItem.nihss)}"
@@ -493,7 +492,17 @@
                             android:id="@+id/nihss"
                             tools:text="67"
                             />
-
+                        <ImageView
+                            android:onClick="@{()->viewModel.openRating(`9`,viewModel.selectedItem.nihsS_AnswerRecordId)}"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/nihss"
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="19dp"
+                            android:src="@drawable/ic_blood_test"/>
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -507,7 +516,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:paddingLeft="12dp"
-                        android:onClick="@{()->viewModel.openRating(`10`,viewModel.selectedItem.mrS_AnswerRecordId)}"
                         android:paddingRight="12dp"
                         app:goneUnless="@{viewModel.selectedItem.columns.contains(`7`)}"
                         android:id="@+id/base_info_item10"
@@ -524,7 +532,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:text="mRS" />
 
-                        <TextView
+                        <EditText
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -533,7 +541,7 @@
                             android:layout_marginRight="60dp"
                             app:layout_constraintTop_toTopOf="parent"
                             android:background="@drawable/bg_edittextview_border"
-                            android:hint="点击mRS评分"
+                            android:hint="点击评分"
                             android:text="@={NullableConverter.intToString(viewModel.selectedItem.mrs)}"
                             android:textColor="#9399A4"
                             android:textSize="14sp"
@@ -542,6 +550,18 @@
                             android:id="@+id/mRS"
                             tools:text="67"
                             />
+
+                        <ImageView
+                            android:onClick="@{()->viewModel.openRating(`10`,viewModel.selectedItem.mrS_AnswerRecordId)}"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/mRS"
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="19dp"
+                            android:src="@drawable/ic_blood_test"/>
 
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -556,7 +576,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:paddingLeft="12dp"
-                        android:onClick="@{()->viewModel.openRating(`24`,viewModel.selectedItem.bI_AnswerRecordId)}"
                         android:paddingRight="12dp"
                         app:goneUnless="@{viewModel.selectedItem.columns.contains(`8`)}"
                         android:id="@+id/base_info_item11"
@@ -573,7 +592,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:text="BI" />
 
-                        <TextView
+                        <EditText
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -583,7 +602,7 @@
                             android:text="@={NullableConverter.intToString(viewModel.selectedItem.bi)}"
                             app:layout_constraintTop_toTopOf="parent"
                             android:background="@drawable/bg_edittextview_border"
-                            android:hint="点击BI评分"
+                            android:hint="点击评分"
                             android:textColor="#9399A4"
                             android:textSize="14sp"
                             android:gravity="center_vertical|right"
@@ -591,6 +610,18 @@
                             android:id="@+id/bi"
                             tools:text="67"
                             />
+
+                        <ImageView
+                            android:onClick="@{()->viewModel.openRating(`24`,viewModel.selectedItem.bI_AnswerRecordId)}"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/bi"
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="19dp"
+                            android:src="@drawable/ic_blood_test"/>
 
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -606,7 +637,7 @@
                         android:layout_height="50dp"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
-                        android:onClick="@{()->viewModel.openRating(`25`,viewModel.selectedItem.swallow_AnswerRecordId)}"
+
                         app:goneUnless="@{viewModel.selectedItem.columns.contains(`9`)}"
                         android:id="@+id/base_info_item12"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -622,7 +653,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:text="吞咽" />
 
-                        <TextView
+                        <EditText
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -632,7 +663,7 @@
                             android:text="@={NullableConverter.intToString(viewModel.selectedItem.swallow)}"
                             app:layout_constraintTop_toTopOf="parent"
                             android:background="@drawable/bg_edittextview_border"
-                            android:hint="点击吞咽评分"
+                            android:hint="点击评分"
                             android:textColor="#9399A4"
                             android:textSize="14sp"
                             android:gravity="center_vertical|right"
@@ -640,7 +671,17 @@
                             android:id="@+id/ty"
                             tools:text="67"
                             />
-
+                        <ImageView
+                            android:onClick="@{()->viewModel.openRating(`25`,viewModel.selectedItem.swallow_AnswerRecordId)}"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/ty"
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="19dp"
+                            android:src="@drawable/ic_blood_test"/>
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"

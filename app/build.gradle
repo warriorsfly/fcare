@@ -117,6 +117,8 @@ dependencies {
 
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.contrarywind:Android-PickerView:4.1.8'
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+
     //    coroutines协程，比较下rxjava2和协程对内存泄漏的影响
 
     //    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"

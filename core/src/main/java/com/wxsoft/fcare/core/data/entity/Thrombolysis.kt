@@ -85,8 +85,20 @@ class Thrombolysis constructor(@Bindable var id:String="",var createrId:String):
             field=value
             notifyPropertyChanged(BR.throm_Treatment_Place)
         }
-
-
+    @Bindable
+    var thromStaffs:List<ThromboStaff>? = emptyList()
+        set(value) {
+            field=value
+            doctors=field?.joinToString(","){ it.staffName }?:""
+            notifyPropertyChanged(BR.thromStaffs)
+        }
+    @Transient
+    @Bindable
+    var doctors:String?=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.doctors)
+        }
 
     @Bindable
     @SerializedName("throm_Treatment_Place_Name")

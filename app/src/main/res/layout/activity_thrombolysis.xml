@@ -119,11 +119,66 @@
 				</androidx.constraintlayout.widget.ConstraintLayout>
 
 				<androidx.constraintlayout.widget.ConstraintLayout
+						android:id="@+id/model2_1"
+						android:background="@color/white"
+						app:layout_constraintTop_toBottomOf="@id/model2"
+						android:layout_width="match_parent"
+						android:onClick="@{()-> viewModel.selectDoctors()}"
+						android:layout_height="50dp">
+
+					<TextView
+							android:id="@+id/title2_1"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_marginTop="15dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="15dp"
+							android:text="执行医生"
+							android:textSize="16sp"
+							android:textColor="#131D35"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<TextView
+							android:id="@+id/doctors"
+							android:layout_marginRight="39dp"
+							android:layout_marginTop="15dp"
+							android:layout_marginBottom="15dp"
+							android:textSize="13sp"
+							android:textColor="#C1C1C1"
+							android:text="@{viewModel.thrombolysis.doctors}"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toLeftOf="@+id/rowe2_1"
+							tools:text="本院急诊科"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<TextView
+							android:id="@+id/rowe2_1"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="@id/title2_1"
+							android:layout_width="14dp"
+							android:layout_height="24dp"
+							android:layout_marginRight="19dp"
+							android:background="@drawable/ic_right_arrow"/>
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+				<androidx.constraintlayout.widget.ConstraintLayout
 						android:id="@+id/model3"
 						android:background="@color/white"
 						android:layout_marginTop="10dp"
 						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/model2"
+						app:layout_constraintTop_toBottomOf="@+id/model2_1"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content">
 
