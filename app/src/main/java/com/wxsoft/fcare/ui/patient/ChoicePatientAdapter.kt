@@ -15,7 +15,7 @@ import com.wxsoft.fcare.ui.patient.choice.ChoicePatientViewModel
 class ChoicePatientAdapter constructor(private val lifecycleOwner: LifecycleOwner, private val viewModel: ChoicePatientViewModel) :
     RecyclerView.Adapter<ChoicePatientAdapter.ItemViewHolder>() {
 
-    private val differ = AsyncListDiffer<Patient>(this, DiffCallback)
+    private val differ = AsyncListDiffer(this, DiffCallback)
 
     var items: List<Patient> = emptyList()
         set(value) {

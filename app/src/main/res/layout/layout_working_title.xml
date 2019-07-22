@@ -135,6 +135,17 @@
                 android:textColor="@color/white"
                 android:text="秒"/>
 
+            <ImageView
+                goneUnless="@{!viewModel.valided}"
+                android:id="@+id/timeline_error"
+                app:layout_constraintBottom_toBottomOf="@id/hour"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180dp"
+                android:padding="6dp"
+                android:textColor="@color/white"
+                android:src="@drawable/ic_time_point_warning"/>
             <TextView
                     goneUnless="@{ viewModel.showAttackTime }"
                     android:id="@+id/start_ill_date"

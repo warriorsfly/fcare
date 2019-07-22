@@ -305,6 +305,13 @@ class Thrombolysis constructor(@Bindable var id:String="",var createrId:String):
             notifyPropertyChanged(BR.createdDate)
         }
 
+    @Bindable
+    var direction_Code:String?=null
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.direction_Code)
+        }
+
     fun getInformedTime(){
         if(start_Agree_Time.isNullOrEmpty()|| sign_Agree_Time.isNullOrEmpty()) return
         allTime = DateTimeUtils.getAAfromBBMinutes(start_Agree_Time!!, sign_Agree_Time!!)

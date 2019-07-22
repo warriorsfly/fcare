@@ -653,6 +653,7 @@
 							app:layout_constraintRight_toRightOf="parent"
 							app:layout_constraintBottom_toBottomOf="@+id/title5"
 							android:checked="@={viewModel.thrombolysis.repatency}"
+							android:onClick="@{()->viewModel.changeItem()}"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"/>
 
@@ -719,8 +720,41 @@
 				</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-			</androidx.constraintlayout.widget.ConstraintLayout>
+			<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/model4_10"
+					android:background="@color/white"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toBottomOf="@+id/model6"
+					android:layout_marginTop="10dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content">
+				<TextView
+						android:id="@+id/title4_10"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						android:layout_marginLeft="5dp"
+						android:padding="10dp"
+						android:textSize="16sp"
+						android:textColor="#525252"
+						android:text="去向"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="parent"/>
 
+
+				<androidx.recyclerview.widget.RecyclerView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginBottom="3dp"
+						android:id="@+id/go_list"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/title4_10"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:spanCount="3"
+						app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+			</androidx.constraintlayout.widget.ConstraintLayout>
 		</androidx.core.widget.NestedScrollView>
 
 	</androidx.constraintlayout.widget.ConstraintLayout>

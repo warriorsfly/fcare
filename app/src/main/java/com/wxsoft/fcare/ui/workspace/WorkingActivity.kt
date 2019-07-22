@@ -209,6 +209,15 @@ class WorkingActivity : BaseActivity() {
                     }
                     startActivityForResult(intent, NOTIFICATION)
                 }
+
+                timeline_error.setOnClickListener {
+                    val intent = Intent(this@WorkingActivity, TimePointActivity::class.java)
+                        .apply {
+                            putExtra(TimePointActivity.PATIENT_ID, patientId)
+                            putExtra("just_error", true)
+                        }
+                    startActivityForResult(intent, TimePointActivity.BASE_INFO)
+                }
             }
 
         setSupportActionBar(toolbar)

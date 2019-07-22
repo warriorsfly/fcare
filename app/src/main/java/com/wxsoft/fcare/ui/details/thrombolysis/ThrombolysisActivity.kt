@@ -5,6 +5,8 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -27,12 +29,13 @@ import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
+import kotlinx.android.synthetic.main.activity_thrombolysis.*
 import kotlinx.android.synthetic.main.item_share_item.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 
-class ThrombolysisActivity : BaseTimingActivity() {
+class ThrombolysisActivity : BaseTimingActivity(){
     override fun selectTime(millseconds: Long) {
 
         if(viewModel.itemForChangeTime.value==null) {
@@ -96,14 +99,44 @@ class ThrombolysisActivity : BaseTimingActivity() {
 
     lateinit var binding: ActivityThrombolysisBinding
     lateinit var drugAdapter: ThrombolysisDrugsAdapter
+    lateinit var goAdapter: GoAdapter
 
     private lateinit var placeDialog: Dialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
+        goAdapter = GoAdapter(this)
+        drugAdapter = ThrombolysisDrugsAdapter(this,viewModel)
+
         binding = DataBindingUtil.setContentView<ActivityThrombolysisBinding>(this, R.layout.activity_thrombolysis)
             .apply {
+                medicalList.adapter = drugAdapter
+                goList.adapter=goAdapter
+
+
+                ohterIll.addTextChangedListener(object:TextWatcher{
+                    override fun afterTextChanged(p0: Editable?) {
+                        if(throughagain.isChecked){
+                            goAdapter.setCurrent("241-1")
+                        }else{
+                            if(ohter_ill.text.toString().trim().isNotEmpty()){
+                                goAdapter.setCurrent("241-3")
+                            }else{
+                                goAdapter.setCurrent("241-5")
+                            }
+                        }
+                    }
+
+                    override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                    override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+                    }
+
+                })
                 lifecycleOwner = this@ThrombolysisActivity
             }
         patientId=intent.getStringExtra(PATIENT_ID)?:""
@@ -121,14 +154,29 @@ class ThrombolysisActivity : BaseTimingActivity() {
         title="溶栓"
         viewModel.informed.observe(this, Observer {  })
 
-        drugAdapter = ThrombolysisDrugsAdapter(this,viewModel)
-        binding.medicalList.adapter = drugAdapter
 
-        viewModel.thrombolysis.observe(this, Observer {
 
-            viewModel.drugs.addAll( it.drugRecords)
-            drugAdapter.submitList(viewModel.drugs)
-        })
+        viewModel.apply {
+            thrombolysis.observe(this@ThrombolysisActivity, Observer {
+
+                viewModel.drugs.addAll( it.drugRecords)
+                drugAdapter.submitList(viewModel.drugs)
+                if(goAdapter.current()==null)
+                    goAdapter.setCurrent(it.direction_Code?:"")
+            })
+
+            thromPlaces.observe(this@ThrombolysisActivity, Observer {
+                goAdapter.submitList(it)
+                if(goAdapter.current()==null && thrombolysis.value!=null){
+                    goAdapter.setCurrent(thrombolysis.value?.direction_Code?:"")
+                }
+
+            })
+            aa.observe(this@ThrombolysisActivity, Observer {
+                goAdapter.setCurrent(it)
+            })
+        }
+
 
         viewModel.clickLine.observe(this, Observer {
             when(it){
@@ -181,6 +229,8 @@ class ThrombolysisActivity : BaseTimingActivity() {
             selectDoctor()
 
         })
+
+
 
     }
 
@@ -278,7 +328,7 @@ class ThrombolysisActivity : BaseTimingActivity() {
                 }
                 COMPLICATION ->{//并发症
                     val otherIlls = data?.getStringExtra("otherIlls")
-                    binding.ohterIll.setText(otherIlls)
+                    binding.ohterIll.text = otherIlls
                 }
                 SELECT_PLACE ->{//溶栓场所
                     val place = data?.getSerializableExtra("SelectOne") as Dictionary
@@ -313,6 +363,11 @@ class ThrombolysisActivity : BaseTimingActivity() {
 
         return  when(item?.itemId){
             R.id.submit->{
+                goAdapter.current()?.let {
+                    viewModel.thrombolysis.value?.apply {
+                        direction_Code=it.id
+                    }
+                }
                 viewModel.click()
                 true
             }

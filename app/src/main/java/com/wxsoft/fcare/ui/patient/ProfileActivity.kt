@@ -222,8 +222,8 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
         viewModel.savePatientResult.observe(this, Observer {
 
-            when(it){
-                is Resource.Success->{
+            when{
+                (it is Resource.Success && it.data.success)->{
                     Intent().let {intent->
                         intent.putExtra(NEW_PATIENT_ID,it.data.result)
                         setResult(RESULT_OK, intent)
@@ -426,6 +426,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                         age = item.age
                         phone = item.phone
                         outpatientId = item.outpatientId
+                        registerDate = item.registerDate
                     }
 //
                 }

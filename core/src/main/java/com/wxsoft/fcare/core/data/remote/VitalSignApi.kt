@@ -37,4 +37,7 @@ interface VitalSignApi{
 
     @POST("EvaluateResult/Save")
     fun insert(@Body item: EvaluateItem): Maybe<Response<String>>
+
+    @POST("VitalSignsCollectResult/GetExcutePlanByPatientId/{patientId}")
+    fun getPlan(@Path("patientId")id:String): Maybe<Response<String>>
 }
