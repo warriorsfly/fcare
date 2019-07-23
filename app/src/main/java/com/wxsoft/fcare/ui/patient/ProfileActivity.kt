@@ -426,6 +426,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                         age = item.age
                         phone = item.phone
                         outpatientId = item.outpatientId
+                        if(item.registerDate.isNullOrEmpty())return@apply
                         registerDate = item.registerDate
                     }
 //

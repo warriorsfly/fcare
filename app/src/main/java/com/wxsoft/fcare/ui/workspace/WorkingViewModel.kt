@@ -39,7 +39,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
 ) : BaseViewModel(sharedPreferenceStorage,gon){
 
     val showAttackTime=ObservableBoolean().apply { set(false) }
-    val valided=ObservableBoolean()
+    val valided=ObservableBoolean().apply { set(true) }
     val timestamp=ObservableLong().apply { set(0) }
     val minute=ObservableLong().apply { set(0) }
     val second=ObservableLong().apply { set(0) }
@@ -154,7 +154,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
 
     private fun doQualities(it: Pair<Response<List<TimeQuality>>,Response<Boolean>>){
         loadTimeQualityResult.value=it.first
-        valided.set(it.second.result?:false)
+        valided.set(it.second.result?:true)
     }
     private fun doOperations(response:Response<List<Record<WorkOperation>>>){
         response.result?.forEach { operation->
