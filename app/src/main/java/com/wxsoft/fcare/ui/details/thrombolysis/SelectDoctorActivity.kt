@@ -4,6 +4,8 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
@@ -29,9 +31,13 @@ class SelectDoctorActivity : BaseActivity() {
         intent?.getStringExtra("PATIENT_ID")?:""
     }
 
+    private val single by lazyFast {
+        intent?.getBooleanExtra("single",true)?: true
+    }
+
 
     private val ids by lazyFast {
-        intent?.getParcelableArrayListExtra<EntityIdName>("ids")?.map { it.id }?: emptyList()
+        intent?.getStringArrayExtra("doctorIds")?: emptyArray()
     }
 
     private lateinit var viewModel: SelectDoctorViewModel
@@ -40,20 +46,52 @@ class SelectDoctorActivity : BaseActivity() {
     lateinit var factory: ViewModelFactory
     lateinit var adapter: Adapter
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        if(!single)
+        menuInflater.inflate(R.menu.menu_subject,menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return  when(item?.itemId){
+            R.id.submit->{
+
+                viewModel.doctors.value?.let{
+                    iten.putParcelableArrayListExtra("doctors",ArrayList<EntityIdName>().apply {
+                        addAll(
+                            it.filter { it.checked }.map { user ->
+                                EntityIdName(
+                                    user.id,
+                                    user.trueName
+                                )
+                            } ?: emptyList()
+                        )
+                    })
+                    setResult(Activity.RESULT_OK,iten)
+                    finish()
+                    true
+                }
+                false
+
+            }
+            else->super.onOptionsItemSelected(item)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         viewModel=viewModelProvider(factory)
         viewModel.patientId=patientId
         adapter = Adapter(this@SelectDoctorActivity,::select)
-        adapter.singleSelect=true
+        adapter.singleSelect=single
         DataBindingUtil.setContentView<ActivityComingByListBinding>(this, R.layout.activity_coming_by_list).apply {
             lifecycleOwner=this@SelectDoctorActivity
             list.adapter=this@SelectDoctorActivity.adapter
         }
         setSupportActionBar(toolbar)
-        title="执行人员"
+        title=if(single)"执行人员" else "操作医生"
         viewModel.doctors.observe(this, Observer {
             it.let(::loaded)
         })
@@ -102,7 +140,7 @@ class SelectDoctorActivity : BaseActivity() {
                             }else{
                                 item?.let {
                                     it.checked=!it.checked
-                                    it.let(itemSelected)
+//                                    it.let(itemSelected)
 
                                 }
                             }

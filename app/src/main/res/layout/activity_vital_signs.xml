@@ -638,6 +638,7 @@
 							app:layout_constraintBottom_toBottomOf="parent"
 							android:layout_width="0dp"
 							android:digits="@string/input_type_numbers"
+							android:background="@drawable/bg_edittextview_border"
 							android:text="@={NullableConverter.intToString(viewModel.vital.height)}"
 							android:gravity="right"
 							android:hint="请选择病人身高"

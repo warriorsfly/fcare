@@ -102,8 +102,10 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         uploadResult.value=false
         bitmaps.clear()
         seleted.clear()
+//        loadEcg()
         loadEcgResult.value= response.apply {
             result?.apply {
+
                 selectedEcgDiagnosis.apply{
                     clear()
                     addAll(diagnoses.map { Dictionary(it.code,it.name).apply { checked = true } })}
@@ -119,8 +121,9 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     }
 
     private fun doSavedEcg(response: Response<Ecg>){
-        doEcg(response)
+
         saved.value=true
+        loadEcg()
     }
 
     private fun doDiagnosed(response: Response<Ecg>){

@@ -18,6 +18,7 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
                                              override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon){
 
+    var justError=false
     var patientId:String=""
         set(value) {
             field=value
@@ -59,7 +60,13 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
 
         val merged = mutableListOf<Any>()
         var emptyList:List<TimePoint>?=null
-        for(list in response.result?: emptyList()){
+        for(list in response.result?.map {
+            if (justError) {
+                it.filter { it.eventStatus=="fail" }
+            }else{
+                it
+            }
+        }?.filter { if(justError)!it.isNullOrEmpty() else true }?: emptyList()){
 
             if(emptyList.isNullOrEmpty() && list.isNotEmpty() && list[0].excutedAt.isNullOrEmpty()){
                 emptyList=list

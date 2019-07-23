@@ -30,11 +30,14 @@ interface VitalSignApi{
     fun getVitalSignList(@Path("patientId")id:String): Maybe<Response<List<BloodPressureItem>>>
 
     @POST("VitalSignsCollectResult/Save")
-    fun insert(@Body item: BloodPressureItem): Maybe<String>
+    fun insert(@Body item: BloodPressureItem): Maybe<Response<String>>
 
     @GET("EvaluateResult/GetByPatientId/{patientId}")
     fun getEvaluates(@Path("patientId")id:String): Maybe<Response<List<EvaluateItem>>>
 
     @POST("EvaluateResult/Save")
     fun insert(@Body item: EvaluateItem): Maybe<Response<String>>
+
+    @POST("VitalSignsCollectResult/GetExcutePlanByPatientId/{patientId}")
+    fun getPlan(@Path("patientId")id:String): Maybe<Response<String>>
 }

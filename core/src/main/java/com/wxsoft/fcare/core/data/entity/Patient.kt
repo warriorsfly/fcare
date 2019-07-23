@@ -347,4 +347,11 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
             notifyPropertyChanged(BR.checked)
         }
 
+    @Bindable
+    var registerDate:String?=null
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.registerDate)
+        }
+
 }

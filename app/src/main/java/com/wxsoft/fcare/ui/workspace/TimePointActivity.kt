@@ -63,6 +63,9 @@ class TimePointActivity : BaseTimingActivity()  {
     private val patientId: String by lazyFast {
         intent?.getStringExtra(ProfileActivity.PATIENT_ID)?:""
     }
+     private val justError: Boolean by lazyFast {
+         intent?.getBooleanExtra("just_error", false) ?: false
+     }
 
     private lateinit var viewModel: TimePointViewModel
     private lateinit var adapter: TimePointAdapter
@@ -74,6 +77,7 @@ class TimePointActivity : BaseTimingActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel=viewModelProvider(factory)
+        viewModel.justError=justError
         adapter= TimePointAdapter(this,::doTimeSelect,::doTimeLongSelect)
         DataBindingUtil.setContentView<ActivityTimePointBinding>(this,R.layout.activity_time_point)
             .apply {

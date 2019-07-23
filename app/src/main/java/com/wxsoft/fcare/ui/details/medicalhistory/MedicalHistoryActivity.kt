@@ -221,7 +221,7 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                     val cc = data?.getSerializableExtra("SelectOne") as Dictionary
 //                    viewModel.medicalHistory.value?.cc = cc.itemName
 
-                    complaints.editableText.insert(previous_history.selectionStart,cc.itemName)
+                    complaints.editableText.insert(if(previous_history.selectionStart<=0) 0 else previous_history.selectionStart,cc.itemName)
                 }
                 SELECT_ANAMNESIS ->{
                     val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>

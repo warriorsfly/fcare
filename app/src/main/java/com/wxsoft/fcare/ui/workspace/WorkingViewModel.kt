@@ -22,6 +22,7 @@ import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.zipWith
 import io.reactivex.schedulers.Schedulers
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -31,17 +32,14 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                                            private val pacsApi: PACSApi,
                                            private val interventionApi: InterventionApi,
                                            private val qualityControlApi: QualityControlApi,
-                                           @Named("WorkOperationIcon")
-                                           private val icons:Array<Int>,
-                                           @Named("WorkOperationTint")
-                                           private val tints:IntArray,
-                                           @Named("WorkOperationKey")
-                                           private val keys:Array<String>,
+                                           @Named("WorkOperations")
+                                           private val icons:Array<Pair<String,Int>>,
                                            override val sharedPreferenceStorage: SharedPreferenceStorage,
                                            override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon){
 
     val showAttackTime=ObservableBoolean().apply { set(false) }
+    val valided=ObservableBoolean().apply { set(true) }
     val timestamp=ObservableLong().apply { set(0) }
     val minute=ObservableLong().apply { set(0) }
     val second=ObservableLong().apply { set(0) }
@@ -107,7 +105,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     }
 
     private fun loadQualities(id:String){
-        disposable.add(qualityControlApi.getQualities(id)
+        disposable.add(qualityControlApi.getQualities(id).zipWith(qualityControlApi.validQualities(id))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::doQualities,::error))
@@ -154,21 +152,18 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         }?:course.set("")
     }
 
-    private fun doQualities(it: Response<List<TimeQuality>>){
-        loadTimeQualityResult.value=it
+    private fun doQualities(it: Pair<Response<List<TimeQuality>>,Response<Boolean>>){
+        loadTimeQualityResult.value=it.first
+        valided.set(it.second.result?:true)
     }
     private fun doOperations(response:Response<List<Record<WorkOperation>>>){
         response.result?.forEach { operation->
             operation.items?.forEach {
-                val index=keys.indexOf(it.actionCode)
-                if(index>=0){
 
-                    if(index<icons.size)
-                        it.ico=icons[index]
-                    else{
-                        Log.i("","")
-                    }
+                icons.firstOrNull { ic->ic.first == it.actionCode }?.second?.let {
+                    sec->it.ico =sec
                 }
+
             }
         }
         val main=response.copy().apply {

@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.thrombolysis
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -20,7 +21,7 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: ThrombolysisApi,
-                                                private val dictEnumApi: DictEnumApi,
+                                                private val enumApi: DictEnumApi,
                                                 override val sharedPreferenceStorage: SharedPreferenceStorage,
                                                 override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage,gon)  {
@@ -50,6 +51,8 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             field = value
         }
 
+    val aa=MediatorLiveData<String>()
+
     val clickLine:LiveData<String>
     private val loadClickLine =  MediatorLiveData<String>()
 
@@ -71,24 +74,30 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         modifySome = initModifySome.map { it }
         clickLine = loadClickLine.map { it }
         thrombolysis = loadThrombolysis.map { it?.apply {
+
+            doctors = thromStaffs?.joinToString ( "," ){ it.staffName }
+
             drugRecords?.forEach{
                 item->item.doseString=item.dose.toString()
                 item.selected = !item.id.isNullOrEmpty()
             }
-        }?: Thrombolysis("",account.id) }
+        }?: Thrombolysis("",account.id).apply {
+        } }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
-//        loadPlaces()
+        loadPlaces()
         getInformedConsent()
+
     }
 
     private fun loadPlaces(){
-        dictEnumApi.loadDictsByPatient("16",patientId).toResource()
+        enumApi.loadDictsByPatient("241",patientId).toResource()
             .subscribe {
                 loadThromPlaces.value = it
-                thrombolysis.value?.setPlaceCheck(comefrom)
+//                thrombolysis.value?.setPlaceCheck(comefrom)
             }
     }
+
 
     //获取溶栓数据
     fun loadThrombolysis(id:String){
@@ -119,12 +128,30 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             }
     }
 
+    fun changeItem(){
+        thrombolysis.value?.apply {
+            if(repatency){
+                aa.value="241-1"
+            }else if(complication.isNullOrEmpty()){
+                aa.value="241-5"
+            }else{
+                aa.value="241-3"
+            }
+        }
+    }
+
     //点击选择溶栓场所
     fun selectPlace(line:Int){
         if (thrombolysis.value != null){
             when(line){
                 1 -> loadClickLine.value = "place"
             }
+        }
+    }
+    //点击选择溶栓场所
+    fun selectDoctors(){
+        thrombolysis.value?.let {
+            loadClickLine.value = "doctors"
         }
     }
 
