@@ -56,12 +56,16 @@ class BloodPressureAdapter constructor(private val owner: LifecycleOwner, privat
     object DiffCallback : DiffUtil.ItemCallback<BloodPressureItem>() {
         override fun areItemsTheSame(oldItem: BloodPressureItem, newItem: BloodPressureItem): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.strTime == newItem.strTime
         }
 
         override fun areContentsTheSame(oldItem: BloodPressureItem, newItem: BloodPressureItem): Boolean {
 
-            return oldItem.dbp == newItem.dbp && oldItem.heartRate==newItem.heartRate && oldItem.sbp==newItem.sbp
+            return oldItem.id == newItem.id
+                    && oldItem.dbp == newItem.dbp
+                    && oldItem.heartRate==newItem.heartRate
+                    && oldItem.sbp==newItem.sbp
+                    && oldItem.createdDate == newItem.createdDate
         }
     }
 
