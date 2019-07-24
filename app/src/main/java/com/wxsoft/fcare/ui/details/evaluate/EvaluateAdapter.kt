@@ -55,12 +55,15 @@ class EvaluateAdapter constructor(private val owner: LifecycleOwner, private val
     object DiffCallback : DiffUtil.ItemCallback<EvaluateItem>() {
         override fun areItemsTheSame(oldItem: EvaluateItem, newItem: EvaluateItem): Boolean {
 
-            return oldItem.id == newItem.id
+            return oldItem.name== newItem.name
         }
 
         override fun areContentsTheSame(oldItem: EvaluateItem, newItem: EvaluateItem): Boolean {
 
-            return oldItem.dbp == newItem.dbp && oldItem.heart_Rate==newItem.heart_Rate && oldItem.sbp==newItem.sbp
+            return oldItem.id == newItem.id
+                    && oldItem.dbp == newItem.dbp
+                    && oldItem.heart_Rate==newItem.heart_Rate
+                    && oldItem.sbp==newItem.sbp
         }
     }
 
