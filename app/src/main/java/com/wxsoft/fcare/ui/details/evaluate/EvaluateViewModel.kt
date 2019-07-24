@@ -70,7 +70,7 @@ class EvaluateViewModel @Inject constructor(private val api: VitalSignApi,
     fun save(){
         selectedItem.get()?.let {
 
-            if(it.sbp.isNullOrEmpty() || it.dbp.isNullOrEmpty() || it.heart_Rate==0){
+            if((it.sbp.isNullOrEmpty() || it.dbp.isNullOrEmpty() || it.heart_Rate==0)&&(!it.evaluatePlanId.equals("9"))){
                 messageAction.value= Event("数据不完整")
                 return
             }

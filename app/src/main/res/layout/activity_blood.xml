@@ -245,7 +245,7 @@
 								app:layout_constraintRight_toLeftOf="@+id/rowe3_4"
 								tools:text="6.1"
 								android:text="@={viewModel.blood.bloodSugarResult}"
-								android:inputType="number"
+								android:inputType="numberDecimal"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 

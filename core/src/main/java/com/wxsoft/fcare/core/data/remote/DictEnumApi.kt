@@ -142,7 +142,7 @@ interface DictEnumApi {
     /**
      * 主诉及症状
      */
-    @GET("EnumDic/enumItems/221/{patientId}")
+    @GET("EnumDic/enumItems/211/{patientId}")
     fun loadComplaints(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
     /**

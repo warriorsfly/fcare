@@ -203,13 +203,13 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         when(item.section){
             3->{
 //                sonItems.value?.filter { it.checked }?.map { it.checked = false }
-                item.checked = true
+                item.checked = !item.checked
 
                 diagnosis.value?.diagnosisCode3 =   sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.id}?:""
                 diagnosis.value?.diagnosisCode3Name =sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.itemName}?:""
             }
             4->{ illnessItems.value?.filter { it.checked }?.map { it.checked = false }
-                item.checked = true
+                item.checked = !item.checked
                 click()
             }
         }

@@ -451,8 +451,10 @@ class WorkingActivity : BaseActivity() {
             }
 
             ActionType.来院方式 ->{
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this, ComingByActivity::class.java).apply {
                     putExtra(ComingByActivity.PATIENT_ID, patientId)
+                    putExtra(ComingByActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, ActionCode.COMEBY)
             }

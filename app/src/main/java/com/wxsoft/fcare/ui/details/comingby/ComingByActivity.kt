@@ -34,11 +34,15 @@ class ComingByActivity : BaseTimingActivity() {
 
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val IS_XT = "IS_XT"
     }
     private var timingType:String=""
     private lateinit var viewModel: ComingByViewModel
     @Inject
     lateinit var factory: ViewModelFactory
+    private val xt: String by lazyFast {
+        intent?.getStringExtra(IS_XT)?:""
+    }
 
     lateinit var binding: ActivityComingByBinding
 
@@ -61,6 +65,8 @@ class ComingByActivity : BaseTimingActivity() {
         setSupportActionBar(toolbar)
         title="来院方式"
         viewModel.patientId=patientId
+
+        viewModel.xtShow.set(xt.equals("xt"))
 
         viewModel.timeLiveData.observe(this, Observer {
             val currentTime= it.second.let { txt->

@@ -409,7 +409,7 @@
 									android:layout_marginTop="15dp"
 									android:layout_marginLeft="15dp"
 									android:layout_marginBottom="15dp"
-									android:text="离开科室时间"
+									android:text="离开诊室时间"
 									android:textSize="16sp"
 									android:textColor="#131D35"
 									android:layout_width="wrap_content"
@@ -654,9 +654,10 @@
 
 						</LinearLayout>
 
+						<!--viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)||viewModel.comingBy.comingWayCode.equals(`3-3`)-->
 
 						<LinearLayout
-								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)||viewModel.comingBy.comingWayCode.equals(`3-3`)}"
+								app:goneUnless="@{viewModel.xtShow}"
 								android:orientation="vertical"
 								android:layout_marginTop="15dp"
 								android:layout_width="match_parent"
