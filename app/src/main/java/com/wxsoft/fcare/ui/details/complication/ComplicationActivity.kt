@@ -54,6 +54,7 @@ class ComplicationActivity : BaseActivity() {
 
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
+            if (it.equals("请先选择并发症")) return@EventObserver
             Intent().let { intent->
                 var illStr = ""
                 viewModel.items.value?.filter {it.checked }?.map {

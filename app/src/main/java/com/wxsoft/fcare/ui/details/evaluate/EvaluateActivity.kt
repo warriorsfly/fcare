@@ -128,11 +128,11 @@ class EvaluateActivity : BaseActivity(){
                             it.mrS_AnswerRecordId = id
                             it.mrs = score
                         }
-                        "24" -> viewModel.selectedItem.get()?.let {
+                        "25" -> viewModel.selectedItem.get()?.let {
                             it.bI_AnswerRecordId = id
                             it.bi = score
                         }
-                        "25" -> viewModel.selectedItem.get()?.let {
+                        "21" -> viewModel.selectedItem.get()?.let {
                             it.swallow_AnswerRecordId = id
                             it.swallow = score
                         }

@@ -223,7 +223,7 @@
 				android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 				android:name=".ui.rating.RatingSubjectActivity"
-				android:theme="@style/AppTheme.RatingSubject"/>
+				android:theme="@style/AppTheme.NoActionBar"/>
 		<activity
 				android:name=".ui.details.pharmacy.PharmacyActivity"
 				android:theme="@style/AppTheme.NoActionBar"/>

@@ -10,10 +10,7 @@
             android:layout_height="match_parent"
             tools:context=".ui.rating.RatingSubjectActivity">
         <include layout="@layout/layout_new_title"
-                 android:id="@+id/title"
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-        />
+                 android:id="@+id/title"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

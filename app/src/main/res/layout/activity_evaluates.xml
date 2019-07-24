@@ -559,12 +559,10 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/nihss"
                             android:layout_width="wrap_content"
                             android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="19dp"
-                            android:src="@drawable/ic_other_emr"/>
+                            android:src="@drawable/ic_other_emr_blue"/>
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -618,12 +616,10 @@
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/mRS"
                             android:layout_width="wrap_content"
                             android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="19dp"
-                            android:src="@drawable/ic_other_emr"/>
+                            android:src="@drawable/ic_other_emr_blue"/>
 
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -674,16 +670,14 @@
                             />
 
                         <ImageView
-                            android:onClick="@{()->viewModel.openRating(`24`,viewModel.selectedItem.bI_AnswerRecordId)}"
+                            android:onClick="@{()->viewModel.openRating(`25`,viewModel.selectedItem.bI_AnswerRecordId)}"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/bi"
                             android:layout_width="wrap_content"
                             android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="19dp"
-                            android:src="@drawable/ic_other_emr"/>
+                            android:src="@drawable/ic_other_emr_blue"/>
 
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
@@ -734,16 +728,14 @@
                             tools:text="67"
                             />
                         <ImageView
-                            android:onClick="@{()->viewModel.openRating(`25`,viewModel.selectedItem.swallow_AnswerRecordId)}"
+                            android:onClick="@{()->viewModel.openRating(`21`,viewModel.selectedItem.swallow_AnswerRecordId)}"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintLeft_toRightOf="@id/ty"
                             android:layout_width="wrap_content"
                             android:gravity="center"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="19dp"
-                            android:src="@drawable/ic_other_emr"/>
+                            android:src="@drawable/ic_other_emr_blue"/>
                         <View android:layout_width="match_parent"
                             android:layout_height="1dp"
                             app:layout_constraintBottom_toBottomOf="parent"

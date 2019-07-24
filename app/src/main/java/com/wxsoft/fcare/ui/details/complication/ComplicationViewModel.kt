@@ -77,6 +77,10 @@ class ComplicationViewModel @Inject constructor(private val api: DictEnumApi,
         items.value?.filter {it.checked }?.map {
             arr.add(Complication("",patientId,it.id,it.itemName,type))
         }
+        if (arr.isNullOrEmpty()){
+            messageAction.value = Event("请先选择并发症")
+            return
+        }
         disposable.add(thrombolysisApi.saveComplication(arr)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

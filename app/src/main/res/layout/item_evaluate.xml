@@ -44,8 +44,8 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginRight="5dp"
                     android:src="@{item.createrId == null? null:@drawable/bg_ic_checked_drug}"
-                    android:layout_width="12dp"
-                    android:layout_height="12dp"/>
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View android:layout_width="0dp"

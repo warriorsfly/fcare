@@ -37,6 +37,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
             if (value == "") return
             field = value
             loadThrombolysis(value)
+            loadPlaces()
         }
 
     var comefrom: String = ""
@@ -85,7 +86,7 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         } }
         thromPlaces = loadThromPlaces.map { (it as? Resource.Success)?.data?: emptyList() }
         informed = loadInformedResult.map { (it as? Resource.Success)?.data?.result?: InformedConsent("") }
-        loadPlaces()
+
         getInformedConsent()
 
     }
