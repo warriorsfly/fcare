@@ -140,7 +140,7 @@ class CureActivity : BaseTimingActivity() {
 
                 "place" -> selectPlace1()
                 "informedConsent" ->{
-                    if (viewModel.thrombolysis.value?.informedConsentId.isNullOrEmpty()){
+                    if (viewModel.thrombolysis.value?.talkRecordId.isNullOrEmpty()){
                         toInformedConsent()
                     }else{
                         toSeeInformedConsent()
@@ -269,7 +269,7 @@ class CureActivity : BaseTimingActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 ThrombolysisActivity.INFORMED_CONSENT ->{//知情同意书
-                    viewModel.thrombolysis.value?.informedConsentId = data?.getStringExtra("informedConsentId")?:""
+                    viewModel.thrombolysis.value?.talkRecordId = data?.getStringExtra("informedConsentId")?:""
                     viewModel.thrombolysis.value?.start_Agree_Time = data?.getStringExtra("startTime")?:""
                     viewModel.thrombolysis.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
 //                    viewModel.thrombolysis.value?.allTime = data?.getStringExtra("allTime")?:""

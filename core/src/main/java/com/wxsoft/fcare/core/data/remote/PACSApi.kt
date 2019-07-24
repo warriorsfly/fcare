@@ -42,4 +42,12 @@ interface PACSApi {
     @POST("PACS/SaveBlood")
     fun saveBlood(@Body pacs : Blood): Maybe<Response<String>>
 
+    /*
+       *根据病人Id获取监测结果
+       */
+    @GET("VitalSignsCollectResult/GetByPatientId/{patientId}")
+    fun getVitalSigns(@Path("patientId")patientId:String): Maybe<Response<List<VitalSignsCollectResult>>>
+
+    @POST("  VitalSignsCollectResult/GetExcutePlanByPatientId/{patientId}")
+    fun getExcutePlan(@Path("patientId")patientId:String): Maybe<Response<VitalSignsCollectExcutePlan>>
 }

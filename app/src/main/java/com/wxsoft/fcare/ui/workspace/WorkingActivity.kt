@@ -203,11 +203,14 @@ class WorkingActivity : BaseActivity() {
 
                 })
 
-                notification.setOnClickListener {
-                    val intent = Intent(this@WorkingActivity, NotificationActivity::class.java).apply {
-                        putExtra(NotificationActivity.PATIENT_ID, patientId)
-                    }
-                    startActivityForResult(intent, NOTIFICATION)
+//                notification.setOnClickListener {
+//                    val intent = Intent(this@WorkingActivity, NotificationActivity::class.java).apply {
+//                        putExtra(NotificationActivity.PATIENT_ID, patientId)
+//                    }
+//                    startActivityForResult(intent, NOTIFICATION)
+//                }
+                swichCode.setOnClickListener {//扫描二维码
+
                 }
 
                 timeline_error.setOnClickListener {
@@ -288,11 +291,13 @@ class WorkingActivity : BaseActivity() {
 
             ActionType.心电图 ->{
                 val outpatientId=viewModel.patient.value?.outpatientId
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this, EcgActivity::class.java)
                     .apply {
                         putExtra(ProfileActivity.PATIENT_ID, patientId)
                         putExtra(RatingSubjectActivity.OUT_PATIENT_ID, outpatientId)
                         putExtra("PRE", pre)
+                        putExtra(EcgActivity.IS_XT, if (cz) "xt"  else "")
                     }
                 startActivityForResult(intent, RATING)
             }

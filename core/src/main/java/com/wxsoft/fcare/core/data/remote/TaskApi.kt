@@ -32,14 +32,14 @@ interface TaskApi {
     /**
      * 获取接诊医生
      */
-    @GET("User/GetEmergencyDepartmentDoctor/{accountId}")
-    fun getEmergencyDoctor(@Path("accountId")accountId:String): Maybe<Response<List<User>>>
+    @GET("User/GetEmergencyDepartmentDoctor/{patientId}")
+    fun getEmergencyDoctor(@Path("patientId")patientId:String): Maybe<Response<List<User>>>
 
     /**
      * 获取接诊护士
      */
-    @GET("User/GetEmergencyDepartmentNurse/{accountId}")
-    fun getEmergencyNurse(@Path("accountId")accountId:String): Maybe<Response<List<User>>>
+    @GET("User/GetEmergencyDepartmentNurse/{patientId}")
+    fun getEmergencyNurse(@Path("patientId")patientId:String): Maybe<Response<List<User>>>
 
     /**
      * 获取会诊医生

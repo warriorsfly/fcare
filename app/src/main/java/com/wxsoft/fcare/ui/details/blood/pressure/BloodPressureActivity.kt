@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.blood.pressure
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -15,6 +16,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityBloodPressureBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.details.blood.chart.BloodChartActivity
 import kotlinx.android.synthetic.main.activity_blood_pressure.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
@@ -39,6 +41,7 @@ class BloodPressureActivity : BaseTimingActivity() , View.OnClickListener{
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val BloodChart = 100
     }
 
     private lateinit var viewModel: BloodPressureViewModel
@@ -80,8 +83,17 @@ class BloodPressureActivity : BaseTimingActivity() , View.OnClickListener{
         viewModel.select(item)
     }
 
+
+    private fun toChart(){
+        val inti= Intent(this, BloodChartActivity::class.java).apply {
+            putExtra(BloodChartActivity.PATIENT_ID,patientId)
+        }
+
+        startActivityForResult(inti,BloodChart)
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_subject,menu)
+        menuInflater.inflate(R.menu.menu_chart,menu)
         return true
     }
 
@@ -90,6 +102,10 @@ class BloodPressureActivity : BaseTimingActivity() , View.OnClickListener{
         return  when(item?.itemId){
             R.id.submit->{
                 viewModel.save()
+                true
+            }
+            R.id.chart->{
+                toChart()
                 true
             }
             else->super.onOptionsItemSelected(item)

@@ -124,7 +124,7 @@ class AppModule {
     //肌钙蛋白-->
     Pair("jgdb",R.drawable.ic_work_space_checkbody),
     //来院方式-->
-    Pair("lyfs",R.drawable.ic_in_hospital),
+    Pair("lyfs",R.drawable.ic_work_space_lapse),
     //血压监测-->
     Pair("xyjc",R.drawable.ic_blood_pressure),
     //评估表-->

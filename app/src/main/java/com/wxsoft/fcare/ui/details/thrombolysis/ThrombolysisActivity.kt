@@ -182,7 +182,7 @@ class ThrombolysisActivity : BaseTimingActivity(){
             when(it){
                 "place" -> selectPlace()
                 "informedConsent" ->{
-                    if (viewModel.thrombolysis.value?.informedConsentId.isNullOrEmpty()){
+                    if (viewModel.thrombolysis.value?.talkRecordId.isNullOrEmpty()){
                         toInformedConsent()
                     }else{
                         toSeeInformedConsent()
@@ -278,7 +278,7 @@ class ThrombolysisActivity : BaseTimingActivity(){
     private fun toSeeInformedConsent(){
         val intent = Intent(this@ThrombolysisActivity, AddInformedActivity::class.java).apply {
             putExtra(AddInformedActivity.PATIENT_ID,patientId)
-            putExtra(AddInformedActivity.TALK_ID,viewModel.thrombolysis.value?.informedConsentId)
+            putExtra(AddInformedActivity.TALK_ID,viewModel.thrombolysis.value?.talkRecordId)
             putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
             putExtra(AddInformedActivity.INFORMED_ID,viewModel.informed.value?.id)
             putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
@@ -306,7 +306,7 @@ class ThrombolysisActivity : BaseTimingActivity(){
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 INFORMED_CONSENT ->{//知情同意书
-                    viewModel.thrombolysis.value?.informedConsentId = data?.getStringExtra("informedConsentId")?:""
+                    viewModel.thrombolysis.value?.talkRecordId = data?.getStringExtra("informedConsentId")?:""
                     viewModel.thrombolysis.value?.start_Agree_Time = data?.getStringExtra("startTime")?:""
                     viewModel.thrombolysis.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
 //                    viewModel.thrombolysis.value?.allTime = data?.getStringExtra("allTime")?:""

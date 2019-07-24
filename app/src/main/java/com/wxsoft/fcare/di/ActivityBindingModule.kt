@@ -7,6 +7,8 @@ import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
 import com.wxsoft.fcare.ui.details.assistant.troponin.JGDBActivity
 import com.wxsoft.fcare.ui.details.blood.BloodActivity
 import com.wxsoft.fcare.ui.details.blood.BloodModule
+import com.wxsoft.fcare.ui.details.blood.chart.BloodChartActivity
+import com.wxsoft.fcare.ui.details.blood.chart.BloodChartModule
 import com.wxsoft.fcare.ui.details.blood.pressure.BloodPressureActivity
 import com.wxsoft.fcare.ui.details.blood.pressure.BloodPressureModule
 import com.wxsoft.fcare.ui.details.catheter.CatheterActivity
@@ -389,5 +391,8 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [ThrombolysisModule::class])
     internal abstract fun selectDoctorActivity(): SelectDoctorActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [BloodChartModule::class])
+    internal abstract fun bloodChartActivity(): BloodChartActivity
 
 }

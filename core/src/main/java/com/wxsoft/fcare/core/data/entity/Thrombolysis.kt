@@ -281,13 +281,13 @@ class Thrombolysis constructor(@Bindable var id:String="",var createrId:String):
 
 
     /**
-     *  知情同意书id
+     *
      */
     @Bindable
-    var informedConsentId:String=""
+    var talkRecordId:String=""
         set(value) {
             field=value
-            notifyPropertyChanged(BR.informedConsentId)
+            notifyPropertyChanged(BR.talkRecordId)
         }
 
     @Bindable

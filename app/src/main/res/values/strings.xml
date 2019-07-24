@@ -5,25 +5,31 @@
 	<string name="action_settings">添加</string>
 	<string name="title_activity_emr">登记信息</string>
 	<string name="a11y_filter_applied" translation_description="Alternative text when an event filter is applies">%1s
-        病况
-    </string>
-	<string name="a11y_filter_not_applied" translation_description="Alternative text when an event filter is not applies">%1s 病况
-    </string>
+		病况
+	</string>
+	<string name="a11y_filter_not_applied" translation_description="Alternative text when an event filter is not applies">
+		%1s 病况
+	</string>
 	<string name="onboarding_get_started" translation_description="开始咯">开始</string>
-	<string name="onboarding_welcome_to_google_i_o" translation_description="The welcome message shown at the onboarding screen of the app.">欢迎来到五线急救
-    </string>
-	<string name="onboarding_watch_live" translation_description="The explanation title of the feature where user can watch I/O sessions by live stream.">
-        提升急诊 效率
-    </string>
-	<string name="onboarding_join_online" translation_description="The explanation of the feature where user can watch I/O sessions by live stream.">
-        加入我们开启，急救物联时代
-    </string>
-	<string name="onboarding_build_schedule" translation_description="The explanation title of the feature where user can choose which sessions to attend.">
-        开始
-    </string>
-	<string name="onboarding_build_sched_benefits" translation_description="The explanation of the feature where user can choose which sessions to attend.">
-        Build your custom I/O experience and reserve seats if you\'re an attendee
-    </string>
+	<string name="onboarding_welcome_to_google_i_o"
+	        translation_description="The welcome message shown at the onboarding screen of the app.">欢迎来到五线急救
+	</string>
+	<string name="onboarding_watch_live"
+	        translation_description="The explanation title of the feature where user can watch I/O sessions by live stream.">
+		提升急诊 效率
+	</string>
+	<string name="onboarding_join_online"
+	        translation_description="The explanation of the feature where user can watch I/O sessions by live stream.">
+		加入我们开启，急救物联时代
+	</string>
+	<string name="onboarding_build_schedule"
+	        translation_description="The explanation title of the feature where user can choose which sessions to attend.">
+		开始
+	</string>
+	<string name="onboarding_build_sched_benefits"
+	        translation_description="The explanation of the feature where user can choose which sessions to attend.">
+		Build your custom I/O experience and reserve seats if you\'re an attendee
+	</string>
 	<string name="action_edit_base_info">编辑</string>
 	<string name="input_type_chars_numbers">1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz</string>
 	<string name="input_type_numbers">1234567890</string>
@@ -67,19 +73,22 @@
 
 	<string name="title_activity_launcher">LauncherActivity</string>
 	<string name="ecg_memo_title">判图结果
-    </string>
+	</string>
 	<string name="ecg_property_title"><font color="red">*</font>诊断提示
-    </string>
+	</string>
 	<string name="profile_name_title"><font color="red">*</font>患者姓名
-    </string>
+	</string>
 	<string name="jgdb_blood_time"><font color="red">*</font>抽血时间
-    </string>
+	</string>
 	<string name="appbar_scrolling_view_behavior" translatable="false">
-        com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
-    </string>
+		com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior
+	</string>
 	<string name="title_profile_attacktime"><font color="red">*</font>发病时间
-    </string>
-	<string name="string_attack_address"><font color="red">*</font>发病地址</string>
-	<string name="string_ecg_create_time"><font color="red">*</font>检查:</string>
-	<string name="string_ecg_d_time"><font color="red">*</font>报告:</string>
+	</string>
+	<string name="string_attack_address"><font color="red">*</font>发病地址
+	</string>
+	<string name="string_ecg_create_time"><font color="red">*</font>检查:
+	</string>
+	<string name="string_ecg_d_time"><font color="red">*</font>报告:
+	</string>
 </resources>

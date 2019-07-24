@@ -49,7 +49,7 @@ class ComingByDoctorsViewModel @Inject constructor(private val doctorApi:TaskApi
                 }
 
 
-                disposable.add(doctorApi.getEmergencyDoctor(account.id)
+                disposable.add(doctorApi.getEmergencyDoctor(patientId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(::doDoctor1,::error))
@@ -59,7 +59,7 @@ class ComingByDoctorsViewModel @Inject constructor(private val doctorApi:TaskApi
                     loadEmergencyNurses.value=response
                 }
 
-                disposable.add(doctorApi.getEmergencyNurse(account.id)
+                disposable.add(doctorApi.getEmergencyNurse(patientId)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(::doNurse,::error))

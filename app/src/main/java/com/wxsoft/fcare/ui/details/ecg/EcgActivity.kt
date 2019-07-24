@@ -1,10 +1,7 @@
 package com.wxsoft.fcare.ui.details.ecg
 
 import android.Manifest
-import android.animation.Animator
-import android.animation.AnimatorListenerAdapter
-import android.animation.AnimatorSet
-import android.animation.ObjectAnimator
+import android.animation.*
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -27,6 +24,7 @@ import com.luck.picture.lib.config.PictureConfig
 import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.inTransaction
@@ -59,7 +57,22 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
                 .setMaxHeight(1280)
                 .setQuality(75).compressToFile(file)
         } }
-        viewModel.saveEcg(files)
+        if (checkOutPatientId()){
+            viewModel.saveEcg(files)
+        }
+
+    }
+
+    private fun checkOutPatientId():Boolean{
+        if(outpatientId.isNullOrEmpty()) {
+            if (viewModel.ecg.value?.time.isNullOrEmpty()||viewModel.ecg.value?.diagnosedAt.isNullOrEmpty()) return true
+            if (DateTimeUtils.compareAandB(viewModel.ecg.value?.time!!, viewModel.ecg.value?.diagnosedAt!!)){
+                return true
+            }else{
+                viewModel.messageAction.value= Event("报告时间需要大于检查时间")
+                return false
+            }
+        } else return true
     }
 
     private var selectedId=0
@@ -95,7 +108,9 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
     }
     companion object {
         const val PHOTO_COUNT=9
+        const val IS_XT = "IS_XT"
     }
+
     override fun localSelected() {
         checkPhotoTaking()
     }
@@ -118,6 +133,9 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
     }
     private val outpatientId: String by lazyFast {
         intent?.getStringExtra(RatingSubjectActivity.OUT_PATIENT_ID)?:""
+    }
+    private val xt: String by lazyFast {
+        intent?.getStringExtra(IS_XT)?:""
     }
 
     private val pre: Boolean by lazyFast {
@@ -148,6 +166,8 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
         }
         viewModel.pre.set(pre)
         viewModel.patientId=patientId
+
+        viewModel.xtShow.set(xt.equals("xt"))
 
         viewModel.ecg.observe(this, Observer {
             adapter.locals= emptyList()

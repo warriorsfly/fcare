@@ -34,6 +34,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     val query=ObservableField<String>()
     val bitmaps= mutableListOf<String>()
     val seleted= mutableListOf<String>()
+    var xtShow= ObservableField<Boolean>()
 
     var pre=ObservableBoolean().apply {
         set(false)

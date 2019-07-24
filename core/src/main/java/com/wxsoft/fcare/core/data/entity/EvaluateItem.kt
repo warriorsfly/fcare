@@ -57,12 +57,17 @@ data class EvaluateItem(val id:String?= null): BaseObservable() {
             notifyPropertyChanged(BR.weight)
         }
     @Bindable
+    var height: Int? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.height)
+        }
+    @Bindable
     var pulse_Rate: String? = null
         set(value) {
             field = value
             notifyPropertyChanged(BR.pulse_Rate)
         }
-    var pulse_Rate_AnswerRecordId: String? = null
     @Bindable
     var nihss: Int? = null
         set(value) {
