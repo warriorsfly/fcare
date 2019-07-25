@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.catheter
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -18,6 +19,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityCatheterBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -92,6 +94,7 @@ class CatheterActivity : BaseTimingActivity(){
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val INFORMED_CONSENT = 20
     }
     private lateinit var viewModel: CatheterViewModel
     @Inject
@@ -113,6 +116,8 @@ class CatheterActivity : BaseTimingActivity(){
 
         setSupportActionBar(toolbar)
         title="导管室操作"
+
+        viewModel.informed.observe(this, Observer {  })
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
@@ -151,8 +156,62 @@ class CatheterActivity : BaseTimingActivity(){
             }
         })
 
+        viewModel.clickLine.observe(this, Observer {
+            when(it){
+                "informedConsent" ->{
+                    if (viewModel.intervention.value?.informedConsentId.isNullOrEmpty()){
+                        toInformedConsent()
+                    }else{
+                        toSeeInformedConsent()
+                    }
+                }
+            }
+        })
+
 
     }
+
+
+    private fun  toInformedConsent(){
+        val intent = Intent(this@CatheterActivity, AddInformedActivity::class.java).apply {
+            putExtra(AddInformedActivity.PATIENT_ID,patientId)
+            putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
+            putExtra(AddInformedActivity.TITLE_CONTENT,viewModel.informed.value?.content)
+            putExtra(AddInformedActivity.INFORMED_ID,viewModel.informed.value?.id)
+            putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
+        }
+        startActivityForResult(intent, INFORMED_CONSENT)
+    }
+
+    private fun toSeeInformedConsent(){
+        val intent = Intent(this@CatheterActivity, AddInformedActivity::class.java).apply {
+            putExtra(AddInformedActivity.PATIENT_ID,patientId)
+            putExtra(AddInformedActivity.TALK_ID,viewModel.intervention.value?.informedConsentId)
+            putExtra(AddInformedActivity.TITLE_NAME,viewModel.informed.value?.name)
+            putExtra(AddInformedActivity.INFORMED_ID,viewModel.informed.value?.id)
+            putExtra(AddInformedActivity.COME_FROM,"THROMBOLYSIS")
+        }
+        startActivityForResult(intent, INFORMED_CONSENT)
+    }
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(resultCode== Activity.RESULT_OK) {
+            when(requestCode){
+                INFORMED_CONSENT ->{//知情同意书
+                    viewModel.intervention.value?.informedConsentId = data?.getStringExtra("informedConsentId")?:""
+                    viewModel.intervention.value?.start_Agree_Time = data?.getStringExtra("startTime")?:""
+                    viewModel.intervention.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
+                    viewModel.intervention.value?.getInformedTime()
+//                    viewModel.intervention.value?.allTime = data?.getStringExtra("allTime")?:""
+                }
+            }
+        }
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)

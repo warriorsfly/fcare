@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 
 data class Intervention(
                         val id:String="",
@@ -96,4 +97,24 @@ data class Intervention(
           field=value
           notifyPropertyChanged(BR.decision_Operation_Time)
           }
+    /**
+     *  知情同意书总计时间
+     */
+    @Bindable
+    @Transient
+    var allTime:String?=null
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.allTime)
+        }
+
+    fun getInformedTime(){
+        if(start_Agree_Time.isNullOrEmpty()|| sign_Agree_Time.isNullOrEmpty()) return
+        allTime = DateTimeUtils.getAAfromBBMinutes(start_Agree_Time!!, sign_Agree_Time!!)
+
+    }
+
+    fun setUpChecked(){
+        getInformedTime()
+    }
 }

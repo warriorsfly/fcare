@@ -309,7 +309,7 @@ class ThrombolysisActivity : BaseTimingActivity(){
                     viewModel.thrombolysis.value?.talkRecordId = data?.getStringExtra("informedConsentId")?:""
                     viewModel.thrombolysis.value?.start_Agree_Time = data?.getStringExtra("startTime")?:""
                     viewModel.thrombolysis.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
-//                    viewModel.thrombolysis.value?.allTime = data?.getStringExtra("allTime")?:""
+                    viewModel.thrombolysis.value?.allTime = data?.getStringExtra("allTime")?:""
 
                 }
                 DRUG ->{//用药
