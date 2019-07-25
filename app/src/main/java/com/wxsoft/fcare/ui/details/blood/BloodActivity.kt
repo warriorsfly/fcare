@@ -67,6 +67,8 @@ class BloodActivity : BaseTimingActivity(), View.OnClickListener {
 //
         end.setOnClickListener  (this)
         start.setOnClickListener  (this)
+        sendCheck.setOnClickListener  (this)
+
 //        end_thromboly_time.setOnClickListener  (this)
 //        patient_arrive.setOnClickListener  (this)
 //        start_puncture.setOnClickListener  (this)

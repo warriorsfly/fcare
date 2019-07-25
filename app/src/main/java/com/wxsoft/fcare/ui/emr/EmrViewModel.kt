@@ -32,8 +32,13 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      */
     private val loadEmrResult = MediatorLiveData<Response<List<EmrItem>>>()
 
+
+    val scanResult:LiveData<String>
+    private val loadScanResult = MediatorLiveData<Response<String>>()
+
     init {
         emrs = loadEmrResult.map { it.result ?: emptyList() }
+        scanResult = loadScanResult.map { it.result?:"" }
     }
 
     private val _loadDetailAction = MutableLiveData<Event<Int>>()
@@ -155,7 +160,7 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      * 扫描接口回调
      */
     private fun loadscan(response: Response<String>) {
-        messageAction.value = Event(response.result?:"")
+        loadScanResult.value = response
     }
 
     /**

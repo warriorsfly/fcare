@@ -158,8 +158,8 @@ interface EmrApi{
     @GET("POCT/GetTroponin/{patientId}")
     fun getPoct(@Path("patientId")patientId:String): Maybe<Response<LisCr>>
 
-    @GET("Nfc/SaveByDeviceHandle/{userId}/{actionCode}/{patientId}")
+    @POST("Nfc/SaveByDeviceHandle/{userId}/{actionCode}/{patientId}")
     fun scan(@Path("userId")userId:String,
-             @Path("userId")actionCode:String,
-             @Path("userId")patientId:String): Maybe<Response<String>>
+             @Path("actionCode")actionCode:String,
+             @Path("patientId")patientId:String): Maybe<Response<String>>
 }

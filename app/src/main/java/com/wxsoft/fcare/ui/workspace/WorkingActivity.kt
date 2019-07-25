@@ -87,7 +87,7 @@ import javax.inject.Inject
 import javax.inject.Named
 import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import android.R.attr.data
-
+import android.widget.Toast
 
 
 class WorkingActivity : BaseActivity() {
@@ -233,6 +233,10 @@ class WorkingActivity : BaseActivity() {
 
         viewModel.patient.observe(this, Observer {
             title=it.name
+        })
+
+        emrViewModel.scanResult.observe(this, Observer {
+            Toast.makeText(this,it, Toast.LENGTH_LONG).show()
         })
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)

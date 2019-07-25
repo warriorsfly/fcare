@@ -95,7 +95,6 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3_2"
-                        app:goneUnless="@{!viewModel.patient.diagnosisCode.equals(`215-2`)}"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
                         android:background="@color/white"
@@ -212,6 +211,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/model3_4"
+                        app:goneUnless="@{!viewModel.patient.diagnosisCode.equals(`215-2`)}"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/model3_3"
