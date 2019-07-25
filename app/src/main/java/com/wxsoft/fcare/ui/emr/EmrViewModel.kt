@@ -152,6 +152,13 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
     }
 
     /**
+     * 扫描接口回调
+     */
+    private fun loadscan(response: Response<String>) {
+        messageAction.value = Event(response.result?:"")
+    }
+
+    /**
      * 获取病人详细信息
      */
     private fun loadBaseInfo(index:Int){
@@ -365,5 +372,10 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .subscribe(::setResultAtIndex,::error))
     }
 
-
+    fun scan(code:String){
+        disposable.add( api.scan(account.id,code,patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::loadscan, ::error))
+    }
 }

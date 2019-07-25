@@ -36,7 +36,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginStart="12dp"
             android:id="@+id/checked"
-            android:text="@{index}"
+            android:text=""
             android:gravity="center"
             android:backgroundTint="@{item.checked? @color/tint_rating_option_selected:@color/tint_rating_option_unselected}"
             android:textColor="@{item.checked? @color/tint_rating_option_text_selected:@color/tint_rating_option_text_unselected}"

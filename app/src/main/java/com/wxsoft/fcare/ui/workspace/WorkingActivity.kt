@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.acker.simplezxing.activity.CaptureActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.wxsoft.fcare.R
@@ -84,6 +85,10 @@ import kotlinx.android.synthetic.main.activity_working.*
 import kotlinx.android.synthetic.main.layout_working_title.*
 import javax.inject.Inject
 import javax.inject.Named
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import android.R.attr.data
+
+
 
 class WorkingActivity : BaseActivity() {
 
@@ -210,7 +215,8 @@ class WorkingActivity : BaseActivity() {
 //                    startActivityForResult(intent, NOTIFICATION)
 //                }
                 swichCode.setOnClickListener {//扫描二维码
-
+                    val intent = Intent(this@WorkingActivity, CaptureActivity::class.java)
+                    startActivityForResult(intent, CaptureActivity.REQ_CODE)
                 }
 
                 timeline_error.setOnClickListener {
@@ -477,10 +483,17 @@ class WorkingActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {
+            if (requestCode == CaptureActivity.REQ_CODE){
+                if (data != null) {
+                    val content = data.getStringExtra(CaptureActivity.EXTRA_SCAN_RESULT)
+                    emrViewModel.scan(content)
+                }
 
-            emrViewModel.refresh(requestCode)
+            }else{
+                emrViewModel.refresh(requestCode)
+                viewModel.patientId=patientId
+            }
 
-            viewModel.patientId=patientId
 
         }
     }
