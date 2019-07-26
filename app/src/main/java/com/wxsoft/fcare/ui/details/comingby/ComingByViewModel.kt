@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.comingby
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -23,6 +24,7 @@ class ComingByViewModel @Inject constructor(
     val comingBy:LiveData<ComingBy>
     val saved:LiveData<Boolean>
     val passing:LiveData<Passing>
+    var xtShow= ObservableField<Boolean>()
     val timeLiveData=MediatorLiveData<Pair<String,String>>()
     var patientId:String=""
     set(value) {

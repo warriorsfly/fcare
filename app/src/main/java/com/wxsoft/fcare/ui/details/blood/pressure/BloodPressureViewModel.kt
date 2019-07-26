@@ -81,6 +81,7 @@ class BloodPressureViewModel @Inject constructor(private val api: VitalSignApi,
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(::doBloodPressures,::error)
             )
+            messageAction.value= Event("保存成功")
         }
     }
     fun select(item:BloodPressureItem){

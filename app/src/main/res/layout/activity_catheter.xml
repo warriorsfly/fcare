@@ -47,7 +47,7 @@
 							android:layout_marginBottom="15dp"
 							android:text="决定医生"
 
-							android:textSize="15sp"
+							android:textSize="16sp"
 							android:textColor="#131D35"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"/>
@@ -106,7 +106,7 @@
 							android:layout_marginBottom="15dp"
 							android:text="决定时间"
 
-							android:textSize="15sp"
+							android:textSize="16sp"
 							android:textColor="#131D35"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"/>
@@ -145,72 +145,165 @@
 							android:layout_height="1dp"/>
 				</androidx.constraintlayout.widget.ConstraintLayout>
 
-				<androidx.constraintlayout.widget.ConstraintLayout
-						android:id="@+id/model1"
-						android:onClick="@{()->viewModel.clickSelectTime(`0`)}"
-						android:background="@color/white"
-						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@id/model0_1"
-						android:layout_width="match_parent"
-						android:layout_height="50dp">
+				<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+						<!--android:id="@+id/model1"-->
+						<!--android:onClick="@{()->viewModel.clickSelectTime(`0`)}"-->
+						<!--android:background="@color/white"-->
+						<!--app:layout_constraintLeft_toLeftOf="parent"-->
+						<!--app:layout_constraintTop_toBottomOf="@id/model0_1"-->
+						<!--android:layout_width="match_parent"-->
+						<!--android:layout_height="50dp">-->
 
-					<TextView
-							android:id="@+id/title1"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_marginTop="15dp"
-							android:layout_marginLeft="15dp"
-							android:layout_marginBottom="15dp"
-							android:text="介入人员"
+					<!--<TextView-->
+							<!--android:id="@+id/title1"-->
+							<!--app:layout_constraintLeft_toLeftOf="parent"-->
+							<!--app:layout_constraintTop_toTopOf="parent"-->
+							<!--app:layout_constraintBottom_toBottomOf="parent"-->
+							<!--android:layout_marginTop="15dp"-->
+							<!--android:layout_marginLeft="15dp"-->
+							<!--android:layout_marginBottom="15dp"-->
+							<!--android:text="介入人员"-->
 
-							android:textSize="15sp"
-							android:textColor="#131D35"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
+							<!--android:textSize="16sp"-->
+							<!--android:textColor="#131D35"-->
+							<!--android:layout_width="wrap_content"-->
+							<!--android:layout_height="wrap_content"/>-->
 
-					<TextView
-							android:id="@+id/thromboly_place"
-							android:layout_marginRight="39dp"
-							android:layout_marginTop="15dp"
-							android:layout_marginBottom="15dp"
-							android:textSize="13sp"
-							android:text="@{viewModel.intervention.interventionMates}"
-							android:gravity="right"
-							android:background="?attr/selectableItemBackground"
-							android:textColor="#7D7D7D"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintLeft_toRightOf="@id/title1"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/rowe1"
-							tools:text="本院急诊科"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"/>
+					<!--<TextView-->
+							<!--android:id="@+id/thromboly_place"-->
+							<!--android:layout_marginRight="39dp"-->
+							<!--android:layout_marginTop="15dp"-->
+							<!--android:layout_marginBottom="15dp"-->
+							<!--android:textSize="13sp"-->
+							<!--android:text="@{viewModel.intervention.interventionMates}"-->
+							<!--android:gravity="right"-->
+							<!--android:background="?attr/selectableItemBackground"-->
+							<!--android:textColor="#7D7D7D"-->
+							<!--app:layout_constraintTop_toTopOf="parent"-->
+							<!--app:layout_constraintLeft_toRightOf="@id/title1"-->
+							<!--app:layout_constraintBottom_toBottomOf="parent"-->
+							<!--app:layout_constraintRight_toLeftOf="@+id/rowe1"-->
+							<!--tools:text="本院急诊科"-->
+							<!--android:layout_width="0dp"-->
+							<!--android:layout_height="wrap_content"/>-->
 
-					<TextView
-							android:id="@+id/rowe1"
-							app:layout_constraintRight_toRightOf="parent"
-							app:layout_constraintBottom_toBottomOf="@id/title1"
-							android:layout_width="14dp"
-							android:layout_height="24dp"
-							android:layout_marginRight="19dp"
-							android:background="@drawable/ic_right_arrow"/>
-					<View
-							android:background="#EDEDED"
-							android:layout_marginBottom="1dp"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_width="match_parent"
-							android:layout_height="1dp"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
+					<!--<TextView-->
+							<!--android:id="@+id/rowe1"-->
+							<!--app:layout_constraintRight_toRightOf="parent"-->
+							<!--app:layout_constraintBottom_toBottomOf="@id/title1"-->
+							<!--android:layout_width="14dp"-->
+							<!--android:layout_height="24dp"-->
+							<!--android:layout_marginRight="19dp"-->
+							<!--android:background="@drawable/ic_right_arrow"/>-->
+					<!--<View-->
+							<!--android:background="#EDEDED"-->
+							<!--android:layout_marginBottom="1dp"-->
+							<!--app:layout_constraintBottom_toBottomOf="parent"-->
+							<!--android:layout_width="match_parent"-->
+							<!--android:layout_height="1dp"/>-->
+				<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 						android:id="@+id/model3"
 						android:background="@color/white"
 						android:layout_marginTop="10dp"
 						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/model1"
+						app:layout_constraintTop_toBottomOf="@+id/model0_1"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content">
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/model3_1"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:onClick="@{()-> viewModel.toInformedConsent()}"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+
+						<TextView
+								android:id="@+id/title32_1"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toTopOf="@+id/informed_time"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="知情同意书"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+						<TextView
+								android:id="@+id/rown3_1"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+
+						<ImageView
+								android:id="@+id/modify_start_time_icon"
+								goneUnless="@{viewModel.intervention.start_Agree_Time != null}"
+								android:src="@drawable/ic_common_clock"
+								app:layout_constraintLeft_toLeftOf="@+id/title32_1"
+								app:layout_constraintTop_toTopOf="@+id/informed_time"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginBottom="15dp"
+								android:layout_width="14dp"
+								android:layout_height="14dp"/>
+
+						<TextView
+								android:id="@+id/informed_time"
+								goneUnless="@{viewModel.intervention.start_Agree_Time != null}"
+								app:layout_constraintLeft_toRightOf="@+id/modify_start_time_icon"
+								app:layout_constraintTop_toBottomOf="@+id/title32_1"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginLeft="7dp"
+								android:layout_marginBottom="15dp"
+								android:textColor="#999999"
+								android:textSize="16sp"
+								android:text="@{viewModel.intervention.start_Agree_Time.substring(11,16) + `  ~  ` + viewModel.intervention.sign_Agree_Time.substring(11,16)}"
+								tools:text="12:04~12:11"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/title3_1_1"
+								goneUnless="@{viewModel.intervention.start_Agree_Time != null}"
+								android:layout_marginTop="5dp"
+								android:layout_marginRight="5dp"
+								android:textColor="#525252"
+								app:layout_constraintRight_toLeftOf="@+id/time3_1_1"
+								app:layout_constraintBottom_toBottomOf="@+id/informed_time"
+								android:textSize="14sp"
+								android:text="耗时"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/time3_1_1"
+								goneUnless="@{viewModel.intervention.start_Agree_Time != null}"
+								android:layout_marginTop="5dp"
+								android:layout_marginRight="5dp"
+								android:textColor="#EE4E5B"
+								app:layout_constraintRight_toLeftOf="@+id/rown3_1"
+								app:layout_constraintBottom_toBottomOf="@+id/informed_time"
+								android:textSize="14sp"
+								android:text="@{viewModel.intervention.allTime}"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
 							android:id="@+id/model3_2"
@@ -218,7 +311,7 @@
 							android:onClick="@{()->viewModel.clickSelectTime(`1`)}"
 							android:background="@color/white"
 							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/model3_1"
 							android:layout_width="match_parent"
 							android:layout_height="50dp">
 
@@ -231,7 +324,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="启动导管室"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -290,7 +383,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="激活导管室"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -348,7 +441,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="患者到达导管室"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -408,7 +501,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="开始穿刺"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -465,7 +558,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="穿刺成功"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -524,7 +617,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="造影开始"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -581,7 +674,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="造影结束"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -639,7 +732,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="导丝通过"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -696,7 +789,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="血管再通"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -755,7 +848,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="手术结束"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
@@ -812,7 +905,7 @@
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
 								android:text="离开导管室"
-								android:textSize="15sp"
+								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>

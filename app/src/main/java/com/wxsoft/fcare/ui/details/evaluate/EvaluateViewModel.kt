@@ -70,7 +70,7 @@ class EvaluateViewModel @Inject constructor(private val api: VitalSignApi,
     fun save(){
         selectedItem.get()?.let {
 
-            if(it.sbp.isNullOrEmpty() || it.dbp.isNullOrEmpty() || it.heart_Rate==0){
+            if((it.sbp.isNullOrEmpty() || it.dbp.isNullOrEmpty() || it.heart_Rate==0)&&(!it.evaluatePlanId.equals("9"))){
                 messageAction.value= Event("数据不完整")
                 return
             }
@@ -86,6 +86,7 @@ class EvaluateViewModel @Inject constructor(private val api: VitalSignApi,
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(::doBloodPressures,::error)
             )
+            messageAction.value= Event("保存成功")
         }
     }
     fun select(item:EvaluateItem){
@@ -96,8 +97,8 @@ class EvaluateViewModel @Inject constructor(private val api: VitalSignApi,
         val name =when(ratId){
             "9"->"NIHSS评分"
             "10"->"mRS评分"
-            "24"->"BI评分"
-            "25"->"吞咽测试"
+            "25"->"BI评分"
+            "21"->"吞咽测试"
             else->""
         }
         rating.value=Triple(ratId,name,id?:"-1")

@@ -9,8 +9,8 @@
         app:showAsAction="always"/>
 
     <item
-            android:id="@+id/delete"
-            android:orderInCategory="100"
-            android:title="删除"
-            app:showAsAction="never"/>
+        android:id="@+id/delete"
+        android:orderInCategory="100"
+        android:title="删除"
+        app:showAsAction="never"/>
 </menu>

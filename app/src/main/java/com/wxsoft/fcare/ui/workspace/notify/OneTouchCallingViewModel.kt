@@ -46,7 +46,7 @@ class OneTouchCallingViewModel @Inject constructor(private val notificationApi: 
     }
 
     fun getCalls(){
-        disposable.add(dicApi.loadCalls()
+        disposable.add(dicApi.loadCalls(patientId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::loadCalls,::error))

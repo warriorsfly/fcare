@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.acker.simplezxing.activity.CaptureActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.wxsoft.fcare.R
@@ -88,6 +89,10 @@ import kotlinx.android.synthetic.main.layout_working_title.*
 import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
+import android.R.attr.data
+import android.widget.Toast
+
 
 class WorkingActivity : BaseActivity() {
 
@@ -217,7 +222,8 @@ class WorkingActivity : BaseActivity() {
 //                    startActivityForResult(intent, NOTIFICATION)
 //                }
                 swichCode.setOnClickListener {//扫描二维码
-
+                    val intent = Intent(this@WorkingActivity, CaptureActivity::class.java)
+                    startActivityForResult(intent, CaptureActivity.REQ_CODE)
                 }
 
                 timeline_error.setOnClickListener {
@@ -234,6 +240,10 @@ class WorkingActivity : BaseActivity() {
 
         viewModel.patient.observe(this, Observer {
             title=it.name
+        })
+
+        emrViewModel.scanResult.observe(this, Observer {
+            Toast.makeText(this,it, Toast.LENGTH_LONG).show()
         })
 
         nfcAdapter = NfcAdapter.getDefaultAdapter(this)
@@ -462,8 +472,10 @@ class WorkingActivity : BaseActivity() {
             }
 
             ActionType.来院方式 ->{
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this, ComingByActivity::class.java).apply {
                     putExtra(ComingByActivity.PATIENT_ID, patientId)
+                    putExtra(ComingByActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, ActionCode.COMEBY)
             }
@@ -486,10 +498,17 @@ class WorkingActivity : BaseActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode== Activity.RESULT_OK) {
+            if (requestCode == CaptureActivity.REQ_CODE){
+                if (data != null) {
+                    val content = data.getStringExtra(CaptureActivity.EXTRA_SCAN_RESULT)
+                    emrViewModel.scan(content)
+                }
 
-            emrViewModel.refresh(requestCode)
+            }else{
+                emrViewModel.refresh(requestCode)
+                viewModel.patientId=patientId
+            }
 
-            viewModel.patientId=patientId
 
         }
     }

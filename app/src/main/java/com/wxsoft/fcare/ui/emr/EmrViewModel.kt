@@ -32,8 +32,13 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
      */
     private val loadEmrResult = MediatorLiveData<Response<List<EmrItem>>>()
 
+
+    val scanResult:LiveData<String>
+    private val loadScanResult = MediatorLiveData<Response<String>>()
+
     init {
         emrs = loadEmrResult.map { it.result ?: emptyList() }
+        scanResult = loadScanResult.map { it.result?:"" }
     }
 
     private val _loadDetailAction = MutableLiveData<Event<Int>>()
@@ -149,6 +154,13 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             disposable.add(source1.zipWith(source2).subscribe (::loadDetail,::error))
 
         }
+    }
+
+    /**
+     * 扫描接口回调
+     */
+    private fun loadscan(response: Response<String>) {
+        loadScanResult.value = response
     }
 
     /**
@@ -365,5 +377,10 @@ class EmrViewModel @Inject constructor(private val api: EmrApi,
             .subscribe(::setResultAtIndex,::error))
     }
 
-
+    fun scan(code:String){
+        disposable.add( api.scan(account.id,code,patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::loadscan, ::error))
+    }
 }

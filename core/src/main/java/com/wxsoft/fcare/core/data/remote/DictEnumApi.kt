@@ -30,8 +30,8 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/234")
     fun loadNoRefushionResons(): Maybe<List<Dictionary>>
 
-    @GET("EnumDic/enumItems/236")
-    fun loadCalls(): Maybe<List<Dictionary>>
+    @GET("EnumDic/enumItems/236/{patientId}")
+    fun loadCalls(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
     /**
      * 非心源ACS
@@ -142,7 +142,7 @@ interface DictEnumApi {
     /**
      * 主诉及症状
      */
-    @GET("EnumDic/enumItems/221/{patientId}")
+    @GET("EnumDic/enumItems/211/{patientId}")
     fun loadComplaints(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
     /**

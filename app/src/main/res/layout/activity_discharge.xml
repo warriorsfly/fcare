@@ -213,54 +213,60 @@
                     android:layout_marginLeft="5dp"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_vertical"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/sanwu_container"
-                android:layout_marginTop="10dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/model3"
-                android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="50dp">
-            <TextView
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="wrap_content"
-                    android:text="院内出现心力衰竭"
-                    android:textSize="15sp"
-                    android:id="@+id/sanwu_title1"
-                    android:textColor="@color/edit_text_title"
-                    android:layout_marginLeft="15dp"
-                    android:layout_height="wrap_content"/>
-
-            <Switch
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="wrap_content"
-                    android:checked="@={viewModel.data.heartFailure}"
-                    android:textSize="14sp"
-                    android:layout_marginRight="15dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="right|center_vertical"/>
-
             <View
-                    android:background="#EDEDED"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-
-
+                android:background="#EDEDED"
+                android:layout_marginBottom="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!--<androidx.constraintlayout.widget.ConstraintLayout-->
+                <!--android:id="@+id/sanwu_container"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@+id/model3"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:background="@color/white"-->
+                <!--android:layout_height="50dp">-->
+            <!--<TextView-->
+                    <!--app:layout_constraintLeft_toLeftOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:text="院内出现心力衰竭"-->
+                    <!--android:textSize="15sp"-->
+                    <!--android:id="@+id/sanwu_title1"-->
+                    <!--android:textColor="@color/edit_text_title"-->
+                    <!--android:layout_marginLeft="15dp"-->
+                    <!--android:layout_height="wrap_content"/>-->
+
+            <!--<Switch-->
+                    <!--app:layout_constraintRight_toRightOf="parent"-->
+                    <!--app:layout_constraintTop_toTopOf="parent"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:checked="@={viewModel.data.heartFailure}"-->
+                    <!--android:textSize="14sp"-->
+                    <!--android:layout_marginRight="15dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="right|center_vertical"/>-->
+
+            <!--<View-->
+                    <!--android:background="#EDEDED"-->
+                    <!--android:layout_marginBottom="1dp"-->
+                    <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="1dp"/>-->
+
+
+        <!--</androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model5"
                 android:background="@color/white"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sanwu_container"
+                app:layout_constraintTop_toBottomOf="@id/model3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 

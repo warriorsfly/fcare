@@ -215,8 +215,9 @@ class ProfileViewModel @Inject constructor(
                                 gender = p.gender
                                 age = p.age
                                 if (!p.phone.isNullOrEmpty()) phone = p.phone
-//                                if (!p.outpatientId.isNullOrEmpty()) outpatientId = p.outpatientId
-                                if (!p.inpatientId.isNullOrEmpty()) inpatientId = p.inpatientId
+                                if (!p.outpatientId.isNullOrEmpty()&& outpatientId.isNullOrEmpty()) outpatientId = p.outpatientId
+                                if (!p.inpatientId.isNullOrEmpty() && inpatientId.isNullOrEmpty()) inpatientId = p.inpatientId
+                                if (!p.registerDate.isNullOrEmpty() && registerDate.isNullOrEmpty()) registerDate = p.registerDate
                             }
                         })
                         messageAction.value= Event("已获取到患者信息")

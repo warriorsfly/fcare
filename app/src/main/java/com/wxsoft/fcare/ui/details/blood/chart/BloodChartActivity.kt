@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.VitalSignsCollectResult
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -74,7 +75,8 @@ class BloodChartActivity : BaseTimingActivity() {
         //无数据时显示的文字
         lineChart.setNoDataText("暂无数据")
         //显示边界
-        lineChart.setDrawBorders(false);
+        lineChart.setDrawBorders(false)
+        val dataSets = arrayListOf<ILineDataSet>()
         //设置数据
         val entries = ArrayList<Entry>()
         val yDatas:ArrayList<Int> = arrayListOf()
@@ -92,14 +94,75 @@ class BloodChartActivity : BaseTimingActivity() {
         //线宽度
         lineDataSet.setLineWidth(1.6f)
         //不显示圆点
-        lineDataSet.setDrawCircles(false)
+        lineDataSet.setDrawCircles(true)
+        lineDataSet.setDrawIcons(true)
+        lineDataSet.setCircleRadius(5f)
+        lineDataSet.setCircleColor(Color.parseColor("#63B0F8"))
         //线条平滑
         lineDataSet.setMode(LineDataSet.Mode.LINEAR)
         //设置折线图填充
-//        lineDataSet.setDrawFilled(true)
-        val data = LineData(lineDataSet)
+        lineDataSet.setDrawFilled(false)
+        dataSets.add(lineDataSet)
+
+
+
+        val entries1 = ArrayList<Entry>()
+        for (i in list.indices) {
+            if (list.get(i).sbp != 0){
+                entries1.add( Entry(i.toFloat(), list.get(i).sbp.toFloat()))
+                yDatas.add(list.get(i).sbp)
+            }
+        }
+        if(entries1.size==0) return
+        //一个LineDataSet就是一条线
+        val lineDataSet1 = LineDataSet(entries1, "sbp");
+        //线颜色
+        lineDataSet1.setColor(Color.parseColor("#1BD568"));
+        //线宽度
+        lineDataSet1.setLineWidth(1.6f)
+        //不显示圆点
+        lineDataSet1.setDrawCircles(true)
+        lineDataSet1.setDrawIcons(true)
+        lineDataSet1.setCircleRadius(5f)
+        lineDataSet1.setCircleColor(Color.parseColor("#1BD568"))
+        //线条平滑
+        lineDataSet1.setMode(LineDataSet.Mode.LINEAR)
+        //设置折线图填充
+        lineDataSet1.setDrawFilled(false)
+        dataSets.add(lineDataSet1)
+
+        val entries2 = ArrayList<Entry>()
+        for (i in list.indices) {
+            if (list.get(i).dbp != 0){
+                entries2.add( Entry(i.toFloat(), list.get(i).dbp.toFloat()))
+                yDatas.add(list.get(i).dbp)
+            }
+        }
+        if(entries2.size==0) return
+        //一个LineDataSet就是一条线
+        val lineDataSet2 = LineDataSet(entries2, "dbp");
+        //线颜色
+        lineDataSet2.setColor(Color.parseColor("#FE5F55"));
+        //线宽度
+        lineDataSet2.setLineWidth(1.6f)
+        //不显示圆点
+        lineDataSet2.setDrawCircles(true)
+        lineDataSet2.setDrawIcons(true)
+        lineDataSet2.setCircleRadius(5f)
+        lineDataSet2.setCircleColor(Color.parseColor("#FE5F55"))
+        //线条平滑
+        lineDataSet2.setMode(LineDataSet.Mode.LINEAR)
+        //设置折线图填充
+        lineDataSet2.setDrawFilled(false)
+        dataSets.add(lineDataSet2)
+
+
+        val data = LineData(dataSets)
+
+
+
         //折线图不显示数值
-        data.setDrawValues(false)
+        data.setDrawValues(true)
         //得到X轴
         val xAxis = lineChart.getXAxis();
         //设置X轴的位置（默认在上方)
@@ -107,14 +170,14 @@ class BloodChartActivity : BaseTimingActivity() {
         //设置X轴坐标之间的最小间隔
         xAxis.setGranularity(1f);
         //设置X轴的刻度数量，第二个参数为true,将会画出明确数量（带有小数点），但是可能值导致不均匀，默认（6，false）
-        xAxis.setLabelCount(yDatas.size, false);
+        xAxis.setLabelCount(entries.size, false);
         //设置X轴的值（最小值、最大值、然后会根据设置的刻度数量自动分配刻度显示）
         xAxis.setAxisMinimum(0f);
-        xAxis.setAxisMaximum(yDatas.size.toFloat()-1);
+        xAxis.setAxisMaximum(entries.size.toFloat()-1);
         //不显示网格线
         xAxis.setDrawGridLines(false);
         // 标签倾斜
-        xAxis.setLabelRotationAngle(0f);
+        xAxis.setLabelRotationAngle(45f);
         //设置X轴值为字符串
         xAxis.setValueFormatter(object :IAxisValueFormatter{
             override fun getFormattedValue(value: Float, axis: AxisBase?): String {
@@ -148,10 +211,10 @@ class BloodChartActivity : BaseTimingActivity() {
         //图例：得到Lengend
         val legend = lineChart.getLegend()
         //隐藏Lengend
-        legend.setEnabled(false);
+        legend.setEnabled(true)
         //隐藏描述
-        val description = Description();
-        description.setEnabled(false);
+        val description = Description()
+        description.setEnabled(false)
         lineChart.setDescription(description);
         //折线图点的标记
 //        MyMarkerView mv = new MyMarkerView(this);

@@ -4,15 +4,13 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
-import com.wxsoft.fcare.core.data.entity.Patient
-import com.wxsoft.fcare.core.data.entity.Response
-import com.wxsoft.fcare.core.data.entity.Strategy
-import com.wxsoft.fcare.core.data.entity.User
+import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.chest.Intervention
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.InterventionApi
 import com.wxsoft.fcare.core.data.remote.PACSApi
 import com.wxsoft.fcare.core.data.remote.PatientApi
+import com.wxsoft.fcare.core.data.remote.ThrombolysisApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
@@ -39,7 +37,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
             loadPatient()
             loadIntervention()
             getStrategy()
-
+            getInformedConsent()
         }
 
     val patient:LiveData<Patient>
@@ -60,11 +58,34 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
     val modifySome:LiveData<String>
     private val initModifySome =  MediatorLiveData<String>()
 
+    val clickLine:LiveData<String>
+    private val loadClickLine =  MediatorLiveData<String>()
+
+    val informed:LiveData<InformedConsent>
+    private val loadInformedResult = MediatorLiveData<Response<InformedConsent>>()
+
     init {
         strategy = loadStrategy.map { (it as? Resource.Success)?.data?.result?: Strategy(patientId,1) }
         modifySome = initModifySome.map { it }
         intervention = loadInterventionResult.map { it?.result ?: Intervention("",createrId = account.id)  }
         patient = loadPatientResult.map { it?.result ?: Patient()  }
+        clickLine = loadClickLine.map { it }
+        informed = loadInformedResult.map { (it?.result ?: InformedConsent("")) }
+
+
+    }
+
+    //获取溶栓知情同意书内容
+    private fun getInformedConsent(){
+        disposable.add(interventionApi.getInformedConsentById("1")
+            .toResource()
+            .subscribe ({
+                when(it){
+                    is Resource.Success->{
+                        loadInformedResult.value = it.data
+                    }
+                }
+            },::error))
     }
 
     private fun loadPatient(){
@@ -115,6 +136,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
                     is Resource.Success->{
                         loadInterventionResult.value=it.data.first
                         docs=it.data.second.result?: emptyList()
+                        intervention.value?.setUpChecked()
                     }
                 }
             })
@@ -123,6 +145,13 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 
     fun clickSelectTime(location:String){
         initModifySome.value= location
+    }
+
+    //去知情同意书
+    fun toInformedConsent(){
+        if (informed.value != null){
+            loadClickLine.value = "informedConsent"
+        }
     }
 
 

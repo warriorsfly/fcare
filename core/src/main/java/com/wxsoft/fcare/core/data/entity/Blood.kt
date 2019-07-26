@@ -21,6 +21,12 @@ data class Blood(var id:String="",
             field = value
             notifyPropertyChanged(BR.sendCheckTime)
         }
+    @Bindable
+    var receiveTime: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.receiveTime)
+        }
 
     @Bindable
     var bloodSugarCompleteTime: String? = null
