@@ -215,7 +215,9 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                     .flatMap { qualityControlApi.getOperationGroups(patientId, account.id, pre) }
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe({}, ::error)
+                    .subscribe({
+                        messageAction.value = Event(it.msg)
+                    }, ::error)
             )
         }
     }

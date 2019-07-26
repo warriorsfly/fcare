@@ -7,7 +7,9 @@ import android.app.PendingIntent
 import android.content.Intent
 import android.nfc.NfcAdapter
 import android.nfc.Tag
+import android.nfc.tech.Ndef
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,6 +20,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.WorkOperation
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.NfcUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -82,6 +85,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.activity_working.*
 import kotlinx.android.synthetic.main.layout_working_title.*
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
 
@@ -202,6 +206,9 @@ class WorkingActivity : BaseActivity() {
                     }
 
                 })
+                viewModel.mesAction.observe(this@WorkingActivity,EventObserver{
+                    Toast.makeText(this@WorkingActivity,it,Toast.LENGTH_LONG).show()
+                })
 
 //                notification.setOnClickListener {
 //                    val intent = Intent(this@WorkingActivity, NotificationActivity::class.java).apply {
@@ -253,8 +260,12 @@ class WorkingActivity : BaseActivity() {
                 }
 
                 NfcAdapter.ACTION_NDEF_DISCOVERED->{
-                    val cardId = intent.dataString
-                    viewModel.nfcInput(cardId)
+                    val tag = intent.getParcelableExtra<Tag>(NfcAdapter.EXTRA_TAG)
+                    val ndef = Ndef.get(tag)
+                    ndef.connect()
+                    val ndefMessage = ndef.ndefMessage
+                    val message = String(ndefMessage.records[0].payload)
+                    viewModel.nfcInput(message)
 //                    val cardId=NfcUtils.toHexString(tag.drugId)
 //                    AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
 //                        .setTitle("查询到NFC")
