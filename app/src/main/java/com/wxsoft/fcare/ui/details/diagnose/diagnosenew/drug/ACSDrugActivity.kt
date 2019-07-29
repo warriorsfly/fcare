@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.DateTimeUtils
+import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityAcsdrugBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
@@ -46,7 +47,9 @@ class ACSDrugActivity : BaseTimingActivity() {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
     }
-
+    private val pre: Boolean by lazyFast {
+        intent?.getBooleanExtra("PRE",false)?:false
+    }
     private lateinit var viewModel: AcsDrugViewModel
     @Inject
     lateinit var factory: ViewModelFactory
@@ -72,6 +75,8 @@ class ACSDrugActivity : BaseTimingActivity() {
             }
         patientId=intent.getStringExtra(ACSDrugActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
+
+        viewModel.pre.set(pre)
 
         changeDrugsFragment1 = ChangeDrugFragment(this,this@ACSDrugActivity.viewModel,"1")
         changeDrugsFragment2 = ChangeDrugFragment(this,this@ACSDrugActivity.viewModel,"2")
@@ -100,7 +105,7 @@ class ACSDrugActivity : BaseTimingActivity() {
         })
 
         setSupportActionBar(toolbar)
-        title="ACS给药"
+
 
     }
 

@@ -2,7 +2,6 @@ package com.wxsoft.fcare.ui.workspace
 
 //import kotlinx.android.synthetic.main.activity_working.*
 import android.app.Activity
-import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.nfc.NfcAdapter
@@ -44,7 +43,6 @@ import com.wxsoft.fcare.ui.details.evaluate.EvaluateActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
-import com.wxsoft.fcare.ui.details.notification.NotificationActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
@@ -75,7 +73,6 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.EMR
 import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
-import com.wxsoft.fcare.utils.ActionCode.Companion.NOTIFICATION
 import com.wxsoft.fcare.utils.ActionCode.Companion.ONETOUCH
 import com.wxsoft.fcare.utils.ActionCode.Companion.OTDIAGNOSE
 import com.wxsoft.fcare.utils.ActionCode.Companion.OUTCOME
@@ -86,12 +83,8 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.VITAL_SIGNS
 import com.wxsoft.fcare.utils.ActionType
 import kotlinx.android.synthetic.main.activity_working.*
 import kotlinx.android.synthetic.main.layout_working_title.*
-import java.util.*
 import javax.inject.Inject
 import javax.inject.Named
-import androidx.databinding.adapters.TextViewBindingAdapter.setText
-import android.R.attr.data
-import android.widget.Toast
 
 
 class WorkingActivity : BaseActivity() {
@@ -211,7 +204,7 @@ class WorkingActivity : BaseActivity() {
                     }
 
                 })
-                viewModel.mesAction.observe(this@WorkingActivity,EventObserver{
+                viewModel?.mesAction?.observe(this@WorkingActivity,EventObserver{
                     Toast.makeText(this@WorkingActivity,it,Toast.LENGTH_LONG).show()
                 })
 
@@ -338,6 +331,7 @@ class WorkingActivity : BaseActivity() {
             ActionType.ACS给药 ->{
                 val intent = Intent(this@WorkingActivity, ACSDrugActivity::class.java).apply {
                     putExtra(ACSDrugActivity.PATIENT_ID, patientId)
+                    putExtra("PRE", pre)
                 }
                 startActivityForResult(intent, DRUGRECORD)
             }

@@ -7,6 +7,7 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.User
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.TaskApi
+import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -79,5 +80,20 @@ class ComingByDoctorsViewModel @Inject constructor(private val doctorApi:TaskApi
 
     fun changeDoctor(flag:Int){
         selectDoctor.value=flag
+    }
+
+    fun showPatients(name: String): Boolean {
+        disposable.add( doctorApi.searchUser(name,type.equals(1)||type.equals(3),account.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::doSearch,::error))
+        return true
+    }
+    private fun doSearch(response: Response<List<User>>){
+        when(type){
+            1 -> loadEmergencyDoctors.value=response
+            2 -> loadEmergencyNurses.value=response
+            3 -> loadConsultantDoctors.value=response
+        }
     }
 }

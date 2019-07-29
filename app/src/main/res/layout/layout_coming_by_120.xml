@@ -15,12 +15,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+      <androidx.constraintlayout.widget.ConstraintLayout
+          android:id="@+id/model100"
+          android:background="@color/white"
+          android:onClick="@{()->viewModel.changeTiming(TimingType.HelpAt)}"
+          app:layout_constraintLeft_toLeftOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/model100_8"
+          android:layout_width="match_parent"
+          android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/title100"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginBottom="15dp"
+            android:text="呼救120时间"
+            android:textSize="16sp"
+            android:textColor="#131D35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:hint="请选择"
+            android:id="@+id/call_time"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:textSize="16sp"
+            android:textColor="#7D7D7D"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/rowe100"
+            android:text="@{viewModel.comingBy.helpAt}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/rowe100"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/title100"
+            android:layout_width="14dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="19dp"
+            android:background="@drawable/ic_right_arrow"/>
+        <View
+            android:background="#EDEDED"
+            android:layout_marginBottom="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model3_4"
                 android:background="@color/white"
                 android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveScene)}"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/model3_3"
+                app:layout_constraintTop_toBottomOf="@+id/model100"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 

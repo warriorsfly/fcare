@@ -13,7 +13,9 @@ data class Option(val id:String,
                   val name:String,
                   val score:Int,
                   @SerializedName("sortNum")
-                  val index:Int):BaseObservable(){
+                  val index:Int,
+                  @SerializedName("autoCheckOtherOptions")
+                  val autoChecks:List<String>):BaseObservable(){
     @Transient
     @get:Bindable
     var checked:Boolean=false
@@ -21,4 +23,5 @@ data class Option(val id:String,
         field=value
         notifyPropertyChanged(BR.checked)
     }
+
 }

@@ -17,8 +17,8 @@ interface PharmacyApi {
     @GET("Drug/GetDrugRecordByPatientId/{patientId}")
     fun getDrugRecord(@Path("patientId")patientId:String):Maybe<Response<List<DrugRecord>>>
 
-    @GET("Drug/GetAcsByPatientId/{patientId}")
-    fun getACSDrug(@Path("patientId")patientId:String):Maybe<Response<ACSDrug>>
+    @GET("Drug/GetAcsByPatientId/{patientId}/{location}")
+    fun getACSDrug(@Path("patientId")patientId:String,@Path("location")location:Int=2):Maybe<Response<ACSDrug>>
 
     @POST("Drug/SaveDrugRecords")
     fun save(@Body drugRecords: List<DrugRecord>):Maybe<Response<List<DrugRecord>>>

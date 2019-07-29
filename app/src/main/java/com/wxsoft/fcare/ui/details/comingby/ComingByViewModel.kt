@@ -117,6 +117,7 @@ class ComingByViewModel @Inject constructor(
             comingBy.value?.let {
                 val time = when (timingType) {
                     TimingType.ArriveCcu -> it.arrived_Ccu_Date
+                    TimingType.HelpAt -> it.helpAt
                     TimingType.OutHospitalVisit -> it.outhospital_Visit_Time
                     TimingType.Transfer -> it.transfer_Time
                     TimingType.AmbulanceArrived -> it.ambulance_Arrived_Time
@@ -161,6 +162,7 @@ class ComingByViewModel @Inject constructor(
                     TimingType.LeaveDepartment -> it.leave_Department_Time = pair.second
                     TimingType.ArriveScene -> it.arrived_Scene_Time = pair.second
                     TimingType.Consultation -> it.consultation_Time = pair.second
+                    TimingType.HelpAt -> it.helpAt = pair.second
                     else -> throw IllegalArgumentException("error timing type ${pair.first}")
                 }
             }
@@ -204,18 +206,7 @@ class ComingByViewModel @Inject constructor(
                 }
             }
 
-            when{
-                consultation_Time != null && !comingWayStaffs?.any { it.staffType == "3" }
-                ->{
-                    messageAction.value = Event("会诊医生不能为空")
-                    return
-                }
-                comingWayStaffs?.any { it.staffType == "3" } && consultation_Time == null
-                ->{
-                    messageAction.value = Event("会诊时间不能为空")
-                    return
-                }
-            }
+
 
             var d1 = comingWayStaffs.firstOrNull { it.staffType == "1" }
 
@@ -247,6 +238,19 @@ class ComingByViewModel @Inject constructor(
             d2?.let(l::add)
             l.addAll(d3)
             comingWayStaffs = l
+
+            when{
+                consultation_Time != null && !comingWayStaffs?.any { it.staffType == "3" }
+                ->{
+                    messageAction.value = Event("会诊医生不能为空")
+                    return
+                }
+                comingWayStaffs?.any { it.staffType == "3" } && consultation_Time == null
+                ->{
+                    messageAction.value = Event("会诊时间不能为空")
+                    return
+                }
+            }
         }
 
 

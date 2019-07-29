@@ -351,7 +351,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             android:text="血氧" />
 
-                        <EditText android:selectAllOnFocus="true"
+                        <EditText
+                            android:selectAllOnFocus="true"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -537,6 +538,7 @@
                             android:text="NIHSS" />
 
                         <EditText
+                            android:selectAllOnFocus="true"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -550,6 +552,7 @@
                             android:textSize="14sp"
                             android:text="@={NullableConverter.intToString(viewModel.selectedItem.nihss)}"
                             android:gravity="center_vertical|right"
+                            android:imeOptions="actionNext"
                             android:layout_marginStart="8dp"
                             android:inputType="number"
                             android:id="@+id/nihss"
@@ -594,6 +597,7 @@
                             android:text="mRS" />
 
                         <EditText
+                            android:selectAllOnFocus="true"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -607,6 +611,7 @@
                             android:textColor="#9399A4"
                             android:textSize="14sp"
                             android:gravity="center_vertical|right"
+                            android:imeOptions="actionNext"
                             android:layout_marginStart="8dp"
                             android:inputType="number"
                             android:id="@+id/mRS"
@@ -653,6 +658,7 @@
                             android:text="BI" />
 
                         <EditText
+                            android:selectAllOnFocus="true"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -666,6 +672,7 @@
                             android:textColor="#9399A4"
                             android:textSize="14sp"
                             android:gravity="center_vertical|right"
+                            android:imeOptions="actionNext"
                             android:layout_marginStart="8dp"
                             android:inputType="number"
                             android:id="@+id/bi"
@@ -713,6 +720,7 @@
                             android:text="吞咽" />
 
                         <EditText
+                            android:selectAllOnFocus="true"
                             android:layout_width="0dp"
                             android:layout_height="30dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -726,6 +734,7 @@
                             android:textColor="#9399A4"
                             android:textSize="14sp"
                             android:gravity="center_vertical|right"
+                            android:imeOptions="actionNext"
                             android:layout_marginStart="8dp"
                             android:inputType="number"
                             android:id="@+id/ty"

@@ -49,6 +49,7 @@ data class Rating(val id:String="",
         notifyPropertyChanged(BR.grade)
     }
     fun refreshScore(subject: Subject,option: Option){
+        autoCheck(option.autoChecks)
         subject.check(option)
         refreshScore()
     }
@@ -57,6 +58,16 @@ data class Rating(val id:String="",
         score = subjects.sumBy{ it.options.filter { option ->  option.checked }.sumBy { op->op.score } }
         process=subjects.count{it.options.size==1 || it.options.any{option->option.checked}}
         grade=resultGrades.firstOrNull { it.scoreStart<score && it.scoreEnd>= score }
+    }
+
+    fun autoCheck(list:List<String>){
+        if (list.isNotEmpty()){
+            subjects.map {
+                it.options.map {
+                    if (list.contains(it.id)) it.checked = true
+                }
+            }
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import androidx.annotation.StringDef
 
 @Retention(AnnotationRetention.SOURCE)
 @StringDef(
+    TimingType.HelpAt,
     TimingType.ArriveEmergency,
     TimingType.ArriveCcu,
     TimingType.OutHospitalVisit,
@@ -19,6 +20,10 @@ import androidx.annotation.StringDef
 
 annotation class TimingType {
     companion object {
+        /**
+         * 呼叫120时间
+         */
+        const val HelpAt = "HelpAt"
         /**
          * 急诊医生到达时间
          */

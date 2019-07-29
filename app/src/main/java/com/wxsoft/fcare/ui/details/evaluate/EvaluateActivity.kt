@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.details.evaluate
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -92,6 +93,54 @@ class EvaluateActivity : BaseActivity(){
         viewModel.select(item)
     }
 
+    private fun checkUpDatas(){
+        viewModel.selectedItem.get()?.let {
+            if((it.consciousness_Type.isNullOrEmpty())&&(!it.evaluatePlanId.equals("9"))){
+                showDiag("意识")
+                return
+            }
+            if((it.sbp.isNullOrEmpty())&&(!it.evaluatePlanId.equals("9"))){
+                showDiag("舒张压")
+                return
+            }
+            if((it.dbp.isNullOrEmpty())&&(!it.evaluatePlanId.equals("9"))){
+                showDiag("收缩压")
+                return
+            }
+            if((it.heart_Rate==0 || it.heart_Rate == null)&&(!it.evaluatePlanId.equals("9"))){
+                showDiag("心率")
+                return
+            }
+            if((it.respiration_Rate==0 || it.respiration_Rate == null)&&(!it.evaluatePlanId.equals("9"))){
+                showDiag("呼吸")
+                return
+            }
+            if((it.height==0 || it.height == null)&&(it.evaluatePlanId.equals("1"))){
+                showDiag("身高")
+                return
+            }
+            if((it.weight==0 || it.weight == null)&&(it.evaluatePlanId.equals("1"))){
+                showDiag("体重")
+                return
+            }
+            if((it.spO2==0 || it.spO2 == null)&&(!it.evaluatePlanId.equals("9"))){
+                showDiag("血氧")
+                return
+            }
+            viewModel.save()
+        }
+    }
+
+    private fun showDiag(message:String){
+        AlertDialog.Builder(this@EvaluateActivity,R.style.Theme_FCare_Dialog)
+            .setMessage(message+"没填写,是否保存？")
+            .setPositiveButton("是") { _, _ ->
+                viewModel.save()
+            }
+            .setNegativeButton("否") { _, _ ->
+            }.show()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)
         return true
@@ -101,7 +150,7 @@ class EvaluateActivity : BaseActivity(){
 
         return  when(item?.itemId){
             R.id.submit->{
-                viewModel.save()
+                checkUpDatas()
                 true
             }
             else->super.onOptionsItemSelected(item)

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -17,15 +18,28 @@ import com.wxsoft.fcare.core.data.entity.User
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
+import com.wxsoft.fcare.databinding.ActivityComingByDoctorsBinding
 import com.wxsoft.fcare.databinding.ActivityComingByListBinding
 import com.wxsoft.fcare.databinding.ItemDoctorTextBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.details.comingby.ComingByDoctorsViewModel
+import kotlinx.android.synthetic.main.activity_coming_by_list.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 import dagger.android.support.DaggerFragment as DaggerFragment1
 
-class ComingByDoctorsActivity : BaseActivity() {
+class ComingByDoctorsActivity : BaseActivity() , SearchView.OnQueryTextListener{
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        return viewModel.showPatients(if(p0.isNullOrEmpty())"" else p0)
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        if(p0.isNullOrEmpty()){
+            viewModel.showPatients("")
+            return true
+        }
+        return false
+    }
 
     /**
      * 1来院方式2发车单位3绕行急诊科后绕行科室
@@ -58,17 +72,20 @@ class ComingByDoctorsActivity : BaseActivity() {
         viewModel.type=type
         adapter = Adapter(this@ComingByDoctorsActivity,::select)
         adapter.singleSelect=type!=3
-        DataBindingUtil.setContentView<ActivityComingByListBinding>(this, R.layout.activity_coming_by_list).apply {
+        DataBindingUtil.setContentView<ActivityComingByDoctorsBinding>(this, R.layout.activity_coming_by_doctors).apply {
             lifecycleOwner=this@ComingByDoctorsActivity
+            back.setOnClickListener { onBackPressed() }
             list.adapter=this@ComingByDoctorsActivity.adapter
+            viewModel = this@ComingByDoctorsActivity.viewModel
+            search.setOnQueryTextListener(this@ComingByDoctorsActivity)
         }
-        setSupportActionBar(toolbar)
-        title=when(type){
-            1->"接诊医生"
-            2->"接诊护士"
-            3->"会诊医生"
-            else->""
-        }
+//        setSupportActionBar(toolbar)
+//        title=when(type){
+//            1->"接诊医生"
+//            2->"接诊护士"
+//            3->"会诊医生"
+//            else->""
+//        }
         viewModel.emergencyDoctors.observe(this, Observer {
             it.let(::loaded)
         })

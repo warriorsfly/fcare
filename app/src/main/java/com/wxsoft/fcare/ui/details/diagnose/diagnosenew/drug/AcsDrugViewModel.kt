@@ -1,5 +1,7 @@
 package com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug
 
+import androidx.databinding.Observable
+import androidx.databinding.ObservableBoolean
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -30,6 +32,9 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
             field = value
             getDrugs(value)
         }
+    var pre= ObservableBoolean().apply {
+        set(false)
+    }
 
     val drugs1: LiveData<List<Dictionary>>
     private val loadDrugs1 = MediatorLiveData<List<Dictionary>>()
@@ -51,6 +56,12 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
         drugs2 = loadDrugs2.map { it?: emptyList() }
         getDrugs1("235")
         getDrugs2("22")
+        pre.addOnPropertyChangedCallback(object: Observable.OnPropertyChangedCallback() {
+            override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
+                getDrugs(patientId)
+            }
+
+        })
     }
 
     fun changeDrug(id:String){
@@ -61,21 +72,21 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
         if (acsDrug.value?.aspirin_Dose_str.isNullOrEmpty()){
             acsDrug.value?.aspirin_Dose_str = "0"
         }  else {
-            if (acsDrug.value?.aspirin_Dose_str!!.toDouble() >25) acsDrug.value?.aspirin_Dose_str = (acsDrug.value?.aspirin_Dose_str!!.toDouble() - 25).toString() else acsDrug.value?.aspirin_Dose_str = "0"
+            if (acsDrug.value?.aspirin_Dose_str!!.toInt() >25) acsDrug.value?.aspirin_Dose_str = (acsDrug.value?.aspirin_Dose_str!!.toInt() - 25).toString() else acsDrug.value?.aspirin_Dose_str = "0"
         }
     }
     fun subdelow2(){
         if (acsDrug.value?.acs_Drug_Dose_str.isNullOrEmpty()){
             acsDrug.value?.acs_Drug_Dose_str = "0"
         }  else {
-            if (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() >25) acsDrug.value?.acs_Drug_Dose_str = (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() - 25).toString() else acsDrug.value?.acs_Drug_Dose_str = "0"
+            if (acsDrug.value?.acs_Drug_Dose_str!!.toInt() >25) acsDrug.value?.acs_Drug_Dose_str = (acsDrug.value?.acs_Drug_Dose_str!!.toInt() - 25).toString() else acsDrug.value?.acs_Drug_Dose_str = "0"
         }
     }
     fun subdelow3(){
         if (acsDrug.value?.anticoagulation_Unit.isNullOrEmpty()){
             acsDrug.value?.anticoagulation_Unit = "0"
         }  else {
-            if (acsDrug.value?.anticoagulation_Unit!!.toDouble() >25) acsDrug.value?.anticoagulation_Unit = (acsDrug.value?.anticoagulation_Unit!!.toInt() - 25).toString() else acsDrug.value?.anticoagulation_Unit = "0"
+            if (acsDrug.value?.anticoagulation_Unit!!.toInt() >25) acsDrug.value?.anticoagulation_Unit = (acsDrug.value?.anticoagulation_Unit!!.toInt() - 25).toString() else acsDrug.value?.anticoagulation_Unit = "0"
         }
     }
 
@@ -83,14 +94,14 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
             if (acsDrug.value?.aspirin_Dose_str.isNullOrEmpty()){
                 acsDrug.value?.aspirin_Dose_str = "25"
             }  else {
-                if (acsDrug.value?.aspirin_Dose_str!!.toDouble() != 0.0) acsDrug.value?.aspirin_Dose_str = (acsDrug.value?.aspirin_Dose_str!!.toDouble() + 25).toString() else acsDrug.value?.aspirin_Dose_str = "25"
+                if (acsDrug.value?.aspirin_Dose_str!!.toInt() != 0) acsDrug.value?.aspirin_Dose_str = (acsDrug.value?.aspirin_Dose_str!!.toInt() + 25).toString() else acsDrug.value?.aspirin_Dose_str = "25"
             }
     }
     fun add2(){
             if (acsDrug.value?.acs_Drug_Dose_str.isNullOrEmpty()){
                 acsDrug.value?.acs_Drug_Dose_str = "25"
             }  else {
-                if (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() != 0.0) acsDrug.value?.acs_Drug_Dose_str = (acsDrug.value?.acs_Drug_Dose_str!!.toDouble() + 25).toString() else acsDrug.value?.acs_Drug_Dose_str = "25"
+                if (acsDrug.value?.acs_Drug_Dose_str!!.toInt() != 0) acsDrug.value?.acs_Drug_Dose_str = (acsDrug.value?.acs_Drug_Dose_str!!.toInt() + 25).toString() else acsDrug.value?.acs_Drug_Dose_str = "25"
             }
     }
     fun add3(){
@@ -127,14 +138,17 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
 
 
     fun getDrugs(id:String){
-        disposable.add(pharmacyApi.getACSDrug(id)
+        disposable.add(pharmacyApi.getACSDrug(id,if(pre.get())1 else 2)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::loadAcsDrug,::error))
     }
 
     fun loadAcsDrug(response:Response<ACSDrug>){
-        loadAcsDrug.value  = response.result?.apply { haveDrugs() }
+        loadAcsDrug.value  = response.result?.apply {
+            location=if(pre.get())1 else 2
+            haveDrugs()
+        }
     }
 
     fun getDrugs1(id:String){
@@ -169,5 +183,9 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
 
     fun saveResult(response:Response<String>){
         loadClickSomething.value = "saveResult"
+    }
+
+    fun changePre(){
+        pre.set(!pre.get())
     }
 }

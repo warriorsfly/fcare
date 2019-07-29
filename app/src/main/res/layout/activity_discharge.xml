@@ -152,6 +152,7 @@
                     android:layout_height="wrap_content"/>
 
             <EditText
+                    android:selectAllOnFocus="true"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/title2"
@@ -197,6 +198,7 @@
                     android:layout_height="wrap_content"/>
 
             <EditText
+                    android:selectAllOnFocus="true"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/title8"

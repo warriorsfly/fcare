@@ -154,6 +154,8 @@ data class ACSDrug constructor( var id:String="",  var createrId:String?=null,
             field=value
             notifyPropertyChanged(BR.drugsStr)
         }
+    @get:Bindable
+    var location = 2
 
     fun haveDrugs(){
         drugsStr =  "阿司匹林"+aspirin_Dose+"mg" + (if (acs_Drug_Dose==0) ""  else acsDrugTypeName +acs_Drug_Dose+"mg")

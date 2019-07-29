@@ -49,7 +49,7 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     clickAlone = true
                 }
                 "COMPLAINTS" -> {
-                    loadVital()
+                    loadMedicalHistoryCC()
                     clickAlone = true
                 }
                 "MedicalHistoryProvider" -> {
@@ -148,6 +148,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     private fun loadMedicalHistoryAnamnesis(){
         disposable.add(enumApi.loadMedicalHistoryItems(patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadMedicalHistoryCC(){
+        disposable.add(enumApi.loadComplaints(patientId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

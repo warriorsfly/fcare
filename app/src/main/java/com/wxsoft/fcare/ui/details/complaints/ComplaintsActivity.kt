@@ -52,7 +52,7 @@ class ComplaintsActivity : BaseActivity() {
         })
 
         setSupportActionBar(toolbar)
-        title="主诉及症状"
+        title="病情评估"
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
         })

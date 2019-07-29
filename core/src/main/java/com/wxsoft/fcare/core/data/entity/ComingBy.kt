@@ -51,6 +51,13 @@ data class ComingBy(val id:String=""): BaseObservable() {
            notifyPropertyChanged(BR.arrivedTime)
        }
 
+    @Bindable
+    var helpAt: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.helpAt)
+        }
+
    @Bindable
    var arrived_Ccu_Date: String = ""
        set(value) {
@@ -142,6 +149,19 @@ data class ComingBy(val id:String=""): BaseObservable() {
            notifyPropertyChanged(BR.patientId)
        }
 
+    @Bindable
+    var arrived_Scene_Doctors: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.arrived_Scene_Doctors)
+        }
+    @Bindable
+    var arrive_Scene_Nurses: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.arrive_Scene_Nurses)
+        }
+
    @Bindable
    var createrId: String = ""
        set(value) {
@@ -211,4 +231,6 @@ data class ComingBy(val id:String=""): BaseObservable() {
            field = value
            notifyPropertyChanged(BR.consultantDoctors)
        }
+
+
 }
