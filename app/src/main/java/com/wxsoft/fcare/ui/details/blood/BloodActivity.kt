@@ -64,17 +64,12 @@ class BloodActivity : BaseTimingActivity(), View.OnClickListener {
         viewModel.patientId = patientId
 
         getting_blood.setOnClickListener(this)
-//
         end.setOnClickListener  (this)
         start.setOnClickListener  (this)
         sendCheck.setOnClickListener  (this)
+        applyTime.setOnClickListener  (this)
+        repport_Time.setOnClickListener  (this)
 
-//        end_thromboly_time.setOnClickListener  (this)
-//        patient_arrive.setOnClickListener  (this)
-//        start_puncture.setOnClickListener  (this)
-//        punctured.setOnClickListener  (this)
-//        start_angiography.setOnClickListener  (this)
-//        end.setOnClickListener  (this)
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()

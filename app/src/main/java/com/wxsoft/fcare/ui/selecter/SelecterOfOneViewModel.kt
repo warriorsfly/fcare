@@ -50,7 +50,7 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                 }
                 "COMPLAINTS" -> {
                     loadMedicalHistoryCC()
-                    clickAlone = true
+                    clickAlone = false
                 }
                 "MedicalHistoryProvider" -> {
                     loadMedicalHistoryProvider()

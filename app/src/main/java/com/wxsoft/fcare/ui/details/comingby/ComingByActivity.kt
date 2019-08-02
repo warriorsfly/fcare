@@ -16,6 +16,7 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
+import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
@@ -135,6 +136,9 @@ class ComingByActivity : BaseTimingActivity() {
             if(it){
                 setResult(Activity.RESULT_OK)
                 finish()
+            }else{
+                val text = viewModel.savingResult.map { it.msg }.value
+                Toast.makeText(this,text,Toast.LENGTH_SHORT).show()
             }
 
         })

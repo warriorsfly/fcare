@@ -34,7 +34,7 @@ class ComingByViewModel @Inject constructor(
 
     private val loadComingBy=MediatorLiveData<Response<ComingBy>>()
     private val loadPassing=MediatorLiveData<Response<Passing>>()
-    private val savingResult=MediatorLiveData<Response<String?>>()
+    val savingResult=MediatorLiveData<Response<String?>>()
 
 //    outhospital_Visit_Time,transfer_Time,
 //    ambulance_Arrived_Time,leave_Outhospital_Time,arrived_Scene_Time,arrived_Hospital_Time,

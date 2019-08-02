@@ -218,10 +218,15 @@ class MedicalHistoryActivity : BaseActivity(),PhotoEventAction {
                     viewModel.medicalHistory.value?.provide = provider.id
                 }
                 SELECT_COMPLAINTS ->{
-                    val cc = data?.getSerializableExtra("SelectOne") as Dictionary
+                    val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
 //                    viewModel.medicalHistory.value?.cc = cc.itemName
-
-                    complaints.editableText.insert(if(previous_history.selectionStart<=0) 0 else previous_history.selectionStart,cc.itemName)
+                    var anamStr = ""
+                    if (anamnesises.size>1){
+                        anamnesises.map { anamStr = if(anamStr.isNullOrEmpty()) it.itemName else anamStr +"、"+it.itemName  }
+                    }else{
+                        anamnesises.map { anamStr = it.itemName }
+                    }
+                    complaints.editableText.insert(if(previous_history.selectionStart<=0) 0 else previous_history.selectionStart,anamStr)
                 }
                 SELECT_ANAMNESIS ->{
                     val anamnesises = data?.getSerializableExtra("SelectArray") as Array<Dictionary>

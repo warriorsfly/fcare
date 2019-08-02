@@ -136,7 +136,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (comFrom.equals("MedicalHistoryAnamnesis")) menuInflater.inflate(R.menu.menu_subject,menu)
+        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("COMPLAINTS")) menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
 

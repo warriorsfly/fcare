@@ -16,6 +16,18 @@ data class Blood(var id:String="",
         }
 
     @Bindable
+    var applyTime: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.applyTime)
+        }
+    @Bindable
+    var reportTime: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.reportTime)
+        }
+    @Bindable
     var sendCheckTime: String? = null
         set(value) {
             field = value
