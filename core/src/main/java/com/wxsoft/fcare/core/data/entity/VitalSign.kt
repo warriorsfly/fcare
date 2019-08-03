@@ -20,6 +20,7 @@ data class VitalSign(val id:String=""): BaseObservable() {
         set(value) {
             field = value
             notifyPropertyChanged(BR.consciousnesTypeName)
+            
         }
 
     @Bindable
