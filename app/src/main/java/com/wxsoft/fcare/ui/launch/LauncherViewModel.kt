@@ -102,6 +102,11 @@ class LauncherViewModel @Inject constructor(
                     )
                 }
             }
+            success?.let {
+                if (!it){
+                    loadVersion()
+                }
+            }
         }
 
     }

@@ -6,6 +6,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
+import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.PatientsCondition
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.AccountApi
@@ -14,6 +15,7 @@ import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.domain.repository.patients.IPatientRepository
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.result.succeeded
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.core.utils.switchMap
@@ -53,11 +55,15 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     val checkCondition:LiveData<PatientsCondition>
     private val checkConditionResult = MediatorLiveData<PatientsCondition>()
 
+    val deletePatient:LiveData<Patient>
+    private val loadDeletePatientResult = MediatorLiveData<Patient>()
+
     val typeItems: LiveData<List<Dictionary>>
     private val loadtypeItemsResult = MediatorLiveData<Resource<List<Dictionary>>>()
 
     init {
         clickTop = clickTopResult.map { it }
+        deletePatient = loadDeletePatientResult.map { it?:Patient("") }
         checkCondition = checkConditionResult.map { it ?: PatientsCondition(1, 10).apply {
             startDate = getTimesmorning()
             endDate = DateTimeUtils.getCurrentTime()
@@ -248,5 +254,21 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
     private fun getCurrentYearStartTime(): String {
         val cal = Calendar.getInstance();
         return ""+cal.get(Calendar.YEAR) + "-01-01 00:00:00"
+    }
+
+    fun deletePatient(p:Patient){
+        loadDeletePatientResult.value = p
+    }
+    fun deleteThePatient(p:Patient){
+        disposable.add(accountApi.deletePatient(p.id,account.id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                if (it.success){
+                    onSwipeRefresh()
+                }else{
+                    messageAction.value= Event(it.msg)
+                }
+            },::error))
     }
 }

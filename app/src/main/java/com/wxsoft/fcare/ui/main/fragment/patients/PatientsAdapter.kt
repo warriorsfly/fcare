@@ -21,7 +21,13 @@ class PatientsAdapter constructor(private val owner: LifecycleOwner, val viewMod
             p?.let {
                     pat->
                 root.setOnClickListener { viewModel.onOpen(pat.id) }
+                root.setOnLongClickListener {
+                        viewModel.deletePatient(pat)
+                    return@setOnLongClickListener true
+                }
             }
+
+
 
             lifecycleOwner = owner
             executePendingBindings()

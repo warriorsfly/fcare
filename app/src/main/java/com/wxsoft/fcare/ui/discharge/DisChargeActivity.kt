@@ -66,6 +66,8 @@ class DisChargeActivity : BaseTimingActivity(){
             .apply {
                 model0.setOnClickListener { toSelectDiagnose() }
                 model1.setOnClickListener { showDatePicker(findViewById(R.id.start)) }
+                model5.setOnClickListener { showDatePicker(findViewById(R.id.content5)) }
+                model8.setOnClickListener { showDatePicker(findViewById(R.id.content9)) }
                 viewModel = this@DisChargeActivity. viewModel
                 lifecycleOwner = this@DisChargeActivity
             }

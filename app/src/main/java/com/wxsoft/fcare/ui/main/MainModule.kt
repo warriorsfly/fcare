@@ -7,6 +7,7 @@ import com.wxsoft.fcare.ui.main.fragment.patients.MessageFragment
 import com.wxsoft.fcare.ui.main.fragment.patients.MessageViewModel
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment
 import com.wxsoft.fcare.ui.main.fragment.patients.PatientsViewModel
+import com.wxsoft.fcare.ui.main.fragment.profile.HospitalChangeFragment
 import com.wxsoft.fcare.ui.main.fragment.profile.PasswordFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskViewModel
@@ -64,6 +65,10 @@ internal abstract class MainModule {
     @FragmentScoped
     @ContributesAndroidInjector
     internal abstract fun contributePasswordFragment(): PasswordFragment
+
+    @FragmentScoped
+    @ContributesAndroidInjector
+    internal abstract fun contributeHospitalChangeFragment(): HospitalChangeFragment
 
 
 }

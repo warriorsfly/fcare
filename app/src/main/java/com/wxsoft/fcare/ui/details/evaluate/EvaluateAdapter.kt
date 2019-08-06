@@ -10,7 +10,7 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.EvaluateItem
 import com.wxsoft.fcare.databinding.ItemEvaluateBinding
 
-class EvaluateAdapter constructor(private val owner: LifecycleOwner, private val click:(EvaluateItem)->Unit) :
+class EvaluateAdapter constructor(private val owner: LifecycleOwner,private val viewModel: EvaluateViewModel, private val click:(EvaluateItem)->Unit) :
     ListAdapter<EvaluateItem,EvaluateAdapter.ItemViewHolder>(DiffCallback) {
 
     private var pos = 0
@@ -36,6 +36,7 @@ class EvaluateAdapter constructor(private val owner: LifecycleOwner, private val
 
             binding.root.setOnClickListener {
                 pos = adapterPosition
+                this@EvaluateAdapter.viewModel.clickIndex.set(pos)
                 binding.item?.let(click)
                 notifyDataSetChanged()
 

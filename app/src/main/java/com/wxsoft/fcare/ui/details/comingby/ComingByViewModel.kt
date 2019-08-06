@@ -23,6 +23,7 @@ class ComingByViewModel @Inject constructor(
 
     val comingBy:LiveData<ComingBy>
     val saved:LiveData<Boolean>
+    var resultText:String=""
     val passing:LiveData<Passing>
     var xtShow= ObservableField<Boolean>()
     val timeLiveData=MediatorLiveData<Pair<String,String>>()
@@ -47,8 +48,8 @@ class ComingByViewModel @Inject constructor(
     var cdoctors:List<User> = emptyList()
 
     init {
-        saved=savingResult.map { it.success }
 
+        saved=savingResult.map { it.success }
         comingBy=loadComingBy.map { it.result?: ComingBy().apply {
             emergencyDoctor=User().apply {
 //                if(account.)
@@ -178,7 +179,11 @@ class ComingByViewModel @Inject constructor(
     }
 
     fun doSaving(result:Response<String?>){
+        resultText = result.msg
         savingResult.value=result
+    }
+    fun doSavingpass(result:Response<String?>){
+
     }
 
     fun clearConsultationTime(){
@@ -256,10 +261,15 @@ class ComingByViewModel @Inject constructor(
 
 
 
-        comingByApi.save(comingBy.value!!).flatMap {
-            comingByApi.savePassing(passing.value!!)
-        }.subscribeOn(Schedulers.io())
+        comingByApi.save(comingBy.value!!)
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doSaving, ::error)
+
+        comingByApi.savePassing(passing.value!!)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::doSavingpass, ::error)
+
     }
 }

@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.ui.main.fragment.patients
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -10,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupWindow
+import android.widget.Toast
 import androidx.core.widget.PopupWindowCompat
 import androidx.lifecycle.Observer
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -105,13 +108,22 @@ class PatientsFragment : BaseTimingFragment(){
                 t->
             toDetail(t)
         })
-
+        viewModel.deletePatient.observe(this, Observer {
+            val dialog = AlertDialog.Builder(this.context, R.style.Theme_FCare_Dialog)
+            dialog.setTitle("是否删除"+it.name+"?")
+                .setPositiveButton("确定") { _, _ -> viewModel.deleteThePatient(it) }
+                .setNegativeButton("取消") { _, _ -> }
+                .create().show()
+        })
         viewModel.clickTop.observe(this, Observer {
             when(it){
                 "DATE" -> selectDate()
                 "TYPE" -> selectType()
                 "SEARCH" -> toSearchPatient()
             }
+        })
+        viewModel.mesAction.observe(this,EventObserver{
+            Toast.makeText(this.context,it, Toast.LENGTH_LONG).show()
         })
 
         viewModel.clickCusDate.observe(this, Observer {

@@ -115,6 +115,14 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             field = value
             notifyPropertyChanged(BR.inTime)
         }
+    //出院日期
+    @Bindable
+    @SerializedName("Leave_Time")
+    var leaveTime: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.leaveTime)
+        }
 
     //HIS出院诊断名称
     @Bindable

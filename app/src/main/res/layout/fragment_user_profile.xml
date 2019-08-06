@@ -70,7 +70,7 @@
 					tools:text="安徽医科大学第一附属医院"
 					android:layout_height="wrap_content"
 					android:layout_marginTop="29dp"
-					android:text="@{viewModel.user.hospitalName}"/>
+					android:text="@{viewModel.hospitalName}"/>
 
 				<TextView
 					android:id="@+id/dept"
@@ -95,27 +95,133 @@
 			</androidx.constraintlayout.widget.ConstraintLayout>
 		</com.google.android.material.card.MaterialCardView>
 
-		<Button
-			app:layout_constraintLeft_toLeftOf="parent"
-			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toTopOf="parent"
-			app:layout_constraintBottom_toBottomOf="parent"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="退出登陆"
-			android:id="@+id/logout"
-			android:layout_gravity="center"/>
+		<View
+				android:id="@+id/line1"
+				android:layout_marginTop="15dp"
+				app:layout_constraintTop_toBottomOf="@+id/patient_info"
+				android:background="#F8F8F9"
+				android:layout_width="match_parent"
+				android:layout_height="10dp"/>
 
-		<Button
-			app:layout_constraintLeft_toLeftOf="parent"
-			app:layout_constraintRight_toRightOf="parent"
-			app:layout_constraintTop_toBottomOf="@id/logout"
-			app:layout_constraintBottom_toBottomOf="parent"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="更新密码"
-			android:id="@+id/changePass"
-			android:layout_gravity="center"/>
+		<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/changePass"
+				android:background="@color/white"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/line1"
+				android:layout_width="match_parent"
+				android:layout_height="50dp">
+
+			<TextView
+					android:id="@+id/title1"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_marginTop="15dp"
+					android:layout_marginLeft="15dp"
+					android:layout_marginBottom="15dp"
+					android:text="更新密码"
+					android:textSize="17sp"
+					android:textColor="#525252"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+
+			<TextView
+					android:id="@+id/rowe1"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintBottom_toBottomOf="@id/title1"
+					android:layout_width="14dp"
+					android:layout_height="24dp"
+					android:layout_marginRight="19dp"
+					android:background="@drawable/ic_right_arrow"/>
+			<View
+					android:background="#EDEDED"
+					android:layout_marginBottom="1dp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_width="match_parent"
+					android:layout_height="1dp"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/changeHospital"
+				android:background="@color/white"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/changePass"
+				android:layout_width="match_parent"
+				android:layout_height="50dp">
+
+			<TextView
+					android:id="@+id/title2"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_marginTop="15dp"
+					android:layout_marginLeft="15dp"
+					android:layout_marginBottom="15dp"
+					android:text="切换院区"
+					android:textSize="17sp"
+					android:textColor="#525252"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+
+			<TextView
+					android:id="@+id/rowe2"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintBottom_toBottomOf="@id/title2"
+					android:layout_width="14dp"
+					android:layout_height="24dp"
+					android:layout_marginRight="19dp"
+					android:background="@drawable/ic_right_arrow"/>
+			<View
+					android:background="#EDEDED"
+					android:layout_marginBottom="1dp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_width="match_parent"
+					android:layout_height="1dp"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/logout"
+				android:background="@color/white"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/changeHospital"
+				android:layout_width="match_parent"
+				android:layout_height="50dp">
+
+			<TextView
+					android:id="@+id/title0"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_marginTop="15dp"
+					android:layout_marginLeft="15dp"
+					android:layout_marginBottom="15dp"
+					android:text="退出登陆"
+					android:textSize="17sp"
+					android:textColor="#FE5F55"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"/>
+
+
+			<TextView
+					android:id="@+id/rowe0"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintBottom_toBottomOf="@id/title0"
+					android:layout_width="14dp"
+					android:layout_height="24dp"
+					android:layout_marginRight="19dp"
+					android:background="@drawable/ic_right_arrow"/>
+			<View
+					android:background="#EDEDED"
+					android:layout_marginBottom="1dp"
+					app:layout_constraintBottom_toBottomOf="parent"
+					android:layout_width="match_parent"
+					android:layout_height="1dp"/>
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 	</androidx.constraintlayout.widget.ConstraintLayout>

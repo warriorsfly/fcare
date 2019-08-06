@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable name="hospiatl" type="com.wxsoft.fcare.core.data.entity.Hospital"/>
+		<variable name="listener" type="com.wxsoft.fcare.ui.main.fragment.profile.UserProfileViewModel"/>
+	</data>
+	<com.google.android.material.card.MaterialCardView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			app:strokeColor="@color/light_gray"
+			android:layout_marginLeft="6dp"
+			android:layout_marginRight="6dp"
+			android:layout_marginTop="6dp"
+			android:layout_marginBottom="6dp"
+			android:elevation="2dp"
+			app:cardElevation="4dp"
+			app:cardCornerRadius="6dp">
+		<androidx.constraintlayout.widget.ConstraintLayout
+				android:id="@+id/container"
+				android:layout_width="match_parent"
+				android:layout_gravity="center"
+				android:padding="10dp"
+				android:onClick="@{() -> listener.selectHospital(hospiatl)}"
+				android:layout_height="56dp">
+			<TextView
+					android:id="@+id/user_name"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginTop="10dp"
+					android:textSize="14sp"
+					tools:text="张三"
+					android:text="@{hospiatl.name}"
+					app:layout_constraintLeft_toLeftOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					app:layout_constraintTop_toTopOf="parent"/>
+
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+	</com.google.android.material.card.MaterialCardView>
+</layout>

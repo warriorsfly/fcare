@@ -42,6 +42,8 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
     var doctorName=""
     @get:Bindable
     var diagnoseResult=""
+    @get:Bindable
+    var features=""
 
     @Transient
     @get:Bindable

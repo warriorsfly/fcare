@@ -46,7 +46,7 @@ class EvaluateActivity : BaseActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = viewModelProvider(factory)
-        adapter= EvaluateAdapter(this,::click)
+        adapter= EvaluateAdapter(this,viewModel,::click)
         binding = DataBindingUtil.setContentView<ActivityEvaluatesBinding>(this, R.layout.activity_evaluates)
             .apply {
                 list.adapter=this@EvaluateActivity.adapter
@@ -150,7 +150,7 @@ class EvaluateActivity : BaseActivity(){
 
         return  when(item?.itemId){
             R.id.submit->{
-                checkUpDatas()
+                viewModel.save()
                 true
             }
             else->super.onOptionsItemSelected(item)

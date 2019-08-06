@@ -137,8 +137,7 @@ class ComingByActivity : BaseTimingActivity() {
                 setResult(Activity.RESULT_OK)
                 finish()
             }else{
-                val text = viewModel.savingResult.map { it.msg }.value
-                Toast.makeText(this,text,Toast.LENGTH_SHORT).show()
+                Toast.makeText(this,viewModel.resultText,Toast.LENGTH_SHORT).show()
             }
 
         })

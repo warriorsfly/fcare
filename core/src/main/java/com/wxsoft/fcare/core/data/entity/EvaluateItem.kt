@@ -5,7 +5,7 @@ import androidx.databinding.Bindable
 import com.google.gson.annotations.SerializedName
 import com.wxsoft.fcare.core.BR
 
-data class EvaluateItem(val id:String?= null): BaseObservable() {
+data class EvaluateItem(var id:String?= null): BaseObservable() {
 
     var name:String? = null
     @Bindable

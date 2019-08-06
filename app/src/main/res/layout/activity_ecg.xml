@@ -351,7 +351,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toBottomOf="@id/memo_title_line"
 									android:layout_margin="16dp"
-									android:text="诊断提示"
+									android:text="诊断"
 									android:textSize="16sp"
 
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
@@ -369,7 +369,7 @@
 									android:textColor="#C1C1C1"
 									android:gravity="left"
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
-									android:text="@={viewModel.ecg.diagnoseText}"
+									android:text="@={viewModel.ecg.diagnoseResult}"
 									android:background="@null"
 									android:layout_height="wrap_content"/>
 
@@ -378,7 +378,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toBottomOf="@id/memo0"
 									android:layout_margin="16dp"
-									android:text="判读结果"
+									android:text="特征"
 									android:textSize="16sp"
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
 									android:layout_width="wrap_content"
@@ -395,7 +395,7 @@
 									android:textColor="#C1C1C1"
 									android:gravity="left"
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
-									android:text="@={viewModel.ecg.diagnoseResult}"
+									android:text="@={viewModel.ecg.features}"
 									android:background="@null"
 									android:layout_height="wrap_content"/>
 
