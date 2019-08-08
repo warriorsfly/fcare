@@ -249,7 +249,10 @@ class ProfileViewModel @Inject constructor(
         if(response?.success==true)
             loadPatient()
     }
-
+    //删除腕带
+    fun deleteWrisband(){
+        patient.value?.wristband = ""
+    }
 
 
 }

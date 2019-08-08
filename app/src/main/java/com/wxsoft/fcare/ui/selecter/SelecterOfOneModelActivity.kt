@@ -32,6 +32,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
     private lateinit var viewModel: SelecterOfOneViewModel
     private lateinit var adapter: SelecterOfOneAdapter
     private lateinit var notiadapter: SelecterOfNotifyTypeAdapter
+    private lateinit var tagAdapter: SelecterOfWristbandAdapter
     @Inject
     lateinit var factory: ViewModelFactory
 
@@ -52,10 +53,12 @@ class SelecterOfOneModelActivity : BaseActivity() {
             .apply {
                 adapter = SelecterOfOneAdapter(this@SelecterOfOneModelActivity,this@SelecterOfOneModelActivity.viewModel)
                 notiadapter = SelecterOfNotifyTypeAdapter(this@SelecterOfOneModelActivity,this@SelecterOfOneModelActivity.viewModel)
+                tagAdapter = SelecterOfWristbandAdapter(this@SelecterOfOneModelActivity,this@SelecterOfOneModelActivity.viewModel)
                 when(comFrom){
                     "Vital" -> firstList.adapter = adapter
                     "COMPLAINTS" -> firstList.adapter = adapter
                     "Notify" -> firstList.adapter = notiadapter
+                    "Wristband" -> firstList.adapter = tagAdapter
                     "MedicalHistoryProvider" -> firstList.adapter = adapter
                     "MedicalHistoryAnamnesis" -> firstList.adapter = adapter
                     "ThromSelectPlace" -> firstList.adapter = adapter
@@ -74,6 +77,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
                 title="选择意识"
             }
             "Notify" -> title="选择通知类型"
+            "Wristband" -> title="选择腕带"
             "MedicalHistoryProvider" -> title="选择病史提供者"
             "MedicalHistoryAnamnesis" -> title="选择既往病史"
             "ThromSelectPlace" -> title="选择溶栓地点"
@@ -89,6 +93,11 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "Notify"->{
                 viewModel.notifyTypes.observe(this, Observer {
                     notiadapter.submitList(it?: emptyList())
+                })
+            }
+            "Wristband"->{
+                viewModel.wrisbands.observe(this, Observer {
+                    tagAdapter.submitList(it?: emptyList())
                 })
             }
             else ->{
@@ -111,6 +120,11 @@ class SelecterOfOneModelActivity : BaseActivity() {
                 "Notify" ->{
                     viewModel.notifyTypes.value?.filter { it.checked }?.map {
                         bundle.putSerializable("SelectNotify",it)
+                    }
+                }
+                "Wristband" ->{
+                    viewModel.wrisbands.value?.filter { it.checked }?.map {
+                        bundle.putSerializable("SelectTag",it)
                     }
                 }
 

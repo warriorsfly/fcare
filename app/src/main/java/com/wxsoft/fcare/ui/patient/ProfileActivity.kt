@@ -36,6 +36,7 @@ import com.wxsoft.fcare.BuildConfig
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Patient
+import com.wxsoft.fcare.core.data.entity.Tag
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -126,6 +127,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         const val MY_PERMISSIONS_REQUEST_CALL_PHONE = 100
         const val SELECT_ADDRESS = 101
         const val SELECT_PATIENT = 102
+        const val SELECT_Wristband= 103
     }
 
     private var mCurrentAnimator: Animator? = null
@@ -287,6 +289,15 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
             }
         }
+        select_wristband.apply {
+            setOnClickListener {
+                if (viewModel.patient.value?.wristband.isNullOrEmpty()){
+                    toSelectWridsban()
+                }else{
+                    viewModel.deleteWrisband()
+                }
+            }
+        }
 
 
 
@@ -306,6 +317,13 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
             putExtra(SelecterOfOneModelActivity.COME_FROM, "Adress")
         }
         startActivityForResult(intent, SELECT_ADDRESS)
+    }
+    fun toSelectWridsban(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "Wristband")
+        }
+        startActivityForResult(intent, SELECT_Wristband)
     }
 
     fun toShareVital(){
@@ -429,7 +447,13 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                         if(item.registerDate.isNullOrEmpty())return@apply
                         registerDate = item.registerDate
                     }
-//
+
+                }
+                SELECT_Wristband ->{
+                    val item = data?.getSerializableExtra("SelectTag") as Tag
+                    viewModel.patient.value?.apply {
+                        wristband = item.id
+                    }
                 }
 
                 FAST->{

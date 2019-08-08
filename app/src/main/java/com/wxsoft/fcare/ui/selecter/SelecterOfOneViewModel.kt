@@ -6,6 +6,7 @@ import com.google.gson.Gson
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.NotifyType
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.Tag
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.utils.map
@@ -64,6 +65,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadNotifyTypes()
                     clickAlone = true
                 }
+                "Wristband" ->{
+                    loadTags()
+                    clickAlone = true
+                }
                 "ThromSelectPlace" ->{
                     loadThromPlace()
                     clickAlone = true
@@ -100,12 +105,16 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     val notifyTypes: LiveData<List<NotifyType>>
     private val loadNotifyTypes = MediatorLiveData<List<NotifyType>>()
 
+    val wrisbands: LiveData<List<Tag>>
+    private val loadWrisbands = MediatorLiveData<List<Tag>>()
+
     val submit: LiveData<String>
     private val loadSubmit = MediatorLiveData<String>()
 
     init {
         des = loadDesResult.map { it ?: emptyList()  }
         notifyTypes = loadNotifyTypes.map { it?: emptyList() }
+        wrisbands = loadWrisbands.map { it?: emptyList() }
         submit = loadSubmit.map { it }
     }
 
@@ -165,6 +174,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getNotify,::error))
     }
+    private fun loadTags(){
+        disposable.add(enumApi.loadTags(account.hospitalId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getTags,::error))
+    }
     private fun loadThromPlace(){
         disposable.add(enumApi.loadDictsByPatient("16",patientId)
             .subscribeOn(Schedulers.io())
@@ -186,6 +201,9 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     private fun getNotify(response: Response<List<NotifyType>>){
         loadNotifyTypes.value = response.result
     }
+    private fun getTags(response: Response<List<Tag>>){
+        loadWrisbands.value = response.result
+    }
     fun clickSelect(item: Dictionary){
         if (clickAlone){
             des.value?.filter { it.checked }?.map { it.checked = false }
@@ -197,6 +215,11 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     fun clickSelectNotify(item: NotifyType){
         notifyTypes.value?.filter { it.checked }?.map { it.checked = false }
+        item.checked = true
+        loadSubmit.value = "success"
+    }
+    fun clickSelectTag(item: Tag){
+        wrisbands.value?.filter { it.checked }?.map { it.checked = false }
         item.checked = true
         loadSubmit.value = "success"
     }

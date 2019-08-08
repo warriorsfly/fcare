@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.databinding.FragmentUserProfileBinding
 import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
@@ -30,6 +32,7 @@ class UserProfileFragment : DaggerFragment() {
         val binding = FragmentUserProfileBinding.inflate(inflater, container, false).apply {
 
             viewModel=this@UserProfileFragment.viewModel
+            this@UserProfileFragment.viewModel.getAllHospital()
             logout.setOnClickListener {
                 viewModel?.loginOut()
                 val intent = Intent(activity!!, LoginActivity::class.java).apply {
@@ -43,24 +46,27 @@ class UserProfileFragment : DaggerFragment() {
                 dialog.show(childFragmentManager,"all")
             }
             changeHospital.setOnClickListener {
-                this@UserProfileFragment.viewModel.getAllHospital()
+                if (this@UserProfileFragment.viewModel.hospitals.value!=null) showDiag()
             }
 
             lifecycleOwner = this@UserProfileFragment
         }
 
-        viewModel.hospitals.observe(this@UserProfileFragment, Observer {
-            if (it!!.size>0){
-                val list = it.map { it.name }.toTypedArray()
-                AlertDialog.Builder(this.context!!).setItems(list) { _, i ->
-                    val hospital = it[i]
-                    viewModel.selectHospital(hospital)
-                }.create().show()
-            }
+        viewModel.hospitals.observe(this@UserProfileFragment, Observer {})
+        viewModel.mesAction.observe(this, EventObserver{
+            Toast.makeText(this.context,it, Toast.LENGTH_LONG).show()
         })
+
 
         return binding.root
     }
 
+    fun showDiag(){
+        val list = viewModel.hospitals.value!!.map { it.name }.toTypedArray()
+        AlertDialog.Builder(this.context!!).setItems(list) { _, i ->
+            val hospital = viewModel.hospitals.value!![i]
+            viewModel.selectHospital(hospital)
+        }.create().show()
+    }
 
 }

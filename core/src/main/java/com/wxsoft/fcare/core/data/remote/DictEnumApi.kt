@@ -3,6 +3,7 @@ package com.wxsoft.fcare.core.data.remote
 import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.NotifyType
 import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.Tag
 import io.reactivex.Maybe
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -177,5 +178,11 @@ interface DictEnumApi {
      */
     @GET("Message/GetMessageTemplates")
     fun loadNotifyTypes(): Maybe<Response<List<NotifyType>>>
+
+    /**
+     * 腕带列表
+     */
+    @GET("Patient/GetTags/{currUserHospitalId}")
+    fun loadTags(@Path("currUserHospitalId")currUserHospitalId:String): Maybe<Response<List<Tag>>>
 
 }

@@ -256,9 +256,6 @@ class PatientsViewModel @Inject constructor(private val repository: IPatientRepo
         return ""+cal.get(Calendar.YEAR) + "-01-01 00:00:00"
     }
 
-    fun deletePatient(p:Patient){
-        loadDeletePatientResult.value = p
-    }
     fun deleteThePatient(p:Patient){
         disposable.add(accountApi.deletePatient(p.id,account.id)
             .subscribeOn(Schedulers.io())

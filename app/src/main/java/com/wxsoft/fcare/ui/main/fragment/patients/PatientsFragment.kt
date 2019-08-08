@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.core.widget.PopupWindowCompat
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -69,7 +70,7 @@ class PatientsFragment : BaseTimingFragment(){
         super.onCreate(savedInstanceState)
         viewModel = activityViewModelProvider(viewModelFactory)
 
-        adapter= PatientsAdapter(this,viewModel)
+        adapter= PatientsAdapter(this,viewModel,::click)
         viewModel.showPatients("")
     }
 
@@ -107,13 +108,6 @@ class PatientsFragment : BaseTimingFragment(){
         viewModel.detailAction.observe(this, EventObserver{
                 t->
             toDetail(t)
-        })
-        viewModel.deletePatient.observe(this, Observer {
-            val dialog = AlertDialog.Builder(this.context, R.style.Theme_FCare_Dialog)
-            dialog.setTitle("是否删除"+it.name+"?")
-                .setPositiveButton("确定") { _, _ -> viewModel.deleteThePatient(it) }
-                .setNegativeButton("取消") { _, _ -> }
-                .create().show()
         })
         viewModel.clickTop.observe(this, Observer {
             when(it){
@@ -160,6 +154,14 @@ class PatientsFragment : BaseTimingFragment(){
         })
 
         return binding.root
+    }
+
+    private fun click(p:Patient){
+        val dialog = AlertDialog.Builder(this.context, R.style.Theme_FCare_Dialog)
+        dialog.setTitle("是否删除"+p.name+"?")
+            .setPositiveButton("确定") { _, _ -> viewModel.deleteThePatient(p) }
+            .setNegativeButton("取消") { _, _ -> }
+            .create().show()
     }
 
     private fun toDetail(id:String) {

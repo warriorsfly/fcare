@@ -87,6 +87,7 @@ class UserProfileViewModel @Inject constructor(private val accountApi: AccountAp
             .subscribe({
                 if(it.success){
                     changeHospitalResult.value = it.result
+                    messageAction.value= Event(it.msg)
                 }else{
                     messageAction.value= Event(it.msg)
                 }
