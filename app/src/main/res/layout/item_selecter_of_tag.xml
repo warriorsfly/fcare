@@ -33,7 +33,7 @@
 					android:textColor="@{item.checked?@color/white:@color/black_checked_nomal}"
 					app:layout_constraintBottom_toTopOf="@+id/alias"
 					app:layout_constraintLeft_toLeftOf="parent"
-					app:layout_constraintRight_toLeftOf="@+id/check_ic"
+					app:layout_constraintRight_toLeftOf="@+id/status"
 					app:layout_constraintTop_toTopOf="parent"/>
 			<TextView
 					android:id="@+id/alias"
@@ -45,8 +45,20 @@
 					android:textColor="@{item.checked?@color/white:@color/black_checked_nomal}"
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintLeft_toLeftOf="parent"
-					app:layout_constraintRight_toLeftOf="@+id/check_ic"
+					app:layout_constraintRight_toLeftOf="@+id/status"
 					app:layout_constraintTop_toBottomOf="@+id/user_name"/>
+
+			<TextView
+					android:id="@+id/status"
+					android:layout_width="0dp"
+					android:layout_height="wrap_content"
+					android:textSize="14sp"
+					android:text="@{item.isUsing?`在用`:`空闲`}"
+					tools:text="空闲"
+					android:textColor="@{item.isUsing?@color/task_select_car_able_text:@color/black_checked_nomal}"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintRight_toLeftOf="@+id/check_ic"
+					app:layout_constraintTop_toTopOf="parent"/>
 
 			<ImageView
 					android:id="@+id/check_ic"

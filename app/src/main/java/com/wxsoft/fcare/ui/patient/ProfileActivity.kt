@@ -295,6 +295,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                     toSelectWridsban()
                 }else{
                     viewModel.deleteWrisband()
+                    visibility=View.GONE
                 }
             }
         }
@@ -454,6 +455,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                     viewModel.patient.value?.apply {
                         wristband = item.id
                     }
+                    viewModel.save(false)
                 }
 
                 FAST->{
@@ -599,7 +601,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
         return  when(item?.itemId){
             R.id.submit->{
-                viewModel.save()
+                viewModel.save(true)
                 true
             }
             else->super.onOptionsItemSelected(item)

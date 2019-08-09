@@ -16,6 +16,8 @@ data class Pacs(val id:String="",
                 var doctorArriveAt	:String?=null,
                 @SerializedName("patient_Arrive_Time")
                 var patientArriveAt	:String?=null,
+                @SerializedName("patient_Leave_Time")
+                var patientLeaveAt	:String?=null,
                 @SerializedName("start_Scan_Time")
                 var startScanAt	:String?=null,
                 @SerializedName("end_Scan_Time")

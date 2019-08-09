@@ -90,7 +90,7 @@ class ProfileViewModel @Inject constructor(
 //        }
 //    }
 
-    fun save(){
+    fun save(backpage:Boolean){
         if(preHos && patientSavable && canSaveAble) {
             canSaveAble = false
             patientApi.save(patient.value!!.apply {
@@ -101,12 +101,13 @@ class ProfileViewModel @Inject constructor(
                     taskId = this@ProfileViewModel.taskId
                 }
             }).toResource().subscribe {
-                savePatientResult.value = it
+                if (backpage) savePatientResult.value = it
                 when (it) {
                     is Resource.Success -> {
                         if(it.data.success) {
-                            initShareClick.value = "saveSuccess"
+                           if (backpage) initShareClick.value = "saveSuccess"
                             messageAction.value = Event("保存成功")
+                            canSaveAble = true
                         }else{
 //                            initShareClick.value = "saveSuccess"
                             messageAction.value = Event(it.data.msg ?: "")
@@ -251,8 +252,20 @@ class ProfileViewModel @Inject constructor(
     }
     //删除腕带
     fun deleteWrisband(){
-        patient.value?.wristband = ""
+        patient.value?.let{
+            if(!it.wristband.isNullOrEmpty()){
+                disposable.add( patientApi.unbindTag(it.wristband)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(::unbindTag, ::error))
+                return@let
+            }
+        }
     }
 
+    private fun unbindTag(response: Response<String>?) {
+        if(response?.success==true)
+            messageAction.value= Event("已解绑腕带")
+    }
 
 }
