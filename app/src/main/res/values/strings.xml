@@ -70,7 +70,7 @@
 	<string name="title_activity_rating">RatingActivity</string>
 	<string name="title_activity_patient_emr">PatientEmrActivity</string>
 	<string name="title_activity_message">MessageActivity</string>
-
+	<string name="action_save_wrisband">绑定</string>
 	<string name="title_activity_launcher">LauncherActivity</string>
 	<string name="ecg_memo_title">判图结果
 	</string>

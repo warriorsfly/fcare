@@ -21,9 +21,6 @@ interface PatientApi{
     @GET("Patient/DeleteImage/{attachmentId}")
     fun deleteImage(@Path("attachmentId")attachmentId:String):Maybe<Response<String>>
 
-    @GET("Patient/UnBindTag/{tagId}")
-    fun unbindTag(@Path("tagId")tagId:String):Maybe<Response<String>>
-
     @GET("Patient/GetPaged/{keyWord}/{pageIndex}/{pageSize}")
     fun getPagedPatients(@Path("keyWord") keyword:String, @Path("pageIndex")index:Int, @Path("pageSize")size:Int):Maybe<Page<Patient>>
 

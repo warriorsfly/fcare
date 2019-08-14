@@ -4,7 +4,7 @@
         xmlns:tools="http://schemas.android.com/tools">
 	<data>
 		<variable name="item" type="com.wxsoft.fcare.core.data.entity.Tag"/>
-		<variable name="listener" type="com.wxsoft.fcare.ui.selecter.SelecterOfOneViewModel"/>
+		<variable name="listener" type="com.wxsoft.fcare.ui.patient.choice.ChoiceWrisbandViewModel"/>
 	</data>
 	<com.google.android.material.card.MaterialCardView
 			android:layout_width="match_parent"
@@ -28,7 +28,7 @@
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:textSize="14sp"
-					android:text="@{`腕带号`+item.id}"
+					android:text="@{`腕带号:`+item.id}"
 					tools:text="0123213123"
 					android:textColor="@{item.checked?@color/white:@color/black_checked_nomal}"
 					app:layout_constraintBottom_toTopOf="@+id/alias"
@@ -40,7 +40,7 @@
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:textSize="14sp"
-					android:text="@{`别名`+item.alias}"
+					android:text="@{`别名:`+item.alias}"
 					tools:text="01"
 					android:textColor="@{item.checked?@color/white:@color/black_checked_nomal}"
 					app:layout_constraintBottom_toBottomOf="parent"
@@ -49,25 +49,43 @@
 					app:layout_constraintTop_toBottomOf="@+id/user_name"/>
 
 			<TextView
+					goneUnless="@{(!item.id.equals(listener.selectedId)||!item.isUsing)}"
 					android:id="@+id/status"
 					android:layout_width="0dp"
 					android:layout_height="wrap_content"
 					android:textSize="14sp"
 					android:text="@{item.isUsing?`在用`:`空闲`}"
 					tools:text="空闲"
-					android:textColor="@{item.isUsing?@color/task_select_car_able_text:@color/black_checked_nomal}"
+					android:layout_marginRight="19dp"
+					android:textColor="@{item.checked?@color/white:@color/black_checked_nomal}"
 					app:layout_constraintBottom_toBottomOf="parent"
-					app:layout_constraintRight_toLeftOf="@+id/check_ic"
+					app:layout_constraintRight_toRightOf="parent"
 					app:layout_constraintTop_toTopOf="parent"/>
+
+			<Button
+					goneUnless="@{!(!item.id.equals(listener.selectedId)||!item.isUsing)}"
+					style="@style/Widget.MaterialComponents.Button.TextButton"
+					android:onClick="@{() ->listener.clickUnbind(item.id)}"
+					app:layout_constraintTop_toTopOf="parent"
+					app:layout_constraintBottom_toBottomOf="parent"
+					app:layout_constraintRight_toRightOf="parent"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:textColor="@{item.checked?@color/colorPrimary:@color/white}"
+					android:backgroundTint="@{item.checked?@color/white:@color/colorPrimary}"
+					android:text="解绑"
+					android:padding="3dp"
+					android:id="@+id/unLock"
+					android:layout_marginRight="5dp"/>
 
 			<ImageView
 					android:id="@+id/check_ic"
-					goneUnless="@{item.checked}"
-					app:layout_constraintLeft_toRightOf="@+id/user_name"
+					goneUnless="@{!(!item.id.equals(listener.selectedId)||!item.isUsing)}"
 					app:layout_constraintRight_toRightOf="parent"
 					app:layout_constraintTop_toTopOf="parent"
 					app:layout_constraintBottom_toBottomOf="parent"
-					android:src="@drawable/ic_checked_white_background"
+					android:src="@drawable/ic_end_over"
+					android:layout_marginRight="10dp"
 					android:layout_width="18dp"
 					android:layout_height="18dp"/>
 		</androidx.constraintlayout.widget.ConstraintLayout>

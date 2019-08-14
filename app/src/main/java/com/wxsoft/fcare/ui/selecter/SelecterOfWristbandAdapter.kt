@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.wxsoft.fcare.core.data.entity.Tag
 import com.wxsoft.fcare.databinding.ItemSelecterOfTagBinding
+import com.wxsoft.fcare.ui.patient.choice.ChoiceWrisbandViewModel
 
-class SelecterOfWristbandAdapter constructor(private val owner: LifecycleOwner, val viewModel: SelecterOfOneViewModel) :
+class SelecterOfWristbandAdapter constructor(private val owner: LifecycleOwner, val viewModel: ChoiceWrisbandViewModel) :
     ListAdapter<Tag, SelecterOfWristbandAdapter.ItemViewHolder>(DiffCallback){
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {

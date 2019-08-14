@@ -13,6 +13,7 @@ import com.wxsoft.fcare.core.data.remote.LISApi
 import com.wxsoft.fcare.core.data.toResource
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.Resource
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -22,6 +23,7 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
+import java.text.SimpleDateFormat
 import javax.inject.Inject
 
 class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
@@ -124,6 +126,33 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             messageAction.value=Event("抽血时间不能为空")
             return
         }
+
+        lisCr.value?.apply {
+
+            val times = arrayOf( samplingTime,reportTime)
+
+                .mapIndexedNotNull { index, s -> if(s.isNullOrEmpty()) null else Pair(index,s) }
+
+            if(times.size>1) {
+                for (index in 0 until times.size-1) {
+                    if (times[index].second > times[index + 1].second){
+                        messageAction.value = Event("抽血时间需早于报告时间")
+                        return
+                    }else if ((times[index + 1].second > times[index].second) ){
+                        if (compareAandB(times[index].second,times[index + 1].second)) {
+                            loadClickEdit.value = "sureSave"
+                            messageAction.value = Event("报告时间距离抽血时间不能超过20分钟")
+                            return
+                        }
+                    }
+
+                }
+            }
+        }
+        save(fs)
+    }
+
+    fun save(fs:List<File>){
         lisCr.value!!.patientId = patientId
         savePatientResult.value= true
         lisCr.value?.also {lisCr->
@@ -194,4 +223,15 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
 //        }
 //    }
 
+    fun compareAandB(startDate:String,endDaye:String):Boolean{
+        val start = getStringToDate(startDate, "yyyy-MM-dd HH:mm")
+        val end = getStringToDate(endDaye, "yyyy-MM-dd HH:mm")
+        var c=end-start
+        return c>=20*60000
+    }
+    private fun getStringToDate(dateString :String, pattern:String) :Long{
+        val dateFormat = SimpleDateFormat(pattern)
+        val date= dateFormat.parse(dateString)
+        return date.time
+    }
 }

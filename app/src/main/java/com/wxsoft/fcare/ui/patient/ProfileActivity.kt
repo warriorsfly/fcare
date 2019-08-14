@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -38,6 +39,7 @@ import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.core.data.entity.Tag
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
 import com.wxsoft.fcare.core.utils.DateTimeUtils
@@ -51,6 +53,7 @@ import com.wxsoft.fcare.ui.common.PictureAdapter
 import com.wxsoft.fcare.ui.details.fast.FastActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
+import com.wxsoft.fcare.ui.patient.choice.WristbandActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.ui.share.ShareActivity
 import com.wxsoft.fcare.utils.ActionCode.Companion.FAST
@@ -291,11 +294,13 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         }
         select_wristband.apply {
             setOnClickListener {
-                if (viewModel.patient.value?.wristband.isNullOrEmpty()){
+                toSelectWridsban()
+            }
+        }
+        wristband_id.apply {
+            setOnClickListener {
+                if (!viewModel.patient.value?.wristband.isNullOrEmpty()){
                     toSelectWridsban()
-                }else{
-                    viewModel.deleteWrisband()
-                    visibility=View.GONE
                 }
             }
         }
@@ -320,9 +325,9 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         startActivityForResult(intent, SELECT_ADDRESS)
     }
     fun toSelectWridsban(){
-        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
-            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
-            putExtra(SelecterOfOneModelActivity.COME_FROM, "Wristband")
+        val intent = Intent(this, WristbandActivity::class.java).apply {
+            putExtra(WristbandActivity.PATIENT_ID, patientId)
+            putExtra(WristbandActivity.ID, viewModel.patient.value?.wristband)
         }
         startActivityForResult(intent, SELECT_Wristband)
     }
@@ -452,10 +457,16 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
                 SELECT_Wristband ->{
                     val item = data?.getSerializableExtra("SelectTag") as Tag
-                    viewModel.patient.value?.apply {
-                        wristband = item.id
+                    if (!item.id.isNullOrEmpty()){
+                        viewModel.patient.value?.apply {
+                            wristband = item.id
+                        }
+                        Toast.makeText(this,"腕带绑定成功",Toast.LENGTH_SHORT).show()
+                    }else{
+                        viewModel.patient.value?.apply {
+                            wristband = ""
+                        }
                     }
-                    viewModel.save(false)
                 }
 
                 FAST->{
@@ -601,7 +612,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
         return  when(item?.itemId){
             R.id.submit->{
-                viewModel.save(true)
+                viewModel.save()
                 true
             }
             else->super.onOptionsItemSelected(item)

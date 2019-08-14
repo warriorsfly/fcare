@@ -65,10 +65,6 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadNotifyTypes()
                     clickAlone = true
                 }
-                "Wristband" ->{
-                    loadTags()
-                    clickAlone = true
-                }
                 "ThromSelectPlace" ->{
                     loadThromPlace()
                     clickAlone = true
@@ -174,12 +170,6 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getNotify,::error))
     }
-    private fun loadTags(){
-        disposable.add(enumApi.loadTags(account.hospitalId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (::getTags,::error))
-    }
     private fun loadThromPlace(){
         disposable.add(enumApi.loadDictsByPatient("16",patientId)
             .subscribeOn(Schedulers.io())
@@ -201,9 +191,6 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     private fun getNotify(response: Response<List<NotifyType>>){
         loadNotifyTypes.value = response.result
     }
-    private fun getTags(response: Response<List<Tag>>){
-        loadWrisbands.value = response.result
-    }
     fun clickSelect(item: Dictionary){
         if (clickAlone){
             des.value?.filter { it.checked }?.map { it.checked = false }
@@ -218,11 +205,7 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
         item.checked = true
         loadSubmit.value = "success"
     }
-    fun clickSelectTag(item: Tag){
-        wrisbands.value?.filter { it.checked }?.map { it.checked = false }
-        item.checked = true
-        loadSubmit.value = "success"
-    }
+
 
     private fun haveData(){
         des.value?.filter { it.id.equals(haveSelectedId)}?.map { it.checked = true }

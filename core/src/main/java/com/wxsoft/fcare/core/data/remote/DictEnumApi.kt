@@ -185,4 +185,7 @@ interface DictEnumApi {
     @GET("Patient/GetTags/{currUserHospitalId}")
     fun loadTags(@Path("currUserHospitalId")currUserHospitalId:String): Maybe<Response<List<Tag>>>
 
+    @GET("Patient/UnBindTag/{tagId}")
+    fun unbindTag(@Path("tagId")tagId:String):Maybe<Response<String>>
+
 }

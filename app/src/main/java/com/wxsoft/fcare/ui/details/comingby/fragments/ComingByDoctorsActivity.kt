@@ -116,12 +116,12 @@ class ComingByDoctorsActivity : BaseActivity() , SearchView.OnQueryTextListener{
 
             1->
             {
-                iten.putParcelableArrayListExtra("user", arrayListOf(EntityIdName(user.id,user.trueName)))
+                iten.putParcelableArrayListExtra("user", arrayListOf(EntityIdName(user.userName,user.trueName)))
                 setResult(Activity.RESULT_OK,iten)
                 finish()
             }
             2->{
-                iten.putParcelableArrayListExtra("user", arrayListOf(EntityIdName(user.id,user.trueName)))
+                iten.putParcelableArrayListExtra("user", arrayListOf(EntityIdName(user.userName,user.trueName)))
                 setResult(Activity.RESULT_OK,iten)
                 finish()}
 

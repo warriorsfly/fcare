@@ -117,25 +117,51 @@
 				android:layout_marginRight="6dp"
 				android:src="@drawable/ic_tel_phone"
 				app:layout_constraintRight_toLeftOf="@id/patient_phone"
-				app:layout_constraintBottom_toBottomOf="@id/come_by" />
+				app:layout_constraintTop_toTopOf="@+id/wrisband_num"
+				app:layout_constraintBottom_toBottomOf="@id/wrisband_num" />
 
 			<TextView
 				android:id="@+id/patient_phone"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-
 				android:layout_marginRight="15dp"
 				android:textSize="14dp"
 				tools:text="13699663569"
 				android:text="@{patient.phone.equals(``)?`未填写`:patient.phone}"
 				android:textColor="@color/small_text_gray"
 				app:layout_constraintRight_toRightOf="parent"
-				app:layout_constraintTop_toTopOf="@+id/come_by"
-				app:layout_constraintBottom_toBottomOf="@id/come_by" />
+				app:layout_constraintTop_toTopOf="@+id/ic_2"
+				app:layout_constraintBottom_toBottomOf="@id/ic_2" />
+
+			<ImageView
+					goneUnless="@{patient.wristband.length!=0}"
+					android:id="@+id/ic_3"
+					android:layout_width="18dp"
+					android:layout_height="18dp"
+					android:layout_marginTop="10dp"
+					android:src="@drawable/ic_wrisband"
+					app:layout_constraintLeft_toLeftOf="@+id/come_by"
+					app:layout_constraintTop_toBottomOf="@+id/come_by" />
+
+			<TextView
+					goneUnless="@{patient.wristband.length!=0}"
+					android:id="@+id/wrisband_num"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="6dp"
+					android:textSize="14dp"
+					tools:text="13699663569"
+					android:text="@{patient.wristband.length==0?`未绑定腕带`:patient.wristband}"
+					android:textColor="@color/small_text_gray"
+					app:layout_constraintLeft_toRightOf="@+id/ic_3"
+					app:layout_constraintTop_toTopOf="@+id/ic_3"
+					app:layout_constraintBottom_toBottomOf="@+id/ic_3"
+
+			/>
 
 			<View
 				android:id="@+id/line1"
-				app:layout_constraintTop_toBottomOf="@id/come_by"
+				app:layout_constraintTop_toBottomOf="@id/ic_3"
 				app:layout_constraintLeft_toLeftOf="parent"
 				android:layout_marginTop="15dp"
 				android:background="@color/line_gray"

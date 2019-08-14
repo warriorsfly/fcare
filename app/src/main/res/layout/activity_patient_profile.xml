@@ -471,6 +471,7 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:id="@+id/wristband_id"
                     app:layout_constraintRight_toLeftOf="@+id/select_wristband"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/title1"
@@ -488,7 +489,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     android:id="@+id/select_wristband"
-                    android:src="@{``.equals(viewModel.patient.wristband)?@drawable/ic_edit_gray:@drawable/ic_delete_black}"
+                    android:src="@drawable/ic_edit_gray"
                     android:layout_marginRight="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>

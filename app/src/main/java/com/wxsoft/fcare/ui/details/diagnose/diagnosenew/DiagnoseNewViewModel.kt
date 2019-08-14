@@ -127,7 +127,8 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         }
     }
     private fun loadResult(response: Response<String>){
-        if (response.success) loadSaveResult.value = "success"
+        if (response.success) loadSaveResult.value = "success" else messageAction.value= Event(response.msg)
+
     }
 
     val saveable:Boolean

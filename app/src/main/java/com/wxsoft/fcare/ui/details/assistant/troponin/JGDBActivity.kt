@@ -6,6 +6,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Point
@@ -148,6 +149,23 @@ class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
                         setResult(RESULT_OK, intent)
                         finish()
                     }
+                }
+                "sureSave" ->{
+                    val dialog = AlertDialog.Builder(this, R.style.Theme_FCare_Dialog)
+                    dialog.setTitle("报告时间距离抽血时间不能超过20分钟")
+                        .setMessage("是否保存？")
+                        .setPositiveButton("确定") { _, _ ->
+                            val files=viewModel.bitmaps.map { File(it).let {
+                                    file->
+                                Compressor(this@JGDBActivity)
+                                    .setMaxWidth(1280)
+                                    .setMaxHeight(1280)
+                                    .setQuality(75).compressToFile(file)
+                            } }
+                            viewModel.save(files)
+                        }
+                        .setNegativeButton("取消") { _, _ -> }
+                        .create().show()
                 }
             }
         })

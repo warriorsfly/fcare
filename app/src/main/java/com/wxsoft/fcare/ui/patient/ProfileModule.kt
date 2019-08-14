@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.wxsoft.fcare.core.di.ChildFragmentScoped
 import com.wxsoft.fcare.core.di.ViewModelKey
 import com.wxsoft.fcare.ui.patient.choice.ChoicePatientViewModel
+import com.wxsoft.fcare.ui.patient.choice.ChoiceWrisbandViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -21,5 +22,10 @@ internal abstract class ProfileModule {
     @IntoMap
     @ViewModelKey(ChoicePatientViewModel::class)
     abstract fun bindChoicePatientViewModel(viewModel: ChoicePatientViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChoiceWrisbandViewModel::class)
+    abstract fun bindChoiceWrisbandViewModel(viewModel: ChoiceWrisbandViewModel): ViewModel
 
 }
