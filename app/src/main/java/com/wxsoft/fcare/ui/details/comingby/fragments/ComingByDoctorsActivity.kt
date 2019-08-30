@@ -133,7 +133,7 @@ class ComingByDoctorsActivity : BaseActivity() , SearchView.OnQueryTextListener{
         if(type==3){
             val lis=viewModel.consultantDoctors.value?.
                 filter { it.checked }?.
-                map {  EntityIdName(it.id,it.trueName)}?: emptyList()
+                map {  EntityIdName(it.userName,it.trueName)}?: emptyList()
             val li=ArrayList<EntityIdName>().apply{
                 addAll(lis)
             }

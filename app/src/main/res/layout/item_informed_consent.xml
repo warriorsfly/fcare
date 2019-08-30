@@ -20,7 +20,7 @@
                     android:textColor="#131D35"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
-                    android:text="@{item.informedConsentName}"
+                    android:text="@{item.informedConsent.name}"
                     tools:text="知情同意书"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
@@ -39,6 +39,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    goneUnless="@{item.allTime.length>0}"
                     android:id="@+id/time_all"
                     app:layout_constraintLeft_toRightOf="@+id/title1"
                     app:layout_constraintTop_toBottomOf="@+id/informed_content_title"
@@ -53,6 +54,7 @@
                     android:layout_height="wrap_content"/>
 
             <TextView
+                    goneUnless="@{item.startTime.length>0}"
                     android:id="@+id/start_time"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/informed_content_title"
@@ -83,7 +85,7 @@
                     android:paddingBottom="3dp"
                     android:background="@drawable/ic_diagnosis1"
                     android:textColor="@android:color/white"
-                    android:text="@{item.informedConsent.informedTypeName}"
+                    android:text="@{item.informedConsent.informedType}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 

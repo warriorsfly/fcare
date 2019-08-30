@@ -27,6 +27,7 @@ class CatheterViewModel @Inject constructor(private val interventionApi: Interve
 ) : BaseViewModel(sharedPreferenceStorage,gon) {
 
 
+    var xtShow= ObservableField<Boolean>()
     /**
      * 病人id
      */

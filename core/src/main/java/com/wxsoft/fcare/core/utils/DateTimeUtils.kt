@@ -80,8 +80,8 @@ class DateTimeUtils {
             return date.time
         }
         fun getAfromB(startDate:String,endDaye:String):String{
-            val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
-            val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
+            val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm")
+            val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm")
             var c=end-start
 
             val hour=if(c>3600*1000)  String.format("%02d", c/3600000) else "00"
@@ -92,8 +92,8 @@ class DateTimeUtils {
             return StringBuilder().append(hour).append(":").append(minute).append(":").append(second).toString()
         }
         fun getAAfromBBMinutes(startDate:String,endDaye:String):String{
-            val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
-            val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
+            val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm")
+            val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm")
             var c=end-start
             val hour=if(c>=3600*1000)  String.format("%d", c/3600000) else "0"
             c %= (3600 * 1000)
@@ -107,8 +107,8 @@ class DateTimeUtils {
         }
 
         fun compareAandB(startDate:String,endDaye:String):Boolean{
-            val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm:ss")
-            val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm:ss")
+            val start = getStringToDate(startDate,"yyyy-MM-dd HH:mm")
+            val end = getStringToDate(endDaye,"yyyy-MM-dd HH:mm")
             var c=end-start
             return c>=0
         }

@@ -288,14 +288,14 @@
                                 android:layout_marginTop="17.5dp"
                                 android:layout_marginLeft="15dp"
                                 android:layout_marginBottom="17.5dp"
-                                android:text="诊断时间"
+                                android:text="初步诊断时间"
                                 android:textSize="16sp"
                                 android:textColor="@color/small_title_text_gray"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
                         <TextView
-                                android:hint="选择诊断时间"
+                                android:hint="选择初步诊断时间"
                                 android:text="@{viewModel.diagnosis.diagnosisTime}"
                                 android:id="@+id/start_4"
                                 android:layout_marginRight="19dp"

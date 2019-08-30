@@ -89,7 +89,7 @@ class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
             }
         })
 
-        start1.setOnClickListener(this)
+//        start1.setOnClickListener(this)
         start2.setOnClickListener(this)
         start3.setOnClickListener(this)
         start4.setOnClickListener(this)

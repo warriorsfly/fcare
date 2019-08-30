@@ -422,8 +422,10 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, THROMBOLYSIS)
             }
             ActionType.Catheter ->{
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this@WorkingActivity, CatheterActivity ::class.java).apply {
                     putExtra(CatheterActivity.PATIENT_ID, patientId)
+                    putExtra(CatheterActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, Catheter)
             }

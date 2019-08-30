@@ -68,6 +68,8 @@ class CatheterActivity : BaseTimingActivity(){
             viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
                 viewModel.docs[it].trueName
             }
+        }.setPositiveButton("确定") { _, _ ->
+
         }.show()
     }
 
@@ -90,10 +92,12 @@ class CatheterActivity : BaseTimingActivity(){
     }
 
     private var selectedId=0
+    private lateinit var xt:String
 
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val IS_XT = "IS_XT"
         const val INFORMED_CONSENT = 20
     }
     private lateinit var viewModel: CatheterViewModel
@@ -113,6 +117,9 @@ class CatheterActivity : BaseTimingActivity(){
         viewModel.patientId = patientId
 
 //        back.setOnClickListener { onBackPressed() }
+        xt=intent.getStringExtra(IS_XT)?:""
+
+        viewModel.xtShow.set(xt.equals("xt"))
 
         setSupportActionBar(toolbar)
         title="导管室操作"
@@ -152,7 +159,7 @@ class CatheterActivity : BaseTimingActivity(){
                 "8"->showDatePicker(findViewById(R.id.wire))
                 "9"->showDatePicker(findViewById(R.id.end))
                 "10"->showDatePicker(findViewById(R.id.leave))
-                "11"->showDatePicker(findViewById(R.id.end_1))
+//                "11"->showDatePicker(findViewById(R.id.end_1))
             }
         })
 

@@ -115,6 +115,12 @@
 							android:checked="@={viewModel.thrombolysis.hasDirect}"
 							android:layout_width="wrap_content"
 							android:layout_height="wrap_content"/>
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
 

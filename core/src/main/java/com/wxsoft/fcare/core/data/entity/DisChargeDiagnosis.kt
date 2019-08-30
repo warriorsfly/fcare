@@ -47,6 +47,14 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.diagnosisTime)
         }
 
+    @Bindable
+    @SerializedName("his_Bed_Doctor")
+    var hisBedDoctor: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.hisBedDoctor)
+        }
+
     /// <summary>
     /// 心衰
     /// </summary>
@@ -96,17 +104,6 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.costStr)
         }
 
-    /// <summary>
-    /// 总费用
-    /// </summary>
-    @Bindable
-    @SerializedName("leave_Time")
-    var leave: String? = null
-        set(value) {
-            field = value
-            notifyPropertyChanged(BR.leave)
-        }
-
     //入院日期
     @Bindable
     @SerializedName("in_Time")
@@ -117,7 +114,7 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
         }
     //出院日期
     @Bindable
-    @SerializedName("Leave_Time")
+    @SerializedName("leave_Time")
     var leaveTime: String? = null
         set(value) {
             field = value

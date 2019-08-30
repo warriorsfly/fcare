@@ -126,6 +126,10 @@ class TroponinViewModel @Inject constructor(private val lisApi: LISApi,
             messageAction.value=Event("抽血时间不能为空")
             return
         }
+        if(lisCr.value?.reportTime.isNullOrEmpty()){
+            messageAction.value=Event("报告时间不能为空")
+            return
+        }
 
         lisCr.value?.apply {
 
