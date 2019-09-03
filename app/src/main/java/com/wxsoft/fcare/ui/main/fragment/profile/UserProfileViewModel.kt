@@ -101,6 +101,8 @@ class UserProfileViewModel @Inject constructor(private val accountApi: AccountAp
         updateHospital(hospital.id)
         user.value?.hospitalName = hospital.name
         user.value?.hospitalId = hospital.id
+        account.hospitalId = hospital.id
+        account.hospitalName = hospital.name
         hospitalName.set(hospital.name)
     }
 

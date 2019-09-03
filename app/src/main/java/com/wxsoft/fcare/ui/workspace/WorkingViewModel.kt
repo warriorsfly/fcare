@@ -64,6 +64,9 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     val patient:LiveData<Patient>
     private val loadPatientResult=MediatorLiveData<Response<Patient>>()
 
+    val checkPicResult:LiveData<String>
+    private val loadCheckPicResult=MediatorLiveData<String>()
+
     init {
         patient=loadPatientResult.map { it.result?.apply {
             if(diagnosis2Name.isNullOrEmpty()) {
@@ -71,6 +74,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             }
 //            if (!outpatientId.isNullOrEmpty()) lsh = outpatientId
         }?: Patient() }
+        checkPicResult = loadCheckPicResult.map { it?:"" }
     }
 
     /**
@@ -116,6 +120,19 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::doOperations,::error))
+    }
+    fun checkPicNums(){
+        disposable.add(qualityControlApi.validPatientData(patientId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::checkResult,::error))
+    }
+    private fun checkResult(response:Response<String>){
+        if (response.success){
+            loadCheckPicResult.value = ""
+        }else{
+            loadCheckPicResult.value = response.result?:""
+        }
     }
 
     private fun doPatient(response:Response<Patient>){

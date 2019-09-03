@@ -229,10 +229,21 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                         handWay=viewModel.loadDiagnosis.value?.handWay?:""
                         patientOutcom=viewModel.loadDiagnosis.value?.patientOutcom?:""
                         memo=viewModel.loadDiagnosis.value?.memo?:""
+                        if(diagnosisCode2.equals("4-2")){
+                            handWay = "住院"
+                            patientOutcom = "导管室"
+                            viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
+                                patientId = this@DiagnoseNewActivity.patientId
+                                strategyCode = "14-1"
+                                strategyCode_Name = "急诊PCI"
+                                memo = "group1"
+                            }
+                        }
                     }
                     viewModel.diagnosisTreatment.value?.diagnosis = diagnose.apply {
                         diagnosisTime = diaisTime
                     }
+
                 }
 
                 SELECT_TREATMENT -> {

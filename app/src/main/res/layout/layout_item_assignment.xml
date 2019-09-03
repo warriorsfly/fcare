@@ -348,7 +348,7 @@
                     android:id="@+id/time_start_end"
                     app:layout_constraintLeft_toRightOf="@+id/time_ic"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:text="@{task.startAt.substring(5,19)+`--`+task.arriveHosAt.substring(11,19)}"
+                    android:text="@{task.startAt.substring(5,16)+`--`+task.arriveHosAt.substring(11,16)}"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="15dp"
                     android:textSize="16sp"

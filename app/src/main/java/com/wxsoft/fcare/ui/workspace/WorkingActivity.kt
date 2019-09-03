@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.workspace
 
 //import kotlinx.android.synthetic.main.activity_working.*
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.PendingIntent
 import android.content.Intent
 import android.nfc.NfcAdapter
@@ -230,6 +231,9 @@ class WorkingActivity : BaseActivity() {
             }
 
         setSupportActionBar(toolbar)
+        toolbar.setNavigationOnClickListener {
+            viewModel.checkPicNums()
+        }
 
         viewModel.patient.observe(this, Observer {
             title=it.name
@@ -244,6 +248,17 @@ class WorkingActivity : BaseActivity() {
             this, 0, Intent(this, javaClass)
                 .addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0
         )
+        viewModel.checkPicResult.observe(this, Observer {
+            if (it.isNullOrEmpty()){
+                finish()
+            }else{
+                val dialog = AlertDialog.Builder(this,R.style.Theme_FCare_Dialog)
+                dialog.setTitle(it)
+                    .setPositiveButton("返回") { _, _ -> finish() }
+                    .setNegativeButton("取消") { _, _ -> }
+                    .create().show()
+            }
+        })
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -286,7 +301,8 @@ class WorkingActivity : BaseActivity() {
             bottomSheetBehavior.state=BottomSheetBehavior.STATE_COLLAPSED
         }
         super.onPause()
-        nfcAdapter?.disableForegroundDispatch(this); //启动
+        nfcAdapter?.disableForegroundDispatch(this); //关闭
+
     }
 
     override fun onResume() {

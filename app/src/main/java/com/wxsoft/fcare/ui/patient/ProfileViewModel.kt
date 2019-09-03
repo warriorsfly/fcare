@@ -94,7 +94,7 @@ class ProfileViewModel @Inject constructor(
         if(preHos && patientSavable && canSaveAble) {
             canSaveAble = false
             patientApi.save(patient.value!!.apply {
-                hospitalId = account.hospitalId
+//                hospitalId = account.hospitalId
                 if(createrId.isNullOrEmpty())
                     createrId = account.id
                 if(this@ProfileViewModel.taskId.isNotEmpty()) {

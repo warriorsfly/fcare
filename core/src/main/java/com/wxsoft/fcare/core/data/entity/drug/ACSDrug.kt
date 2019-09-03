@@ -16,6 +16,15 @@ data class ACSDrug constructor( var id:String="",  var createrId:String?=null,
             field=value
             notifyPropertyChanged(BR.haveData)
         }
+    /**
+     * 是否首次抗凝给药
+     */
+    @SerializedName("is_Drug")
+    @Bindable var checkDrug:Boolean=true
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.checkDrug)
+        }
 
     /**
      * 是否首次抗凝给药
