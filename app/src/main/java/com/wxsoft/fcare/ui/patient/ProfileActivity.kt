@@ -131,6 +131,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         const val SELECT_ADDRESS = 101
         const val SELECT_PATIENT = 102
         const val SELECT_Wristband= 103
+        const val SELECT_CardType= 104
     }
 
     private var mCurrentAnimator: Animator? = null
@@ -304,6 +305,11 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
             }
         }
+        line101.apply {
+            setOnClickListener {
+                toSelectCardType()
+            }
+        }
 
 
 
@@ -324,6 +330,15 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
         }
         startActivityForResult(intent, SELECT_ADDRESS)
     }
+
+    fun toSelectCardType(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "CardType")
+        }
+        startActivityForResult(intent, SELECT_CardType)
+    }
+
     fun toSelectWridsban(){
         val intent = Intent(this, WristbandActivity::class.java).apply {
             putExtra(WristbandActivity.PATIENT_ID, patientId)
@@ -440,6 +455,11 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 SELECT_ADDRESS ->{
                     val address = data?.getSerializableExtra("SelectOne") as Dictionary
                     viewModel.patient.value?.attackPosition = address.itemName
+                }
+                SELECT_CardType ->{
+                    val cardtype = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.patient.value?.cardType = cardtype.id
+                    viewModel.patient.value?.cardTypeName = cardtype.itemName
                 }
                 SELECT_PATIENT ->{
                     val item = data?.getSerializableExtra("SelectPatient") as Patient

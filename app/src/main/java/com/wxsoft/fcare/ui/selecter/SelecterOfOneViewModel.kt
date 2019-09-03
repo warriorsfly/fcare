@@ -90,6 +90,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadComplaints()
                     clickAlone = true
                 }
+                "CardType" ->{
+                    loadCardType()
+                    clickAlone = true
+                }
             }
         }
 
@@ -129,6 +133,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     private fun loadHandway(){
         disposable.add(enumApi.loadHandway()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadCardType(){
+        disposable.add(enumApi.loadCardType()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

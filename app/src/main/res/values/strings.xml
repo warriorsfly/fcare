@@ -91,4 +91,6 @@
 	</string>
 	<string name="string_ecg_d_time"><font color="red">*</font>报告:
 	</string>
+	<string name="title_profile_idcard_type"><font color="red">*</font>证件类型
+	</string>
 </resources>

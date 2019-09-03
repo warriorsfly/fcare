@@ -54,6 +54,8 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
             field = value
             notifyPropertyChanged(BR.wristband)
         }
+
+
     /*
      * 门诊号
      */
@@ -73,6 +75,23 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
         set(value) {
             field = value
             notifyPropertyChanged(BR.inpatientId)
+        }
+
+    @SerializedName("cardType")
+    @get:Bindable
+    var cardType:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.cardType)
+        }
+
+
+    @Bindable
+    @Transient
+    var cardTypeName:String=""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.cardTypeName)
         }
 
     @SerializedName("idcard")
@@ -352,6 +371,45 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
         set(value) {
             field=value
             notifyPropertyChanged(BR.registerDate)
+        }
+
+
+    @SerializedName("job")
+    @get:Bindable
+    var job:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.job)
+        }
+
+    @SerializedName("cultureDegree")
+    @get:Bindable
+    var cultureDegree:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.cultureDegree)
+        }
+
+    @SerializedName("maritalStatus")
+    @get:Bindable
+    var maritalStatus:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.maritalStatus)
+        }
+    @SerializedName("medicalInsuranceType")
+    @get:Bindable
+    var medicalInsuranceType:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.medicalInsuranceType)
+        }
+    @SerializedName("medicalInsuranceNo")
+    @get:Bindable
+    var medicalInsuranceNo:String=""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.medicalInsuranceNo)
         }
 
 }
