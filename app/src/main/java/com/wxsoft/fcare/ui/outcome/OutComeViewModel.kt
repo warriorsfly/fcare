@@ -61,11 +61,6 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
         data.value?.let {
             when(it.outcomeCode){
                 "11-1"->{
-                    if(it.handTime.isNullOrEmpty()){
-                        messageAction.value=Event("出院时间未选择")
-                        return
-                    }
-
                     if(it.resultCode.isEmpty()){
                         messageAction.value=Event("治疗结果未选择")
                         return
