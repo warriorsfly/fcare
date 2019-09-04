@@ -368,6 +368,7 @@
 
 
 						<androidx.constraintlayout.widget.ConstraintLayout
+								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-4`)||!viewModel.xtShow}"
 								android:onClick="@{()->viewModel.changeDoctor(3)}"
 								android:id="@+id/model2_2"
 								android:background="@color/white"
@@ -424,6 +425,7 @@
 
 
 						<androidx.constraintlayout.widget.ConstraintLayout
+								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-4`)||!viewModel.xtShow}"
 								android:id="@+id/model3_30"
 								android:background="@color/white"
 								android:onClick="@{()->viewModel.changeTiming(TimingType.ConsultationDate)}"
