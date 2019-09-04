@@ -146,8 +146,8 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
             savable=false
             if(patientId.isEmpty()) {
                 patientId = this@EcgViewModel.patientId
-
             }
+            not_Trans = !(net_Transto_Basic||basic_Transto_Standard)
         }
         item?.let {
             uploadResult.value=true

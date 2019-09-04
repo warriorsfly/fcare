@@ -158,6 +158,14 @@
 									android:gravity="right|center_vertical"
 									android:layout_width="0dp"
 									android:layout_height="wrap_content"/>
+							<View
+									android:id="@+id/memo_title_line1"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toBottomOf="@id/photo_title"
+									android:layout_width="match_parent"
+									android:layout_marginTop="16dp"
+									android:background="@color/line_gray"
+									android:layout_height="0.5dp"/>
 
 							<!--                <TextView-->
 							<!--                        android:drugId="@+drugId/share_tv"-->
@@ -300,7 +308,7 @@
 
 
 					<com.google.android.material.card.MaterialCardView
-							goneUnless="@{viewModel.xtShow}"
+							goneUnless="@{!viewModel.pre}"
 							android:layout_width="0dp"
 							android:id="@+id/result_detail"
 							android:layout_margin="12dp"
@@ -325,17 +333,17 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
-							<TextView
-									app:layout_constraintRight_toRightOf="parent"
-									app:layout_constraintBaseline_toBaselineOf="@id/memo_property_title"
-									android:layout_margin="16dp"
-									android:textSize="16sp"
-									android:text="添加判读"
-									android:id="@+id/start"
-									goneUnless="@{viewModel.ecg.id.length>0}"
-									android:textColor="@color/colorPrimary"
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"/>
+<!--							<TextView-->
+<!--									app:layout_constraintRight_toRightOf="parent"-->
+<!--									app:layout_constraintBaseline_toBaselineOf="@id/memo_property_title"-->
+<!--									android:layout_margin="16dp"-->
+<!--									android:textSize="16sp"-->
+<!--									android:text="添加判读"-->
+<!--									android:id="@+id/start"-->
+<!--									goneUnless="@{viewModel.ecg.id.length>0}"-->
+<!--									android:textColor="@color/colorPrimary"-->
+<!--									android:layout_width="wrap_content"-->
+<!--									android:layout_height="wrap_content"/>-->
 
 							<View
 									android:id="@+id/memo_title_line"
@@ -420,6 +428,203 @@
 									/>
 						</androidx.constraintlayout.widget.ConstraintLayout>
 					</com.google.android.material.card.MaterialCardView>
+
+
+					<com.google.android.material.card.MaterialCardView
+							android:layout_width="0dp"
+							android:id="@+id/remote_ecg"
+							android:layout_margin="12dp"
+							app:cardCornerRadius="7.5dp"
+							android:foreground="@color/white"
+							app:layout_constraintTop_toBottomOf="@id/result_detail"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_height="wrap_content">
+
+						<LinearLayout
+								android:orientation="vertical"
+								android:layout_marginTop="15dp"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content">
+
+							<androidx.constraintlayout.widget.ConstraintLayout
+									goneUnless="@{viewModel.pre}"
+									android:background="@color/white"
+									app:layout_constraintLeft_toLeftOf="parent"
+									android:layout_width="match_parent"
+									android:layout_height="50dp">
+
+								<TextView
+										android:id="@+id/titleccu"
+										app:layout_constraintLeft_toLeftOf="parent"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										android:layout_marginTop="15dp"
+										android:layout_marginLeft="15dp"
+										android:layout_marginBottom="15dp"
+										android:text="接收120/网络医院心电图"
+										android:textSize="16sp"
+										android:textColor="#525252"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+								<Switch
+										android:id="@+id/arriving_time2"
+										android:layout_marginRight="19dp"
+										android:layout_marginTop="15dp"
+										android:layout_marginBottom="15dp"
+										android:textSize="16sp"
+										android:textColor="#7D7D7D"
+										android:checked="@={viewModel.ecg.net_Transto_Basic}"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										app:layout_constraintRight_toRightOf="parent"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+							</androidx.constraintlayout.widget.ConstraintLayout>
+
+							<androidx.constraintlayout.widget.ConstraintLayout
+									goneUnless="@{viewModel.ecg.net_Transto_Basic}"
+									android:id="@+id/model3_7"
+									android:background="@color/white"
+									android:layout_width="match_parent"
+									android:layout_height="50dp">
+
+								<TextView
+										android:id="@+id/title3_7"
+										app:layout_constraintLeft_toLeftOf="parent"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										android:layout_marginTop="15dp"
+										android:layout_marginLeft="15dp"
+										android:layout_marginBottom="15dp"
+										android:text="@string/title_ecg_accept120_time"
+										android:textSize="16sp"
+										android:textColor="#525252"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+								<TextView
+										android:hint="请选择"
+										android:id="@+id/recept_time1"
+										android:layout_marginRight="19dp"
+										android:layout_marginTop="15dp"
+										android:layout_marginBottom="15dp"
+										android:textSize="16sp"
+										android:text="@{viewModel.ecg.tran_Date}"
+										android:textColor="#7D7D7D"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										app:layout_constraintRight_toLeftOf="@+id/rowe3_7"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+								<TextView
+										android:id="@+id/rowe3_7"
+										app:layout_constraintRight_toRightOf="parent"
+										app:layout_constraintBottom_toBottomOf="@id/title3_7"
+										android:layout_width="14dp"
+										android:layout_height="24dp"
+										android:layout_marginRight="19dp"
+										android:background="@drawable/ic_right_arrow"/>
+								<View
+										android:background="#EDEDED"
+										android:layout_marginBottom="1dp"
+										app:layout_constraintBottom_toBottomOf="parent"
+										android:layout_width="match_parent"
+										android:layout_height="1dp"/>
+							</androidx.constraintlayout.widget.ConstraintLayout>
+
+							<androidx.constraintlayout.widget.ConstraintLayout
+									android:background="@color/white"
+									app:layout_constraintLeft_toLeftOf="parent"
+									android:layout_width="match_parent"
+									android:layout_height="50dp">
+
+								<TextView
+										android:id="@+id/transtohospital"
+										app:layout_constraintLeft_toLeftOf="parent"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										android:layout_marginTop="15dp"
+										android:layout_marginLeft="15dp"
+										android:layout_marginBottom="15dp"
+										android:text="传输心电图至协作医院"
+										android:textSize="16sp"
+										android:textColor="#525252"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+								<Switch
+										android:id="@+id/trans_switch"
+										android:layout_marginRight="19dp"
+										android:layout_marginTop="15dp"
+										android:layout_marginBottom="15dp"
+										android:textSize="16sp"
+										android:textColor="#7D7D7D"
+										android:checked="@={viewModel.ecg.basic_Transto_Standard}"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										app:layout_constraintRight_toRightOf="parent"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+							</androidx.constraintlayout.widget.ConstraintLayout>
+
+							<androidx.constraintlayout.widget.ConstraintLayout
+									goneUnless="@{viewModel.ecg.basic_Transto_Standard}"
+									android:id="@+id/model100"
+									android:background="@color/white"
+									android:layout_width="match_parent"
+									android:layout_height="50dp">
+
+								<TextView
+										android:id="@+id/title100"
+										app:layout_constraintLeft_toLeftOf="parent"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										android:layout_marginTop="15dp"
+										android:layout_marginLeft="15dp"
+										android:layout_marginBottom="15dp"
+										android:maxLines="3"
+										android:text="@string/title_ecg_trans_time"
+										android:textSize="16sp"
+										android:textColor="#525252"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+								<TextView
+										android:hint="请选择"
+										android:id="@+id/trans_time2"
+										android:layout_marginRight="19dp"
+										android:layout_marginTop="15dp"
+										android:layout_marginBottom="15dp"
+										android:textSize="16sp"
+										android:text="@{viewModel.ecg.remote_Ecg_Tran_Date}"
+										android:textColor="#7D7D7D"
+										app:layout_constraintTop_toTopOf="parent"
+										app:layout_constraintBottom_toBottomOf="parent"
+										app:layout_constraintRight_toLeftOf="@+id/rowe100"
+										android:layout_width="wrap_content"
+										android:layout_height="wrap_content"/>
+
+								<TextView
+										android:id="@+id/rowe100"
+										app:layout_constraintRight_toRightOf="parent"
+										app:layout_constraintBottom_toBottomOf="@id/title100"
+										android:layout_width="14dp"
+										android:layout_height="24dp"
+										android:layout_marginRight="19dp"
+										android:background="@drawable/ic_right_arrow"/>
+							</androidx.constraintlayout.widget.ConstraintLayout>
+
+						</LinearLayout>
+
+
+					</com.google.android.material.card.MaterialCardView>
+
 				</androidx.constraintlayout.widget.ConstraintLayout>
 			</androidx.core.widget.NestedScrollView>
 		</androidx.constraintlayout.widget.ConstraintLayout>

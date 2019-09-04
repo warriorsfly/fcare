@@ -115,4 +115,8 @@
 	</string>
 	<string name="title_comingby_indepart"><font color="red">*</font>发病科室
 	</string>
+	<string name="title_ecg_accept120_time"><font color="red">*</font>接收时间
+	</string>
+	<string name="title_ecg_trans_time"><font color="red">*</font>传输时间
+	</string>
 </resources>

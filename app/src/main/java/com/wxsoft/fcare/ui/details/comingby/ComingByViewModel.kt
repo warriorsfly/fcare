@@ -166,7 +166,7 @@ class ComingByViewModel @Inject constructor(
                     TimingType.InHospitalAdmission -> it.inhospital_Admission_Time = pair.second
                     TimingType.LeaveDepartment -> it.leave_Department_Time = pair.second
                     TimingType.ArriveScene -> it.arrived_Scene_Time = pair.second
-                    TimingType.Consultation -> it.consultation_Time = pair.second
+                    TimingType.ConsultationDate -> it.consultation_Date = pair.second
                     TimingType.HelpAt -> it.helpAt = pair.second
                     TimingType.FirstMC -> it.first_MC_Time = pair.second
                     TimingType.ConsultationTime -> it.consultation_Time = pair.second
@@ -201,7 +201,7 @@ class ComingByViewModel @Inject constructor(
 
 
     fun clearConsultationTime(){
-        comingBy.value?.consultation_Date=""
+        comingBy.value?.consultation_Date=null
     }
 
 
@@ -259,12 +259,12 @@ class ComingByViewModel @Inject constructor(
             comingWayStaffs = l
 
             when{
-                consultation_Time != null && !comingWayStaffs?.any { it.staffType == "3" }
+                consultation_Date != null && !comingWayStaffs?.any { it.staffType == "3" }
                 ->{
                     messageAction.value = Event("会诊医生不能为空")
                     return
                 }
-                comingWayStaffs?.any { it.staffType == "3" } && consultation_Time == null
+                comingWayStaffs?.any { it.staffType == "3" } && consultation_Date == null
                 ->{
                     messageAction.value = Event("会诊时间不能为空")
                     return
