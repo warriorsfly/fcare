@@ -55,6 +55,12 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/246")
     fun loadCardType(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/248")
+    fun loadTranstype(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/249")
+    fun loadNetHospital(): Maybe<List<Dictionary>>
+
     @GET("EnumDic/enumItems/240")
     fun loadPatientOutcom(): Maybe<List<Dictionary>>
 

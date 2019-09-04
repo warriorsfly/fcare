@@ -94,6 +94,14 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadCardType()
                     clickAlone = true
                 }
+                "Transtype" ->{
+                    loadTranstype()
+                    clickAlone = true
+                }
+                "NetHospital" ->{
+                    loadNetHospital()
+                    clickAlone = true
+                }
             }
         }
 
@@ -139,6 +147,18 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     private fun loadCardType(){
         disposable.add(enumApi.loadCardType()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadTranstype(){
+        disposable.add(enumApi.loadTranstype()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadNetHospital(){
+        disposable.add(enumApi.loadNetHospital()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

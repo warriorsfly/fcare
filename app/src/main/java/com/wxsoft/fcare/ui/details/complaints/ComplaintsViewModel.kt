@@ -65,8 +65,15 @@ class ComplaintsViewModel @Inject constructor(private val api: PACSApi,
             }
     }
 
+    private val array= arrayOf("221-1","221-2","221-3")
+
     fun clickSelect(item:Dictionary){
         item.checked = !item.checked
+        if (array.contains(item.id)){
+            complaintsItems.value?.filter { array.contains(it.id)&&!it.id.equals(item.id) }?.map {
+                it.checked = false
+            }
+        }
     }
 
     fun click() {

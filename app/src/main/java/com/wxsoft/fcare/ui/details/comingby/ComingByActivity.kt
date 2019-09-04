@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.EntityIdName
 import com.wxsoft.fcare.core.data.entity.User
 import com.wxsoft.fcare.core.di.ViewModelFactory
@@ -22,6 +23,8 @@ import com.wxsoft.fcare.databinding.ActivityComingByBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorsActivity
 import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByItemListActivity
+import com.wxsoft.fcare.ui.patient.ProfileActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -36,6 +39,8 @@ class ComingByActivity : BaseTimingActivity() {
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
         const val IS_XT = "IS_XT"
+        const val Transtype = 100
+        const val NetHospital = 101
     }
     private var timingType:String=""
     private lateinit var viewModel: ComingByViewModel
@@ -78,6 +83,14 @@ class ComingByActivity : BaseTimingActivity() {
 
             dialog = createDialog(currentTime)
             dialog?.show(supportFragmentManager, "all")
+        })
+
+        viewModel.transtypeLiveData.observe(this, Observer {
+            when(it){
+                "transtype" -> toSelectTranstype()
+                "NetHospital" -> toSelectNetHospiatl()
+            }
+
         })
 
 //        viewModel.comingType.observe(this, Observer {  })
@@ -143,6 +156,21 @@ class ComingByActivity : BaseTimingActivity() {
         })
     }
 
+    fun toSelectTranstype(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "Transtype")
+        }
+        startActivityForResult(intent, Transtype)
+    }
+    fun toSelectNetHospiatl(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "NetHospital")
+        }
+        startActivityForResult(intent, NetHospital)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)
@@ -191,6 +219,16 @@ class ComingByActivity : BaseTimingActivity() {
                         }
                     }
 
+                }
+                Transtype ->{
+                    val cardtype = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.comingBy.value?.transType = cardtype.id
+                    viewModel.comingBy.value?.transTypeName = cardtype.itemName
+                }
+                NetHospital ->{
+                    val cardtype = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.comingBy.value?.net_Hospital_Id = cardtype.id
+                    viewModel.comingBy.value?.net_Hospital_Name = cardtype.itemName
                 }
 
                 COMING_WAY_TYPES->{

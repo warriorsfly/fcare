@@ -138,60 +138,6 @@
 
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
-					<androidx.constraintlayout.widget.ConstraintLayout
-							android:onClick="@{()->viewModel.changeDoctor(3)}"
-							android:id="@+id/model2_2"
-							android:background="@color/white"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							android:layout_width="match_parent"
-							android:layout_height="50dp">
-
-						<TextView
-								android:id="@+id/title2_2"
-								app:layout_constraintLeft_toLeftOf="parent"
-								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintBottom_toBottomOf="parent"
-								android:layout_marginTop="15dp"
-								android:layout_marginLeft="15dp"
-								android:layout_marginBottom="15dp"
-								android:text="会诊医生"
-								android:textSize="16sp"
-								android:textColor="#131D35"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"/>
-
-						<TextView
-								android:hint="请选择"
-								android:layout_marginRight="19dp"
-								android:layout_marginTop="15dp"
-								android:layout_marginBottom="15dp"
-								android:textSize="16sp"
-								android:textColor="#7D7D7D"
-								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintBottom_toBottomOf="parent"
-								app:layout_constraintRight_toLeftOf="@+id/rowe2_2"
-								tools:text="李医生"
-								android:text="@{viewModel.comingBy.consultantDoctors}"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"/>
-
-						<TextView
-								android:id="@+id/rowe2_2"
-								app:layout_constraintRight_toRightOf="parent"
-								app:layout_constraintBottom_toBottomOf="@id/title2_2"
-								android:layout_width="14dp"
-								android:layout_height="24dp"
-								android:layout_marginRight="19dp"
-								android:background="@drawable/ic_right_arrow"/>
-						<View
-								android:background="#EDEDED"
-								android:layout_marginBottom="1dp"
-								app:layout_constraintBottom_toBottomOf="parent"
-								android:layout_width="match_parent"
-								android:layout_height="1dp"/>
-
-					</androidx.constraintlayout.widget.ConstraintLayout>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
 							android:onClick="@{()->viewModel.changeType(3)}"
@@ -257,7 +203,7 @@
 						<androidx.constraintlayout.widget.ConstraintLayout
 								android:id="@+id/model3_3"
 								android:onClick="@{()->viewModel.changeType(18)}"
-								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)}"
+								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)}"
 								android:background="@color/white"
 								app:layout_constraintLeft_toLeftOf="parent"
 								app:layout_constraintTop_toBottomOf="@+id/model3_2"
@@ -272,7 +218,7 @@
 									android:layout_marginTop="15dp"
 									android:layout_marginLeft="15dp"
 									android:layout_marginBottom="15dp"
-									android:text="出车单位"
+									android:text="@string/title_comingby_car"
 									android:textSize="16sp"
 									android:textColor="#131D35"
 									android:layout_width="wrap_content"
@@ -420,10 +366,67 @@
 								layout="@layout/layout_coming_by_self"
 								app:viewModel="@{viewModel}"/>
 
+
+						<androidx.constraintlayout.widget.ConstraintLayout
+								android:onClick="@{()->viewModel.changeDoctor(3)}"
+								android:id="@+id/model2_2"
+								android:background="@color/white"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="50dp">
+
+							<TextView
+									android:id="@+id/title2_2"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintBottom_toBottomOf="parent"
+									android:layout_marginTop="15dp"
+									android:layout_marginLeft="15dp"
+									android:layout_marginBottom="15dp"
+									android:text="会诊医生"
+									android:textSize="16sp"
+									android:textColor="#131D35"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+
+							<TextView
+									android:hint="请选择"
+									android:layout_marginRight="19dp"
+									android:layout_marginTop="15dp"
+									android:layout_marginBottom="15dp"
+									android:textSize="16sp"
+									android:textColor="#7D7D7D"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintBottom_toBottomOf="parent"
+									app:layout_constraintRight_toLeftOf="@+id/rowe2_2"
+									tools:text="李医生"
+									android:text="@{viewModel.comingBy.consultantDoctors}"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+
+							<TextView
+									android:id="@+id/rowe2_2"
+									app:layout_constraintRight_toRightOf="parent"
+									app:layout_constraintBottom_toBottomOf="@id/title2_2"
+									android:layout_width="14dp"
+									android:layout_height="24dp"
+									android:layout_marginRight="19dp"
+									android:background="@drawable/ic_right_arrow"/>
+							<View
+									android:background="#EDEDED"
+									android:layout_marginBottom="1dp"
+									app:layout_constraintBottom_toBottomOf="parent"
+									android:layout_width="match_parent"
+									android:layout_height="1dp"/>
+
+						</androidx.constraintlayout.widget.ConstraintLayout>
+
+
 						<androidx.constraintlayout.widget.ConstraintLayout
 								android:id="@+id/model3_30"
 								android:background="@color/white"
-								android:onClick="@{()->viewModel.changeTiming(TimingType.Consultation)}"
+								android:onClick="@{()->viewModel.changeTiming(TimingType.ConsultationDate)}"
 								app:layout_constraintLeft_toLeftOf="parent"
 								app:layout_constraintTop_toBottomOf="@+id/model3_2"
 								android:layout_width="match_parent"
@@ -454,12 +457,12 @@
 									app:layout_constraintTop_toTopOf="parent"
 									app:layout_constraintBottom_toBottomOf="parent"
 									app:layout_constraintRight_toLeftOf="@+id/rowe3_30"
-									android:text="@{viewModel.comingBy.consultation_Time}"
+									android:text="@{viewModel.comingBy.consultation_Date}"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
 							<ImageView
-									app:invisibleUnless="@{viewModel.comingBy.consultation_Time!=null}"
+									app:invisibleUnless="@{viewModel.comingBy.consultation_Date!=null}"
 									android:src="@drawable/ic_delete_white"
 									android:elevation="2dp"
 									android:tint="#C6C7C6"

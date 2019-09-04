@@ -14,8 +14,10 @@ import androidx.annotation.StringDef
     TimingType.ArriveHospital,
     TimingType.InHospitalAdmission,
     TimingType.ArriveScene,
+    TimingType.FirstMC,
     TimingType.Consultation,
-    TimingType.LeaveDepartment
+    TimingType.LeaveDepartment,
+    TimingType.ConsultationTime
 )
 
 annotation class TimingType {
@@ -50,6 +52,7 @@ annotation class TimingType {
         const val LeaveOutHospital = "LeaveOutHospital"
 
         const val ArriveScene = "ArriveScene"
+        const val FirstMC = "FirstMC"
         /**
          * 到达本院大门时间
          */
@@ -62,6 +65,10 @@ annotation class TimingType {
          *
          */
         const val Consultation = "Consultation"
+        /**
+         *
+         */
+        const val ConsultationDate = "ConsultationDate"
         /**
          * 离开科室时间
          */
@@ -78,6 +85,10 @@ annotation class TimingType {
          * 急诊绕行CCU到达导管室时间
          */
         const val PassingArriveCCU = "PassingArriveCCU"
+        /**
+         * 床位医生接触时间
+         */
+        const val ConsultationTime = "ConsultationTime"
 
     }
 }

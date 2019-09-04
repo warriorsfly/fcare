@@ -27,6 +27,7 @@ class ComingByViewModel @Inject constructor(
     val passing:LiveData<Passing>
     var xtShow= ObservableField<Boolean>()
     val timeLiveData=MediatorLiveData<Pair<String,String>>()
+    val transtypeLiveData=MediatorLiveData<String>()
     var patientId:String=""
     set(value) {
         field=value
@@ -128,7 +129,10 @@ class ComingByViewModel @Inject constructor(
                     TimingType.LeaveDepartment -> it.leave_Department_Time
                     TimingType.ArriveScene -> it.arrived_Scene_Time
                     TimingType.Consultation -> it.consultation_Time?:""
+                    TimingType.ConsultationDate -> it.consultation_Date?:""
                     TimingType.LeaveDepartment -> it.leave_Department_Time
+                    TimingType.FirstMC -> it.first_MC_Time
+                    TimingType.ConsultationTime -> it.consultation_Time
                     else -> throw IllegalArgumentException("error timing type $timingType")
                 }
                 timeLiveData.value = Pair(timingType, time)
@@ -164,6 +168,8 @@ class ComingByViewModel @Inject constructor(
                     TimingType.ArriveScene -> it.arrived_Scene_Time = pair.second
                     TimingType.Consultation -> it.consultation_Time = pair.second
                     TimingType.HelpAt -> it.helpAt = pair.second
+                    TimingType.FirstMC -> it.first_MC_Time = pair.second
+                    TimingType.ConsultationTime -> it.consultation_Time = pair.second
                     else -> throw IllegalArgumentException("error timing type ${pair.first}")
                 }
             }
@@ -186,8 +192,16 @@ class ComingByViewModel @Inject constructor(
 
     }
 
+    fun selectTransType(){
+        transtypeLiveData.value = "transtype"
+    }
+    fun selectNetHospital(){
+        transtypeLiveData.value = "NetHospital"
+    }
+
+
     fun clearConsultationTime(){
-        comingBy.value?.consultation_Time=null
+        comingBy.value?.consultation_Date=""
     }
 
 
@@ -254,6 +268,90 @@ class ComingByViewModel @Inject constructor(
                 ->{
                     messageAction.value = Event("会诊时间不能为空")
                     return
+                }
+            }
+            when(comingWayCode){
+                "3-1" ->{
+                    when{
+                        dispatchCode.isNullOrEmpty()->{
+                            messageAction.value = Event("出车单位不能为空")
+                            return
+                        }
+                        helpAt.isNullOrEmpty()->{
+                            messageAction.value = Event("呼救时间不能为空")
+                            return
+                        }
+                        first_MC_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("首次医疗接触时间不能为空")
+                            return
+                        }
+                        arrived_Hospital_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("到达医院大门时间不能为空")
+                            return
+                        }
+                        inhospital_Admission_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("院内接诊时间(FMC/分诊)不能为空")
+                            return
+                        }
+                    }
+                }
+                "3-2" ->{
+                    when{
+                        transType.isNullOrEmpty() ->{
+                            messageAction.value = Event("转院类型不能为空")
+                            return
+                        }
+                        transType.equals("248-1") ->{
+                           if (outhospital_Visit_Time.isNullOrEmpty()){
+                               messageAction.value = Event("转出医院入门时间不能为空")
+                               return
+                           }
+                           if (transfer_Time.isNullOrEmpty()){
+                               messageAction.value = Event("决定转院时间不能为空")
+                               return
+                           }
+                           if (leave_Outhospital_Time.isNullOrEmpty()){
+                               messageAction.value = Event("离开转出医院不能为空")
+                               return
+                           }
+                        }
+                        first_MC_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("首次医疗接触不能为空")
+                            return
+                        }
+                        arrived_Hospital_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("到达本院大门时间不能为空")
+                            return
+                        }
+                        inhospital_Admission_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("院内接诊时间(FMC/分诊)不能为空")
+                            return
+                        }
+                    }
+                }
+                "3-3" ->{
+                    when{
+                        arrived_Hospital_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("到达本院大门时间不能为空")
+                            return
+                        }
+                        inhospital_Admission_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("院内接诊时间(FMC/分诊)不能为空")
+                            return
+                        }
+                    }
+                }
+                "3-4" ->{
+                    when{
+                        attack_Department.isNullOrEmpty()->{
+                            messageAction.value = Event("发病科室不能为空")
+                            return
+                        }
+                        consultation_Time.isNullOrEmpty()->{
+                            messageAction.value = Event("床位医生接触时间不能为空")
+                            return
+                        }
+                    }
                 }
             }
         }

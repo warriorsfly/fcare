@@ -27,6 +27,9 @@ android {
 //        公司
 //        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:10100"'
 //        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:10100/api/"'
+//        胸痛2.0
+//        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:10101"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:10101/api/"'
 //        合二
         buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
         buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'

@@ -101,6 +101,13 @@ data class ComingBy(val id:String=""): BaseObservable() {
            notifyPropertyChanged(BR.ambulance_Arrived_Time)
        }
    @Bindable
+   var first_MC_Time: String = ""
+       set(value) {
+           field = value
+           notifyPropertyChanged(BR.first_MC_Time)
+       }
+
+   @Bindable
    var leave_Outhospital_Time: String = ""
        set(value) {
            field = value
@@ -131,11 +138,17 @@ data class ComingBy(val id:String=""): BaseObservable() {
            notifyPropertyChanged(BR.attack_Department)
        }
    @Bindable
-   var consultation_Time: String? = null
+   var consultation_Time: String = ""
        set(value) {
            field = value
            notifyPropertyChanged(BR.consultation_Time)
        }
+    @Bindable
+    var consultation_Date: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.consultation_Date)
+        }
    @Bindable
    var leave_Department_Time: String = ""
        set(value) {
@@ -197,6 +210,31 @@ data class ComingBy(val id:String=""): BaseObservable() {
        set(value) {
            field = value
            notifyPropertyChanged(BR.modifiedDate)
+       }
+
+   @Bindable
+   var transType: String = ""
+       set(value) {
+           field = value
+           notifyPropertyChanged(BR.transType)
+       }
+   @Bindable
+   var transTypeName: String = ""
+       set(value) {
+           field = value
+           notifyPropertyChanged(BR.transTypeName)
+       }
+    @Bindable
+   var net_Hospital_Id: String = ""
+       set(value) {
+           field = value
+           notifyPropertyChanged(BR.net_Hospital_Id)
+       }
+    @Bindable
+   var net_Hospital_Name: String = ""
+       set(value) {
+           field = value
+           notifyPropertyChanged(BR.net_Hospital_Name)
        }
 
     var comingWayStaffs: List<ComingByStaff> = emptyList()
