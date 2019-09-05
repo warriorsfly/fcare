@@ -125,7 +125,7 @@
                 app:layout_constraintRight_toRightOf="@+id/o"
                 android:layout_width="0dp"
                 android:onClick="@{()->viewModel.data.setResultCode(2)}"
-                android:text="脑死亡离院"
+                android:text="死亡"
                 android:id="@+id/h"
                 android:layout_height="38dp"
                 android:layout_marginTop="10dp"

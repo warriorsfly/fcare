@@ -158,6 +158,14 @@
 									android:gravity="right|center_vertical"
 									android:layout_width="0dp"
 									android:layout_height="wrap_content"/>
+							<View
+									android:id="@+id/memo_title_line1"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toBottomOf="@id/photo_title"
+									android:layout_width="match_parent"
+									android:layout_marginTop="16dp"
+									android:background="@color/line_gray"
+									android:layout_height="0.5dp"/>
 
 							<!--                <TextView-->
 							<!--                        android:drugId="@+drugId/share_tv"-->
@@ -300,7 +308,7 @@
 
 
 					<com.google.android.material.card.MaterialCardView
-							goneUnless="@{viewModel.xtShow}"
+							goneUnless="@{!viewModel.pre}"
 							android:layout_width="0dp"
 							android:id="@+id/result_detail"
 							android:layout_margin="12dp"
@@ -325,17 +333,17 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
-							<TextView
-									app:layout_constraintRight_toRightOf="parent"
-									app:layout_constraintBaseline_toBaselineOf="@id/memo_property_title"
-									android:layout_margin="16dp"
-									android:textSize="16sp"
-									android:text="添加判读"
-									android:id="@+id/start"
-									goneUnless="@{viewModel.ecg.id.length>0}"
-									android:textColor="@color/colorPrimary"
-									android:layout_width="wrap_content"
-									android:layout_height="wrap_content"/>
+<!--							<TextView-->
+<!--									app:layout_constraintRight_toRightOf="parent"-->
+<!--									app:layout_constraintBaseline_toBaselineOf="@id/memo_property_title"-->
+<!--									android:layout_margin="16dp"-->
+<!--									android:textSize="16sp"-->
+<!--									android:text="添加判读"-->
+<!--									android:id="@+id/start"-->
+<!--									goneUnless="@{viewModel.ecg.id.length>0}"-->
+<!--									android:textColor="@color/colorPrimary"-->
+<!--									android:layout_width="wrap_content"-->
+<!--									android:layout_height="wrap_content"/>-->
 
 							<View
 									android:id="@+id/memo_title_line"
