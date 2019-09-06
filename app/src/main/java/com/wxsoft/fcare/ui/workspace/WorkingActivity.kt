@@ -39,6 +39,7 @@ import com.wxsoft.fcare.ui.details.ct.CTActivity
 import com.wxsoft.fcare.ui.details.cure.CureActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.xtdiagnose.XTDiagnoseActivity
 import com.wxsoft.fcare.ui.details.ecg.EcgActivity
 import com.wxsoft.fcare.ui.details.evaluate.EvaluateActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
@@ -402,6 +403,13 @@ class WorkingActivity : BaseActivity() {
                 val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this@WorkingActivity, DiagnoseNewActivity::class.java).apply {
                     putExtra(DiagnoseNewActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, DIAGNOSE)
+            }
+            ActionType.胸痛诊断 ->{
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
+                val intent = Intent(this@WorkingActivity, XTDiagnoseActivity::class.java).apply {
+                    putExtra(XTDiagnoseActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, DIAGNOSE)
             }

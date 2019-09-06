@@ -160,6 +160,67 @@ data class Diagnosis (var id:String="",val createrId:String,val createrName:Stri
                 field=value
                 notifyPropertyChanged(BR.sceneType)
             }
+    @Bindable
+        var notice_imcd_Time:String= ""
+            set(value) {
+                field=value
+                notifyPropertyChanged(BR.notice_imcd_Time)
+            }
+    @Bindable
+    @SerializedName("is_Notice_Imcd")
+    var notice_Imcd:Boolean=false
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.notice_Imcd)
+        }
+    @Bindable
+    var diagnosisCode2_Imcd:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.diagnosisCode2_Imcd)
+        }
+    @Bindable
+    var diagnosisCode2_Imcd_Name:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.diagnosisCode2_Imcd_Name)
+        }
+    @Bindable
+    var diagnosisCode3_Imcd:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.diagnosisCode3_Imcd)
+        }
+    @Bindable
+    var diagnosisCode3_Imcd_Name:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.diagnosisCode3_Imcd_Name)
+        }
+    @Bindable
+    var consultation_Date:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.consultation_Date)
+        }
+    @Bindable
+    var  diagnosis_Time_Imcd:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.diagnosis_Time_Imcd)
+        }
+    @Bindable
+    var  killip_Level:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.killip_Level)
+        }
+    @Bindable
+    var  nYHA:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.nYHA)
+        }
 
 
 }

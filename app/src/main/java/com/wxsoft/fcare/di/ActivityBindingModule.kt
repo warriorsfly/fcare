@@ -34,6 +34,7 @@ import com.wxsoft.fcare.ui.details.diagnose.DiagnoseModule
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.xtdiagnose.XTDiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordActivity
 import com.wxsoft.fcare.ui.details.diagnose.record.DiagnoseRecordModule
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
@@ -399,5 +400,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [BloodChartModule::class])
     internal abstract fun bloodChartActivity(): BloodChartActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [DiagnoseModule::class])
+    internal abstract fun xTDiagnoseActivity(): XTDiagnoseActivity
 
 }

@@ -7,6 +7,7 @@ import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.DiagnoseNewViewModel
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.AcsDrugViewModel
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsViewModel
+import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.xtdiagnose.XTDiagnoseViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
@@ -22,6 +23,11 @@ internal abstract class DiagnoseModule {
     @IntoMap
     @ViewModelKey(DiagnoseNewViewModel::class)
     abstract fun bindDiagnoseNewViewModel(viewModel: DiagnoseNewViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(XTDiagnoseViewModel::class)
+    abstract fun bindXTDiagnoseViewModel(viewModel: XTDiagnoseViewModel): ViewModel
 
     @Binds
     @IntoMap

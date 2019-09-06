@@ -102,6 +102,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadNetHospital()
                     clickAlone = true
                 }
+                "selectSelectKillip" ->{
+                    loadKillip()
+                    clickAlone = true
+                }
             }
         }
 
@@ -158,6 +162,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .subscribe (::getData,::error))
     }
     private fun loadNetHospital(){
+        disposable.add(enumApi.loadNetHospital()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadKillip(){
         disposable.add(enumApi.loadNetHospital()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

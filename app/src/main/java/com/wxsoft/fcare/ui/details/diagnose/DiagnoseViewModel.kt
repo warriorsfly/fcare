@@ -51,6 +51,11 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             if (value == "") return
             field = value
         }
+    var comfrom: String = ""
+        set(value) {
+            if (value == "") return
+            field = value
+        }
 
 
     val backToLast:LiveData<String>
@@ -186,11 +191,18 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
         thoracalgiaItems.value?.filter { it.checked }
             ?.map { it.checked = false }
         item.checked = true
+        if (comfrom.equals("selectImcdDiagnose")){
+            diagnosis.value?.diagnosisCode2_Imcd = item.id
+            diagnosis.value?.diagnosisCode2_Imcd_Name = item.itemName
+            diagnosis.value?.diagnosisCode3_Imcd = ""
+            diagnosis.value?.diagnosisCode3_Imcd_Name = ""
+        }else{
+            diagnosis.value?.diagnosisCode2 = item.id
+            diagnosis.value?.diagnosisCode2Name = item.itemName
+            diagnosis.value?.diagnosisCode3 = ""
+            diagnosis.value?.diagnosisCode3Name = ""
+        }
 
-        diagnosis.value?.diagnosisCode2 = item.id
-        diagnosis.value?.diagnosisCode2Name = item.itemName
-        diagnosis.value?.diagnosisCode3 = ""
-        diagnosis.value?.diagnosisCode3Name = ""
     }
 
     fun selectDiagnose(item:Dictionary){
@@ -204,9 +216,13 @@ class DiagnoseViewModel  @Inject constructor(private val diagnoseApi: DiagnoseAp
             3->{
 //                sonItems.value?.filter { it.checked }?.map { it.checked = false }
                 item.checked = !item.checked
-
-                diagnosis.value?.diagnosisCode3 =   sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.id}?:""
-                diagnosis.value?.diagnosisCode3Name =sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.itemName}?:""
+                if (comfrom.equals("selectImcdDiagnose")){
+                    diagnosis.value?.diagnosisCode3_Imcd =   sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.id}?:""
+                    diagnosis.value?.diagnosisCode3_Imcd_Name=sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.itemName}?:""
+                }else{
+                    diagnosis.value?.diagnosisCode3 =   sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.id}?:""
+                    diagnosis.value?.diagnosisCode3Name =sonItems.value?.filter { it.checked }?.joinToString (separator = ","){it.itemName}?:""
+                }
             }
             4->{ illnessItems.value?.filter { it.checked }?.map { it.checked = false }
                 item.checked = !item.checked

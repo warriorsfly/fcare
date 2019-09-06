@@ -44,7 +44,7 @@ class DateTimeUtils {
             //秒
             val second = frontCompWithZore(calendar.get(Calendar.SECOND),2)
 
-            return "$year-$month-$day $hour:$minute:$second"
+            return "$year-$month-$day $hour:$minute"
         }
 
         fun getCurrentDate():String{

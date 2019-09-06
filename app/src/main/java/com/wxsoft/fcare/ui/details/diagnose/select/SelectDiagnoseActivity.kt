@@ -49,6 +49,7 @@ class SelectDiagnoseActivity : BaseActivity() {
         comefrom=intent.getStringExtra(COME_FROM)?:""
         viewModel.patientId = patientId
         viewModel.activityType = "SelectDiagnose"
+        viewModel.comfrom = comefrom
         setSupportActionBar(toolbar)
         title="诊断"
 //

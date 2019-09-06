@@ -12,7 +12,7 @@ import androidx.annotation.StringDef
     ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室,ActionType.主诉及症状,ActionType.治疗策略,ActionType.治疗操作,
     ActionType.通知启动导管室,ActionType.通知启动CT室, ActionType.来院方式,ActionType.Catheter,
     ActionType.CT_OPERATION,ActionType.出院诊断,ActionType.一键通知,ActionType.肌钙蛋白,ActionType.BLOOD
-    ,ActionType.BLOODPRESSURE,ActionType.PGB
+    ,ActionType.BLOODPRESSURE,ActionType.PGB,ActionType.胸痛诊断
 )
 
 annotation class ActionType {
@@ -68,6 +68,7 @@ annotation class ActionType {
         const val BLOOD= "cx"
         const val BLOODPRESSURE= "xyjc"
         const val PGB= "pgb"
+        const val 胸痛诊断= "xtzd"
 
     }
 }

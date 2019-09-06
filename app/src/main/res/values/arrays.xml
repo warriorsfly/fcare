@@ -93,6 +93,8 @@
         <item>@drawable/ic_blood_pressure</item>
         <!--评估表-->
         <item>@drawable/ic_blood_test</item>
+        <!--胸痛诊断-->
+        <item>@drawable/ic_work_space_diagnosis</item>
     </array>
 
     <!--操作台操作背景色-->
@@ -157,6 +159,8 @@
         <item>@color/tint_work_space_therapeutic_solution</item>
         <!--来院方式-->
         <item>@color/tint_work_space_therapeutic_solution</item>
+        <!--胸痛诊断-->
+        <item>@color/tint_work_space_diagnosis</item>
     </array>
 
 
@@ -241,5 +245,6 @@
         <item>pgb</item>
         <item>ry</item>
         <item>cx</item>
+        <item>xtzd</item>
     </array>
 </resources>
