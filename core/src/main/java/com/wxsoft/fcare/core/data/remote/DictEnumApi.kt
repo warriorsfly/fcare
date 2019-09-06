@@ -25,8 +25,8 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/16")
     fun loadThromPlaces(): Maybe<List<Dictionary>>
 
-    @GET("EnumDic/enumItems/14")
-    fun loadTreatments(): Maybe<List<Dictionary>>
+    @GET("EnumDic/enumItems/{id}")
+    fun loadTreatments(@Path("id")id:String): Maybe<List<Dictionary>>
 
     @GET("EnumDic/enumItems/234")
     fun loadNoRefushionResons(): Maybe<List<Dictionary>>
@@ -61,10 +61,10 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/249")
     fun loadNetHospital(): Maybe<List<Dictionary>>
 
-    @GET("EnumDic/enumItems/5")
+    @GET("EnumDic/enumItems/250")
     fun loadNYHA(): Maybe<List<Dictionary>>
 
-    @GET("EnumDic/enumItems/8")
+    @GET("EnumDic/enumItems/7")
     fun loadKillip(): Maybe<List<Dictionary>>
 
     @GET("EnumDic/enumItems/240")

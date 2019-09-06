@@ -188,10 +188,10 @@ class ProfileViewModel @Inject constructor(
                             messageAction.value= Event("联系方式不能为空")
                             return@let false
                         }
-                        it.cardType.isNullOrEmpty() ->{
-                            messageAction.value= Event("证件类型不能为空")
-                            return@let false
-                        }
+//                        it.cardType.isNullOrEmpty() ->{
+//                            messageAction.value= Event("证件类型不能为空")
+//                            return@let false
+//                        }
 
 
                         else->

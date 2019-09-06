@@ -17,9 +17,11 @@ class TreatmentOptionsActivity : BaseActivity() {
 
     private lateinit var treatmentId:String
     private lateinit var code:String
+    private lateinit var diagnoseCode:String
     companion object {
         const val TREATMENT_ID = "TREATMENT_ID"
         const val CODE = "CODE"
+        const val diagnose_code = "diagnose_code"
     }
 
     private lateinit var viewModel: TreatmentOptionsViewModel
@@ -45,16 +47,21 @@ class TreatmentOptionsActivity : BaseActivity() {
                 viewModel = this@TreatmentOptionsActivity.viewModel
                 lifecycleOwner = this@TreatmentOptionsActivity
             }
-        treatmentId=intent.getStringExtra(TreatmentOptionsActivity.TREATMENT_ID)?:""
-        code=intent.getStringExtra(TreatmentOptionsActivity.CODE)?:""
+        treatmentId=intent.getStringExtra(TREATMENT_ID)?:""
+        code=intent.getStringExtra(CODE)?:""
+        diagnoseCode=intent.getStringExtra(diagnose_code)?:""
 
         viewModel.treatId = treatmentId
         viewModel.code.set(code)
 
+
         setSupportActionBar(toolbar)
         title="治疗方案"
+        when(diagnoseCode){
+            "4-2" ->{viewModel.loadTreatments("14")}
+            "4-3" ->{viewModel.loadTreatments("252")}
+        }
 
-        viewModel.loadTreatments()
 
         viewModel.options.observe(this, Observer {
 

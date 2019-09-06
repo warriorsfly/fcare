@@ -793,7 +793,7 @@
 								android:layout_marginTop="15dp"
 								android:layout_marginBottom="15dp"
 								android:textSize="16sp"
-								android:text="@{viewModel.diagnosis.nYHA_Name}"
+								android:text="@{viewModel.diagnosis.nyhA_Name}"
 								android:textColor="#7D7D7D"
 								app:layout_constraintTop_toTopOf="parent"
 								app:layout_constraintBottom_toBottomOf="parent"

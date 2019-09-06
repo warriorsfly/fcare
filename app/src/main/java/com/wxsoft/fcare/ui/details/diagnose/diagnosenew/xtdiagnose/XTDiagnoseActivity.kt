@@ -229,6 +229,7 @@ class XTDiagnoseActivity : BaseTimingActivity() {
         val intent = Intent(this, TreatmentOptionsActivity::class.java).apply {
             putExtra(TreatmentOptionsActivity.TREATMENT_ID, viewModel.selectedTreatment.value?.strategyCode)
             putExtra(TreatmentOptionsActivity.CODE, viewModel.patient?.value?.diagnosisCode?:"")
+            putExtra(TreatmentOptionsActivity.diagnose_code, viewModel.diagnosis?.value?.diagnosisCode2?:"")
         }
         startActivityForResult(intent, SELECT_TREATMENT)
     }
@@ -267,11 +268,9 @@ class XTDiagnoseActivity : BaseTimingActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 SELECT_DIAGNOSE_TYPE ->{
-                    val diaisTime = viewModel.diagnosis.value?.diagnosisTime?: DateTimeUtils.getCurrentTime()
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
-                    diagnose.patientId = this@XTDiagnoseActivity.patientId
-                    diagnose.id = this@XTDiagnoseActivity.viewModel.diagnosis.value?.id?:""
                     viewModel.loadDiagnosis.value = viewModel.diagnosis.value?.apply {
+                        patientId = this@XTDiagnoseActivity.patientId
                         diagnosisCode2 = diagnose.diagnosisCode2
                         diagnosisCode2Name = diagnose.diagnosisCode2Name
                         diagnosisCode3 = diagnose.diagnosisCode3
@@ -279,8 +278,7 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                         if(diagnosisCode2.equals("4-2")){
                             handWay = "住院"
                             patientOutcom = "导管室"
-                            viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
-                                patientId = this@XTDiagnoseActivity.patientId
+                            viewModel.loadSelectedTreatment.value = Strategy(this@XTDiagnoseActivity.patientId, 1).apply {
                                 strategyCode = "14-1"
                                 strategyCode_Name = "急诊PCI"
                                 memo = "group1"
@@ -292,9 +290,8 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 }
                 SELECT_ImcdPATIENTOUTCOME ->{
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
-                    diagnose.patientId = this@XTDiagnoseActivity.patientId
-                    diagnose.id = this@XTDiagnoseActivity.viewModel.diagnosis.value?.id?:""
                     viewModel.loadDiagnosis.value = viewModel.diagnosis.value?.apply {
+                        patientId = this@XTDiagnoseActivity.patientId
                         diagnosisCode2_Imcd = diagnose.diagnosisCode2_Imcd
                         diagnosisCode2_Imcd_Name = diagnose.diagnosisCode2_Imcd_Name
                         diagnosisCode3_Imcd = diagnose.diagnosisCode3_Imcd
@@ -302,8 +299,7 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                         if(diagnosisCode2_Imcd.equals("4-2")){
                             handWay = "住院"
                             patientOutcom = "导管室"
-                            viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
-                                patientId = this@XTDiagnoseActivity.patientId
+                            viewModel.loadSelectedTreatment.value = Strategy(this@XTDiagnoseActivity.patientId, 1).apply {
                                 strategyCode = "14-1"
                                 strategyCode_Name = "急诊PCI"
                                 memo = "group1"
@@ -396,8 +392,8 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 }
                 SELECT_NYHA ->{
                     val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.diagnosis.value?.nYHA = conscious.id
-                    viewModel.diagnosis.value?.nYHA_Name = conscious.itemName
+                    viewModel.diagnosis.value?.nyha = conscious.id
+                    viewModel.diagnosis.value?.nyhA_Name = conscious.itemName
                 }
 
 
