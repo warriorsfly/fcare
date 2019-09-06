@@ -42,6 +42,7 @@ class EvaluateViewModel @Inject constructor(private val api: VitalSignApi,
     val rating=MediatorLiveData<Triple<String,String,String>>()
 
     init {
+        clickIndex.set(0)
         items = loadItemsResult.map {
             it.result?.apply {
                 forEach { item->item.selectColumns() }
