@@ -216,10 +216,22 @@ data class Diagnosis (var id:String="",val createrId:String,val createrName:Stri
             notifyPropertyChanged(BR.killip_Level)
         }
     @Bindable
+    var  killip_Level_Name:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.killip_Level_Name)
+        }
+    @Bindable
     var  nYHA:String= ""
         set(value) {
             field=value
             notifyPropertyChanged(BR.nYHA)
+        }
+    @Bindable
+    var  nYHA_Name:String= ""
+        set(value) {
+            field=value
+            notifyPropertyChanged(BR.nYHA_Name)
         }
 
 

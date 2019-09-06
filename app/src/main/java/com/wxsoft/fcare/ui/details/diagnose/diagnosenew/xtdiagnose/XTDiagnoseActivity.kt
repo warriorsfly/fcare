@@ -76,6 +76,7 @@ class XTDiagnoseActivity : BaseTimingActivity() {
         const val SELECT_PATIENTOUTCOME = 70
         const val SELECT_ImcdPATIENTOUTCOME = 80
         const val SELECT_Killip = 90
+        const val SELECT_NYHA = 100
 
     }
 
@@ -124,6 +125,9 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 }
                 line105.setOnClickListener {
                     toSelectKillip()
+                }
+                line106.setOnClickListener {
+                    toSelectHYHA()
                 }
                 lifecycleOwner = this@XTDiagnoseActivity
             }
@@ -183,6 +187,13 @@ class XTDiagnoseActivity : BaseTimingActivity() {
             putExtra(SelecterOfOneModelActivity.COME_FROM, "selectSelectKillip")
         }
         startActivityForResult(intent, SELECT_Killip)
+    }
+    fun toSelectHYHA(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "selectSelectNYHA")
+        }
+        startActivityForResult(intent, SELECT_NYHA)
     }
     fun toSelectHandway(){
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
@@ -378,6 +389,17 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                     val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
                     viewModel.diagnosis.value?.patientOutcom = conscious.itemName
                 }
+                SELECT_Killip ->{
+                    val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.diagnosis.value?.killip_Level = conscious.id
+                    viewModel.diagnosis.value?.killip_Level_Name = conscious.itemName
+                }
+                SELECT_NYHA ->{
+                    val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.diagnosis.value?.nYHA = conscious.id
+                    viewModel.diagnosis.value?.nYHA_Name = conscious.itemName
+                }
+
 
             }
         }

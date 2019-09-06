@@ -67,6 +67,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     "selectHandway" -> firstList.adapter = adapter
                     "selectPatientOutcom" -> firstList.adapter = adapter
                     "selectSelectKillip" -> firstList.adapter = adapter
+                    "selectSelectNYHA" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -89,6 +90,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "selectHandway" -> title="选择处置措施"
             "selectPatientOutcom" -> title="选择患者去向"
             "selectSelectKillip" -> title="选择Killip分级"
+            "selectSelectNYHA" -> title="选择NYHA分级"
             "COMPLAINTS" -> title="主诉"
         }
 
