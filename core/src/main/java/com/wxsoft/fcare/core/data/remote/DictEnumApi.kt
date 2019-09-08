@@ -64,6 +64,27 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/250")
     fun loadNYHA(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/253")
+    fun loadRoute(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/254")
+    fun loadInfarctPosition(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/255")
+    fun loadNarrowLevel(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/256")
+    fun loadIntracavityImage(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/257")
+    fun loadFunctionTest(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/258")
+    fun loadBracketNum(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/259")
+    fun loadComplication(): Maybe<List<Dictionary>>
+
     @GET("EnumDic/enumItems/7")
     fun loadKillip(): Maybe<List<Dictionary>>
 

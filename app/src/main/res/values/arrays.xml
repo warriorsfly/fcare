@@ -95,6 +95,8 @@
         <item>@drawable/ic_blood_test</item>
         <!--胸痛诊断-->
         <item>@drawable/ic_work_space_diagnosis</item>
+        <!--介入详情-->
+        <item>@drawable/ic_work_space_therapeutic_solution</item>
     </array>
 
     <!--操作台操作背景色-->
@@ -160,6 +162,8 @@
         <!--来院方式-->
         <item>@color/tint_work_space_therapeutic_solution</item>
         <!--胸痛诊断-->
+        <item>@color/tint_work_space_diagnosis</item>
+        <!--介入手术-->
         <item>@color/tint_work_space_diagnosis</item>
     </array>
 
@@ -246,5 +250,6 @@
         <item>ry</item>
         <item>cx</item>
         <item>xtzd</item>
+        <item>jrxq</item>
     </array>
 </resources>

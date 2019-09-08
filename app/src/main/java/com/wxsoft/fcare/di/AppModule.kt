@@ -131,7 +131,8 @@ class AppModule {
     Pair("pgb",R.drawable.ic_get_blood),
     Pair("ry",R.drawable.ic_in_hospital),
     Pair("cx",R.drawable.ic_blood_test),
-    Pair("xtzd",R.drawable.ic_work_space_diagnosis)
+    Pair("xtzd",R.drawable.ic_work_space_diagnosis),
+    Pair("jrxq",R.drawable.ic_work_space_therapeutic_solution)
         )
 
 

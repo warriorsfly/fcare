@@ -257,7 +257,7 @@
 
 						</androidx.constraintlayout.widget.ConstraintLayout>
 						<androidx.constraintlayout.widget.ConstraintLayout
-								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)}"
+								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)}"
 								android:id="@+id/model100_7"
 								android:background="@color/white"
 								app:layout_constraintLeft_toLeftOf="parent"
@@ -305,7 +305,7 @@
 						</androidx.constraintlayout.widget.ConstraintLayout>
 
 						<androidx.constraintlayout.widget.ConstraintLayout
-								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)||viewModel.comingBy.comingWayCode.equals(`3-2`)}"
+								app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)}"
 								android:id="@+id/model100_8"
 								android:background="@color/white"
 								app:layout_constraintLeft_toLeftOf="parent"

@@ -52,14 +52,17 @@
 			android:supportsRtl="true"
 			android:theme="@style/AppTheme"
 			tools:targetApi="n">
-		<activity android:name=".ui.details.diagnose.diagnosenew.xtdiagnose.XTDiagnoseActivity"
+		<activity android:name=".ui.details.operation.OperationActivity"
 				android:theme="@style/AppTheme.NoActionBar"></activity>
+		<activity
+				android:name=".ui.details.diagnose.diagnosenew.xtdiagnose.XTDiagnoseActivity"
+				android:theme="@style/AppTheme.NoActionBar" />
 		<activity
 				android:name=".ui.patient.choice.WristbandActivity"
-				android:theme="@style/AppTheme.NoActionBar"></activity>
+				android:theme="@style/AppTheme.NoActionBar" />
 		<activity
 				android:name=".ui.details.blood.chart.BloodChartActivity"
-				android:theme="@style/AppTheme.NoActionBar"></activity>
+				android:theme="@style/AppTheme.NoActionBar" />
 		<activity android:name=".ui.details.blood.pressure.ChartActivity" />
 		<activity
 				android:name=".ui.patient.choice.ChoicePatientActivity"

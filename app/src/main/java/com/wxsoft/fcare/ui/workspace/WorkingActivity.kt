@@ -45,6 +45,7 @@ import com.wxsoft.fcare.ui.details.evaluate.EvaluateActivity
 import com.wxsoft.fcare.ui.details.informedconsent.InformedConsentActivity
 import com.wxsoft.fcare.ui.details.measures.MeasuresActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
+import com.wxsoft.fcare.ui.details.operation.OperationActivity
 import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
@@ -76,6 +77,7 @@ import com.wxsoft.fcare.utils.ActionCode.Companion.INFORMEDCONSENT
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEASURES
 import com.wxsoft.fcare.utils.ActionCode.Companion.MEDICAL_HISTORY_CODE
 import com.wxsoft.fcare.utils.ActionCode.Companion.ONETOUCH
+import com.wxsoft.fcare.utils.ActionCode.Companion.OPERATION
 import com.wxsoft.fcare.utils.ActionCode.Companion.OTDIAGNOSE
 import com.wxsoft.fcare.utils.ActionCode.Companion.OUTCOME
 import com.wxsoft.fcare.utils.ActionCode.Companion.RATING
@@ -452,6 +454,12 @@ class WorkingActivity : BaseActivity() {
                     putExtra(CatheterActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, Catheter)
+            }
+            ActionType.介入详情 ->{
+                val intent = Intent(this@WorkingActivity, OperationActivity ::class.java).apply {
+                    putExtra(OperationActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, OPERATION)
             }
             ActionType.CT_OPERATION ->{
                 val intent = Intent(this@WorkingActivity, CTActivity::class.java).apply {

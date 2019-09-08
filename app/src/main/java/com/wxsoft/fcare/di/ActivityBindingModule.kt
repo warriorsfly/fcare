@@ -61,6 +61,8 @@ import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryActivity
 import com.wxsoft.fcare.ui.details.medicalhistory.MedicalHistoryModule
 import com.wxsoft.fcare.ui.details.notification.NotificationActivity
 import com.wxsoft.fcare.ui.details.notification.NotificationModule
+import com.wxsoft.fcare.ui.details.operation.OperationActivity
+import com.wxsoft.fcare.ui.details.operation.OperationModule
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyActivity
 import com.wxsoft.fcare.ui.details.pharmacy.PharmacyModule
 import com.wxsoft.fcare.ui.details.pharmacy.drugcar.DrugCarActivity
@@ -404,5 +406,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [DiagnoseModule::class])
     internal abstract fun xTDiagnoseActivity(): XTDiagnoseActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [OperationModule::class])
+    internal abstract fun operationActivity(): OperationActivity
 
 }

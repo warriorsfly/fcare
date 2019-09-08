@@ -120,9 +120,9 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 line10.setOnClickListener {
                     toSelectNoReperfusionReson()
                 }
-                line7.setOnClickListener {
-                    toSelectDrugs()
-                }
+//                line7.setOnClickListener {
+//                    toSelectDrugs()
+//                }
                 line105.setOnClickListener {
                     toSelectKillip()
                 }
@@ -151,9 +151,9 @@ class XTDiagnoseActivity : BaseTimingActivity() {
             }
             startActivityForResult(intent, ActionCode.RATING)
         }
-        line13.setOnClickListener {
-            toInformedConsent()
-        }
+//        line13.setOnClickListener {
+//            toInformedConsent()
+//        }
 
         viewModel.saveResult.observe(this, Observer {
             if (it.equals("success")){
@@ -228,7 +228,7 @@ class XTDiagnoseActivity : BaseTimingActivity() {
     fun toSelectTreatment(){
         val intent = Intent(this, TreatmentOptionsActivity::class.java).apply {
             putExtra(TreatmentOptionsActivity.TREATMENT_ID, viewModel.selectedTreatment.value?.strategyCode)
-            putExtra(TreatmentOptionsActivity.CODE, viewModel.patient?.value?.diagnosisCode?:"")
+            putExtra(TreatmentOptionsActivity.CODE, "215-1")
             putExtra(TreatmentOptionsActivity.diagnose_code, viewModel.diagnosis?.value?.diagnosisCode2?:"")
         }
         startActivityForResult(intent, SELECT_TREATMENT)

@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.core.data.remote
 
 import com.wxsoft.fcare.core.data.entity.InformedConsent
+import com.wxsoft.fcare.core.data.entity.Operation
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.User
 import com.wxsoft.fcare.core.data.entity.chest.Intervention
@@ -15,6 +16,8 @@ interface InterventionApi{
     @GET("Intervention/GetById/{patientId}")
     fun getIntervention(@Path("patientId")id:String):Maybe<Response<Intervention>>
 
+    @GET("Intervention/GetDetailByPatientId/{patientId}")
+    fun getOperation(@Path("patientId")id:String):Maybe<Response<Operation>>
 
     @GET("InformedConsent/GetInformedConsentById/{drugId}")
     fun getInformedConsentById(@Path("drugId")id:String): Maybe<Response<InformedConsent>>
@@ -24,6 +27,9 @@ interface InterventionApi{
 
     @POST("Intervention/Save")
     fun save(@Body intervention: Intervention):Maybe<Response<String>>
+
+    @POST("Intervention/SaveInterventionDetail")
+    fun saveOperation(@Body operation: Operation):Maybe<Response<String>>
 
     @GET("Intervention/NoticeStartConduit/{patientId}/{currUserId}")
     fun notice(@Path("patientId")id:String,@Path("currUserId")accountId:String):Maybe<Response<String>>

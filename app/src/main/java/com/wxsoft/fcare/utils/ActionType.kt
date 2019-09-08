@@ -69,6 +69,7 @@ annotation class ActionType {
         const val BLOODPRESSURE= "xyjc"
         const val PGB= "pgb"
         const val 胸痛诊断= "xtzd"
+        const val 介入详情= "jrxq"
 
     }
 }

@@ -110,6 +110,38 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadNYHA()
                     clickAlone = true
                 }
+                "Route" ->{
+                    loadRoute()
+                    clickAlone = true
+                }
+                "InfarctPosition" ->{
+                    loadInfarctPosition()
+                    clickAlone = false
+                }
+                "NarrowPosition" ->{
+                    loadInfarctPosition()
+                    clickAlone = false
+                }
+                "Complication" ->{
+                    loadComplication()
+                    clickAlone = false
+                }
+                "NarrowLevel" ->{
+                    loadNarrowLevel()
+                    clickAlone = true
+                }
+                "IntracavityImage" ->{
+                    loadIntracavityImage()
+                    clickAlone = true
+                }
+                "FunctionTest" ->{
+                    loadFunctionTest()
+                    clickAlone = true
+                }
+                "BracketNum" ->{
+                    loadBracketNum()
+                    clickAlone = true
+                }
             }
         }
 
@@ -179,6 +211,48 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     private fun loadNYHA(){
         disposable.add(enumApi.loadNYHA()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadRoute(){
+        disposable.add(enumApi.loadRoute()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadInfarctPosition(){
+        disposable.add(enumApi.loadInfarctPosition()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadComplication(){
+        disposable.add(enumApi.loadComplication()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadNarrowLevel(){
+        disposable.add(enumApi.loadNarrowLevel()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadIntracavityImage(){
+        disposable.add(enumApi.loadIntracavityImage()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadFunctionTest(){
+        disposable.add(enumApi.loadFunctionTest()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadBracketNum(){
+        disposable.add(enumApi.loadBracketNum()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

@@ -119,5 +119,6 @@ annotation class ActionCode {
         const val BLOOD = 51
         const val BLOODPRESSURE = 52
         const val PGB = 53
+        const val OPERATION = 54
     }
 }

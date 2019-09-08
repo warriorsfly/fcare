@@ -68,6 +68,14 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     "selectPatientOutcom" -> firstList.adapter = adapter
                     "selectSelectKillip" -> firstList.adapter = adapter
                     "selectSelectNYHA" -> firstList.adapter = adapter
+                    "Route" -> firstList.adapter = adapter
+                    "InfarctPosition" -> firstList.adapter = adapter
+                    "NarrowLevel" -> firstList.adapter = adapter
+                    "NarrowPosition" -> firstList.adapter = adapter
+                    "IntracavityImage" -> firstList.adapter = adapter
+                    "FunctionTest" -> firstList.adapter = adapter
+                    "BracketNum" -> firstList.adapter = adapter
+                    "Complication" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -92,6 +100,14 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "selectSelectKillip" -> title="选择Killip分级"
             "selectSelectNYHA" -> title="选择NYHA分级"
             "COMPLAINTS" -> title="主诉"
+            "Route" -> title="入路"
+            "InfarctPosition" -> title="选择梗死相关动脉部位"
+            "NarrowLevel" -> title="选择狭窄程度"
+            "NarrowPosition" -> title="选择非罪犯血管病变部位"
+            "IntracavityImage" -> title="选择腔内影像"
+            "FunctionTest" -> title="选择功能检测"
+            "BracketNum" -> title="选择植入支架个数"
+            "Complication" -> title="选择术中并发症"
         }
 
 
@@ -146,7 +162,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("COMPLAINTS")) menuInflater.inflate(R.menu.menu_subject,menu)
+        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("COMPLAINTS")||comFrom.equals("InfarctPosition")||comFrom.equals("NarrowPosition")||comFrom.equals("Complication")) menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
 
