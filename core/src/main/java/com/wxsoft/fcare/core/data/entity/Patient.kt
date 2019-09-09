@@ -328,7 +328,7 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
         }
 
 //    @Embedded
-    @Transient
+    @get:Bindable
     var attachments:List<Attachment> = emptyList()
 
     @get:Bindable
