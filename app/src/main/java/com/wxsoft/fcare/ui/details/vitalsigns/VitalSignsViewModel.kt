@@ -104,7 +104,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
             loadPatientResult.value = inf
         },::error))
         if(id.isEmpty()) {
-            disposable.add(dictEnumApi.loadConsciousness().toResource()
+            disposable.add(dictEnumApi.loadConsciousness(patientId).toResource()
                 .doOnSuccess { loadConsciousnessResult.value = it }
                 .flatMap { vitalSignApi.list(patientId).toResource() }
                 .subscribe { vi ->
@@ -131,7 +131,7 @@ class VitalSignsViewModel @Inject constructor(private val vitalSignApi: VitalSig
                     }
                 })
         }else{
-            disposable.add(dictEnumApi.loadConsciousness().toResource()
+            disposable.add(dictEnumApi.loadConsciousness(patientId).toResource()
                 .doOnSuccess { loadConsciousnessResult.value = it }
                 .flatMap {
                     vitalSignApi.getOne(id).toResource() }

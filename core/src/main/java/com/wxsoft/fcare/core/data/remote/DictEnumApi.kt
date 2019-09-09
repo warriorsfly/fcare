@@ -43,8 +43,8 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/28")
     fun loadDict28Diagnosis(): Maybe<List<Dictionary>>
 
-    @GET("EnumDic/enumItems/20")
-    fun loadConsciousness(): Maybe<List<Dictionary>>
+    @GET("EnumDic/enumItems/20/{patientId}")
+    fun loadConsciousness(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
     @GET("EnumDic/enumItems/238")
     fun loadloadAdress(): Maybe<List<Dictionary>>
