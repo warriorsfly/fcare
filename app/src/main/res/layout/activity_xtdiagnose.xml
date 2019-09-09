@@ -137,7 +137,7 @@
 							android:id="@+id/line2"
 							app:goneUnless="@{viewModel.diagnosis.notice_Imcd?(viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-8`)):(viewModel.diagnosis.diagnosisCode2.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2.equals(`4-8`))}"
 							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/line5"
+							app:layout_constraintTop_toBottomOf="@+id/line4"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content">
 
@@ -207,14 +207,6 @@
 							app:layout_constraintTop_toBottomOf="@+id/line2"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content">
-						<TextView
-								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintBottom_toBottomOf="parent"
-								app:layout_constraintRight_toLeftOf="@+id/title3_1"
-								android:text="*"
-								android:textColor="@color/patient_nothing_known"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"/>
 
 						<TextView
 								android:id="@+id/title3_1"
@@ -331,58 +323,58 @@
 
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
-					<androidx.constraintlayout.widget.ConstraintLayout
-							android:id="@+id/line5"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/line4"
-							android:layout_width="match_parent"
-							android:layout_height="wrap_content">
-						<TextView
-								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintBottom_toBottomOf="parent"
-								app:layout_constraintRight_toLeftOf="@+id/title5_1"
-								android:text="*"
-								android:textColor="@color/patient_nothing_known"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"/>
-						<TextView
-								android:id="@+id/title5_1"
-								app:layout_constraintLeft_toLeftOf="parent"
-								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintBottom_toBottomOf="parent"
-								android:layout_marginTop="17.5dp"
-								android:layout_marginLeft="15dp"
-								android:layout_marginBottom="17.5dp"
-								android:text="医生"
-								android:textSize="16sp"
-								android:textColor="@color/small_title_text_gray"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"/>
+<!--					<androidx.constraintlayout.widget.ConstraintLayout-->
+<!--							android:id="@+id/line5"-->
+<!--							app:layout_constraintLeft_toLeftOf="parent"-->
+<!--							app:layout_constraintTop_toBottomOf="@+id/line4"-->
+<!--							android:layout_width="match_parent"-->
+<!--							android:layout_height="wrap_content">-->
+<!--						<TextView-->
+<!--								app:layout_constraintTop_toTopOf="parent"-->
+<!--								app:layout_constraintBottom_toBottomOf="parent"-->
+<!--								app:layout_constraintRight_toLeftOf="@+id/title5_1"-->
+<!--								android:text="*"-->
+<!--								android:textColor="@color/patient_nothing_known"-->
+<!--								android:layout_width="wrap_content"-->
+<!--								android:layout_height="wrap_content"/>-->
+<!--						<TextView-->
+<!--								android:id="@+id/title5_1"-->
+<!--								app:layout_constraintLeft_toLeftOf="parent"-->
+<!--								app:layout_constraintTop_toTopOf="parent"-->
+<!--								app:layout_constraintBottom_toBottomOf="parent"-->
+<!--								android:layout_marginTop="17.5dp"-->
+<!--								android:layout_marginLeft="15dp"-->
+<!--								android:layout_marginBottom="17.5dp"-->
+<!--								android:text="医生"-->
+<!--								android:textSize="16sp"-->
+<!--								android:textColor="@color/small_title_text_gray"-->
+<!--								android:layout_width="wrap_content"-->
+<!--								android:layout_height="wrap_content"/>-->
 
-						<EditText android:layout_width="0dp"
-								android:layout_height="wrap_content"
-								android:id="@+id/et_5"
-								android:textSize="16sp"
-								android:hint="请填写医生"
-								android:text="@={viewModel.doctorName}"
-								android:gravity="right"
-								android:imeOptions="actionNext"
-								android:background="@null"
-								android:layout_marginRight="52dp"
-								android:layout_marginLeft="15dp"
-								app:layout_constraintLeft_toRightOf="@+id/title5_1"
-								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintBottom_toBottomOf="parent"
-								app:layout_constraintRight_toRightOf="parent" />
+<!--						<EditText android:layout_width="0dp"-->
+<!--								android:layout_height="wrap_content"-->
+<!--								android:id="@+id/et_5"-->
+<!--								android:textSize="16sp"-->
+<!--								android:hint="请填写医生"-->
+<!--								android:text="@={viewModel.doctorName}"-->
+<!--								android:gravity="right"-->
+<!--								android:imeOptions="actionNext"-->
+<!--								android:background="@null"-->
+<!--								android:layout_marginRight="52dp"-->
+<!--								android:layout_marginLeft="15dp"-->
+<!--								app:layout_constraintLeft_toRightOf="@+id/title5_1"-->
+<!--								app:layout_constraintTop_toTopOf="parent"-->
+<!--								app:layout_constraintBottom_toBottomOf="parent"-->
+<!--								app:layout_constraintRight_toRightOf="parent" />-->
 
-						<View
-								android:background="#EDEDED"
-								android:layout_marginBottom="1dp"
-								app:layout_constraintBottom_toBottomOf="parent"
-								android:layout_width="match_parent"
-								android:layout_height="1dp"/>
+<!--						<View-->
+<!--								android:background="#EDEDED"-->
+<!--								android:layout_marginBottom="1dp"-->
+<!--								app:layout_constraintBottom_toBottomOf="parent"-->
+<!--								android:layout_width="match_parent"-->
+<!--								android:layout_height="1dp"/>-->
 
-					</androidx.constraintlayout.widget.ConstraintLayout>
+<!--					</androidx.constraintlayout.widget.ConstraintLayout>-->
 
 
 
