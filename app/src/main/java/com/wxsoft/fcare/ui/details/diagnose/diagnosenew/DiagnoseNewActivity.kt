@@ -125,9 +125,9 @@ class DiagnoseNewActivity : BaseTimingActivity() {
             }
             startActivityForResult(intent, ActionCode.RATING)
         }
-        line13.setOnClickListener {
-            toInformedConsent()
-        }
+//        line13.setOnClickListener {
+//            toInformedConsent()
+//        }
 
         viewModel.saveResult.observe(this, Observer {
             if (it.equals("success")){
