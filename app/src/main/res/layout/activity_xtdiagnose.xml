@@ -43,7 +43,7 @@
 							android:paddingTop="15dp"
 							android:paddingBottom="15dp"
 							android:textSize="16sp"
-							android:text="诊断"
+							android:text="胸痛诊室/急诊内科/院内发病"
 							android:textColor="@color/small_title_text_gray"
 							android:background="#E7E4F2"
 							android:layout_width="match_parent"
