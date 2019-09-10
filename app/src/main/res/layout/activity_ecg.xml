@@ -228,18 +228,19 @@
 									app:layout_constraintTop_toTopOf="@id/egg_title"
 									app:layout_constraintBottom_toBottomOf="@id/egg_title"
 									android:text="FMC2ECG:"
-									app:goneUnless="@{viewModel.ecg.time!=null}"
+									app:goneUnless="@{viewModel.pre?false:viewModel.ecg.time!=null}"
 									android:textColor="#525252"
 									android:gravity="right|center_vertical"
 									android:layout_width="0dp"
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									goneUnless="@{!viewModel.pre}"
 									app:layout_constraintRight_toRightOf="parent"
 									app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
 									android:layout_margin="10dp"
 									android:id="@+id/ecg"
-									app:goneUnless="@{viewModel.ecg.time!=null}"
+									app:goneUnless="@{viewModel.pre?false:viewModel.ecg.time!=null}"
 									android:text="@{FloatConverter.floatToString(viewModel.ecg.fmC2ECG)+`分钟`}"
 									android:hint="3分钟"
 									android:textColor="#999999"
@@ -286,6 +287,7 @@
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									goneUnless="@{!viewModel.pre}"
 									app:layout_constraintRight_toLeftOf="@id/fm2egg"
 									app:layout_constraintTop_toTopOf="@id/fmc2egg_title"
 									app:layout_constraintBottom_toBottomOf="@id/fmc2egg_title"
@@ -296,6 +298,7 @@
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									goneUnless="@{!viewModel.pre}"
 									app:layout_constraintRight_toRightOf="parent"
 									app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"
 									android:layout_margin="10dp"
