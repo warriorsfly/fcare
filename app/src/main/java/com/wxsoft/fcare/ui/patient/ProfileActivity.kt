@@ -305,11 +305,11 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
                 }
             }
         }
-        line101.apply {
-            setOnClickListener {
-                toSelectCardType()
-            }
-        }
+//        line101.apply {
+//            setOnClickListener {
+//                toSelectCardType()
+//            }
+//        }
 
 
 

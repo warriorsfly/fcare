@@ -137,7 +137,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
 
     private fun doPatient(response:Response<Patient>){
         loadPatientResult.value=response.apply {  result?.let {
-            it.timing=it.currentScene<"223-4"
+             it.timing=true
         } }
 
         disposable.add(patientApi.getServerDateTime()
