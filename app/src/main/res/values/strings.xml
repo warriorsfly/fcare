@@ -96,7 +96,7 @@
 	</string>
 	<string name="title_comingby_arrived_hospital"><font color="red">*</font>到达本院大门时间
 	</string>
-	<string name="title_comingby_inhospital_accept"><font color="red">*</font>院内接诊时间(FMC/分诊)
+	<string name="title_comingby_inhospital_accept"><font color="red">*</font>院内接诊时间
 	</string>
 	<string name="title_comingby_outhospital_intime"><font color="red">*</font>转出医院入门时间
 	</string>

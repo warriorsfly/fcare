@@ -42,7 +42,7 @@ class XTDiagnoseActivity : BaseTimingActivity() {
             R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = DateTimeUtils.formatter.format(millseconds)
             R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = DateTimeUtils.formatter.format(millseconds)
             R.id.trans_time2 -> viewModel.diagnosis.value?.notice_imcd_Time = DateTimeUtils.formatter.format(millseconds)
-            R.id.start103 -> viewModel.diagnosis.value?.consultation_Date = DateTimeUtils.formatter.format(millseconds)
+//            R.id.start103 -> viewModel.diagnosis.value?.consultation_Date = DateTimeUtils.formatter.format(millseconds)
             R.id.start104 -> viewModel.diagnosis.value?.diagnosis_Time_Imcd = DateTimeUtils.formatter.format(millseconds)
         }
     }
@@ -108,9 +108,9 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 line101.setOnClickListener {
                     showDatePicker(findViewById(R.id.trans_time2))
                 }
-                line103.setOnClickListener {
-                    showDatePicker(findViewById(R.id.start103))
-                }
+//                line103.setOnClickListener {
+//                    showDatePicker(findViewById(R.id.start103))
+//                }
                 line104.setOnClickListener {
                     showDatePicker(findViewById(R.id.start104))
                 }
