@@ -48,6 +48,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
+import com.wxsoft.fcare.ui.details.trajectory.TrajectoryActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity.Companion.SHARE
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
@@ -225,6 +226,13 @@ class WorkingActivity : BaseActivity() {
                         .apply {
                             putExtra(TimePointActivity.PATIENT_ID, patientId)
                             putExtra("just_error", true)
+                        }
+                    startActivityForResult(intent, TimePointActivity.BASE_INFO)
+                }
+                timeline_in_hospital.setOnClickListener {
+                    val intent = Intent(this@WorkingActivity, TrajectoryActivity::class.java)
+                        .apply {
+                            putExtra(TrajectoryActivity.PATIENT_ID, patientId)
                         }
                     startActivityForResult(intent, TimePointActivity.BASE_INFO)
                 }

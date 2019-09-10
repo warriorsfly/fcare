@@ -333,18 +333,6 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
-<!--							<TextView-->
-<!--									app:layout_constraintRight_toRightOf="parent"-->
-<!--									app:layout_constraintBaseline_toBaselineOf="@id/memo_property_title"-->
-<!--									android:layout_margin="16dp"-->
-<!--									android:textSize="16sp"-->
-<!--									android:text="添加判读"-->
-<!--									android:id="@+id/start"-->
-<!--									goneUnless="@{viewModel.ecg.id.length>0}"-->
-<!--									android:textColor="@color/colorPrimary"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
 							<View
 									android:id="@+id/memo_title_line"
 									app:layout_constraintLeft_toLeftOf="parent"

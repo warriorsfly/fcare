@@ -75,6 +75,8 @@ import com.wxsoft.fcare.ui.details.strategy.FastModule
 import com.wxsoft.fcare.ui.details.thrombolysis.SelectDoctorActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisModule
+import com.wxsoft.fcare.ui.details.trajectory.TrajectoryActivity
+import com.wxsoft.fcare.ui.details.trajectory.TrajectoryModule
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.VitalSignsModule
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
@@ -399,5 +401,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [BloodChartModule::class])
     internal abstract fun bloodChartActivity(): BloodChartActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [TrajectoryModule::class])
+    internal abstract fun trajectoryActivity(): TrajectoryActivity
 
 }

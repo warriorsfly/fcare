@@ -11,23 +11,18 @@
 		%1s 病况
 	</string>
 	<string name="onboarding_get_started" translation_description="开始咯">开始</string>
-	<string name="onboarding_welcome_to_google_i_o"
-	        translation_description="The welcome message shown at the onboarding screen of the app.">欢迎来到五线急救
+	<string name="onboarding_welcome_to_google_i_o" translation_description="The welcome message shown at the onboarding screen of the app.">欢迎来到五线急救
 	</string>
-	<string name="onboarding_watch_live"
-	        translation_description="The explanation title of the feature where user can watch I/O sessions by live stream.">
+	<string name="onboarding_watch_live" translation_description="The explanation title of the feature where user can watch I/O sessions by live stream.">
 		提升急诊 效率
 	</string>
-	<string name="onboarding_join_online"
-	        translation_description="The explanation of the feature where user can watch I/O sessions by live stream.">
+	<string name="onboarding_join_online" translation_description="The explanation of the feature where user can watch I/O sessions by live stream.">
 		加入我们开启，急救物联时代
 	</string>
-	<string name="onboarding_build_schedule"
-	        translation_description="The explanation title of the feature where user can choose which sessions to attend.">
+	<string name="onboarding_build_schedule" translation_description="The explanation title of the feature where user can choose which sessions to attend.">
 		开始
 	</string>
-	<string name="onboarding_build_sched_benefits"
-	        translation_description="The explanation of the feature where user can choose which sessions to attend.">
+	<string name="onboarding_build_sched_benefits" translation_description="The explanation of the feature where user can choose which sessions to attend.">
 		Build your custom I/O experience and reserve seats if you\'re an attendee
 	</string>
 	<string name="action_edit_base_info">编辑</string>
