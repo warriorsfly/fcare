@@ -177,6 +177,11 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     fun changePre(){
         pre.set(!pre.get())
     }
+
+    fun clearConsultationTime(){
+        ecg.value?.tran_Date=""
+    }
+
     fun diagnose(){
 
         if(selectedEcgDiagnosis.size==0){

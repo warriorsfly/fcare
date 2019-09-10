@@ -49,8 +49,7 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
         when(selectedId){
             R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
             R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
-            R.id.recept_time1 -> viewModel.ecg.value?.tran_Date = DateTimeUtils.formatter.format(millseconds)
-            R.id.trans_time2 -> viewModel.ecg.value?.remote_Ecg_Tran_Date = DateTimeUtils.formatter.format(millseconds)
+            R.id.trans_time_title -> viewModel.ecg.value?.tran_Date = DateTimeUtils.formatter.format(millseconds)
         }
         val files=viewModel.bitmaps.map { File(it).let {
                 file->
@@ -164,11 +163,8 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             fmc2eggTitle.setOnClickListener{
                 showDatePicker(findViewById(R.id.fmc2egg_title))
             }
-            model3_7.setOnClickListener {
-                showDatePicker(findViewById(R.id.recept_time1))
-            }
-            model100.setOnClickListener {
-                showDatePicker(findViewById(R.id.trans_time2))
+            transTimeTitle.setOnClickListener{
+                showDatePicker(findViewById(R.id.trans_time_title))
             }
 
             lifecycleOwner = this@EcgActivity
