@@ -75,7 +75,7 @@ class OperationActivity : BaseActivity() {
                 lifecycleOwner = this@OperationActivity
             }
         setSupportActionBar(toolbar)
-        title="介入手术"
+        title="介入详情"
         patientId=intent.getStringExtra(VitalSignsActivity.PATIENT_ID)?:""
         viewModel.patientId = patientId
 
