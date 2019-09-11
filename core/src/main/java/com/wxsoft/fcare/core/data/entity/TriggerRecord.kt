@@ -57,4 +57,17 @@ data class TriggerRecord (val id:String=""): BaseObservable() {
             notifyPropertyChanged(BR.pass)
         }
 
+    fun getTime1():String{
+        return inTime?.substring(11,16)?:"--:--"
+    }
+    fun getTime2():String{
+        return outTime?.substring(11,16)?:"--:--"
+    }
+    fun getAllCostTime():String{
+        return costTime?.toString()
+    }
+    fun getDate():String{
+        return inTime?.substring(0,10)?:"--:--"
+    }
+
 }

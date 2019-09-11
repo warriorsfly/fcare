@@ -14,4 +14,9 @@ data class TravelTimeLine (val id:String=""): BaseObservable() {
             notifyPropertyChanged(BR.patientInfoDto)
         }
     var triggerRecordLists:List<TriggerRecord> = emptyList()
+
+    fun getDate():String?{
+        return triggerRecordLists.first().getDate()
+    }
+
 }

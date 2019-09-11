@@ -24,6 +24,8 @@
     <color name="bg_light_yellow">#FAE631</color>
     <color name="diagnose_light_yellow">#FCA542</color>
     <color name="lable_font">#525252</color>
+    <color name="color_light_gray">#E6E6E6</color>
+    <color name="color_green">#24BF5C</color>
 
 
     <color name="black_overlay">#66000000</color>

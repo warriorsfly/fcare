@@ -2,6 +2,7 @@ package com.wxsoft.fcare.ui.details.trajectory
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -25,19 +26,28 @@ class TrajectoryActivity : BaseActivity() {
 
     lateinit var binding: ActivityTrajectoryBinding
 
-    lateinit var adapter: StrategyAdapter
+    private lateinit var adapter: TrajectoryAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         viewModel = viewModelProvider(factory)
         binding = DataBindingUtil.setContentView<ActivityTrajectoryBinding>(this, R.layout.activity_trajectory)
             .apply {
+                adapter = TrajectoryAdapter(this@TrajectoryActivity)
+                list.adapter = this@TrajectoryActivity.adapter
                 lifecycleOwner = this@TrajectoryActivity
             }
+
         patientId=intent.getStringExtra(MeasuresActivity.PATIENT_ID)?:""
+        binding.viewModel = viewModel
         viewModel.patientId = patientId
 
-        binding.viewModel = viewModel
+        viewModel.travelTimeLine.observe(this, Observer {
+            adapter.submitList(it.triggerRecordLists)
+        })
+
+
         setSupportActionBar(toolbar)
         title="院内节点"
     }
