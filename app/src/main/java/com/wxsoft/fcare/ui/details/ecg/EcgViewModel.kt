@@ -16,6 +16,7 @@ import com.wxsoft.fcare.core.data.remote.ECGApi
 import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
+import id.zelory.compressor.Compressor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
@@ -84,6 +85,17 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doEcg,::error))
+
+    }
+
+    fun updateECGTime(dateTime:String?,flag:Int){
+        disposable.add(api.updateECGTime(patientId,dateTime,flag,if(pre.get())1 else 2)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::update,::error))
+
+    }
+    private fun update(response: Response<Int>){
 
     }
 
@@ -180,6 +192,7 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
 
     fun clearConsultationTime(){
         ecg.value?.tran_Date=""
+        updateECGTime("null",3)
     }
 
     fun diagnose(){

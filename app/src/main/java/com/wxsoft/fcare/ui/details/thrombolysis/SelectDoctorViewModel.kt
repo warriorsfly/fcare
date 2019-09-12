@@ -38,7 +38,7 @@ class SelectDoctorViewModel @Inject constructor(private val doctorApi:TaskApi,
             loadConsultantDoctors.value=response
         }
 
-        disposable.add(doctorApi.getConsultantDoctor(account.id,id)
+        disposable.add(doctorApi.getEmergencyNurse(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doDoctor2,::error))

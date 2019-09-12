@@ -46,20 +46,31 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
     override fun selectTime(millseconds: Long) {
 
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        var dateTime = DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
-            R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
-            R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
+            R.id.egg_title -> {
+                viewModel.ecg.value?.time = dateTime
+                viewModel.updateECGTime(dateTime,1)
+            }
+            R.id.fmc2egg_title -> {
+                viewModel.ecg.value?.diagnosedAt = dateTime
+                viewModel.updateECGTime(dateTime,2)
+            }
+            R.id.trans_time_title -> {
+                viewModel.ecg.value?.tran_Date =  dateTime
+                viewModel.updateECGTime(dateTime,3)
+            }
         }
-        val files=viewModel.bitmaps.map { File(it).let {
-                file->
-            Compressor(this@EcgActivity)
-                .setMaxWidth(1280)
-                .setMaxHeight(1280)
-                .setQuality(75).compressToFile(file)
-        } }
-        if (checkOutPatientId()){
-            viewModel.saveEcg(files)
-        }
+//        val files=viewModel.bitmaps.map { File(it).let {
+//                file->
+//            Compressor(this@EcgActivity)
+//                .setMaxWidth(1280)
+//                .setMaxHeight(1280)
+//                .setQuality(75).compressToFile(file)
+//        } }
+//        if (checkOutPatientId()){
+//            viewModel.saveEcg(files)
+//        }
 
     }
 
@@ -161,6 +172,9 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
             }
             fmc2eggTitle.setOnClickListener{
                 showDatePicker(findViewById(R.id.fmc2egg_title))
+            }
+            transTimeTitle.setOnClickListener{
+                showDatePicker(findViewById(R.id.trans_time_title))
             }
             lifecycleOwner = this@EcgActivity
         }
