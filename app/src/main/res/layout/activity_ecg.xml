@@ -199,10 +199,9 @@
 
 							<TextView
 									android:id="@+id/egg_title"
-									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintLeft_toRightOf="@+id/title_egg"
 									app:layout_constraintTop_toBottomOf="@id/egg_line"
 									android:layout_marginTop="10dp"
-									android:layout_marginLeft="50dp"
 									android:layout_marginBottom="10dp"
 									android:layout_marginRight="10dp"
 									android:hint="请选择时间"
@@ -212,11 +211,13 @@
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 							<TextView
+									android:id="@+id/title_egg"
 									app:goneUnless="@{viewModel.ecg.time!=null}"
 									app:layout_constraintTop_toTopOf="@+id/egg_title"
 									app:layout_constraintBottom_toBottomOf="@+id/egg_title"
-									app:layout_constraintRight_toLeftOf="@+id/egg_title"
-									android:text="@string/string_ecg_create_time"
+									android:layout_marginLeft="10dp"
+									app:layout_constraintLeft_toLeftOf="parent"
+									android:text="@{viewModel.pre?`首份心电图：`:@string/string_ecg_create_time}"
 									android:layout_marginRight="5dp"
 									android:textColor="#999999"
 									android:layout_width="wrap_content"
@@ -227,18 +228,19 @@
 									app:layout_constraintTop_toTopOf="@id/egg_title"
 									app:layout_constraintBottom_toBottomOf="@id/egg_title"
 									android:text="FMC2ECG:"
-									app:goneUnless="@{viewModel.ecg.time!=null}"
+									app:goneUnless="@{viewModel.pre?false:viewModel.ecg.time!=null}"
 									android:textColor="#525252"
 									android:gravity="right|center_vertical"
 									android:layout_width="0dp"
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									goneUnless="@{!viewModel.pre}"
 									app:layout_constraintRight_toRightOf="parent"
 									app:layout_constraintBaseline_toBaselineOf="@id/egg_title"
 									android:layout_margin="10dp"
 									android:id="@+id/ecg"
-									app:goneUnless="@{viewModel.ecg.time!=null}"
+									app:goneUnless="@{viewModel.pre?false:viewModel.ecg.time!=null}"
 									android:text="@{FloatConverter.floatToString(viewModel.ecg.fmC2ECG)+`分钟`}"
 									android:hint="3分钟"
 									android:textColor="#999999"
@@ -246,10 +248,13 @@
 									android:layout_width="0dp"
 									android:layout_height="wrap_content"/>
 
+
+
+
 							<View
 									android:id="@+id/fmc2egg_line"
 									app:layout_constraintLeft_toLeftOf="parent"
-									app:layout_constraintTop_toBottomOf="@id/egg_title"
+									app:layout_constraintTop_toBottomOf="@id/trans_time_title"
 									android:layout_width="match_parent"
 									android:layout_marginTop="16dp"
 									android:background="@color/line_gray"
@@ -257,11 +262,10 @@
 
 							<TextView
 									android:id="@+id/fmc2egg_title"
-									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintLeft_toRightOf="@+id/title_fmc2egg"
 									app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"
 									app:layout_constraintBottom_toBottomOf="parent"
 									android:layout_marginTop="10dp"
-									android:layout_marginLeft="50dp"
 									android:layout_marginBottom="10dp"
 									android:layout_marginRight="10dp"
 									android:text="@{viewModel.ecg.diagnosedAt}"
@@ -271,16 +275,19 @@
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									android:id="@+id/title_fmc2egg"
+									android:layout_marginLeft="10dp"
 									app:layout_constraintTop_toTopOf="@+id/fmc2egg_title"
 									app:layout_constraintBottom_toBottomOf="@+id/fmc2egg_title"
-									app:layout_constraintRight_toLeftOf="@+id/fmc2egg_title"
-									android:text="@string/string_ecg_d_time"
+									app:layout_constraintLeft_toLeftOf="parent"
+									android:text="@{viewModel.pre?`确诊时间：`:@string/string_ecg_d_time}"
 									android:layout_marginRight="5dp"
 									android:textColor="#999999"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									goneUnless="@{!viewModel.pre}"
 									app:layout_constraintRight_toLeftOf="@id/fm2egg"
 									app:layout_constraintTop_toTopOf="@id/fmc2egg_title"
 									app:layout_constraintBottom_toBottomOf="@id/fmc2egg_title"
@@ -291,6 +298,7 @@
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									goneUnless="@{!viewModel.pre}"
 									app:layout_constraintRight_toRightOf="parent"
 									app:layout_constraintBaseline_toBaselineOf="@id/fmc2egg_title"
 									android:layout_margin="10dp"
@@ -301,6 +309,56 @@
 									android:gravity="right|center_vertical"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
+
+							<View
+									goneUnless="@{viewModel.pre}"
+									android:id="@+id/trans_Time_line"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toBottomOf="@id/egg_title"
+									android:layout_width="match_parent"
+									android:layout_marginTop="16dp"
+									android:background="@color/line_gray"
+									android:layout_height="0.5dp"/>
+
+							<TextView
+									goneUnless="@{viewModel.pre}"
+									android:id="@+id/trans_time_title"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toBottomOf="@id/trans_Time_line"
+									android:layout_marginTop="10dp"
+									android:layout_marginLeft="78dp"
+									android:layout_marginBottom="10dp"
+									android:layout_marginRight="10dp"
+									android:text="@{viewModel.ecg.tran_Date}"
+									android:hint="请选择时间"
+									android:textColor="#999999"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+
+							<ImageView
+									app:invisibleUnless="@{viewModel.ecg.tran_Date!=null}"
+									android:src="@drawable/ic_delete_white"
+									android:elevation="2dp"
+									android:tint="#C6C7C6"
+									android:onClick="@{()->viewModel.clearConsultationTime()}"
+									app:layout_constraintTop_toTopOf="@id/trans_time_title"
+									app:layout_constraintBottom_toBottomOf="@id/trans_time_title"
+									app:layout_constraintLeft_toRightOf="@id/trans_time_title"
+									android:layout_width="24dp"
+									android:layout_height="24dp"
+									android:padding="3dp"/>
+
+							<TextView
+									goneUnless="@{viewModel.pre}"
+									app:layout_constraintTop_toTopOf="@+id/trans_time_title"
+									app:layout_constraintBottom_toBottomOf="@+id/trans_time_title"
+									app:layout_constraintRight_toLeftOf="@+id/trans_time_title"
+									android:text="@string/string_ecg_tran_time"
+									android:layout_marginRight="5dp"
+									android:textColor="#999999"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+
 
 
 						</androidx.constraintlayout.widget.ConstraintLayout>
@@ -332,6 +390,18 @@
 									android:textSize="16sp"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
+
+							<!--							<TextView-->
+							<!--									app:layout_constraintRight_toRightOf="parent"-->
+							<!--									app:layout_constraintBaseline_toBaselineOf="@id/memo_property_title"-->
+							<!--									android:layout_margin="16dp"-->
+							<!--									android:textSize="16sp"-->
+							<!--									android:text="添加判读"-->
+							<!--									android:id="@+id/start"-->
+							<!--									goneUnless="@{viewModel.ecg.id.length>0}"-->
+							<!--									android:textColor="@color/colorPrimary"-->
+							<!--									android:layout_width="wrap_content"-->
+							<!--									android:layout_height="wrap_content"/>-->
 
 							<View
 									android:id="@+id/memo_title_line"
@@ -416,6 +486,9 @@
 									/>
 						</androidx.constraintlayout.widget.ConstraintLayout>
 					</com.google.android.material.card.MaterialCardView>
+
+
+
 				</androidx.constraintlayout.widget.ConstraintLayout>
 			</androidx.core.widget.NestedScrollView>
 		</androidx.constraintlayout.widget.ConstraintLayout>

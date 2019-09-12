@@ -88,4 +88,6 @@
 	</string>
 	<string name="title_profile_idcard_type"><font color="red">*</font>证件类型
 	</string>
+	<string name="string_ecg_tran_time"><font color="red">*</font>接收时间
+	</string>
 </resources>

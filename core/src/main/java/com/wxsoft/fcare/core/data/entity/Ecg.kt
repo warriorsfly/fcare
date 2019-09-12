@@ -20,6 +20,9 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
     @get:Bindable
     @SerializedName("ecgTime")
     var time:String?=null
+
+    @get:Bindable
+    var tran_Date:String?=null
     /**
      * 是否远程传输
      */
