@@ -86,8 +86,40 @@
 	</string>
 	<string name="string_ecg_d_time"><font color="red">*</font>报告:
 	</string>
+	<string name="string_ecg_tran_time"><font color="red">*</font>接收时间:
+	</string>
 	<string name="title_profile_idcard_type"><font color="red">*</font>证件类型
 	</string>
-	<string name="string_ecg_tran_time"><font color="red">*</font>接收时间
+	<string name="title_comingby_car"><font color="red">*</font>出车单位
+	</string>
+	<string name="title_comingby_call_time"><font color="red">*</font>呼救时间
+	</string>
+	<string name="title_comingby_first_touch"><font color="red">*</font>首次医疗接触时间
+	</string>
+	<string name="title_comingby_arrived_hospital"><font color="red">*</font>到达本院大门时间
+	</string>
+	<string name="title_comingby_inhospital_accept"><font color="red">*</font>院内接诊时间
+	</string>
+	<string name="title_comingby_outhospital_intime"><font color="red">*</font>转出医院入门时间
+	</string>
+	<string name="title_comingby_outhospital_decice"><font color="red">*</font>决定转院时间
+	</string>
+	<string name="title_comingby_outhospital_out"><font color="red">*</font>离开转出医院
+	</string>
+	<string name="title_comingby_changehospital_type"><font color="red">*</font>转院类型
+	</string>
+	<string name="title_comingby_indepart_touch"><font color="red">*</font>床位医生接触时间
+	</string>
+	<string name="title_comingby_indepart"><font color="red">*</font>发病科室
+	</string>
+	<string name="title_ecg_accept120_time"><font color="red">*</font>接收时间
+	</string>
+	<string name="title_ecg_trans_time"><font color="red">*</font>传输时间
+	</string>
+	<string name="title_xtdiagnose_noty_time"><font color="red">*</font>通知心内科会诊时间
+	</string>
+	<string name="title_xtdiagnose_killip"><font color="red">*</font>Killip分级
+	</string>
+	<string name="title_xtdiagnose_nyha"><font color="red">*</font>心脏纽约分级(NYHA)
 	</string>
 </resources>
