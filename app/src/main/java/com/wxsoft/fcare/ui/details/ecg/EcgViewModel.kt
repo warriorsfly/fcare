@@ -146,8 +146,8 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
             savable=false
             if(patientId.isEmpty()) {
                 patientId = this@EcgViewModel.patientId
-
             }
+            not_Trans = !(net_Transto_Basic||basic_Transto_Standard)
         }
         item?.let {
             uploadResult.value=true
@@ -177,22 +177,27 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
     fun changePre(){
         pre.set(!pre.get())
     }
+
+    fun clearConsultationTime(){
+        ecg.value?.tran_Date=""
+    }
+
     fun diagnose(){
 
         if(selectedEcgDiagnosis.size==0){
             messageAction.value= Event("请添加诊断提示")
             return
         }
-       ecg.value?.apply {
-           doctorId=account.id
-           doctorName=account.trueName
-           diagnoses=selectedEcgDiagnosis.map { EcgDiagnose("", it.id, it.itemName) }
-           disposable.add(
-               api.diagnosed(this)
-                   .subscribeOn(Schedulers.io())
-                   .observeOn(AndroidSchedulers.mainThread())
-                   .subscribe(::doDiagnosed, ::error)
-           )
-       }
+        ecg.value?.apply {
+            doctorId=account.id
+            doctorName=account.trueName
+            diagnoses=selectedEcgDiagnosis.map { EcgDiagnose("", it.id, it.itemName) }
+            disposable.add(
+                api.diagnosed(this)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(::doDiagnosed, ::error)
+            )
+        }
     }
 }
