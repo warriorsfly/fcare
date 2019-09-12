@@ -182,7 +182,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         val intent = Intent(this, TreatmentOptionsActivity::class.java).apply {
             putExtra(TreatmentOptionsActivity.TREATMENT_ID, viewModel.selectedTreatment.value?.strategyCode)
             putExtra(TreatmentOptionsActivity.CODE, viewModel.patient?.value?.diagnosisCode?:"")
-            putExtra(TreatmentOptionsActivity.diagnose_code, viewModel.patient?.value?.diagnosisCode?:"")
+            putExtra(TreatmentOptionsActivity.diagnose_code, viewModel.diagnosis?.value?.diagnosisCode2?:"")
         }
         startActivityForResult(intent, SELECT_TREATMENT)
     }
