@@ -38,7 +38,7 @@ class TreatmentOptionsViewModel @Inject constructor(private val dictEnumApi: Dic
         options = loadOptions.map { it?: emptyList()}
     }
 
-    fun loadTreatments(){
+    fun loadTreatments(id:String){
         code.get()?.let {
             disposable.add(
                 dictEnumApi.loadTreatments()

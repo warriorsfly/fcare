@@ -94,7 +94,6 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         loadDiagnosis.value = diagnosisTreatment.value?.diagnosis
         if (diagnosis.value?.doctorId.isNullOrEmpty())
         {
-
             doctorId.set(account.id)
             doctorName.set(account.trueName)
         }else{
