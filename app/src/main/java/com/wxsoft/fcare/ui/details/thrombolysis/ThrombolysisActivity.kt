@@ -47,6 +47,10 @@ class ThrombolysisActivity : BaseTimingActivity(){
                     DateTimeUtils.formatter.format(millseconds)
                 R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time =
                     DateTimeUtils.formatter.format(millseconds)
+                R.id.start1 -> viewModel.thrombolysis.value?.start_Agree_Time =
+                    DateTimeUtils.formatter.format(millseconds)
+                R.id.start1_1 -> viewModel.thrombolysis.value?.sign_Agree_Time =
+                    DateTimeUtils.formatter.format(millseconds)
             }
         }else{
             viewModel.itemForChangeTime.value?.excuteTime=DateTimeUtils.formatter.format(millseconds)
@@ -202,8 +206,8 @@ class ThrombolysisActivity : BaseTimingActivity(){
         viewModel.modifySome.observe(this, Observer {
             when(it){
                 "HidenDialog" ->placeDialog.dismiss()
-                "ModifyStartInformedTime" -> showDatePicker(findViewById(R.id.start_informed_time))
-                "ModifyEndInformedTime" -> showDatePicker(findViewById(R.id.end_informed_time))
+                "ModifyStartInformedTime" -> showDatePicker(findViewById(R.id.start1))
+                "ModifyEndInformedTime" -> showDatePicker(findViewById(R.id.start1_1))
                 "ModifyStartThromTime" -> showDatePicker(findViewById(R.id.start_thromboly_time))
                 "ModifyEndThromTime" -> showDatePicker(findViewById(R.id.end_thromboly_time))
                 "ModifyRadiographyTime" -> showDatePicker(findViewById(R.id.end_thromboly_radiography_time))

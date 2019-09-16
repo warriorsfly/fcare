@@ -31,8 +31,12 @@ class TrajectoryViewModel @Inject constructor(private val api: QualityControlApi
     val travelTimeLine: LiveData<TravelTimeLine>
     private val loadTravelTimeLine = MediatorLiveData<TravelTimeLine>()
 
+    val modefyStr: LiveData<String>
+    val loadModefyStr = MediatorLiveData<String>()
+
     init {
         travelTimeLine = loadTravelTimeLine.map { it?: TravelTimeLine("") }
+        modefyStr = loadModefyStr.map { it?:"" }
     }
 
     fun getTreaatment(){
