@@ -41,7 +41,7 @@ class TreatmentOptionsViewModel @Inject constructor(private val dictEnumApi: Dic
     fun loadTreatments(id:String){
         code.get()?.let {
             disposable.add(
-                dictEnumApi.loadTreatments()
+                dictEnumApi.loadTreatments(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe (::getData,::error))

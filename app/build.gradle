@@ -18,8 +18,8 @@ android {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 93
-        versionName "1.0.93"
+        versionCode 95
+        versionName "1.0.95"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         signingConfig signingConfigs.release

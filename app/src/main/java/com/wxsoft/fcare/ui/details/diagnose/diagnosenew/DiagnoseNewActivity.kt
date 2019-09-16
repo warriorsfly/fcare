@@ -39,6 +39,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         when(selectedId){
             R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = DateTimeUtils.formatter.format(millseconds)
             R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = DateTimeUtils.formatter.format(millseconds)
+            R.id.start100 -> viewModel.selectedTreatment.value?.actual_Intervention_Date = DateTimeUtils.formatter.format(millseconds)
         }
     }
 
@@ -93,6 +94,9 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                 }
                 line12.setOnClickListener {
                     showDatePicker(findViewById(R.id.start_12))
+                }
+                line100.setOnClickListener {
+                    showDatePicker(findViewById(R.id.start100))
                 }
                 line9.setOnClickListener {
                     toSelectTreatment()
@@ -152,6 +156,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
             }
         }
 
+
     }
 
 
@@ -204,8 +209,8 @@ class DiagnoseNewActivity : BaseTimingActivity() {
     }
 
     private fun  toInformedConsent(){
-        val title = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-1")) "PCI术前知情同意书" else "溶栓术前知情同意书"
-        val typeId = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-1")||viewModel.selectedTreatment.value?.strategyCode.equals("14-3")) "1" else "2"
+        val title = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-01")) "PCI术前知情同意书" else "溶栓术前知情同意书"
+        val typeId = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-01")||viewModel.selectedTreatment.value?.strategyCode.equals("14-3")) "1" else "2"
         val intent = Intent(this@DiagnoseNewActivity, AddInformedActivity::class.java).apply {
             putExtra(AddInformedActivity.PATIENT_ID,patientId)
             putExtra(AddInformedActivity.TITLE_NAME,title)
@@ -235,10 +240,13 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                             patientOutcom = "导管室"
                             viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
                                 patientId = this@DiagnoseNewActivity.patientId
-                                strategyCode = "14-1"
+                                strategyCode = "14-01"
                                 strategyCode_Name = "急诊PCI"
                                 memo = "group1"
                             }
+                        }else {
+                            handWay = ""
+                            patientOutcom = ""
                         }
                     }
                     viewModel.diagnosisTreatment.value?.diagnosis = diagnose.apply {

@@ -182,7 +182,7 @@
                 android:layout_marginRight="30dp"
                 android:padding="6dp"
                 android:textColor="@color/white"
-                android:src="@drawable/ic_work_space_complications"/>
+                android:src="@drawable/ic_timeline_in_hospital"/>
 
 
                 <com.google.android.material.card.MaterialCardView

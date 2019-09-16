@@ -106,7 +106,21 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 
+						<ImageView
+								app:invisibleUnless="@{viewModel.comingBy.emergencyNurse.trueName!=null}"
+								android:src="@drawable/ic_delete_white"
+								android:elevation="2dp"
+								android:tint="#C6C7C6"
+								android:onClick="@{()->viewModel.clearnurseName()}"
+								app:layout_constraintTop_toTopOf="@id/nursename"
+								app:layout_constraintBottom_toBottomOf="@id/nursename"
+								app:layout_constraintLeft_toRightOf="@id/nursename"
+								android:layout_width="24dp"
+								android:layout_height="24dp"
+								android:padding="3dp"/>
+
 						<TextView
+								android:id="@+id/nursename"
 								android:hint="请选择"
 								android:layout_marginRight="19dp"
 								android:layout_marginTop="15dp"

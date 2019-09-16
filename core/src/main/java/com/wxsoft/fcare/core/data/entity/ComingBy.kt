@@ -216,7 +216,7 @@ data class ComingBy(val id:String=""): BaseObservable() {
      */
     @Transient
     @Bindable
-    var emergencyNurse:User=User()
+    var emergencyNurse:User?=User()
       set(value) {
                 field = value
                 notifyPropertyChanged(BR.emergencyNurse)

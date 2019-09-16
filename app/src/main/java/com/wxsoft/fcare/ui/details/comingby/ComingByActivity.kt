@@ -175,8 +175,8 @@ class ComingByActivity : BaseTimingActivity() {
                                 it.emergencyDoctor.id= users?.get(0)?.id?:""
                             }
                             2->{
-                                it.emergencyNurse.trueName= users?.get(0)?.name?:""
-                                it.emergencyNurse.id= users?.get(0)?.id?:""
+                                it.emergencyNurse!!.trueName= users?.get(0)?.name?:""
+                                it.emergencyNurse!!.id= users?.get(0)?.id?:""
                             }
                             3->{
                                 viewModel.cdoctors=users?.map {

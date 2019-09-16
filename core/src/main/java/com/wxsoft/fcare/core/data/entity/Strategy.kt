@@ -34,6 +34,12 @@ data class Strategy (
             notifyPropertyChanged(BR.selectiveOrTransportTime)
         }
     @Bindable
+    var actual_Intervention_Date: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.actual_Intervention_Date)
+        }
+    @Bindable
     var otherTreatmentMeasure: String = ""
         set(value) {
             field = value

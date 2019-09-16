@@ -189,6 +189,13 @@ class ComingByViewModel @Inject constructor(
     fun clearConsultationTime(){
         comingBy.value?.consultation_Time=null
     }
+    fun clearnurseName(){
+        comingBy.value?.emergencyNurse=null
+        comingBy.value?.comingWayStaffs = comingBy.value?.comingWayStaffs!!.filter {
+            it.staffType != "2"
+        }
+    }
+
 
 
     fun save() {
@@ -230,9 +237,9 @@ class ComingByViewModel @Inject constructor(
                 if (emergencyDoctor.id.isNotEmpty())
                     d2 = ComingByStaff(comingWayId = id, staffType = "2")
             }
-            if (d2?.staffId != emergencyNurse.id) {
-                d2?.staffId = emergencyNurse.id
-                d2?.staffName = emergencyNurse.trueName
+            if ((d2?.staffId != emergencyNurse?.id)&&(emergencyNurse != null)) {
+                d2?.staffId = emergencyNurse!!.id
+                d2?.staffName = emergencyNurse!!.trueName
             }
 
             val d3 = this@ComingByViewModel.cdoctors.map {
