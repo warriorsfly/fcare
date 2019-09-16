@@ -85,11 +85,6 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadPatientOutcom()
                     clickAlone = true
                 }
-
-                "selectPatientOutcom" ->{
-                    loadComplaints()
-                    clickAlone = true
-                }
                 "CardType" ->{
                     loadCardType()
                     clickAlone = true
@@ -126,6 +121,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadComplication()
                     clickAlone = false
                 }
+                "selectComplication" ->{
+                    loadComplications()
+                    clickAlone = false
+                }
                 "NarrowLevel" ->{
                     loadNarrowLevel()
                     clickAlone = true
@@ -140,6 +139,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                 }
                 "BracketNum" ->{
                     loadBracketNum()
+                    clickAlone = true
+                }
+                "selectRiskFactors" ->{
+                    loadRiskFactors()
                     clickAlone = true
                 }
             }
@@ -233,6 +236,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))
     }
+    private fun loadComplications(){
+        disposable.add(enumApi.loadComplications()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
     private fun loadNarrowLevel(){
         disposable.add(enumApi.loadNarrowLevel()
             .subscribeOn(Schedulers.io())
@@ -253,6 +262,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     private fun loadBracketNum(){
         disposable.add(enumApi.loadBracketNum()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadRiskFactors(){
+        disposable.add(enumApi.loadRiskFactors()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

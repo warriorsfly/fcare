@@ -76,6 +76,8 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     "FunctionTest" -> firstList.adapter = adapter
                     "BracketNum" -> firstList.adapter = adapter
                     "Complication" -> firstList.adapter = adapter
+                    "selectComplication" -> firstList.adapter = adapter
+                    "selectRiskFactors" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -108,6 +110,8 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "FunctionTest" -> title="选择功能检测"
             "BracketNum" -> title="选择植入支架个数"
             "Complication" -> title="选择术中并发症"
+            "selectComplication" -> title="选择合并症"
+            "selectRiskFactors" -> title="选择危险因素"
         }
 
 
@@ -162,7 +166,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("COMPLAINTS")||comFrom.equals("InfarctPosition")||comFrom.equals("NarrowPosition")||comFrom.equals("Complication")) menuInflater.inflate(R.menu.menu_subject,menu)
+        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("COMPLAINTS")||comFrom.equals("InfarctPosition")||comFrom.equals("NarrowPosition")||comFrom.equals("Complication")||comFrom.equals("selectComplication")) menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
 

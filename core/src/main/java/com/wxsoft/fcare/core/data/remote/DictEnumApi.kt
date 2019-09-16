@@ -82,8 +82,14 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/258")
     fun loadBracketNum(): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/251")
+    fun loadRiskFactors(): Maybe<List<Dictionary>>
+
     @GET("EnumDic/enumItems/259")
     fun loadComplication(): Maybe<List<Dictionary>>
+
+    @GET("EnumDic/enumItems/224")
+    fun loadComplications(): Maybe<List<Dictionary>>
 
     @GET("EnumDic/enumItems/7")
     fun loadKillip(): Maybe<List<Dictionary>>
@@ -167,7 +173,7 @@ interface DictEnumApi {
     /**
      * 并发症
      */
-    @GET("EnumDic/enumItems/224/{patientId}")
+    @GET("EnumDic/enumItems/259/{patientId}")
     fun loadComplication(@Path("patientId")patientId:String): Maybe<List<Dictionary>>
 
     /**

@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Diagnosis
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -20,6 +21,7 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDischargeBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -52,6 +54,8 @@ class DisChargeActivity : BaseTimingActivity(){
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val SELECTED_Complication = 200
+        const val SELECTED_RiskFactors = 300
     }
     private lateinit var viewModel: DisChargeViewModel
     private lateinit var binding: ActivityDischargeBinding
@@ -68,6 +72,8 @@ class DisChargeActivity : BaseTimingActivity(){
                 model1.setOnClickListener { showDatePicker(findViewById(R.id.start)) }
                 model5.setOnClickListener { showDatePicker(findViewById(R.id.content5)) }
                 model8.setOnClickListener { showDatePicker(findViewById(R.id.content9)) }
+                model10.setOnClickListener { toSelectComplication() }
+                model11.setOnClickListener { toSelectRiskFactors() }
                 viewModel = this@DisChargeActivity. viewModel
                 lifecycleOwner = this@DisChargeActivity
             }
@@ -97,6 +103,20 @@ class DisChargeActivity : BaseTimingActivity(){
     }
 
 
+    fun toSelectComplication(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "selectComplication")
+        }
+        startActivityForResult(intent, SELECTED_Complication)
+    }
+    fun toSelectRiskFactors(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "selectRiskFactors")
+        }
+        startActivityForResult(intent, SELECTED_RiskFactors)
+    }
     fun toSelectDiagnose(){
         val intent = Intent(this@DisChargeActivity, SelectDiagnoseActivity::class.java).apply {
             putExtra(SelectDiagnoseActivity.PATIENT_ID, patientId)
@@ -127,6 +147,16 @@ class DisChargeActivity : BaseTimingActivity(){
                     val diagnosis= data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
                     binding.diagnose.setText(diagnosis.diagnosisCode2Name + " " + diagnosis.diagnosisCode3Name)
                     viewModel.data.value?.diagnosis = diagnosis
+                }
+                SELECTED_Complication ->{
+                    val dics = data?.getSerializableExtra("SelectArray") as Array<Dictionary>
+                    viewModel.data.value?.complication = dics.map { it.id }.joinToString(",")
+                    viewModel.data.value?.complication_Name = dics.map { it.itemName }.joinToString(",")
+                }
+                SELECTED_RiskFactors ->{
+                    val place = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.data.value?.riskFactors_Name = place.itemName
+                    viewModel.data.value?.riskFactors = place.id
                 }
 
             }

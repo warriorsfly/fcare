@@ -46,7 +46,6 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             field = value
             notifyPropertyChanged(BR.diagnosisTime)
         }
-
     @Bindable
     @SerializedName("his_Bed_Doctor")
     var hisBedDoctor: String? = null
@@ -64,6 +63,33 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
         set(value) {
             field = value
             notifyPropertyChanged(BR.heartFailure)
+        }
+    //合并症  224
+    @Bindable
+    var complication: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.complication)
+        }
+    @Bindable
+    var complication_Name: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.complication_Name)
+        }
+
+   //危险因素 251
+    @Bindable
+    var riskFactors: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.riskFactors)
+        }
+    @Bindable
+    var riskFactors_Name:String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.riskFactors_Name)
         }
 
     /// <summary>
