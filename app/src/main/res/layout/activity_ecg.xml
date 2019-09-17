@@ -308,6 +308,7 @@
 									android:layout_height="wrap_content"/>
 
 							<View
+									goneUnless="@{viewModel.xtShow}"
 									android:id="@+id/trans_Time_line"
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toBottomOf="@id/fmc2egg_title"
@@ -317,6 +318,7 @@
 									android:layout_height="0.5dp"/>
 
 							<TextView
+									goneUnless="@{viewModel.xtShow}"
 									android:id="@+id/trans_time_title"
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toBottomOf="@id/trans_Time_line"
@@ -332,6 +334,7 @@
 									android:layout_height="wrap_content"/>
 
 							<ImageView
+									goneUnless="@{viewModel.xtShow}"
 									app:invisibleUnless="@{viewModel.ecg.tran_Date!=null}"
 									android:src="@drawable/ic_delete_white"
 									android:elevation="2dp"
@@ -345,6 +348,7 @@
 									android:padding="3dp"/>
 
 							<TextView
+									goneUnless="@{viewModel.xtShow}"
 									app:layout_constraintTop_toTopOf="@+id/trans_time_title"
 									app:layout_constraintBottom_toBottomOf="@+id/trans_time_title"
 									app:layout_constraintRight_toLeftOf="@+id/trans_time_title"

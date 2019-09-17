@@ -43,7 +43,7 @@ data class TriggerRecord (val id:String=""): BaseObservable() {
         }
 
     @Bindable
-    var costTime: Int = 0
+    var costTime: String? = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.costTime)
@@ -62,9 +62,6 @@ data class TriggerRecord (val id:String=""): BaseObservable() {
     }
     fun getTime2():String{
         return outTime?.substring(11,16)?:"--:--"
-    }
-    fun getAllCostTime():String{
-        return costTime?.toString()
     }
     fun getDate():String{
         return inTime?.substring(0,10)?:"--:--"

@@ -103,7 +103,7 @@
 				app:goneUnless="@{beforeEnd}"
 				android:id="@+id/cost_time"
 				tools:text="耗时8分钟"
-				android:text="@{`耗时`+item.allCostTime+`分钟`}"
+				android:text="@{item.costTime}"
 				android:layout_marginLeft="30dp"
 				android:textColor="@color/pickerview_wheelview_textcolor_out"
 				app:layout_constraintTop_toTopOf="@+id/icon_lit"
@@ -114,6 +114,7 @@
 				android:layout_height="wrap_content"/>
 
 		<ImageView
+				app:goneUnless="@{beforeEnd}"
 				android:id="@+id/ic_1"
 				android:layout_width="14dp"
 				android:layout_height="14dp"

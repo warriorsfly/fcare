@@ -145,4 +145,12 @@ class TrajectoryActivity : BaseActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        receiver?.let {
+            unregisterReceiver(receiver)
+            receiver?.vm = null
+        }
+    }
+
 }

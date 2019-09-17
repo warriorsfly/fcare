@@ -37,7 +37,7 @@ class JPushReceiver : BroadcastReceiver() {
                     val message = bundle?.getString(JPushInterface.EXTRA_MESSAGE)
                     val title = bundle?.getString(JPushInterface.EXTRA_TITLE)
                     val extra = bundle?.getString(JPushInterface.EXTRA_EXTRA)
-                    if (title.equals("Normal.RefreshRfidTimeline")){
+                    if (message.equals("Normal.RefreshRfidTimeline")){
                         processCustomMessage(context, "RefreshRfidTimeline", message)
                     }else{
                         processMessage(context,title,message,extra)
