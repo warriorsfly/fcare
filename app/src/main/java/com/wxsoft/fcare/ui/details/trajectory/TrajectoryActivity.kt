@@ -8,10 +8,12 @@ import android.media.MediaPlayer
 import android.media.RingtoneManager
 import android.net.Uri
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityTrajectoryBinding
 import com.wxsoft.fcare.service.JPushReceiver
@@ -80,6 +82,10 @@ class TrajectoryActivity : BaseActivity() {
         })
 
         setSupportActionBar(toolbar)
+
+        viewModel.mesAction.observe(this, EventObserver{
+            Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
+        })
 
     }
 

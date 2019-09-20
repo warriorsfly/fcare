@@ -466,8 +466,10 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, CABG)
             }
             ActionType.出院诊断 ->{
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this@WorkingActivity, DisChargeActivity::class.java).apply {
                     putExtra(CTActivity.PATIENT_ID, patientId)
+                    putExtra(CatheterActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, OTDIAGNOSE)
             }

@@ -65,7 +65,7 @@ class BloodActivity : BaseTimingActivity(), View.OnClickListener {
 
         getting_blood.setOnClickListener(this)
         end.setOnClickListener  (this)
-        start.setOnClickListener  (this)
+//        start.setOnClickListener  (this)
         sendCheck.setOnClickListener  (this)
         applyTime.setOnClickListener  (this)
         repport_Time.setOnClickListener  (this)

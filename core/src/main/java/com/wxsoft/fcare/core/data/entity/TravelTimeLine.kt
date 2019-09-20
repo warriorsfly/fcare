@@ -18,5 +18,10 @@ data class TravelTimeLine (val id:String=""): BaseObservable() {
     fun getDate():String?{
         return triggerRecordLists.first().getDate()
     }
+    fun timeStr(){
+        triggerRecordLists.map {
+            it.getStr()
+        }
+    }
 
 }

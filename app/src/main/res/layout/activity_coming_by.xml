@@ -29,7 +29,6 @@
 						android:layout_height="match_parent">
 
 					<androidx.constraintlayout.widget.ConstraintLayout
-							android:onClick="@{()->viewModel.changeDoctor(1)}"
 							android:id="@+id/model0_2"
 							android:background="@color/white"
 							app:layout_constraintLeft_toLeftOf="parent"
@@ -51,22 +50,26 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 
-						<TextView
+						<EditText
 								android:hint="请选择"
 								android:layout_marginRight="19dp"
 								android:layout_marginTop="15dp"
 								android:layout_marginBottom="15dp"
+								android:background="@drawable/bg_edittextview_border"
+								android:gravity="right"
 								android:textSize="16sp"
-								android:text="@{viewModel.comingBy.emergencyDoctor.trueName}"
+								android:text="@={viewModel.comingBy.emergencyDoctor.trueName}"
 								android:textColor="#7D7D7D"
 								app:layout_constraintTop_toTopOf="parent"
 								app:layout_constraintBottom_toBottomOf="parent"
 								app:layout_constraintRight_toLeftOf="@+id/rowe0_2"
+								app:layout_constraintLeft_toRightOf="@+id/title0_2"
 								tools:text="李医生"
-								android:layout_width="wrap_content"
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"/>
 
 						<TextView
+								android:onClick="@{()->viewModel.changeDoctor(1)}"
 								android:id="@+id/rowe0_2"
 								app:layout_constraintRight_toRightOf="parent"
 								app:layout_constraintBottom_toBottomOf="@id/title0_2"

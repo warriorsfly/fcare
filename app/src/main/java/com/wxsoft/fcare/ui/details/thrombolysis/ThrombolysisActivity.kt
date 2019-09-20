@@ -25,6 +25,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityThrombolysisBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorsActivity
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
@@ -248,10 +249,15 @@ class ThrombolysisActivity : BaseTimingActivity(){
     }
 
     private fun selectDoctor(){
-        val intent = Intent(this, SelectDoctorActivity::class.java).apply {
-            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+
+        val ids=arrayListOf(EntityIdName(viewModel.itemForChangeDoctor.value?.staffId?:"",viewModel.itemForChangeDoctor.value?.staffName?:""))
+        val inti=Intent(this, ComingByDoctorsActivity::class.java).apply {
+            putExtra("type",2)
+            putExtra(PATIENT_ID,patientId)
+            putExtra("ids",ids)
+
         }
-        startActivityForResult(intent, SELECT_DOCTOR)
+        startActivityForResult(inti, SELECT_DOCTOR)
 
     }
 
@@ -340,11 +346,10 @@ class ThrombolysisActivity : BaseTimingActivity(){
                     viewModel.thrombolysis.value?.throm_Treatment_Place = place.id
                 }
 
-                SELECT_DOCTOR ->{//溶栓场所
-                    val doctor = data?.getParcelableExtra<EntityIdName>("doctor") //as EntityIdName
-
-                    viewModel.itemForChangeDoctor.value?.staffName = doctor?.name
-                    viewModel.itemForChangeDoctor.value?.staffId = doctor?.id
+                SELECT_DOCTOR ->{//执行人员
+                    val users=data?.getParcelableArrayListExtra<EntityIdName>("user")
+                    viewModel.itemForChangeDoctor.value?.staffName = users?.get(0)?.name?:""
+                    viewModel.itemForChangeDoctor.value?.staffId = users?.get(0)?.id?:""
                 }
 
                 SELECT_DOCTORS ->{//溶栓场所

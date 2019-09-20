@@ -479,6 +479,7 @@
 <!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
+                        goneUnless="@{!viewModel.xtShow}"
                         android:id="@+id/model7"
                         android:background="@color/white"
                         app:layout_constraintLeft_toLeftOf="parent"

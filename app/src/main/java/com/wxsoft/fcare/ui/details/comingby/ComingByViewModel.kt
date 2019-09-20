@@ -223,10 +223,10 @@ class ComingByViewModel @Inject constructor(
             var d1 = comingWayStaffs.firstOrNull { it.staffType == "1" }
 
             if (d1 == null) {
-                if (emergencyDoctor.id.isNotEmpty())
+                if (emergencyDoctor.trueName.isNotEmpty())
                     d1 = ComingByStaff(comingWayId = id, staffType = "1")
             }
-            if (d1?.staffId != emergencyDoctor.id) {
+            if (d1?.staffName != emergencyDoctor.trueName) {
                 d1?.staffId = emergencyDoctor.id
                 d1?.staffName = emergencyDoctor.trueName
             }

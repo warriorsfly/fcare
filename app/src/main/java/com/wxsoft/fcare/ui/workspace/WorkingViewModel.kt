@@ -56,6 +56,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
     val course=ObservableField<String>().apply {
         set("0")
     }
+    var notitime = true
 
     val emrFullScreen=ObservableBoolean()
     /**
@@ -141,14 +142,13 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
         } }
 
         disposable.add(patientApi.getServerDateTime()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe (::judgeMinete,::error))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe (::judgeMinete,::error))
     }
 
     private fun judgeMinete(response: Response<String>){
         val dValue = System.currentTimeMillis() - DateTimeUtils.formatter.parse(response.result).time
-
         patient.value?.attackTime?.let {
             timestamp.set(DateTimeUtils.formatter.parse(it).time)
             minute.set((System.currentTimeMillis()- timestamp.get() - dValue)/60000)
@@ -159,6 +159,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                 return
             }
             course.set(courseSeconds.get().toString())
+            if(!notitime) return
             disposable.add(
                 Observable.interval(1, TimeUnit.SECONDS)
                     .subscribe {
@@ -166,6 +167,7 @@ class WorkingViewModel @Inject constructor(private val patientApi: PatientApi,
                         second.set(((System.currentTimeMillis()- timestamp.get() - dValue)%60000)/1000)
                         courseSeconds.set(courseSeconds.get().plus(1))
                     })
+            notitime = false
         }?:course.set("")
     }
 

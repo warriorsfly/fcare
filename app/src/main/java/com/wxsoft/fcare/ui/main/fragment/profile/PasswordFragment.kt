@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentPasswordBinding
@@ -42,6 +43,7 @@ class PasswordFragment : CustomDimDialogFragment(), HasSupportFragmentInjector {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setStyle(STYLE_NORMAL, R.style.Dialog_FullScreen)
         viewModel = activityViewModelProvider(factory)
     }
 
@@ -79,6 +81,9 @@ class PasswordFragment : CustomDimDialogFragment(), HasSupportFragmentInjector {
                 }else{
                     viewModel.changePassword(oldp,newp)
                 }
+            }
+            cancel.setOnClickListener {
+                dismiss()
             }
             lifecycleOwner = this@PasswordFragment
         }

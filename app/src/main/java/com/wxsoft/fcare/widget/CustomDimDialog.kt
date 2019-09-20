@@ -61,8 +61,8 @@ class CustomDimDialog(context: Context?) : AppCompatDialog(context, R.style.Them
         val horizontalMargin = res.getDimensionPixelSize(R.dimen.dialog_horizontal_margin)
         return FrameLayout(context).apply {
             addView(content, FrameLayout.LayoutParams(
-                FrameLayout.LayoutParams.WRAP_CONTENT,
-                FrameLayout.LayoutParams.WRAP_CONTENT
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
             ).apply {
                 setMargins(horizontalMargin, verticalMargin, horizontalMargin, verticalMargin)
                 gravity = Gravity.CENTER

@@ -7,6 +7,7 @@ import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.TravelTimeLine
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.QualityControlApi
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -48,6 +49,8 @@ class TrajectoryViewModel @Inject constructor(private val api: QualityControlApi
 
     private fun getData(response: Response<TravelTimeLine>){
         loadTravelTimeLine.value = response.result
+        travelTimeLine.value?.timeStr()
+        messageAction.value= Event("刷新时间点成功")
     }
 
 }

@@ -29,10 +29,26 @@ data class TriggerRecord (val id:String=""): BaseObservable() {
         }
 
     @Bindable
+    @Transient
+    var inTimeStr: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.inTimeStr)
+        }
+
+    @Bindable
     var outTime: String? = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.outTime)
+        }
+
+    @Bindable
+    @Transient
+    var outTimeStr: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.outTimeStr)
         }
 
     @Bindable
@@ -56,15 +72,12 @@ data class TriggerRecord (val id:String=""): BaseObservable() {
             field = value
             notifyPropertyChanged(BR.pass)
         }
-
-    fun getTime1():String{
-        return inTime?.substring(11,16)?:"--:--"
-    }
-    fun getTime2():String{
-        return outTime?.substring(11,16)?:"--:--"
-    }
     fun getDate():String{
         return inTime?.substring(0,10)?:"--:--"
+    }
+    fun getStr(){
+        inTimeStr = inTime?.substring(11,16)?:"--:--"
+        outTimeStr = outTime?.substring(11,16)?:"--:--"
     }
 
 }

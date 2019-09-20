@@ -152,7 +152,7 @@
 									android:layout_margin="16dp"
 									android:text="心电图"
 									android:textSize="16sp"
-									android:textColor="#525252"
+									android:textColor="@color/black_checked_nomal"
 									android:id="@+id/photo_title"
 									android:textColorHint="@color/colorPrimary"
 									android:gravity="right|center_vertical"
@@ -217,7 +217,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									android:text="@string/string_ecg_create_time"
 									android:layout_marginRight="5dp"
-									android:textColor="#999999"
+									android:textColor="@color/black_checked_nomal"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
@@ -279,7 +279,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									android:text="@string/string_ecg_d_time"
 									android:layout_marginRight="5dp"
-									android:textColor="#999999"
+									android:textColor="@color/black_checked_nomal"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
@@ -354,7 +354,7 @@
 									app:layout_constraintRight_toLeftOf="@+id/trans_time_title"
 									android:text="传输:"
 									android:layout_marginRight="5dp"
-									android:textColor="#999999"
+									android:textColor="@color/black_checked_nomal"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
@@ -385,6 +385,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toTopOf="parent"
 									android:layout_margin="16dp"
+									android:textColor="@color/black_checked_nomal"
 									android:text="判读"
 									android:textSize="16sp"
 									android:layout_width="wrap_content"
@@ -418,7 +419,7 @@
 									android:layout_margin="16dp"
 									android:text="诊断"
 									android:textSize="16sp"
-
+									android:textColor="@color/black_checked_nomal"
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
@@ -443,6 +444,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toBottomOf="@id/memo0"
 									android:layout_margin="16dp"
+									android:textColor="@color/black_checked_nomal"
 									android:text="特征"
 									android:textSize="16sp"
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"

@@ -50,8 +50,10 @@ class DisChargeActivity : BaseTimingActivity(){
     private var selectedId=0
 
     private lateinit var patientId:String
+    private lateinit var xt:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val IS_XT = "IS_XT"
     }
     private lateinit var viewModel: DisChargeViewModel
     private lateinit var binding: ActivityDischargeBinding
@@ -72,7 +74,9 @@ class DisChargeActivity : BaseTimingActivity(){
                 lifecycleOwner = this@DisChargeActivity
             }
         patientId=intent.getStringExtra(DisChargeActivity.PATIENT_ID)?:""
+        xt=intent.getStringExtra(IS_XT)?:""
         viewModel.patientId = patientId
+        viewModel.xtShow.set(xt.equals("xt"))
 
         setSupportActionBar(toolbar)
         title="出院"
