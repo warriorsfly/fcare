@@ -44,7 +44,7 @@
                             android:paddingBottom="15dp"
                             android:textSize="16sp"
                             android:text="诊断"
-                            android:textColor="@color/small_title_text_gray"
+                            android:textColor="@color/black_checked_nomal"
                             android:background="#E7E4F2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
@@ -73,7 +73,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="诊断类型"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -160,7 +160,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="处置措施"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -226,7 +226,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="患者去向"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -290,7 +290,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="初步诊断时间"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -355,7 +355,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="医生"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -400,7 +400,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="情况备注"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -448,7 +448,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="ACS给药"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -494,7 +494,7 @@
                                     app:layout_constraintTop_toTopOf="parent"
                                     android:text="抗血小板给药"
                                     android:layout_marginLeft="15dp"
-                                    android:textColor="@color/small_title_text_gray"
+                                    android:textColor="@color/black_checked_nomal"
                                     android:textSize="16sp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"/>
@@ -545,7 +545,7 @@
                                     app:layout_constraintLeft_toLeftOf="@+id/line7_content_title1"
                                     app:layout_constraintTop_toBottomOf="@+id/line7_content_line1"
                                     android:gravity="right"
-                                    android:textColor="@color/small_title_text_gray"
+                                    android:textColor="@color/black_checked_nomal"
                                     android:textSize="16sp"
                                     android:layout_marginTop="5dp"
                                     android:text="抗凝给药"
@@ -628,7 +628,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="GRACE评分"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -670,7 +670,7 @@
                                     app:layout_constraintStart_toStartOf="parent"
                                     android:layout_width="0dp"
                                     android:textSize="16sp"
-                                    android:textColor="@color/black"
+                                    android:textColor="@color/black_checked_nomal"
                                     android:layout_height="wrap_content"/>
 
                             <TextView
@@ -758,7 +758,7 @@
                             android:paddingBottom="15dp"
                             android:textSize="16sp"
                             android:text="治疗策略"
-                            android:textColor="@color/small_title_text_gray"
+                        android:textColor="@color/black_checked_nomal"
                             android:background="#E7E4F2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
@@ -786,7 +786,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="治疗方案"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                            android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -851,7 +851,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="无灌注措施原因"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                            android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -915,7 +915,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="其他策略"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                            android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -971,7 +971,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="@{viewModel.selectedTreatment.strategyCode_Name+`时间`}"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                            android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -1030,7 +1030,7 @@
                             android:layout_marginBottom="17.5dp"
                             android:text="实际介入时间"
                             android:textSize="16sp"
-                            android:textColor="@color/small_title_text_gray"
+                            android:textColor="@color/black_checked_nomal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"/>
 

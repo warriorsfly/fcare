@@ -20,6 +20,13 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ACSDrugActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+        when(selectedId){
+            R.id.start_1 -> viewModel.acsDrug.value?.acs_Delivery_Time = ""
+            R.id.start_2 -> viewModel.acsDrug.value?.anticoagulation_Date = ""
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         when(selectedId){

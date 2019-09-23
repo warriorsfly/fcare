@@ -46,7 +46,6 @@
 							android:layout_marginLeft="15dp"
 							android:layout_marginBottom="15dp"
 							android:text="决定医生"
-
 							android:textSize="16sp"
 							android:textColor="#131D35"
 							android:layout_width="wrap_content"

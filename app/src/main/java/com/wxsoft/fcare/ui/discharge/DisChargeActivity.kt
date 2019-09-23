@@ -24,6 +24,14 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DisChargeActivity : BaseTimingActivity(){
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+        when(selectedId){
+            R.id.decide_cabg_time -> viewModel.data.value?.diagnosisTime = ""
+        }
+    }
 
     override fun selectTime(millseconds: Long) {
 

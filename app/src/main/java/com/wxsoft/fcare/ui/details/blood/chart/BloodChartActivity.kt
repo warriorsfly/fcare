@@ -29,6 +29,10 @@ import kotlin.collections.ArrayList
 
 
 class BloodChartActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+
+    }
+
     override fun selectTime(mills: Long) {
 
     }

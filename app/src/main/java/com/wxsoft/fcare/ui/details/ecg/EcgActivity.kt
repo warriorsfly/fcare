@@ -43,6 +43,25 @@ import java.io.File
 import javax.inject.Inject
 
 class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
+    override fun clearTime(mills: Long) {
+        (findViewById<TextView>(selectedId))?.text= ""
+        var dateTime = ""
+        when(selectedId){
+            R.id.egg_title -> {
+                viewModel.ecg.value?.time = dateTime
+                viewModel.updateECGTime(dateTime,1)
+            }
+            R.id.fmc2egg_title -> {
+                viewModel.ecg.value?.diagnosedAt = dateTime
+                viewModel.updateECGTime(dateTime,2)
+            }
+            R.id.trans_time_title -> {
+                viewModel.ecg.value?.tran_Date =  dateTime
+                viewModel.updateECGTime(dateTime,3)
+            }
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)

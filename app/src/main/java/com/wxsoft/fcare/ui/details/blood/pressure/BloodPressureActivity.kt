@@ -22,6 +22,10 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class BloodPressureActivity : BaseTimingActivity() , View.OnClickListener{
+    override fun clearTime(mills: Long) {
+        time.text= ""
+    }
+
     override fun onClick(p0: View?) {
         val currentTime = time.text.toString().let { text ->
             if (text.isEmpty()) 0L else DateTimeUtils.formatter.parse(text).time

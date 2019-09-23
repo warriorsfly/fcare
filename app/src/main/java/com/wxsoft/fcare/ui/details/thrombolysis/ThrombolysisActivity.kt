@@ -37,6 +37,22 @@ import javax.inject.Inject
 
 
 class ThrombolysisActivity : BaseTimingActivity(){
+    override fun clearTime(mills: Long) {
+        if(viewModel.itemForChangeTime.value==null) {
+            (findViewById<TextView>(selectedId))?.text = ""
+            when (selectedId) {
+                R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time = ""
+                R.id.end_thromboly_time -> viewModel.thrombolysis.value?.throm_End_Time = ""
+                R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time =""
+                R.id.start1 -> viewModel.thrombolysis.value?.start_Agree_Time =""
+                R.id.start1_1 -> viewModel.thrombolysis.value?.sign_Agree_Time =""
+            }
+        }else{
+            viewModel.itemForChangeTime.value?.excuteTime=""
+            viewModel.itemForChangeTime.value=null
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         if(viewModel.itemForChangeTime.value==null) {

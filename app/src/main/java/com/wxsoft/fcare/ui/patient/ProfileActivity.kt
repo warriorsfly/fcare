@@ -66,6 +66,12 @@ import javax.inject.Named
 
 
 class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,PhotoEventAction ,AMapLocationListener{
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+    }
+
     override fun selectTime(millseconds: Long) {
 
         dialog?.onDestroy()

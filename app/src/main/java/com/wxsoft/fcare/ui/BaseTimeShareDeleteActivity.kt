@@ -2,7 +2,6 @@ package com.wxsoft.fcare.ui
 
 import android.app.AlertDialog
 import android.view.MenuItem
-import androidx.fragment.app.DialogFragment
 import cn.jiguang.share.android.api.JShareInterface
 import cn.jiguang.share.android.api.PlatActionListener
 import cn.jiguang.share.android.api.Platform
@@ -122,7 +121,7 @@ abstract class BaseTimeShareDeleteActivity: BaseActivity(), IShareOrDelete, ITim
 
     protected fun createDialog(time:Long): DingLikeTimePicker {
 
-        return DingLikeTimePicker(time,::selectTime)
+        return DingLikeTimePicker(time,::selectTime,::clearTime)
 
     }
 

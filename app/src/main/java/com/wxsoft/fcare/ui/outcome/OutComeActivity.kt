@@ -25,6 +25,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<Button>(selectedId))?.text= ""
+    }
+
     override fun selectTime(millseconds: Long) {
 
         dialog?.onDestroy()

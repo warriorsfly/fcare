@@ -580,7 +580,7 @@
 							android:layout_marginLeft="5dp"
 							android:padding="10dp"
 							android:textSize="16sp"
-							android:textColor="#525252"
+							android:textColor="@color/black_checked_nomal"
 							android:text="溶栓用药"
 							app:layout_constraintLeft_toLeftOf="parent"
 							app:layout_constraintTop_toTopOf="parent"/>
@@ -731,7 +731,7 @@
 						android:layout_marginLeft="5dp"
 						android:padding="10dp"
 						android:textSize="16sp"
-						android:textColor="#525252"
+						android:textColor="@color/black_checked_nomal"
 						android:text="去向"
 						app:layout_constraintLeft_toLeftOf="parent"
 						app:layout_constraintTop_toTopOf="parent"/>

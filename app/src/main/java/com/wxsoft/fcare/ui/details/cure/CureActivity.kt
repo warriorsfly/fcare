@@ -31,6 +31,20 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CureActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+        when(selectedId){
+            R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time = ""
+            R.id.end_thromboly_time -> viewModel.thrombolysis.value?.throm_End_Time = ""
+            R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time = ""
+            R.id.decide_cabg_time -> viewModel.cabg.value?.decisionOperationTime = ""
+            R.id.start_cabg_time -> viewModel.cabg.value?.startOperationTime = ""
+            R.id.end_cabg_time -> viewModel.cabg.value?.endOperationTime = ""
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         dialog?.onDestroy()

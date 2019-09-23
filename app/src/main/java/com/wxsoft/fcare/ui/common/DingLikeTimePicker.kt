@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.wxsoft.fcare.R
@@ -14,7 +12,7 @@ import kotlinx.android.synthetic.main.new_time_picker.*
 import kotlinx.android.synthetic.main.new_time_picker.view.*
 import java.util.*
 
-class DingLikeTimePicker (private val mills:Long,private val timeSelect:(Long)->Unit): BottomSheetDialogFragment(){
+class DingLikeTimePicker (private val mills:Long,private val timeSelect:(Long)->Unit,private val clearTime:(Long)->Unit): BottomSheetDialogFragment(){
     private lateinit var adapter:DingLikeAdapter
 
 
@@ -37,6 +35,10 @@ class DingLikeTimePicker (private val mills:Long,private val timeSelect:(Long)->
 
             submit.setOnClickListener{
                 timeSelect(adapter.calendar.timeInMillis)
+                dismiss()
+            }
+            clearbtn.setOnClickListener{
+                clearTime(0)
                 dismiss()
             }
         }

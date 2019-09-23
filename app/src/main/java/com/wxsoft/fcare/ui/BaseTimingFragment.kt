@@ -1,7 +1,5 @@
 package com.wxsoft.fcare.ui
 
-import androidx.fragment.app.DialogFragment
-import com.wxsoft.fcare.R
 import com.wxsoft.fcare.ui.common.DingLikeTimePicker
 import com.wxsoft.fcare.ui.common.ITimeSelected
 
@@ -12,6 +10,6 @@ abstract class BaseTimingFragment : BaseFragment() , ITimeSelected {
 
     protected fun createDialog(time:Long): DingLikeTimePicker {
 
-        return DingLikeTimePicker(time,::selectTime)
+        return DingLikeTimePicker(time,::selectTime,::clearTime)
     }
 }

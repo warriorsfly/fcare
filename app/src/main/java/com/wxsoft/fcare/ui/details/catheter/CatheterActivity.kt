@@ -24,6 +24,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CatheterActivity : BaseTimingActivity(){
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+    }
+
     override fun selectTime(mills: Long) {
         dialog?.onDestroy()
         dialog=null
@@ -88,6 +94,8 @@ class CatheterActivity : BaseTimingActivity(){
                 doctorId=viewModel.docs[which].id
                 doctorName=viewModel.docs[which].trueName
             }
+        }.setPositiveButton("确定") { _, _ ->
+
         }.show()
     }
 

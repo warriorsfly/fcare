@@ -160,7 +160,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="抗血小板给药时间"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 
@@ -462,7 +462,7 @@
                                 android:layout_marginBottom="17.5dp"
                                 android:text="抗凝给药时间"
                                 android:textSize="16sp"
-                                android:textColor="@color/small_title_text_gray"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"/>
 

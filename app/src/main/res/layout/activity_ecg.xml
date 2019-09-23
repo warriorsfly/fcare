@@ -335,7 +335,6 @@
 
 							<ImageView
 									goneUnless="@{viewModel.xtShow}"
-									app:invisibleUnless="@{viewModel.ecg.tran_Date!=null}"
 									android:src="@drawable/ic_delete_white"
 									android:elevation="2dp"
 									android:tint="#C6C7C6"

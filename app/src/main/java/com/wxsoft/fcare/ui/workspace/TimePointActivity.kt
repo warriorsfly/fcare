@@ -28,6 +28,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class TimePointActivity : BaseTimingActivity()  {
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        viewModel.newTime("")
+    }
+
     override fun selectTime(millseconds: Long) {
         dialog?.onDestroy()
         dialog=null

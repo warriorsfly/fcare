@@ -25,7 +25,7 @@ abstract class BaseTimeShareDeleteFragment: BaseFragment(), IShareOrDelete , ITi
 
     protected fun createDialog(time:Long): DingLikeTimePicker {
 
-        return DingLikeTimePicker(time,::selectTime)
+        return DingLikeTimePicker(time,::selectTime,::clearTime)
     }
 
     protected val listener = object : PlatActionListener {

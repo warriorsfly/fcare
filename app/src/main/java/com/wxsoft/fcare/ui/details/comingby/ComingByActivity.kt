@@ -1,7 +1,6 @@
 package com.wxsoft.fcare.ui.details.comingby
 
 import android.app.Activity
-import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -16,7 +15,6 @@ import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
-import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
@@ -26,6 +24,12 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ComingByActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+        val newTime=""
+        viewModel.changedTiming(Pair(timingType,newTime))
+        timingType=""
+    }
+
     override fun selectTime(mills: Long) {
         val newTime=DateTimeUtils.formatter.format(mills)
         viewModel.changedTiming(Pair(timingType,newTime))
