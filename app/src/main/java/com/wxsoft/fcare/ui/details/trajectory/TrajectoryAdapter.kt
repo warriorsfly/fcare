@@ -42,12 +42,12 @@ class TrajectoryAdapter constructor(private val owner: LifecycleOwner) :
     object DiffCallback : DiffUtil.ItemCallback<TriggerRecord>() {
         override fun areItemsTheSame(oldItem: TriggerRecord, newItem: TriggerRecord): Boolean {
 
-            return oldItem.inTime == newItem.inTime
+            return oldItem.baseStationId == newItem.baseStationId
         }
 
         override fun areContentsTheSame(oldItem: TriggerRecord, newItem: TriggerRecord): Boolean {
 
-            return oldItem.inTime == newItem.inTime
+            return (oldItem.inTime == newItem.inTime)&&(oldItem.outTime == newItem.outTime)
         }
     }
 

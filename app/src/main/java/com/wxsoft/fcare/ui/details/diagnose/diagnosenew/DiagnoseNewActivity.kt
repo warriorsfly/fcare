@@ -34,6 +34,14 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DiagnoseNewActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+        when(selectedId){
+            R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = ""
+            R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = ""
+            R.id.start100 -> viewModel.selectedTreatment.value?.actual_Intervention_Date = ""
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         when(selectedId){
@@ -226,16 +234,20 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 SELECT_DIAGNOSE_TYPE ->{
+
+
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
                     viewModel.loadDiagnosis.value = viewModel.diagnosis.value?.apply {
+                        patientId = this@DiagnoseNewActivity.patientId
                         diagnosisCode2 = diagnose.diagnosisCode2
                         diagnosisCode2Name = diagnose.diagnosisCode2Name
+                        diagnosisCode3 = diagnose.diagnosisCode3
+                        diagnosisCode3Name = diagnose.diagnosisCode3Name
                         if(diagnosisCode2.equals("4-2")){
                             handWay = "住院"
                             patientOutcom = "导管室"
-                            viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
-                                patientId = this@DiagnoseNewActivity.patientId
-                                strategyCode = "14-01"
+                            viewModel.loadSelectedTreatment.value = Strategy(this@DiagnoseNewActivity.patientId, 1).apply {
+                                strategyCode = "14-1"
                                 strategyCode_Name = "急诊PCI"
                                 memo = "group1"
                             }
@@ -245,6 +257,26 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                         }
                     }
                     viewModel.diagnosisTreatment.value?.diagnosis = viewModel.diagnosis.value!!
+
+//                    val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
+//                    viewModel.loadDiagnosis.value = viewModel.diagnosis.value?.apply {
+//                        diagnosisCode2 = diagnose.diagnosisCode2
+//                        diagnosisCode2Name = diagnose.diagnosisCode2Name
+//                        if(diagnosisCode2.equals("4-2")){
+//                            handWay = "住院"
+//                            patientOutcom = "导管室"
+//                            viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
+//                                patientId = this@DiagnoseNewActivity.patientId
+//                                strategyCode = "14-01"
+//                                strategyCode_Name = "急诊PCI"
+//                                memo = "group1"
+//                            }
+//                        }else {
+//                            handWay = ""
+//                            patientOutcom = ""
+//                        }
+//                    }
+//                    viewModel.diagnosisTreatment.value?.diagnosis = viewModel.diagnosis.value!!
                 }
 
                 SELECT_TREATMENT -> {

@@ -43,8 +43,6 @@ class TrajectoryActivity : BaseActivity() {
 
     private lateinit var adapter: TrajectoryAdapter
 
-    private lateinit var mMediaPlayer: MediaPlayer
-
     var isVirating:Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,13 +110,6 @@ class TrajectoryActivity : BaseActivity() {
     //开始播放
     fun playRing() {
         try {
-//            val alert = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)//用于获取手机默认铃声的Uri
-//            mMediaPlayer = MediaPlayer()
-//            mMediaPlayer.setDataSource(this@MessageActivity, alert)
-//            mMediaPlayer.setAudioStreamType(AudioManager.STREAM_RING)//告诉mediaPlayer播放的是铃声流
-//            mMediaPlayer.setLooping(true)
-//            mMediaPlayer.prepare()
-//            mMediaPlayer.start()
             val uri = "android.resource://" + this.getPackageName() + "/"+R.raw.mysound
             RingtoneManager.getRingtone(this, Uri.parse(uri)).play()
         } catch (e: Exception) {
@@ -129,12 +120,6 @@ class TrajectoryActivity : BaseActivity() {
 
     //停止播放
     fun stopRing() {
-//        if (mMediaPlayer != null) {
-//            if (mMediaPlayer.isPlaying()) {
-//                mMediaPlayer.stop()
-//                mMediaPlayer.release()
-//            }
-//        }
         val uri = "android.resource://" + this.getPackageName() + "/"+R.raw.mysound;
         RingtoneManager.getRingtone(this, Uri.parse(uri)).stop()
     }

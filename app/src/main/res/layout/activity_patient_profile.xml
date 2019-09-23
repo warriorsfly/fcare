@@ -433,7 +433,7 @@
                         android:text="是否是三无患者"
                         android:textSize="15sp"
                         android:id="@+id/sanwu_title1"
-                        android:textColor="@color/edit_text_title"
+                        android:textColor="@color/black_checked_nomal"
                         android:layout_marginLeft="15dp"
                         android:layout_height="wrap_content"/>
 
@@ -466,7 +466,7 @@
                     android:text="腕带编号"
                     android:textSize="15sp"
                     android:id="@+id/title1"
-                    android:textColor="@color/edit_text_title"
+                    android:textColor="@color/black_checked_nomal"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"/>
 
@@ -525,7 +525,7 @@
                     android:text="门诊号"
                     android:textSize="15sp"
                     android:id="@+id/title2_1"
-                    android:textColor="@color/edit_text_title"
+                    android:textColor="@color/black_checked_nomal"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"/>
 
@@ -579,7 +579,7 @@
                     android:text="住院号"
                     android:textSize="15sp"
                     android:id="@+id/title2_2"
-                    android:textColor="@color/edit_text_title"
+                    android:textColor="@color/black_checked_nomal"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"/>
 
@@ -654,7 +654,7 @@
                     android:text="@string/profile_name_title"
                     android:textSize="15sp"
                     android:id="@+id/title3"
-                    android:textColor="@color/edit_text_title"
+                    android:textColor="@color/black_checked_nomal"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"/>
 
@@ -703,7 +703,7 @@
                                 android:text="@string/title_profile_attacktime"
                                 android:textSize="15sp"
                                 android:id="@+id/title9"
-                                android:textColor="@color/edit_text_title"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_marginLeft="15dp"
                                 android:layout_height="wrap_content"/>
 
@@ -748,7 +748,7 @@
                                 android:text="@string/string_attack_address"
                                 android:textSize="15sp"
                                 android:id="@+id/title7"
-                                android:textColor="@color/edit_text_title"
+                                android:textColor="@color/black_checked_nomal"
                                 android:layout_marginLeft="15dp"
                                 android:layout_height="wrap_content"/>
 
@@ -798,7 +798,7 @@
                     android:text="年         龄"
                     android:textSize="15sp"
                     android:id="@+id/title5"
-                    android:textColor="@color/edit_text_title"
+                    android:textColor="@color/black_checked_nomal"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"/>
 
@@ -836,7 +836,7 @@
                     android:text="性         别"
                     android:textSize="15sp"
                     android:id="@+id/title6"
-                    android:textColor="@color/edit_text_title"
+                    android:textColor="@color/black_checked_nomal"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"/>
 
@@ -926,7 +926,7 @@
                         android:text="身份证号"
                         android:textSize="15sp"
                         android:id="@+id/title4"
-                        android:textColor="@color/edit_text_title"
+                        android:textColor="@color/black_checked_nomal"
                         android:layout_marginLeft="15dp"
                         android:layout_height="wrap_content"/>
 
@@ -965,7 +965,7 @@
                         android:text="联系电话"
                         android:textSize="15sp"
                         android:id="@+id/title8"
-                        android:textColor="@color/edit_text_title"
+                        android:textColor="@color/black_checked_nomal"
                         android:layout_marginLeft="15dp"
                         android:layout_height="wrap_content"/>
 
@@ -1015,7 +1015,7 @@
                     android:layout_marginTop="16.5dp"
                     android:textSize="15sp"
                     android:id="@+id/title10"
-                    android:textColor="@color/edit_text_title"
+                    android:textColor="@color/black_checked_nomal"
                     android:layout_marginLeft="15dp"
                     android:layout_height="wrap_content"/>
 
