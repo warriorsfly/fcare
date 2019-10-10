@@ -190,7 +190,8 @@ class ComingByViewModel @Inject constructor(
         comingBy.value?.consultation_Time=null
     }
     fun clearnurseName(){
-        comingBy.value?.emergencyNurse=null
+        comingBy.value?.emergencyNurse?.userName = ""
+        comingBy.value?.emergencyNurse?.trueName = ""
         comingBy.value?.comingWayStaffs = comingBy.value?.comingWayStaffs!!.filter {
             it.staffType != "2"
         }

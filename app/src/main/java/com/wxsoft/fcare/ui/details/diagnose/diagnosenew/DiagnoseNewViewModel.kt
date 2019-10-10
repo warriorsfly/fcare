@@ -87,7 +87,6 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
 
     private fun getData(response: Response<DiagnoseTreatment>){
         loadDiagnosisTreatment.value = response.result
-        haveData()
     }
     fun haveData(){
         loadSelectedTreatment.value = diagnosisTreatment.value?.treatStrategy
@@ -117,7 +116,7 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
 //        diagnosisTreatment.value?.diagnosis = diagnosis.value!!
         doctorId.get()?.let { diagnosisTreatment.value?.diagnosis?.doctorId=it }
         diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
-        diagnosisTreatment.value?.diagnosis?.doctorName = doctorName.get()!!
+        diagnosisTreatment.value?.diagnosis?.patientId = patientId
         if (saveable){
             disposable.add(diagnoseApi.saveNewDiagnose(diagnosisTreatment.value!!)
                 .subscribeOn(Schedulers.io())
@@ -126,7 +125,10 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
         }
     }
     private fun loadResult(response: Response<String>){
-        if (response.success) loadSaveResult.value = "success" else messageAction.value= Event(response.msg)
+        if (response.success){
+            messageAction.value= Event("保存成功")
+            loadSaveResult.value = "success"
+        } else messageAction.value= Event(response.msg)
 
     }
 

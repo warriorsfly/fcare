@@ -95,6 +95,13 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
             .subscribe(::update,::error))
 
     }
+    fun clearEcgTime(field:String){
+        disposable.add(api.clearEcgTime(patientId,field,if(pre.get())1 else 2)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::update,::error))
+
+    }
     private fun update(response: Response<Int>){
 
     }

@@ -233,6 +233,7 @@ class WorkingActivity : BaseActivity() {
                     val intent = Intent(this@WorkingActivity, TrajectoryActivity::class.java)
                         .apply {
                             putExtra(TrajectoryActivity.PATIENT_ID, patientId)
+                            putExtra(TrajectoryActivity.DialogsisCode, this@WorkingActivity.viewModel.patient.value?.diagnosisCode)
                         }
                     startActivityForResult(intent, TimePointActivity.BASE_INFO)
                 }

@@ -295,24 +295,23 @@
 						android:layout_height="wrap_content"
 						android:textSize="12sp"
 						android:textColor="@color/black_checked_nomal"
-						android:layout_marginRight="10dp"
 						android:selectedItemPosition="@={viewModel.ctntIndex}"
 						android:entries="@{viewModel.troponinUnitsItems}"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintRight_toLeftOf="@+id/cTnT_character"
-						app:layout_constraintTop_toTopOf="parent"
-						android:gravity="right"/>
-
-					<TextView
-						android:id="@+id/cTnT_character"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:text="@{viewModel.lisCr.ctntStatus}"
-						android:layout_marginRight="19dp"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintRight_toRightOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
 						android:gravity="right"/>
+
+<!--					<TextView-->
+<!--						android:id="@+id/cTnT_character"-->
+<!--						android:layout_width="0dp"-->
+<!--						android:layout_height="wrap_content"-->
+<!--						android:text="@{viewModel.lisCr.ctntStatus}"-->
+<!--						android:layout_marginRight="19dp"-->
+<!--						app:layout_constraintBottom_toBottomOf="parent"-->
+<!--						app:layout_constraintRight_toRightOf="parent"-->
+<!--						app:layout_constraintTop_toTopOf="parent"-->
+<!--						android:gravity="right"/>-->
 					<View
 						android:background="#EDEDED"
 						android:layout_marginBottom="1dp"

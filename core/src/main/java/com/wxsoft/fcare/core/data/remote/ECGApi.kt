@@ -16,6 +16,9 @@ interface ECGApi {
     @GET("ECG/UpdateECGTime/{patientId}/{dateTime}/{flag}/{location}")
     fun updateECGTime(@Path("patientId")id:String,@Path("dateTime")dateTime:String?,@Path("flag")flag:Int,@Path("location")location:Int=2):Maybe<Response<Int>>
 
+    @GET("ECG/ClearEcgTime/{patientId}/{field}/{location}")
+    fun clearEcgTime(@Path("patientId")id:String,@Path("field")field:String,@Path("location")location:Int=2):Maybe<Response<Int>>
+
     @GET("ECG/DeleteEcgImage/{drugId}")
     fun deleteImage(@Path("drugId")id:String):Maybe<Response<Ecg>>
 

@@ -13,4 +13,9 @@ internal abstract class CatheterModule {
     @ViewModelKey(CatheterViewModel::class)
     abstract fun bindCatheterViewModel(viewModel: CatheterViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(CatheterDoctorsViewModel::class)
+    abstract fun bindCatheterDoctorsViewModel(viewModel: CatheterDoctorsViewModel): ViewModel
+
 }

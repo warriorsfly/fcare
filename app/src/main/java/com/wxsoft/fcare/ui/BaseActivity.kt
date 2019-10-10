@@ -21,6 +21,7 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         const val CAMERA_PIC_REQUEST=11
         const val NEW_PATIENT_REQUEST=13
         const val COMING_WAY_DOCTOR=18
+        const val CATHETER_DOCTOR=22
         const val COMING_WAY_TYPES=19
         const val NEW_PATIENT_ID="new_patient_id"
     }

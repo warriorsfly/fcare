@@ -31,7 +31,6 @@ class TimePointActivity : BaseTimingActivity()  {
     override fun clearTime(mills: Long) {
         dialog?.onDestroy()
         dialog=null
-        viewModel.newTime("")
     }
 
     override fun selectTime(millseconds: Long) {

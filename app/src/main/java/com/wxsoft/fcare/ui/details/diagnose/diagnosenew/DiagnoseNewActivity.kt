@@ -122,7 +122,9 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         setSupportActionBar(toolbar)
         title="诊断"
 
-        viewModel.diagnosisTreatment.observe(this, Observer {  })
+        viewModel.diagnosisTreatment.observe(this, Observer {
+            viewModel.haveData()
+        })
         viewModel.selectedTreatment.observe(this, Observer {  })
         viewModel.diagnosis.observe(this, Observer {  })
         viewModel.acsDrug.observe(this, Observer {  })
@@ -143,6 +145,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
 
         viewModel.saveResult.observe(this, Observer {
             if (it.equals("success")){
+
                 setResult(Activity.RESULT_OK,intent)
                 finish()
             }

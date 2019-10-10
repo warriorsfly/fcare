@@ -30,6 +30,7 @@ class TrajectoryActivity : BaseActivity() {
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val DialogsisCode = "Dialogsis"
     }
 
 
