@@ -18,8 +18,8 @@ android {
         applicationId "com.wxsoft.fcare"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 98
-        versionName "1.0.98"
+        versionCode 99
+        versionName "1.0.99"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         signingConfig signingConfigs.release
@@ -104,17 +104,17 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
     implementation 'com.yanzhenjie:permission:2.0.0'
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
+//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+//    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
 
     // Optional, if you use support library fragments:
-    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
+//    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
     implementation 'androidx.paging:paging-runtime:2.1.0'
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
+//    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_version"
+//    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_version"
     // Optional, if you use support library fragments:
-    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
+//    debugImplementation "com.squareup.leakcanary:leakcanary-support-fragment:$leakcanary_version"
 
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.contrarywind:Android-PickerView:4.1.8'

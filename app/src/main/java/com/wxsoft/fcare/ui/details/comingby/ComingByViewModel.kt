@@ -181,6 +181,7 @@ class ComingByViewModel @Inject constructor(
     fun doSaving(result:Response<String?>){
         resultText = result.msg
         savingResult.value=result
+        messageAction.value = Event("保存成功")
     }
     fun doSavingpass(result:Response<String?>){
 

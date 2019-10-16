@@ -6,10 +6,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
+import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.core.utils.viewModelProvider
@@ -113,6 +115,9 @@ class ACSDrugActivity : BaseTimingActivity() {
 
         setSupportActionBar(toolbar)
 
+        viewModel.messageAction.observe(this, EventObserver {
+            Toast.makeText(this,it, Toast.LENGTH_SHORT).show()
+        })
 
     }
 

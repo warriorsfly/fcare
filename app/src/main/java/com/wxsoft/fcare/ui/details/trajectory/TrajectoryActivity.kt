@@ -73,11 +73,14 @@ class TrajectoryActivity : BaseActivity() {
         viewModel.travelTimeLine.observe(this, Observer {
             adapter.submitList(it.triggerRecordLists)
             title="自动采集时间点" + "   " +it.patientInfoDto.name
-            stopRingVibrate()
         })
 
         viewModel.modefyStr.observe(this, Observer {
-            startRing()
+            when(it){
+                "stop" ->{stopRingVibrate()}
+                "RefreshRfidTimeline" ->{startRing()}
+            }
+
         })
 
         setSupportActionBar(toolbar)

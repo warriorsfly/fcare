@@ -11,6 +11,7 @@ import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.data.remote.DictEnumApi
 import com.wxsoft.fcare.core.data.remote.PharmacyApi
+import com.wxsoft.fcare.core.result.Event
 import com.wxsoft.fcare.core.utils.map
 import com.wxsoft.fcare.ui.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -183,6 +184,7 @@ class AcsDrugViewModel @Inject constructor(private val dictEnumApi: DictEnumApi,
 
     fun saveResult(response:Response<String>){
         loadClickSomething.value = "saveResult"
+        messageAction.value = Event("保存成功")
     }
 
     fun changePre(){
