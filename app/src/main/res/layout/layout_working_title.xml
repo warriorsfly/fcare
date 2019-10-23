@@ -249,7 +249,7 @@
                         android:scrollbarStyle="outsideOverlay"
                         android:scrollbars="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="85dp"
+                        android:layout_height="wrap_content"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="5"
                         tools:listitem="@layout/item_time_quality"/>
