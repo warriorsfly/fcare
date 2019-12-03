@@ -63,6 +63,12 @@ class TreatmentOptionsActivity : BaseActivity() {
             "4-4" ->{viewModel.loadTreatments("252")}
         }
 
+        when(diagnoseCode){
+            "4-2"-> viewModel.loadTreatments("14")
+            "4-3"-> viewModel.loadTreatments("252")
+            "4-4"-> viewModel.loadTreatments("252")
+            else -> viewModel.loadTreatments("14")
+        }
 
         viewModel.options.observe(this, Observer {
 

@@ -232,10 +232,10 @@
                         android:background="@drawable/bg_edittextview_border"
                         android:hint="点击选择"
                         android:textColor="#9399A4"
-                        android:textSize="14sp"
+                        android:textSize="13sp"
                         android:text="@={viewModel.selectedItem.timePoint}"
                         android:gravity="center_vertical|right"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="2dp"
                         android:maxLines="1"
                         android:id="@+id/time"/>
                     <TextView

@@ -50,6 +50,7 @@ import com.wxsoft.fcare.ui.details.pharmacy.drugrecords.DrugRecordsActivity
 import com.wxsoft.fcare.ui.details.reperfusion.ReperfusionActivity
 import com.wxsoft.fcare.ui.details.strategy.StrategyActivity
 import com.wxsoft.fcare.ui.details.thrombolysis.ThrombolysisActivity
+import com.wxsoft.fcare.ui.details.trajectory.TrajectoryActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity
 import com.wxsoft.fcare.ui.details.vitalsigns.records.VitalSignsRecordActivity.Companion.SHARE
 import com.wxsoft.fcare.ui.discharge.DisChargeActivity
@@ -228,6 +229,14 @@ class WorkingActivity : BaseActivity() {
                         .apply {
                             putExtra(TimePointActivity.PATIENT_ID, patientId)
                             putExtra("just_error", true)
+                        }
+                    startActivityForResult(intent, TimePointActivity.BASE_INFO)
+                }
+                timeline_in_hospital.setOnClickListener {
+                    val intent = Intent(this@WorkingActivity, TrajectoryActivity::class.java)
+                        .apply {
+                            putExtra(TrajectoryActivity.PATIENT_ID, patientId)
+                            putExtra(TrajectoryActivity.DialogsisCode, this@WorkingActivity.viewModel.patient.value?.diagnosisCode)
                         }
                     startActivityForResult(intent, TimePointActivity.BASE_INFO)
                 }
@@ -474,8 +483,10 @@ class WorkingActivity : BaseActivity() {
                 startActivityForResult(intent, CABG)
             }
             ActionType.出院诊断 ->{
+                val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this@WorkingActivity, DisChargeActivity::class.java).apply {
                     putExtra(CTActivity.PATIENT_ID, patientId)
+                    putExtra(CatheterActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, OTDIAGNOSE)
             }

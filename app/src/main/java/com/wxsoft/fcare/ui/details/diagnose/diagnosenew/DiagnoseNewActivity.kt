@@ -34,11 +34,20 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DiagnoseNewActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+        when(selectedId){
+            R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = ""
+            R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = ""
+            R.id.start100 -> viewModel.selectedTreatment.value?.actual_Intervention_Date = ""
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         when(selectedId){
             R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = DateTimeUtils.formatter.format(millseconds)
             R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = DateTimeUtils.formatter.format(millseconds)
+            R.id.start100 -> viewModel.selectedTreatment.value?.actual_Intervention_Date = DateTimeUtils.formatter.format(millseconds)
         }
     }
 
@@ -94,6 +103,9 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                 line12.setOnClickListener {
                     showDatePicker(findViewById(R.id.start_12))
                 }
+                line100.setOnClickListener {
+                    showDatePicker(findViewById(R.id.start100))
+                }
                 line9.setOnClickListener {
                     toSelectTreatment()
                 }
@@ -110,7 +122,9 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         setSupportActionBar(toolbar)
         title="诊断"
 
-        viewModel.diagnosisTreatment.observe(this, Observer {  })
+        viewModel.diagnosisTreatment.observe(this, Observer {
+            viewModel.haveData()
+        })
         viewModel.selectedTreatment.observe(this, Observer {  })
         viewModel.diagnosis.observe(this, Observer {  })
         viewModel.acsDrug.observe(this, Observer {  })
@@ -125,12 +139,13 @@ class DiagnoseNewActivity : BaseTimingActivity() {
             }
             startActivityForResult(intent, ActionCode.RATING)
         }
-        line13.setOnClickListener {
-            toInformedConsent()
-        }
+//        line13.setOnClickListener {
+//            toInformedConsent()
+//        }
 
         viewModel.saveResult.observe(this, Observer {
             if (it.equals("success")){
+
                 setResult(Activity.RESULT_OK,intent)
                 finish()
             }
@@ -151,6 +166,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
                 toSelectPatientOutcom()
             }
         }
+
 
     }
 
@@ -182,6 +198,7 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         val intent = Intent(this, TreatmentOptionsActivity::class.java).apply {
             putExtra(TreatmentOptionsActivity.TREATMENT_ID, viewModel.selectedTreatment.value?.strategyCode)
             putExtra(TreatmentOptionsActivity.CODE, viewModel.patient?.value?.diagnosisCode?:"")
+            putExtra(TreatmentOptionsActivity.diagnose_code, viewModel.diagnosis?.value?.diagnosisCode2?:"")
         }
         startActivityForResult(intent, SELECT_TREATMENT)
     }
@@ -203,8 +220,8 @@ class DiagnoseNewActivity : BaseTimingActivity() {
     }
 
     private fun  toInformedConsent(){
-        val title = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-1")) "PCI术前知情同意书" else "溶栓术前知情同意书"
-        val typeId = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-1")||viewModel.selectedTreatment.value?.strategyCode.equals("14-3")) "1" else "2"
+        val title = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-01")) "PCI术前知情同意书" else "溶栓术前知情同意书"
+        val typeId = if (viewModel.selectedTreatment.value?.strategyCode.equals("14-01")||viewModel.selectedTreatment.value?.strategyCode.equals("14-3")) "1" else "2"
         val intent = Intent(this@DiagnoseNewActivity, AddInformedActivity::class.java).apply {
             putExtra(AddInformedActivity.PATIENT_ID,patientId)
             putExtra(AddInformedActivity.TITLE_NAME,title)
@@ -220,30 +237,49 @@ class DiagnoseNewActivity : BaseTimingActivity() {
         if(resultCode== Activity.RESULT_OK) {
             when(requestCode){
                 SELECT_DIAGNOSE_TYPE ->{
-                    val diaisTime = viewModel.diagnosis.value?.diagnosisTime?:DateTimeUtils.getCurrentTime()
+
+
                     val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
-                    diagnose.patientId = this@DiagnoseNewActivity.patientId
-                    diagnose.id = this@DiagnoseNewActivity.viewModel.diagnosis.value?.id?:""
-                    viewModel.loadDiagnosis.value = diagnose.apply {
-                        diagnosisTime = diaisTime
-                        handWay=viewModel.loadDiagnosis.value?.handWay?:""
-                        patientOutcom=viewModel.loadDiagnosis.value?.patientOutcom?:""
-                        memo=viewModel.loadDiagnosis.value?.memo?:""
+                    viewModel.loadDiagnosis.value = viewModel.diagnosis.value?.apply {
+                        patientId = this@DiagnoseNewActivity.patientId
+                        diagnosisCode2 = diagnose.diagnosisCode2
+                        diagnosisCode2Name = diagnose.diagnosisCode2Name
+                        diagnosisCode3 = diagnose.diagnosisCode3
+                        diagnosisCode3Name = diagnose.diagnosisCode3Name
                         if(diagnosisCode2.equals("4-2")){
                             handWay = "住院"
                             patientOutcom = "导管室"
-                            viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
-                                patientId = this@DiagnoseNewActivity.patientId
+                            viewModel.loadSelectedTreatment.value = Strategy(this@DiagnoseNewActivity.patientId, 1).apply {
                                 strategyCode = "14-1"
                                 strategyCode_Name = "急诊PCI"
                                 memo = "group1"
                             }
+                        }else {
+                            handWay = ""
+                            patientOutcom = ""
                         }
                     }
-                    viewModel.diagnosisTreatment.value?.diagnosis = diagnose.apply {
-                        diagnosisTime = diaisTime
-                    }
+                    viewModel.diagnosisTreatment.value?.diagnosis = viewModel.diagnosis.value!!
 
+//                    val diagnose = data?.getSerializableExtra("haveSelectedDiagnose") as Diagnosis
+//                    viewModel.loadDiagnosis.value = viewModel.diagnosis.value?.apply {
+//                        diagnosisCode2 = diagnose.diagnosisCode2
+//                        diagnosisCode2Name = diagnose.diagnosisCode2Name
+//                        if(diagnosisCode2.equals("4-2")){
+//                            handWay = "住院"
+//                            patientOutcom = "导管室"
+//                            viewModel.loadSelectedTreatment.value = Strategy(patientId, 1).apply {
+//                                patientId = this@DiagnoseNewActivity.patientId
+//                                strategyCode = "14-01"
+//                                strategyCode_Name = "急诊PCI"
+//                                memo = "group1"
+//                            }
+//                        }else {
+//                            handWay = ""
+//                            patientOutcom = ""
+//                        }
+//                    }
+//                    viewModel.diagnosisTreatment.value?.diagnosis = viewModel.diagnosis.value!!
                 }
 
                 SELECT_TREATMENT -> {

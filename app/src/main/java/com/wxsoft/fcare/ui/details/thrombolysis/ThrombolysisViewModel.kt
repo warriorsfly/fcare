@@ -156,19 +156,13 @@ class ThrombolysisViewModel @Inject constructor(private val thrombolysisApi: Thr
         }
     }
 
-    //点击去做知情同意书
-    fun toInformedConsent(){
-        if (informed.value != null){
-            loadClickLine.value = "informedConsent"
-        }
+    //点击去做知情同意i书
+    fun informedConsentStartTime(){
+        initModifySome.value = "ModifyStartInformedTime"
     }
     //修改知情同意书时间
-    fun modifyInformedTime(isStart:Int){
-        if (isStart == 1){//知情同意书开始时间
-            initModifySome.value = "ModifyStartInformedTime"
-        }else{//知情同意书签署时间
-            initModifySome.value = "ModifyEndInformedTime"
-        }
+    fun informedConsentEndTime(){
+        initModifySome.value = "ModifyEndInformedTime"
     }
 
     //开始溶栓点击事件

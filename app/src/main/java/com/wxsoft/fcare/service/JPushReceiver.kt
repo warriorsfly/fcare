@@ -37,8 +37,13 @@ class JPushReceiver : BroadcastReceiver() {
                     val message = bundle?.getString(JPushInterface.EXTRA_MESSAGE)
                     val title = bundle?.getString(JPushInterface.EXTRA_TITLE)
                     val extra = bundle?.getString(JPushInterface.EXTRA_EXTRA)
-                    processMessage(context,title,message,extra)
-                    processCustomMessage(context, title, message)
+                    if (message.equals("Normal.RefreshRfidTimeline")){
+                        processCustomMessage(context, "RefreshRfidTimeline", message)
+                    }else{
+                        processMessage(context,title,message,extra)
+                        processCustomMessage(context, title, message)
+                    }
+
                 }
                 JPushInterface.ACTION_NOTIFICATION_RECEIVED -> {//Logger.d(TAG, "[MyReceiver] 接收到推送下来的通知");
 
@@ -102,6 +107,12 @@ class JPushReceiver : BroadcastReceiver() {
                     putExtra("pid", message)
                 }
 
+                context.sendBroadcast(timeLineRefresh)
+            }
+            "RefreshRfidTimeline" -> {
+                val timeLineRefresh = Intent("RefreshRfidTimeline").apply {
+                    putExtra("RefreshRfidTimeline", message)
+                }
                 context.sendBroadcast(timeLineRefresh)
             }
         }

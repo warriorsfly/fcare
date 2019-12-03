@@ -69,7 +69,7 @@ data class Diagnosis (var id:String="",val createrId:String,val createrName:Stri
     @SerializedName("diagnosisCode3_Name")
     var diagnosisCode3Name: String? = ""
         set(value) {
-            field = if (value == "代码不存在") "" else value
+            field = value
             notifyPropertyChanged(BR.diagnosisCode3Name)
         }
     /// <summary>

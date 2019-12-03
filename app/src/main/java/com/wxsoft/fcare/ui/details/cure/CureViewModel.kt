@@ -100,7 +100,7 @@ class CureViewModel @Inject constructor(private val cureApi: CureApi,
     }
     fun type(id:String){
         when(id){
-            "14-1","14-3","14-5" ->{//pci
+            "14-01","14-3","14-5" ->{//pci
                 type = "pci"
                 getInformedConsent("1")
                 getPciTalk()

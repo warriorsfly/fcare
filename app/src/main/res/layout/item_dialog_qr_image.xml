@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout >
+	<ImageView
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			xmlns:app="http://schemas.android.com/apk/res-auto"
+			xmlns:tools="http://schemas.android.com/tools"
+			android:src="@drawable/ic_qr_image"
+			android:layout_width="wrap_content"
+			android:minWidth="300dp"
+			android:minHeight="300dp"
+			android:maxWidth="340dp"
+			android:maxHeight="510dp"
+			android:padding="10dp"
+			android:layout_height="wrap_content"/>
+</layout>

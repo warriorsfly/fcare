@@ -21,6 +21,17 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class ReperfusionActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+        when(selectedId){
+            R.id.decide_cabg_time -> viewModel.cabg.value?.decisionOperationTime = ""
+            R.id.start_cabg_time -> viewModel.cabg.value?.startOperationTime = ""
+            R.id.end_cabg_time -> viewModel.cabg.value?.endOperationTime =""
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
         dialog?.onDestroy()
         dialog=null

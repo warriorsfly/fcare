@@ -46,6 +46,16 @@ import java.io.File
 import javax.inject.Inject
 
 class JGDBActivity : BaseTimeShareDeleteActivity() ,PhotoEventAction {
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+        when(selectedId){
+            R.id.draw_blood_time -> viewModel.lisCr.value?.samplingTime = ""
+            R.id.draw_blood_report_time -> viewModel.lisCr.value?.reportTime = ""
+        }
+    }
+
     override fun selectTime(mills: Long) {
 
         dialog?.onDestroy()

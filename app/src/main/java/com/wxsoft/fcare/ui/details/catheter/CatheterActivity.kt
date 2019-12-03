@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.entity.EntityIdName
+import com.wxsoft.fcare.core.data.entity.User
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -19,11 +21,18 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityCatheterBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.details.comingby.ComingByActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class CatheterActivity : BaseTimingActivity(){
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+    }
+
     override fun selectTime(mills: Long) {
         dialog?.onDestroy()
         dialog=null
@@ -45,50 +54,84 @@ class CatheterActivity : BaseTimingActivity(){
     }
 
     private fun selectPlace(){
-        val list= viewModel.docs.map { it.trueName }.toTypedArray()
+//        val list= viewModel.docs.map { it.trueName }.toTypedArray()
+//
+//        val selectedItems= viewModel.docs.map { user ->
+//
+//            viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
+//        }.toBooleanArray()
+//
+//        AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems)
+//        { _, which, isChecked ->
+//            if(selectedIndex.contains(which) && !isChecked){
+//                selectedIndex.remove(which)
+//
+//            }else if(!selectedIndex.contains(which) && isChecked){
+//                selectedIndex.add(which)
+//            }
+//
+//            viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
+//                viewModel.docs[it].id
+//            }
+//
+//            viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
+//                viewModel.docs[it].trueName
+//            }
+//        }.setPositiveButton("确定") { _, _ ->
+//
+//        }.show()
 
-        val selectedItems= viewModel.docs.map { user ->
 
-            viewModel.intervention.value?.interventionMateIds?.contains(user.id)?:false
-        }.toBooleanArray()
-
-        AlertDialog.Builder(this).setMultiChoiceItems(list,selectedItems)
-        { _, which, isChecked ->
-            if(selectedIndex.contains(which) && !isChecked){
-                selectedIndex.remove(which)
-
-            }else if(!selectedIndex.contains(which) && isChecked){
-                selectedIndex.add(which)
+        val ids=
+            ArrayList<EntityIdName>().apply {
+                addAll(viewModel.intervention.value?.interventionMateIds?.split(',')!!.map {
+                    EntityIdName(it,"")
+                })
             }
 
-            viewModel.intervention.value?.interventionMateIds=selectedIndex.joinToString {
-                viewModel.docs[it].id
-            }
+        val inti=Intent(this,CatheterDoctorsActivity::class.java).apply {
+            putExtra("type",3)
+            putExtra(ComingByActivity.PATIENT_ID,patientId)
+            putExtra("ids",ids)
 
-            viewModel.intervention.value?.interventionMates=selectedIndex.joinToString {
-                viewModel.docs[it].trueName
-            }
-        }.setPositiveButton("确定") { _, _ ->
+        }
 
-        }.show()
+        startActivityForResult(inti,CATHETER_DOCTOR)
+
+
     }
 
     private fun selectDoc(){
-        val list= viewModel.docs.map { it.trueName }.toTypedArray()
+//        val list= viewModel.docs.map { it.trueName }.toTypedArray()
+//
+//        val selectedPos= viewModel.docs.indexOfFirst { user ->
+//
+//            viewModel.intervention.value?.doctorId==user.id
+//        }
+//
+//        AlertDialog.Builder(this).setSingleChoiceItems(list,selectedPos){
+//            dialog,which->
+//            dialog.dismiss()
+//            viewModel.intervention.value?.apply {
+//                doctorId=viewModel.docs[which].id
+//                doctorName=viewModel.docs[which].trueName
+//            }
+//        }.setPositiveButton("确定") { _, _ ->
+//
+//        }.show()
 
-        val selectedPos= viewModel.docs.indexOfFirst { user ->
 
-            viewModel.intervention.value?.doctorId==user.id
+        val ids=
+            arrayListOf(EntityIdName(viewModel.intervention.value?.doctorId?:"",viewModel.intervention.value?.doctorName?:""))
+        val inti=Intent(this,CatheterDoctorsActivity::class.java).apply {
+            putExtra("type",1)
+            putExtra(ComingByActivity.PATIENT_ID,patientId)
+            putExtra("ids",ids)
         }
 
-        AlertDialog.Builder(this).setSingleChoiceItems(list,selectedPos){
-            dialog,which->
-            dialog.dismiss()
-            viewModel.intervention.value?.apply {
-                doctorId=viewModel.docs[which].id
-                doctorName=viewModel.docs[which].trueName
-            }
-        }.show()
+        startActivityForResult(inti,CATHETER_DOCTOR)
+
+
     }
 
     private var selectedId=0
@@ -159,6 +202,8 @@ class CatheterActivity : BaseTimingActivity(){
                 "8"->showDatePicker(findViewById(R.id.wire))
                 "9"->showDatePicker(findViewById(R.id.end))
                 "10"->showDatePicker(findViewById(R.id.leave))
+                "21"->showDatePicker(findViewById(R.id.start1))
+                "22"->showDatePicker(findViewById(R.id.start1_1))
 //                "11"->showDatePicker(findViewById(R.id.end_1))
             }
         })
@@ -214,6 +259,22 @@ class CatheterActivity : BaseTimingActivity(){
                     viewModel.intervention.value?.sign_Agree_Time = data?.getStringExtra("endTime")?:""
                     viewModel.intervention.value?.getInformedTime()
 //                    viewModel.intervention.value?.allTime = data?.getStringExtra("allTime")?:""
+                }
+                CATHETER_DOCTOR ->{
+                    val returnType=data?.getIntExtra("type",0)?:0
+                    val users=data?.getParcelableArrayListExtra<EntityIdName>("user")
+                    viewModel.intervention.value?.let {
+                        when(returnType){
+                            1->{
+                                it.doctorName= users?.get(0)?.name?:""
+                                it.doctorId= users?.get(0)?.id?:""
+                            }
+                            3->{
+                                it.interventionMateIds=users?.joinToString(separator = ","){it.id}?:""
+                                it.interventionMates=users?.joinToString(separator = ","){it.name}?:""
+                            }
+                        }
+                    }
                 }
             }
         }

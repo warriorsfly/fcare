@@ -191,87 +191,110 @@
 					<androidx.constraintlayout.widget.ConstraintLayout
 							android:id="@+id/model3_1"
 							android:background="@color/white"
+							android:onClick="@{()->viewModel.informedConsentStartTime()}"
 							app:layout_constraintLeft_toLeftOf="parent"
 							app:layout_constraintTop_toTopOf="parent"
-							android:onClick="@{()-> viewModel.toInformedConsent()}"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content">
 
 						<TextView
-								android:id="@+id/title3_1"
+								android:id="@+id/title3_0"
 								app:layout_constraintLeft_toLeftOf="parent"
 								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintBottom_toTopOf="@+id/informed_time"
+								app:layout_constraintBottom_toBottomOf="parent"
 								android:layout_marginTop="15dp"
 								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
-								android:text="知情同意书"
+								android:text="开始知情同意时间"
 								android:textSize="16sp"
 								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
+
 						<TextView
-								android:id="@+id/rown3_1"
+								android:hint="选择时间"
+								android:id="@+id/start1"
+								android:gravity="right"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="13sp"
+								android:textColor="#7D7D7D"
+								android:minWidth="90dp"
+								android:text="@={viewModel.thrombolysis.start_Agree_Time}"
 								app:layout_constraintTop_toTopOf="parent"
-								app:layout_constraintRight_toRightOf="parent"
 								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe3_1"
+								tools:text="2019-01-18 13:23:15"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/rowe3_1"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/title3_0"
 								android:layout_width="14dp"
 								android:layout_height="24dp"
 								android:layout_marginRight="19dp"
 								android:background="@drawable/ic_right_arrow"/>
-
-						<ImageView
-								android:id="@+id/modify_start_time_icon"
-								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-								android:src="@drawable/ic_common_clock"
-								app:layout_constraintLeft_toLeftOf="@+id/title3_1"
-								app:layout_constraintTop_toTopOf="@+id/informed_time"
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
 								app:layout_constraintBottom_toBottomOf="parent"
-								android:layout_marginBottom="15dp"
-								android:layout_width="14dp"
-								android:layout_height="14dp"/>
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/model3_1_1"
+							android:onClick="@{()->viewModel.informedConsentEndTime()}"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/model3_1"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
 
 						<TextView
-								android:id="@+id/informed_time"
-								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-								app:layout_constraintLeft_toRightOf="@+id/modify_start_time_icon"
-								app:layout_constraintTop_toBottomOf="@+id/title3_1"
+								android:id="@+id/title3_0_1"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
 								app:layout_constraintBottom_toBottomOf="parent"
-								android:layout_marginLeft="7dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
 								android:layout_marginBottom="15dp"
-								android:textColor="#999999"
+								android:text="签署知情同意时间"
 								android:textSize="16sp"
-								android:text="@{viewModel.thrombolysis.start_Agree_Time.substring(11,16) + `  ~  ` + viewModel.thrombolysis.sign_Agree_Time.substring(11,16)}"
-								tools:text="12:04~12:11"
+								android:textColor="#131D35"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 
 						<TextView
-								android:id="@+id/title3_1_1"
-								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-								android:layout_marginTop="5dp"
-								android:layout_marginRight="5dp"
-								android:textColor="#525252"
-								app:layout_constraintRight_toLeftOf="@+id/time3_1_1"
-								app:layout_constraintBottom_toBottomOf="@+id/informed_time"
-								android:textSize="14sp"
-								android:text="耗时"
+								android:hint="选择时间"
+								android:id="@+id/start1_1"
+								android:gravity="right"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="13sp"
+								android:textColor="#7D7D7D"
+								android:minWidth="90dp"
+								android:text="@={viewModel.thrombolysis.sign_Agree_Time}"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe3_1_1"
+								tools:text="2019-01-18 13:23:15"
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 
 						<TextView
-								android:id="@+id/time3_1_1"
-								goneUnless="@{viewModel.thrombolysis.start_Agree_Time != null}"
-								android:layout_marginTop="5dp"
-								android:layout_marginRight="5dp"
-								android:textColor="#EE4E5B"
-								app:layout_constraintRight_toLeftOf="@+id/rown3_1"
-								app:layout_constraintBottom_toBottomOf="@+id/informed_time"
-								android:textSize="14sp"
-								android:text="@{viewModel.thrombolysis.allTime}"
-								android:layout_width="wrap_content"
-								android:layout_height="wrap_content"/>
-
+								android:id="@+id/rowe3_1_1"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/title3_0_1"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
 						<View
 								android:background="#EDEDED"
 								android:layout_marginBottom="1dp"
@@ -285,7 +308,7 @@
 							android:id="@+id/model3_2"
 							android:background="@color/white"
 							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/model3_1"
+							app:layout_constraintTop_toBottomOf="@+id/model3_1_1"
 							android:layout_width="match_parent"
 							android:onClick="@{() -> viewModel.startthromTiem()}"
 							android:layout_height="50dp">
@@ -557,7 +580,7 @@
 							android:layout_marginLeft="5dp"
 							android:padding="10dp"
 							android:textSize="16sp"
-							android:textColor="#525252"
+							android:textColor="@color/black_checked_nomal"
 							android:text="溶栓用药"
 							app:layout_constraintLeft_toLeftOf="parent"
 							app:layout_constraintTop_toTopOf="parent"/>
@@ -708,7 +731,7 @@
 						android:layout_marginLeft="5dp"
 						android:padding="10dp"
 						android:textSize="16sp"
-						android:textColor="#525252"
+						android:textColor="@color/black_checked_nomal"
 						android:text="去向"
 						app:layout_constraintLeft_toLeftOf="parent"
 						app:layout_constraintTop_toTopOf="parent"/>

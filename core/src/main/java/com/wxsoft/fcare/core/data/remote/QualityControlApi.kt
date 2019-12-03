@@ -34,4 +34,9 @@ interface QualityControlApi {
     @GET("Patient/GetEmssModules/{patientId}/{currUserId}/{isPreHospital}")
     fun getOperationGroups(@Path("patientId")id:String,@Path("currUserId")userId:String,@Path("isPreHospital")pre:Boolean): Maybe<Response<List<Record<WorkOperation>>>>
 
+    @GET("QualityControl/GetPatientTravelTimeLine/{patientId}")
+    fun getPatientTravelTimeLine(@Path("patientId")id:String): Maybe<Response<TravelTimeLine>>
+
+
+
 }

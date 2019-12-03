@@ -106,6 +106,7 @@ class OutComeViewModel @Inject constructor(private val api: DischargeApi,
 
             disposable.add(api.saveOt(
                 it).toResource().subscribe {result->
+                messageAction.value = Event("保存成功")
                 commitResult.value=result
             }
             )

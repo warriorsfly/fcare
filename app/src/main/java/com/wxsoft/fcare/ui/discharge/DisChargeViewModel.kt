@@ -1,5 +1,6 @@
 package com.wxsoft.fcare.ui.discharge
 
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import com.google.gson.Gson
@@ -31,6 +32,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
             field = value
             loadDisChargeInfo()
         }
+    var xtShow= ObservableField<Boolean>()
 
     val data:LiveData<DisChargeDiagnosis>
     private val loadDiagnosisResult = MediatorLiveData<DisChargeDiagnosis>()
@@ -90,7 +92,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
                     when (result) {
                         is Resource.Success -> {
                             commitResult.value = result
-                            messageAction.value = Event(result.data.msg)
+                            messageAction.value = Event("保存成功")
                         }
                         is Error -> {
                             messageAction.value = Event(result.message ?: "")

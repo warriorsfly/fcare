@@ -70,7 +70,7 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val account=gson.fromJson(sharedPreferenceStorage.userInfo!!, Account::class.java)
-        doctor=!account.deptName.contains("120")
+        if (!account.deptId.isNullOrEmpty()) doctor=account.deptId.contains("0")
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .apply {
                 //                viewModel=this@MainActivity.viewModel

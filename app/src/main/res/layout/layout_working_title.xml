@@ -161,18 +161,6 @@
                     android:layout_height="wrap_content"/>
 
 
-                <!--<TextView-->
-                    <!--android:id="@+id/notification"-->
-                    <!--app:layout_constraintTop_toTopOf="@id/hour"-->
-                    <!--app:layout_constraintBottom_toBottomOf="@id/title"-->
-                    <!--app:layout_constraintRight_toRightOf="parent"-->
-                    <!--android:textColor="@color/white"-->
-                    <!--android:text="通知"-->
-                    <!--android:drawableLeft="@drawable/ic_work_space_call_immediately"-->
-                    <!--android:layout_marginRight="16dp"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"/>-->
-
             <TextView
                 android:id="@+id/swichCode"
                 app:layout_constraintBottom_toBottomOf="@id/hour"
@@ -183,6 +171,19 @@
                 android:layout_marginRight="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+
+            <ImageView
+                android:id="@+id/timeline_in_hospital"
+                app:layout_constraintBottom_toBottomOf="@id/hour"
+                app:layout_constraintRight_toLeftOf="@+id/swichCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="30dp"
+                android:padding="6dp"
+                android:textColor="@color/white"
+                android:src="@drawable/ic_timeline_in_hospital"/>
+
 
                 <com.google.android.material.card.MaterialCardView
                     app:layout_constraintTop_toBottomOf="@id/title"
@@ -248,7 +249,7 @@
                         android:scrollbarStyle="outsideOverlay"
                         android:scrollbars="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="85dp"
+                        android:layout_height="wrap_content"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="5"
                         tools:listitem="@layout/item_time_quality"/>

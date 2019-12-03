@@ -29,7 +29,6 @@
 						android:layout_height="match_parent">
 
 					<androidx.constraintlayout.widget.ConstraintLayout
-							android:onClick="@{()->viewModel.changeDoctor(1)}"
 							android:id="@+id/model0_2"
 							android:background="@color/white"
 							app:layout_constraintLeft_toLeftOf="parent"
@@ -51,22 +50,26 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 
-						<TextView
+						<EditText
 								android:hint="请选择"
 								android:layout_marginRight="19dp"
 								android:layout_marginTop="15dp"
 								android:layout_marginBottom="15dp"
+								android:background="@drawable/bg_edittextview_border"
+								android:gravity="right"
 								android:textSize="16sp"
-								android:text="@{viewModel.comingBy.emergencyDoctor.trueName}"
+								android:text="@={viewModel.comingBy.emergencyDoctor.trueName}"
 								android:textColor="#7D7D7D"
 								app:layout_constraintTop_toTopOf="parent"
 								app:layout_constraintBottom_toBottomOf="parent"
 								app:layout_constraintRight_toLeftOf="@+id/rowe0_2"
+								app:layout_constraintLeft_toRightOf="@+id/title0_2"
 								tools:text="李医生"
-								android:layout_width="wrap_content"
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"/>
 
 						<TextView
+								android:onClick="@{()->viewModel.changeDoctor(1)}"
 								android:id="@+id/rowe0_2"
 								app:layout_constraintRight_toRightOf="parent"
 								app:layout_constraintBottom_toBottomOf="@id/title0_2"
@@ -106,7 +109,21 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 
+						<ImageView
+								app:invisibleUnless="@{viewModel.comingBy.emergencyNurse.trueName!=null}"
+								android:src="@drawable/ic_delete_white"
+								android:elevation="2dp"
+								android:tint="#C6C7C6"
+								android:onClick="@{()->viewModel.clearnurseName()}"
+								app:layout_constraintTop_toTopOf="@id/nursename"
+								app:layout_constraintBottom_toBottomOf="@id/nursename"
+								app:layout_constraintLeft_toRightOf="@id/nursename"
+								android:layout_width="24dp"
+								android:layout_height="24dp"
+								android:padding="3dp"/>
+
 						<TextView
+								android:id="@+id/nursename"
 								android:hint="请选择"
 								android:layout_marginRight="19dp"
 								android:layout_marginTop="15dp"
@@ -440,7 +457,7 @@
 									android:layout_marginTop="15dp"
 									android:layout_marginLeft="15dp"
 									android:layout_marginBottom="15dp"
-									android:text="会诊时间"
+									android:text="@{viewModel.xtShow?`心内科首诊时间`:`会诊时间`}"
 									android:textSize="16sp"
 									android:textColor="#131D35"
 									android:layout_width="wrap_content"

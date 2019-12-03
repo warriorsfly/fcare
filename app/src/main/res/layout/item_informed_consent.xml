@@ -85,7 +85,7 @@
                     android:paddingBottom="3dp"
                     android:background="@drawable/ic_diagnosis1"
                     android:textColor="@android:color/white"
-                    android:text="@{item.informedConsent.informedType}"
+                    android:text="@{item.informedConsent.informedTypeName}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintRight_toRightOf="parent"/>
 

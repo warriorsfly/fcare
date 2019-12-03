@@ -34,6 +34,10 @@ import java.util.*
 import javax.inject.Inject
 
 class DoMinaActivity : BaseTimingActivity() {
+    override fun clearTime(mills: Long) {
+
+    }
+
     override fun selectTime(millseconds: Long) {
         viewModel.changing(changingStatus,DateTimeUtils.formatter.format(millseconds),millseconds)
     }

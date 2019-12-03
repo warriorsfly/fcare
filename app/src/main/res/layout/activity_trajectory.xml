@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools">
+	<data>
+		<variable name="viewModel" type="com.wxsoft.fcare.ui.details.trajectory.TrajectoryViewModel"/>
+	</data>
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="match_parent"
+			android:background="#FFF"
+			tools:context=".ui.details.trajectory.TrajectoryActivity">
+		<include layout="@layout/layout_new_title"
+				android:id="@+id/title"
+				/>
+
+		<androidx.core.widget.NestedScrollView
+				android:id="@+id/baseScroll"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+				app:layout_constraintRight_toRightOf="parent"
+				app:layout_constraintLeft_toLeftOf="parent"
+				app:layout_constraintTop_toBottomOf="@+id/title"
+				app:layout_constraintBottom_toBottomOf="parent">
+
+			<androidx.constraintlayout.widget.ConstraintLayout
+					android:id="@+id/top_container"
+					android:layout_width="match_parent"
+					android:layout_height="match_parent">
+
+<!--				<TextView-->
+<!--						android:id="@+id/name"-->
+<!--						android:textStyle="bold"-->
+<!--						tools:text="陈阿毛"-->
+<!--						android:textColor="@color/black"-->
+<!--						android:layout_width="wrap_content"-->
+<!--						android:layout_height="wrap_content"-->
+<!--						app:layout_constraintLeft_toLeftOf="parent"-->
+<!--						app:layout_constraintTop_toTopOf="parent"-->
+<!--						android:layout_marginLeft="15dp"-->
+<!--						android:layout_marginTop="15dp"-->
+<!--						android:text="@{viewModel.travelTimeLine.patientInfoDto.name}"-->
+<!--						android:textSize="19sp"/>-->
+
+
+				<ImageView
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toTopOf="@id/time"
+						app:layout_constraintBottom_toBottomOf="@id/time"
+						android:layout_width="wrap_content"
+						android:id="@+id/icon"
+						android:layout_marginLeft="15dp"
+						android:maxHeight="17dp"
+						android:maxWidth="17dp"
+						android:src="@drawable/ic_time_point_head"
+						android:layout_height="wrap_content"/>
+
+				<TextView
+						android:id="@+id/time"
+						android:textStyle="bold"
+						tools:text="2019-01-01"
+						android:textColor="#3C394A"
+						android:layout_width="wrap_content"
+						android:layout_height="wrap_content"
+						app:layout_constraintLeft_toRightOf="@id/icon"
+						app:layout_constraintTop_toTopOf="parent"
+						android:layout_marginLeft="7.5dp"
+						android:layout_marginTop="15dp"
+						android:layout_marginBottom="7.5dp"
+						android:text="@{viewModel.travelTimeLine.date}"
+						android:textSize="19sp"/>
+
+				<androidx.recyclerview.widget.RecyclerView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:layout_marginTop="15dp"
+						android:id="@+id/list"
+						app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+						app:layout_constraintTop_toBottomOf="@id/icon"
+						app:layout_constraintBottom_toBottomOf="parent"
+						app:layout_constraintRight_toRightOf="parent"
+						app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+			</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+		</androidx.core.widget.NestedScrollView>
+
+
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

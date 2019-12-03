@@ -31,6 +31,13 @@ import javax.inject.Inject
 
 
 class TaskFragment : BaseTimingFragment() {
+    override fun clearTime(mills: Long) {
+        when(selectedId){
+            100 -> viewModel.checkCondition.value?.startDate = ""
+            200 -> viewModel.checkCondition.value?.endDate = ""
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         when(selectedId){

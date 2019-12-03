@@ -2,22 +2,53 @@ package com.wxsoft.fcare.ui.main.fragment.profile
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import cn.jiguang.share.android.api.JShareInterface
+import cn.jiguang.share.android.api.PlatActionListener
+import cn.jiguang.share.android.api.Platform
+import cn.jiguang.share.android.api.ShareParams
+import cn.jiguang.share.wechat.Wechat
+import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
-import com.wxsoft.fcare.databinding.FragmentUserProfileBinding
-import com.wxsoft.fcare.ui.login.LoginActivity
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
+import com.wxsoft.fcare.databinding.FragmentUserProfileBinding
+import com.wxsoft.fcare.databinding.ItemDialogQrImageBinding
+import com.wxsoft.fcare.ui.login.LoginActivity
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
+
 class UserProfileFragment : DaggerFragment() {
 
+    protected val listener = object : PlatActionListener {
+        /**
+         * 上传成功
+         */
+        override fun onComplete(p0: Platform?, p1: Int, p2: HashMap<String, Any>?) {
+
+        }
+
+        /**
+         * 取消
+         */
+        override fun onCancel(p0: Platform?, p1: Int) {
+
+        }
+
+        /**
+         * 分享错误
+         */
+        override fun onError(p0: Platform?, p1: Int, p2: Int, p3: Throwable?) {
+
+        }
+    }
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -48,7 +79,9 @@ class UserProfileFragment : DaggerFragment() {
             changeHospital.setOnClickListener {
                 if (this@UserProfileFragment.viewModel.hospitals.value!=null) showDiag()
             }
-
+            qrCode.setOnClickListener {
+                showImageDialog()
+            }
             lifecycleOwner = this@UserProfileFragment
         }
 
@@ -68,5 +101,38 @@ class UserProfileFragment : DaggerFragment() {
             viewModel.selectHospital(hospital)
         }.create().show()
     }
+
+    fun showImageDialog() {
+        val binding= ItemDialogQrImageBinding.inflate(layoutInflater).apply {
+            lifecycleOwner=this@UserProfileFragment
+        }
+        AlertDialog.Builder(this.context, R.style.Theme_FCare_Dialog)
+            .setView(binding.root)
+            .setNeutralButton("分享"){_,_->
+                doImage()
+            }
+            .setNegativeButton("取消") { dialog, _ ->
+                dialog.dismiss()
+            }.show()
+    }
+    private fun doImage(){
+        try {
+            if(JShareInterface.isSupportAuthorize(Wechat.Name) ){
+                val params = ShareParams().apply {
+
+                   val bitmap = BitmapFactory.decodeResource(this@UserProfileFragment.context!!.resources, R.drawable.ic_qr_image)
+                    imageData = bitmap
+                    shareType = Platform.SHARE_IMAGE
+                }
+                JShareInterface.share(Wechat.Name, params,listener )
+
+            }
+
+        }catch (e:Exception){
+            error(e)
+        }
+    }
+
+
 
 }

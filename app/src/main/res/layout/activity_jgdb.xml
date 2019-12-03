@@ -59,7 +59,7 @@
 						android:layout_marginBottom="17.5dp"
 						android:text="@string/jgdb_blood_time"
 						android:textSize="16sp"
-						android:textColor="@color/small_title_text_gray"
+						android:textColor="@color/black_checked_nomal"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"/>
 
@@ -118,7 +118,7 @@
 						android:layout_marginBottom="17.5dp"
 						android:text="报告时间"
 						android:textSize="16sp"
-						android:textColor="@color/small_title_text_gray"
+						android:textColor="@color/black_checked_nomal"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"/>
 
@@ -170,6 +170,7 @@
 						android:id="@+id/cTnI_title"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:layout_marginTop="17.5dp"
 						android:layout_marginLeft="15dp"
 						android:layout_marginBottom="17.5dp"
@@ -178,6 +179,7 @@
 						app:layout_constraintTop_toTopOf="parent"
 						android:text="cTnI" />
 					<EditText android:selectAllOnFocus="true"
+										android:hint="请输入"
 					          android:layout_width="0dp"
 					          android:layout_height="wrap_content"
 					          android:layout_marginStart="8dp"
@@ -187,6 +189,7 @@
 					          android:text="@={viewModel.lisCr.ctniValue}"
 					          android:textSize="12sp"
 					          android:gravity="center"
+									  android:background="@null"
 					          android:imeOptions="actionNext"
 					          android:inputType="number|numberDecimal"
 					          android:digits="@string/input_type_numbers_delow"
@@ -201,6 +204,7 @@
 						android:id="@+id/cTnI_unit"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:textSize="12sp"
 						android:layout_marginRight="10dp"
 						android:selectedItemPosition="@={viewModel.ctniIndex}"
@@ -241,6 +245,7 @@
 						android:id="@+id/cTnT_title"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:layout_marginTop="17.5dp"
 						android:layout_marginLeft="15dp"
 						android:layout_marginBottom="17.5dp"
@@ -249,6 +254,7 @@
 						app:layout_constraintTop_toTopOf="parent"
 						android:text="cTnT" />
 					<EditText android:selectAllOnFocus="true"
+										android:hint="请输入"
 					          android:layout_width="0dp"
 					          android:layout_height="wrap_content"
 					          android:layout_marginStart="8dp"
@@ -262,6 +268,7 @@
 					          android:inputType="number|numberDecimal"
 					          android:digits="@string/input_type_numbers_delow"
 					          android:maxLines="1"
+										android:background="@null"
 					          app:layout_constraintBottom_toBottomOf="parent"
 					          app:layout_constraintLeft_toRightOf="@+id/cTnT_title"
 					          app:layout_constraintTop_toTopOf="parent"
@@ -287,24 +294,24 @@
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:textSize="12sp"
-						android:layout_marginRight="10dp"
+						android:textColor="@color/black_checked_nomal"
 						android:selectedItemPosition="@={viewModel.ctntIndex}"
 						android:entries="@{viewModel.troponinUnitsItems}"
-						app:layout_constraintBottom_toBottomOf="parent"
-						app:layout_constraintRight_toLeftOf="@+id/cTnT_character"
-						app:layout_constraintTop_toTopOf="parent"
-						android:gravity="right"/>
-
-					<TextView
-						android:id="@+id/cTnT_character"
-						android:layout_width="0dp"
-						android:layout_height="wrap_content"
-						android:text="@{viewModel.lisCr.ctntStatus}"
-						android:layout_marginRight="19dp"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintRight_toRightOf="parent"
 						app:layout_constraintTop_toTopOf="parent"
 						android:gravity="right"/>
+
+<!--					<TextView-->
+<!--						android:id="@+id/cTnT_character"-->
+<!--						android:layout_width="0dp"-->
+<!--						android:layout_height="wrap_content"-->
+<!--						android:text="@{viewModel.lisCr.ctntStatus}"-->
+<!--						android:layout_marginRight="19dp"-->
+<!--						app:layout_constraintBottom_toBottomOf="parent"-->
+<!--						app:layout_constraintRight_toRightOf="parent"-->
+<!--						app:layout_constraintTop_toTopOf="parent"-->
+<!--						android:gravity="right"/>-->
 					<View
 						android:background="#EDEDED"
 						android:layout_marginBottom="1dp"
@@ -325,6 +332,7 @@
 						android:id="@+id/CKMB_title"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:layout_marginTop="17.5dp"
 						android:layout_marginLeft="15dp"
 						android:layout_marginBottom="17.5dp"
@@ -333,6 +341,7 @@
 						app:layout_constraintTop_toTopOf="parent"
 						android:text="CK-MB" />
 					<EditText android:selectAllOnFocus="true"
+										android:hint="请输入"
 					          android:layout_width="0dp"
 					          android:layout_height="wrap_content"
 					          android:layout_marginStart="8dp"
@@ -343,6 +352,7 @@
 					          android:gravity="center"
 					          android:imeOptions="actionNext"
 					          android:maxLines="1"
+										android:background="@null"
 					          android:inputType="number|numberDecimal"
 					          android:digits="@string/input_type_numbers_delow"
 					          android:text="@={viewModel.lisCr.ckmb}"
@@ -357,8 +367,9 @@
 						android:background="@color/white"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:text="ng/ml"
-						android:textSize="12sp"
+						android:textSize="14sp"
 						android:layout_marginRight="10dp"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintRight_toRightOf="parent"
@@ -385,6 +396,7 @@
 						android:id="@+id/Myo_title"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:layout_marginTop="17.5dp"
 						android:layout_marginLeft="15dp"
 						android:layout_marginBottom="17.5dp"
@@ -393,6 +405,7 @@
 						app:layout_constraintTop_toTopOf="parent"
 						android:text="Myo" />
 					<EditText android:selectAllOnFocus="true"
+										android:hint="请输入"
 					          android:layout_width="0dp"
 					          android:layout_height="wrap_content"
 					          android:layout_marginStart="8dp"
@@ -401,6 +414,7 @@
 					          android:id="@+id/Myo_num_et"
 					          android:textSize="12sp"
 					          android:gravity="center"
+										android:background="@null"
 					          android:imeOptions="actionNext"
 					          android:text="@={viewModel.lisCr.myo}"
 					          android:inputType="number|numberDecimal"
@@ -417,8 +431,9 @@
 						android:background="@color/white"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:text="ng/ml"
-						android:textSize="12sp"
+						android:textSize="14sp"
 						android:layout_marginRight="10dp"
 						app:layout_constraintBottom_toBottomOf="parent"
 						app:layout_constraintRight_toRightOf="parent"
@@ -445,6 +460,7 @@
 						android:id="@+id/cr_title"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:layout_marginTop="17.5dp"
 						android:layout_marginLeft="15dp"
 						android:layout_marginBottom="17.5dp"
@@ -453,6 +469,7 @@
 						app:layout_constraintTop_toTopOf="parent"
 						android:text="血清肌酐(cr)" />
 					<EditText android:selectAllOnFocus="true"
+										android:hint="请输入"
 					          android:layout_width="0dp"
 					          android:layout_height="wrap_content"
 					          android:layout_marginStart="8dp"
@@ -465,6 +482,7 @@
 					          android:imeOptions="actionNext"
 					          android:inputType="number|numberDecimal"
 					          android:digits="1234567890."
+										android:background="@null"
 					          android:maxLines="1"
 					          app:layout_constraintBottom_toBottomOf="parent"
 					          app:layout_constraintLeft_toRightOf="@+id/cr_title"
@@ -476,6 +494,7 @@
 						android:id="@+id/cr_unit"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
+						android:textColor="@color/black_checked_nomal"
 						android:textSize="12sp"
 						android:selectedItemPosition="@={viewModel.lisCr.selectCrUnit}"
 						android:entries="@array/cr_unit"
@@ -501,7 +520,7 @@
 						android:layout_height="wrap_content"
 						android:padding="10dp"
 						android:textSize="16sp"
-						android:textColor="#525252"
+						android:textColor="@color/black_checked_nomal"
 						android:text="附件"
 						app:layout_constraintLeft_toLeftOf="parent"
 						app:layout_constraintTop_toTopOf="parent"/>

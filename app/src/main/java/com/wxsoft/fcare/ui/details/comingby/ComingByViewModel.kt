@@ -187,6 +187,7 @@ class ComingByViewModel @Inject constructor(
     fun doSaving(result:Response<String?>){
         resultText = result.msg
         savingResult.value=result
+        messageAction.value = Event("保存成功")
     }
     fun doSavingpass(result:Response<String?>){
 
@@ -203,6 +204,14 @@ class ComingByViewModel @Inject constructor(
     fun clearConsultationTime(){
         comingBy.value?.consultation_Date=null
     }
+    fun clearnurseName(){
+        comingBy.value?.emergencyNurse?.userName = ""
+        comingBy.value?.emergencyNurse?.trueName = ""
+        comingBy.value?.comingWayStaffs = comingBy.value?.comingWayStaffs!!.filter {
+            it.staffType != "2"
+        }
+    }
+
 
 
     fun save() {
@@ -230,10 +239,10 @@ class ComingByViewModel @Inject constructor(
             var d1 = comingWayStaffs.firstOrNull { it.staffType == "1" }
 
             if (d1 == null) {
-                if (emergencyDoctor.id.isNotEmpty())
+                if (emergencyDoctor.trueName.isNotEmpty())
                     d1 = ComingByStaff(comingWayId = id, staffType = "1")
             }
-            if (d1?.staffId != emergencyDoctor.id) {
+            if (d1?.staffName != emergencyDoctor.trueName) {
                 d1?.staffId = emergencyDoctor.id
                 d1?.staffName = emergencyDoctor.trueName
             }
@@ -244,9 +253,9 @@ class ComingByViewModel @Inject constructor(
                 if (emergencyDoctor.id.isNotEmpty())
                     d2 = ComingByStaff(comingWayId = id, staffType = "2")
             }
-            if (d2?.staffId != emergencyNurse.id) {
-                d2?.staffId = emergencyNurse.id
-                d2?.staffName = emergencyNurse.trueName
+            if ((d2?.staffId != emergencyNurse?.id)&&(emergencyNurse != null)) {
+                d2?.staffId = emergencyNurse!!.id
+                d2?.staffName = emergencyNurse!!.trueName
             }
 
             val d3 = this@ComingByViewModel.cdoctors.map {

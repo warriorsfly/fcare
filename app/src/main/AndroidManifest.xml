@@ -52,6 +52,14 @@
 			android:supportsRtl="true"
 			android:theme="@style/AppTheme"
 			tools:targetApi="n">
+		<activity android:name=".ui.details.catheter.CatheterDoctorsActivity"
+				android:theme="@style/AppTheme.NoActionBar"/>
+		<activity
+				android:name=".ui.details.trajectory.TrajectoryActivity"
+				android:theme="@style/AppTheme.NoActionBar" />
+		<activity
+				android:name=".ui.patient.choice.WristbandActivity"
+				android:theme="@style/AppTheme.NoActionBar" />
 		<activity android:name=".ui.details.operation.OperationActivity"
 				android:theme="@style/AppTheme.NoActionBar"></activity>
 		<activity

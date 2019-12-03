@@ -26,6 +26,14 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class DisChargeActivity : BaseTimingActivity(){
+    override fun clearTime(mills: Long) {
+        dialog?.onDestroy()
+        dialog=null
+        (findViewById<TextView>(selectedId))?.text= ""
+        when(selectedId){
+            R.id.decide_cabg_time -> viewModel.data.value?.diagnosisTime = ""
+        }
+    }
 
     override fun selectTime(millseconds: Long) {
 
@@ -52,8 +60,10 @@ class DisChargeActivity : BaseTimingActivity(){
     private var selectedId=0
 
     private lateinit var patientId:String
+    private lateinit var xt:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val IS_XT = "IS_XT"
         const val SELECTED_Complication = 200
         const val SELECTED_RiskFactors = 300
     }
@@ -78,7 +88,9 @@ class DisChargeActivity : BaseTimingActivity(){
                 lifecycleOwner = this@DisChargeActivity
             }
         patientId=intent.getStringExtra(DisChargeActivity.PATIENT_ID)?:""
+        xt=intent.getStringExtra(IS_XT)?:""
         viewModel.patientId = patientId
+        viewModel.xtShow.set(xt.equals("xt"))
 
         setSupportActionBar(toolbar)
         title="出院"

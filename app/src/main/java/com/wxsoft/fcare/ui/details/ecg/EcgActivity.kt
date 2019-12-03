@@ -43,9 +43,29 @@ import java.io.File
 import javax.inject.Inject
 
 class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
+    override fun clearTime(mills: Long) {
+        (findViewById<TextView>(selectedId))?.text= ""
+        var dateTime = null
+        when(selectedId){
+            R.id.egg_title -> {
+                viewModel.ecg.value?.time = ""
+                viewModel.clearEcgTime("ECGTime")
+            }
+            R.id.fmc2egg_title -> {
+                viewModel.ecg.value?.diagnosedAt = ""
+                viewModel.clearEcgTime("ECGDiagnoseTime")
+            }
+            R.id.trans_time_title -> {
+                viewModel.ecg.value?.tran_Date = ""
+                viewModel.clearEcgTime("Tran_Date")
+            }
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)
+        var dateTime = DateTimeUtils.formatter.format(millseconds)
         when(selectedId){
             R.id.egg_title -> viewModel.ecg.value?.time = DateTimeUtils.formatter.format(millseconds)
             R.id.fmc2egg_title -> viewModel.ecg.value?.diagnosedAt = DateTimeUtils.formatter.format(millseconds)
@@ -60,7 +80,29 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
         } }
         if (checkOutPatientId()){
             viewModel.saveEcg(files)
+            R.id.egg_title -> {
+                viewModel.ecg.value?.time = dateTime
+                viewModel.updateECGTime(dateTime,1)
+            }
+            R.id.fmc2egg_title -> {
+                viewModel.ecg.value?.diagnosedAt = dateTime
+                viewModel.updateECGTime(dateTime,2)
+            }
+            R.id.trans_time_title -> {
+                viewModel.ecg.value?.tran_Date =  dateTime
+                viewModel.updateECGTime(dateTime,3)
+            }
         }
+//        val files=viewModel.bitmaps.map { File(it).let {
+//                file->
+//            Compressor(this@EcgActivity)
+//                .setMaxWidth(1280)
+//                .setMaxHeight(1280)
+//                .setQuality(75).compressToFile(file)
+//        } }
+//        if (checkOutPatientId()){
+//            viewModel.saveEcg(files)
+//        }
 
     }
 

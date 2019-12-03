@@ -22,6 +22,10 @@ import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
 class BloodActivity : BaseTimingActivity(), View.OnClickListener {
+    override fun clearTime(mills: Long) {
+        (findViewById<Button>(selectedId))?.text=""
+    }
+
     override fun selectTime(mills: Long) {
         (findViewById<Button>(selectedId))?.text= DateTimeUtils.formatter.format(mills)
     }
@@ -65,7 +69,7 @@ class BloodActivity : BaseTimingActivity(), View.OnClickListener {
 
         getting_blood.setOnClickListener(this)
         end.setOnClickListener  (this)
-        start.setOnClickListener  (this)
+//        start.setOnClickListener  (this)
         sendCheck.setOnClickListener  (this)
         applyTime.setOnClickListener  (this)
         repport_Time.setOnClickListener  (this)

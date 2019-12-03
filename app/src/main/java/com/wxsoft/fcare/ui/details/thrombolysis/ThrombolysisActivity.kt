@@ -25,6 +25,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityThrombolysisBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorsActivity
 import com.wxsoft.fcare.ui.details.complication.ComplicationActivity
 import com.wxsoft.fcare.ui.details.informedconsent.addinformed.AddInformedActivity
 import com.wxsoft.fcare.ui.details.pharmacy.selectdrugs.SelectDrugsActivity
@@ -36,6 +37,22 @@ import javax.inject.Inject
 
 
 class ThrombolysisActivity : BaseTimingActivity(){
+    override fun clearTime(mills: Long) {
+        if(viewModel.itemForChangeTime.value==null) {
+            (findViewById<TextView>(selectedId))?.text = ""
+            when (selectedId) {
+                R.id.start_thromboly_time -> viewModel.thrombolysis.value?.throm_Start_Time = ""
+                R.id.end_thromboly_time -> viewModel.thrombolysis.value?.throm_End_Time = ""
+                R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time =""
+                R.id.start1 -> viewModel.thrombolysis.value?.start_Agree_Time =""
+                R.id.start1_1 -> viewModel.thrombolysis.value?.sign_Agree_Time =""
+            }
+        }else{
+            viewModel.itemForChangeTime.value?.excuteTime=""
+            viewModel.itemForChangeTime.value=null
+        }
+    }
+
     override fun selectTime(millseconds: Long) {
 
         if(viewModel.itemForChangeTime.value==null) {
@@ -46,6 +63,10 @@ class ThrombolysisActivity : BaseTimingActivity(){
                 R.id.end_thromboly_time -> viewModel.thrombolysis.value?.throm_End_Time =
                     DateTimeUtils.formatter.format(millseconds)
                 R.id.end_thromboly_radiography_time -> viewModel.thrombolysis.value?.start_Radiography_Time =
+                    DateTimeUtils.formatter.format(millseconds)
+                R.id.start1 -> viewModel.thrombolysis.value?.start_Agree_Time =
+                    DateTimeUtils.formatter.format(millseconds)
+                R.id.start1_1 -> viewModel.thrombolysis.value?.sign_Agree_Time =
                     DateTimeUtils.formatter.format(millseconds)
             }
         }else{
@@ -202,8 +223,8 @@ class ThrombolysisActivity : BaseTimingActivity(){
         viewModel.modifySome.observe(this, Observer {
             when(it){
                 "HidenDialog" ->placeDialog.dismiss()
-                "ModifyStartInformedTime" -> showDatePicker(findViewById(R.id.start_informed_time))
-                "ModifyEndInformedTime" -> showDatePicker(findViewById(R.id.end_informed_time))
+                "ModifyStartInformedTime" -> showDatePicker(findViewById(R.id.start1))
+                "ModifyEndInformedTime" -> showDatePicker(findViewById(R.id.start1_1))
                 "ModifyStartThromTime" -> showDatePicker(findViewById(R.id.start_thromboly_time))
                 "ModifyEndThromTime" -> showDatePicker(findViewById(R.id.end_thromboly_time))
                 "ModifyRadiographyTime" -> showDatePicker(findViewById(R.id.end_thromboly_radiography_time))
@@ -244,10 +265,15 @@ class ThrombolysisActivity : BaseTimingActivity(){
     }
 
     private fun selectDoctor(){
-        val intent = Intent(this, SelectDoctorActivity::class.java).apply {
-            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+
+        val ids=arrayListOf(EntityIdName(viewModel.itemForChangeDoctor.value?.staffId?:"",viewModel.itemForChangeDoctor.value?.staffName?:""))
+        val inti=Intent(this, ComingByDoctorsActivity::class.java).apply {
+            putExtra("type",2)
+            putExtra(PATIENT_ID,patientId)
+            putExtra("ids",ids)
+
         }
-        startActivityForResult(intent, SELECT_DOCTOR)
+        startActivityForResult(inti, SELECT_DOCTOR)
 
     }
 
@@ -336,11 +362,10 @@ class ThrombolysisActivity : BaseTimingActivity(){
                     viewModel.thrombolysis.value?.throm_Treatment_Place = place.id
                 }
 
-                SELECT_DOCTOR ->{//溶栓场所
-                    val doctor = data?.getParcelableExtra<EntityIdName>("doctor") //as EntityIdName
-
-                    viewModel.itemForChangeDoctor.value?.staffName = doctor?.name
-                    viewModel.itemForChangeDoctor.value?.staffId = doctor?.id
+                SELECT_DOCTOR ->{//执行人员
+                    val users=data?.getParcelableArrayListExtra<EntityIdName>("user")
+                    viewModel.itemForChangeDoctor.value?.staffName = users?.get(0)?.name?:""
+                    viewModel.itemForChangeDoctor.value?.staffId = users?.get(0)?.id?:""
                 }
 
                 SELECT_DOCTORS ->{//溶栓场所

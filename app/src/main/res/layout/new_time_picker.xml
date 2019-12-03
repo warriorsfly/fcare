@@ -20,15 +20,29 @@
       app:tabSelectedTextColor="@color/colorPrimary"
       app:tabBackground="@color/transparent"
       android:id="@+id/tab"/>
-    <Button
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:text="确定"
-      android:id="@+id/submit"
-      android:textSize="15sp"
-      android:textColor="@color/colorPrimary"
-      android:layout_alignParentRight="true"
-      style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        <LinearLayout
+            android:gravity="right"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="清空"
+                android:id="@+id/clearbtn"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimary"
+                style="@style/Widget.MaterialComponents.Button.TextButton"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                android:id="@+id/submit"
+                android:textSize="15sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_alignParentRight="true"
+                style="@style/Widget.MaterialComponents.Button.TextButton"/>
+        </LinearLayout>
+
     </RelativeLayout>
         <androidx.viewpager2.widget.ViewPager2
           android:layout_width="match_parent"

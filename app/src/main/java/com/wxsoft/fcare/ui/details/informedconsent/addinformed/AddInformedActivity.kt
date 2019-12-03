@@ -47,6 +47,15 @@ import java.util.*
 import javax.inject.Inject
 
 class AddInformedActivity : BaseTimingActivity() ,PhotoEventAction {
+    override fun clearTime(mills: Long) {
+        (findViewById<TextView>(selectedId))?.text= ""
+        when(selectedId){
+            R.id.start_informed_time -> viewModel.talk.value?.startTime = ""
+            R.id.end_informed_time -> viewModel.talk.value?.endTime = ""
+        }
+        viewModel.talk.value?.judgeTime()
+    }
+
     override fun selectTime(millseconds: Long) {
 
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(millseconds)

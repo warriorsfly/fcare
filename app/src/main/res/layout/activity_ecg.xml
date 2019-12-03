@@ -152,7 +152,7 @@
 									android:layout_margin="16dp"
 									android:text="心电图"
 									android:textSize="16sp"
-									android:textColor="#525252"
+									android:textColor="@color/black_checked_nomal"
 									android:id="@+id/photo_title"
 									android:textColorHint="@color/colorPrimary"
 									android:gravity="right|center_vertical"
@@ -205,7 +205,6 @@
 									android:layout_marginBottom="10dp"
 									android:layout_marginRight="10dp"
 									android:hint="请选择时间"
-									app:goneUnless="@{viewModel.ecg.time!=null}"
 									android:text="@{viewModel.ecg.time}"
 									android:textColor="#999999"
 									android:layout_width="wrap_content"
@@ -217,13 +216,17 @@
 									app:layout_constraintBottom_toBottomOf="@+id/egg_title"
 									android:layout_marginLeft="10dp"
 									app:layout_constraintLeft_toLeftOf="parent"
+									android:text="@string/string_ecg_create_time"
+									android:layout_marginLeft="10dp"
+									app:layout_constraintLeft_toLeftOf="parent"
 									android:text="@{viewModel.pre?`首份心电图：`:@string/string_ecg_create_time}"
 									android:layout_marginRight="5dp"
-									android:textColor="#999999"
+									android:textColor="@color/black_checked_nomal"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
 							<TextView
+									goneUnless="@{!viewModel.pre}"
 									app:layout_constraintRight_toLeftOf="@id/ecg"
 									app:layout_constraintTop_toTopOf="@id/egg_title"
 									app:layout_constraintBottom_toBottomOf="@id/egg_title"
@@ -264,7 +267,6 @@
 									android:id="@+id/fmc2egg_title"
 									app:layout_constraintLeft_toRightOf="@+id/title_fmc2egg"
 									app:layout_constraintTop_toBottomOf="@id/fmc2egg_line"
-									app:layout_constraintBottom_toBottomOf="parent"
 									android:layout_marginTop="10dp"
 									android:layout_marginBottom="10dp"
 									android:layout_marginRight="10dp"
@@ -280,9 +282,11 @@
 									app:layout_constraintTop_toTopOf="@+id/fmc2egg_title"
 									app:layout_constraintBottom_toBottomOf="@+id/fmc2egg_title"
 									app:layout_constraintLeft_toLeftOf="parent"
+									android:text="@string/string_ecg_d_time"
+									app:layout_constraintLeft_toLeftOf="parent"
 									android:text="@{viewModel.pre?`确诊时间：`:@string/string_ecg_d_time}"
 									android:layout_marginRight="5dp"
-									android:textColor="#999999"
+									android:textColor="@color/black_checked_nomal"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
 
@@ -360,6 +364,57 @@
 									android:layout_height="wrap_content"/>
 
 
+							<View
+									goneUnless="@{viewModel.xtShow}"
+									android:id="@+id/trans_Time_line"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toBottomOf="@id/fmc2egg_title"
+									android:layout_width="match_parent"
+									android:layout_marginTop="16dp"
+									android:background="@color/line_gray"
+									android:layout_height="0.5dp"/>
+
+							<TextView
+									goneUnless="@{viewModel.xtShow}"
+									android:id="@+id/trans_time_title"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toBottomOf="@id/trans_Time_line"
+									app:layout_constraintBottom_toBottomOf="parent"
+									android:layout_marginTop="10dp"
+									android:layout_marginLeft="48dp"
+									android:layout_marginBottom="10dp"
+									android:layout_marginRight="10dp"
+									android:text="@{viewModel.ecg.tran_Date}"
+									android:hint="请选择时间"
+									android:textColor="#999999"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+
+							<ImageView
+									goneUnless="@{viewModel.xtShow}"
+									android:src="@drawable/ic_delete_white"
+									android:elevation="2dp"
+									android:tint="#C6C7C6"
+									android:onClick="@{()->viewModel.clearConsultationTime()}"
+									app:layout_constraintTop_toTopOf="@id/trans_time_title"
+									app:layout_constraintBottom_toBottomOf="@id/trans_time_title"
+									app:layout_constraintLeft_toRightOf="@id/trans_time_title"
+									android:layout_width="24dp"
+									android:layout_height="24dp"
+									android:padding="3dp"/>
+
+							<TextView
+									goneUnless="@{viewModel.xtShow}"
+									app:layout_constraintTop_toTopOf="@+id/trans_time_title"
+									app:layout_constraintBottom_toBottomOf="@+id/trans_time_title"
+									app:layout_constraintRight_toLeftOf="@+id/trans_time_title"
+									android:text="传输:"
+									android:layout_marginRight="5dp"
+									android:textColor="@color/black_checked_nomal"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+
+
 
 						</androidx.constraintlayout.widget.ConstraintLayout>
 					</com.google.android.material.card.MaterialCardView>
@@ -386,6 +441,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toTopOf="parent"
 									android:layout_margin="16dp"
+									android:textColor="@color/black_checked_nomal"
 									android:text="判读"
 									android:textSize="16sp"
 									android:layout_width="wrap_content"
@@ -419,7 +475,7 @@
 									android:layout_margin="16dp"
 									android:text="诊断"
 									android:textSize="16sp"
-
+									android:textColor="@color/black_checked_nomal"
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
 									android:layout_width="wrap_content"
 									android:layout_height="wrap_content"/>
@@ -444,6 +500,7 @@
 									app:layout_constraintLeft_toLeftOf="parent"
 									app:layout_constraintTop_toBottomOf="@id/memo0"
 									android:layout_margin="16dp"
+									android:textColor="@color/black_checked_nomal"
 									android:text="特征"
 									android:textSize="16sp"
 									app:invisibleUnless="@{viewModel.ecg.diagnosedAt!=null}"
