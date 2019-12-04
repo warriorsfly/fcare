@@ -47,4 +47,22 @@ class SelectDoctorViewModel @Inject constructor(private val doctorApi:TaskApi,
     fun change(flag:Int){
         selected.value=flag
     }
+
+    fun showDocs(name: String): Boolean {
+        if(name.isNullOrEmpty()) {
+            loadDocs(patientId)
+        } else {
+            disposable.add(
+                doctorApi.searchUser(name, true, account.id)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(::doSearch, ::error)
+            )
+        }
+        return true
+    }
+
+    private fun doSearch(response: Response<List<User>>){
+        loadConsultantDoctors.value=response
+    }
 }

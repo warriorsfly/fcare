@@ -1,6 +1,7 @@
 package com.wxsoft.fcare.di
 
 import com.wxsoft.fcare.core.di.ActivityScoped
+import com.wxsoft.fcare.ui.statistics.StatisticsChartActivity
 import com.wxsoft.fcare.ui.ViewPoolModule
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationActivity
 import com.wxsoft.fcare.ui.details.assistant.AssistantExaminationModule
@@ -114,6 +115,7 @@ import com.wxsoft.fcare.ui.selecter.SelecterOfOneModule
 import com.wxsoft.fcare.ui.share.ShareActivity
 import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.ui.share.ShareModule
+import com.wxsoft.fcare.ui.statistics.StatisticsModule
 import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
@@ -410,5 +412,9 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [TrajectoryModule::class])
     internal abstract fun trajectoryActivity(): TrajectoryActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [StatisticsModule::class])
+    internal abstract fun statisticsChartActivity(): StatisticsChartActivity
 
 }

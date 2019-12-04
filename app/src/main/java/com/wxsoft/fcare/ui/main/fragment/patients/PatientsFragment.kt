@@ -25,6 +25,7 @@ import com.wxsoft.fcare.databinding.LayoutPatientSelectDateBinding
 import com.wxsoft.fcare.databinding.LayoutPatientSelectTypeBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import com.wxsoft.fcare.ui.BaseTimingFragment
+import com.wxsoft.fcare.ui.statistics.StatisticsChartActivity
 import com.wxsoft.fcare.ui.main.fragment.patients.searchpatients.SearchPatientsActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
@@ -94,6 +95,11 @@ class PatientsFragment : BaseTimingFragment(){
             floatingActionButton.setOnClickListener {
                 val intent = Intent(activity!!, ProfileActivity::class.java)
                 startActivityForResult(intent, BaseActivity.NEW_PATIENT_REQUEST)
+            }
+
+            goSta.setOnClickListener{
+                val intent = Intent(activity!!, StatisticsChartActivity::class.java)
+                startActivity(intent)
             }
             lifecycleOwner = this@PatientsFragment
 

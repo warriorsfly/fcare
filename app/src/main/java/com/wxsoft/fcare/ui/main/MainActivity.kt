@@ -1,10 +1,5 @@
 package com.wxsoft.fcare.ui.main
 
-import android.app.AlertDialog
-import android.app.PendingIntent
-import android.content.Intent
-import android.nfc.NfcAdapter
-import android.nfc.Tag
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,7 +11,6 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Account
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.core.utils.NfcUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.databinding.ActivityMainBinding
 import com.wxsoft.fcare.ui.BaseActivity
