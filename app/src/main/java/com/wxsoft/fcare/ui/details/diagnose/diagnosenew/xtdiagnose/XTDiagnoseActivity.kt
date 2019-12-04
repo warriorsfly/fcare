@@ -2,7 +2,6 @@ package com.wxsoft.fcare.ui.details.diagnose.diagnosenew.xtdiagnose
 
 import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -44,6 +43,15 @@ class XTDiagnoseActivity : BaseTimingActivity() {
             R.id.trans_time2 -> viewModel.diagnosis.value?.notice_imcd_Time = DateTimeUtils.formatter.format(millseconds)
 //            R.id.start103 -> viewModel.diagnosis.value?.consultation_Date = DateTimeUtils.formatter.format(millseconds)
             R.id.start104 -> viewModel.diagnosis.value?.diagnosis_Time_Imcd = DateTimeUtils.formatter.format(millseconds)
+        }
+    }
+
+    override fun clearTime(mills: Long) {
+        when(selectedId){
+            R.id.start_4 -> viewModel.diagnosis.value?.diagnosisTime = DateTimeUtils.formatter.format(mills)
+            R.id.start_12 -> viewModel.selectedTreatment.value?.selectiveOrTransportTime = DateTimeUtils.formatter.format(mills)
+            R.id.trans_time2 -> viewModel.diagnosis.value?.notice_imcd_Time = DateTimeUtils.formatter.format(mills)
+            R.id.start104 -> viewModel.diagnosis.value?.diagnosis_Time_Imcd = DateTimeUtils.formatter.format(mills)
         }
     }
 

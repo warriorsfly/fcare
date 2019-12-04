@@ -66,9 +66,6 @@
 				android:name=".ui.details.diagnose.diagnosenew.xtdiagnose.XTDiagnoseActivity"
 				android:theme="@style/AppTheme.NoActionBar" />
 		<activity
-				android:name=".ui.patient.choice.WristbandActivity"
-				android:theme="@style/AppTheme.NoActionBar" />
-		<activity
 				android:name=".ui.details.blood.chart.BloodChartActivity"
 				android:theme="@style/AppTheme.NoActionBar" />
 		<activity android:name=".ui.details.blood.pressure.ChartActivity" />
