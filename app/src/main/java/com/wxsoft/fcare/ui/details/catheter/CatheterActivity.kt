@@ -36,6 +36,7 @@ class CatheterActivity : BaseTimingActivity(){
     override fun selectTime(mills: Long) {
         dialog?.onDestroy()
         dialog=null
+        var time = DateTimeUtils.formatter.format(mills)
         (findViewById<TextView>(selectedId))?.text= DateTimeUtils.formatter.format(mills)
     }
 
@@ -193,7 +194,6 @@ class CatheterActivity : BaseTimingActivity(){
 //                "1"->showDatePicker(findViewById(R.drugId.start))
                 "1"->showDatePicker(findViewById(R.id.start))
                 "2"->showDatePicker(findViewById(R.id.end_thromboly_time))
-
                 "3"->showDatePicker(findViewById(R.id.patient_arrive))
                 "4"->showDatePicker(findViewById(R.id.start_puncture))
                 "5"->showDatePicker(findViewById(R.id.punctured))
