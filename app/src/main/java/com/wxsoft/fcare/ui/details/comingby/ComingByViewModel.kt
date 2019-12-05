@@ -373,10 +373,10 @@ class ComingByViewModel @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doSaving, ::error)
 
-        comingByApi.savePassing(passing.value!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(::doSavingpass, ::error)
+//        comingByApi.savePassing(passing.value!!)
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe(::doSavingpass, ::error)
 
     }
 }

@@ -35,7 +35,8 @@
 			app:layout_constraintTop_toBottomOf="@+id/title"
 			app:layout_constraintBottom_toBottomOf="parent">
 
-			<androidx.constraintlayout.widget.ConstraintLayout
+			<LinearLayout
+				android:orientation="vertical"
 				android:layout_width="match_parent"
 				android:layout_height="match_parent">
 
@@ -45,8 +46,6 @@
 					android:layout_marginTop="15dp"
 					android:background="@color/white"
 					android:onClick="@{()->viewModel.clickTime(`1`)}"
-					app:layout_constraintLeft_toLeftOf="parent"
-					app:layout_constraintTop_toTopOf="parent"
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content">
 					<TextView
@@ -449,6 +448,199 @@
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
 
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/DDimer"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/cTnI_constrain">
+					<TextView
+							android:id="@+id/DDimer_title"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black_checked_nomal"
+							android:layout_marginTop="17.5dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="17.5dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:text="D-二聚体" />
+					<EditText android:selectAllOnFocus="true"
+							android:hint="请输入"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="8dp"
+							android:minWidth="50dp"
+							android:id="@+id/DDimer_num_et"
+							android:textSize="12sp"
+							android:gravity="center"
+							android:background="@null"
+							android:imeOptions="actionNext"
+							android:text="@={viewModel.lisCr.dDimer}"
+							android:inputType="number|numberDecimal"
+							android:digits="@string/input_type_numbers_delow"
+							android:maxLines="1"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/DDimer_title"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toLeftOf="@+id/DDimer_unit"
+							tools:text="25.0" />
+
+					<TextView
+							android:id="@+id/DDimer_unit"
+							android:background="@color/white"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black_checked_nomal"
+							android:text="ng/ml"
+							android:textSize="14sp"
+							android:layout_marginRight="10dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:gravity="right"/>
+
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/BNP"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/cTnI_constrain">
+					<TextView
+							android:id="@+id/BNP_title"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black_checked_nomal"
+							android:layout_marginTop="17.5dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="17.5dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:text="BNP" />
+					<EditText android:selectAllOnFocus="true"
+							android:hint="请输入"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="8dp"
+							android:minWidth="50dp"
+							android:id="@+id/BNP_num_et"
+							android:textSize="12sp"
+							android:gravity="center"
+							android:background="@null"
+							android:imeOptions="actionNext"
+							android:text="@={viewModel.lisCr.bnp}"
+							android:inputType="number|numberDecimal"
+							android:digits="@string/input_type_numbers_delow"
+							android:maxLines="1"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/BNP_title"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toLeftOf="@+id/BNP_unit"
+							tools:text="25.0" />
+
+					<TextView
+							android:id="@+id/BNP_unit"
+							android:background="@color/white"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black_checked_nomal"
+							android:text="pg/mL"
+							android:textSize="14sp"
+							android:layout_marginRight="10dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:gravity="right"/>
+
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+				<androidx.constraintlayout.widget.ConstraintLayout
+						android:background="@color/white"
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:id="@+id/NTproBNP"
+						app:layout_constraintLeft_toLeftOf="parent"
+						app:layout_constraintTop_toBottomOf="@+id/cTnI_constrain">
+					<TextView
+							android:id="@+id/NTproBNP_title"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black_checked_nomal"
+							android:layout_marginTop="17.5dp"
+							android:layout_marginLeft="15dp"
+							android:layout_marginBottom="17.5dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:text="NT-proBNP" />
+					<EditText android:selectAllOnFocus="true"
+							android:hint="请输入"
+							android:layout_width="0dp"
+							android:layout_height="wrap_content"
+							android:layout_marginStart="8dp"
+							android:layout_marginEnd="8dp"
+							android:minWidth="50dp"
+							android:id="@+id/NTproBNP_num_et"
+							android:textSize="12sp"
+							android:gravity="center"
+							android:background="@null"
+							android:imeOptions="actionNext"
+							android:text="@={viewModel.lisCr.nTproBNP}"
+							android:inputType="number|numberDecimal"
+							android:digits="@string/input_type_numbers_delow"
+							android:maxLines="1"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintLeft_toRightOf="@+id/NTproBNP_title"
+							app:layout_constraintTop_toTopOf="parent"
+							app:layout_constraintRight_toLeftOf="@+id/NTproBNP_unit"
+							tools:text="25.0" />
+
+					<TextView
+							android:id="@+id/NTproBNP_unit"
+							android:background="@color/white"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"
+							android:textColor="@color/black_checked_nomal"
+							android:text="pg/mL"
+							android:textSize="14sp"
+							android:layout_marginRight="10dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							app:layout_constraintRight_toRightOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:gravity="right"/>
+
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toBottomOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
 				<androidx.constraintlayout.widget.ConstraintLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -542,7 +734,7 @@
 
 				</androidx.constraintlayout.widget.ConstraintLayout>
 
-			</androidx.constraintlayout.widget.ConstraintLayout>
+			</LinearLayout>
 		</ScrollView>
 
 		<ImageView

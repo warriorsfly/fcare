@@ -104,9 +104,9 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 line1.setOnClickListener {
                     toSelectSonDiagnose()
                 }
-                line102.setOnClickListener {
-                    toSelectImcdDiagnose()
-                }
+//                line102.setOnClickListener {
+//                    toSelectImcdDiagnose()
+//                }
                 line4.setOnClickListener {
                     showDatePicker(findViewById(R.id.start_4))
                 }
@@ -134,9 +134,9 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 line105.setOnClickListener {
                     toSelectKillip()
                 }
-                line106.setOnClickListener {
-                    toSelectHYHA()
-                }
+//                line106.setOnClickListener {
+//                    toSelectHYHA()
+//                }
                 lifecycleOwner = this@XTDiagnoseActivity
             }
         patientId=intent.getStringExtra(DiagnoseActivity.PATIENT_ID)?:""
@@ -207,6 +207,7 @@ class XTDiagnoseActivity : BaseTimingActivity() {
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
             putExtra(SelecterOfOneModelActivity.COME_FROM, "selectHandway")
+            putExtra(SelecterOfOneModelActivity.ID, viewModel.diagnosis.value?.handWay)
         }
         startActivityForResult(intent, SELECT_HANDWAY)
     }
@@ -386,7 +387,8 @@ class XTDiagnoseActivity : BaseTimingActivity() {
 
                 SELECT_HANDWAY ->{
                     val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.diagnosis.value?.handWay = conscious.itemName
+                    viewModel.diagnosis.value?.handWay = conscious.id
+                    viewModel.diagnosis.value?.handWay_Name = conscious.itemName
                 }
 
                 SELECT_PATIENTOUTCOME ->{

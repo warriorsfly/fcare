@@ -126,12 +126,38 @@ data class Diagnosis (var id:String="",val createrId:String,val createrName:Stri
             field = value
             notifyPropertyChanged(BR.diagnosisTime)
         }
+    @Bindable
+    var give_Up_Treatment: Boolean = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.give_Up_Treatment)
+        }
+    @Bindable
+    @SerializedName("is_Bypass_Emergency")
+    var bypass_Emergency: Boolean = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.bypass_Emergency)
+        }
+    @Bindable
+    @SerializedName("is_Bypass_Ccu")
+    var bypass_Ccu: Boolean = false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.bypass_Ccu)
+        }
 
     @Bindable
     var handWay: String = ""
         set(value) {
             field = value
             notifyPropertyChanged(BR.handWay)
+        }
+    @Bindable
+    var handWay_Name: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.handWay_Name)
         }
 
     @Bindable
