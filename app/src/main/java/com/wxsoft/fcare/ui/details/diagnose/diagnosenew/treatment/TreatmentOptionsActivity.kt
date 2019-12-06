@@ -30,8 +30,6 @@ class TreatmentOptionsActivity : BaseActivity() {
 
     lateinit var binding: ActivityTreatmentOptionsBinding
     lateinit var adapter1: TreatmentAdapter
-    lateinit var adapter2: TreatmentAdapter
-    lateinit var adapter3: TreatmentAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +38,6 @@ class TreatmentOptionsActivity : BaseActivity() {
             .apply {
                 adapter1 = TreatmentAdapter(this@TreatmentOptionsActivity,this@TreatmentOptionsActivity.viewModel)
                 list1.adapter = adapter1
-                adapter2 = TreatmentAdapter(this@TreatmentOptionsActivity,this@TreatmentOptionsActivity.viewModel)
-                list2.adapter = adapter2
-                adapter3 = TreatmentAdapter(this@TreatmentOptionsActivity,this@TreatmentOptionsActivity.viewModel)
-                list3.adapter = adapter3
                 viewModel = this@TreatmentOptionsActivity.viewModel
                 lifecycleOwner = this@TreatmentOptionsActivity
             }
@@ -58,10 +52,12 @@ class TreatmentOptionsActivity : BaseActivity() {
         setSupportActionBar(toolbar)
         title="治疗方案"
 
+
         when(diagnoseCode){
             "4-2"-> viewModel.loadTreatments("14")
             "4-3"-> viewModel.loadTreatments("252")
             "4-4"-> viewModel.loadTreatments("252")
+            "4-5"-> viewModel.loadTreatments("300")
             else -> viewModel.loadTreatments("14")
         }
 
@@ -69,9 +65,7 @@ class TreatmentOptionsActivity : BaseActivity() {
 
             when(code){
                 "215-1"->{
-                    adapter1.submitList(it.filter { it.memo.equals("group1") && it.type==code })
-                    adapter2.submitList(it.filter { it.memo.equals("group2")&& it.type==code })
-                    adapter3.submitList(it.filter { it.memo.equals("group3") && it.type==code})
+                    adapter1.submitList(it)
                 }
                 "215-2"->{
                     adapter1.submitList(it.filter { it.type==code })
