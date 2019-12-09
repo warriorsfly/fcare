@@ -14,12 +14,19 @@
         android:background="#F8F8F9">
         <include layout="@layout/layout_new_title"
              android:id="@+id/title"/>
+        <androidx.core.widget.NestedScrollView
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model0"
                 android:background="@color/white"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/title"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
@@ -78,8 +85,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model1"
                 android:background="@color/white"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/model0"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
@@ -132,10 +137,166 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/model10"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                    <TextView
+                            android:id="@+id/title10_1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="合并症"
+                            android:textSize="15sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:textColorHint="@color/small_text_gray"
+                            android:hint="选择合并症"
+                            android:gravity="right"
+                            android:id="@+id/content10_1"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/edit_text_title"
+                            android:minWidth="90dp"
+                            android:text="@{viewModel.data.complication_Name}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe10"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/title10_1"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+
+                    <View
+                            android:background="#EDEDED"
+                            android:layout_marginBottom="1dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/model11"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                    <TextView
+                            android:id="@+id/title11"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="危险因素"
+                            android:textSize="15sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:textColorHint="@color/small_text_gray"
+                            android:hint="选择危险因素"
+                            android:gravity="right"
+                            android:id="@+id/content11"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/edit_text_title"
+                            android:minWidth="90dp"
+                            android:text="@{viewModel.data.riskFactors_Name}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe11"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/title11"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+
+                    <View
+                            android:background="#EDEDED"
+                            android:layout_marginBottom="1dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/model12"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+
+                    <TextView
+                            android:id="@+id/title12"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="院内新发心力衰竭"
+                            android:textSize="15sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            android:gravity="right"
+                            android:id="@+id/content12"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:checked="@={viewModel.data.heartFailure}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+
+                    <View
+                            android:background="#EDEDED"
+                            android:layout_marginBottom="1dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model2"
-                app:layout_constraintTop_toBottomOf="@id/model1"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white">
@@ -180,8 +341,6 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model3"
-                app:layout_constraintTop_toBottomOf="@id/model2"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@color/white">
@@ -267,8 +426,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model5"
                 android:background="@color/white"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/model3"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
@@ -325,8 +482,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/model8"
             android:background="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/model5"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -380,174 +535,11 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/model10"
-            android:background="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/model8"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <TextView
-                android:id="@+id/title10_1"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="合并症"
-                android:textSize="15sp"
-                android:textColor="#131D35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:textColorHint="@color/small_text_gray"
-                android:hint="选择合并症"
-                android:gravity="right"
-                android:id="@+id/content10_1"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:textSize="13sp"
-                android:textColor="@color/edit_text_title"
-                android:minWidth="90dp"
-                android:text="@{viewModel.data.complication_Name}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/rowe10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/rowe10"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/title10_1"
-                android:layout_width="14dp"
-                android:layout_height="24dp"
-                android:layout_marginRight="19dp"
-                android:background="@drawable/ic_right_arrow"/>
-
-            <View
-                android:background="#EDEDED"
-                android:layout_marginBottom="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/model11"
-            android:background="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/model10"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <TextView
-                android:id="@+id/title11"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="危险因素"
-                android:textSize="15sp"
-                android:textColor="#131D35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:textColorHint="@color/small_text_gray"
-                android:hint="选择危险因素"
-                android:gravity="right"
-                android:id="@+id/content11"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:textSize="13sp"
-                android:textColor="@color/edit_text_title"
-                android:minWidth="90dp"
-                android:text="@{viewModel.data.riskFactors_Name}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toLeftOf="@+id/rowe11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <TextView
-                android:id="@+id/rowe11"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="@id/title11"
-                android:layout_width="14dp"
-                android:layout_height="24dp"
-                android:layout_marginRight="19dp"
-                android:background="@drawable/ic_right_arrow"/>
-
-            <View
-                android:background="#EDEDED"
-                android:layout_marginBottom="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/model12"
-            android:background="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/model11"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
-
-            <TextView
-                android:id="@+id/title12"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginBottom="15dp"
-                android:text="院内新发心力衰竭"
-                android:textSize="15sp"
-                android:textColor="#131D35"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <Switch
-                android:gravity="right"
-                android:id="@+id/content12"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:checked="@={viewModel.data.heartFailure}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-            <View
-                android:background="#EDEDED"
-                android:layout_marginBottom="1dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/model9"
             android:background="@color/white"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/model12"
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
@@ -645,8 +637,6 @@
                         goneUnless="@{!viewModel.xtShow}"
                         android:id="@+id/model7"
                         android:background="@color/white"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/model9"
                         android:layout_width="match_parent"
                         android:layout_height="50dp">
 
@@ -690,7 +680,8 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
