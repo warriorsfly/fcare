@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout >
+<layout xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="com.wxsoft.fcare.utils.TimingType"/>
         <variable name="viewModel" type="com.wxsoft.fcare.ui.details.comingby.ComingByViewModel"/>
@@ -14,6 +14,157 @@
             app:layout_constraintTop_toBottomOf="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/model3_3"
+                android:onClick="@{()->viewModel.changeType(18)}"
+                app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)}"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/model3_2"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <TextView
+                    android:id="@+id/title3_3"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/title_comingby_car"
+                    android:textSize="16sp"
+                    android:textColor="#131D35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:hint="请选择"
+                    android:id="@+id/start_cabg_time"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="16sp"
+                    android:textColor="#7D7D7D"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/rowe3_3"
+                    android:text="@{viewModel.comingBy.dispatchName}"
+                    tools:text="2019-01-18 13:23:15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/rowe3_3"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/title3_3"
+                    android:layout_width="14dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@drawable/ic_right_arrow"/>
+            <View
+                    android:background="#EDEDED"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+                app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)}"
+                android:id="@+id/model100_7"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/model3_3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <TextView
+                    android:id="@+id/title100_7"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="出诊医生"
+                    android:textSize="16sp"
+                    android:textColor="#131D35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="0dp"
+                    android:hint="请输入姓名"
+                    android:text="@={viewModel.comingBy.arrived_Scene_Doctors}"
+                    android:background="@null"
+                    android:textSize="16sp"
+                    android:textColor="#7D7D7D"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:layout_marginRight="52dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"/>
+
+            <View
+                    android:background="#EDEDED"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                app:goneUnless="@{viewModel.comingBy.comingWayCode.equals(`3-1`)}"
+                android:id="@+id/model100_8"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/model100_7"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <TextView
+                    android:id="@+id/title100_8"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="出诊护士"
+                    android:textSize="16sp"
+                    android:textColor="#131D35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <EditText
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="0dp"
+                    android:hint="请输入姓名"
+                    android:text="@={viewModel.comingBy.arrive_Scene_Nurses}"
+                    android:background="@null"
+                    android:textSize="16sp"
+                    android:textColor="#7D7D7D"
+                    android:maxLines="1"
+                    android:imeOptions="actionNext"
+                    android:layout_marginRight="52dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"/>
+
+            <View
+                    android:background="#EDEDED"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
       <androidx.constraintlayout.widget.ConstraintLayout
           android:id="@+id/model100"
@@ -70,7 +221,98 @@
 
       </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:background="@color/white"
+                android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveScene)}"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <TextView
+                    android:id="@+id/title32_4"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="直接转送上级医院"
+                    android:textSize="16sp"
+                    android:textColor="#131D35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <Switch
+                    android:id="@+id/trans_Hospital"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="16sp"
+                    android:checked="@={viewModel.comingBy.trans_Hospital}"
+                    android:textColor="#7D7D7D"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/model3_5"
+                android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveHospital)}"
+                android:background="@color/white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/model3_4"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+            <TextView
+                    android:id="@+id/title3_5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/title_comingby_arrived_hospital"
+                    android:textSize="16sp"
+                    android:textColor="#131D35"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:hint="请选择"
+                    android:id="@+id/arrive_hospital_time"
+                    android:layout_marginRight="19dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="16sp"
+                    android:textColor="#7D7D7D"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toLeftOf="@+id/rowe3_5"
+                    android:text="@={viewModel.comingBy.arrived_Hospital_Time}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:id="@+id/rowe3_5"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/title3_5"
+                    android:layout_width="14dp"
+                    android:layout_height="24dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@drawable/ic_right_arrow"/>
+            <View
+                    android:background="#EDEDED"
+                    android:layout_marginBottom="1dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/model3_4"
                 android:background="@color/white"
                 android:onClick="@{()->viewModel.changeTiming(TimingType.FirstMC)}"
@@ -125,59 +367,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/model3_5"
-                android:onClick="@{()->viewModel.changeTiming(TimingType.ArriveHospital)}"
-                android:background="@color/white"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/model3_4"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-
-                <TextView
-                    android:id="@+id/title3_5"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:text="@string/title_comingby_arrived_hospital"
-                    android:textSize="16sp"
-                    android:textColor="#131D35"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:hint="请选择"
-                    android:id="@+id/arrive_hospital_time"
-                    android:layout_marginRight="19dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:textSize="16sp"
-                    android:textColor="#7D7D7D"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/rowe3_5"
-                    android:text="@={viewModel.comingBy.arrived_Hospital_Time}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
-                <TextView
-                    android:id="@+id/rowe3_5"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintBottom_toBottomOf="@id/title3_5"
-                    android:layout_width="14dp"
-                    android:layout_height="24dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@drawable/ic_right_arrow"/>
-                <View
-                    android:background="#EDEDED"
-                    android:layout_marginBottom="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"/>
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/model3_6"

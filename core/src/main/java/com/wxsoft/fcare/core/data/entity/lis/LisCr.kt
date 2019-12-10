@@ -191,6 +191,24 @@ data class LisCr (val id:String) : BaseObservable() {
             field = value
             notifyPropertyChanged(BR.myo)
         }
+    @Bindable
+    var dDimer: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.dDimer)
+        }
+    @Bindable
+    var bnp: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.bnp)
+        }
+    @Bindable
+    var nTproBNP: String = ""
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.nTproBNP)
+        }
 
 
     fun setUpChecked(){

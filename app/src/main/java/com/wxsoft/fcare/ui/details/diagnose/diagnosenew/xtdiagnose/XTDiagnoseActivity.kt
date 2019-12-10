@@ -11,9 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
-import com.wxsoft.fcare.core.data.entity.Diagnosis
-import com.wxsoft.fcare.core.data.entity.Dictionary
-import com.wxsoft.fcare.core.data.entity.Strategy
+import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.drug.ACSDrug
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
@@ -21,6 +19,7 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityXtdiagnoseBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.details.comingby.fragments.ComingByDoctorsActivity
 import com.wxsoft.fcare.ui.details.diagnose.DiagnoseActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.drug.ACSDrugActivity
 import com.wxsoft.fcare.ui.details.diagnose.diagnosenew.treatment.TreatmentOptionsActivity
@@ -30,6 +29,10 @@ import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
 import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import com.wxsoft.fcare.utils.ActionCode
 import kotlinx.android.synthetic.main.activity_diagnose_new.*
+import kotlinx.android.synthetic.main.activity_diagnose_new.line8
+import kotlinx.android.synthetic.main.activity_diagnose_new.select_handWay
+import kotlinx.android.synthetic.main.activity_diagnose_new.select_patientOutcom
+import kotlinx.android.synthetic.main.activity_xtdiagnose.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -104,9 +107,6 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 line1.setOnClickListener {
                     toSelectSonDiagnose()
                 }
-                line102.setOnClickListener {
-                    toSelectImcdDiagnose()
-                }
                 line4.setOnClickListener {
                     showDatePicker(findViewById(R.id.start_4))
                 }
@@ -116,9 +116,6 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 line101.setOnClickListener {
                     showDatePicker(findViewById(R.id.trans_time2))
                 }
-//                line103.setOnClickListener {
-//                    showDatePicker(findViewById(R.id.start103))
-//                }
                 line104.setOnClickListener {
                     showDatePicker(findViewById(R.id.start104))
                 }
@@ -128,14 +125,8 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                 line10.setOnClickListener {
                     toSelectNoReperfusionReson()
                 }
-//                line7.setOnClickListener {
-//                    toSelectDrugs()
-//                }
                 line105.setOnClickListener {
                     toSelectKillip()
-                }
-                line106.setOnClickListener {
-                    toSelectHYHA()
                 }
                 lifecycleOwner = this@XTDiagnoseActivity
             }
@@ -175,6 +166,11 @@ class XTDiagnoseActivity : BaseTimingActivity() {
         })
 
 
+        rowe0_2.apply {
+            setOnClickListener {
+                toSelectDoctor()
+            }
+        }
         select_handWay.apply {
             setOnClickListener {
                 toSelectHandway()
@@ -203,10 +199,21 @@ class XTDiagnoseActivity : BaseTimingActivity() {
         }
         startActivityForResult(intent, SELECT_NYHA)
     }
+    fun toSelectDoctor(){
+        val ids= arrayListOf(EntityIdName(viewModel.diagnosis.value?.doctorId?:"",viewModel.diagnosis.value?.doctorName?:""))
+        val inti=Intent(this, ComingByDoctorsActivity::class.java).apply {
+            putExtra("type",1)
+            putExtra(PATIENT_ID,patientId)
+            putExtra("ids",ids)
+
+        }
+        startActivityForResult(inti,COMING_WAY_DOCTOR)
+    }
     fun toSelectHandway(){
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
             putExtra(SelecterOfOneModelActivity.COME_FROM, "selectHandway")
+            putExtra(SelecterOfOneModelActivity.ID, viewModel.diagnosis.value?.handWay)
         }
         startActivityForResult(intent, SELECT_HANDWAY)
     }
@@ -326,14 +333,14 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                             patientId = this@XTDiagnoseActivity.patientId
                             strategyCode = dic.id
                             strategyCode_Name = dic.itemName
-                            memo = dic.memo
+//                            memo = dic?.memo
                         }
                     } else {
                         viewModel.loadSelectedTreatment.value?.apply {
                             patientId = this@XTDiagnoseActivity.patientId
                             strategyCode_Name = dic.itemName
                             strategyCode = dic.id
-                            memo = dic.memo
+//                            memo = dic?.memo
                         }
                     }
 
@@ -386,7 +393,8 @@ class XTDiagnoseActivity : BaseTimingActivity() {
 
                 SELECT_HANDWAY ->{
                     val conscious= data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.diagnosis.value?.handWay = conscious.itemName
+                    viewModel.diagnosis.value?.handWay = conscious.id
+                    viewModel.diagnosis.value?.handWay_Name = conscious.itemName
                 }
 
                 SELECT_PATIENTOUTCOME ->{
@@ -403,7 +411,16 @@ class XTDiagnoseActivity : BaseTimingActivity() {
                     viewModel.diagnosis.value?.nyha = conscious.id
                     viewModel.diagnosis.value?.nyhA_Name = conscious.itemName
                 }
+                COMING_WAY_DOCTOR->{
+                    val users=data?.getParcelableArrayListExtra<EntityIdName>("user")
+                    viewModel.doctorId.set(users?.get(0)?.id?:"")
+                    viewModel.doctorName.set(users?.get(0)?.name?:"")
+                    viewModel.diagnosis.value?.let {
+                        it.doctorName= users?.get(0)?.name?:""
+                        it.doctorId= users?.get(0)?.id?:""
+                    }
 
+                }
 
             }
         }

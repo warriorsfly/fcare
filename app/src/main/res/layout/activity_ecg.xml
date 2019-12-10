@@ -126,19 +126,17 @@
 					app:layout_constraintBottom_toBottomOf="parent"
 					app:layout_constraintLeft_toLeftOf="parent">
 
-				<androidx.constraintlayout.widget.ConstraintLayout
+				<LinearLayout
+						android:orientation="vertical"
 						android:layout_width="match_parent"
-						android:layout_height="match_parent">
+						android:layout_height="wrap_content">
 
 					<com.google.android.material.card.MaterialCardView
-							android:layout_width="0dp"
+							android:layout_width="match_parent"
 							android:id="@+id/ecg_detail"
 							android:layout_margin="12dp"
 							app:cardCornerRadius="7.5dp"
 							android:foreground="@color/white"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintRight_toRightOf="parent"
 							android:layout_height="wrap_content">
 						<androidx.constraintlayout.widget.ConstraintLayout
 								android:layout_width="match_parent"
@@ -368,14 +366,65 @@
 
 					<com.google.android.material.card.MaterialCardView
 							goneUnless="@{!viewModel.pre}"
-							android:layout_width="0dp"
+							android:layout_width="match_parent"
+							android:id="@+id/no_img_reson"
+							android:layout_margin="12dp"
+							app:cardCornerRadius="7.5dp"
+							android:foreground="@color/white"
+							android:layout_height="wrap_content">
+						<LinearLayout
+								goneUnless="@{viewModel.ecg.attachments.size()==0}"
+								android:orientation="vertical"
+								android:layout_width="match_parent"
+								android:layout_height="wrap_content">
+
+							<TextView
+									android:id="@+id/title_no_img_reson"
+									app:layout_constraintLeft_toLeftOf="parent"
+									app:layout_constraintTop_toTopOf="parent"
+									android:layout_margin="16dp"
+									android:textColor="@color/black_checked_nomal"
+									android:text="未获得原因"
+									android:textSize="16sp"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"/>
+
+							<View
+									android:layout_width="match_parent"
+									android:background="@color/line_gray"
+									android:layout_height="0.5dp"/>
+
+							<EditText
+									android:hint="请填写"
+									android:layout_marginRight="19dp"
+									android:layout_marginLeft="19dp"
+									android:layout_marginTop="15dp"
+									android:layout_marginBottom="15dp"
+									android:background="@drawable/bg_edittextview_border"
+									android:textSize="16sp"
+									android:text="@={viewModel.ecg.noEcgImageReason}"
+									android:textColor="#7D7D7D"
+									app:layout_constraintTop_toTopOf="parent"
+									app:layout_constraintBottom_toBottomOf="parent"
+									app:layout_constraintRight_toLeftOf="@+id/rowe0_2"
+									app:layout_constraintLeft_toRightOf="@+id/title0_2"
+									tools:text="李医生"
+									android:layout_width="match_parent"
+									android:layout_height="wrap_content"/>
+
+
+						</LinearLayout>
+
+					</com.google.android.material.card.MaterialCardView>
+
+
+					<com.google.android.material.card.MaterialCardView
+							goneUnless="@{!viewModel.pre}"
+							android:layout_width="match_parent"
 							android:id="@+id/result_detail"
 							android:layout_margin="12dp"
 							app:cardCornerRadius="7.5dp"
 							android:foreground="@color/white"
-							app:layout_constraintTop_toBottomOf="@id/ecg_detail"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintRight_toRightOf="parent"
 							android:layout_height="wrap_content">
 
 						<androidx.constraintlayout.widget.ConstraintLayout
@@ -492,7 +541,7 @@
 
 
 
-				</androidx.constraintlayout.widget.ConstraintLayout>
+				</LinearLayout>
 			</androidx.core.widget.NestedScrollView>
 		</androidx.constraintlayout.widget.ConstraintLayout>
 		<ImageView

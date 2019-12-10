@@ -60,6 +60,13 @@ data class Ecg(val id:String="",val createrId:String):BaseObservable(){
         field=value
         notifyPropertyChanged(BR.net_Transto_Basic)
     }
+    // 没有心电图原因
+    @Bindable
+    var noEcgImageReason:String=""
+    set(value) {
+        field=value
+        notifyPropertyChanged(BR.noEcgImageReason)
+    }
     // 接收120/网络医院心电图时间
     @Bindable
     var tran_Date: String = ""

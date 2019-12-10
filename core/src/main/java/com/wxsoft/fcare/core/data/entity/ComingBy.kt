@@ -106,6 +106,13 @@ data class ComingBy(val id:String=""): BaseObservable() {
            field = value
            notifyPropertyChanged(BR.first_MC_Time)
        }
+   @Bindable
+   @SerializedName("is_Trans_Hospital")
+   var trans_Hospital : Boolean = false
+       set(value) {
+           field = value
+           notifyPropertyChanged(BR.trans_Hospital)
+       }
 
    @Bindable
    var leave_Outhospital_Time: String = ""
@@ -148,6 +155,12 @@ data class ComingBy(val id:String=""): BaseObservable() {
         set(value) {
             field = value
             notifyPropertyChanged(BR.consultation_Date)
+        }
+    @Bindable
+    var first_Doctor_Time: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.first_Doctor_Time)
         }
    @Bindable
    var leave_Department_Time: String = ""

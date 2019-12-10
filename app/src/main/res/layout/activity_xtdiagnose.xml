@@ -25,25 +25,193 @@
 				app:layout_constraintTop_toBottomOf="@+id/title"
 				app:layout_constraintBottom_toBottomOf="parent">
 
-			<androidx.constraintlayout.widget.ConstraintLayout
+			<LinearLayout
+					android:orientation="vertical"
 					android:id="@+id/container"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent">
+
+
 				<androidx.constraintlayout.widget.ConstraintLayout
-						android:id="@+id/model1"
-						app:layout_constraintTop_toTopOf="parent"
-						app:layout_constraintLeft_toLeftOf="parent"
+						android:id="@+id/model4"
 						android:layout_width="match_parent"
 						android:layout_height="match_parent">
 					<TextView
-							android:id="@+id/model1_title"
+							android:id="@+id/model4_title"
 							app:layout_constraintLeft_toLeftOf="parent"
 							app:layout_constraintTop_toTopOf="parent"
 							android:paddingLeft="15dp"
 							android:paddingTop="15dp"
 							android:paddingBottom="15dp"
 							android:textSize="16sp"
-							android:text="胸痛诊室/急诊内科/院内发病"
+							android:text="心内科会诊"
+							android:textColor="@color/small_title_text_gray"
+							android:background="@color/white"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"/>
+
+					<Switch
+							android:id="@+id/trans_switch"
+							android:layout_marginRight="19dp"
+							android:layout_marginTop="15dp"
+							android:layout_marginBottom="15dp"
+							android:textSize="16sp"
+							android:textColor="#7D7D7D"
+							android:checked="@={viewModel.diagnosis.notice_Imcd}"
+							app:layout_constraintTop_toTopOf="@id/model4_title"
+							app:layout_constraintBottom_toBottomOf="@id/model4_title"
+							app:layout_constraintRight_toRightOf="parent"
+							android:layout_width="wrap_content"
+							android:layout_height="wrap_content"/>
+
+					<View
+							android:background="#EDEDED"
+							android:layout_marginBottom="1dp"
+							app:layout_constraintBottom_toTopOf="@+id/line101"
+							android:layout_width="match_parent"
+							android:layout_height="1dp"/>
+
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							goneUnless="@{viewModel.diagnosis.notice_Imcd}"
+							android:id="@+id/line101"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/model4_title"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+
+						<TextView
+								android:id="@+id/title101"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="8dp"
+								android:layout_marginBottom="15dp"
+								android:maxLines="3"
+								android:text="@string/title_xtdiagnose_noty_time"
+								android:textSize="16sp"
+								android:textColor="#525252"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:hint="请选择"
+								android:id="@+id/trans_time2"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="16sp"
+								android:text="@{viewModel.diagnosis.notice_imcd_Time}"
+								android:textColor="#7D7D7D"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe100"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/rowe100"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/title101"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							goneUnless="@{viewModel.diagnosis.notice_Imcd}"
+							android:id="@+id/line104"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toBottomOf="@+id/line101"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+						<TextView
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/title104"
+								android:text="*"
+								android:textColor="@color/patient_nothing_known"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/title104"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="17.5dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="17.5dp"
+								android:text="会诊时间"
+								android:textSize="16sp"
+								android:textColor="@color/small_title_text_gray"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:hint="请选择"
+								android:text="@{viewModel.diagnosis.diagnosis_Time_Imcd}"
+								android:id="@+id/start104"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:layout_marginLeft="15dp"
+								android:textSize="16sp"
+								android:textColor="@color/small_title_text_gray"
+								android:gravity="right"
+								android:minWidth="90dp"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe104"
+								app:layout_constraintLeft_toRightOf="@+id/title104"
+								app:layout_constraintBottom_toBottomOf="parent"
+								tools:text="2019-04-12 12:38:40"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/rowe104"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/title104"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+				</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+				<LinearLayout
+						android:orientation="vertical"
+						android:id="@+id/model1"
+						android:layout_width="match_parent"
+						android:layout_height="match_parent">
+					<TextView
+							android:id="@+id/model1_title"
+							android:paddingLeft="15dp"
+							android:paddingTop="15dp"
+							android:paddingBottom="15dp"
+							android:textSize="16sp"
+							android:text="诊断"
 							android:textColor="@color/small_title_text_gray"
 							android:background="#E7E4F2"
 							android:layout_width="match_parent"
@@ -134,8 +302,68 @@
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
 					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/model0_2"
+							android:background="@color/white"
+							app:layout_constraintLeft_toLeftOf="parent"
+							app:layout_constraintTop_toTopOf="parent"
+							android:layout_width="match_parent"
+							android:layout_height="50dp">
+
+						<TextView
+								android:id="@+id/title0_2"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="医生"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<EditText
+								android:hint="请选择"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:background="@drawable/bg_edittextview_border"
+								android:gravity="right"
+								android:textSize="16sp"
+								android:text="@={viewModel.diagnosis.doctorName}"
+								android:textColor="#7D7D7D"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe0_2"
+								app:layout_constraintLeft_toRightOf="@+id/title0_2"
+								tools:text="李医生"
+								android:layout_width="0dp"
+								android:layout_height="wrap_content"/>
+
+
+						<ImageView
+								android:padding="10dp"
+								android:id="@+id/rowe0_2"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:src="@drawable/ic_edit_gray"
+								android:layout_marginRight="10dp"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
 							android:id="@+id/line2"
-							app:goneUnless="@{viewModel.diagnosis.notice_Imcd?(viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-8`)):(viewModel.diagnosis.diagnosisCode2.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2.equals(`4-8`))}"
+							app:goneUnless="@{(viewModel.diagnosis.diagnosisCode2.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2.equals(`4-8`))}"
 							app:layout_constraintLeft_toLeftOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/line4"
 							android:layout_width="match_parent"
@@ -164,12 +392,13 @@
 								android:layout_width="wrap_content"
 								android:layout_height="wrap_content"/>
 
-						<EditText android:layout_width="0dp"
+						<TextView
+								android:layout_width="0dp"
 								android:layout_height="wrap_content"
 								android:id="@+id/et_2"
 								android:textSize="16sp"
-								android:hint="请填写处置措施"
-								android:text="@={viewModel.diagnosis.handWay}"
+								android:hint="请选择处置措施"
+								android:text="@{viewModel.diagnosis.handWay_Name}"
 								android:gravity="right"
 								android:imeOptions="actionNext"
 								android:background="@null"
@@ -202,7 +431,7 @@
 
 					<androidx.constraintlayout.widget.ConstraintLayout
 							android:id="@+id/line3"
-							app:goneUnless="@{viewModel.diagnosis.notice_Imcd?(viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-8`)):(viewModel.diagnosis.diagnosisCode2.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2.equals(`4-8`))}"
+							app:goneUnless="@{(viewModel.diagnosis.diagnosisCode2.equals(`4-7`)||viewModel.diagnosis.diagnosisCode2.equals(`4-8`))}"
 							app:layout_constraintLeft_toLeftOf="parent"
 							app:layout_constraintTop_toBottomOf="@+id/line2"
 							android:layout_width="match_parent"
@@ -314,6 +543,111 @@
 								android:layout_height="24dp"
 								android:layout_marginRight="19dp"
 								android:background="@drawable/ic_right_arrow"/>
+
+						<View
+								android:layout_width="match_parent"
+								android:layout_height="1dp"
+								android:background="#EDEDED"
+								app:layout_constraintBottom_toBottomOf="parent" />
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:id="@+id/line105"
+							goneUnless="@{(viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+
+						<TextView
+								android:id="@+id/title105"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="8dp"
+								android:layout_marginBottom="15dp"
+								android:maxLines="3"
+								android:text="@string/title_xtdiagnose_killip"
+								android:textSize="16sp"
+								android:textColor="#525252"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:hint="请选择"
+								android:id="@+id/killipLevel"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="16sp"
+								android:text="@{viewModel.diagnosis.killip_Level_Name}"
+								android:textColor="#7D7D7D"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/rowe105"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/rowe105"
+								app:layout_constraintRight_toRightOf="parent"
+								app:layout_constraintBottom_toBottomOf="@id/killipLevel"
+								android:layout_width="14dp"
+								android:layout_height="24dp"
+								android:layout_marginRight="19dp"
+								android:background="@drawable/ic_right_arrow"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
+
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:background="@color/white"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+						<TextView
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/title32_4"
+								android:text="*"
+								android:textColor="@color/patient_nothing_known"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<TextView
+								android:id="@+id/title32_4"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="患者自愿放弃后续治疗"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<Switch
+								android:id="@+id/trans_Hospital"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="16sp"
+								android:checked="@={viewModel.diagnosis.give_Up_Treatment}"
+								android:textColor="#7D7D7D"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
 						<View
 								android:background="#EDEDED"
 								android:layout_marginBottom="1dp"
@@ -323,59 +657,104 @@
 
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--					<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--							android:id="@+id/line5"-->
-<!--							app:layout_constraintLeft_toLeftOf="parent"-->
-<!--							app:layout_constraintTop_toBottomOf="@+id/line4"-->
-<!--							android:layout_width="match_parent"-->
-<!--							android:layout_height="wrap_content">-->
-<!--						<TextView-->
-<!--								app:layout_constraintTop_toTopOf="parent"-->
-<!--								app:layout_constraintBottom_toBottomOf="parent"-->
-<!--								app:layout_constraintRight_toLeftOf="@+id/title5_1"-->
-<!--								android:text="*"-->
-<!--								android:textColor="@color/patient_nothing_known"-->
-<!--								android:layout_width="wrap_content"-->
-<!--								android:layout_height="wrap_content"/>-->
-<!--						<TextView-->
-<!--								android:id="@+id/title5_1"-->
-<!--								app:layout_constraintLeft_toLeftOf="parent"-->
-<!--								app:layout_constraintTop_toTopOf="parent"-->
-<!--								app:layout_constraintBottom_toBottomOf="parent"-->
-<!--								android:layout_marginTop="17.5dp"-->
-<!--								android:layout_marginLeft="15dp"-->
-<!--								android:layout_marginBottom="17.5dp"-->
-<!--								android:text="医生"-->
-<!--								android:textSize="16sp"-->
-<!--								android:textColor="@color/small_title_text_gray"-->
-<!--								android:layout_width="wrap_content"-->
-<!--								android:layout_height="wrap_content"/>-->
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:background="@color/white"
+							goneUnless="@{(viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+						<TextView
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/title32_5"
+								android:text="*"
+								android:textColor="@color/patient_nothing_known"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
 
-<!--						<EditText android:layout_width="0dp"-->
-<!--								android:layout_height="wrap_content"-->
-<!--								android:id="@+id/et_5"-->
-<!--								android:textSize="16sp"-->
-<!--								android:hint="请填写医生"-->
-<!--								android:text="@={viewModel.doctorName}"-->
-<!--								android:gravity="right"-->
-<!--								android:imeOptions="actionNext"-->
-<!--								android:background="@null"-->
-<!--								android:layout_marginRight="52dp"-->
-<!--								android:layout_marginLeft="15dp"-->
-<!--								app:layout_constraintLeft_toRightOf="@+id/title5_1"-->
-<!--								app:layout_constraintTop_toTopOf="parent"-->
-<!--								app:layout_constraintBottom_toBottomOf="parent"-->
-<!--								app:layout_constraintRight_toRightOf="parent" />-->
+						<TextView
+								android:id="@+id/title32_5"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="绕行急诊"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
 
-<!--						<View-->
-<!--								android:background="#EDEDED"-->
-<!--								android:layout_marginBottom="1dp"-->
-<!--								app:layout_constraintBottom_toBottomOf="parent"-->
-<!--								android:layout_width="match_parent"-->
-<!--								android:layout_height="1dp"/>-->
+						<Switch
+								android:id="@+id/trans_jz"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="16sp"
+								android:checked="@={viewModel.diagnosis.bypass_Emergency}"
+								android:textColor="#7D7D7D"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
 
-<!--					</androidx.constraintlayout.widget.ConstraintLayout>-->
+					</androidx.constraintlayout.widget.ConstraintLayout>
+					<androidx.constraintlayout.widget.ConstraintLayout
+							android:background="@color/white"
+							goneUnless="@{(viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content">
+						<TextView
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toLeftOf="@+id/title32_6"
+								android:text="*"
+								android:textColor="@color/patient_nothing_known"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
 
+						<TextView
+								android:id="@+id/title32_6"
+								app:layout_constraintLeft_toLeftOf="parent"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_marginTop="15dp"
+								android:layout_marginLeft="15dp"
+								android:layout_marginBottom="15dp"
+								android:text="绕行CCU"
+								android:textSize="16sp"
+								android:textColor="#131D35"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+
+						<Switch
+								android:id="@+id/trans_ccu"
+								android:layout_marginRight="19dp"
+								android:layout_marginTop="15dp"
+								android:layout_marginBottom="15dp"
+								android:textSize="16sp"
+								android:checked="@={viewModel.diagnosis.bypass_Ccu}"
+								android:textColor="#7D7D7D"
+								app:layout_constraintTop_toTopOf="parent"
+								app:layout_constraintBottom_toBottomOf="parent"
+								app:layout_constraintRight_toRightOf="parent"
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"/>
+						<View
+								android:background="#EDEDED"
+								android:layout_marginBottom="1dp"
+								app:layout_constraintBottom_toBottomOf="parent"
+								android:layout_width="match_parent"
+								android:layout_height="1dp"/>
+
+					</androidx.constraintlayout.widget.ConstraintLayout>
 
 
 					<androidx.constraintlayout.widget.ConstraintLayout
@@ -425,523 +804,19 @@
 
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--					<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--							android:id="@+id/line7"-->
-<!--							goneUnless="@{viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-4`)}"-->
-<!--							app:layout_constraintLeft_toLeftOf="parent"-->
-<!--							app:layout_constraintTop_toBottomOf="@+id/line6"-->
-<!--							android:layout_width="match_parent"-->
-<!--							android:layout_height="wrap_content">-->
-<!--						<TextView-->
-<!--								android:id="@+id/title7_1"-->
-<!--								app:layout_constraintLeft_toLeftOf="parent"-->
-<!--								app:layout_constraintTop_toTopOf="parent"-->
-<!--								app:layout_constraintBottom_toTopOf="@+id/container7_1"-->
-<!--								android:layout_marginTop="17.5dp"-->
-<!--								android:layout_marginLeft="15dp"-->
-<!--								android:layout_marginBottom="17.5dp"-->
-<!--								android:text="ACS给药"-->
-<!--								android:textSize="16sp"-->
-<!--								android:textColor="@color/small_title_text_gray"-->
-<!--								android:layout_width="wrap_content"-->
-<!--								android:layout_height="wrap_content"/>-->
+
+				</LinearLayout>
 
 
-<!--						<TextView-->
-<!--								android:id="@+id/title7_2"-->
-<!--								app:layout_constraintRight_toRightOf="parent"-->
-<!--								app:layout_constraintTop_toTopOf="parent"-->
-<!--								android:layout_marginTop="17.5dp"-->
-<!--								android:layout_marginRight="52dp"-->
-<!--								android:layout_marginBottom="17.5dp"-->
-<!--								android:text="@{viewModel.acsDrug.haveData?`修改给药记录`:`去给药`}"-->
-<!--								android:textSize="16sp"-->
-<!--								android:textColor="#63B0F8"-->
-<!--								android:layout_width="wrap_content"-->
-<!--								android:layout_height="wrap_content"/>-->
-
-
-<!--						<TextView-->
-<!--								android:id="@+id/rowe7_1"-->
-<!--								app:layout_constraintRight_toRightOf="parent"-->
-<!--								app:layout_constraintBottom_toBottomOf="@id/title7_1"-->
-<!--								android:layout_width="14dp"-->
-<!--								android:layout_height="24dp"-->
-<!--								android:layout_marginRight="19dp"-->
-<!--								android:background="@drawable/ic_right_arrow"/>-->
-
-<!--						<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--								goneUnless="@{viewModel.acsDrug.haveData}"-->
-<!--								app:layout_constraintLeft_toLeftOf="@+id/title7_1"-->
-<!--								app:layout_constraintTop_toBottomOf="@+id/title7_1"-->
-<!--								app:layout_constraintBottom_toBottomOf="parent"-->
-<!--								app:layout_constraintRight_toRightOf="parent"-->
-<!--								android:id="@+id/container7_1"-->
-<!--								android:layout_marginLeft="5dp"-->
-<!--								android:layout_marginBottom="5dp"-->
-<!--								android:layout_marginRight="5dp"-->
-<!--								android:layout_width="match_parent"-->
-<!--								android:layout_height="wrap_content">-->
-<!--							<TextView-->
-<!--									android:id="@+id/line7_content_title1"-->
-<!--									app:layout_constraintLeft_toLeftOf="parent"-->
-<!--									app:layout_constraintTop_toTopOf="parent"-->
-<!--									android:text="抗血小板给药"-->
-<!--									android:layout_marginLeft="15dp"-->
-<!--									android:textColor="@color/small_title_text_gray"-->
-<!--									android:textSize="16sp"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<TextView-->
-<!--									android:id="@+id/line7_content_1"-->
-<!--									app:layout_constraintLeft_toRightOf="@+id/line7_content_title1"-->
-<!--									app:layout_constraintTop_toTopOf="parent"-->
-<!--									app:layout_constraintRight_toRightOf="parent"-->
-<!--									android:gravity="right"-->
-<!--									android:textColor="#C1C1C1"-->
-<!--									android:textSize="16sp"-->
-<!--									android:layout_marginRight="52dp"-->
-<!--									android:text="@{viewModel.acsDrug.acs_Delivery_Time}"-->
-<!--									tools:text="2019-04-16 17:08:11"-->
-<!--									android:layout_width="0dp"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<TextView-->
-<!--									android:id="@+id/line7_content_2"-->
-<!--									app:layout_constraintLeft_toLeftOf="@+id/line7_content_title1"-->
-<!--									app:layout_constraintTop_toBottomOf="@+id/line7_content_title1"-->
-<!--									app:layout_constraintRight_toRightOf="parent"-->
-<!--									android:textColor="#999999"-->
-<!--									android:textSize="14sp"-->
-<!--									android:layout_marginTop="15dp"-->
-<!--									android:layout_marginRight="52dp"-->
-<!--									android:layout_marginBottom="15dp"-->
-<!--									android:text="@{viewModel.acsDrug.drugsStr}"-->
-<!--									tools:text="替格瑞洛75mg+阿司匹林100mg"-->
-<!--									android:layout_width="0dp"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<View-->
-<!--									android:id="@+id/line7_content_line1"-->
-<!--									android:background="@color/line_gray"-->
-<!--									android:layout_marginTop="5dp"-->
-<!--									app:layout_constraintTop_toBottomOf="@+id/line7_content_2"-->
-<!--									app:layout_constraintLeft_toLeftOf="parent"-->
-<!--									app:layout_constraintRight_toRightOf="parent"-->
-<!--									android:layout_marginRight="15dp"-->
-<!--									android:layout_marginLeft="15dp"-->
-<!--									android:layout_width="0dp"-->
-<!--									android:layout_height="0.5dp"/>-->
-
-<!--							<TextView-->
-<!--									android:id="@+id/line7_content_3"-->
-<!--									app:layout_constraintLeft_toLeftOf="@+id/line7_content_title1"-->
-<!--									app:layout_constraintTop_toBottomOf="@+id/line7_content_line1"-->
-<!--									android:gravity="right"-->
-<!--									android:textColor="@color/small_title_text_gray"-->
-<!--									android:textSize="16sp"-->
-<!--									android:layout_marginTop="5dp"-->
-<!--									android:text="抗凝给药"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<TextView-->
-<!--									android:id="@+id/line7_content_4"-->
-<!--									app:layout_constraintTop_toBottomOf="@+id/line7_content_line1"-->
-<!--									app:layout_constraintRight_toRightOf="parent"-->
-<!--									android:textColor="#999999"-->
-<!--									android:textSize="14sp"-->
-<!--									android:layout_marginTop="15dp"-->
-<!--									android:layout_marginRight="52dp"-->
-<!--									android:layout_marginBottom="15dp"-->
-<!--									android:text="@{viewModel.acsDrug.anticoagulation?``:`无`}"-->
-<!--									tools:text="无"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<TextView-->
-<!--									goneUnless="@{viewModel.acsDrug.anticoagulation}"-->
-<!--									android:id="@+id/line7_content_title5"-->
-<!--									app:layout_constraintLeft_toLeftOf="parent"-->
-<!--									app:layout_constraintBottom_toBottomOf="parent"-->
-<!--									app:layout_constraintTop_toBottomOf="@+id/line7_content_3"-->
-<!--									android:text="@{viewModel.acsDrug.anticoagulation_Drug_Name}"-->
-<!--									tools:text="华法林"-->
-<!--									android:layout_marginLeft="15dp"-->
-<!--									android:layout_marginTop="15dp"-->
-<!--									android:textColor="@color/small_title_text_gray"-->
-<!--									android:textSize="16sp"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<TextView-->
-<!--									goneUnless="@{viewModel.acsDrug.anticoagulation}"-->
-<!--									android:id="@+id/line7_content_6"-->
-<!--									app:layout_constraintLeft_toRightOf="@+id/line7_content_title5"-->
-<!--									app:layout_constraintTop_toBottomOf="@+id/line7_content_3"-->
-<!--									app:layout_constraintBottom_toBottomOf="parent"-->
-<!--									app:layout_constraintRight_toRightOf="parent"-->
-<!--									tools:text="100mg"-->
-<!--									android:gravity="right"-->
-<!--									android:textColor="#C1C1C1"-->
-<!--									android:textSize="16sp"-->
-<!--									android:layout_marginTop="15dp"-->
-<!--									android:layout_marginRight="52dp"-->
-<!--									android:text="@{viewModel.acsDrug.anticoagulation_Unit+`mg`}"-->
-<!--									android:layout_width="0dp"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-
-<!--						</androidx.constraintlayout.widget.ConstraintLayout>-->
-<!--						<View-->
-<!--								android:background="#EDEDED"-->
-<!--								android:layout_marginBottom="1dp"-->
-<!--								app:layout_constraintBottom_toBottomOf="parent"-->
-<!--								android:layout_width="match_parent"-->
-<!--								android:layout_height="1dp"/>-->
-
-<!--					</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
-
-			<androidx.constraintlayout.widget.ConstraintLayout
-					android:id="@+id/model4"
-					app:layout_constraintTop_toBottomOf="@+id/model1"
-					app:layout_constraintLeft_toLeftOf="parent"
-					android:layout_width="match_parent"
-					android:layout_height="match_parent">
-				<TextView
-						android:id="@+id/model4_title"
-						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						android:paddingLeft="15dp"
-						android:paddingTop="15dp"
-						android:paddingBottom="15dp"
-						android:textSize="16sp"
-						android:text="心内科会诊"
-						android:textColor="@color/small_title_text_gray"
-						android:background="#E7E4F2"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"/>
-
-				<Switch
-						android:id="@+id/trans_switch"
-						android:layout_marginRight="19dp"
-						android:layout_marginTop="15dp"
-						android:layout_marginBottom="15dp"
-						android:textSize="16sp"
-						android:textColor="#7D7D7D"
-						android:checked="@={viewModel.diagnosis.notice_Imcd}"
-						app:layout_constraintTop_toTopOf="@id/model4_title"
-						app:layout_constraintBottom_toBottomOf="@id/model4_title"
-						app:layout_constraintRight_toRightOf="parent"
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"/>
-
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						goneUnless="@{viewModel.diagnosis.notice_Imcd}"
-						android:id="@+id/line101"
-						android:background="@color/white"
-						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/model4_title"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content">
-
-					<TextView
-							android:id="@+id/title101"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_marginTop="15dp"
-							android:layout_marginLeft="8dp"
-							android:layout_marginBottom="15dp"
-							android:maxLines="3"
-							android:text="@string/title_xtdiagnose_noty_time"
-							android:textSize="16sp"
-							android:textColor="#525252"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:hint="请选择"
-							android:id="@+id/trans_time2"
-							android:layout_marginRight="19dp"
-							android:layout_marginTop="15dp"
-							android:layout_marginBottom="15dp"
-							android:textSize="16sp"
-							android:text="@{viewModel.diagnosis.notice_imcd_Time}"
-							android:textColor="#7D7D7D"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/rowe100"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:id="@+id/rowe100"
-							app:layout_constraintRight_toRightOf="parent"
-							app:layout_constraintBottom_toBottomOf="@id/title101"
-							android:layout_width="14dp"
-							android:layout_height="24dp"
-							android:layout_marginRight="19dp"
-							android:background="@drawable/ic_right_arrow"/>
-					<View
-							android:background="#EDEDED"
-							android:layout_marginBottom="1dp"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_width="match_parent"
-							android:layout_height="1dp"/>
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						goneUnless="@{viewModel.diagnosis.notice_Imcd}"
-						android:id="@+id/line102"
-						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/line101"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content">
-					<TextView
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/title102"
-							android:text="*"
-							android:textColor="@color/patient_nothing_known"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:id="@+id/title102"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_marginTop="17.5dp"
-							android:layout_marginLeft="15dp"
-							android:layout_marginBottom="17.5dp"
-							android:text="心内科诊断"
-							android:textSize="16sp"
-							android:textColor="@color/small_title_text_gray"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:hint="选择诊断类型"
-							android:id="@+id/start102"
-							android:text="@{viewModel.diagnosis.diagnosisCode2_Imcd_Name}"
-							android:layout_marginRight="19dp"
-							android:layout_marginTop="15dp"
-							android:layout_marginBottom="15dp"
-							android:layout_marginLeft="15dp"
-							android:textSize="16sp"
-							android:textColor="@color/small_title_text_gray"
-							android:gravity="right"
-							android:minWidth="90dp"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/rowe102"
-							app:layout_constraintLeft_toRightOf="@+id/title102"
-							tools:text="脑梗死-分水岭脑梗死"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							goneUnless="@{!viewModel.diagnosis.diagnosisCode3_Imcd.equals(``)}"
-							android:id="@+id/start102_1"
-							android:text="@{viewModel.diagnosis.diagnosisCode3_Imcd_Name}"
-							android:layout_marginRight="19dp"
-							android:layout_marginTop="5dp"
-							android:layout_marginBottom="15dp"
-							android:layout_marginLeft="15dp"
-							android:textSize="16sp"
-							android:textColor="#999999"
-							android:gravity="right"
-							android:minWidth="90dp"
-							app:layout_constraintTop_toBottomOf="@+id/start102"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/rowe102"
-							app:layout_constraintLeft_toRightOf="@+id/title102"
-							tools:text="脑梗死-分水岭脑梗死"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:id="@+id/rowe102"
-							app:layout_constraintRight_toRightOf="parent"
-							app:layout_constraintBottom_toBottomOf="@id/title102"
-							android:layout_width="14dp"
-							android:layout_height="24dp"
-							android:layout_marginRight="19dp"
-							android:background="@drawable/ic_right_arrow"/>
-					<View
-							android:background="#EDEDED"
-							android:layout_marginBottom="1dp"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_width="match_parent"
-							android:layout_height="1dp"/>
-
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--				<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--						goneUnless="@{viewModel.diagnosis.notice_Imcd}"-->
-<!--						android:id="@+id/line103"-->
-<!--						android:background="@color/white"-->
-<!--						app:layout_constraintLeft_toLeftOf="parent"-->
-<!--						app:layout_constraintTop_toBottomOf="@+id/line101"-->
-<!--						android:layout_width="match_parent"-->
-<!--						android:layout_height="wrap_content">-->
-<!--					<TextView-->
-<!--							app:layout_constraintTop_toTopOf="parent"-->
-<!--							app:layout_constraintBottom_toBottomOf="parent"-->
-<!--							app:layout_constraintRight_toLeftOf="@+id/title103"-->
-<!--							android:text="*"-->
-<!--							android:textColor="@color/patient_nothing_known"-->
-<!--							android:layout_width="wrap_content"-->
-<!--							android:layout_height="wrap_content"/>-->
-
-<!--					<TextView-->
-<!--							android:id="@+id/title103"-->
-<!--							app:layout_constraintLeft_toLeftOf="parent"-->
-<!--							app:layout_constraintTop_toTopOf="parent"-->
-<!--							app:layout_constraintBottom_toBottomOf="parent"-->
-<!--							android:layout_marginTop="17.5dp"-->
-<!--							android:layout_marginLeft="15dp"-->
-<!--							android:layout_marginBottom="17.5dp"-->
-<!--							android:text="心内科会诊时间\n(包括远程会诊)"-->
-<!--							android:textSize="16sp"-->
-<!--							android:textColor="@color/small_title_text_gray"-->
-<!--							android:layout_width="wrap_content"-->
-<!--							android:layout_height="wrap_content"/>-->
-
-<!--					<TextView-->
-<!--							android:hint="请选择"-->
-<!--							android:text="@{viewModel.diagnosis.consultation_Date}"-->
-<!--							android:id="@+id/start103"-->
-<!--							android:layout_marginRight="19dp"-->
-<!--							android:layout_marginTop="15dp"-->
-<!--							android:layout_marginBottom="15dp"-->
-<!--							android:layout_marginLeft="15dp"-->
-<!--							android:textSize="16sp"-->
-<!--							android:textColor="@color/small_title_text_gray"-->
-<!--							android:gravity="right"-->
-<!--							android:minWidth="90dp"-->
-<!--							app:layout_constraintTop_toTopOf="parent"-->
-<!--							app:layout_constraintRight_toLeftOf="@+id/rowe103"-->
-<!--							app:layout_constraintLeft_toRightOf="@+id/title103"-->
-<!--							app:layout_constraintBottom_toBottomOf="parent"-->
-<!--							tools:text="2019-04-12 12:38:40"-->
-<!--							android:layout_width="0dp"-->
-<!--							android:layout_height="wrap_content"/>-->
-
-<!--					<TextView-->
-<!--							android:id="@+id/rowe103"-->
-<!--							app:layout_constraintRight_toRightOf="parent"-->
-<!--							app:layout_constraintBottom_toBottomOf="@id/title103"-->
-<!--							android:layout_width="14dp"-->
-<!--							android:layout_height="24dp"-->
-<!--							android:layout_marginRight="19dp"-->
-<!--							android:background="@drawable/ic_right_arrow"/>-->
-<!--					<View-->
-<!--							android:background="#EDEDED"-->
-<!--							android:layout_marginBottom="1dp"-->
-<!--							app:layout_constraintBottom_toBottomOf="parent"-->
-<!--							android:layout_width="match_parent"-->
-<!--							android:layout_height="1dp"/>-->
-
-<!--				</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						goneUnless="@{viewModel.diagnosis.notice_Imcd}"
-						android:id="@+id/line104"
-						android:background="@color/white"
-						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/line102"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content">
-					<TextView
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/title104"
-							android:text="*"
-							android:textColor="@color/patient_nothing_known"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:id="@+id/title104"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_marginTop="17.5dp"
-							android:layout_marginLeft="15dp"
-							android:layout_marginBottom="17.5dp"
-							android:text="诊断时间"
-							android:textSize="16sp"
-							android:textColor="@color/small_title_text_gray"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:hint="请选择"
-							android:text="@{viewModel.diagnosis.diagnosis_Time_Imcd}"
-							android:id="@+id/start104"
-							android:layout_marginRight="19dp"
-							android:layout_marginTop="15dp"
-							android:layout_marginBottom="15dp"
-							android:layout_marginLeft="15dp"
-							android:textSize="16sp"
-							android:textColor="@color/small_title_text_gray"
-							android:gravity="right"
-							android:minWidth="90dp"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/rowe104"
-							app:layout_constraintLeft_toRightOf="@+id/title104"
-							app:layout_constraintBottom_toBottomOf="parent"
-							tools:text="2019-04-12 12:38:40"
-							android:layout_width="0dp"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:id="@+id/rowe104"
-							app:layout_constraintRight_toRightOf="parent"
-							app:layout_constraintBottom_toBottomOf="@id/title104"
-							android:layout_width="14dp"
-							android:layout_height="24dp"
-							android:layout_marginRight="19dp"
-							android:background="@drawable/ic_right_arrow"/>
-					<View
-							android:background="#EDEDED"
-							android:layout_marginBottom="1dp"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_width="match_parent"
-							android:layout_height="1dp"/>
-
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-			</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						goneUnless="@{viewModel.diagnosis.notice_Imcd?(viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-4`)):(viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
+				<LinearLayout
+						goneUnless="@{(viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`)||viewModel.diagnosis.diagnosisCode2.equals(`4-5`))}"
 						android:id="@+id/model2"
-						app:layout_constraintTop_toBottomOf="@+id/model4"
-						app:layout_constraintLeft_toLeftOf="parent"
+						android:orientation="vertical"
 						android:layout_width="match_parent"
 						android:layout_height="match_parent">
 
 					<TextView
 							android:id="@+id/model2_title"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
 							android:paddingLeft="15dp"
 							android:paddingTop="15dp"
 							android:paddingBottom="15dp"
@@ -953,8 +828,6 @@
 							android:layout_height="wrap_content"/>
 					<androidx.constraintlayout.widget.ConstraintLayout
 							android:id="@+id/line9"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toBottomOf="@+id/model2_title"
 							android:layout_width="match_parent"
 							android:layout_height="wrap_content">
 						<TextView
@@ -1195,7 +1068,7 @@
 					</androidx.constraintlayout.widget.ConstraintLayout>
 
 
-				</androidx.constraintlayout.widget.ConstraintLayout>
+				</LinearLayout>
 
 			<androidx.constraintlayout.widget.ConstraintLayout
 					android:id="@+id/model5"
@@ -1203,126 +1076,12 @@
 					app:layout_constraintLeft_toLeftOf="parent"
 					android:layout_width="match_parent"
 					android:layout_height="match_parent">
-				<androidx.constraintlayout.widget.ConstraintLayout
-						android:id="@+id/line105"
-						goneUnless="@{viewModel.diagnosis.notice_Imcd?(viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-4`)):(viewModel.diagnosis.diagnosisCode2.equals(`4-2`)||viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
-						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toTopOf="parent"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content">
-
-					<TextView
-							android:id="@+id/title105"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_marginTop="15dp"
-							android:layout_marginLeft="8dp"
-							android:layout_marginBottom="15dp"
-							android:maxLines="3"
-							android:text="@string/title_xtdiagnose_killip"
-							android:textSize="16sp"
-							android:textColor="#525252"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:hint="请选择"
-							android:id="@+id/killipLevel"
-							android:layout_marginRight="19dp"
-							android:layout_marginTop="15dp"
-							android:layout_marginBottom="15dp"
-							android:textSize="16sp"
-							android:text="@{viewModel.diagnosis.killip_Level_Name}"
-							android:textColor="#7D7D7D"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/rowe105"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:id="@+id/rowe105"
-							app:layout_constraintRight_toRightOf="parent"
-							app:layout_constraintBottom_toBottomOf="@id/killipLevel"
-							android:layout_width="14dp"
-							android:layout_height="24dp"
-							android:layout_marginRight="19dp"
-							android:background="@drawable/ic_right_arrow"/>
-					<View
-							android:background="#EDEDED"
-							android:layout_marginBottom="1dp"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_width="match_parent"
-							android:layout_height="1dp"/>
-
-
-
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
-				<androidx.constraintlayout.widget.ConstraintLayout
-						android:id="@+id/line106"
-						goneUnless="@{viewModel.diagnosis.notice_Imcd?(viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-4`)):(viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
-						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/line105"
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content">
-
-					<TextView
-							android:id="@+id/title106"
-							app:layout_constraintLeft_toLeftOf="parent"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_marginTop="15dp"
-							android:layout_marginLeft="8dp"
-							android:layout_marginBottom="15dp"
-							android:maxLines="3"
-							android:text="@string/title_xtdiagnose_nyha"
-							android:textSize="16sp"
-							android:textColor="#525252"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:hint="请选择"
-							android:id="@+id/nYHA"
-							android:layout_marginRight="19dp"
-							android:layout_marginTop="15dp"
-							android:layout_marginBottom="15dp"
-							android:textSize="16sp"
-							android:text="@{viewModel.diagnosis.nyhA_Name}"
-							android:textColor="#7D7D7D"
-							app:layout_constraintTop_toTopOf="parent"
-							app:layout_constraintBottom_toBottomOf="parent"
-							app:layout_constraintRight_toLeftOf="@+id/rowe106"
-							android:layout_width="wrap_content"
-							android:layout_height="wrap_content"/>
-
-					<TextView
-							android:id="@+id/rowe106"
-							app:layout_constraintRight_toRightOf="parent"
-							app:layout_constraintBottom_toBottomOf="@id/nYHA"
-							android:layout_width="14dp"
-							android:layout_height="24dp"
-							android:layout_marginRight="19dp"
-							android:background="@drawable/ic_right_arrow"/>
-					<View
-							android:background="#EDEDED"
-							android:layout_marginBottom="1dp"
-							app:layout_constraintBottom_toBottomOf="parent"
-							android:layout_width="match_parent"
-							android:layout_height="1dp"/>
-
-
-
-				</androidx.constraintlayout.widget.ConstraintLayout>
-
 
 				<androidx.constraintlayout.widget.ConstraintLayout
 						android:id="@+id/line8"
-						goneUnless="@{viewModel.diagnosis.notice_Imcd?(viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2_Imcd.equals(`4-4`)):(viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
+						goneUnless="@{(viewModel.diagnosis.diagnosisCode2.equals(`4-3`)||viewModel.diagnosis.diagnosisCode2.equals(`4-4`))}"
 						app:layout_constraintLeft_toLeftOf="parent"
-						app:layout_constraintTop_toBottomOf="@+id/line106"
+						app:layout_constraintTop_toTopOf="parent"
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content">
 
@@ -1448,133 +1207,8 @@
 
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--				<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--						android:id="@+id/model3"-->
-<!--						goneUnless="@{viewModel.selectedTreatment.strategyCode.equals(`14-1`)||viewModel.selectedTreatment.strategyCode.equals(`14-2`)||viewModel.selectedTreatment.strategyCode.equals(`14-3`)||viewModel.selectedTreatment.strategyCode.equals(`14-4`)}"-->
-<!--						app:layout_constraintTop_toBottomOf="@+id/model2"-->
-<!--						app:layout_constraintLeft_toLeftOf="parent"-->
-<!--						android:layout_width="match_parent"-->
-<!--						android:layout_height="wrap_content">-->
-<!--					<TextView-->
-<!--							android:id="@+id/model3_title"-->
-<!--							app:layout_constraintLeft_toLeftOf="parent"-->
-<!--							app:layout_constraintTop_toTopOf="parent"-->
-<!--							android:paddingLeft="15dp"-->
-<!--							android:paddingTop="5dp"-->
-<!--							android:paddingBottom="5dp"-->
-<!--							android:textSize="16sp"-->
-<!--							android:text=" "-->
-<!--							android:textColor="@color/small_title_text_gray"-->
-<!--							android:background="#E7E4F2"-->
-<!--							android:layout_width="match_parent"-->
-<!--							android:layout_height="wrap_content"/>-->
-<!--					<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--							android:id="@+id/line13"-->
-<!--							app:layout_constraintLeft_toLeftOf="parent"-->
-<!--							app:layout_constraintTop_toBottomOf="@+id/model3_title"-->
-<!--							android:layout_width="match_parent"-->
-<!--							android:layout_height="wrap_content">-->
 
-<!--						<TextView-->
-<!--								android:id="@+id/title13_1"-->
-<!--								app:layout_constraintLeft_toLeftOf="parent"-->
-<!--								app:layout_constraintTop_toTopOf="parent"-->
-<!--								app:layout_constraintBottom_toTopOf="@+id/line13_content_container"-->
-<!--								android:layout_marginTop="17.5dp"-->
-<!--								android:layout_marginLeft="15dp"-->
-<!--								android:layout_marginBottom="17.5dp"-->
-<!--								android:text="知情同意书"-->
-<!--								android:textSize="16sp"-->
-<!--								android:textColor="@color/small_title_text_gray"-->
-<!--								android:layout_width="wrap_content"-->
-<!--								android:layout_height="wrap_content"/>-->
-<!--						<TextView-->
-<!--								android:id="@+id/title13_2"-->
-<!--								app:layout_constraintRight_toRightOf="parent"-->
-<!--								app:layout_constraintTop_toTopOf="parent"-->
-<!--								app:layout_constraintBottom_toTopOf="@+id/line13_content_container"-->
-<!--								android:layout_marginTop="17.5dp"-->
-<!--								android:layout_marginRight="52dp"-->
-<!--								android:layout_marginBottom="17.5dp"-->
-<!--								android:text="去谈话"-->
-<!--								android:textSize="16sp"-->
-<!--								android:textColor="#63B0F8"-->
-<!--								android:layout_width="wrap_content"-->
-<!--								android:layout_height="wrap_content"/>-->
-<!--						<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--								android:id="@+id/line13_content_container"-->
-<!--								goneUnless="@{viewModel.talkShow}"-->
-<!--								app:layout_constraintTop_toBottomOf="@+id/title13_1"-->
-<!--								app:layout_constraintLeft_toLeftOf="parent"-->
-<!--								app:layout_constraintBottom_toBottomOf="parent"-->
-<!--								android:layout_marginLeft="5dp"-->
-<!--								android:layout_marginBottom="5dp"-->
-<!--								android:layout_marginRight="5dp"-->
-<!--								android:layout_width="match_parent"-->
-<!--								android:layout_height="wrap_content">-->
-<!--							<TextView-->
-<!--									android:id="@+id/title1"-->
-<!--									app:layout_constraintLeft_toLeftOf="parent"-->
-<!--									app:layout_constraintTop_toTopOf="parent"-->
-<!--									app:layout_constraintBottom_toBottomOf="parent"-->
-<!--									android:layout_marginTop="10dp"-->
-<!--									android:layout_marginBottom="10dp"-->
-<!--									android:layout_marginLeft="15dp"-->
-<!--									android:text="时长:"-->
-<!--									android:textSize="16sp"-->
-<!--									android:textColor="#525252"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<TextView-->
-<!--									android:id="@+id/time_all"-->
-<!--									app:layout_constraintLeft_toRightOf="@+id/title1"-->
-<!--									app:layout_constraintTop_toTopOf="parent"-->
-<!--									app:layout_constraintBottom_toBottomOf="parent"-->
-<!--									android:layout_marginTop="10dp"-->
-<!--									android:layout_marginBottom="10dp"-->
-<!--									android:layout_marginLeft="7dp"-->
-<!--									android:text="@{viewModel.talk.allTime}"-->
-<!--									android:textSize="16sp"-->
-<!--									android:textColor="#999999"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-<!--							<TextView-->
-<!--									android:id="@+id/start_time"-->
-<!--									app:layout_constraintRight_toRightOf="parent"-->
-<!--									app:layout_constraintTop_toBottomOf="@+id/informed_content_title"-->
-<!--									app:layout_constraintBottom_toBottomOf="parent"-->
-<!--									android:layout_marginTop="10dp"-->
-<!--									android:layout_marginBottom="10dp"-->
-<!--									android:layout_marginRight="19dp"-->
-<!--									android:drawableLeft="@drawable/ic_common_clock"-->
-<!--									android:drawablePadding="7dp"-->
-<!--									android:text="@{viewModel.talk.startTime}"-->
-<!--									android:textSize="16sp"-->
-<!--									android:textColor="#999999"-->
-<!--									android:layout_width="wrap_content"-->
-<!--									android:layout_height="wrap_content"/>-->
-
-
-<!--						</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-<!--						<TextView-->
-<!--								android:id="@+id/rowe13_1"-->
-<!--								app:layout_constraintRight_toRightOf="parent"-->
-<!--								app:layout_constraintBottom_toBottomOf="@id/title13_1"-->
-<!--								android:layout_width="14dp"-->
-<!--								android:layout_height="24dp"-->
-<!--								android:layout_marginRight="19dp"-->
-<!--								android:background="@drawable/ic_right_arrow"/>-->
-
-
-<!--					</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-<!--				</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-			</androidx.constraintlayout.widget.ConstraintLayout>
+			</LinearLayout>
 
 		</androidx.core.widget.NestedScrollView>
 
