@@ -237,7 +237,7 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
             .subscribe (::getData,::error))
     }
     private fun loadComplications(){
-        disposable.add(enumApi.loadComplications()
+        disposable.add(enumApi.loadDics("224",patientId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

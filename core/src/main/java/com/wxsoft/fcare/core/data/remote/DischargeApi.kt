@@ -1,6 +1,8 @@
 package com.wxsoft.fcare.core.data.remote
 
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.data.entity.DisChargeDiagnosis
+import com.wxsoft.fcare.core.data.entity.DisChargeEntity
 import com.wxsoft.fcare.core.data.entity.Response
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import io.reactivex.Maybe
@@ -23,8 +25,17 @@ interface DischargeApi {
     @GET("OutHospitalDiagnosis/GetById/{patientId}")
     fun getOtDiagnosis(@Path("patientId")patientId:String): Maybe<Response<DisChargeDiagnosis>>
 
+    /**
+     * 获取枚举值
+     */
+    @GET("OutHospitalDiagnosis/GetChooseItems/{patientId}/{enumDictId}")
+    fun getDics(@Path("patientId")patientId:String,@Path("enumDictId")enumDictId:String): Maybe<Response<List<DisChargeEntity>>>
+
     @POST("OutHospitalDiagnosis/Save")
     fun saveOtDiagnosis(@Body diagnosis : DisChargeDiagnosis): Maybe<Response<String>>
+
+    @POST("OutHospitalDiagnosis/SaveChooseItems")
+    fun saveChooseItems(@Body list : List<DisChargeEntity>): Maybe<Response<Boolean>>
 
 
 

@@ -12,4 +12,9 @@ internal abstract class DisChargeModule {
     @ViewModelKey(DisChargeViewModel::class)
     abstract fun bindDisChargeViewModel(viewModel: DisChargeViewModel): ViewModel
 
+    @Binds
+    @IntoMap
+    @ViewModelKey(DisChargeSonViewModel::class)
+    abstract fun bindDisChargeSonViewModel(viewModel: DisChargeSonViewModel): ViewModel
+
 }
