@@ -13,6 +13,7 @@ interface PreferenceStorage {
     var loginedPassword: String?
     var userInfo:String?
     var registrationId:String?
+    var signedDate:String?
 }
 
 /**
@@ -29,8 +30,15 @@ class SharedPreferenceStorage @Inject constructor(context: Context) :
         const val PREF_USERNAME = "pref_user_name"
         const val PREF_PASSWORD = "pref_password"
         const val PREF_USER_INFO = "pref_user_info"
+        const val PREF_USER_LATEST_SIGN = "pref_user_latest_sign"
     }
     private val prefs = context.applicationContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+
+//    init {
+//        prefs.registerOnSharedPreferenceChangeListener { sharedPreferences, key ->
+//            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+//        }
+//    }
 
 //    fun registerOnPreferenceChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener) {
 //        prefs.registerOnSharedPreferenceChangeListener(listener)
@@ -44,6 +52,7 @@ class SharedPreferenceStorage @Inject constructor(context: Context) :
 
     override var userInfo by StringPreference(prefs, PREF_USER_INFO,"")
     override var registrationId by StringPreference(prefs, PREFS_JPUSH_REGISTRATION_ID,"")
+    override var signedDate by StringPreference(prefs, PREF_USER_LATEST_SIGN,"")
 
 }
 

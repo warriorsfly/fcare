@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="com.wxsoft.fcare.ui.sign.SignInViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.rating.SignInActivity">
+
+        <include
+                android:id="@+id/title"
+                layout="@layout/layout_new_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:gravity="center"
+                android:background="@color/drug_bg_gray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="7.5dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:layout_weight="1"
+                android:id="@+id/list"/>
+
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="急诊医生"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="急诊护士"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d3"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="溶栓二线"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d4"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="介入一线医生"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d5"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="介入副班医生"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d6"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="介入二线医生"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d7"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="介入一线护士"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+
+<!--        <LinearLayout-->
+<!--                android:id="@+id/d8"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:background="@color/white"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:orientation="horizontal">-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:layout_weight="1"-->
+<!--                    android:text="介入二线护士"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="15dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:layout_marginBottom="15dp"-->
+<!--                    android:text=""-->
+<!--                    android:hint="签到"-->
+<!--                    android:textColor="#525252"-->
+<!--                    android:textSize="17sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--            <TextView-->
+<!--                    android:layout_width="14dp"-->
+<!--                    android:layout_height="24dp"-->
+<!--                    android:layout_marginRight="19dp"-->
+<!--                    android:background="@drawable/ic_right_arrow"-->
+<!--                    app:layout_constraintRight_toRightOf="parent" />-->
+<!--        </LinearLayout>-->
+
+<!--        <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="1dp"-->
+<!--                android:layout_marginBottom="1dp"-->
+<!--                android:background="#EDEDED"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent" />-->
+    </LinearLayout>
+</layout>

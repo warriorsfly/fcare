@@ -118,6 +118,9 @@ import com.wxsoft.fcare.ui.selecter.SelecterOfOneModule
 import com.wxsoft.fcare.ui.share.ShareActivity
 import com.wxsoft.fcare.ui.share.ShareItemListActivity
 import com.wxsoft.fcare.ui.share.ShareModule
+import com.wxsoft.fcare.ui.sign.SelectSignDoctorActivity
+import com.wxsoft.fcare.ui.sign.SignInModule
+import com.wxsoft.fcare.ui.sign.SignInActivity
 import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
@@ -200,11 +203,11 @@ abstract class ActivityBindingModule {
     internal abstract fun pharmacyActivity(): PharmacyActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [RatingModule::class,ViewPoolModule::class])
+    @ContributesAndroidInjector(modules = [RatingModule::class, ViewPoolModule::class])
     internal abstract fun ratingActivity(): RatingActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [RatingModule::class,ViewPoolModule::class])
+    @ContributesAndroidInjector(modules = [RatingModule::class, ViewPoolModule::class])
     internal abstract fun ratingSubjectActivity(): RatingSubjectActivity
 
     @ActivityScoped
@@ -272,7 +275,7 @@ abstract class ActivityBindingModule {
     internal abstract fun strategyActivity(): StrategyActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [WorkSpaceModule::class,ViewPoolModule::class,RatingModule::class])
+    @ContributesAndroidInjector(modules = [WorkSpaceModule::class, ViewPoolModule::class, RatingModule::class])
     internal abstract fun workingActivity(): WorkingActivity
 
     @ActivityScoped
@@ -352,7 +355,7 @@ abstract class ActivityBindingModule {
     internal abstract fun reactiveEcgActivity(): ReactiveEcgActivity
 
     @ActivityScoped
-    @ContributesAndroidInjector(modules = [EmrModule::class,ViewPoolModule::class])
+    @ContributesAndroidInjector(modules = [EmrModule::class, ViewPoolModule::class])
     internal abstract fun emrActivity(): EmrActivity
 
     @ActivityScoped
@@ -427,4 +430,11 @@ abstract class ActivityBindingModule {
     @ContributesAndroidInjector(modules = [TrajectoryModule::class])
     internal abstract fun trajectoryActivity(): TrajectoryActivity
 
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SignInModule::class])
+    internal abstract fun signInActivity(): SignInActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [SignInModule::class])
+    internal abstract fun selectSignDoctorActivity(): SelectSignDoctorActivity
 }

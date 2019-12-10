@@ -6,7 +6,7 @@ apply plugin: 'kotlin-android-extensions'
 android {
     signingConfigs {
         release {
-            storeFile file('/Users/ccl/Desktop/fcare/key.jks')
+            storeFile file('../key.jks')
             storePassword '123456'
             keyAlias = 'key0'
             keyPassword '123456'
@@ -120,7 +120,6 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.8'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.acker:simplezxing:1.5'
-
 
     //    coroutines协程，比较下rxjava2和协程对内存泄漏的影响
 

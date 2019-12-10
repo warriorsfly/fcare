@@ -1,4 +1,4 @@
-package com.wxsoft.fcare.ui.details.thrombolysis
+package com.wxsoft.fcare.ui.sign
 
 import android.app.Activity
 import android.content.Intent
@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
@@ -24,12 +26,13 @@ import com.wxsoft.fcare.databinding.ActivityComingByListBinding
 import com.wxsoft.fcare.databinding.ItemDoctorTextBinding
 import com.wxsoft.fcare.ui.BaseActivity
 import kotlinx.android.synthetic.main.activity_coming_by_list.*
+import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class SelectDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
+class SelectSignDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
-    private val patientId by lazyFast {
-        intent?.getStringExtra("PATIENT_ID")?:""
+    private val type by lazyFast {
+        intent?.getIntExtra("TYPE",0)?: 0
     }
 
     private val single by lazyFast {
@@ -41,7 +44,7 @@ class SelectDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
         intent?.getStringArrayExtra("doctorIds")?: emptyArray()
     }
 
-    private lateinit var viewModel: SelectDoctorViewModel
+    private lateinit var viewModel: SelectSignDoctorViewModel
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -66,7 +69,7 @@ class SelectDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
                                     user.id,
                                     user.trueName
                                 )
-                            } ?: emptyList()
+                            }
                         )
                     })
                     setResult(Activity.RESULT_OK,iten)
@@ -84,18 +87,20 @@ class SelectDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
         super.onCreate(savedInstanceState)
 
         viewModel=viewModelProvider(factory)
-        viewModel.patientId=patientId
-        adapter = Adapter(this@SelectDoctorActivity,::select)
+//        viewModel.type=type
+        adapter = Adapter(this@SelectSignDoctorActivity,::select)
         adapter.singleSelect=single
         DataBindingUtil.setContentView<ActivityComingByListBinding>(this, R.layout.activity_coming_by_list).apply {
-            lifecycleOwner=this@SelectDoctorActivity
-            list.adapter=this@SelectDoctorActivity.adapter
-            search.setOnQueryTextListener(this@SelectDoctorActivity)
+            lifecycleOwner=this@SelectSignDoctorActivity
+            list.adapter=this@SelectSignDoctorActivity.adapter
+            search.setOnQueryTextListener(this@SelectSignDoctorActivity)
         }
 //        setSupportActionBar(toolbar)
 //        title=if(single)"执行人员" else "操作医生"
 
         back.setOnClickListener { onBackPressed() }
+//        setSupportActionBar(toolbar)
+//        title=if(type==0)"医生列表" else "护士列表"
         viewModel.doctors.observe(this, Observer {
             it.let(::loaded)
         })
@@ -110,7 +115,7 @@ class SelectDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
         }
         users.let(adapter::submitList)
     }
-    private val iten= Intent()
+    val iten= Intent()
     private fun select(user: User) {
         iten.putExtra("doctor",EntityIdName(user.id,user.trueName))
         setResult(Activity.RESULT_OK,iten)
@@ -170,15 +175,12 @@ class SelectDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     }
 
-    override fun onQueryTextSubmit(p0: String?): Boolean {
-        return viewModel.showDocs(if(p0.isNullOrEmpty())"" else p0)
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
     }
 
-    override fun onQueryTextChange(p0: String?): Boolean {
-        if(p0.isNullOrEmpty()){
-            viewModel.showDocs("")
-            return true
-        }
-        return false
+    override fun onQueryTextChange(newText: String?): Boolean {
+        viewModel.filterString = newText
+        return true
     }
 }

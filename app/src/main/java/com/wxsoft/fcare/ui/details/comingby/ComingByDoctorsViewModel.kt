@@ -83,7 +83,7 @@ class ComingByDoctorsViewModel @Inject constructor(private val doctorApi:TaskApi
     }
 
     fun showPatients(name: String): Boolean {
-        disposable.add( doctorApi.searchUser(name,type.equals(1)||type.equals(3),account.id)
+        disposable.add( doctorApi.searchUser(name, type == 1 || type == 3,account.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(::doSearch,::error))

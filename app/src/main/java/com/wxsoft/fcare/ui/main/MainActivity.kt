@@ -1,10 +1,5 @@
 package com.wxsoft.fcare.ui.main
 
-import android.app.AlertDialog
-import android.app.PendingIntent
-import android.content.Intent
-import android.nfc.NfcAdapter
-import android.nfc.Tag
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -16,7 +11,7 @@ import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Account
 import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.di.ViewModelFactory
-import com.wxsoft.fcare.core.utils.NfcUtils
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.lazyFast
 import com.wxsoft.fcare.databinding.ActivityMainBinding
 import com.wxsoft.fcare.ui.BaseActivity
@@ -25,6 +20,7 @@ import com.wxsoft.fcare.ui.main.fragment.patients.PatientsFragment
 import com.wxsoft.fcare.ui.main.fragment.profile.UserProfileFragment
 import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 import javax.inject.Inject
 
 class MainActivity : BaseActivity() {
@@ -33,49 +29,52 @@ class MainActivity : BaseActivity() {
     lateinit var factory: ViewModelFactory
 
     @Inject
-    lateinit var gson:Gson
+    lateinit var gson: Gson
 
-    private var doctor:Boolean=false
+    private var doctor: Boolean = false
 
     @Inject
     lateinit var sharedPreferenceStorage: SharedPreferenceStorage
 
 
-
-
-    private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.nav_home -> {
-                viewPager.setCurrentItem(0, true)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_dashboard -> {
-                viewPager.setCurrentItem(1, true)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_notifications -> {
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    viewPager.setCurrentItem(0, true)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.nav_dashboard -> {
+                    viewPager.setCurrentItem(1, true)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.nav_notifications -> {
 //                message.setText(R.string.title_notifications)
-                viewPager.setCurrentItem(2, true)
-                return@OnNavigationItemSelectedListener true
-            }
-            R.id.nav_user -> {
-                viewPager.setCurrentItem(3, true)
-                return@OnNavigationItemSelectedListener true
-            }
+                    viewPager.setCurrentItem(2, true)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.nav_user -> {
+                    viewPager.setCurrentItem(3, true)
+                    return@OnNavigationItemSelectedListener true
+                }
 
+            }
+            false
         }
-        false
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val account=gson.fromJson(sharedPreferenceStorage.userInfo!!, Account::class.java)
-        if (!account.deptId.isNullOrEmpty()) doctor=account.deptId.contains("0")
+        val signedDate = sharedPreferenceStorage.signedDate
+        if(signedDate.isNullOrEmpty() || DateTimeUtils.date_formatter.format(Calendar.getInstance().time) > signedDate) {
+            //TODO 获取服务端签到时间，如果不是当天，弹出窗口，如果是当天，更新本地时间
+        }
+        val account = gson.fromJson(sharedPreferenceStorage.userInfo!!, Account::class.java)
+        if (!account.deptId.isNullOrEmpty()) doctor = account.deptId.contains("0")
         DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
             .apply {
                 //                viewModel=this@MainActivity.viewModel
                 navigation.apply {
-                    if(doctor){
+                    if (doctor) {
                         menu.clear()
                         inflateMenu(R.menu.navigation2)
                     }
@@ -83,7 +82,7 @@ class MainActivity : BaseActivity() {
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
 
-                viewPager.adapter = MainAdapter(supportFragmentManager,doctor)
+                viewPager.adapter = MainAdapter(supportFragmentManager, doctor)
                 if (savedInstanceState == null) {
                     navigation.selectedItemId = R.id.nav_home
                 }
@@ -94,12 +93,17 @@ class MainActivity : BaseActivity() {
 }
 
 
-class MainAdapter(fm:FragmentManager,doctor:Boolean) :
+class MainAdapter(fm: FragmentManager, doctor: Boolean) :
     FragmentPagerAdapter(fm) {
 
-    private val fragments:List<Fragment> by lazyFast {
-        if(doctor)listOf(PatientsFragment(),TaskFragment(), MessageFragment(),UserProfileFragment())
-        else listOf(TaskFragment(), PatientsFragment(),MessageFragment(),UserProfileFragment())
+    private val fragments: List<Fragment> by lazyFast {
+        if (doctor) listOf(
+            PatientsFragment(),
+            TaskFragment(),
+            MessageFragment(),
+            UserProfileFragment()
+        )
+        else listOf(TaskFragment(), PatientsFragment(), MessageFragment(), UserProfileFragment())
     }
 
     override fun getItem(position: Int): Fragment {

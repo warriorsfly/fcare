@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools">
+
+	<data>
+		<variable
+				name="viewModel"
+				type="com.wxsoft.fcare.ui.statistics.StatisticsViewModel" />
+		<import type="com.wxsoft.fcare.utils.Converter" />
+	</data>
+
+	<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:orientation="vertical"
+				tools:context=".ui.statistics.StatisticsChartActivity">
+
+			<include
+					android:id="@+id/title"
+					layout="@layout/layout_new_title" />
+
+			<com.google.android.material.card.MaterialCardView
+					android:id="@+id/patient_info"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="16dp"
+					android:layout_marginTop="6dp"
+					android:layout_marginRight="16dp"
+					android:minHeight="95dp"
+					android:translationZ="1dp"
+					app:cardBackgroundColor="@color/white"
+					app:cardElevation="2dp"
+					app:cardUseCompatPadding="true">
+
+				<LinearLayout
+						android:layout_width="match_parent"
+						android:layout_height="match_parent"
+						android:orientation="vertical"
+						android:padding="10dp">
+
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:orientation="horizontal">
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="急诊神经内科门诊量"
+								android:textSize="15dp" />
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@{Converter.intToString(viewModel.data.st1)}"
+								android:textSize="15dp"
+								android:textStyle="bold" />
+					</LinearLayout>
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:orientation="horizontal">
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="绿色通道人数"
+								android:textSize="15dp" />
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@{Converter.intToString(viewModel.data.st2)}"
+								android:textSize="15dp"
+								android:textStyle="bold" />
+					</LinearLayout>
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:orientation="horizontal">
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="溶栓人数"
+								android:textSize="15dp" />
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@{Converter.intToString(viewModel.data.st3)}"
+								android:textSize="15dp"
+								android:textStyle="bold" />
+					</LinearLayout>
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:orientation="horizontal">
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="取栓人数"
+								android:textSize="15dp" />
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@{Converter.intToString(viewModel.data.st4)}"
+								android:textSize="15dp"
+								android:textStyle="bold" />
+					</LinearLayout>
+
+					<LinearLayout
+							android:layout_width="match_parent"
+							android:layout_height="wrap_content"
+							android:layout_weight="1"
+							android:orientation="horizontal">
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:layout_weight="1"
+								android:text="蛛网膜下腔出血"
+								android:textSize="15dp" />
+
+						<TextView
+								android:layout_width="wrap_content"
+								android:layout_height="wrap_content"
+								android:text="@{Converter.intToString(viewModel.data.st5)}"
+								android:textSize="15dp"
+								android:textStyle="bold" />
+					</LinearLayout>
+
+				</LinearLayout>
+			</com.google.android.material.card.MaterialCardView>
+
+			<com.github.mikephil.charting.charts.PieChart
+					android:id="@+id/pie1"
+					android:minHeight="240dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+			<com.github.mikephil.charting.charts.PieChart
+					android:id="@+id/pie2"
+					android:minHeight="240dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+			<com.github.mikephil.charting.charts.PieChart
+					android:id="@+id/pie3"
+					android:minHeight="240dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+			<com.github.mikephil.charting.charts.PieChart
+					android:id="@+id/pie4"
+					android:minHeight="240dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+			<com.github.mikephil.charting.charts.PieChart
+					android:id="@+id/pie5"
+					android:minHeight="240dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+			<com.github.mikephil.charting.charts.PieChart
+					android:id="@+id/pie6"
+					android:minHeight="240dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+
+			<com.github.mikephil.charting.charts.PieChart
+					android:id="@+id/pie7"
+					android:minHeight="240dp"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"/>
+		</LinearLayout>
+	</ScrollView>
+</layout>

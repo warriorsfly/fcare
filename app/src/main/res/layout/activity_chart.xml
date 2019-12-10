@@ -6,15 +6,17 @@
 		android:layout_height="match_parent"
 		android:orientation="vertical"
 		tools:context=".ui.details.blood.pressure.ChartActivity">
-	<include layout="@layout/layout_new_title"
-			android:id="@+id/title"/>
+
+	<include
+			android:id="@+id/title"
+			layout="@layout/layout_new_title" />
 
 	<com.github.mikephil.charting.charts.LineChart
 			android:id="@+id/chart1"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:layout_above="@+id/seekBar1" />
+			android:layout_above="@+id/seekBar1"
+			android:layout_weight="1" />
 
 
 </LinearLayout>

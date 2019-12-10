@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.Account
-import com.wxsoft.fcare.core.data.entity.Hospital
-import com.wxsoft.fcare.core.data.entity.LoginInfo
-import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.*
 import io.reactivex.Maybe
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -30,6 +27,12 @@ interface AccountApi {
 
     @GET("Patient/DeletePatient/{patientId}/{currUserId}")
     fun deletePatient(@Path("patientId")patientId:String, @Path("currUserId")currUserId:String): Maybe<Response<String>>
+
+    @GET("User/Sigin/{userId}/{shiftsCode}/{diagnoseType}")
+    fun signIn(@Path("userId")userId:String, @Path("shiftsCode")shiftsCode:String,@Path("diagnoseType")diagnoseType: String): Maybe<Response<String>>
+
+    @GET("User/GetUserSigns/{diagnoseType}")
+    fun getSignIns(@Path("diagnoseType")diagnoseType:String): Maybe<Response<List<SignInUser>>>
 
 
 }
