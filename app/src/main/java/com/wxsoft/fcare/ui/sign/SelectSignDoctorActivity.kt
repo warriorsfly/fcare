@@ -7,6 +7,9 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -22,10 +25,11 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByListBinding
 import com.wxsoft.fcare.databinding.ItemDoctorTextBinding
 import com.wxsoft.fcare.ui.BaseActivity
+import kotlinx.android.synthetic.main.activity_coming_by_list.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
-class SelectSignDoctorActivity : BaseActivity() {
+class SelectSignDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     private val type by lazyFast {
         intent?.getIntExtra("TYPE",0)?: 0
@@ -89,9 +93,14 @@ class SelectSignDoctorActivity : BaseActivity() {
         DataBindingUtil.setContentView<ActivityComingByListBinding>(this, R.layout.activity_coming_by_list).apply {
             lifecycleOwner=this@SelectSignDoctorActivity
             list.adapter=this@SelectSignDoctorActivity.adapter
+            search.setOnQueryTextListener(this@SelectSignDoctorActivity)
         }
-        setSupportActionBar(toolbar)
-        title=if(type==0)"医生列表" else "护士列表"
+//        setSupportActionBar(toolbar)
+//        title=if(single)"执行人员" else "操作医生"
+
+        back.setOnClickListener { onBackPressed() }
+//        setSupportActionBar(toolbar)
+//        title=if(type==0)"医生列表" else "护士列表"
         viewModel.doctors.observe(this, Observer {
             it.let(::loaded)
         })
@@ -164,5 +173,14 @@ class SelectSignDoctorActivity : BaseActivity() {
             }
         }
 
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        viewModel.filterString = newText
+        return true
     }
 }

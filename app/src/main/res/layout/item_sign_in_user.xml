@@ -59,6 +59,41 @@
                     app:layout_constraintRight_toRightOf="parent" />
         </LinearLayout>
 
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="6dp"
+                goneUnless="@{!(item.user ==null || item.user.tel == null)}"
+                android:gravity="center_vertical|right">
+            <TextView
+                    android:id="@+id/user_tel"
+                    app:layout_constraintLeft_toRightOf="@+id/user_name"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="18dp"
+                    android:layout_marginRight="10dp"
+                    android:text="@{item.user==null ?``:item.user.tel == null? ``: item.user.tel}"
+                    tools:text="18356078389"
+                    android:textColor="@color/lable_font"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <ImageView
+                    android:id="@+id/call_icon"
+                    goneUnless="@{!(item.user ==null || item.user.tel == null)}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/ic_tel_phone"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"/>
+        </LinearLayout>
         <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

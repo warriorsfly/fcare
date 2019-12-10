@@ -19,20 +19,35 @@ class SelectSignDoctorViewModel @Inject constructor(
     override val gon: Gson
 ) : BaseViewModel(sharedPreferenceStorage, gon) {
 
+    var filterString: String?= null
+    set(value) {
+        field =value
+        if(field.isNullOrEmpty()){
+            filterDoctors.value = loadConsultantDoctors.value?.result?: emptyList()
+        }else {
+            field?.let {
+                f->
+                filterDoctors.value =loadConsultantDoctors.value?.result?.filter { it.trueName.contains(f) }
+            }
+
+        }
+    }
     val doctors: LiveData<List<User>>
 
     private val loadConsultantDoctors = MediatorLiveData<Response<List<User>>>()
+    private val filterDoctors = MediatorLiveData<List<User>>()
 
     val selected = MediatorLiveData<Int>()
 
     init {
-        doctors = loadConsultantDoctors.map { it.result ?: emptyList() }
+        doctors = filterDoctors.map { it }
         loadDocs()
     }
 
     private fun loadDocs() {
         fun doDoctor2(response: Response<List<User>>) {
             loadConsultantDoctors.value = response
+            filterString=filterString
         }
 
         disposable.add(
@@ -42,7 +57,4 @@ class SelectSignDoctorViewModel @Inject constructor(
             .subscribe(::doDoctor2, ::error))
     }
 
-    fun change(flag: Int) {
-        selected.value = flag
-    }
 }
