@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
@@ -22,10 +23,10 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityComingByListBinding
 import com.wxsoft.fcare.databinding.ItemDoctorTextBinding
 import com.wxsoft.fcare.ui.BaseActivity
-import kotlinx.android.synthetic.main.layout_new_title.*
+import kotlinx.android.synthetic.main.activity_coming_by_list.*
 import javax.inject.Inject
 
-class SelectDoctorActivity : BaseActivity() {
+class SelectDoctorActivity : BaseActivity(), SearchView.OnQueryTextListener {
 
     private val patientId by lazyFast {
         intent?.getStringExtra("PATIENT_ID")?:""
@@ -89,9 +90,12 @@ class SelectDoctorActivity : BaseActivity() {
         DataBindingUtil.setContentView<ActivityComingByListBinding>(this, R.layout.activity_coming_by_list).apply {
             lifecycleOwner=this@SelectDoctorActivity
             list.adapter=this@SelectDoctorActivity.adapter
+            search.setOnQueryTextListener(this@SelectDoctorActivity)
         }
-        setSupportActionBar(toolbar)
-        title=if(single)"执行人员" else "操作医生"
+//        setSupportActionBar(toolbar)
+//        title=if(single)"执行人员" else "操作医生"
+
+        back.setOnClickListener { onBackPressed() }
         viewModel.doctors.observe(this, Observer {
             it.let(::loaded)
         })
@@ -106,7 +110,7 @@ class SelectDoctorActivity : BaseActivity() {
         }
         users.let(adapter::submitList)
     }
-    val iten= Intent()
+    private val iten= Intent()
     private fun select(user: User) {
         iten.putExtra("doctor",EntityIdName(user.id,user.trueName))
         setResult(Activity.RESULT_OK,iten)
@@ -164,5 +168,17 @@ class SelectDoctorActivity : BaseActivity() {
             }
         }
 
+    }
+
+    override fun onQueryTextSubmit(p0: String?): Boolean {
+        return viewModel.showDocs(if(p0.isNullOrEmpty())"" else p0)
+    }
+
+    override fun onQueryTextChange(p0: String?): Boolean {
+        if(p0.isNullOrEmpty()){
+            viewModel.showDocs("")
+            return true
+        }
+        return false
     }
 }

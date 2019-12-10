@@ -136,6 +136,10 @@
 				android:screenOrientation="portrait"
 				android:theme="@style/AppTheme.NoActionBar" />
 		<activity
+				android:name=".ui.statistics.StatisticsChartActivity"
+				android:screenOrientation="portrait"
+				android:theme="@style/AppTheme.NoActionBar" />
+		<activity
 				android:name=".ui.details.checkbody.select.SelectBodyItemsActivity"
 				android:theme="@style/AppTheme.NoActionBar" />
 		<activity

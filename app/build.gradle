@@ -121,7 +121,6 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     implementation 'com.acker:simplezxing:1.5'
 
-
     //    coroutines协程，比较下rxjava2和协程对内存泄漏的影响
 
     //    implementation "org.jetbrains.anko:anko-coroutines:$anko_version"

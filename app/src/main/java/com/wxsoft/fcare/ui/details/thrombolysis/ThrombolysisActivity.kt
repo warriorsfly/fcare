@@ -280,6 +280,7 @@ class ThrombolysisActivity : BaseTimingActivity(){
     private fun selectDoctors(){
 
         viewModel.thrombolysis.value?.let {
+//            val intent = Intent(this, SelectDoctorActivity::class.java).apply {
             val intent = Intent(this, SelectDoctorActivity::class.java).apply {
                 putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
                 putExtra("doctorIds",it.thromStaffs?.map { it.staffId }?.toTypedArray()?: emptyArray())
