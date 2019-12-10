@@ -9,6 +9,7 @@ class DateTimeUtils {
 
     companion object {
         var formatter =  SimpleDateFormat("yyyy-MM-dd HH:mm")
+        var date_formatter =  SimpleDateFormat("yyyy-MM-dd")
 
         @JvmStatic
         fun getAgeByCertId(certId: String): Int {

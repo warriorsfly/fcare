@@ -50,6 +50,9 @@ interface TaskApi {
     @GET("User/GetUserFromHisByKeyword/{keyword}/{isDoctor}/{accountId}")
     fun searchUser(@Path("keyword")keyword:String,@Path("isDoctor")isDoctor:Boolean,@Path("accountId")accountId:String): Maybe<Response<List<User>>>
 
+    @GET("User/GetEmergencyDepartmentDoctorAndNurse/{currUserId}/{diagnoseType}")
+    fun getSignUsers(@Path("currUserId")currUserId:String,@Path("diagnoseType")diagnoseType:String): Maybe<Response<List<User>>>
+
 
 
     @GET("Task/arrive/{drugId}/{time}")

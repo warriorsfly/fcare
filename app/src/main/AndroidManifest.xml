@@ -181,6 +181,13 @@
 		<activity
 				android:name=".ui.details.complaints.ComplaintsActivity"
 				android:theme="@style/AppTheme.NoActionBar" />
+
+		<activity
+				android:name=".ui.sign.SignInActivity"
+				android:theme="@style/AppTheme.NoActionBar" />
+		<activity
+				android:name=".ui.sign.SelectSignDoctorActivity"
+				android:theme="@style/AppTheme.NoActionBar" />
 		<activity
 				android:name=".ui.details.strategy.StrategyActivity"
 				android:theme="@style/AppTheme.NoActionBar" />
@@ -422,12 +429,7 @@
 				android:value="developer-default" />
 		<meta-data
 				android:name="JPUSH_APPKEY"
-				android:value="ed68c08860ca1c894e6c038d" /> <!-- <activity -->
-		<!-- android:drugName=".ui.calling.CallingActivity" -->
-		<!-- android:configChanges="orientation|keyboardHidden|screenSize" -->
-		<!-- android:label="@string/title_activity_calling" -->
-		<!-- android:theme="@style/AppTheme.NoActionBar"> -->
-		<!-- </activity> -->
+				android:value="ed68c08860ca1c894e6c038d" />
 		<provider
 				android:name="androidx.core.content.FileProvider"
 				android:authorities="${applicationId}.fileProvider"

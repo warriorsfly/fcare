@@ -15,19 +15,25 @@ import cn.jiguang.share.android.api.Platform
 import cn.jiguang.share.android.api.ShareParams
 import cn.jiguang.share.wechat.Wechat
 import com.wxsoft.fcare.R
+import com.wxsoft.fcare.core.data.prefs.SharedPreferenceStorage
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
+import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.activityViewModelProvider
 import com.wxsoft.fcare.databinding.FragmentUserProfileBinding
 import com.wxsoft.fcare.databinding.ItemDialogQrImageBinding
 import com.wxsoft.fcare.ui.login.LoginActivity
+import com.wxsoft.fcare.ui.sign.SignInActivity
 import dagger.android.support.DaggerFragment
+import java.util.*
+import java.util.prefs.PreferenceChangeListener
 import javax.inject.Inject
+import kotlin.collections.HashMap
 
 
 class UserProfileFragment : DaggerFragment() {
 
-    protected val listener = object : PlatActionListener {
+    private val listener = object : PlatActionListener {
         /**
          * 上传成功
          */
@@ -76,12 +82,17 @@ class UserProfileFragment : DaggerFragment() {
                 val dialog=PasswordFragment()
                 dialog.show(childFragmentManager,"all")
             }
+            sign.setOnClickListener {
+                val intent = Intent(this@UserProfileFragment.activity, SignInActivity::class.java)
+                this@UserProfileFragment.activity?.startActivity(intent)
+            }
             changeHospital.setOnClickListener {
                 if (this@UserProfileFragment.viewModel.hospitals.value!=null) showDiag()
             }
             qrCode.setOnClickListener {
                 showImageDialog()
             }
+            viewModel
             lifecycleOwner = this@UserProfileFragment
         }
 
@@ -89,6 +100,12 @@ class UserProfileFragment : DaggerFragment() {
         viewModel.mesAction.observe(this, EventObserver{
             Toast.makeText(this.context,it, Toast.LENGTH_LONG).show()
         })
+
+//        viewModel.signedDate.observe(this, Observer {
+//            if(it.isNullOrEmpty() || DateTimeUtils.date_formatter.format(Calendar.getInstance().time) > it) {
+//                //TODO 获取服务端签到时间，如果不是当天，弹出窗口，如果是当天，更新本地时间
+//            }
+//        })
 
 
         return binding.root

@@ -23,10 +23,12 @@ class UserProfileViewModel @Inject constructor(private val accountApi: AccountAp
     val passChanged:LiveData<Boolean>
     private val changePassworResult=MediatorLiveData<Boolean>()
     val user:LiveData<Account>
+    val signedDate:LiveData<String>
     val hospitals:LiveData<List<Hospital>>
     private val loadHospitals=MediatorLiveData<List<Hospital>>()
 
     private val liveAccount=MediatorLiveData<Account>()
+    private val liveSign=MediatorLiveData<String>()
 
     val hospitalChanged:LiveData<Boolean>
     private val changeHospitalResult=MediatorLiveData<Boolean>()
@@ -35,9 +37,11 @@ class UserProfileViewModel @Inject constructor(private val accountApi: AccountAp
 
     init {
         user=liveAccount.map { it }
+        signedDate=liveSign.map { it }
         hospitals = loadHospitals.map { it?: emptyList() }
         hospitalName.set(account.hospitalName)
         liveAccount.value=account
+        liveSign.value = signDate
         passChanged=changePassworResult.map { it }
         hospitalChanged=changeHospitalResult.map { it }
     }
