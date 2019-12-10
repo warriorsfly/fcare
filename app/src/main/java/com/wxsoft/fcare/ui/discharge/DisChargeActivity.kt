@@ -66,6 +66,7 @@ class DisChargeActivity : BaseTimingActivity(){
         const val IS_XT = "IS_XT"
         const val SELECTED_Complication = 200
         const val SELECTED_RiskFactors = 300
+        const val SELECTED_Ills = 400
     }
     private lateinit var viewModel: DisChargeViewModel
     private lateinit var binding: ActivityDischargeBinding
@@ -84,6 +85,7 @@ class DisChargeActivity : BaseTimingActivity(){
                 model8.setOnClickListener { showDatePicker(findViewById(R.id.content9)) }
                 model10.setOnClickListener { toSelectComplication() }
                 model11.setOnClickListener { toSelectRiskFactors() }
+                model101.setOnClickListener { toSelectIlls() }
                 viewModel = this@DisChargeActivity. viewModel
                 lifecycleOwner = this@DisChargeActivity
             }
@@ -115,6 +117,15 @@ class DisChargeActivity : BaseTimingActivity(){
     }
 
 
+    fun toSelectIlls(){
+        val intent = Intent(this, DisChargeSonActivity::class.java).apply {
+            putExtra(DisChargeSonActivity.PATIENT_ID, patientId)
+            putExtra(DisChargeSonActivity.Dic_Type, "303")
+            putExtra(DisChargeSonActivity.TITLE_NAME, "合并疾病")
+
+        }
+        startActivityForResult(intent, SELECTED_Ills)
+    }
     fun toSelectComplication(){
         val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
             putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
@@ -123,9 +134,11 @@ class DisChargeActivity : BaseTimingActivity(){
         startActivityForResult(intent, SELECTED_Complication)
     }
     fun toSelectRiskFactors(){
-        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
-            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
-            putExtra(SelecterOfOneModelActivity.COME_FROM, "selectRiskFactors")
+        val intent = Intent(this, DisChargeSonActivity::class.java).apply {
+            putExtra(DisChargeSonActivity.PATIENT_ID, patientId)
+            putExtra(DisChargeSonActivity.Dic_Type, "251")
+            putExtra(DisChargeSonActivity.TITLE_NAME, "危险因素")
+
         }
         startActivityForResult(intent, SELECTED_RiskFactors)
     }
@@ -165,11 +178,7 @@ class DisChargeActivity : BaseTimingActivity(){
                     viewModel.data.value?.complication = dics.map { it.id }.joinToString(",")
                     viewModel.data.value?.complication_Name = dics.map { it.itemName }.joinToString(",")
                 }
-                SELECTED_RiskFactors ->{
-                    val place = data?.getSerializableExtra("SelectOne") as Dictionary
-                    viewModel.data.value?.riskFactors_Name = place.itemName
-                    viewModel.data.value?.riskFactors = place.id
-                }
+
 
             }
         }

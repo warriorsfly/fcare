@@ -199,14 +199,14 @@ class CureActivity : BaseTimingActivity() {
             }
         })
 
-        radio_group1.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
+        radio_group1.setOnCheckedChangeListener({ group, checkedId ->
             when(checkedId){
                 R.id.rbt_1 ->{viewModel.cure.value?.throm?.throm_Drug_Type_Dt = "25-1"}
                 R.id.rbt_2 ->{viewModel.cure.value?.throm?.throm_Drug_Type_Dt = "25-2"}
                 R.id.rbt_3 ->{viewModel.cure.value?.throm?.throm_Drug_Type_Dt = "25-3"}
             }
         })
-        radio_group2.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId ->
+        radio_group2.setOnCheckedChangeListener({ group, checkedId ->
             when(checkedId){
                 R.id.rbt2_1 ->{viewModel.cure.value?.throm?.throm_Drug_Code_Dt = "26-1"}
                 R.id.rbt2_2 ->{viewModel.cure.value?.throm?.throm_Drug_Code_Dt = "26-2"}

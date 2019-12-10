@@ -34,6 +34,9 @@ interface DictEnumApi {
     @GET("EnumDic/enumItems/236/{patientId}")
     fun loadCalls(@Path("patientId")id:String): Maybe<List<Dictionary>>
 
+    @GET("EnumDic/enumItems/{dictId}/{patientId}")
+    fun loadDics(@Path("dictId")dictId:String,@Path("patientId")patientId:String): Maybe<List<Dictionary>>
+
     /**
      * 非心源ACS
      */
