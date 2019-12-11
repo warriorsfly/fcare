@@ -132,8 +132,10 @@ class AppModule {
     Pair("ry",R.drawable.ic_in_hospital),
     Pair("cx",R.drawable.ic_blood_test),
     Pair("xtzd",R.drawable.ic_work_space_diagnosis),
-    Pair("jrxq",R.drawable.ic_work_space_therapeutic_solution)
+    Pair("jrxq",R.drawable.ic_work_space_therapeutic_solution),
+    Pair("cyjc",R.drawable.ic_work_space_therapeutic_solution)
         )
+
 
 
 
