@@ -106,6 +106,8 @@ import com.wxsoft.fcare.ui.message.MessageActivity
 import com.wxsoft.fcare.ui.message.MessageModule
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
 import com.wxsoft.fcare.ui.outcome.OutComeModule
+import com.wxsoft.fcare.ui.outcome.outcomecheck.OutComeCheckActivity
+import com.wxsoft.fcare.ui.outcome.outcomecheck.OutComeCheckModule
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.patient.ProfileModule
 import com.wxsoft.fcare.ui.patient.choice.ChoicePatientActivity
@@ -121,6 +123,8 @@ import com.wxsoft.fcare.ui.share.ShareModule
 import com.wxsoft.fcare.ui.sign.SelectSignDoctorActivity
 import com.wxsoft.fcare.ui.sign.SignInModule
 import com.wxsoft.fcare.ui.sign.SignInActivity
+import com.wxsoft.fcare.ui.statistics.StatisticsChartActivity
+import com.wxsoft.fcare.ui.statistics.StatisticsModule
 import com.wxsoft.fcare.ui.workspace.TimePointActivity
 import com.wxsoft.fcare.ui.workspace.WorkSpaceModule
 import com.wxsoft.fcare.ui.workspace.WorkingActivity
@@ -261,6 +265,10 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [OutComeModule::class])
     internal abstract fun outComeActivity(): OutComeActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [OutComeCheckModule::class])
+    internal abstract fun outComeCheckActivity(): OutComeCheckActivity
 
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ReperfusionModule::class])
@@ -437,4 +445,8 @@ abstract class ActivityBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [SignInModule::class])
     internal abstract fun selectSignDoctorActivity(): SelectSignDoctorActivity
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [StatisticsModule::class])
+    internal abstract fun statisticsChartActivity(): StatisticsChartActivity
 }

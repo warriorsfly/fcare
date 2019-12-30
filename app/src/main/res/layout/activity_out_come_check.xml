@@ -1,0 +1,975 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="com.wxsoft.fcare.utils.NullableConverter"/>
+        <import type="com.wxsoft.fcare.utils.Converter"/>
+        <variable name="viewModel" type="com.wxsoft.fcare.ui.outcome.outcomecheck.OutComeCheckViewModel"/>
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.outcome.outcomecheck.OutComeCheckActivity">
+        <include layout="@layout/layout_new_title"
+                android:id="@+id/title"
+                />
+        <androidx.core.widget.NestedScrollView
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+        <LinearLayout
+                android:background="@color/bg_light_gray"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white">
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="72h内肌钙蛋白"
+                            android:textSize="15sp"
+                            android:textColor="@color/black_checked_nomal"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:checked="@={viewModel.data.troponin_72h}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                        goneUnless="@{viewModel.data.troponin_72h}"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <View
+                            android:background="@color/line_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/white">
+                        <TextView
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="wrap_content"
+                                android:text="72h内肌钙蛋白最高值"
+                                android:textSize="15sp"
+                                android:alpha="0.8"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginLeft="15dp"
+                                android:layout_height="wrap_content"/>
+
+                        <RadioGroup
+                                android:id="@+id/radio_1"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="wrap_content"
+                                android:orientation="horizontal"
+                                android:textSize="14sp"
+                                android:layout_marginRight="15dp"
+                                android:layout_height="wrap_content">
+                            <RadioButton
+                                    android:id="@+id/radio_btn_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="TNT"
+                                    android:checked="@{viewModel.data.troponin_72h_type==1}"
+                                    />
+                            <RadioButton
+                                    android:id="@+id/radio_btn_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="TNI"
+                                    android:checked="@{viewModel.data.troponin_72h_type==2}"
+                                    />
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/CKMB_title"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginTop="17.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:text="数值" />
+                        <EditText
+                                android:selectAllOnFocus="true"
+                                android:hint="请输入"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:minWidth="50dp"
+                                android:id="@+id/CKMB_num_et"
+                                android:text="@={Converter.intToString( viewModel.data.ctnI_MAX_VALUE)}"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
+                                android:background="@null"
+                                android:inputType="number|numberDecimal"
+                                android:digits="@string/input_type_numbers_delow"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/CKMB_title"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/CKMB_unit"
+                                tools:text="" />
+
+                        <TextView
+                                android:id="@+id/CKMB_unit"
+                                android:background="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:text="ng/ml"
+                                android:textSize="14sp"
+                                android:layout_marginRight="10dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:gravity="right"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white">
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="脑钠肽"
+                            android:textSize="15sp"
+                            android:textColor="@color/black_checked_nomal"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:checked="@={viewModel.data.bnp}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                        goneUnless="@{viewModel.data.bnp}"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <View
+                            android:background="@color/line_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/white">
+                        <RadioGroup
+                                android:id="@+id/radio_2"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="wrap_content"
+                                android:orientation="horizontal"
+                                android:textSize="14sp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_height="wrap_content">
+                            <RadioButton
+                                    android:id="@+id/radio2_btn_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="BNP"
+                                    android:checked="@{viewModel.data.bnP_TYPE==1}"
+                                    />
+                            <RadioButton
+                                    android:id="@+id/radio2_btn_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="NT-proBNP"
+                                    android:checked="@{viewModel.data.bnP_TYPE==2}"
+                                    />
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/CKMB_constrain">
+                        <TextView
+                                android:id="@+id/title2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginTop="17.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:text="最高值" />
+                        <EditText
+                                android:selectAllOnFocus="true"
+                                android:hint="请输入"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:minWidth="50dp"
+                                android:id="@+id/num_et2"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:text="@={Converter.intToString( viewModel.data.bnP_VALUE)}"
+                                android:maxLines="1"
+                                android:background="@null"
+                                android:inputType="number|numberDecimal"
+                                android:digits="@string/input_type_numbers_delow"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/title2"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/unit2"
+                                tools:text="" />
+
+                        <TextView
+                                android:id="@+id/unit2"
+                                android:background="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:text="pg/mL"
+                                android:textSize="14sp"
+                                android:layout_marginRight="10dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:gravity="right"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white">
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="总胆固醇(TC)"
+                            android:textSize="15sp"
+                            android:textColor="@color/black_checked_nomal"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:checked="@={viewModel.data.tc}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                        goneUnless="@{viewModel.data.tc}"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <View
+                            android:background="@color/line_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/title3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginTop="17.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:text="数值" />
+                        <EditText
+                                android:selectAllOnFocus="true"
+                                android:hint="请输入"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:minWidth="50dp"
+                                android:id="@+id/num_et3"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:text="@={Converter.intToString( viewModel.data.tc_VALUE)}"
+                                android:imeOptions="actionNext"
+                                android:maxLines="1"
+                                android:background="@null"
+                                android:inputType="number|numberDecimal"
+                                android:digits="@string/input_type_numbers_delow"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/title3"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/unit3"
+                                tools:text="" />
+
+                        <TextView
+                                android:id="@+id/unit3"
+                                android:background="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:text="mmol/L"
+                                android:textSize="14sp"
+                                android:layout_marginRight="10dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:gravity="right"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white">
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="甘油三酯(TG)"
+                            android:textSize="15sp"
+                            android:textColor="@color/black_checked_nomal"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:checked="@={viewModel.data.tg}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                        goneUnless="@{viewModel.data.tg}"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <View
+                            android:background="@color/line_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/title4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginTop="17.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:text="数值" />
+                        <EditText
+                                android:selectAllOnFocus="true"
+                                android:hint="请输入"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:minWidth="50dp"
+                                android:id="@+id/num_et4"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:text="@={Converter.intToString( viewModel.data.tg_VALUE)}"
+                                android:maxLines="1"
+                                android:background="@null"
+                                android:inputType="number|numberDecimal"
+                                android:digits="@string/input_type_numbers_delow"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/title4"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/unit4"
+                                tools:text="" />
+
+                        <TextView
+                                android:id="@+id/unit4"
+                                android:background="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:text="mmol/L"
+                                android:textSize="14sp"
+                                android:layout_marginRight="10dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:gravity="right"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white">
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="高密度脂蛋白(HDL-C)"
+                            android:textSize="15sp"
+                            android:textColor="@color/black_checked_nomal"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:checked="@={viewModel.data.hdL_C}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                        goneUnless="@{viewModel.data.hdL_C}"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <View
+                            android:background="@color/line_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/title5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginTop="17.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:text="数值" />
+                        <EditText
+                                android:selectAllOnFocus="true"
+                                android:hint="请输入"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:minWidth="50dp"
+                                android:id="@+id/num_et5"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:text="@={Converter.intToString( viewModel.data.hdL_C_VALUE)}"
+                                android:maxLines="1"
+                                android:background="@null"
+                                android:inputType="number|numberDecimal"
+                                android:digits="@string/input_type_numbers_delow"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/title5"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/unit5"
+                                tools:text="" />
+
+                        <TextView
+                                android:id="@+id/unit5"
+                                android:background="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:text="mmol/L"
+                                android:textSize="14sp"
+                                android:layout_marginRight="10dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:gravity="right"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white">
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="低密度脂蛋白(LDL-C)"
+                            android:textSize="15sp"
+                            android:textColor="@color/black_checked_nomal"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:checked="@={viewModel.data.ldL_C}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                        goneUnless="@{viewModel.data.ldL_C}"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <View
+                            android:background="@color/line_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/title6"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginTop="17.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:text="数值" />
+                        <EditText
+                                android:selectAllOnFocus="true"
+                                android:hint="请输入"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:minWidth="50dp"
+                                android:id="@+id/num_et6"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:text="@={Converter.intToString( viewModel.data.ldL_C_VALUE)}"
+                                android:maxLines="1"
+                                android:background="@null"
+                                android:inputType="number|numberDecimal"
+                                android:digits="@string/input_type_numbers_delow"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/title6"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/unit6"
+                                tools:text="" />
+
+                        <TextView
+                                android:id="@+id/unit6"
+                                android:background="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:text="mmol/L"
+                                android:textSize="14sp"
+                                android:layout_marginRight="10dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:gravity="right"/>
+
+                        <View
+                                android:background="#EDEDED"
+                                android:layout_marginBottom="1dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"/>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white">
+                    <TextView
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="wrap_content"
+                            android:text="超声心动图"
+                            android:textSize="15sp"
+                            android:textColor="@color/black_checked_nomal"
+                            android:layout_marginLeft="15dp"
+                            android:layout_height="wrap_content"/>
+
+                    <Switch
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:checked="@={viewModel.data.ucg}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                        goneUnless="@{viewModel.data.ucg}"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                    <View
+                            android:background="@color/line_gray"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:background="@color/white"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        <TextView
+                                android:id="@+id/title7"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginTop="17.5dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginBottom="17.5dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:text="LVEF" />
+                        <EditText
+                                android:selectAllOnFocus="true"
+                                android:hint="请输入"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:layout_marginEnd="8dp"
+                                android:minWidth="50dp"
+                                android:id="@+id/num_et7"
+                                android:textSize="12sp"
+                                android:gravity="center"
+                                android:imeOptions="actionNext"
+                                android:text="@={Converter.intToString( viewModel.data.lvef)}"
+                                android:maxLines="1"
+                                android:background="@null"
+                                android:inputType="number|numberDecimal"
+                                android:digits="@string/input_type_numbers_delow"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/title7"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintRight_toLeftOf="@+id/unit7"
+                                tools:text="" />
+
+                        <TextView
+                                android:id="@+id/unit7"
+                                android:background="@color/white"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/black_checked_nomal"
+                                android:text="%(诊疗过程中最低值)"
+                                android:textSize="14sp"
+                                android:layout_marginRight="10dp"
+                                android:alpha="0.8"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:gravity="right"/>
+
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/white">
+                        <TextView
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="wrap_content"
+                                android:text="室壁瘤"
+                                android:textSize="15sp"
+                                android:alpha="0.8"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginLeft="15dp"
+                                android:layout_height="wrap_content"/>
+
+                        <RadioGroup
+                                android:id="@+id/radio_3"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="wrap_content"
+                                android:orientation="horizontal"
+                                android:textSize="14sp"
+                                android:layout_marginRight="15dp"
+                                android:layout_height="wrap_content">
+                            <RadioButton
+                                    android:id="@+id/radio3_btn_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="否"
+                                    android:checked="@={!viewModel.data.vntriculaR_ANEURYSM}"
+                                    />
+                            <RadioButton
+                                    android:id="@+id/radio3_btn_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="是"
+                                    android:checked="@={viewModel.data.vntriculaR_ANEURYSM}"
+                                    />
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@color/white">
+                        <TextView
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="wrap_content"
+                                android:text="局部室壁活动异常"
+                                android:textSize="15sp"
+                                android:alpha="0.8"
+                                android:textColor="@color/black_checked_nomal"
+                                android:layout_marginLeft="15dp"
+                                android:layout_height="wrap_content"/>
+
+                        <RadioGroup
+                                android:id="@+id/radio4_1"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                android:layout_width="wrap_content"
+                                android:orientation="horizontal"
+                                android:textSize="14sp"
+                                android:layout_marginRight="15dp"
+                                android:layout_height="wrap_content">
+                            <RadioButton
+                                    android:id="@+id/radio4_btn_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="否"
+                                    android:checked="@={!viewModel.data.parT_VNTRICULAR}"
+                                    />
+                            <RadioButton
+                                    android:id="@+id/radio4_btn_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:alpha="0.8"
+                                    android:text="是"
+                                    android:checked="@={viewModel.data.parT_VNTRICULAR}"
+                                    />
+                        </RadioGroup>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

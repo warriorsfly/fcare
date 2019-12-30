@@ -52,7 +52,19 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:targetApi="n">
-        <activity android:name=".ui.discharge.DisChargeSonActivity"
+        <activity android:name=".ui.outcome.outcomecheck.OutComeCheckActivity"
+                android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+                android:name=".ui.discharge.DisChargeSonActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+                android:name=".ui.statistics.StatisticsChartActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+                android:name=".ui.sign.SelectSignDoctorActivity"
+                android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+                android:name=".ui.sign.SignInActivity"
                 android:theme="@style/AppTheme.NoActionBar" />
         <activity
                 android:name=".ui.details.catheter.CatheterDoctorsActivity"

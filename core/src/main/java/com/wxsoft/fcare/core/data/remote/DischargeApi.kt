@@ -1,9 +1,6 @@
 package com.wxsoft.fcare.core.data.remote
 
-import com.wxsoft.fcare.core.data.entity.Dictionary
-import com.wxsoft.fcare.core.data.entity.DisChargeDiagnosis
-import com.wxsoft.fcare.core.data.entity.DisChargeEntity
-import com.wxsoft.fcare.core.data.entity.Response
+import com.wxsoft.fcare.core.data.entity.*
 import com.wxsoft.fcare.core.data.entity.chest.OutCome
 import io.reactivex.Maybe
 import retrofit2.http.Body
@@ -16,8 +13,14 @@ interface DischargeApi {
     @GET("Outcome/GetById/{patientId}")
     fun getOt(@Path("patientId")patientId:String): Maybe<Response<OutCome>>
 
+    @GET("OutHospitalDiagnosis/GetOutComeCheck/{patientId}")
+    fun getOutcheck(@Path("patientId")patientId:String): Maybe<Response<OutComeCheck>>
+
     @POST("Outcome/Save")
     fun saveOt(@Body outCome : OutCome): Maybe<Response<String>>
+
+    @POST("OutHospitalDiagnosis/SaveOutComeCheck")
+    fun saveOutChek(@Body outComeCheck: OutComeCheck): Maybe<Response<String>>
 
     /**
      * 出院诊断

@@ -57,6 +57,7 @@ import com.wxsoft.fcare.ui.discharge.DisChargeActivity
 import com.wxsoft.fcare.ui.emr.EmrActivity
 import com.wxsoft.fcare.ui.emr.EmrViewModel
 import com.wxsoft.fcare.ui.outcome.OutComeActivity
+import com.wxsoft.fcare.ui.outcome.outcomecheck.OutComeCheckActivity
 import com.wxsoft.fcare.ui.patient.ProfileActivity
 import com.wxsoft.fcare.ui.rating.RatingActivity
 import com.wxsoft.fcare.ui.rating.RatingSubjectActivity
@@ -531,6 +532,12 @@ class WorkingActivity : BaseActivity() {
                     putExtra(ComingByActivity.PATIENT_ID, patientId)
                 }
                 startActivityForResult(intent, ActionCode.PGB)
+            }
+            ActionType.出院检查 ->{
+                val intent = Intent(this, OutComeCheckActivity::class.java).apply {
+                    putExtra(OutComeCheckActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, ActionCode.OUTCOMECHECK)
             }
         }
     }
