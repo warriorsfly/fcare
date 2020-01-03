@@ -17,6 +17,8 @@ import com.wxsoft.fcare.core.utils.DateTimeUtils
 import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityOutcomeChestBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
+import com.wxsoft.fcare.ui.discharge.DisChargeActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest1.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest2.*
 import kotlinx.android.synthetic.main.layout_activity_outcome_chest3.*
@@ -58,6 +60,7 @@ class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
     private lateinit var patientId:String
     companion object {
         const val PATIENT_ID = "PATIENT_ID"
+        const val SELECTED_MissionEducation = 100
     }
     private lateinit var viewModel: OutComeViewModel
     @Inject
@@ -69,14 +72,15 @@ class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
         viewModel = viewModelProvider(factory)
         DataBindingUtil.setContentView<ActivityOutcomeChestBinding>(this, R.layout.activity_outcome_chest)
             .apply {
+                model10.setOnClickListener { toSelectComplication() }
                 viewModel = this@OutComeActivity. viewModel
                 lifecycleOwner = this@OutComeActivity
             }
-        patientId=intent.getStringExtra(OutComeActivity.PATIENT_ID)?:""
+        patientId=intent.getStringExtra(PATIENT_ID)?:""
         viewModel.patientId = patientId
 
         setSupportActionBar(toolbar)
-        title="患者转归"
+        title="出院"
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()
@@ -87,7 +91,6 @@ class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
             when(it) {
                 is Resource.Success -> {
                     Intent().let { intent ->
-
                         setResult(RESULT_OK, intent)
                         finish()
                     }
@@ -100,8 +103,17 @@ class OutComeActivity : BaseTimingActivity(), View.OnClickListener {
         start3.setOnClickListener(this)
         start4.setOnClickListener(this)
         pci_start.setOnClickListener(this)
+
     }
 
+    //
+    private fun toSelectComplication(){
+        val intent = Intent(this, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "selectMissionEducation")
+        }
+        startActivityForResult(intent, SELECTED_MissionEducation)
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)

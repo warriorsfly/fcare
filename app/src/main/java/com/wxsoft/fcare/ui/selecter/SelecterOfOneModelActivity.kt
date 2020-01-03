@@ -54,6 +54,8 @@ class SelecterOfOneModelActivity : BaseActivity() {
                 notiadapter = SelecterOfNotifyTypeAdapter(this@SelecterOfOneModelActivity,this@SelecterOfOneModelActivity.viewModel)
                 when(comFrom){
                     "CardType" -> firstList.adapter = adapter
+                    "Transtype" -> firstList.adapter = adapter
+                    "NetHospital" -> firstList.adapter = adapter
                     "Vital" -> firstList.adapter = adapter
                     "COMPLAINTS" -> firstList.adapter = adapter
                     "Notify" -> firstList.adapter = notiadapter
@@ -64,6 +66,19 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     "Adress" -> firstList.adapter = adapter
                     "selectHandway" -> firstList.adapter = adapter
                     "selectPatientOutcom" -> firstList.adapter = adapter
+                    "selectSelectKillip" -> firstList.adapter = adapter
+                    "selectSelectNYHA" -> firstList.adapter = adapter
+                    "Route" -> firstList.adapter = adapter
+                    "InfarctPosition" -> firstList.adapter = adapter
+                    "NarrowLevel" -> firstList.adapter = adapter
+                    "NarrowPosition" -> firstList.adapter = adapter
+                    "IntracavityImage" -> firstList.adapter = adapter
+                    "FunctionTest" -> firstList.adapter = adapter
+                    "BracketNum" -> firstList.adapter = adapter
+                    "Complication" -> firstList.adapter = adapter
+                    "selectComplication" -> firstList.adapter = adapter
+                    "selectRiskFactors" -> firstList.adapter = adapter
+                    "selectMissionEducation" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -75,6 +90,8 @@ class SelecterOfOneModelActivity : BaseActivity() {
                 title="选择意识"
             }
             "Notify" -> title="选择通知类型"
+            "Transtype" -> title="选择转院类型"
+            "NetHospital" -> title="选择网络医院"
             "CardType" -> title="选择证件类型"
             "MedicalHistoryProvider" -> title="选择病史提供者"
             "MedicalHistoryAnamnesis" -> title="选择既往病史"
@@ -83,7 +100,20 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "Adress" -> title="选择发病地址"
             "selectHandway" -> title="选择处置措施"
             "selectPatientOutcom" -> title="选择患者去向"
+            "selectSelectKillip" -> title="选择Killip分级"
+            "selectSelectNYHA" -> title="选择NYHA分级"
             "COMPLAINTS" -> title="主诉"
+            "Route" -> title="入路"
+            "InfarctPosition" -> title="选择梗死相关动脉部位"
+            "NarrowLevel" -> title="选择狭窄程度"
+            "NarrowPosition" -> title="选择非罪犯血管病变部位"
+            "IntracavityImage" -> title="选择腔内影像"
+            "FunctionTest" -> title="选择功能检测"
+            "BracketNum" -> title="选择植入支架个数"
+            "Complication" -> title="选择术中并发症"
+            "selectComplication" -> title="选择合并症"
+            "selectRiskFactors" -> title="选择危险因素"
+            "selectMissionEducation" -> title="选择离院宣教"
         }
 
 
@@ -138,7 +168,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("COMPLAINTS")) menuInflater.inflate(R.menu.menu_subject,menu)
+        if (comFrom.equals("MedicalHistoryAnamnesis")||comFrom.equals("selectMissionEducation")||comFrom.equals("COMPLAINTS")||comFrom.equals("InfarctPosition")||comFrom.equals("NarrowPosition")||comFrom.equals("Complication")||comFrom.equals("selectComplication")) menuInflater.inflate(R.menu.menu_subject,menu)
         return true
     }
 

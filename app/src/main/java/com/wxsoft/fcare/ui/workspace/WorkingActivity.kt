@@ -466,6 +466,12 @@ class WorkingActivity : BaseActivity() {
                 }
                 startActivityForResult(intent, CABG)
             }
+            ActionType.患者转归 ->{
+                val intent = Intent(this@WorkingActivity, OutComeActivity::class.java).apply {
+                    putExtra(OutComeActivity.PATIENT_ID, patientId)
+                }
+                startActivityForResult(intent, OUTCOME)
+            }
             ActionType.出院诊断 ->{
                 val cz=viewModel.patient.value?.diagnosisCode=="215-1"
                 val intent = Intent(this@WorkingActivity, DisChargeActivity::class.java).apply {
@@ -473,12 +479,6 @@ class WorkingActivity : BaseActivity() {
                     putExtra(CatheterActivity.IS_XT, if (cz) "xt"  else "")
                 }
                 startActivityForResult(intent, OTDIAGNOSE)
-            }
-            ActionType.患者转归 ->{
-                val intent = Intent(this@WorkingActivity, OutComeActivity::class.java).apply {
-                    putExtra(OutComeActivity.PATIENT_ID, patientId)
-                }
-                startActivityForResult(intent, OUTCOME)
             }
             ActionType.一键通知 ->{
                 val intent = Intent(this@WorkingActivity, OneTouchCallingActivity::class.java).apply {

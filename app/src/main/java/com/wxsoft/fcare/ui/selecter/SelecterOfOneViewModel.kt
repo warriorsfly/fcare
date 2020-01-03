@@ -94,6 +94,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadCardType()
                     clickAlone = true
                 }
+                "selectMissionEducation" ->{
+//                    loadRiskFactors()
+//                    clickAlone = false
+                }
             }
         }
 

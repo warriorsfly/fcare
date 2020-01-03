@@ -13,6 +13,17 @@
             android:background="#fff">
         <include layout="@layout/layout_new_title"
              android:id="@+id/title"/>
+        <androidx.core.widget.NestedScrollView
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp">
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
         <androidx.constraintlayout.widget.ConstraintLayout
             app:layout_constraintTop_toBottomOf="@+id/title"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -91,40 +102,97 @@
                 android:id="@+id/de"
                 android:layout_height="38dp"/>
 
-            <include layout="@layout/layout_activity_outcome_chest1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:viewModel="@{viewModel}"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/de"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <include layout="@layout/layout_activity_outcome_chest2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:viewModel="@{viewModel}"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/de"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <include layout="@layout/layout_activity_outcome_chest3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:viewModel="@{viewModel}"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/de"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-            <include layout="@layout/layout_activity_outcome_chest4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:viewModel="@{viewModel}"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toBottomOf="@id/de"
-                app:layout_constraintLeft_toLeftOf="parent"/>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <include layout="@layout/layout_activity_outcome_chest1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:viewModel="@{viewModel}"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/de"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <include layout="@layout/layout_activity_outcome_chest2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:viewModel="@{viewModel}"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/de"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <include layout="@layout/layout_activity_outcome_chest3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:viewModel="@{viewModel}"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/de"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <include layout="@layout/layout_activity_outcome_chest4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:viewModel="@{viewModel}"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintTop_toBottomOf="@id/de"
+                        app:layout_constraintLeft_toLeftOf="parent"/>
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        goneUnless="@{!viewModel.data.outcomeCode.equals(`11-4`)}"
+                        android:id="@+id/model10"
+                        android:background="@color/white"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                    <TextView
+                            android:id="@+id/title10_1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="离院宣教"
+                            android:textSize="15sp"
+                            android:textColor="#131D35"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:textColorHint="@color/small_text_gray"
+                            android:hint="选择离院宣教"
+                            android:gravity="right"
+                            android:id="@+id/content10_1"
+                            android:layout_marginRight="19dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="13sp"
+                            android:textColor="@color/edit_text_title"
+                            android:minWidth="90dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/rowe10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <TextView
+                            android:id="@+id/rowe10"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintBottom_toBottomOf="@id/title10_1"
+                            android:layout_width="14dp"
+                            android:layout_height="24dp"
+                            android:layout_marginRight="19dp"
+                            android:background="@drawable/ic_right_arrow"/>
+
+                    <View
+                            android:background="#EDEDED"
+                            android:layout_marginBottom="1dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -174,6 +242,8 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
