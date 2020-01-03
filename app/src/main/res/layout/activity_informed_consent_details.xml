@@ -44,7 +44,6 @@
                             android:textSize="13sp"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/title1"
                             android:text="@{viewModel.informed.content}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
