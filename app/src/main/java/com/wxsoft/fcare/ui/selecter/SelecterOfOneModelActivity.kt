@@ -79,6 +79,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
                     "selectComplication" -> firstList.adapter = adapter
                     "selectRiskFactors" -> firstList.adapter = adapter
                     "selectMissionEducation" -> firstList.adapter = adapter
+                    "DisCharge" -> firstList.adapter = adapter
                 }
                 viewModel = this@SelecterOfOneModelActivity.viewModel
                 lifecycleOwner = this@SelecterOfOneModelActivity
@@ -114,6 +115,7 @@ class SelecterOfOneModelActivity : BaseActivity() {
             "selectComplication" -> title="选择合并症"
             "selectRiskFactors" -> title="选择危险因素"
             "selectMissionEducation" -> title="选择离院宣教"
+            "DisCharge" -> title="选择COVID19"
         }
 
 

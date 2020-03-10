@@ -94,6 +94,10 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
                     loadCardType()
                     clickAlone = true
                 }
+                "DisCharge" ->{
+                    loadCOVID19()
+                    clickAlone = true
+                }
                 "selectMissionEducation" ->{
 //                    loadRiskFactors()
 //                    clickAlone = false
@@ -143,6 +147,12 @@ class SelecterOfOneViewModel @Inject constructor(private val enumApi: DictEnumAp
     }
     private fun loadCardType(){
         disposable.add(enumApi.loadCardType()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe (::getData,::error))
+    }
+    private fun loadCOVID19(){
+        disposable.add(enumApi.loadCOVID19()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe (::getData,::error))

@@ -65,6 +65,22 @@ data class DisChargeDiagnosis (val id:String=""): BaseObservable(){
             notifyPropertyChanged(BR.riskFactors_Name)
         }
 
+    /// <summary>
+    /// COVID19 选填（见字典表，传代码）
+    /// </summary>
+    @Bindable
+    var coviD19: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.coviD19)
+        }
+    @Bindable
+    var coviD19_Name: String? = null
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.coviD19_Name)
+        }
+
     @Bindable
     @SerializedName("his_Bed_Doctor")
     var hisBedDoctor: String? = null
