@@ -51,6 +51,7 @@
 			android:roundIcon="@mipmap/icon"
 			android:supportsRtl="true"
 			android:theme="@style/AppTheme"
+			android:requestLegacyExternalStorage="true"
 			tools:targetApi="n">
 		<activity android:name=".ui.details.catheter.CatheterDoctorsActivity"
 				android:theme="@style/AppTheme.NoActionBar"/>

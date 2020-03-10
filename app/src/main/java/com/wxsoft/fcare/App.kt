@@ -1,6 +1,7 @@
 package com.wxsoft.fcare
 
 import android.app.Notification
+import android.util.Log
 import cn.jiguang.share.android.api.JShareInterface
 import cn.jiguang.share.android.api.PlatformConfig
 import cn.jpush.android.api.BasicPushNotificationBuilder
@@ -38,9 +39,14 @@ class App : DaggerApplication() {
         val config = PlatformConfig().apply {
             setWechat("wx9f163d591186cfac", "c93e41a9676c998d865389acfec27548")
         }
-        JShareInterface.init(this, config)
 
-        SDKInitializer.initialize(this)
+        try {
+            JShareInterface.init(this, config)
+
+            SDKInitializer.initialize(this)
+        }catch (e:Exception){
+            Log.i("error",e.message)
+        }
 
     }
 

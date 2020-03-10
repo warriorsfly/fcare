@@ -150,7 +150,7 @@ class VitalSignsActivity : BaseActivity() {
 //            }
 //        }
         binding.mb.addTextChangedListener(object : TextWatcher {
-            private val max: Int = 150
+            private val max: Int = 300
             private val min: Int = 0
             override fun afterTextChanged(s: Editable) {//输入后的监听
             }

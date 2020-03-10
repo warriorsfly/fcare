@@ -182,7 +182,9 @@ class WorkingActivity : BaseActivity() {
                 quality.adapter=QualityAdapter(this@WorkingActivity)
                 operationView.addItemDecoration(DividerItemDecoration(this@WorkingActivity,DividerItemDecoration.VERTICAL).apply { setDrawable(resources.getDrawable(R.drawable.ic_working_operation_divider)) })
                 operationView.adapter=OperationGroupAdapter(this@WorkingActivity,optionViewPool,::doOperation)
-                bottomSheetBehavior=BottomSheetBehavior.from( other_list.view)
+                other_list.view?.let {
+                    bottomSheetBehavior=BottomSheetBehavior.from(it)
+                }
 
                 viewModel=this@WorkingActivity.viewModel.apply {
                     pre = this@WorkingActivity.pre
