@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Diagnosis
+import com.wxsoft.fcare.core.data.entity.Dictionary
 import com.wxsoft.fcare.core.di.ViewModelFactory
 import com.wxsoft.fcare.core.result.EventObserver
 import com.wxsoft.fcare.core.result.Resource
@@ -20,6 +21,8 @@ import com.wxsoft.fcare.core.utils.viewModelProvider
 import com.wxsoft.fcare.databinding.ActivityDischargeBinding
 import com.wxsoft.fcare.ui.BaseTimingActivity
 import com.wxsoft.fcare.ui.details.diagnose.select.SelectDiagnoseActivity
+import com.wxsoft.fcare.ui.selecter.SelecterOfOneModelActivity
+import kotlinx.android.synthetic.main.activity_discharge.*
 import kotlinx.android.synthetic.main.layout_new_title.*
 import javax.inject.Inject
 
@@ -78,6 +81,7 @@ class DisChargeActivity : BaseTimingActivity(){
                 model1.setOnClickListener { showDatePicker(findViewById(R.id.start)) }
                 model5.setOnClickListener { showDatePicker(findViewById(R.id.content5)) }
                 model8.setOnClickListener { showDatePicker(findViewById(R.id.content9)) }
+                model11_11.setOnClickListener { toSelectCovid() }
                 viewModel = this@DisChargeActivity. viewModel
                 lifecycleOwner = this@DisChargeActivity
             }
@@ -116,6 +120,14 @@ class DisChargeActivity : BaseTimingActivity(){
         }
         startActivityForResult(intent, 100)
     }
+    fun toSelectCovid(){
+        val intent = Intent(this@DisChargeActivity, SelecterOfOneModelActivity::class.java).apply {
+            putExtra(SelecterOfOneModelActivity.PATIENT_ID, patientId)
+            putExtra(SelecterOfOneModelActivity.ID, viewModel.data.value?.coviD19)
+            putExtra(SelecterOfOneModelActivity.COME_FROM, "DisCharge")
+        }
+        startActivityForResult(intent, 200)
+    }
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_subject,menu)
         return true
@@ -140,7 +152,11 @@ class DisChargeActivity : BaseTimingActivity(){
                     binding.diagnose.setText(diagnosis.diagnosisCode2Name + " " + diagnosis.diagnosisCode3Name)
                     viewModel.data.value?.diagnosis = diagnosis
                 }
-
+                200 ->{//covid19
+                    val place = data?.getSerializableExtra("SelectOne") as Dictionary
+                    viewModel.data.value?.coviD19_Name = place.itemName
+                    viewModel.data.value?.coviD19 = place.id
+                }
             }
         }
     }
