@@ -173,6 +173,14 @@ data class Patient(val id:String=""):BaseObservable(), Serializable {
             notifyPropertyChanged(BR.unKnowAttackingTime)
         }
 
+    @SerializedName("isThrom")
+    @get:Bindable
+    var hThromed: Boolean=false
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.hThromed)
+        }
+
     @SerializedName("attack_Zone")
     @get:Bindable
     var attackZone: String=""

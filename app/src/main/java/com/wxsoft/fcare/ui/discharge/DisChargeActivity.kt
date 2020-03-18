@@ -91,7 +91,7 @@ class DisChargeActivity : BaseTimingActivity(){
         viewModel.xtShow.set(xt.equals("xt"))
 
         setSupportActionBar(toolbar)
-        title="患者转归"
+        title="出院"
 
         viewModel.mesAction.observe(this,EventObserver{
             Toast.makeText(this,it,Toast.LENGTH_SHORT).show()

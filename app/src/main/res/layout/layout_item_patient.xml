@@ -79,6 +79,22 @@
 			</androidx.constraintlayout.widget.ConstraintLayout>
 
 
+		<ImageView
+				android:id="@+id/thromed_container"
+				goneUnless="@{patient.hThromed}"
+				android:src="@drawable/ic_thromed"
+				app:layout_constraintTop_toTopOf="@+id/sex_age_container"
+				app:layout_constraintLeft_toRightOf="@+id/sex_age_container"
+				app:layout_constraintBottom_toBottomOf="@+id/sex_age_container"
+				android:layout_marginLeft="@dimen/activity_horizontal_margin"
+				android:tint="@color/seriousness"
+				android:padding="3dp"
+				android:layout_width="25dp"
+				android:layout_height="wrap_content">
+
+
+		</ImageView>
+
 
 
 			<TextView
