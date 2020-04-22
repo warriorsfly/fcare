@@ -203,7 +203,7 @@ class VitalSignsActivity : BaseActivity() {
         }
 
         binding.heart.addTextChangedListener(object : TextWatcher {
-            private val max: Int = 150
+            private val max: Int = 300
             private val min: Int = 0
             override fun afterTextChanged(s: Editable) {//输入后的监听
             }
@@ -234,7 +234,7 @@ class VitalSignsActivity : BaseActivity() {
         })
         binding.heart.setOnFocusChangeListener{ view, b ->
             if (!b){
-                val max: Int = 150
+                val max: Int = 300
                 val min: Int = 0
                 if (min != -1 && max != -1) {
                     try {

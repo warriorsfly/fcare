@@ -39,7 +39,6 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
 //            .imageFormat(PictureMimeType.PNG)// 拍照保存图片格式后缀,默认jpeg
             .isZoomAnim(true)// 图片列表点击 缩放效果 默认true
             .sizeMultiplier(0.5f)// glide 加载图片大小 0~1之间 如设置 .glideOverride()无效
-
             .selectionMedia(list)// 是否传入已选图片 List<LocalMedia> list
             .previewEggs(true)// 预览图片时 是否增强左右滑动图片体验(图片滑动一半即可看到上一张是否选中) true or false
             .minimumCompressSize(100)// 小于100kb的图片不压缩

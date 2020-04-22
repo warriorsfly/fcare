@@ -171,7 +171,8 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         item?.let {
             uploadResult.value=true
             disposable.add(api.save(it, files)
-                .flatMap { api.getPatientEcgs(patientId) }
+                .flatMap {
+                    api.getPatientEcgs(patientId) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(::doSavedEcg
