@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
     <external-path name="external_files" path="."/>
+    <root-path name="name" path="" />
     <!--<external-path drugName="external_files" path="Android/data/${applicationId}/files/Pictures" />-->
 </paths>

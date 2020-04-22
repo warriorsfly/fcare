@@ -72,7 +72,7 @@ class DisChargeViewModel @Inject constructor(private val api: DischargeApi,
                     return
                 }
                 it.diagnosisTime.isNullOrEmpty()->{
-                    messageAction.value=Event("诊断时间未选择")
+                    messageAction.value=Event("确诊时间未选择")
                     return
                 }
 

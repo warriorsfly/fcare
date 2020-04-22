@@ -8,6 +8,7 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import com.wxsoft.fcare.core.data.entity.Patient
 import com.wxsoft.fcare.databinding.LayoutItemPatientBinding
+import kotlin.math.log
 
 
 class PatientsAdapter constructor(private val owner: LifecycleOwner, val viewModel: PatientsViewModel,private val click:(Patient)->Unit):
