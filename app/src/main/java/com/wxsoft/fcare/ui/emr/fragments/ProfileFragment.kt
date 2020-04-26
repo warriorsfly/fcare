@@ -50,7 +50,7 @@ class ProfileFragment : BaseShareOrDeleteFragment(), PhotoEventAction {
 
     }
 
-    override fun delete(id: String) {
+    override fun delete(id: String, fix: Boolean) {
         profileViewModel.delete(id)
     }
 

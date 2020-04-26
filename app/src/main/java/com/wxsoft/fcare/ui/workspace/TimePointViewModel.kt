@@ -66,7 +66,9 @@ class TimePointViewModel @Inject constructor(private val qualityControlApi: Qual
             }else{
                 it
             }
-        }?.filter { if(justError)!it.isNullOrEmpty() else true }?: emptyList()){
+        }?.filter {
+            if(justError)!it.isNullOrEmpty() else true
+        }?: emptyList()){
 
             if(emptyList.isNullOrEmpty() && list.isNotEmpty() && list[0].excutedAt.isNullOrEmpty()){
                 emptyList=list

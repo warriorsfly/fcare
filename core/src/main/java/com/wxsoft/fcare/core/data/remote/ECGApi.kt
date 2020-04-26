@@ -19,8 +19,8 @@ interface ECGApi {
     @GET("ECG/ClearEcgTime/{patientId}/{field}/{location}")
     fun clearEcgTime(@Path("patientId")id:String,@Path("field")field:String,@Path("location")location:Int=2):Maybe<Response<Int>>
 
-    @GET("ECG/DeleteEcgImage/{drugId}")
-    fun deleteImage(@Path("drugId")id:String):Maybe<Response<Ecg>>
+    @GET("ECG/DeleteEcgImage/{drugId}/{fix}")
+    fun deleteImage(@Path("drugId")id:String,@Path("fix")fix:Boolean):Maybe<Response<Ecg>>
 
     @Multipart
     @POST("ECG/SaveElectroCardiogram")

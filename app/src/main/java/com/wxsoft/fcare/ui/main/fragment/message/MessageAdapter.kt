@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.wxsoft.fcare.R
 import com.wxsoft.fcare.core.data.entity.Message
 import com.wxsoft.fcare.databinding.ItemUserMessageBinding
+import kotlin.reflect.KFunction1
 
 
-class MessageAdapter constructor(private val owner: LifecycleOwner) :
+class MessageAdapter(private val owner: LifecycleOwner,
+                     val action:(Message)->Unit) :
     PagedListAdapter<Message, MessageAdapter.ItemViewHolder>(DiffCallback){
 
 
@@ -22,8 +24,10 @@ class MessageAdapter constructor(private val owner: LifecycleOwner) :
             val message=getItem(position)
             item = message
             icon.setImageResource(if(message?.messageType==2) R.drawable.ic_message_type2 else R.drawable.ic_message_type1)
+            ignoreMessage.setOnClickListener {
+                if (message!=null) action(message)
+            }
             executePendingBindings()
-
         }
 
 

@@ -124,13 +124,13 @@ class EcgActivity : BaseTimeShareDeleteActivity(),PhotoEventAction {
 
     }
 
-    override fun delete(id: String) {
-        viewModel.deleteImage(id)
+    override fun delete(id: String, fix: Boolean) {
+        viewModel.deleteImage(id,fix)
     }
 
     override fun deleteRemote(url: String) {
 
-        showImageDialog(url)
+        showImageDialog(url,"",true)
     }
 
     private val  fragment by lazy{

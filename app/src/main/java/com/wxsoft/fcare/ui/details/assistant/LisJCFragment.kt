@@ -42,9 +42,9 @@ class LisJCFragment : DaggerFragment() {
             viewModel=this@LisJCFragment.viewModel
         }
 
-        viewModel.lisJCRecords.observe(this, Observer {
-            if (it.isNotEmpty()){
-                viewPager.adapter = LisJCAdapter(childFragmentManager,it.size,it.map { it.jylbmc })
+        viewModel.lisJCRecords.observe(viewLifecycleOwner, Observer { list ->
+            if (list.isNotEmpty()){
+                viewPager.adapter = LisJCAdapter(childFragmentManager,list.size,list.map { it.jylbmc })
 //                tabLayout.getTabAt(0).setCustomView()
             }
         })
@@ -65,7 +65,7 @@ class LisJCAdapter(fm: FragmentManager, count:Int, val arr:List<String>) :
         }
     }
 
-    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+    override fun getItem(position: Int): Fragment {
 
         return statusFragments[position]
     }

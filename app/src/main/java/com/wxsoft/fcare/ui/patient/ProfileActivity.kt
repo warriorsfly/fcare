@@ -93,7 +93,7 @@ class ProfileActivity : BaseTimeShareDeleteActivity(), View.OnClickListener,Phot
 
     }
 
-    override fun delete(id: String) {
+    override fun delete(id: String, fix: Boolean) {
         viewModel.delete(id)
     }
 

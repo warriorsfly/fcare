@@ -51,7 +51,7 @@ abstract class BaseTimeShareDeleteFragment: BaseFragment(), IShareOrDelete , ITi
         }
     }
 
-    override fun showImageDialog(url:String,id:String) {
+    override fun showImageDialog(url: String, id: String, fix: Boolean) {
 
         val binding= ItemDialogImageBinding.inflate(layoutInflater).apply {
             lifecycleOwner=this@BaseTimeShareDeleteFragment
@@ -59,16 +59,21 @@ abstract class BaseTimeShareDeleteFragment: BaseFragment(), IShareOrDelete , ITi
         }
         AlertDialog.Builder(context, R.style.Theme_FCare_Dialog)
             .setView(binding.root)
-            .setNeutralButton("分享"){_,_->
+            .setNegativeButton("分享"){_,_->
 
                 share(url)
             }
             .setPositiveButton("删除") { _, _ ->
                 delete(
-                    if(id.isNullOrEmpty()) url else id
+                    (if(id.isNullOrEmpty()) url else id),false
                 )
             }
-            .setNegativeButton("取消") { dialog, _ ->
+            .setNeutralButton(if (fix)"修复" else "取消") { dialog, _ ->
+                if (fix){
+                    delete(
+                        (if(id.isNullOrEmpty()) url else id),true
+                    )
+                }
                 dialog.dismiss()
             }.show()
     }

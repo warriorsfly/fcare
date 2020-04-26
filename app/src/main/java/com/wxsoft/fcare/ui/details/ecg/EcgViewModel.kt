@@ -184,9 +184,9 @@ class EcgViewModel @Inject constructor(private val api: ECGApi,
         }
     }
 
-    fun deleteImage(url:String){
+    fun deleteImage(url:String,fix:Boolean){
         ecg.value?.attachments?.firstOrNull { it.httpUrl==url }?.let {
-            api.deleteImage(it.id)
+            api.deleteImage(it.id,fix)
                 .flatMap { api.getPatientEcgs(patientId) }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -88,7 +88,7 @@ class AssistantAdapter(fm: FragmentManager) :
         }
     }
 
-    override fun getItem(position: Int): androidx.fragment.app.Fragment {
+    override fun getItem(position: Int): Fragment {
 
         return statusFragments[position]
     }
