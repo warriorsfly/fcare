@@ -7,7 +7,7 @@ data class Message (
     val messageSubject:String,
     val messageContent:String,
     val patientId:String,
-    val patientName:String,
+    val patientName:String?="三无患者",
     val publishedTime:String?,
     val messageTag:String,
     /**

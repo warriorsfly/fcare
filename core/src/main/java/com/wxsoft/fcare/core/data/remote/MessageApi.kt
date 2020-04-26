@@ -13,7 +13,7 @@ import retrofit2.http.Path
 
 interface MessageApi {
     @GET("Message/GetMessages/{userId}/{pageIndex}/{pageSize}")
-    fun loadMeasure(@Path("userId")id:String,@Path("userId")index:Int,@Path("userId")size:Int): Maybe<Page<Message>>
+    fun loadMeasure(@Path("userId")id:String,@Path("pageIndex")index:Int,@Path("pageSize")size:Int): Maybe<Page<Message>>
 
     @GET("Message/IgnoreMessage/{msgId}/{currUserId}")
     fun ignoreMessage(@Path("msgId")msgId:String,@Path("currUserId")currUserId:String): Maybe<Response<String>>

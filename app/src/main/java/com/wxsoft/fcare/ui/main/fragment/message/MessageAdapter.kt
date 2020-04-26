@@ -55,8 +55,8 @@ class MessageAdapter(private val owner: LifecycleOwner,
 
         override fun areContentsTheSame(oldItem: Message, newItem: Message): Boolean {
 
-            return oldItem.messageContent == newItem.messageContent
-                    && oldItem.messageSubject == newItem.messageSubject
+            return oldItem.patientId == newItem.patientId
+                    && oldItem.patientName == newItem.patientName
         }
     }
 

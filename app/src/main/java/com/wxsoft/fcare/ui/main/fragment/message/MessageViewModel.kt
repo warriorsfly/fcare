@@ -27,7 +27,7 @@ class MessageViewModel @Inject constructor(private val repository: IMessageRepos
     }
 
     private val patientResult = userId.map{
-        repository.getMessages(it,1,10)
+        repository.getMessages(it,1,20)
     }
 
     val messages = patientResult.switchMap {
