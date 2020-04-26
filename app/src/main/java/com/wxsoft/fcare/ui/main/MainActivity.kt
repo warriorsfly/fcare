@@ -5,6 +5,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import com.google.android.material.badge.BadgeDrawable
+import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
 import com.wxsoft.fcare.R
@@ -21,7 +23,8 @@ import com.wxsoft.fcare.ui.main.fragment.task.TaskFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity() {
+
+class MainActivity : BaseActivity() ,MessageFragment.CallBackValue{
 
     @Inject
     lateinit var factory: ViewModelFactory
@@ -30,6 +33,8 @@ class MainActivity : BaseActivity() {
     lateinit var gson:Gson
 
     private var doctor:Boolean=false
+
+    private lateinit var itemMessageMemu: BadgeDrawable
 
     @Inject
     lateinit var sharedPreferenceStorage: SharedPreferenceStorage
@@ -73,9 +78,9 @@ class MainActivity : BaseActivity() {
                         menu.clear()
                         inflateMenu(R.menu.navigation2)
                     }
-
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
+                this@MainActivity.itemMessageMemu = navigation.getOrCreateBadge(R.id.nav_notifications)
 
                 viewPager.adapter = MainAdapter(supportFragmentManager,doctor)
                 if (savedInstanceState == null) {
@@ -84,6 +89,11 @@ class MainActivity : BaseActivity() {
                 lifecycleOwner = this@MainActivity
             }
 
+    }
+
+    override fun setMemuCount(count: Int) {
+        itemMessageMemu.isVisible = true;
+        itemMessageMemu.setNumber(count);
     }
 }
 

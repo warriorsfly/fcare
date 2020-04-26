@@ -13,7 +13,7 @@ import kotlin.reflect.KFunction1
 
 
 class MessageAdapter(private val owner: LifecycleOwner,
-                     val action:(Message)->Unit) :
+                     val action:(Message,Int)->Unit) :
     PagedListAdapter<Message, MessageAdapter.ItemViewHolder>(DiffCallback){
 
 
@@ -25,9 +25,11 @@ class MessageAdapter(private val owner: LifecycleOwner,
             item = message
             icon.setImageResource(if(message?.messageType==2) R.drawable.ic_message_type2 else R.drawable.ic_message_type1)
             ignoreMessage.setOnClickListener {
-                if (message!=null) action(message)
+                if (message!=null) action(message,1)
             }
             executePendingBindings()
+        }.root.setOnClickListener {
+            action(getItem(position)!!,2)
         }
 
 
