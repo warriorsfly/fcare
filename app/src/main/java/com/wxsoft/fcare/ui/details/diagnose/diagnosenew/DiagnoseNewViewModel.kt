@@ -139,6 +139,10 @@ class DiagnoseNewViewModel @Inject constructor(private val diagnoseApi: Diagnose
                     messageAction.value= Event("请选择诊断类型")
                     return@let false
                 }
+                if(it.diagnosis?.patientOutcom.isNullOrEmpty()&&!patient.value?.diagnosisCode.equals("215-2")){
+                    messageAction.value= Event("请选择患者去向")
+                    return@let false
+                }
 //                else if(it.diagnosis?.diagnosisCode2.equals("4-1")||it.diagnosis?.diagnosisCode2.equals("4-2")||it.diagnosis?.diagnosisCode2.equals("4-3")||it.diagnosis?.diagnosisCode2.equals("4-4")||it.diagnosis?.diagnosisCode2.equals("4-5")||it.diagnosis?.diagnosisCode2.equals("4-6")){
 ////                    when{
 ////                        it.treatStrategy?.strategyCode.isNullOrEmpty()->{

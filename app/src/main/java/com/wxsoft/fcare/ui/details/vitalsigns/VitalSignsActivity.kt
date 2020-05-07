@@ -98,7 +98,7 @@ class VitalSignsActivity : BaseActivity() {
         })
 
         binding.breath.addTextChangedListener(object : TextWatcher {
-            private val max: Int = 100
+            private val max: Int = 300
             private val min: Int = 0
             override fun afterTextChanged(s: Editable) {//输入后的监听
             }
@@ -106,24 +106,22 @@ class VitalSignsActivity : BaseActivity() {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {//输入文字产生变化的监听
                 if (start >= 0) {//从一输入就开始判断，
-                    if (min != -1 && max != -1) {
-                        try {
-                            var num = Integer.parseInt(s.toString());
-                            //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                            if (num > max) {
-                                binding.breath.setText(max.toString()) //如果大于max，则内容为max
-                                binding.breath.setSelection(max.toString().length)
-                                viewModel.vital.value?.respiration_Rate = max
-                            } else if (num < min) {
-                                binding.breath.setText(min.toString()) //如果小于min,则内容为min
-                                binding.breath.setSelection(min.toString().length)
-                                viewModel.vital.value?.respiration_Rate = min
-                            }
-                        } catch ( e :NumberFormatException) {
+                    try {
+                        var num = Integer.parseInt(s.toString());
+                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+                        if (num > max) {
+                            binding.breath.setText(max.toString()) //如果大于max，则内容为max
+                            binding.breath.setSelection(max.toString().length)
+                            viewModel.vital.value?.respiration_Rate = max
+                        } else if (num < min) {
+                            binding.breath.setText(min.toString()) //如果小于min,则内容为min
+                            binding.breath.setSelection(min.toString().length)
+                            viewModel.vital.value?.respiration_Rate = min
                         }
-                        //edittext中的数字在max和min之间，则不做处理，正常显示即可。
-                        return
+                    } catch ( e :NumberFormatException) {
                     }
+                    //edittext中的数字在max和min之间，则不做处理，正常显示即可。
+                    return
                 }
             }
         })
@@ -158,34 +156,8 @@ class VitalSignsActivity : BaseActivity() {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {//输入文字产生变化的监听
                 if (start >= 0) {//从一输入就开始判断，
-                    if (min != -1 && max != -1) {
-                        try {
-                            var num = Integer.parseInt(s.toString());
-                            //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                            if (num > max) {
-                                binding.mb.setText(max.toString()) //如果大于max，则内容为max
-                                binding.mb.setSelection(max.toString().length)
-                                viewModel.vital.value?.pulse_Rate = max
-                            } else if (num < min) {
-                                binding.mb.setText(min.toString()) //如果小于min,则内容为min
-                                binding.mb.setSelection(min.toString().length)
-                                viewModel.vital.value?.pulse_Rate = min
-                            }
-                        } catch ( e :NumberFormatException) {
-                        }
-                        //edittext中的数字在max和min之间，则不做处理，正常显示即可。
-                        return
-                    }
-                }
-            }
-        })
-        binding.mb.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                val max: Int = 150
-                val min: Int = 0
-                if (min != -1 && max != -1) {
                     try {
-                        var num = Integer.parseInt(binding.mb.text.toString());
+                        var num = Integer.parseInt(s.toString());
                         //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
                         if (num > max) {
                             binding.mb.setText(max.toString()) //如果大于max，则内容为max
@@ -198,6 +170,28 @@ class VitalSignsActivity : BaseActivity() {
                         }
                     } catch ( e :NumberFormatException) {
                     }
+                    //edittext中的数字在max和min之间，则不做处理，正常显示即可。
+                    return
+                }
+            }
+        })
+        binding.mb.setOnFocusChangeListener{ view, b ->
+            if (!b){
+                val max = 300
+                val min = 0
+                try {
+                    var num = Integer.parseInt(binding.mb.text.toString());
+                    //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+                    if (num > max) {
+                        binding.mb.setText(max.toString()) //如果大于max，则内容为max
+                        binding.mb.setSelection(max.toString().length)
+                        viewModel.vital.value?.pulse_Rate = max
+                    } else if (num < min) {
+                        binding.mb.setText(min.toString()) //如果小于min,则内容为min
+                        binding.mb.setSelection(min.toString().length)
+                        viewModel.vital.value?.pulse_Rate = min
+                    }
+                } catch ( e :NumberFormatException) {
                 }
             }
         }
@@ -211,34 +205,8 @@ class VitalSignsActivity : BaseActivity() {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {//输入文字产生变化的监听
                 if (start >= 0) {//从一输入就开始判断，
-                    if (min != -1 && max != -1) {
-                        try {
-                            var num = Integer.parseInt(s.toString());
-                            //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                            if (num > max) {
-                                binding.heart.setText(max.toString()) //如果大于max，则内容为max
-                                binding.heart.setSelection(max.toString().length)
-                                viewModel.vital.value?.heart_Rate = max
-                            } else if (num < min) {
-                                binding.heart.setText(min.toString()) //如果小于min,则内容为min
-                                binding.heart.setSelection(min.toString().length)
-                                viewModel.vital.value?.heart_Rate = min
-                            }
-                        } catch ( e :NumberFormatException) {
-                        }
-                        //edittext中的数字在max和min之间，则不做处理，正常显示即可。
-                        return
-                    }
-                }
-            }
-        })
-        binding.heart.setOnFocusChangeListener{ view, b ->
-            if (!b){
-                val max: Int = 300
-                val min: Int = 0
-                if (min != -1 && max != -1) {
                     try {
-                        var num = Integer.parseInt(binding.heart.text.toString());
+                        var num = Integer.parseInt(s.toString());
                         //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
                         if (num > max) {
                             binding.heart.setText(max.toString()) //如果大于max，则内容为max
@@ -251,6 +219,28 @@ class VitalSignsActivity : BaseActivity() {
                         }
                     } catch ( e :NumberFormatException) {
                     }
+                    //edittext中的数字在max和min之间，则不做处理，正常显示即可。
+                    return
+                }
+            }
+        })
+        binding.heart.setOnFocusChangeListener{ view, b ->
+            if (!b){
+                val max: Int = 300
+                val min: Int = 0
+                try {
+                    var num = Integer.parseInt(binding.heart.text.toString());
+                    //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+                    if (num > max) {
+                        binding.heart.setText(max.toString()) //如果大于max，则内容为max
+                        binding.heart.setSelection(max.toString().length)
+                        viewModel.vital.value?.heart_Rate = max
+                    } else if (num < min) {
+                        binding.heart.setText(min.toString()) //如果小于min,则内容为min
+                        binding.heart.setSelection(min.toString().length)
+                        viewModel.vital.value?.heart_Rate = min
+                    }
+                } catch ( e :NumberFormatException) {
                 }
             }
         }
@@ -263,24 +253,22 @@ class VitalSignsActivity : BaseActivity() {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {//输入文字产生变化的监听
                 if (start >= 0) {//从一输入就开始判断，
-                    if (min != -1 && max != -1) {
-                        try {
-                            var num = Integer.parseInt(s.toString());
-                            //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                            if (num > max) {
-                                binding.bloodOxygen.setText(max.toString()) //如果大于max，则内容为max
-                                binding.bloodOxygen.setSelection(max.toString().length)
-                                viewModel.vital.value?.spO2 = max
-                            } else if (num < min) {
-                                binding.bloodOxygen.setText(min.toString()) //如果小于min,则内容为min
-                                binding.bloodOxygen.setSelection(min.toString().length)
-                                viewModel.vital.value?.spO2 = min
-                            }
-                        } catch ( e :NumberFormatException) {
+                    try {
+                        var num = Integer.parseInt(s.toString());
+                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+                        if (num > max) {
+                            binding.bloodOxygen.setText(max.toString()) //如果大于max，则内容为max
+                            binding.bloodOxygen.setSelection(max.toString().length)
+                            viewModel.vital.value?.spO2 = max
+                        } else if (num < min) {
+                            binding.bloodOxygen.setText(min.toString()) //如果小于min,则内容为min
+                            binding.bloodOxygen.setSelection(min.toString().length)
+                            viewModel.vital.value?.spO2 = min
                         }
-                        //edittext中的数字在max和min之间，则不做处理，正常显示即可。
-                        return
+                    } catch ( e :NumberFormatException) {
                     }
+                    //edittext中的数字在max和min之间，则不做处理，正常显示即可。
+                    return
                 }
             }
         })
@@ -315,24 +303,22 @@ class VitalSignsActivity : BaseActivity() {
             }
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {//输入文字产生变化的监听
                 if (start >= 0) {//从一输入就开始判断，
-                    if (min != -1.0f && max != -1.0f) {
-                        try {
-                            var num = s.toString().toFloat()
-                            //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
-                            if (num > max) {
-                                binding.temperature.setText(max.toString()) //如果大于max，则内容为max
-                                binding.temperature.setSelection(max.toString().length)
-                                viewModel.vital.value?.body_Temperature = max
-                            } else if (num < min) {
-                                binding.temperature.setText(min.toString()) //如果小于min,则内容为min
-                                binding.temperature.setSelection(min.toString().length)
-                                viewModel.vital.value?.body_Temperature = min
-                            }
-                        } catch ( e :NumberFormatException) {
+                    try {
+                        var num = s.toString().toFloat()
+                        //判断当前edittext中的数字(可能一开始Edittext中有数字)是否大于max
+                        if (num > max) {
+                            binding.temperature.setText(max.toString()) //如果大于max，则内容为max
+                            binding.temperature.setSelection(max.toString().length)
+                            viewModel.vital.value?.body_Temperature = max
+                        } else if (num < min) {
+                            binding.temperature.setText(min.toString()) //如果小于min,则内容为min
+                            binding.temperature.setSelection(min.toString().length)
+                            viewModel.vital.value?.body_Temperature = min
                         }
-                        //edittext中的数字在max和min之间，则不做处理，正常显示即可。
-                        return
+                    } catch ( e :NumberFormatException) {
                     }
+                    //edittext中的数字在max和min之间，则不做处理，正常显示即可。
+                    return
                 }
             }
         })

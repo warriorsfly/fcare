@@ -200,7 +200,7 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/line3"
-                        app:goneUnless="@{!viewModel.patient.diagnosisCode.equals(`215-2`)}"
+                            app:goneUnless="@{!viewModel.patient.diagnosisCode.equals(`215-2`)}"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/line2"
                             android:layout_width="match_parent"

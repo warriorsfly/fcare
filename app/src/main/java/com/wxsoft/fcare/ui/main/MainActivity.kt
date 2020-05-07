@@ -53,7 +53,6 @@ class MainActivity : BaseActivity() ,MessageFragment.CallBackValue{
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_notifications -> {
-//                message.setText(R.string.title_notifications)
                 viewPager.setCurrentItem(2, true)
                 return@OnNavigationItemSelectedListener true
             }
@@ -81,7 +80,7 @@ class MainActivity : BaseActivity() ,MessageFragment.CallBackValue{
                     setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
                 }
                 this@MainActivity.itemMessageMemu = navigation.getOrCreateBadge(R.id.nav_notifications)
-
+                this@MainActivity.itemMessageMemu.isVisible = false
                 viewPager.adapter = MainAdapter(supportFragmentManager,doctor)
                 if (savedInstanceState == null) {
                     navigation.selectedItemId = R.id.nav_home
@@ -92,8 +91,9 @@ class MainActivity : BaseActivity() ,MessageFragment.CallBackValue{
     }
 
     override fun setMemuCount(count: Int) {
-        itemMessageMemu.isVisible = true;
-        itemMessageMemu.setNumber(count);
+        itemMessageMemu.isVisible = (count!=0)
+        itemMessageMemu.number = count
+
     }
 }
 
