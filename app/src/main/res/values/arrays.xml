@@ -33,6 +33,8 @@
         <item>@drawable/ic_work_space_patient_info</item>
         <!--初步诊断-->
         <item>@drawable/ic_work_space_diagnosis</item>
+        <!--胸痛诊断-->
+        <item>@drawable/ic_work_space_diagnosis</item>
         <!--心电图-->
         <item>@drawable/ic_work_space_etc</item>
         <!--体征-->
@@ -100,6 +102,8 @@
         <!--患者信息-->
         <item>@color/tint_work_space_patient_info</item>
         <!--初步诊断-->
+        <item>@color/tint_work_space_diagnosis</item>
+        <!--胸痛诊断-->
         <item>@color/tint_work_space_diagnosis</item>
         <!--心电图-->
         <item>@color/tint_work_space_etc</item>
@@ -179,6 +183,8 @@
         <item>hzxxlr</item>
         <!--初步诊断-->
         <item>zd</item>
+        <!--胸痛诊断-->
+        <item>xtzd</item>
         <!--心电图-->
         <item>xdt</item>
         <!--体征-->

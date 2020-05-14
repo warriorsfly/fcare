@@ -6,7 +6,7 @@ import androidx.annotation.StringDef
 @StringDef( ActionType.绑定腕带, ActionType.病情评估, ActionType.辅助检查, ActionType.GRACE,
     ActionType.给药,ActionType.ACS给药, ActionType.溶栓处置, ActionType.绕行导管室, ActionType.心电图, ActionType.生命体征,
     ActionType.导管室完成准备, ActionType.CABG, ActionType.院前诊断, ActionType.消息通知, ActionType.知情同意书,
-    ActionType.CT, ActionType.诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
+    ActionType.CT, ActionType.诊断,ActionType.胸痛诊断, ActionType.启动导管室, ActionType.辅助检查, ActionType.GRACE, ActionType.患者,
     ActionType.交接单, ActionType.患者列表, ActionType.患者信息录入, ActionType.患者转归,ActionType.治疗方案,
     ActionType.接受通知, ActionType.PCI,ActionType.StartVehicle,ActionType.PhysicalExamination,ActionType.DispostionMeasures,
     ActionType.IllnessHistory,ActionType.到达导管室, ActionType.激活导管室,ActionType.主诉及症状,ActionType.治疗策略,ActionType.治疗操作,
@@ -23,6 +23,7 @@ annotation class ActionType {
         const val 院前诊断 = "zd"
         const val CT = "ct"
         const val 诊断 = "zd"
+        const val 胸痛诊断 = "xtzd"
         const val 出院诊断 = "cyzd"
         const val 启动导管室 = "qddgs"
         const val 辅助检查 = "fzjc"

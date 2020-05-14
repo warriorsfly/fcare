@@ -25,11 +25,13 @@ android {
 //        buildConfigField 'String', 'ENDPOINT', '"http://192.168.1.106:5001"'
 //        buildConfigField 'String', 'API_ENDPOINT', '"http://192.168.1.106:5001/api/"'
 //        公司
-//        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:10102"'
-//        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:10102/api/"'
+//        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:10100"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:10100/api/"'
+        buildConfigField 'String', 'ENDPOINT', '"http://112.27.113.252:10112"'
+        buildConfigField 'String', 'API_ENDPOINT', '"http://112.27.113.252:10112/api/"'
 //        合二
-        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
-        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
+//        buildConfigField 'String', 'ENDPOINT', '"http://60.166.42.50:7074"'
+//        buildConfigField 'String', 'API_ENDPOINT', '"http://60.166.42.50:7074/api/"'
 
         sourceSets {
             main {

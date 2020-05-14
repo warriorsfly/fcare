@@ -56,6 +56,8 @@ class AppModule {
     Pair("hzxxlr",R.drawable.ic_work_space_patient_info),
     //初步诊断-->
     Pair("zd",R.drawable.ic_work_space_diagnosis),
+   //胸痛诊断-->
+    Pair("xtzd",R.drawable.ic_work_space_diagnosis),
     //心电图-->
     Pair("xdt",R.drawable.ic_work_space_etc),
     //体征-->
